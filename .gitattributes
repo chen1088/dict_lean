@@ -1,0 +1,6 @@
+* text=auto eol=lf
+
+*.lean text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+lean-toolchain text eol=lf

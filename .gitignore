@@ -1,0 +1,14 @@
+/.lake/
+/build/
+/.cache/
+*.olean
+*.ilean
+*.trace
+*.c
+*.o
+*.so
+*.dll
+*.dylib
+*.exe
+*.out
+*.log

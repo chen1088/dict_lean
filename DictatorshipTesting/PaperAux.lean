@@ -1,0 +1,49 @@
+/-
+Helper-module import index for paper formalization.
+
+Files imported here are not necessarily paper-numbered.  They include small
+cube-Fourier lemmas, matching-cube bookkeeping, averaging identities, and the
+explicit external or hard inputs that the numbered paper files depend on.
+-/
+
+import DictatorshipTesting.Paper.Aux_CubeFlipInvolutive
+import DictatorshipTesting.Paper.Aux_CubeCharFlip
+import DictatorshipTesting.Paper.Aux_CubeCharFlipOfNotMem
+import DictatorshipTesting.Paper.Aux_CubeCharMulSelf
+import DictatorshipTesting.Paper.Aux_CubeCharNonzero
+import DictatorshipTesting.Paper.Aux_CubeCharSumEqZeroOfNonempty
+import DictatorshipTesting.Paper.Aux_FinsetToggle
+import DictatorshipTesting.Paper.Aux_FinsetToggleInvolutive
+import DictatorshipTesting.Paper.Aux_CubeCharFinsetToggle
+import DictatorshipTesting.Paper.Aux_BoolSignMulEqNegOne
+import DictatorshipTesting.Paper.Aux_CubeCharKernel
+import DictatorshipTesting.Paper.Aux_ListPermProdFixes
+import DictatorshipTesting.Paper.Aux_OrderedMatchingTauUnmatched
+import DictatorshipTesting.Paper.Aux_OrderedMatchingTauDepends
+import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
+import DictatorshipTesting.Paper.Aux_CubeOneJuntaHighDegree
+import DictatorshipTesting.Paper.Aux_CubeCharXor
+import DictatorshipTesting.Paper.Aux_CubeDeltaChar
+import DictatorshipTesting.Paper.Aux_CubeHighDegreeLinear
+import DictatorshipTesting.Paper.Aux_MatchingLocalDegreeOneLinear
+import DictatorshipTesting.Paper.Aux_CubeFourierTranslate
+import DictatorshipTesting.Paper.Aux_CubeDeltaFourier
+import DictatorshipTesting.Paper.Aux_CubeDeltaParseval
+import DictatorshipTesting.Paper.Aux_CubeSquareEnergyAverage
+import DictatorshipTesting.Paper.Aux_CubeSquareSpectralFormula
+import DictatorshipTesting.Paper.Aux_CubeColorCounting
+import DictatorshipTesting.Paper.Aux_CubeLowDegreeOnePart
+import DictatorshipTesting.Paper.Aux_CubeLowDegreeError
+import DictatorshipTesting.Paper.Aux_CubeInnerProduct
+import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
+import DictatorshipTesting.Paper.Aux_PermCubeAverage
+import DictatorshipTesting.Paper.Aux_DistanceNonneg
+import DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound
+import DictatorshipTesting.Paper.Aux_OneTrialRejectProbabilityLowerBound
+import DictatorshipTesting.Paper.Aux_TesterAmplification
+import DictatorshipTesting.Paper.Aux_SpectralCertificateBridge
+import DictatorshipTesting.Paper.Aux_BooleanU1StructuralInput
+import DictatorshipTesting.Paper.Aux_FKNStabilityInput
+import DictatorshipTesting.Paper.Aux_ZBoundFiniteInduction
+import DictatorshipTesting.Paper.Aux_HEvenFiniteInduction
+import DictatorshipTesting.Paper.Aux_HOddFiniteInduction
