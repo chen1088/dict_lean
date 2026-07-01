@@ -55,12 +55,14 @@ External structural inputs:
 Internal finite certificate obligations:
 
 - `Aux_ZBoundFiniteInduction.lean`: the finite Young-diagram induction behind
-  Lemma 5.4.  This file now proves the induction skeleton, including the base
-  case and the generic non-exceptional step, modulo the branching input above
-  and explicit remaining exceptional-shape facts for `(2m-1,1)` and
-  `(2m-2,2)`.
+  Lemma 5.4.  This file now proves the finite induction, including the
+  exceptional standard and `(2m-2,2)` calculations, modulo the two-strip
+  dimension branching input isolated in `Aux_YoungDimensionBranchingInput.lean`.
 - `Aux_HEvenFiniteInduction.lean`: the finite Young-diagram induction behind
-  Lemma 5.5.
+  Lemma 5.5.  The generic induction step is formalized from the `hEven`
+  recurrence, the proven `zEven` bound, and the two-strip dimension branching
+  input.  The remaining gaps are isolated as finite base/classification and
+  four explicit exceptional-shape obligations.
 - `Aux_HOddFiniteInduction.lean`: the finite Young-diagram induction behind
   Lemma 5.6.
 
