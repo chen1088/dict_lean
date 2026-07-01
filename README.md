@@ -47,6 +47,9 @@ External structural inputs:
 - `Aux_YoungDimensionBranchingInput.lean`: the dimension shadow of the
   two-strip Pieri/Littlewood-Richardson branching rule, stated as
   `youngDim_twoStrip_branching_input`.
+- `Aux_YoungDimensionOneBoxBranchingInput.lean`: the dimension shadow of the
+  ordinary one-box Pieri/Littlewood-Richardson branching rule for the odd
+  certificate, stated as `youngDim_oneBox_branching_input`.
 - `Aux_SpectralGapFromCertificates.lean`: the remaining Young-block spectral
   decomposition, Schur-lemma scalarity, and identification of the `U1` summand
   needed to turn block certificate inequalities into the global matching
@@ -55,16 +58,21 @@ External structural inputs:
 Internal finite certificate obligations:
 
 - `Aux_ZBoundFiniteInduction.lean`: the finite Young-diagram induction behind
-  Lemma 5.4.  This file now proves the finite induction, including the
-  exceptional standard and `(2m-2,2)` calculations, modulo the two-strip
-  dimension branching input isolated in `Aux_YoungDimensionBranchingInput.lean`.
+  Lemma 5.4.  This file proves the finite `zEven` certificate modulo the
+  two-strip dimension branching input isolated in
+  `Aux_YoungDimensionBranchingInput.lean`.
 - `Aux_HEvenFiniteInduction.lean`: the finite Young-diagram induction behind
-  Lemma 5.5.  The generic induction step is formalized from the `hEven`
-  recurrence, the proven `zEven` bound, and the two-strip dimension branching
-  input.  The remaining gaps are isolated as finite base/classification and
-  four explicit exceptional-shape obligations.
+  Lemma 5.5.  This file proves the finite `hEven` certificate modulo the
+  two-strip dimension branching input isolated in
+  `Aux_YoungDimensionBranchingInput.lean` and the already-proven `zEven`
+  certificate.
 - `Aux_HOddFiniteInduction.lean`: the finite Young-diagram induction behind
-  Lemma 5.6.
+  Lemma 5.6.  This file proves the finite `hOdd` certificate modulo the
+  one-box dimension branching input isolated in
+  `Aux_YoungDimensionOneBoxBranchingInput.lean` and the already-proven `hEven`
+  certificate.  The bad-child classification is internal: a non-one-row,
+  nonstandard odd diagram with a one-row or standard one-box child is forced to
+  be `(2m-1,2)` or `(2m-1,1,1)`.
 
 Proven bridge components:
 
