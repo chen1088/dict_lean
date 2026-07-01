@@ -39,9 +39,12 @@ Current intentional assumptions:
 - `Aux_BooleanU1StructuralInput.lean`: the external classification of Boolean
   degree-one functions on `S_n`.
 - `Aux_FKNStabilityInput.lean`: the external FKN/stability theorem on `S_n`.
-- `Aux_SpectralCertificateBridge.lean`: the representation-theoretic bridge
-  from finite Young-diagram certificate inequalities to the matching spectral
-  gap.
+- `Aux_MatchingSubgroupRestrictionInput.lean`: the Specht/Pieri restriction
+  data for matching subgroups, represented by the scalar consequences currently
+  visible in Lean.
+- `Aux_SpectralBridgeFromRepresentationInput.lean`: the remaining Young-block
+  decomposition and Schur-lemma step that turns block scalar bounds into the
+  matching spectral gap.
 - `Aux_ZBoundFiniteInduction.lean`: the finite Young-diagram induction behind
   Lemma 5.4.
 - `Aux_HEvenFiniteInduction.lean`: the finite Young-diagram induction behind

@@ -10,7 +10,7 @@ The definitions are intentionally concrete where possible.  For example,
 matching-cube averages are finite sums over explicit near-perfect matchings, and
 the Section 5 Young diagrams are finite row vectors.  This keeps elementary
 proofs computational and makes every remaining external input visible as a
-separate theorem rather than as an opaque definition.
+separate theorem rather than as a black-box definition.
 -/
 
 noncomputable section
