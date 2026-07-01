@@ -1,53 +1,35 @@
+import DictatorshipTesting.Paper.Aux_TraceLocalTruncation
 import DictatorshipTesting.Paper.Aux_MatchingSubgroupRestrictionInput
 
 /-!
 # Trace of one local truncation
 
-Assuming the matching-subgroup restriction data, the trace of `I - P_M` on a
-Young block is obtained by counting high-weight matching characters.  In the
-paper this is the formula
-
-`tr((I - P_M)|_{H_lambda}) = d_lambda * h_m(lambda)`.
-
-Since the current Lean files do not yet formalize Young blocks as vector
-spaces, this file records the scalar formula that the later spectral bridge
-uses.
+Compatibility names for the trace-local-truncation input.  New code should
+import `Aux_TraceLocalTruncation`.
 -/
 
 noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Scalar trace formula for one even Young block. -/
-def LocalTruncationTraceEvenInput (m : ℕ) : Prop :=
-  ∀ lam : YoungDiagram (2 * m),
-    ∃ traceLocalHigh : ℝ,
-      traceLocalHigh = youngDim lam * hEven m lam
+/-- Compatibility alias for `TraceLocalTruncationEvenInput`. -/
+abbrev LocalTruncationTraceEvenInput (m : ℕ) : Prop :=
+  TraceLocalTruncationEvenInput m
 
-/-- Scalar trace formula for one odd Young block. -/
-def LocalTruncationTraceOddInput (m : ℕ) : Prop :=
-  ∀ lam : YoungDiagram (2 * m + 1),
-    ∃ traceLocalHigh : ℝ,
-      traceLocalHigh = youngDim lam * hOdd m lam
+/-- Compatibility alias for `TraceLocalTruncationOddInput`. -/
+abbrev LocalTruncationTraceOddInput (m : ℕ) : Prop :=
+  TraceLocalTruncationOddInput m
 
-/-- The trace formula as a scalar consequence of the even restriction input.
-
-The actual identification of `traceLocalHigh` with the operator trace belongs
-to the representation-theoretic model, which is not yet formalized. -/
+/-- Compatibility wrapper for the even trace formula. -/
 theorem localTruncationTrace_even_from_restriction
-    (m : ℕ) (_hrestrict : MatchingSubgroupRestrictionEvenInput m) :
+    (m : ℕ) (hrestrict : MatchingSubgroupRestrictionEvenInput m) :
     LocalTruncationTraceEvenInput m := by
-  intro lam
-  exact ⟨youngDim lam * hEven m lam, rfl⟩
+  exact traceLocalTruncation_even_from_restriction m hrestrict
 
-/-- The trace formula as a scalar consequence of the odd restriction input.
-
-The actual identification of `traceLocalHigh` with the operator trace belongs
-to the representation-theoretic model, which is not yet formalized. -/
+/-- Compatibility wrapper for the odd trace formula. -/
 theorem localTruncationTrace_odd_from_restriction
-    (m : ℕ) (_hrestrict : MatchingSubgroupRestrictionOddInput m) :
+    (m : ℕ) (hrestrict : MatchingSubgroupRestrictionOddInput m) :
     LocalTruncationTraceOddInput m := by
-  intro lam
-  exact ⟨youngDim lam * hOdd m lam, rfl⟩
+  exact traceLocalTruncation_odd_from_restriction m hrestrict
 
 end DictatorshipTesting

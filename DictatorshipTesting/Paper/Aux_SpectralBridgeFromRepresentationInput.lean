@@ -1,14 +1,10 @@
-import DictatorshipTesting.Paper.Aux_CentralizationOverMatchings
+import DictatorshipTesting.Paper.Aux_SpectralGapFromCertificates
 
 /-!
 # Spectral bridge from representation data
 
-This file is the remaining representation-theoretic boundary for Section 5.
-The preceding files isolate the restriction-count input, the one-block trace
-formula, and the trace-divided-by-dimension algebra.  What remains here is the
-unformalized Young-block decomposition of `L^2(S_n)` and the use of Schur's
-lemma to turn the block scalar lower bounds into the global matching spectral
-gap.
+Compatibility names for the final spectral-decomposition input.  New code
+should import `Aux_SpectralGapFromCertificates`.
 -/
 
 noncomputable section
@@ -26,11 +22,7 @@ theorem matchingSpectralGap_of_even_young_certificate_input
       ∀ lam : YoungDiagram (2 * m),
         ¬ IsOneRow lam → ¬ IsStandard lam → c * youngDim lam ≤ hEven m lam) :
     MatchingSpectralGapConstant (2 * m) c := by
-  -- TODO: formalize the Young-block decomposition of `L^2(S_{2m})`, prove that
-  -- the averaged operator is scalar on each block by Schur's lemma, and combine
-  -- the resulting block scalar bounds with the orthogonal decomposition of
-  -- `U1`.
-  sorry
+  exact spectralGapFromEvenCertificates_input m c hc hrestrict htrace hcert
 
 /-- Odd spectral bridge after the Specht/Pieri restriction data, the trace
 formula, and centralization over matchings. -/
@@ -43,9 +35,6 @@ theorem matchingSpectralGap_of_odd_young_certificate_input
       ∀ lam : YoungDiagram (2 * m + 1),
         ¬ IsOneRow lam → ¬ IsStandard lam → c * youngDim lam ≤ hOdd m lam) :
     MatchingSpectralGapConstant (2 * m + 1) c := by
-  -- TODO: formalize the odd Young-block decomposition and the one-box
-  -- branching step for the unmatched point, then repeat the even spectral
-  -- bridge.
-  sorry
+  exact spectralGapFromOddCertificates_input m c hc hrestrict htrace hcert
 
 end DictatorshipTesting

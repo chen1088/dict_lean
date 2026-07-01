@@ -1,46 +1,33 @@
-import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.Aux_MatchingRestrictionInput
 
 /-!
 # Matching-subgroup restriction input
 
-This file isolates the Specht-module/Pieri part of the Section 5 bridge.  The
-full mathematical statement is that restricting the Specht module `S^lambda` to
-the matching subgroup `A_M` decomposes with local character weights recorded by
-the multiset `X_m(lambda)`.
-
-The current Lean vocabulary does not yet contain Specht modules or their
-restriction functor.  The formal statements below therefore record the
-numerical shadow of that restriction data that is visible in the current
-development: the high-weight multiplicities counted by `hEven` and `hOdd` are
-valid multiplicities inside a block of dimension `youngDim`.
+Compatibility names for the matching-restriction input.  New code should import
+`Aux_MatchingRestrictionInput`; these names remain so earlier scaffold files do
+not have to move all at once.
 -/
 
 noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Even Specht/Pieri restriction input, in the scalar vocabulary currently
-available in Lean. -/
-def MatchingSubgroupRestrictionEvenInput (m : ℕ) : Prop :=
-  ∀ lam : YoungDiagram (2 * m),
-    0 ≤ hEven m lam ∧ hEven m lam ≤ youngDim lam
+/-- Compatibility alias for `MatchingRestrictionEvenInput`. -/
+abbrev MatchingSubgroupRestrictionEvenInput (m : ℕ) : Prop :=
+  MatchingRestrictionEvenInput m
 
-/-- Odd Specht/Pieri restriction input, in the scalar vocabulary currently
-available in Lean. -/
-def MatchingSubgroupRestrictionOddInput (m : ℕ) : Prop :=
-  ∀ lam : YoungDiagram (2 * m + 1),
-    0 ≤ hOdd m lam ∧ hOdd m lam ≤ youngDim lam
+/-- Compatibility alias for `MatchingRestrictionOddInput`. -/
+abbrev MatchingSubgroupRestrictionOddInput (m : ℕ) : Prop :=
+  MatchingRestrictionOddInput m
 
-/-- Standard representation-theoretic input: the even matching-subgroup
-restriction realizes the multiset counted by `hEven`. -/
+/-- Compatibility wrapper for the even matching-restriction input. -/
 theorem matchingSubgroupRestriction_even_specht_pieri_input (m : ℕ) :
     MatchingSubgroupRestrictionEvenInput m := by
-  sorry
+  exact matchingRestriction_even_specht_pieri_input m
 
-/-- Standard representation-theoretic input: the odd matching-subgroup
-restriction realizes the multiset counted by `hOdd`. -/
+/-- Compatibility wrapper for the odd matching-restriction input. -/
 theorem matchingSubgroupRestriction_odd_specht_pieri_input (m : ℕ) :
     MatchingSubgroupRestrictionOddInput m := by
-  sorry
+  exact matchingRestriction_odd_specht_pieri_input m
 
 end DictatorshipTesting

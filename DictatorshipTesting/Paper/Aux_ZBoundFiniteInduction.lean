@@ -14,6 +14,35 @@ bookkeeping lemmas locally.
 
 namespace DictatorshipTesting
 
+/-- Specht dimensions are nonnegative in the concrete hook-length model. -/
+theorem youngDim_nonneg {n : ℕ} (lam : YoungDiagram n) :
+    0 ≤ youngDim lam := by
+  unfold youngDim
+  exact_mod_cast Nat.zero_le (youngDimNat lam)
+
+/-- The zero-weight count is nonnegative.  This is the easy positivity part of
+the finite induction for Lemma 5.4. -/
+theorem zEven_nonneg (m : ℕ) (lam : YoungDiagram (2 * m)) :
+    0 ≤ zEven m lam := by
+  induction m with
+  | zero =>
+      simp [zEven]
+  | succ m ih =>
+      simp [zEven, Finset.sum_nonneg, ih]
+
+/-- The horizontal two-strip recurrence for `zEven`, separated out for the
+finite induction. -/
+theorem zEven_horizontal_recurrence (m : ℕ) (hm : 1 ≤ m)
+    (lam : YoungDiagram (2 * m)) :
+    zEven m lam =
+      (horizontalTwoStripChildrenEven m lam).sum
+        (fun mu => zEven (m - 1) mu) := by
+  cases m with
+  | zero =>
+      omega
+  | succ m =>
+      simp [zEven]
+
 /-- Finite Young-diagram induction behind Lemma 5.4. -/
 theorem zEven_le_half_youngDim_of_not_oneRow_finite_induction
     (m : ℕ) (lam : YoungDiagram (2 * m)) (hrow : ¬ IsOneRow lam) :

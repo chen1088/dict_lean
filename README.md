@@ -36,21 +36,40 @@ with `sorry`.
 
 Current intentional assumptions:
 
+External structural inputs:
+
 - `Aux_BooleanU1StructuralInput.lean`: the external classification of Boolean
   degree-one functions on `S_n`.
 - `Aux_FKNStabilityInput.lean`: the external FKN/stability theorem on `S_n`.
-- `Aux_MatchingSubgroupRestrictionInput.lean`: the Specht/Pieri restriction
-  data for matching subgroups, represented by the scalar consequences currently
-  visible in Lean.
-- `Aux_SpectralBridgeFromRepresentationInput.lean`: the remaining Young-block
-  decomposition and Schur-lemma step that turns block scalar bounds into the
-  matching spectral gap.
+- `Aux_MatchingRestrictionInput.lean`: the Specht/Pieri-Littlewood-Richardson
+  restriction data for matching subgroups, represented by the scalar
+  consequences currently visible in Lean.
+- `Aux_SpectralGapFromCertificates.lean`: the remaining Young-block spectral
+  decomposition, Schur-lemma scalarity, and identification of the `U1` summand
+  needed to turn block certificate inequalities into the global matching
+  spectral gap.
+
+Internal finite certificate obligations:
+
 - `Aux_ZBoundFiniteInduction.lean`: the finite Young-diagram induction behind
-  Lemma 5.4.
+  Lemma 5.4.  This file now contains proved nonnegativity and horizontal
+  recurrence helper lemmas, but the full induction is still open.
 - `Aux_HEvenFiniteInduction.lean`: the finite Young-diagram induction behind
   Lemma 5.5.
 - `Aux_HOddFiniteInduction.lean`: the finite Young-diagram induction behind
   Lemma 5.6.
+
+Proven bridge components:
+
+- `Aux_LocalCharacterProjection.lean`: local matching projection preserves
+  matching-cube characters of weight `0` or `1` and kills characters of weight
+  at least `2`.
+- `Aux_TraceLocalTruncation.lean`: scalar trace formula with factor
+  `youngDim lam * hEven m lam` or `youngDim lam * hOdd m lam`, conditional on
+  the matching-restriction input.
+- `Aux_CentralizationBridge.lean`: trace-divided-by-block-dimension algebra,
+  giving the scalar `h_m(lambda) / d_lambda` once scalarity and the trace
+  identity are available.
 
 The paper-numbered files `Thm2_1`, `Thm2_2`, `L5_4`, `L5_5`, and `L5_6` are
 therefore clean wrappers around explicit assumptions rather than places where

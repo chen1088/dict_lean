@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_SpectralBridgeFromRepresentationInput
+import DictatorshipTesting.Paper.Aux_SpectralGapFromCertificates
 
 /-!
 # Spectral-certificate bridge
@@ -6,14 +6,13 @@ import DictatorshipTesting.Paper.Aux_SpectralBridgeFromRepresentationInput
 This is the public bridge used by Lemma 5.2.  The representation-theoretic
 boundary is split into:
 
-* `Aux_MatchingSubgroupRestrictionInput`
-* `Aux_LocalTruncationTraceInput`
-* `Aux_CentralizationOverMatchings`
-* `Aux_SpectralBridgeFromRepresentationInput`
+* `Aux_MatchingRestrictionInput`
+* `Aux_LocalCharacterProjection`
+* `Aux_TraceLocalTruncation`
+* `Aux_CentralizationBridge`
+* `Aux_SpectralGapFromCertificates`
 
-This is intentionally the only Section 5 file that should need the full
-representation theory of the symmetric group.  The certificate inequalities
-themselves live in finite combinatorial aux files.
+The certificate inequalities themselves live in finite combinatorial aux files.
 -/
 
 noncomputable section
@@ -28,12 +27,12 @@ theorem matchingSpectralGap_of_even_young_certificate (m : ℕ) (c : ℝ)
       ∀ lam : YoungDiagram (2 * m),
         ¬ IsOneRow lam → ¬ IsStandard lam → c * youngDim lam ≤ hEven m lam) :
     MatchingSpectralGapConstant (2 * m) c := by
-  have hrestrict : MatchingSubgroupRestrictionEvenInput m :=
-    matchingSubgroupRestriction_even_specht_pieri_input m
-  have htrace : LocalTruncationTraceEvenInput m :=
-    localTruncationTrace_even_from_restriction m hrestrict
+  have hrestrict : MatchingRestrictionEvenInput m :=
+    matchingRestriction_even_specht_pieri_input m
+  have htrace : TraceLocalTruncationEvenInput m :=
+    traceLocalTruncation_even_from_restriction m hrestrict
   exact
-    matchingSpectralGap_of_even_young_certificate_input
+    spectralGapFromEvenCertificates_input
       m c hc hrestrict htrace hcert
 
 /-- Odd spectral bridge: finite Young-diagram inequalities imply the matching
@@ -44,12 +43,12 @@ theorem matchingSpectralGap_of_odd_young_certificate (m : ℕ) (c : ℝ)
       ∀ lam : YoungDiagram (2 * m + 1),
         ¬ IsOneRow lam → ¬ IsStandard lam → c * youngDim lam ≤ hOdd m lam) :
     MatchingSpectralGapConstant (2 * m + 1) c := by
-  have hrestrict : MatchingSubgroupRestrictionOddInput m :=
-    matchingSubgroupRestriction_odd_specht_pieri_input m
-  have htrace : LocalTruncationTraceOddInput m :=
-    localTruncationTrace_odd_from_restriction m hrestrict
+  have hrestrict : MatchingRestrictionOddInput m :=
+    matchingRestriction_odd_specht_pieri_input m
+  have htrace : TraceLocalTruncationOddInput m :=
+    traceLocalTruncation_odd_from_restriction m hrestrict
   exact
-    matchingSpectralGap_of_odd_young_certificate_input
+    spectralGapFromOddCertificates_input
       m c hc hrestrict htrace hcert
 
 end DictatorshipTesting
