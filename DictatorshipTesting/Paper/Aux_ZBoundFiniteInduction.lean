@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.Aux_YoungDimensionBranchingInput
 
 /-!
 # Finite induction input for Lemma 5.4
@@ -19,6 +19,10 @@ is the exact obstruction to applying the induction hypothesis uniformly to all
 horizontal children in the proof of the `zEven` bound. -/
 def HasOneRowHorizontalChild (m : ℕ) (lam : YoungDiagram (2 * m)) : Prop :=
   ∃ mu ∈ horizontalTwoStripChildrenEven m lam, IsOneRow mu
+
+/-- Row predicate for the exceptional two-row shape `(2m-2, 2)`. -/
+def IsTwoRowTwoException (m : ℕ) (lam : YoungDiagram (2 * m)) : Prop :=
+  youngRow lam 0 = 2 * m - 2 ∧ youngRow lam 1 = 2
 
 /-- Specht dimensions are nonnegative in the concrete hook-length model. -/
 theorem youngDim_nonneg {n : ℕ} (lam : YoungDiagram n) :
@@ -49,18 +53,13 @@ theorem zEven_horizontal_recurrence (m : ℕ) (hm : 1 ≤ m)
   | succ m =>
       simp [zEven]
 
-/-- Two-strip dimension recursion for the hook-length dimension.
-
-This is the finite combinatorial identity
-`d_lambda = sum_{horizontal children} d_mu + sum_{vertical children} d_mu`.
-It is the main missing hook-length/branching calculation needed by the generic
-induction step. -/
+/-- Two-strip dimension recursion, as supplied by the branching input. -/
 theorem youngDim_twoStrip_recurrence (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m)) :
     youngDim lam =
       (horizontalTwoStripChildrenEven m lam).sum (fun mu => youngDim mu) +
         (verticalTwoStripChildrenEven m lam).sum (fun mu => youngDim mu) := by
-  sorry
+  exact youngDim_twoStrip_branching_input m hm lam
 
 /-- The horizontal part of the two-strip dimension recursion is bounded by the
 full dimension. -/
@@ -109,6 +108,55 @@ theorem zEven_le_half_youngDim_m_one
   rw [hz]
   exact mul_nonneg (by norm_num) (youngDim_nonneg lam)
 
+/-- Classification of the non-one-row diagrams with a one-row horizontal
+two-strip child.  In row language they are exactly the standard shape
+`(2m-1,1)` and the two-row exception `(2m-2,2)`. -/
+theorem hasOneRowHorizontalChild_classification
+    (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m))
+    (hrow : ¬ IsOneRow lam) (hchild : HasOneRowHorizontalChild m lam) :
+    IsStandard lam ∨ IsTwoRowTwoException m lam := by
+  -- TODO: formalize the row arithmetic:
+  -- a one-row horizontal child forces `youngRow lam 0 ≥ 2*m - 2` and
+  -- `youngRow lam 2 = 0`; excluding `IsOneRow`, the only possibilities are
+  -- `(2m-1,1)` and `(2m-2,2)`.
+  sorry
+
+/-- Formula for the weight-zero count on the standard shape `(2m-1,1)`. -/
+theorem zEven_standard_shape_formula
+    (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m))
+    (hstd : IsStandard lam) :
+    zEven m lam = (m : ℝ) - 1 := by
+  -- TODO: prove by unfolding the horizontal-child recursion; the horizontal
+  -- children are `(2m-2)` and `(2m-3,1)`.
+  sorry
+
+/-- Hook-length dimension formula for the standard shape `(2m-1,1)`. -/
+theorem youngDim_standard_shape_formula
+    (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m))
+    (hstd : IsStandard lam) :
+    youngDim lam = 2 * (m : ℝ) - 1 := by
+  -- TODO: compute the hook-length product for the row predicate
+  -- `youngRow lam 0 = 2*m - 1`, `youngRow lam 1 = 1`.
+  sorry
+
+/-- Formula for the weight-zero count on the two-row exception `(2m-2,2)`. -/
+theorem zEven_twoRowTwoException_formula
+    (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m))
+    (htwo : IsTwoRowTwoException m lam) :
+    zEven m lam = (m : ℝ) * ((m : ℝ) - 1) / 2 := by
+  -- TODO: prove by induction from the explicit horizontal children
+  -- `(2m-2)`, `(2m-3,1)`, and `(2m-4,2)`.
+  sorry
+
+/-- Hook-length dimension formula for the two-row exception `(2m-2,2)`. -/
+theorem youngDim_twoRowTwoException_formula
+    (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m))
+    (htwo : IsTwoRowTwoException m lam) :
+    youngDim lam = (m : ℝ) * (2 * (m : ℝ) - 3) := by
+  -- TODO: compute the hook-length product for the row predicate
+  -- `youngRow lam 0 = 2*m - 2`, `youngRow lam 1 = 2`.
+  sorry
+
 /-- Exceptional case for the finite `zEven` induction.
 
 If a non-one-row diagram has a one-row horizontal child, the paper's proof
@@ -119,7 +167,16 @@ theorem zEven_le_half_youngDim_of_hasOneRowHorizontalChild
     (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) (hchild : HasOneRowHorizontalChild m lam) :
     zEven m lam ≤ (1 / 2 : ℝ) * youngDim lam := by
-  sorry
+  rcases hasOneRowHorizontalChild_classification m hm lam hrow hchild with
+    hstd | htwo
+  · rw [zEven_standard_shape_formula m hm lam hstd,
+      youngDim_standard_shape_formula m hm lam hstd]
+    have hmR : (2 : ℝ) ≤ m := by exact_mod_cast hm
+    nlinarith
+  · rw [zEven_twoRowTwoException_formula m hm lam htwo,
+      youngDim_twoRowTwoException_formula m hm lam htwo]
+    have hmR : (2 : ℝ) ≤ m := by exact_mod_cast hm
+    nlinarith
 
 /-- Generic induction step for the `zEven` bound, away from the one-row-child
 exceptions. -/

@@ -44,6 +44,9 @@ External structural inputs:
 - `Aux_MatchingRestrictionInput.lean`: the Specht/Pieri-Littlewood-Richardson
   restriction data for matching subgroups, represented by the scalar
   consequences currently visible in Lean.
+- `Aux_YoungDimensionBranchingInput.lean`: the dimension shadow of the
+  two-strip Pieri/Littlewood-Richardson branching rule, stated as
+  `youngDim_twoStrip_branching_input`.
 - `Aux_SpectralGapFromCertificates.lean`: the remaining Young-block spectral
   decomposition, Schur-lemma scalarity, and identification of the `U1` summand
   needed to turn block certificate inequalities into the global matching
@@ -52,8 +55,10 @@ External structural inputs:
 Internal finite certificate obligations:
 
 - `Aux_ZBoundFiniteInduction.lean`: the finite Young-diagram induction behind
-  Lemma 5.4.  This file now contains proved nonnegativity and horizontal
-  recurrence helper lemmas, but the full induction is still open.
+  Lemma 5.4.  This file now proves the induction skeleton, including the base
+  case and the generic non-exceptional step, modulo the branching input above
+  and explicit remaining exceptional-shape facts for `(2m-1,1)` and
+  `(2m-2,2)`.
 - `Aux_HEvenFiniteInduction.lean`: the finite Young-diagram induction behind
   Lemma 5.5.
 - `Aux_HOddFiniteInduction.lean`: the finite Young-diagram induction behind
