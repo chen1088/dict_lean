@@ -9,8 +9,11 @@ This is the paper's introduction theorem, `thm:main-intro`.
 
 namespace DictatorshipTesting
 
-/-- Theorem 1.1, `thm:main-intro`: a dimension-free one-sided tester exists. -/
-theorem Thm1_1_MainIntro :
+/-- Theorem 1.1, `thm:main-intro`, conditional on the Section 5 spectral
+block model families: a dimension-free one-sided tester exists. -/
+theorem Thm1_1_MainIntro
+    (hevenModel : EvenSpectralBlockModelFamily)
+    (hoddModel : OddSpectralBlockModelFamily) :
     ∃ C : ℝ, 0 < C ∧
       ∀ n : ℕ, ∀ ε : ℝ, 0 < ε → ε < 1 →
         ∃ tester : OracleTester (Fin n),
@@ -21,6 +24,7 @@ theorem Thm1_1_MainIntro :
           (∀ f : BoolFn (Fin n),
             ε ≤ distToDictators f →
               tester.rejectsWithProbabilityAtLeast f ((2 : ℝ) / 3)) := by
-  exact exists_dimensionFreeTester_of_oneTrialSoundness L4_13_OneTrialSoundness
+  exact exists_dimensionFreeTester_of_oneTrialSoundness
+    (L4_13_OneTrialSoundness hevenModel hoddModel)
 
 end DictatorshipTesting

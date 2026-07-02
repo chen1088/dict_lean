@@ -34,7 +34,10 @@ matching-cube, and averaging steps that have been formalized so far.  A small
 number of hard results are intentionally isolated behind named aux declarations
 with `sorry`.
 
-Current proof-status map:
+Current proof-status by mathematical obligation:
+
+For a declaration-by-declaration ledger of every remaining `sorry` and
+paper-level input, see `PROOF_OBLIGATIONS.md`.
 
 Proven finite certificates:
 
@@ -72,7 +75,7 @@ External standard inputs:
   scalar/multiplicity shadow needed downstream; that scalar shadow is proved
   from the finite certificate bounds.
 
-Proven or partially proven bridge:
+Internal bridge components proven:
 
 - `S05_Lem5_04_LocalTruncationCharacterProjection.lean` -- Lemma 5.4
   (`lem:PM-character-projection`): proved matching-cube character projection.
@@ -82,11 +85,35 @@ Proven or partially proven bridge:
 - `S05_Lem5_06_CentralizationOverMatchings.lean` -- Lemma 5.6
   (`lem:centralization-matchings`): proved trace-divided-by-dimension algebra.
 - `S05_Lem5_08_SpectralBridgeFromCertificates.lean` -- Lemma 5.8
-  (`lem:spectral-certificate`): split into exact block-energy components.  The
-  abstract finite weighted-sum implication `SpectralGapFromBlockScalars` is
-  proved; the remaining external inputs are the even/odd representation
-  block-model theorems `evenSpectralBlockModel_from_representation_input` and
-  `oddSpectralBlockModel_from_representation_input`.
+  (`lem:spectral-certificate`): the purely algebraic bridge is proved.  In
+  particular, `blockScalar_lower_bound_of_traceScalarFormula`,
+  `traceScalarValue_of_blockTraceIdentity`,
+  `matchingAverageScalarModel_of_blockTraceModel`, `SpectralGapFromBlockScalars`,
+  `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and
+  `L5_2_SpectralCertificate` are proved from explicit spectral-block-model
+  hypotheses.
+- `Aux_SpectralBridgeRepresentationInputs.lean`: the hook-length positivity
+  needed for Young-dimension positivity is now internal.  In particular,
+  `youngHookProduct_le_factorial_input` is proved by injecting hooks into
+  row-major cell tails, and `youngDimNat_positive_hookLength_input` follows.
+
+Remaining Lemma 5.8 representation-theory boundary:
+
+There are no longer `sorry` declarations for the Lemma 5.8 spectral bridge.
+Instead, `S05_Lem5_08_SpectralBridgeFromCertificates.lean` makes the missing
+representation theory an explicit theorem hypothesis:
+`SpectralBlockModelInput`, bundled downstream as
+`EvenSpectralBlockModelFamily` and `OddSpectralBlockModelFamily`.
+
+- The generic numerical energy-sum sanity check
+  `youngBlockEnergyModel_exists_from_regular_input` is proved directly from
+  nonnegativity of `l2DistSqToU1`, by placing the energy on a fixed non-`U_1`
+  column diagram.  The actual Section 5 bridge no longer asks this artificial
+  witness to satisfy matching scalarity.
+- The explicit spectral-block-model hypotheses supply the actual Young-block
+  energies of `F`, the `U_1` energy identification, and the matching-average
+  scalar model.  Theorem 4.10, Proposition 4.12, Lemma 4.13, and Theorem 1.1
+  are correspondingly conditional on those model families.
 
 Older theorem names such as `Thm2_1_BooleanU1`, `L5_4_ZBoundApp`,
 `L5_5_HEvenApp`, and `L5_6_HOddApp` are preserved inside the corresponding

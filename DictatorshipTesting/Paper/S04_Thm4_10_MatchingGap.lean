@@ -11,8 +11,12 @@ This is `thm:matching-gap` from `dictatorship_testing_soda27_latest.tex`.
 
 namespace DictatorshipTesting
 
-/-- Theorem 4.10, `thm:matching-gap`: matching-cube spectral gap. -/
-theorem Thm4_10_MatchingGap (n : ℕ) (hn : 4 ≤ n)
+/-- Theorem 4.10, `thm:matching-gap`, conditional on the Section 5 spectral
+block model families: matching-cube spectral gap. -/
+theorem Thm4_10_MatchingGap
+    (hevenModel : EvenSpectralBlockModelFamily)
+    (hoddModel : OddSpectralBlockModelFamily)
+    (n : ℕ) (hn : 4 ≤ n)
     (F : Perm (Fin n) → ℝ) :
     (1 / 6 : ℝ) * l2DistSqToU1 F ≤ matchingMeanProjectionError F ∧
       (Even n → (1 / 5 : ℝ) * l2DistSqToU1 F ≤ matchingMeanProjectionError F) := by
@@ -20,7 +24,8 @@ theorem Thm4_10_MatchingGap (n : ℕ) (hn : 4 ≤ n)
   · rcases (even_iff_exists_two_mul.mp heven) with ⟨m, rfl⟩
     have hm : 2 ≤ m := by omega
     have hgap15 : MatchingSpectralGapConstant (2 * m) (1 / 5 : ℝ) := by
-      exact (L5_2_SpectralCertificate m hm (1 / 5 : ℝ)).1
+      exact matchingSpectralGap_of_even_young_certificate
+        m hm (1 / 5 : ℝ) (hevenModel m hm)
         (by norm_num)
         (by
           intro lam hrow hstd
@@ -37,7 +42,8 @@ theorem Thm4_10_MatchingGap (n : ℕ) (hn : 4 ≤ n)
     rcases (odd_iff_exists_bit1.mp hodd) with ⟨m, rfl⟩
     have hm : 2 ≤ m := by omega
     have hgap16 : MatchingSpectralGapConstant (2 * m + 1) (1 / 6 : ℝ) := by
-      exact (L5_2_SpectralCertificate m hm (1 / 6 : ℝ)).2
+      exact matchingSpectralGap_of_odd_young_certificate
+        m hm (1 / 6 : ℝ) (hoddModel m hm)
         (by norm_num)
         (by
           intro lam hrow hstd

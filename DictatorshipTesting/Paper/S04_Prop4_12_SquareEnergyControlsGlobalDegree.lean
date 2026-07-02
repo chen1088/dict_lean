@@ -9,13 +9,17 @@ This is the proposition containing equation `eq:square-energy-global-bound`.
 
 namespace DictatorshipTesting
 
-/-- Proposition 4.12: square energy controls global degree. -/
-theorem Prop4_12_SquareEnergyControlsGlobalDegree (n : ℕ) (hn : 4 ≤ n)
+/-- Proposition 4.12, conditional on the Section 5 spectral block model
+families: square energy controls global degree. -/
+theorem Prop4_12_SquareEnergyControlsGlobalDegree
+    (hevenModel : EvenSpectralBlockModelFamily)
+    (hoddModel : OddSpectralBlockModelFamily)
+    (n : ℕ) (hn : 4 ≤ n)
     (F : Perm (Fin n) → ℝ) :
     (16 / 27 : ℝ) * l2DistSqToU1 F ≤ oneTrialDeltaSqExpectation F := by
   have hgap :
       (1 / 6 : ℝ) * l2DistSqToU1 F ≤ matchingMeanProjectionError F :=
-    (Thm4_10_MatchingGap n hn F).1
+    (Thm4_10_MatchingGap hevenModel hoddModel n hn F).1
   have htrial :
       (32 / 9 : ℝ) * matchingMeanProjectionError F ≤
         oneTrialDeltaSqExpectation F :=
