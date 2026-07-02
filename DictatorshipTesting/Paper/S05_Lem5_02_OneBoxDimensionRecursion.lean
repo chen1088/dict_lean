@@ -4,8 +4,11 @@ import DictatorshipTesting.Paper.Defs
 Paper statement: Lemma 5.2 (`lem:dimension-one-box-recurrence`)
 Title in paper: One-box dimension recursion.
 
-Status: standard representation-theoretic input from ordinary one-box
-branching.
+Status: external representation-theoretic input in the current Lean
+development for `2 <= m`, from ordinary one-box branching.  The small cases
+`m = 0` and `m = 1` are proved directly below.  The remaining general statement
+should be proved internally only after a formal Specht-module/branching library
+is available.
 -/
 
 /-!
@@ -15,9 +18,9 @@ This file isolates the dimension shadow of the ordinary one-box branching rule
 used in the odd Section 5 certificate.
 
 For a Young diagram `lambda` with `2*m+1` boxes, the Specht dimension is the
-sum of the dimensions of its one-box children.  This is the standard
-Pieri/Littlewood-Richardson branching input for restricting from `S_{2m+1}` to
-`S_{2m}`.
+sum of the dimensions of its one-box children.  This is the standard ordinary
+branching input for restricting from `S_{2m+1}` to `S_{2m}`; in this scaffold,
+only the remaining `2 <= m` case is external.
 -/
 
 noncomputable section
@@ -335,7 +338,8 @@ theorem youngDim_oneBox_branching_one
     rw [oneBoxChildrenOdd_colThree lam hrow_all]
     simp [youngDim_colTwoDiagram]
 
-/-- Positive-size dimension shadow of the ordinary one-box branching rule. -/
+/-- Dimension shadow of the ordinary one-box branching rule in the remaining
+`2 <= m` range. -/
 theorem youngDim_oneBox_branching_positive_input (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m + 1)) :
     youngDim lam = (oneBoxChildrenOdd m lam).sum (fun mu => youngDim mu) := by

@@ -4,13 +4,14 @@ import DictatorshipTesting.Paper.S05_Lem5_14_OddHCertificate
 Paper statement: Lemma 5.3 (`lem:matching-restriction-X`)
 Title in paper: Restriction to the matching subgroup.
 
-Status: in the current scalar Lean vocabulary, proved from the finite
-certificate bounds below.  The full Specht-module restriction statement remains
-part of the paper mathematics, but is not yet represented as a Lean object here.
+Status: the paper's Lemma 5.3 is the full Specht-module restriction statement
+obtained from repeated Pieri/Littlewood--Richardson branching.  The current
+Lean file does not formalize Specht modules or restriction functors; it proves
+only the scalar/multiplicity shadow used downstream by the scaffold.
 -/
 
 /-!
-# Matching-restriction input
+# Matching-restriction scalar shadow
 
 The paper's full statement says that, after restricting the Specht module
 indexed by `lambda` to the matching subgroup `A_M ≃ (Z / 2Z)^m`, the local
@@ -18,8 +19,9 @@ character-weight multiset is the recursively defined multiset counted by
 `zEven`, `hEven`, and `hOdd`.
 
 The current Lean vocabulary does not yet contain Specht modules or restriction
-functors.  The statements below record the scalar bound needed by the rest of
-the scaffold, and this scalar consequence is proved from the finite certificate
+functors.  The statements below therefore do not claim to be the full
+restriction theorem.  They record the scalar bounds needed by the rest of the
+scaffold, and those scalar consequences are proved from the finite certificate
 bounds already formalized.
 -/
 

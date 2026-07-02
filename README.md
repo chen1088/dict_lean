@@ -36,7 +36,19 @@ with `sorry`.
 
 Current proof-status map:
 
-Section 2 external structural inputs:
+Proven finite certificates:
+
+- `S05_Lem5_10_ZBoundCertificate.lean` -- Lemma 5.10 (`lem:z-bound-app`):
+  finite `zEven` certificate, proved from the recursive definitions modulo the
+  two-strip dimension branching input in Lemma 5.1.
+- `S05_Lem5_12_EvenHCertificate.lean` -- Lemma 5.12 (`lem:h-even-app`):
+  finite `hEven` certificate, proved from Lemma 5.10 and the two-strip
+  dimension branching input.
+- `S05_Lem5_14_OddHCertificate.lean` -- Lemma 5.14 (`lem:h-odd-app`):
+  finite `hOdd` certificate, proved from Lemma 5.12 and the one-box dimension
+  branching input.
+
+External standard inputs:
 
 - `S02_Thm2_01_BooleanU1Classification.lean` -- Theorem 2.1
   (`thm:boolean-u1`): external classification direction
@@ -46,43 +58,35 @@ Section 2 external structural inputs:
 - `S02_Thm2_02_FKNStability.lean` -- Theorem 2.2 (`thm:fkn-input`):
   external FKN/stability theorem on `S_n`, stated only for the `4 <= n`
   range used by the one-trial soundness proof.
-
-Section 5 standard representation-theoretic inputs:
-
 - `S05_Lem5_01_TwoStripDimensionRecursion.lean` -- Lemma 5.1
-  (`lem:dimension-two-strip-recurrence`): two-strip
-  Pieri/Littlewood-Richardson dimension recursion.
+  (`lem:dimension-two-strip-recurrence`): external two-strip
+  Pieri/Littlewood-Richardson dimension branching input.
 - `S05_Lem5_02_OneBoxDimensionRecursion.lean` -- Lemma 5.2
-  (`lem:dimension-one-box-recurrence`): ordinary one-box dimension recursion.
-  The `m = 0` and `m = 1` cases are proved directly; the remaining input is the
-  `2 <= m` branching statement `youngDim_oneBox_branching_positive_input`.
+  (`lem:dimension-one-box-recurrence`): ordinary one-box dimension branching
+  input.  The `m = 0` and `m = 1` cases are proved directly; the remaining
+  external input is the `2 <= m` statement
+  `youngDim_oneBox_branching_positive_input`.
 - `S05_Lem5_03_MatchingRestrictionPieri.lean` -- Lemma 5.3
-  (`lem:matching-restriction-X`): the current Lean scalar consequence
-  `0 <= h <= youngDim` is proved from the finite certificate bounds.  The full
-  Specht-module restriction decomposition is not yet represented as a Lean
-  object.
+  (`lem:matching-restriction-X`): the paper-level statement is the full
+  Specht/Pieri restriction theorem.  The current Lean file formalizes only the
+  scalar/multiplicity shadow needed downstream; that scalar shadow is proved
+  from the finite certificate bounds.
 
-Section 5 derived bridge components:
+Proven or partially proven bridge:
 
 - `S05_Lem5_04_LocalTruncationCharacterProjection.lean` -- Lemma 5.4
   (`lem:PM-character-projection`): proved matching-cube character projection.
 - `S05_Lem5_05_TraceLocalTruncation.lean` -- Lemma 5.5
-  (`lem:PM-trace-young-block`): trace formula conditional on Lemma 5.3.
+  (`lem:PM-trace-young-block`): scalar trace formula in the current Lean
+  vocabulary, conditional on Lemma 5.3's scalar shadow.
 - `S05_Lem5_06_CentralizationOverMatchings.lean` -- Lemma 5.6
-  (`lem:centralization-matchings`): trace-divided-by-dimension algebra, with
-  Young-block scalarity isolated in Lemma 5.8.
+  (`lem:centralization-matchings`): proved trace-divided-by-dimension algebra.
 - `S05_Lem5_08_SpectralBridgeFromCertificates.lean` -- Lemma 5.8
-  (`lem:spectral-certificate`): remaining Young-block spectral bridge input,
-  stated in the `2 <= m` range used by the `n >= 4` matching-gap theorem.
-
-Section 5 finite certificates:
-
-- `S05_Lem5_10_ZBoundCertificate.lean` -- Lemma 5.10 (`lem:z-bound-app`):
-  finite `zEven` certificate, proved modulo Lemma 5.1.
-- `S05_Lem5_12_EvenHCertificate.lean` -- Lemma 5.12 (`lem:h-even-app`):
-  finite `hEven` certificate, proved modulo Lemma 5.1 and Lemma 5.10.
-- `S05_Lem5_14_OddHCertificate.lean` -- Lemma 5.14 (`lem:h-odd-app`):
-  finite `hOdd` certificate, proved modulo Lemma 5.2 and Lemma 5.12.
+  (`lem:spectral-certificate`): split into exact block-energy components.  The
+  abstract finite weighted-sum implication `SpectralGapFromBlockScalars` is
+  proved; the remaining external inputs are the even/odd representation
+  block-model theorems `evenSpectralBlockModel_from_representation_input` and
+  `oddSpectralBlockModel_from_representation_input`.
 
 Older theorem names such as `Thm2_1_BooleanU1`, `L5_4_ZBoundApp`,
 `L5_5_HEvenApp`, and `L5_6_HOddApp` are preserved inside the corresponding
