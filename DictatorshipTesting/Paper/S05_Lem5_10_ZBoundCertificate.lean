@@ -1,15 +1,22 @@
-import DictatorshipTesting.Paper.Aux_YoungDimensionBranchingInput
+import DictatorshipTesting.Paper.S05_Lem5_01_TwoStripDimensionRecursion
 
 /-!
-# Finite induction input for Lemma 5.4
+Paper statement: Lemma 5.10 (`lem:z-bound-app`)
+Title in paper: Weight-zero entries are never a majority.
+
+Status: finite Young-diagram certificate proved below, modulo the two-strip
+dimension recursion input.
+-/
+
+/-!
+# Finite induction input for Lemma 5.10
 
 The paper proves this by induction on `m`, using the horizontal two-strip
 recurrence, the dimension recursion, and two special families of diagrams.
 
-This file is the intended home for that proof.  It is separated from
-`L5_4_ZBoundApp` so the paper-numbered file remains a concise statement of the
-lemma while the eventual proof can accumulate the necessary Young-diagram
-bookkeeping lemmas locally.
+This file is the intended home for that proof.  It contains both the detailed
+finite induction and the old theorem name `L5_4_ZBoundApp`, so downstream code
+does not need a separate wrapper module.
 -/
 
 namespace DictatorshipTesting
@@ -31,7 +38,7 @@ theorem youngDim_nonneg {n : ℕ} (lam : YoungDiagram n) :
   exact_mod_cast Nat.zero_le (youngDimNat lam)
 
 /-- The zero-weight count is nonnegative.  This is the easy positivity part of
-the finite induction for Lemma 5.4. -/
+the finite induction for Lemma 5.10. -/
 theorem zEven_nonneg (m : ℕ) (lam : YoungDiagram (2 * m)) :
     0 ≤ zEven m lam := by
   induction m with
@@ -1947,7 +1954,7 @@ theorem zEven_le_half_youngDim_of_noOneRowHorizontalChild
       (youngDim_horizontalChildren_sum_le m hm lam) (by norm_num)
   linarith
 
-/-- Finite Young-diagram induction behind Lemma 5.4. -/
+/-- Finite Young-diagram induction behind Lemma 5.10. -/
 theorem zEven_le_half_youngDim_of_not_oneRow_finite_induction
     (m : ℕ) (lam : YoungDiagram (2 * m)) (hrow : ¬ IsOneRow lam) :
     zEven m lam ≤ (1 / 2 : ℝ) * youngDim lam := by
@@ -1967,5 +1974,22 @@ theorem zEven_le_half_youngDim_of_not_oneRow_finite_induction
               (Nat.succ (Nat.succ m)) (by omega) lam hrow hchild
           · exact zEven_le_half_youngDim_of_noOneRowHorizontalChild
               (Nat.succ (Nat.succ m)) (by omega) lam ih hchild
+
+/-- Lemma 5.10, `lem:z-bound-app`: weight-zero entries are never a majority.
+This preserves the old theorem name `L5_4_ZBoundApp`. -/
+theorem L5_4_ZBoundApp (m : ℕ) (lam : YoungDiagram (2 * m))
+    (hrow : ¬ IsOneRow lam) :
+    zEven m lam ≤ (1 / 2 : ℝ) * youngDim lam := by
+  exact zEven_le_half_youngDim_of_not_oneRow_finite_induction m lam hrow
+
+/-- The zero-weight count is always bounded by the full Young dimension. -/
+theorem zEven_le_youngDim (m : ℕ) (lam : YoungDiagram (2 * m)) :
+    zEven m lam ≤ youngDim lam := by
+  by_cases hrow : IsOneRow lam
+  · rw [eq_oneRowDiagram_of_isOneRow lam hrow]
+    rw [zEven_oneRowDiagram, youngDim_oneRowDiagram_even]
+  · have hhalf := zEven_le_half_youngDim_of_not_oneRow_finite_induction m lam hrow
+    have hdim := youngDim_nonneg lam
+    nlinarith
 
 end DictatorshipTesting

@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_CubeColorCounting
 /-!
 # Lemma 4.1: Square test detects Fourier weight at least two
 
-This is `lem:cube-square` from `soda27authors_section5_rethought.tex`.
+This is `lem:cube-square` from `dictatorship_testing_soda27_latest.tex`.
 -/
 
 noncomputable section

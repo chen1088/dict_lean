@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_LocalTruncationTraceInput
+import DictatorshipTesting.Paper.S05_Lem5_05_TraceLocalTruncation
 
 /-!
 # Centralization over matchings

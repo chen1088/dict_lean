@@ -1,5 +1,5 @@
 import DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound
-import DictatorshipTesting.Paper.Thm4_10_MatchingGap
+import DictatorshipTesting.Paper.S04_Thm4_10_MatchingGap
 
 /-!
 # Proposition 4.12: Square energy controls global degree

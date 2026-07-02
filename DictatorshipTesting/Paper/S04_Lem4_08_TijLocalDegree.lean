@@ -1,10 +1,10 @@
 import DictatorshipTesting.Paper.Aux_CubeOneJuntaHighDegree
-import DictatorshipTesting.Paper.L3_1_DictatorToJunta
+import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
 
 /-!
 # Lemma 4.8: A basic indicator has local degree at most one
 
-This is `lem:tij-local-degree` from `soda27authors_section5_rethought.tex`.
+This is `lem:tij-local-degree` from `dictatorship_testing_soda27_latest.tex`.
 -/
 
 namespace DictatorshipTesting

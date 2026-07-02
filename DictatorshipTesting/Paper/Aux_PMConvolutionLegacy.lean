@@ -2,14 +2,16 @@ import DictatorshipTesting.Paper.Aux_CubeLowDegreeError
 import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
 
 /-!
-# Lemma 5.1: Local projection as convolution
+# Legacy helper: local projection as convolution
 
-This is `lem:PM-convolution` from `soda27authors_section5_rethought.tex`.
+This was a numbered lemma in an older Section 5 draft.  The current latest
+paper draft no longer has a separate `PM`-convolution lemma, so this file is
+kept as an auxiliary helper rather than a paper-facing statement file.
 -/
 
 namespace DictatorshipTesting
 
-/-- Lemma 5.1, `lem:PM-convolution`: local projection as convolution. -/
+/-- Legacy local-projection convolution identity. -/
 theorem L5_1_PMConvolution {α : Type*} [Fintype α] [DecidableEq α]
     (M : OrderedMatching α) (F : Perm α → ℝ) :
     matchingLocalProjection M F = matchingLowConvolution M F ∧

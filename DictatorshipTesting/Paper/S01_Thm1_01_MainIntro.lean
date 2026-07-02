@@ -1,5 +1,5 @@
 import DictatorshipTesting.Paper.Aux_TesterAmplification
-import DictatorshipTesting.Paper.L4_13_OneTrialSoundness
+import DictatorshipTesting.Paper.S04_Lem4_13_OneTrialSoundness
 
 /-!
 # Theorem 1.1: Main theorem

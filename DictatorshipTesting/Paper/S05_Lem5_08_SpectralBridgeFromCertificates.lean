@@ -1,4 +1,12 @@
-import DictatorshipTesting.Paper.Aux_CentralizationBridge
+import DictatorshipTesting.Paper.S05_Lem5_06_CentralizationOverMatchings
+
+/-!
+Paper statement: Lemma 5.8 (`lem:spectral-certificate`)
+Title in paper: Spectral bridge from the finite certificate.
+
+Status: representation-theoretic bridge input after the local trace and
+centralization components have been isolated.
+-/
 
 /-!
 # Spectral gap from certificate inequalities
@@ -21,7 +29,7 @@ namespace DictatorshipTesting
 `U_1` has scalar at least `c`, expressed by the finite certificate inequality,
 then the matching spectral gap holds on `S_{2m}`. -/
 theorem spectralGapFromEvenCertificates_input
-    (m : ℕ) (c : ℝ)
+    (m : ℕ) (hm : 2 ≤ m) (c : ℝ)
     (hc : 0 ≤ c)
     (hrestrict : MatchingRestrictionEvenInput m)
     (htrace : TraceLocalTruncationEvenInput m)
@@ -37,7 +45,7 @@ theorem spectralGapFromEvenCertificates_input
 /-- Odd final spectral-decomposition input: the analogous bridge on
 `S_{2m+1}`. -/
 theorem spectralGapFromOddCertificates_input
-    (m : ℕ) (c : ℝ)
+    (m : ℕ) (hm : 2 ≤ m) (c : ℝ)
     (hc : 0 ≤ c)
     (hrestrict : MatchingRestrictionOddInput m)
     (htrace : TraceLocalTruncationOddInput m)
@@ -49,5 +57,54 @@ theorem spectralGapFromOddCertificates_input
   -- one-box branching for the unmatched point, and repeat the same spectral
   -- decomposition argument.
   sorry
+
+/-- Even spectral bridge: finite Young-diagram inequalities imply the matching
+spectral gap for `S_{2m}`. -/
+theorem matchingSpectralGap_of_even_young_certificate (m : ℕ) (hm : 2 ≤ m) (c : ℝ)
+    (hc : 0 ≤ c)
+    (hcert :
+      ∀ lam : YoungDiagram (2 * m),
+        ¬ IsOneRow lam → ¬ IsStandard lam → c * youngDim lam ≤ hEven m lam) :
+    MatchingSpectralGapConstant (2 * m) c := by
+  have hrestrict : MatchingRestrictionEvenInput m :=
+    matchingRestriction_even_specht_pieri_input m
+  have htrace : TraceLocalTruncationEvenInput m :=
+    traceLocalTruncation_even_from_restriction m hrestrict
+  exact
+    spectralGapFromEvenCertificates_input
+      m hm c hc hrestrict htrace hcert
+
+/-- Odd spectral bridge: finite Young-diagram inequalities imply the matching
+spectral gap for `S_{2m+1}`. -/
+theorem matchingSpectralGap_of_odd_young_certificate (m : ℕ) (hm : 2 ≤ m) (c : ℝ)
+    (hc : 0 ≤ c)
+    (hcert :
+      ∀ lam : YoungDiagram (2 * m + 1),
+        ¬ IsOneRow lam → ¬ IsStandard lam → c * youngDim lam ≤ hOdd m lam) :
+    MatchingSpectralGapConstant (2 * m + 1) c := by
+  have hrestrict : MatchingRestrictionOddInput m :=
+    matchingRestriction_odd_specht_pieri_input m
+  have htrace : TraceLocalTruncationOddInput m :=
+    traceLocalTruncation_odd_from_restriction m hrestrict
+  exact
+    spectralGapFromOddCertificates_input
+      m hm c hc hrestrict htrace hcert
+
+/-- Lemma 5.8, `lem:spectral-certificate`: spectral certificate.  This
+preserves the old theorem name `L5_2_SpectralCertificate`. -/
+theorem L5_2_SpectralCertificate (m : ℕ) (hm : 2 ≤ m) (c : ℝ) :
+    (0 ≤ c →
+      (∀ lam : YoungDiagram (2 * m),
+        ¬ IsOneRow lam → ¬ IsStandard lam → c * youngDim lam ≤ hEven m lam) →
+      MatchingSpectralGapConstant (2 * m) c) ∧
+    (0 ≤ c →
+      (∀ lam : YoungDiagram (2 * m + 1),
+        ¬ IsOneRow lam → ¬ IsStandard lam → c * youngDim lam ≤ hOdd m lam) →
+      MatchingSpectralGapConstant (2 * m + 1) c) := by
+  constructor
+  · intro hc hcert
+    exact matchingSpectralGap_of_even_young_certificate m hm c hc hcert
+  · intro hc hcert
+    exact matchingSpectralGap_of_odd_young_certificate m hm c hc hcert
 
 end DictatorshipTesting

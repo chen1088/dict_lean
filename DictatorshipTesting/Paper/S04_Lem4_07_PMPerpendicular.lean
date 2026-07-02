@@ -1,12 +1,12 @@
 import DictatorshipTesting.Paper.Aux_CubeInnerProduct
 import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
 import DictatorshipTesting.Paper.Aux_PermCubeAverage
-import DictatorshipTesting.Paper.L4_5_PMFixesLocal
+import DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal
 
 /-!
 # Lemma 4.7: High local degrees have zero inner product with local degree one
 
-This is `lem:PM-perpendicular` from `soda27authors_section5_rethought.tex`.
+This is `lem:PM-perpendicular` from `dictatorship_testing_soda27_latest.tex`.
 -/
 
 namespace DictatorshipTesting

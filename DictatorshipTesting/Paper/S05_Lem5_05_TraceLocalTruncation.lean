@@ -1,4 +1,12 @@
-import DictatorshipTesting.Paper.Aux_MatchingRestrictionInput
+import DictatorshipTesting.Paper.S05_Lem5_03_MatchingRestrictionPieri
+
+/-!
+Paper statement: Lemma 5.5 (`lem:PM-trace-young-block`)
+Title in paper: Trace of one local truncation on one Young block.
+
+Status: derived from the matching-restriction input and finite scalar
+certificate definitions.
+-/
 
 /-!
 # Trace of one local truncation

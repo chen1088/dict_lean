@@ -8,11 +8,11 @@ an auxiliary input file.
 -/
 
 import DictatorshipTesting.PaperAux
-import DictatorshipTesting.Paper.Thm1_1_MainIntro
-import DictatorshipTesting.Paper.Thm2_1_BooleanU1
-import DictatorshipTesting.Paper.Thm2_2_FKNInput
-import DictatorshipTesting.Paper.L2_3_CubeCharOrthonormality
-import DictatorshipTesting.Paper.L2_3_CubeFourierExpansion
-import DictatorshipTesting.Paper.L2_3_CubeParsevalIdentity
-import DictatorshipTesting.Paper.L2_3_CubeParseval
+import DictatorshipTesting.Paper.S01_Thm1_01_MainIntro
+import DictatorshipTesting.Paper.S02_Thm2_01_BooleanU1Classification
+import DictatorshipTesting.Paper.S02_Thm2_02_FKNStability
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval
 import DictatorshipTesting.PaperPlaceholders

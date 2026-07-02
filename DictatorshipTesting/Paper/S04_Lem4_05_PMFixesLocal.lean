@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
 /-!
 # Lemma 4.5: `P_M` keeps exactly the local degree-one functions
 
-This is `lem:PM-fixes-local` from `soda27authors_section5_rethought.tex`.
+This is `lem:PM-fixes-local` from `dictatorship_testing_soda27_latest.tex`.
 -/
 
 namespace DictatorshipTesting

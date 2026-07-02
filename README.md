@@ -5,8 +5,8 @@ parts of a dictatorship-testing paper for Boolean functions on `S_n`.
 
 The project is intentionally organized around the paper.  Numbered theorem,
 lemma, proposition, and corollary files use the paper number in the filename,
-for example `Thm1_1_MainIntro.lean`, `L4_13_OneTrialSoundness.lean`, and
-`Prop4_12_SquareEnergyControlsGlobalDegree.lean`.  Helper files that exist only
+for example `S01_Thm1_01_MainIntro.lean`, `S04_Lem4_13_OneTrialSoundness.lean`, and
+`S04_Prop4_12_SquareEnergyControlsGlobalDegree.lean`.  Helper files that exist only
 to support the Lean development use the prefix `Aux_`.
 
 ## Build
@@ -34,61 +34,59 @@ matching-cube, and averaging steps that have been formalized so far.  A small
 number of hard results are intentionally isolated behind named aux declarations
 with `sorry`.
 
-Current intentional assumptions:
+Current proof-status map:
 
-External structural inputs:
+Section 2 external structural inputs:
 
-- `Aux_BooleanU1StructuralInput.lean`: the external classification of Boolean
-  degree-one functions on `S_n`.
-- `Aux_FKNStabilityInput.lean`: the external FKN/stability theorem on `S_n`.
-- `Aux_MatchingRestrictionInput.lean`: the Specht/Pieri-Littlewood-Richardson
-  restriction data for matching subgroups, represented by the scalar
-  consequences currently visible in Lean.
-- `Aux_YoungDimensionBranchingInput.lean`: the dimension shadow of the
-  two-strip Pieri/Littlewood-Richardson branching rule, stated as
-  `youngDim_twoStrip_branching_input`.
-- `Aux_YoungDimensionOneBoxBranchingInput.lean`: the dimension shadow of the
-  ordinary one-box Pieri/Littlewood-Richardson branching rule for the odd
-  certificate, stated as `youngDim_oneBox_branching_input`.
-- `Aux_SpectralGapFromCertificates.lean`: the remaining Young-block spectral
-  decomposition, Schur-lemma scalarity, and identification of the `U1` summand
-  needed to turn block certificate inequalities into the global matching
-  spectral gap.
+- `S02_Thm2_01_BooleanU1Classification.lean` -- Theorem 2.1
+  (`thm:boolean-u1`): external classification direction
+  `boolFnToReal f ∈ U1 (Fin n) -> IsDictator f` for `3 <= n`.  The `n = 1`
+  and `n = 2` cases, and the converse direction that dictators lie in `U1`,
+  are proved directly.
+- `S02_Thm2_02_FKNStability.lean` -- Theorem 2.2 (`thm:fkn-input`):
+  external FKN/stability theorem on `S_n`, stated only for the `4 <= n`
+  range used by the one-trial soundness proof.
 
-Internal finite certificate obligations:
+Section 5 standard representation-theoretic inputs:
 
-- `Aux_ZBoundFiniteInduction.lean`: the finite Young-diagram induction behind
-  Lemma 5.4.  This file proves the finite `zEven` certificate modulo the
-  two-strip dimension branching input isolated in
-  `Aux_YoungDimensionBranchingInput.lean`.
-- `Aux_HEvenFiniteInduction.lean`: the finite Young-diagram induction behind
-  Lemma 5.5.  This file proves the finite `hEven` certificate modulo the
-  two-strip dimension branching input isolated in
-  `Aux_YoungDimensionBranchingInput.lean` and the already-proven `zEven`
-  certificate.
-- `Aux_HOddFiniteInduction.lean`: the finite Young-diagram induction behind
-  Lemma 5.6.  This file proves the finite `hOdd` certificate modulo the
-  one-box dimension branching input isolated in
-  `Aux_YoungDimensionOneBoxBranchingInput.lean` and the already-proven `hEven`
-  certificate.  The bad-child classification is internal: a non-one-row,
-  nonstandard odd diagram with a one-row or standard one-box child is forced to
-  be `(2m-1,2)` or `(2m-1,1,1)`.
+- `S05_Lem5_01_TwoStripDimensionRecursion.lean` -- Lemma 5.1
+  (`lem:dimension-two-strip-recurrence`): two-strip
+  Pieri/Littlewood-Richardson dimension recursion.
+- `S05_Lem5_02_OneBoxDimensionRecursion.lean` -- Lemma 5.2
+  (`lem:dimension-one-box-recurrence`): ordinary one-box dimension recursion.
+  The `m = 0` and `m = 1` cases are proved directly; the remaining input is the
+  `2 <= m` branching statement `youngDim_oneBox_branching_positive_input`.
+- `S05_Lem5_03_MatchingRestrictionPieri.lean` -- Lemma 5.3
+  (`lem:matching-restriction-X`): the current Lean scalar consequence
+  `0 <= h <= youngDim` is proved from the finite certificate bounds.  The full
+  Specht-module restriction decomposition is not yet represented as a Lean
+  object.
 
-Proven bridge components:
+Section 5 derived bridge components:
 
-- `Aux_LocalCharacterProjection.lean`: local matching projection preserves
-  matching-cube characters of weight `0` or `1` and kills characters of weight
-  at least `2`.
-- `Aux_TraceLocalTruncation.lean`: scalar trace formula with factor
-  `youngDim lam * hEven m lam` or `youngDim lam * hOdd m lam`, conditional on
-  the matching-restriction input.
-- `Aux_CentralizationBridge.lean`: trace-divided-by-block-dimension algebra,
-  giving the scalar `h_m(lambda) / d_lambda` once scalarity and the trace
-  identity are available.
+- `S05_Lem5_04_LocalTruncationCharacterProjection.lean` -- Lemma 5.4
+  (`lem:PM-character-projection`): proved matching-cube character projection.
+- `S05_Lem5_05_TraceLocalTruncation.lean` -- Lemma 5.5
+  (`lem:PM-trace-young-block`): trace formula conditional on Lemma 5.3.
+- `S05_Lem5_06_CentralizationOverMatchings.lean` -- Lemma 5.6
+  (`lem:centralization-matchings`): trace-divided-by-dimension algebra, with
+  Young-block scalarity isolated in Lemma 5.8.
+- `S05_Lem5_08_SpectralBridgeFromCertificates.lean` -- Lemma 5.8
+  (`lem:spectral-certificate`): remaining Young-block spectral bridge input,
+  stated in the `2 <= m` range used by the `n >= 4` matching-gap theorem.
 
-The paper-numbered files `Thm2_1`, `Thm2_2`, `L5_4`, `L5_5`, and `L5_6` are
-therefore clean wrappers around explicit assumptions rather than places where
-large hidden proof obligations are buried.
+Section 5 finite certificates:
+
+- `S05_Lem5_10_ZBoundCertificate.lean` -- Lemma 5.10 (`lem:z-bound-app`):
+  finite `zEven` certificate, proved modulo Lemma 5.1.
+- `S05_Lem5_12_EvenHCertificate.lean` -- Lemma 5.12 (`lem:h-even-app`):
+  finite `hEven` certificate, proved modulo Lemma 5.1 and Lemma 5.10.
+- `S05_Lem5_14_OddHCertificate.lean` -- Lemma 5.14 (`lem:h-odd-app`):
+  finite `hOdd` certificate, proved modulo Lemma 5.2 and Lemma 5.12.
+
+Older theorem names such as `Thm2_1_BooleanU1`, `L5_4_ZBoundApp`,
+`L5_5_HEvenApp`, and `L5_6_HOddApp` are preserved inside the corresponding
+`Sxx_...` files, rather than living in separate wrapper modules.
 
 ## Layout
 
@@ -124,26 +122,31 @@ Elementary files:
 
 Paper-numbered highlights:
 
-- `Thm1_1_MainIntro.lean`: main tester statement, currently routed through the
+- `S01_Thm1_01_MainIntro.lean`: main tester statement, currently routed through the
   abstract tester-amplification interface.
-- `Thm2_1_BooleanU1.lean`: Boolean degree-one structural input.
-- `Thm2_2_FKNInput.lean`: FKN/stability input.
-- `L2_3_*`: cube-character orthonormality, Fourier expansion, and Parseval.
-- `L3_1_DictatorToJunta.lean` and `L3_2_PerfectCompleteness.lean`: matching
+- `S02_Thm2_01_BooleanU1Classification.lean`: Boolean degree-one structural input.
+- `S02_Thm2_02_FKNStability.lean`: FKN/stability input.
+- `S02_Lem2_03_*`: cube-character orthonormality, Fourier expansion, and
+  Parseval.
+- `S03_Lem3_01_DictatorToJunta.lean` and `S03_Lem3_02_PerfectCompleteness.lean`: matching
   cube completeness side.
-- `L4_1` through `L4_13`: matching-cube soundness reductions up to the
-  one-trial soundness bound.
-- `L5_1` through `L5_6`: spectral-gap and finite certificate scaffold.
+- `S04_Lem4_01` through `S04_Lem4_13`, plus `S04_Cor4_09`,
+  `S04_Thm4_10`, and `S04_Prop4_12`: matching-cube soundness reductions up to
+  the one-trial soundness bound.
+- `S05_Lem5_01` through `S05_Lem5_14`: current Section 5 spectral bridge and
+  finite certificate files.  Older Section 5 theorem names such as
+  `L5_4_ZBoundApp` are declarations inside these numbered files, not separate
+  wrapper modules.
 
 ## Naming Conventions
 
-- `ThmA_B_...`: Theorem A.B in the paper.
-- `LA_B_...`: Lemma A.B in the paper, written without the space as
-  `L4_13_...`.
-- `PropA_B_...`: Proposition A.B.
-- `CorA_B_...`: Corollary A.B.
+- `S##_ThmA_BB_...`, `S##_LemA_BB_...`, `S##_PropA_BB_...`,
+  `S##_CorA_BB_...`: preferred paper-facing filenames with explicit section
+  and paper statement number.
+- `ThmA_B_...`, `LA_B_...`, `PropA_B_...`, `CorA_B_...`: legacy
+  paper-facing filenames still used by earlier sections of the scaffold.
 - `Aux_...`: Lean helper lemma, implementation detail, or isolated external
-  input.
+  input that is not itself the paper-facing statement.
 
 Keep theorem names stable when possible.  If a theorem is paper-numbered, keep
 the declaration in the paper-numbered file even when the hard proof is factored
@@ -155,7 +158,7 @@ Useful commands:
 
 ```bash
 lake build DictatorshipTesting
-lake build DictatorshipTesting.Paper.L5_4_ZBoundApp
+lake build DictatorshipTesting.Paper.S05_Lem5_10_ZBoundCertificate
 rg "sorry" DictatorshipTesting
 ```
 

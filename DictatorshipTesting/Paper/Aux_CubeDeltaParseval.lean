@@ -1,5 +1,5 @@
 import DictatorshipTesting.Paper.Aux_CubeDeltaFourier
-import DictatorshipTesting.Paper.L2_3_CubeParsevalIdentity
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 
 /-!
 # Parseval for cube square differences

@@ -1,12 +1,12 @@
 import DictatorshipTesting.Paper.Aux_DistanceNonneg
-import DictatorshipTesting.Paper.L5_2_SpectralCertificate
-import DictatorshipTesting.Paper.L5_5_HEvenApp
-import DictatorshipTesting.Paper.L5_6_HOddApp
+import DictatorshipTesting.Paper.S05_Lem5_08_SpectralBridgeFromCertificates
+import DictatorshipTesting.Paper.S05_Lem5_12_EvenHCertificate
+import DictatorshipTesting.Paper.S05_Lem5_14_OddHCertificate
 
 /-!
 # Theorem 4.10: Matching-cube spectral gap
 
-This is `thm:matching-gap` from `soda27authors_section5_rethought.tex`.
+This is `thm:matching-gap` from `dictatorship_testing_soda27_latest.tex`.
 -/
 
 namespace DictatorshipTesting
@@ -20,7 +20,7 @@ theorem Thm4_10_MatchingGap (n : ℕ) (hn : 4 ≤ n)
   · rcases (even_iff_exists_two_mul.mp heven) with ⟨m, rfl⟩
     have hm : 2 ≤ m := by omega
     have hgap15 : MatchingSpectralGapConstant (2 * m) (1 / 5 : ℝ) := by
-      exact (L5_2_SpectralCertificate m (1 / 5 : ℝ)).1
+      exact (L5_2_SpectralCertificate m hm (1 / 5 : ℝ)).1
         (by norm_num)
         (by
           intro lam hrow hstd
@@ -37,7 +37,7 @@ theorem Thm4_10_MatchingGap (n : ℕ) (hn : 4 ≤ n)
     rcases (odd_iff_exists_bit1.mp hodd) with ⟨m, rfl⟩
     have hm : 2 ≤ m := by omega
     have hgap16 : MatchingSpectralGapConstant (2 * m + 1) (1 / 6 : ℝ) := by
-      exact (L5_2_SpectralCertificate m (1 / 6 : ℝ)).2
+      exact (L5_2_SpectralCertificate m hm (1 / 6 : ℝ)).2
         (by norm_num)
         (by
           intro lam hrow hstd

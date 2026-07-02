@@ -1,10 +1,10 @@
-import DictatorshipTesting.Paper.L3_1_DictatorToJunta
+import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
 
 /-!
 # Lemma 3.2: Perfect completeness
 
 This is the cube-level cancellation used in `lem:perfect-completeness` from
-`soda27authors_section5_rethought.tex`.
+`dictatorship_testing_soda27_latest.tex`.
 -/
 
 namespace DictatorshipTesting

@@ -1,10 +1,18 @@
-import DictatorshipTesting.Paper.Aux_HEvenFiniteInduction
-import DictatorshipTesting.Paper.Aux_YoungDimensionOneBoxBranchingInput
+import DictatorshipTesting.Paper.S05_Lem5_12_EvenHCertificate
+import DictatorshipTesting.Paper.S05_Lem5_02_OneBoxDimensionRecursion
 
 /-!
-# Finite induction input for Lemma 5.6
+Paper statement: Lemma 5.14 (`lem:h-odd-app`)
+Title in paper: Odd certificate.
 
-The intended proof branches once to even diagrams, applies Lemma 5.5 to the
+Status: finite Young-diagram certificate proved below, modulo the one-box
+dimension recursion input and Lemma 5.12.
+-/
+
+/-!
+# Finite induction input for Lemma 5.14
+
+The intended proof branches once to even diagrams, applies Lemma 5.12 to the
 non-exceptional children, and handles the two level-two odd shapes explicitly.
 
 The statement is phrased only in terms of the concrete finite model in
@@ -657,7 +665,7 @@ theorem hOdd_ge_one_sixth_youngDim_of_no_bad_oneBoxChild
     nlinarith
   exact le_trans hcoeff heven
 
-/-- Finite Young-diagram induction behind Lemma 5.6. -/
+/-- Finite Young-diagram induction behind Lemma 5.14. -/
 theorem hOdd_ge_one_sixth_youngDim_of_not_oneRow_not_standard_finite_induction
     (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m + 1))
@@ -673,5 +681,27 @@ theorem hOdd_ge_one_sixth_youngDim_of_not_oneRow_not_standard_finite_induction
       exact hbad (Or.inl ⟨mu, hmu, hone⟩)
     · intro mu hmu hstandard
       exact hbad (Or.inr ⟨mu, hmu, hstandard⟩)
+
+/-- The high-weight odd count is nonnegative. -/
+theorem hOdd_nonneg (m : ℕ) (lam : YoungDiagram (2 * m + 1)) :
+    0 ≤ hOdd m lam := by
+  rw [hOdd]
+  exact Finset.sum_nonneg (fun mu _hmu => hEven_nonneg m mu)
+
+/-- The high-weight odd count is bounded by the full Young dimension. -/
+theorem hOdd_le_youngDim (m : ℕ) (lam : YoungDiagram (2 * m + 1)) :
+    hOdd m lam ≤ youngDim lam := by
+  rw [hOdd, youngDim_oneBox_branching_input m lam]
+  exact Finset.sum_le_sum (fun mu _hmu => hEven_le_youngDim m mu)
+
+/-- Lemma 5.14, `lem:h-odd-app`: odd certificate.  This preserves the old
+theorem name `L5_6_HOddApp`. -/
+theorem L5_6_HOddApp (m : ℕ) (hm : 2 ≤ m)
+    (lam : YoungDiagram (2 * m + 1))
+    (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
+    (1 / 6 : ℝ) * youngDim lam ≤ hOdd m lam := by
+  exact
+    hOdd_ge_one_sixth_youngDim_of_not_oneRow_not_standard_finite_induction
+      m hm lam hrow hstd
 
 end DictatorshipTesting

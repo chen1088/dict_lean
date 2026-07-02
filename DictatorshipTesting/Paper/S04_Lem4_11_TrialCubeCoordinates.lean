@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
 /-!
 # Lemma 4.11: One trial in cube coordinates
 
-This is `lem:trial-cube-coordinates` from `soda27authors_section5_rethought.tex`.
+This is `lem:trial-cube-coordinates` from `dictatorship_testing_soda27_latest.tex`.
 -/
 
 namespace DictatorshipTesting

@@ -1,13 +1,22 @@
-import DictatorshipTesting.Paper.Aux_ZBoundFiniteInduction
+import DictatorshipTesting.Paper.S05_Lem5_10_ZBoundCertificate
 
 /-!
-# Finite induction input for Lemma 5.5
+Paper statement: Lemma 5.12 (`lem:h-even-app`)
+Title in paper: Even certificate.
 
-The intended proof uses Lemma 5.4, the `hEven` recurrence, the dimension
+Status: finite Young-diagram certificate proved below, modulo the two-strip
+dimension recursion input and Lemma 5.10.
+-/
+
+/-!
+# Finite induction input for Lemma 5.12
+
+The intended proof uses Lemma 5.10, the `hEven` recurrence, the dimension
 recursion, and the exceptional level-two Young diagrams from Section 5.
 
 This is deliberately not bundled into the representation-theoretic bridge:
-after Lemma 5.2, the paper's remaining work is finite Young-diagram arithmetic.
+after the dimension-recursion inputs, the paper's remaining work is finite
+Young-diagram arithmetic.
 -/
 
 namespace DictatorshipTesting
@@ -2186,7 +2195,7 @@ theorem even_bad_child_classification
       (hasOneRowVerticalChild_classification m hm lam hstd hVrow))
   · exact hasStandardHorizontalChild_classification m hm lam hrow hstd hHstd
 
-/-- Generic induction step for Lemma 5.5, away from the exceptional children.
+/-- Generic induction step for Lemma 5.12, away from the exceptional children.
 
 Horizontal children are handled by the induction hypothesis.  Vertical children
 are handled by the proven `zEven ≤ d/2` bound, which gives the stronger
@@ -2420,6 +2429,84 @@ theorem hEven_standardDiagramEven_formula (m : ℕ) (hm : 1 ≤ m) :
           · intro hmem
             rw [Finset.mem_singleton] at hmem
             exact hba hmem.symm
+
+/-- The high-weight even count is nonnegative. -/
+theorem hEven_nonneg (m : ℕ) (lam : YoungDiagram (2 * m)) :
+    0 ≤ hEven m lam := by
+  induction m with
+  | zero =>
+      simp [hEven]
+  | succ m ih =>
+      rw [hEven]
+      apply add_nonneg
+      · exact Finset.sum_nonneg (fun mu _hmu => ih mu)
+      · exact Finset.sum_nonneg (fun mu _hmu =>
+          sub_nonneg.mpr (zEven_le_youngDim m mu))
+
+/-- In size two, every non-one-row diagram is the standard diagram. -/
+theorem isStandard_of_not_isOneRow_size_two
+    (lam : YoungDiagram (2 * 1)) (hrow : ¬ IsOneRow lam) :
+    IsStandard lam := by
+  have hsum : youngRow lam 0 + youngRow lam 1 = 2 := by
+    have h := lam.sum_rows
+    rw [Fin.sum_univ_two] at h
+    unfold youngRow
+    norm_num
+    simpa using h
+  have h10 : youngRow lam 1 ≤ youngRow lam 0 := by
+    unfold youngRow
+    have hle := lam.nonincreasing
+      (i := Fin.mk 0 (by norm_num)) (j := Fin.mk 1 (by norm_num)) (by norm_num)
+    simpa using hle
+  have h0le : youngRow lam 0 ≤ 2 := youngRow_le_size lam 0
+  have h0ne : youngRow lam 0 ≠ 2 := by
+    intro h0
+    exact hrow h0
+  have h0 : youngRow lam 0 = 1 := by omega
+  have h1 : youngRow lam 1 = 1 := by omega
+  exact ⟨by omega, by omega, h1⟩
+
+/-- Base case for the upper bound on `hEven`. -/
+theorem hEven_le_youngDim_m_one (lam : YoungDiagram (2 * 1)) :
+    hEven 1 lam ≤ youngDim lam := by
+  by_cases hrow : IsOneRow lam
+  · rw [eq_oneRowDiagram_of_isOneRow lam hrow]
+    rw [hEven_oneRowDiagram]
+    exact youngDim_nonneg _
+  · have hstd := isStandard_of_not_isOneRow_size_two lam hrow
+    rw [eq_standardDiagramEven_of_isStandard 1 (by omega) lam hstd]
+    rw [hEven_standardDiagramEven_formula]
+    exact youngDim_nonneg _
+
+/-- The high-weight even count is bounded by the full Young dimension. -/
+theorem hEven_le_youngDim (m : ℕ) (lam : YoungDiagram (2 * m)) :
+    hEven m lam ≤ youngDim lam := by
+  induction m with
+  | zero =>
+      simp [hEven]
+      exact youngDim_nonneg lam
+  | succ m ih =>
+      cases m with
+      | zero =>
+          exact hEven_le_youngDim_m_one lam
+      | succ m =>
+          rw [hEven]
+          have hH :
+              (horizontalTwoStripChildrenEven (Nat.succ (Nat.succ m)) lam).sum
+                  (fun mu => hEven (Nat.succ m) mu) ≤
+                (horizontalTwoStripChildrenEven (Nat.succ (Nat.succ m)) lam).sum
+                  (fun mu => youngDim mu) := by
+            exact Finset.sum_le_sum (fun mu _hmu => ih mu)
+          have hV :
+              (verticalTwoStripChildrenEven (Nat.succ (Nat.succ m)) lam).sum
+                  (fun mu => youngDim mu - zEven (Nat.succ m) mu) ≤
+                (verticalTwoStripChildrenEven (Nat.succ (Nat.succ m)) lam).sum
+                  (fun mu => youngDim mu) := by
+            exact Finset.sum_le_sum (fun mu _hmu =>
+              sub_le_self _ (zEven_nonneg (Nat.succ m) mu))
+          have hrec :=
+            youngDim_twoStrip_recurrence (Nat.succ (Nat.succ m)) (by omega) lam
+          linarith
 
 /-- Formula for `hEven` on the canonical three-row exception `(2m-2,1,1)`. -/
 theorem hEven_twoRowOneOneDiagramEven_formula
@@ -3739,7 +3826,7 @@ theorem hEven_ge_one_fifth_youngDim_even_exceptional
   · exact hEven_ge_one_fifth_youngDim_twoRowThreeException m hm lam h33
   · exact hEven_ge_one_fifth_youngDim_threeRowTwoOneException m hm lam h321
 
-/-- Finite Young-diagram induction behind Lemma 5.5. -/
+/-- Finite Young-diagram induction behind Lemma 5.12. -/
 theorem hEven_ge_one_fifth_youngDim_of_not_oneRow_not_standard_finite_induction
     (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m))
@@ -3771,5 +3858,15 @@ theorem hEven_ge_one_fifth_youngDim_of_not_oneRow_not_standard_finite_induction
               hbad (Or.inr (Or.inr ⟨mu, hmu, hstd_mu⟩)))
             (fun mu hmu hone =>
               hbad (Or.inr (Or.inl ⟨mu, hmu, hone⟩)))
+
+/-- Lemma 5.12, `lem:h-even-app`: even certificate.  This preserves the old
+theorem name `L5_5_HEvenApp`. -/
+theorem L5_5_HEvenApp (m : ℕ) (hm : 2 ≤ m)
+    (lam : YoungDiagram (2 * m))
+    (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
+    (1 / 5 : ℝ) * youngDim lam ≤ hEven m lam := by
+  exact
+    hEven_ge_one_fifth_youngDim_of_not_oneRow_not_standard_finite_induction
+      m hm lam hrow hstd
 
 end DictatorshipTesting

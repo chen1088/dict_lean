@@ -1,6 +1,15 @@
 import DictatorshipTesting.Paper.Aux_CentralizationOverMatchings
 
 /-!
+Paper statement: Lemma 5.6 (`lem:centralization-matchings`)
+Title in paper: Centralization over matchings.
+
+Status: finite-dimensional trace-divided-by-dimension algebra is proved in the
+helper imported here; the remaining Young-block scalarity belongs to the
+spectral bridge input.
+-/
+
+/-!
 # Centralization bridge
 
 The paper's centralization step has one part that is ordinary algebra once

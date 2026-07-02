@@ -1,6 +1,6 @@
 import DictatorshipTesting.Paper.Aux_CubeHighDegreeLinear
-import DictatorshipTesting.Paper.L2_3_CubeFourierExpansion
-import DictatorshipTesting.Paper.L2_3_CubeCharOrthonormality
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality
 
 /-!
 # The degree-at-most-one cube truncation

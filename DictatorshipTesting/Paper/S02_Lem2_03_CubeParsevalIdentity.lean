@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.L2_3_CubeFourierExpansion
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion
 
 /-!
 # Lemma 2.3: cube Parseval identity

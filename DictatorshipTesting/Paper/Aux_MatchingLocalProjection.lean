@@ -1,6 +1,6 @@
 import DictatorshipTesting.Paper.Aux_CubeLowDegreeOnePart
 import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
-import DictatorshipTesting.Paper.L4_4_PMIndependentOfRepresentatives
+import DictatorshipTesting.Paper.S04_Lem4_04_PMIndependentOfRepresentatives
 
 /-!
 # Auxiliary facts for the matching-local projection

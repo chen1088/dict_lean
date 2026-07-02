@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
 import DictatorshipTesting.Paper.Aux_PermCubeAverage
-import DictatorshipTesting.Paper.L4_1_CubeSquare
-import DictatorshipTesting.Paper.L4_6_LocalHighDegreeErrorFormula
+import DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare
+import DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula
 
 /-!
 # Global one-trial square-energy bridge

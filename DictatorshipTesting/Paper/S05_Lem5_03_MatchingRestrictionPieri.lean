@@ -1,16 +1,26 @@
-import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.S05_Lem5_14_OddHCertificate
+
+/-!
+Paper statement: Lemma 5.3 (`lem:matching-restriction-X`)
+Title in paper: Restriction to the matching subgroup.
+
+Status: in the current scalar Lean vocabulary, proved from the finite
+certificate bounds below.  The full Specht-module restriction statement remains
+part of the paper mathematics, but is not yet represented as a Lean object here.
+-/
 
 /-!
 # Matching-restriction input
 
-This file isolates the representation-theoretic input from Section 5: after
-restricting the Specht module indexed by `lambda` to the matching subgroup
-`A_M ≃ (Z / 2Z)^m`, the local character-weight multiset is the recursively
-defined multiset counted by `zEven`, `hEven`, and `hOdd`.
+The paper's full statement says that, after restricting the Specht module
+indexed by `lambda` to the matching subgroup `A_M ≃ (Z / 2Z)^m`, the local
+character-weight multiset is the recursively defined multiset counted by
+`zEven`, `hEven`, and `hOdd`.
 
 The current Lean vocabulary does not yet contain Specht modules or restriction
-functors.  The statements below therefore record the numerical shadow of that
-restriction theorem that the rest of the scaffold can currently use.
+functors.  The statements below record the scalar bound needed by the rest of
+the scaffold, and this scalar consequence is proved from the finite certificate
+bounds already formalized.
 -/
 
 noncomputable section
@@ -29,16 +39,16 @@ def MatchingRestrictionOddInput (m : ℕ) : Prop :=
   ∀ lam : YoungDiagram (2 * m + 1),
     0 ≤ hOdd m lam ∧ hOdd m lam ≤ youngDim lam
 
-/-- Standard Specht/Pieri-Littlewood-Richardson input for even matching
-subgroups. -/
+/-- Scalar consequence for even matching subgroups. -/
 theorem matchingRestriction_even_specht_pieri_input (m : ℕ) :
     MatchingRestrictionEvenInput m := by
-  sorry
+  intro lam
+  exact ⟨hEven_nonneg m lam, hEven_le_youngDim m lam⟩
 
-/-- Standard Specht/Pieri-Littlewood-Richardson input for odd matching
-subgroups, with the one unmatched point handled by ordinary branching. -/
+/-- Scalar consequence for odd matching subgroups. -/
 theorem matchingRestriction_odd_specht_pieri_input (m : ℕ) :
     MatchingRestrictionOddInput m := by
-  sorry
+  intro lam
+  exact ⟨hOdd_nonneg m lam, hOdd_le_youngDim m lam⟩
 
 end DictatorshipTesting

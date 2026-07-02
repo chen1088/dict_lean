@@ -1,11 +1,11 @@
 import DictatorshipTesting.Paper.Aux_MatchingLocalDegreeOneLinear
-import DictatorshipTesting.Paper.L4_5_PMFixesLocal
-import DictatorshipTesting.Paper.L4_8_TijLocalDegree
+import DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal
+import DictatorshipTesting.Paper.S04_Lem4_08_TijLocalDegree
 
 /-!
 # Corollary 4.9: `U_1` is contained in every local degree-one space
 
-This is `cor:U1-local` from `soda27authors_section5_rethought.tex`.
+This is `cor:U1-local` from `dictatorship_testing_soda27_latest.tex`.
 -/
 
 namespace DictatorshipTesting

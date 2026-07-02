@@ -1,5 +1,5 @@
 import DictatorshipTesting.Paper.Aux_CubeLowDegreeOnePart
-import DictatorshipTesting.Paper.L2_3_CubeParsevalIdentity
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 
 /-!
 # Error of the degree-at-most-one cube projection

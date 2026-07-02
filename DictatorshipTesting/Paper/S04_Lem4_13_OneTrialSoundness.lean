@@ -1,11 +1,11 @@
 import DictatorshipTesting.Paper.Aux_OneTrialRejectProbabilityLowerBound
-import DictatorshipTesting.Paper.Prop4_12_SquareEnergyControlsGlobalDegree
-import DictatorshipTesting.Paper.Thm2_2_FKNInput
+import DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree
+import DictatorshipTesting.Paper.S02_Thm2_02_FKNStability
 
 /-!
 # Lemma 4.13: One-trial soundness
 
-This is `lem:one-trial-soundness` from `soda27authors_section5_rethought.tex`.
+This is `lem:one-trial-soundness` from `dictatorship_testing_soda27_latest.tex`.
 -/
 
 namespace DictatorshipTesting
@@ -22,7 +22,7 @@ theorem L4_13_OneTrialSoundness :
     have hFKN_nf :
         cFKN * (distToDictators f) ^ (2 : ℕ) ≤
           l2DistSqToU1 (boolFnToReal f) :=
-      hFKN n f
+      hFKN n hn f
     have hsquare :
         (16 / 27 : ℝ) * l2DistSqToU1 (boolFnToReal f) ≤
           oneTrialDeltaSqExpectation (boolFnToReal f) :=

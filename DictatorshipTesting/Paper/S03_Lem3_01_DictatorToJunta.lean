@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_OrderedMatchingTauDepends
 /-!
 # Lemma 3.1: Completeness on matching cubes
 
-This is `lem:dictator-to-junta` from `soda27authors_section5_rethought.tex`.
+This is `lem:dictator-to-junta` from `dictatorship_testing_soda27_latest.tex`.
 -/
 
 namespace DictatorshipTesting
