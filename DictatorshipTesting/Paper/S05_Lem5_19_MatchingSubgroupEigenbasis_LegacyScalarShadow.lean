@@ -1,10 +1,12 @@
-import DictatorshipTesting.Paper.S05_Lem5_14_OddHCertificate
+import DictatorshipTesting.Paper.S05_Lem5_36_OddHCertificate
 
 /-!
-Paper statement: Lemma 5.3 (`lem:matching-restriction-X`)
-Title in paper: Restriction to the matching subgroup.
+Paper statement: Lemma 5.19 (`lem:matching-restriction-X`)
+Title in paper: Matching subgroup eigenbasis.
 
-Status: the paper's Lemma 5.3 is the full Specht-module restriction statement
+Legacy scalar-shadow file for the rewritten Section 5 statement.
+
+Status: the paper's Lemma 5.19 is the full Specht-module restriction statement
 obtained from repeated Pieri/Littlewood--Richardson branching.  The current
 Lean file does not formalize Specht modules or restriction functors; it proves
 only the scalar/multiplicity shadow used downstream by the scaffold.

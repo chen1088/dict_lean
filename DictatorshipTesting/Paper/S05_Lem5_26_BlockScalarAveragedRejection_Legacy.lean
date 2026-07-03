@@ -1,8 +1,10 @@
 import DictatorshipTesting.Paper.Aux_CentralizationOverMatchings
 
 /-!
-Paper statement: Lemma 5.6 (`lem:centralization-matchings`)
-Title in paper: Centralization over matchings.
+Paper statement: Lemma 5.26 (`lem:centralization-matchings`)
+Title in paper: Block scalar of the averaged rejection.
+
+Legacy scalar-shadow file for the rewritten Section 5 statement.
 
 Status: finite-dimensional trace-divided-by-dimension algebra is proved in the
 helper imported here; the remaining Young-block scalarity belongs to the

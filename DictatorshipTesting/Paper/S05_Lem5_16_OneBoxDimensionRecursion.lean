@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Defs
 
 /-!
-Paper statement: Lemma 5.2 (`lem:dimension-one-box-recurrence`)
+Paper statement: Lemma 5.16 (`lem:dimension-one-box-recurrence`)
 Title in paper: One-box dimension recursion.
 
 Status: external representation-theoretic input in the current Lean
@@ -12,7 +12,7 @@ is available.
 -/
 
 /-!
-# Young-dimension one-box branching input
+# Young-dimension one-box branching input for Lemma 5.16
 
 This file isolates the dimension shadow of the ordinary one-box branching rule
 used in the odd Section 5 certificate.

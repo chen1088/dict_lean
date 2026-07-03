@@ -1,17 +1,17 @@
-import DictatorshipTesting.Paper.S05_Lem5_10_ZBoundCertificate
+import DictatorshipTesting.Paper.S05_Lem5_32_ZBoundCertificate
 
 /-!
-Paper statement: Lemma 5.12 (`lem:h-even-app`)
+Paper statement: Lemma 5.34 (`lem:h-even-app`)
 Title in paper: Even certificate.
 
 Status: finite Young-diagram certificate proved below, modulo the two-strip
-dimension recursion input and Lemma 5.10.
+dimension recursion input and Lemma 5.32.
 -/
 
 /-!
-# Finite induction input for Lemma 5.12
+# Finite induction input for Lemma 5.34
 
-The intended proof uses Lemma 5.10, the `hEven` recurrence, the dimension
+The intended proof uses Lemma 5.32, the `hEven` recurrence, the dimension
 recursion, and the exceptional level-two Young diagrams from Section 5.
 
 This is deliberately not bundled into the representation-theoretic bridge:

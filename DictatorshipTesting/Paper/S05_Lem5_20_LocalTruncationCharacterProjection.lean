@@ -2,8 +2,8 @@ import DictatorshipTesting.Paper.Aux_CubeLowDegreeError
 import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
 
 /-!
-Paper statement: Lemma 5.4 (`lem:PM-character-projection`)
-Title in paper: Local truncation as an A_M-character projection.
+Paper statement: Lemma 5.20 (`lem:PM-character-projection`)
+Title in paper: Local truncation on a matching character.
 
 Status: proved below by elementary matching-cube Fourier calculations.
 -/

@@ -1,7 +1,7 @@
-import DictatorshipTesting.Paper.S05_Lem5_01_TwoStripDimensionRecursion
+import DictatorshipTesting.Paper.S05_Lem5_15_TwoStripDimensionRecursion
 
 /-!
-Paper statement: Lemma 5.10 (`lem:z-bound-app`)
+Paper statement: Lemma 5.32 (`lem:z-bound-app`)
 Title in paper: Weight-zero entries are never a majority.
 
 Status: finite Young-diagram certificate proved below, modulo the two-strip
@@ -9,7 +9,7 @@ dimension recursion input.
 -/
 
 /-!
-# Finite induction input for Lemma 5.10
+# Finite induction input for Lemma 5.32
 
 The paper proves this by induction on `m`, using the horizontal two-strip
 recurrence, the dimension recursion, and two special families of diagrams.

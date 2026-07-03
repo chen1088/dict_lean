@@ -1,9 +1,12 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.S05_Lem5_06_CentralizationOverMatchings
+import DictatorshipTesting.Paper.S05_Lem5_26_BlockScalarAveragedRejection_Legacy
 
 /-!
-Paper statement: Lemma 5.8 (`lem:spectral-certificate`)
+Paper statement: Lemmas 5.28--5.30 (`lem:spectral-certificate-even`,
+`lem:spectral-certificate-odd`)
 Title in paper: Spectral bridge from the finite certificate.
+
+Legacy scalar-shadow file for the rewritten Section 5 statement.
 
 Status: the algebraic block-scalar implication is proved below.  The remaining
 inputs are exactly the representation-theoretic construction of Young-block

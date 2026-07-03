@@ -1,7 +1,7 @@
-import DictatorshipTesting.Paper.S05_Lem5_03_MatchingRestrictionPieri
+import DictatorshipTesting.Paper.S05_Lem5_19_MatchingSubgroupEigenbasis_LegacyScalarShadow
 
 /-!
-Paper statement: Lemma 5.5 (`lem:PM-trace-young-block`)
+Paper statement: Lemma 5.21 (`lem:PM-trace-young-block`)
 Title in paper: Trace of one local truncation on one Young block.
 
 Status: derived from the matching-restriction input and finite scalar

@@ -1,18 +1,18 @@
-import DictatorshipTesting.Paper.S05_Lem5_12_EvenHCertificate
-import DictatorshipTesting.Paper.S05_Lem5_02_OneBoxDimensionRecursion
+import DictatorshipTesting.Paper.S05_Lem5_34_EvenHCertificate
+import DictatorshipTesting.Paper.S05_Lem5_16_OneBoxDimensionRecursion
 
 /-!
-Paper statement: Lemma 5.14 (`lem:h-odd-app`)
+Paper statement: Lemma 5.36 (`lem:h-odd-app`)
 Title in paper: Odd certificate.
 
 Status: finite Young-diagram certificate proved below, modulo the one-box
-dimension recursion input and Lemma 5.12.
+dimension recursion input and Lemma 5.34.
 -/
 
 /-!
-# Finite induction input for Lemma 5.14
+# Finite induction input for Lemma 5.36
 
-The intended proof branches once to even diagrams, applies Lemma 5.12 to the
+The intended proof branches once to even diagrams, applies Lemma 5.34 to the
 non-exceptional children, and handles the two level-two odd shapes explicitly.
 
 The statement is phrased only in terms of the concrete finite model in
