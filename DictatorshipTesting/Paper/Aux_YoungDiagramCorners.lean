@@ -148,6 +148,21 @@ theorem exists_unique_row_of_oneBoxChild
         simp [youngRow, hmu_not_lt]
       rw [hlam_zero, hmu_zero]
 
+/-- For a one-box child `mu` of `lam`, the changed row is unique. -/
+theorem existsUnique_row_of_oneBoxChild
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) :
+    ∃! r : Nat,
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
+  rcases exists_unique_row_of_oneBoxChild h with ⟨r, hr_eq, hr_other⟩
+  refine ⟨r, ⟨hr_eq, hr_other⟩, ?_⟩
+  intro t ht
+  by_contra htr
+  have h_eq_from_t : youngRow lam r = youngRow mu r :=
+    ht.2 r (Ne.symm htr)
+  omega
+
 /-- In a one-box child, the changed row is removable in the parent. -/
 theorem isRemovableRow_of_oneBoxChild_row
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}

@@ -22,4 +22,14 @@ theorem S05_oneBox_row_form
       forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
   exact exists_unique_row_of_oneBoxChild h
 
+/-- Paper lemma `lem:one-box-row-form`, uniqueness version: a one-box child
+differs from its parent in a unique row. -/
+theorem S05_oneBox_row_form_unique
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) :
+    ∃! r : Nat,
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
+  exact existsUnique_row_of_oneBoxChild h
+
 end DictatorshipTesting
