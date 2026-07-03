@@ -461,7 +461,7 @@ theorem verticalTwoStripChildrenEven_oneRowDiagram
     simp at hmu
 
 /-- The one-row Specht dimension is one, for even sizes. -/
-theorem youngDim_oneRowDiagram_even (m : ℕ) :
+theorem youngDim_oneRowDiagram_even [TwoStripDimensionBranchingAssumption] (m : ℕ) :
     youngDim (oneRowDiagram (2 * m)) = 1 := by
   induction m with
   | zero =>
@@ -1177,7 +1177,8 @@ theorem verticalTwoStripChildrenEven_standardDiagramEven
     simp [oneRowDiagram_verticalChild_standardDiagramEven m hm]
 
 /-- Dimension formula for the canonical standard shape. -/
-theorem youngDim_standardDiagramEven_formula (m : ℕ) (hm : 1 ≤ m) :
+theorem youngDim_standardDiagramEven_formula
+    [TwoStripDimensionBranchingAssumption] (m : ℕ) (hm : 1 ≤ m) :
     youngDim (standardDiagramEven m hm) = 2 * (m : ℝ) - 1 := by
   induction m with
   | zero =>
@@ -1666,6 +1667,7 @@ theorem verticalTwoStripChildrenEven_twoRowTwoDiagramEven
 
 /-- Dimension formula for the canonical two-row exception. -/
 theorem youngDim_twoRowTwoDiagramEven_formula
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m) :
     youngDim (twoRowTwoDiagramEven m hm) =
       (m : ℝ) * (2 * (m : ℝ) - 3) := by
@@ -1783,7 +1785,8 @@ theorem youngDim_twoRowTwoDiagramEven_formula
               ring_nf
 
 /-- Two-strip dimension recursion, as supplied by the branching input. -/
-theorem youngDim_twoStrip_recurrence (m : ℕ) (hm : 2 ≤ m)
+theorem youngDim_twoStrip_recurrence
+    [TwoStripDimensionBranchingAssumption] (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m)) :
     youngDim lam =
       (horizontalTwoStripChildrenEven m lam).sum (fun mu => youngDim mu) +
@@ -1792,7 +1795,8 @@ theorem youngDim_twoStrip_recurrence (m : ℕ) (hm : 2 ≤ m)
 
 /-- The horizontal part of the two-strip dimension recursion is bounded by the
 full dimension. -/
-theorem youngDim_horizontalChildren_sum_le (m : ℕ) (hm : 2 ≤ m)
+theorem youngDim_horizontalChildren_sum_le
+    [TwoStripDimensionBranchingAssumption] (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m)) :
     (horizontalTwoStripChildrenEven m lam).sum (fun mu => youngDim mu) ≤
       youngDim lam := by
@@ -1874,6 +1878,7 @@ theorem zEven_standard_shape_formula
 
 /-- Hook-length dimension formula for the standard shape `(2m-1,1)`. -/
 theorem youngDim_standard_shape_formula
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m))
     (hstd : IsStandard lam) :
     youngDim lam = 2 * (m : ℝ) - 1 := by
@@ -1890,6 +1895,7 @@ theorem zEven_twoRowTwoException_formula
 
 /-- Hook-length dimension formula for the two-row exception `(2m-2,2)`. -/
 theorem youngDim_twoRowTwoException_formula
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m))
     (htwo : IsTwoRowTwoException m lam) :
     youngDim lam = (m : ℝ) * (2 * (m : ℝ) - 3) := by
@@ -1903,6 +1909,7 @@ classifies it as one of the two explicit families `(2m-1,1)` or `(2m-2,2)`
 and checks the hook-length formulas directly.  That finite classification and
 calculation is isolated here. -/
 theorem zEven_le_half_youngDim_of_hasOneRowHorizontalChild
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) (hchild : HasOneRowHorizontalChild m lam) :
     zEven m lam ≤ (1 / 2 : ℝ) * youngDim lam := by
@@ -1920,6 +1927,7 @@ theorem zEven_le_half_youngDim_of_hasOneRowHorizontalChild
 /-- Generic induction step for the `zEven` bound, away from the one-row-child
 exceptions. -/
 theorem zEven_le_half_youngDim_of_noOneRowHorizontalChild
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m))
     (ih :
       ∀ mu : YoungDiagram (2 * (m - 1)),
@@ -1956,6 +1964,7 @@ theorem zEven_le_half_youngDim_of_noOneRowHorizontalChild
 
 /-- Finite Young-diagram induction behind Lemma 5.10. -/
 theorem zEven_le_half_youngDim_of_not_oneRow_finite_induction
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (lam : YoungDiagram (2 * m)) (hrow : ¬ IsOneRow lam) :
     zEven m lam ≤ (1 / 2 : ℝ) * youngDim lam := by
   induction m with
@@ -1977,13 +1986,15 @@ theorem zEven_le_half_youngDim_of_not_oneRow_finite_induction
 
 /-- Lemma 5.10, `lem:z-bound-app`: weight-zero entries are never a majority.
 This preserves the old theorem name `L5_4_ZBoundApp`. -/
-theorem L5_4_ZBoundApp (m : ℕ) (lam : YoungDiagram (2 * m))
+theorem L5_4_ZBoundApp [TwoStripDimensionBranchingAssumption]
+    (m : ℕ) (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) :
     zEven m lam ≤ (1 / 2 : ℝ) * youngDim lam := by
   exact zEven_le_half_youngDim_of_not_oneRow_finite_induction m lam hrow
 
 /-- The zero-weight count is always bounded by the full Young dimension. -/
-theorem zEven_le_youngDim (m : ℕ) (lam : YoungDiagram (2 * m)) :
+theorem zEven_le_youngDim [TwoStripDimensionBranchingAssumption]
+    (m : ℕ) (lam : YoungDiagram (2 * m)) :
     zEven m lam ≤ youngDim lam := by
   by_cases hrow : IsOneRow lam
   · rw [eq_oneRowDiagram_of_isOneRow lam hrow]

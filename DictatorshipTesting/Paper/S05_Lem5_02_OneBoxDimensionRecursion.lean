@@ -338,15 +338,35 @@ theorem youngDim_oneBox_branching_one
     rw [oneBoxChildrenOdd_colThree lam hrow_all]
     simp [youngDim_colTwoDiagram]
 
+/-- Explicit assumption class for the dimension shadow of the ordinary one-box
+branching rule in the remaining `2 <= m` range. -/
+class OneBoxDimensionBranchingPositiveAssumption : Prop where
+  branch : ∀ (m : ℕ), 2 ≤ m → ∀ lam : YoungDiagram (2 * m + 1),
+    youngDim lam = (oneBoxChildrenOdd m lam).sum (fun mu => youngDim mu)
+
+/-- External ordinary Specht branching input.
+
+Reference: the ordinary branching rule for Specht modules, e.g. Sagan,
+*The Symmetric Group*, Section 2.8, or James--Kerber, *The Representation
+Theory of the Symmetric Group*. The rule says that restricting `S^lambda` from
+`S_N` to `S_{N-1}` decomposes over all removable-corner deletions. Taking
+dimensions gives this one-box recursion. -/
+axiom oneBoxDimensionBranchingPositiveAssumption_from_specht_branching :
+  OneBoxDimensionBranchingPositiveAssumption
+
+attribute [instance] oneBoxDimensionBranchingPositiveAssumption_from_specht_branching
+
 /-- Dimension shadow of the ordinary one-box branching rule in the remaining
-`2 <= m` range. -/
-theorem youngDim_oneBox_branching_positive_input (m : ℕ) (hm : 2 ≤ m)
+`2 <= m` range, available from the explicit assumption class. -/
+theorem youngDim_oneBox_branching_positive_input
+    [OneBoxDimensionBranchingPositiveAssumption] (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m + 1)) :
     youngDim lam = (oneBoxChildrenOdd m lam).sum (fun mu => youngDim mu) := by
-  sorry
+  exact OneBoxDimensionBranchingPositiveAssumption.branch m hm lam
 
 /-- Dimension shadow of the ordinary one-box branching rule. -/
-theorem youngDim_oneBox_branching_input (m : ℕ)
+theorem youngDim_oneBox_branching_input
+    [OneBoxDimensionBranchingPositiveAssumption] (m : ℕ)
     (lam : YoungDiagram (2 * m + 1)) :
     youngDim lam = (oneBoxChildrenOdd m lam).sum (fun mu => youngDim mu) := by
   by_cases hm0 : m = 0

@@ -11,11 +11,9 @@ This is `thm:matching-gap` from `dictatorship_testing_soda27_latest.tex`.
 
 namespace DictatorshipTesting
 
-/-- Theorem 4.10, `thm:matching-gap`, conditional on the Section 5 spectral
-block model families: matching-cube spectral gap. -/
+/-- Theorem 4.10, `thm:matching-gap`: matching-cube spectral gap, using the
+named external Specht/Pieri/Schur inputs in Section 5. -/
 theorem Thm4_10_MatchingGap
-    (hevenModel : EvenSpectralBlockModelFamily)
-    (hoddModel : OddSpectralBlockModelFamily)
     (n : ℕ) (hn : 4 ≤ n)
     (F : Perm (Fin n) → ℝ) :
     (1 / 6 : ℝ) * l2DistSqToU1 F ≤ matchingMeanProjectionError F ∧
@@ -25,7 +23,8 @@ theorem Thm4_10_MatchingGap
     have hm : 2 ≤ m := by omega
     have hgap15 : MatchingSpectralGapConstant (2 * m) (1 / 5 : ℝ) := by
       exact matchingSpectralGap_of_even_young_certificate
-        m hm (1 / 5 : ℝ) (hevenModel m hm)
+        m hm (1 / 5 : ℝ)
+        (evenSpectralBlockModelFamily_from_specht_pieri_schur m hm)
         (by norm_num)
         (by
           intro lam hrow hstd
@@ -43,7 +42,8 @@ theorem Thm4_10_MatchingGap
     have hm : 2 ≤ m := by omega
     have hgap16 : MatchingSpectralGapConstant (2 * m + 1) (1 / 6 : ℝ) := by
       exact matchingSpectralGap_of_odd_young_certificate
-        m hm (1 / 6 : ℝ) (hoddModel m hm)
+        m hm (1 / 6 : ℝ)
+        (oddSpectralBlockModelFamily_from_specht_pieri_schur m hm)
         (by norm_num)
         (by
           intro lam hrow hstd

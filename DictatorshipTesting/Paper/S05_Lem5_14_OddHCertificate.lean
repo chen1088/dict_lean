@@ -435,6 +435,7 @@ theorem oneBoxChildrenOdd_twoRowOneOneDiagramOdd
 
 /-- Formula for `hOdd` on the canonical odd exception `(2m-1,2)`. -/
 theorem hOdd_twoRowTwoDiagramOdd_formula
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m) :
     hOdd m (twoRowTwoDiagramOdd m hm) =
       (m : ℝ) * ((m : ℝ) - 1) / 2 := by
@@ -459,6 +460,8 @@ theorem hOdd_twoRowTwoDiagramOdd_formula
 
 /-- Dimension formula for the canonical odd exception `(2m-1,2)`. -/
 theorem youngDim_twoRowTwoDiagramOdd_formula
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption]
     (m : ℕ) (hm : 2 ≤ m) :
     youngDim (twoRowTwoDiagramOdd m hm) =
       (2 * (m : ℝ) + 1) * ((m : ℝ) - 1) := by
@@ -484,6 +487,7 @@ theorem youngDim_twoRowTwoDiagramOdd_formula
 
 /-- Formula for `hOdd` on the canonical odd exception `(2m-1,1,1)`. -/
 theorem hOdd_twoRowOneOneDiagramOdd_formula
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m) :
     hOdd m (twoRowOneOneDiagramOdd m hm) =
       (m : ℝ) * ((m : ℝ) - 1) / 2 := by
@@ -510,6 +514,8 @@ theorem hOdd_twoRowOneOneDiagramOdd_formula
 
 /-- Dimension formula for the canonical odd exception `(2m-1,1,1)`. -/
 theorem youngDim_twoRowOneOneDiagramOdd_formula
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption]
     (m : ℕ) (hm : 2 ≤ m) :
     youngDim (twoRowOneOneDiagramOdd m hm) =
       (m : ℝ) * (2 * (m : ℝ) - 1) := by
@@ -537,6 +543,8 @@ theorem youngDim_twoRowOneOneDiagramOdd_formula
 
 /-- Exceptional odd case `(2m-1,2)`. -/
 theorem hOdd_ge_one_sixth_youngDim_twoRowTwoOddException
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption]
     (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m + 1))
     (hshape : IsOddTwoRowTwoException m lam) :
     (1 / 6 : ℝ) * youngDim lam ≤ hOdd m lam := by
@@ -548,6 +556,8 @@ theorem hOdd_ge_one_sixth_youngDim_twoRowTwoOddException
 
 /-- Exceptional odd case `(2m-1,1,1)`. -/
 theorem hOdd_ge_one_sixth_youngDim_twoRowOneOneOddException
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption]
     (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m + 1))
     (hshape : IsOddTwoRowOneOneException m lam) :
     (1 / 6 : ℝ) * youngDim lam ≤ hOdd m lam := by
@@ -559,6 +569,8 @@ theorem hOdd_ge_one_sixth_youngDim_twoRowOneOneOddException
 
 /-- The two exceptional odd-shape checks bundled as a case split. -/
 theorem hOdd_ge_one_sixth_youngDim_odd_exceptional
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption]
     (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m + 1))
     (hex : IsOddHExceptional m lam) :
     (1 / 6 : ℝ) * youngDim lam ≤ hOdd m lam := by
@@ -647,6 +659,8 @@ theorem odd_bad_oneBoxChild_classification
 
 /-- Generic odd step, away from one-row and standard one-box children. -/
 theorem hOdd_ge_one_sixth_youngDim_of_no_bad_oneBoxChild
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption]
     (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m + 1))
     (hchild_row : ∀ mu ∈ oneBoxChildrenOdd m lam, ¬ IsOneRow mu)
@@ -667,6 +681,8 @@ theorem hOdd_ge_one_sixth_youngDim_of_no_bad_oneBoxChild
 
 /-- Finite Young-diagram induction behind Lemma 5.14. -/
 theorem hOdd_ge_one_sixth_youngDim_of_not_oneRow_not_standard_finite_induction
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption]
     (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m + 1))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
@@ -683,20 +699,27 @@ theorem hOdd_ge_one_sixth_youngDim_of_not_oneRow_not_standard_finite_induction
       exact hbad (Or.inr ⟨mu, hmu, hstandard⟩)
 
 /-- The high-weight odd count is nonnegative. -/
-theorem hOdd_nonneg (m : ℕ) (lam : YoungDiagram (2 * m + 1)) :
+theorem hOdd_nonneg [TwoStripDimensionBranchingAssumption]
+    (m : ℕ) (lam : YoungDiagram (2 * m + 1)) :
     0 ≤ hOdd m lam := by
   rw [hOdd]
   exact Finset.sum_nonneg (fun mu _hmu => hEven_nonneg m mu)
 
 /-- The high-weight odd count is bounded by the full Young dimension. -/
-theorem hOdd_le_youngDim (m : ℕ) (lam : YoungDiagram (2 * m + 1)) :
+theorem hOdd_le_youngDim
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption]
+    (m : ℕ) (lam : YoungDiagram (2 * m + 1)) :
     hOdd m lam ≤ youngDim lam := by
   rw [hOdd, youngDim_oneBox_branching_input m lam]
   exact Finset.sum_le_sum (fun mu _hmu => hEven_le_youngDim m mu)
 
 /-- Lemma 5.14, `lem:h-odd-app`: odd certificate.  This preserves the old
 theorem name `L5_6_HOddApp`. -/
-theorem L5_6_HOddApp (m : ℕ) (hm : 2 ≤ m)
+theorem L5_6_HOddApp
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption]
+    (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m + 1))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
     (1 / 6 : ℝ) * youngDim lam ≤ hOdd m lam := by

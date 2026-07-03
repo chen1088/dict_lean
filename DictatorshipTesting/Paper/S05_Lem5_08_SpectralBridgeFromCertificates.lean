@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
+import DictatorshipTesting.Paper.S05_Lem5_06_CentralizationOverMatchings
 
 /-!
 Paper statement: Lemma 5.8 (`lem:spectral-certificate`)
@@ -92,15 +93,6 @@ theorem SpectralGapFromBlockScalars {n : ℕ} (c : ℝ)
   exact Finset.sum_le_sum (fun lam hlam => by
     exact mul_le_mul_of_nonneg_right (hscalar_lb lam hlam) (hdecomp lam))
 
-/-- Positivity of Young dimensions.
-
-This legacy theorem name is preserved for downstream files; the proof now uses
-the internal hook-length positivity theorem from
-`Aux_SpectralBridgeRepresentationInputs`. -/
-theorem youngDim_positive_from_specht_input (n : ℕ) :
-    YoungDimensionPositiveInput n := by
-  exact youngDim_positive_from_hookLength_input n
-
 /-- Even spectral model hypotheses for all sizes used downstream. -/
 def EvenSpectralBlockModelFamily : Prop :=
   ∀ m : ℕ, 2 ≤ m →
@@ -110,6 +102,49 @@ def EvenSpectralBlockModelFamily : Prop :=
 def OddSpectralBlockModelFamily : Prop :=
   ∀ m : ℕ, 2 ≤ m →
     SpectralBlockModelInput (fun lam : YoungDiagram (2 * m + 1) => hOdd m lam)
+
+/-- External even spectral-block model from standard representation theory.
+
+References:
+* regular representation decomposition and Specht classification, e.g. Sagan,
+  *The Symmetric Group*;
+* Littlewood--Richardson restriction of Specht modules to Young subgroups,
+  James--Kerber, *The Representation Theory of the Symmetric Group*, Section
+  2.8.13; Bowman--De Visscher--Orellana, arXiv:1210.5579, Theorem 1.1 quotes
+  this statement and notes that transitivity determines restriction to any
+  Young subgroup;
+* the two-strip Pieri specializations for the matching subgroup chain
+  `S_{2m} ⊃ S_{2m-2} × S_2 ⊃ ... ⊃ S_2^m`;
+* Schur's lemma for scalarity of the matching-averaged operator on each
+  regular Young block.
+
+This is the exact representation-theoretic bridge not formalized in Mathlib:
+it supplies the genuine Young-block energies, identifies the `U_1` blocks, and
+identifies the matching-average scalar as `hEven m lam / youngDim lam`. -/
+axiom spectralBlockModelInput_even_from_specht_pieri_schur
+    (m : ℕ) (hm : 2 ≤ m) :
+    SpectralBlockModelInput (fun lam : YoungDiagram (2 * m) => hEven m lam)
+
+/-- External odd spectral-block model from the same representation-theoretic
+inputs as the even case, with one initial ordinary Specht branching step from
+`S_{2m+1}` to `S_{2m} × S_1`. -/
+axiom spectralBlockModelInput_odd_from_specht_pieri_schur
+    (m : ℕ) (hm : 2 ≤ m) :
+    SpectralBlockModelInput (fun lam : YoungDiagram (2 * m + 1) => hOdd m lam)
+
+/-- Bundled even spectral-block model family supplied by the external
+Specht/Pieri/Schur input. -/
+theorem evenSpectralBlockModelFamily_from_specht_pieri_schur :
+    EvenSpectralBlockModelFamily := by
+  intro m hm
+  exact spectralBlockModelInput_even_from_specht_pieri_schur m hm
+
+/-- Bundled odd spectral-block model family supplied by the external
+Specht/Pieri/Schur input. -/
+theorem oddSpectralBlockModelFamily_from_specht_pieri_schur :
+    OddSpectralBlockModelFamily := by
+  intro m hm
+  exact spectralBlockModelInput_odd_from_specht_pieri_schur m hm
 
 /-- Even spectral bridge: the representation-theoretic block model plus finite
 Young-diagram certificates imply the matching spectral gap on `S_{2m}`. -/

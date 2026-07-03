@@ -6,9 +6,9 @@ precise external theorem or a precise internal theorem still intended for Lean.
 
 Current classification:
 
-- External standard inputs: Section 2 structural/stability theorems, Specht
-  dimension branching, and the representation-theoretic pieces of the Section 5
-  spectral bridge.
+- External standard inputs: Section 2 structural/stability theorems, explicit
+  Specht dimension-branching hypotheses, and the representation-theoretic
+  pieces of the Section 5 spectral bridge.
 - Internal finite certificates: Lemmas 5.10, 5.12, and 5.14 are proved in Lean
   modulo the dimension branching inputs.
 - Internal open finite certificates: none currently listed.
@@ -33,8 +33,8 @@ classification theorem for Boolean degree-one functions on the symmetric group.
 The small cases `n = 1, 2` and the converse direction are proved directly in
 Lean.
 
-Citation target if external: Ellis--Friedgut--Pilpel / Filmus, especially
-Filmus Theorem 2.8.
+Citation target if external: Filmus, *Boolean functions on `S_n` which are
+nearly linear*, Discrete Analysis 2021:25, Theorem 2.8.
 
 Downstream dependencies: `Thm2_1_BooleanU1`, perfect completeness and final
 dictatorship-testing theorem statements.
@@ -56,10 +56,14 @@ constant `cFKN` such that distance to dictators is controlled by distance to
 Why it is external or why it should be proven: this is a literature theorem,
 not part of the finite Section 5 certificate.
 
-Citation target if external: Filmus's FKN theorem on `S_n`, especially the
-balanced theorem implying the stated corollary.
+Citation target if external: Filmus, *Boolean functions on `S_n` which are
+nearly linear*, Discrete Analysis 2021:25, Theorem 1.5, together with the
+Boolean linear classification in Theorem 2.8 and the standard balanced-case
+reduction recorded in the paper.
 
 Downstream dependencies: one-trial soundness and the main theorem.
+
+## Paper-Level Obligations Without a Current `sorry`
 
 ### Lemma 5.1 Two-Strip Dimension Branching
 
@@ -67,9 +71,11 @@ Paper statement: Lemma 5.1 (`lem:dimension-two-strip-recurrence`).
 
 Lean file: `DictatorshipTesting/Paper/S05_Lem5_01_TwoStripDimensionRecursion.lean`
 
-Lean theorem name: `youngDim_twoStrip_branching_input`
+Lean names: `twoStripDimensionBranchingAssumption_from_specht_pieri`,
+`TwoStripDimensionBranchingAssumption`,
+`youngDim_twoStrip_branching_input`.
 
-Current status: external input.
+Current status: named external axiom/instance, not a `sorry` declaration.
 
 Mathematical content: for `lambda |- 2m`, the Young dimension satisfies the
 two-strip recursion
@@ -81,11 +87,13 @@ Specht-module restriction via the two-strip Pieri/Littlewood--Richardson rule.
 It should become internal only after a formal Specht-module/branching library is
 available.
 
-Citation target if external: standard Specht-module branching and
-Pieri/Littlewood--Richardson rule, e.g. Sagan or James--Kerber.
+Citation target if external: James--Kerber, *The Representation Theory of the
+Symmetric Group*, Section 2.8.13; Bowman--De Visscher--Orellana,
+arXiv:1210.5579, Theorem 1.1 and the paragraph following it; Sagan,
+*The Symmetric Group*, for the Pieri/Littlewood--Richardson background.
 
 Downstream dependencies: finite certificates `L5_4_ZBoundApp` and
-`L5_5_HEvenApp`.
+`L5_5_HEvenApp`, which now carry `[TwoStripDimensionBranchingAssumption]`.
 
 ### Lemma 5.2 One-Box Dimension Branching
 
@@ -93,24 +101,27 @@ Paper statement: Lemma 5.2 (`lem:dimension-one-box-recurrence`).
 
 Lean file: `DictatorshipTesting/Paper/S05_Lem5_02_OneBoxDimensionRecursion.lean`
 
-Lean theorem name: `youngDim_oneBox_branching_positive_input`
+Lean names:
+`oneBoxDimensionBranchingPositiveAssumption_from_specht_branching`,
+`OneBoxDimensionBranchingPositiveAssumption`,
+`youngDim_oneBox_branching_positive_input`,
+`youngDim_oneBox_branching_input`.
 
-Current status: external input for `2 <= m`; the `m = 0` and `m = 1` cases are
-proved directly.
+Current status: named external axiom/instance for `2 <= m`, not a `sorry`
+declaration.  The `m = 0` and `m = 1` cases are proved directly.
 
 Mathematical content: for `lambda |- 2m+1`, the Young dimension is the sum of
-the dimensions of the one-box children.
+the dimensions of its one-box children.
 
 Why it is external or why it should be proven: this is the ordinary branching
 rule for Specht modules.  The remaining positive-range proof needs formal
 Specht-module infrastructure.
 
-Citation target if external: ordinary Specht-module branching rule, e.g. Sagan
-or James--Kerber.
+Citation target if external: ordinary Specht-module branching rule, e.g. Sagan,
+*The Symmetric Group*, Section 2.8, or James--Kerber.
 
-Downstream dependencies: finite certificate `L5_6_HOddApp`.
-
-## Paper-Level Obligations Without a Current `sorry`
+Downstream dependencies: finite certificate `L5_6_HOddApp`, which now carries
+`[OneBoxDimensionBranchingPositiveAssumption]`.
 
 ### Lemma 5.8 Spectral Block Model Families
 
@@ -119,10 +130,12 @@ matching-average scalarity, and trace/scalar value.
 
 Lean file: `DictatorshipTesting/Paper/S05_Lem5_08_SpectralBridgeFromCertificates.lean`
 
-Lean names: `SpectralBlockModelInput`, `EvenSpectralBlockModelFamily`,
+Lean names: `spectralBlockModelInput_even_from_specht_pieri_schur`,
+`spectralBlockModelInput_odd_from_specht_pieri_schur`,
+`SpectralBlockModelInput`, `EvenSpectralBlockModelFamily`,
 `OddSpectralBlockModelFamily`.
 
-Current status: explicit theorem hypotheses, not `sorry` declarations.
+Current status: named external axioms, not `sorry` declarations.
 
 Mathematical content: the regular representation decomposes `F` into
 nonnegative Young-block energies whose non-`U_1` sum is `l2DistSqToU1 F`;
@@ -130,20 +143,25 @@ Schur's lemma gives matching-average scalars on those blocks; and the scalar
 trace formula identifies those scalars as `hEven m lambda / d_lambda` in the
 even case and `hOdd m lambda / d_lambda` in the odd case.
 
-Why it is external or why it should be proven: hook/dimension positivity and
-trace division are formalized, but the actual Young-block decomposition of
-`L^2(S_n)`, compatibility of those energies with `U_1`, scalarity of the
-matching-average operator, and the trace/scalar identification require the
-unformalized Specht-block model, conjugation-invariance argument, Schur's
-lemma, and matching-restriction theorem.
+Why it is external or why it should be proven: the finite weighted-sum
+comparison and trace-divided-by-dimension algebra are formalized, but the
+actual Young-block decomposition of `L^2(S_n)`, compatibility of those energies
+with `U_1`, scalarity of the matching-average operator, Young-dimension
+positivity inside the spectral model, and the trace/scalar identification
+require the unformalized Specht-block model, conjugation-invariance argument,
+Schur's lemma, and matching-restriction theorem.
 
-Citation target if external: local trace computation plus Schur's lemma and
-the Specht/Pieri matching-restriction statement.
+Citation target if external: regular representation/Specht decomposition and
+Schur's lemma from standard finite-group representation theory; the
+Littlewood--Richardson restriction theorem for Specht modules to Young
+subgroups from James--Kerber, Section 2.8.13, as quoted in
+Bowman--De Visscher--Orellana, arXiv:1210.5579, Theorem 1.1 and the paragraph
+following it; Pieri special cases for the two-strip matching-subgroup chain.
 
 Downstream dependencies: `L5_2_SpectralCertificate`,
 `Thm4_10_MatchingGap`, `Prop4_12_SquareEnergyControlsGlobalDegree`,
-`L4_13_OneTrialSoundness`, and `Thm1_1_MainIntro`, which are now conditional
-on the even and odd spectral block model families.
+`L4_13_OneTrialSoundness`, and `Thm1_1_MainIntro`, which now use the named
+external spectral block model axioms directly.
 
 ### Lemma 5.3 Full Matching-Restriction/Pieri Statement
 
@@ -184,26 +202,16 @@ Downstream dependencies: the trace/scalar-value inputs in Lemma 5.8.
   `blockScalar_lower_bound_of_traceScalarFormula`,
   `traceScalarValue_of_blockTraceIdentity`,
   `matchingAverageScalarModel_of_blockTraceModel`,
-  `evenBlockTraceIdentity_from_local_trace_input`,
-  `oddBlockTraceIdentity_from_local_trace_input`,
-  `evenTraceScalarValue_from_trace_input`,
-  `oddTraceScalarValue_from_trace_input`,
   `SpectralGapFromBlockScalars`,
+  `evenSpectralBlockModelFamily_from_specht_pieri_schur`,
+  `oddSpectralBlockModelFamily_from_specht_pieri_schur`,
   `EvenSpectralGapFromCertificates`,
   `OddSpectralGapFromCertificates`,
   `matchingSpectralGap_of_even_young_certificate`,
   `matchingSpectralGap_of_odd_young_certificate`, and
   `L5_2_SpectralCertificate` are proved from the explicit inputs above.
-- `Aux_SpectralBridgeRepresentationInputs.lean`: `youngHookLength_pos_of_mem`,
-  `youngHookProduct_pos`, `youngCells_card`,
-  `youngHookProduct_le_factorial_input`, and
-  `youngDimNat_positive_hookLength_input` are proved internally.  The
-  hook-product proof bounds each hook by its row-major upper cell tail and then
-  multiplies the tail sizes to get `n!`.
-- `Aux_SpectralBridgeRepresentationInputs.lean` also proves
-  `youngDim_positive_from_hookLength_input`,
-  `blockTraceIdentity_of_height_div_youngDim`, and
-  `blockTraceIdentity_of_traceScalarValue`.
+- `Aux_SpectralBridgeRepresentationInputs.lean`: compact interface definitions
+  for the spectral-block model used by Lemma 5.8.
 - `S05_Lem5_10_ZBoundCertificate.lean`: finite `zEven` certificate, proved
   modulo Lemma 5.1.
 - `S05_Lem5_12_EvenHCertificate.lean`: finite `hEven` certificate, proved

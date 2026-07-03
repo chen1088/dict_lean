@@ -2201,6 +2201,7 @@ Horizontal children are handled by the induction hypothesis.  Vertical children
 are handled by the proven `zEven ≤ d/2` bound, which gives the stronger
 contribution `d - z ≥ d/2 ≥ d/5`. -/
 theorem hEven_ge_one_fifth_youngDim_generic_step
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m))
     (ih :
       ∀ mu : YoungDiagram (2 * (m - 1)),
@@ -2342,7 +2343,8 @@ theorem verticalTwoStripChildrenEven_standardDiagramEven_one :
       twoRowDiagram, oneRowDiagram, youngRow]
 
 /-- The standard shape has no high local character weight. -/
-theorem hEven_standardDiagramEven_formula (m : ℕ) (hm : 1 ≤ m) :
+theorem hEven_standardDiagramEven_formula
+    [TwoStripDimensionBranchingAssumption] (m : ℕ) (hm : 1 ≤ m) :
     hEven m (standardDiagramEven m hm) = 0 := by
   induction m with
   | zero =>
@@ -2431,7 +2433,8 @@ theorem hEven_standardDiagramEven_formula (m : ℕ) (hm : 1 ≤ m) :
             exact hba hmem.symm
 
 /-- The high-weight even count is nonnegative. -/
-theorem hEven_nonneg (m : ℕ) (lam : YoungDiagram (2 * m)) :
+theorem hEven_nonneg [TwoStripDimensionBranchingAssumption]
+    (m : ℕ) (lam : YoungDiagram (2 * m)) :
     0 ≤ hEven m lam := by
   induction m with
   | zero =>
@@ -2467,7 +2470,8 @@ theorem isStandard_of_not_isOneRow_size_two
   exact ⟨by omega, by omega, h1⟩
 
 /-- Base case for the upper bound on `hEven`. -/
-theorem hEven_le_youngDim_m_one (lam : YoungDiagram (2 * 1)) :
+theorem hEven_le_youngDim_m_one [TwoStripDimensionBranchingAssumption]
+    (lam : YoungDiagram (2 * 1)) :
     hEven 1 lam ≤ youngDim lam := by
   by_cases hrow : IsOneRow lam
   · rw [eq_oneRowDiagram_of_isOneRow lam hrow]
@@ -2479,7 +2483,8 @@ theorem hEven_le_youngDim_m_one (lam : YoungDiagram (2 * 1)) :
     exact youngDim_nonneg _
 
 /-- The high-weight even count is bounded by the full Young dimension. -/
-theorem hEven_le_youngDim (m : ℕ) (lam : YoungDiagram (2 * m)) :
+theorem hEven_le_youngDim [TwoStripDimensionBranchingAssumption]
+    (m : ℕ) (lam : YoungDiagram (2 * m)) :
     hEven m lam ≤ youngDim lam := by
   induction m with
   | zero =>
@@ -2510,6 +2515,7 @@ theorem hEven_le_youngDim (m : ℕ) (lam : YoungDiagram (2 * m)) :
 
 /-- Formula for `hEven` on the canonical three-row exception `(2m-2,1,1)`. -/
 theorem hEven_twoRowOneOneDiagramEven_formula
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m) :
     hEven m (twoRowOneOneDiagramEven m hm) =
       (m : ℝ) * ((m : ℝ) - 1) / 2 := by
@@ -2693,6 +2699,7 @@ theorem hEven_twoRowOneOneDiagramEven_formula
 
 /-- Dimension formula for the canonical three-row exception `(2m-2,1,1)`. -/
 theorem youngDim_twoRowOneOneDiagramEven_formula
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m) :
     youngDim (twoRowOneOneDiagramEven m hm) =
       (2 * (m : ℝ) - 1) * ((m : ℝ) - 1) := by
@@ -3004,7 +3011,7 @@ theorem youngDim_fourColumnDiagramFour :
   norm_num [youngDim, hnat]
 
 /-- The size-four column shape contributes one high-weight character. -/
-theorem hEven_fourColumnDiagramFour :
+theorem hEven_fourColumnDiagramFour [TwoStripDimensionBranchingAssumption] :
     hEven 2 fourColumnDiagramFour = 1 := by
   rw [hEven]
   rw [horizontalTwoStripChildrenEven_fourColumnDiagramFour]
@@ -3019,6 +3026,7 @@ theorem hEven_fourColumnDiagramFour :
 
 /-- Formula for `hEven` on the canonical two-row exception `(2m-2,2)`. -/
 theorem hEven_twoRowTwoDiagramEven_formula
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m) :
     hEven m (twoRowTwoDiagramEven m hm) =
       (m : ℝ) * ((m : ℝ) - 1) / 2 := by
@@ -3162,6 +3170,7 @@ theorem hEven_twoRowTwoDiagramEven_formula
 the non-one-row, nonstandard partitions of `4`: `(2,2)`, `(2,1,1)`, and
 `(1,1,1,1)`. -/
 theorem hEven_ge_one_fifth_youngDim_m_two
+    [TwoStripDimensionBranchingAssumption]
     (lam : YoungDiagram (2 * 2))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
     (1 / 5 : ℝ) * youngDim lam ≤ hEven 2 lam := by
@@ -3248,6 +3257,7 @@ theorem hEven_ge_one_fifth_youngDim_m_two
 
 /-- Exceptional case `(2m-2,2)`. -/
 theorem hEven_ge_one_fifth_youngDim_twoRowTwoException
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 3 ≤ m) (lam : YoungDiagram (2 * m))
     (hshape : IsTwoRowTwoException m lam) :
     (1 / 5 : ℝ) * youngDim lam ≤ hEven m lam := by
@@ -3259,6 +3269,7 @@ theorem hEven_ge_one_fifth_youngDim_twoRowTwoException
 
 /-- Exceptional case `(2m-2,1,1)`. -/
 theorem hEven_ge_one_fifth_youngDim_twoRowOneOneException
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 3 ≤ m) (lam : YoungDiagram (2 * m))
     (hshape : IsTwoRowOneOneException m lam) :
     (1 / 5 : ℝ) * youngDim lam ≤ hEven m lam := by
@@ -3270,6 +3281,7 @@ theorem hEven_ge_one_fifth_youngDim_twoRowOneOneException
 
 /-- Recursive exceptional check for the canonical shape `(2m-3,3)`. -/
 theorem hEven_ge_one_fifth_youngDim_twoRowThreeDiagramEven
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 3 ≤ m) :
     (1 / 5 : ℝ) * youngDim (twoRowThreeDiagramEven m hm) ≤
       hEven m (twoRowThreeDiagramEven m hm) := by
@@ -3430,6 +3442,7 @@ theorem hEven_ge_one_fifth_youngDim_twoRowThreeDiagramEven
 
 /-- Exceptional case `(2m-3,3)`. -/
 theorem hEven_ge_one_fifth_youngDim_twoRowThreeException
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 3 ≤ m) (lam : YoungDiagram (2 * m))
     (hshape : IsTwoRowThreeException m lam) :
     (1 / 5 : ℝ) * youngDim lam ≤ hEven m lam := by
@@ -3438,6 +3451,7 @@ theorem hEven_ge_one_fifth_youngDim_twoRowThreeException
 
 /-- Recursive exceptional check for the canonical shape `(2m-3,2,1)`. -/
 theorem hEven_ge_one_fifth_youngDim_threeRowTwoOneDiagramEven
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 3 ≤ m) :
     (1 / 5 : ℝ) * youngDim (threeRowTwoOneDiagramEven m hm) ≤
       hEven m (threeRowTwoOneDiagramEven m hm) := by
@@ -3807,6 +3821,7 @@ theorem hEven_ge_one_fifth_youngDim_threeRowTwoOneDiagramEven
 
 /-- Exceptional case `(2m-3,2,1)`. -/
 theorem hEven_ge_one_fifth_youngDim_threeRowTwoOneException
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 3 ≤ m) (lam : YoungDiagram (2 * m))
     (hshape : IsThreeRowTwoOneException m lam) :
     (1 / 5 : ℝ) * youngDim lam ≤ hEven m lam := by
@@ -3815,6 +3830,7 @@ theorem hEven_ge_one_fifth_youngDim_threeRowTwoOneException
 
 /-- The four exceptional-shape checks bundled as a usable case split. -/
 theorem hEven_ge_one_fifth_youngDim_even_exceptional
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 3 ≤ m) (lam : YoungDiagram (2 * m))
     (hex : IsEvenHExceptional m lam) :
     (1 / 5 : ℝ) * youngDim lam ≤ hEven m lam := by
@@ -3828,6 +3844,7 @@ theorem hEven_ge_one_fifth_youngDim_even_exceptional
 
 /-- Finite Young-diagram induction behind Lemma 5.12. -/
 theorem hEven_ge_one_fifth_youngDim_of_not_oneRow_not_standard_finite_induction
+    [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
@@ -3861,7 +3878,8 @@ theorem hEven_ge_one_fifth_youngDim_of_not_oneRow_not_standard_finite_induction
 
 /-- Lemma 5.12, `lem:h-even-app`: even certificate.  This preserves the old
 theorem name `L5_5_HEvenApp`. -/
-theorem L5_5_HEvenApp (m : ℕ) (hm : 2 ≤ m)
+theorem L5_5_HEvenApp [TwoStripDimensionBranchingAssumption]
+    (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
     (1 / 5 : ℝ) * youngDim lam ≤ hEven m lam := by

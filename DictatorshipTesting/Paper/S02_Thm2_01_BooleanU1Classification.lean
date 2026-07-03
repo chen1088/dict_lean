@@ -138,8 +138,13 @@ theorem isDictator_fin_two (f : BoolFn (Fin 2)) : IsDictator f := by
   exact congrArg f (perm_fin_two_eq_pswap_zero_apply_zero π)
 
 /-- External structural input behind the nontrivial direction of Theorem 2.1.
-The statement is restricted to `3 ≤ n`: `n = 1` and `n = 2` are proved directly,
-while for `n = 0` the zero Boolean function lies in `U₁` but is not a dictator. -/
+
+Reference: Filmus, *Boolean functions on `S_n` which are nearly linear*,
+Discrete Analysis 2021:25, Theorem 2.8: if `f : S_n → {0,1}` is linear, then
+`f` is a dictator.  In this scaffold, membership in `U₁` is the corresponding
+linear/degree-one condition.  The statement is restricted to `3 ≤ n`: `n = 1`
+and `n = 2` are proved directly, while for `n = 0` the zero Boolean function
+lies in `U₁` but is not a dictator. -/
 theorem booleanU1_dictator_classification_input (n : ℕ) (hn : 3 ≤ n)
     (f : BoolFn (Fin n)) :
     boolFnToReal f ∈ U1 (Fin n) → IsDictator f := by

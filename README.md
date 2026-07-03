@@ -31,8 +31,9 @@ The current full target builds successfully.
 
 The scaffold contains real Lean proofs for the elementary Boolean-cube,
 matching-cube, and averaging steps that have been formalized so far.  A small
-number of hard results are intentionally isolated behind named aux declarations
-with `sorry`.
+number of hard results are intentionally isolated behind named declarations or
+named external axioms.  The only remaining `sorry` declarations are the two
+Section 2 literature inputs.
 
 Current proof-status by mathematical obligation:
 
@@ -43,13 +44,13 @@ Proven finite certificates:
 
 - `S05_Lem5_10_ZBoundCertificate.lean` -- Lemma 5.10 (`lem:z-bound-app`):
   finite `zEven` certificate, proved from the recursive definitions modulo the
-  two-strip dimension branching input in Lemma 5.1.
+  explicit two-strip dimension branching assumption in Lemma 5.1.
 - `S05_Lem5_12_EvenHCertificate.lean` -- Lemma 5.12 (`lem:h-even-app`):
   finite `hEven` certificate, proved from Lemma 5.10 and the two-strip
-  dimension branching input.
+  dimension branching assumption.
 - `S05_Lem5_14_OddHCertificate.lean` -- Lemma 5.14 (`lem:h-odd-app`):
   finite `hOdd` certificate, proved from Lemma 5.12 and the one-box dimension
-  branching input.
+  branching assumption.
 
 External standard inputs:
 
@@ -63,17 +64,27 @@ External standard inputs:
   range used by the one-trial soundness proof.
 - `S05_Lem5_01_TwoStripDimensionRecursion.lean` -- Lemma 5.1
   (`lem:dimension-two-strip-recurrence`): external two-strip
-  Pieri/Littlewood-Richardson dimension branching input.
+  Pieri/Littlewood-Richardson dimension branching input, exposed as the named
+  axiom `twoStripDimensionBranchingAssumption_from_specht_pieri` and the
+  typeclass `TwoStripDimensionBranchingAssumption`.
 - `S05_Lem5_02_OneBoxDimensionRecursion.lean` -- Lemma 5.2
   (`lem:dimension-one-box-recurrence`): ordinary one-box dimension branching
   input.  The `m = 0` and `m = 1` cases are proved directly; the remaining
-  external input is the `2 <= m` statement
-  `youngDim_oneBox_branching_positive_input`.
+  external input is exposed as the named axiom
+  `oneBoxDimensionBranchingPositiveAssumption_from_specht_branching` and the
+  typeclass `OneBoxDimensionBranchingPositiveAssumption`.
 - `S05_Lem5_03_MatchingRestrictionPieri.lean` -- Lemma 5.3
   (`lem:matching-restriction-X`): the paper-level statement is the full
   Specht/Pieri restriction theorem.  The current Lean file formalizes only the
   scalar/multiplicity shadow needed downstream; that scalar shadow is proved
   from the finite certificate bounds.
+- `S05_Lem5_08_SpectralBridgeFromCertificates.lean` -- Lemma 5.8
+  (`lem:spectral-certificate`): the external Specht/Pieri/Schur spectral bridge
+  is exposed as the named axioms
+  `spectralBlockModelInput_even_from_specht_pieri_schur` and
+  `spectralBlockModelInput_odd_from_specht_pieri_schur`.  These axioms cite the
+  regular Specht decomposition, Littlewood-Richardson restriction to Young
+  subgroups, Pieri two-strip specializations, and Schur's lemma.
 
 Internal bridge components proven:
 
@@ -92,28 +103,24 @@ Internal bridge components proven:
   `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and
   `L5_2_SpectralCertificate` are proved from explicit spectral-block-model
   hypotheses.
-- `Aux_SpectralBridgeRepresentationInputs.lean`: the hook-length positivity
-  needed for Young-dimension positivity is now internal.  In particular,
-  `youngHookProduct_le_factorial_input` is proved by injecting hooks into
-  row-major cell tails, and `youngDimNat_positive_hookLength_input` follows.
+- `Aux_SpectralBridgeRepresentationInputs.lean`: the compact interface for the
+  spectral-block model used by Lemma 5.8.  It contains only the Young-block
+  energy, `U_1` identification, scalarity, and trace/scalar-value predicates.
 
 Remaining Lemma 5.8 representation-theory boundary:
 
 There are no longer `sorry` declarations for the Lemma 5.8 spectral bridge.
 Instead, `S05_Lem5_08_SpectralBridgeFromCertificates.lean` makes the missing
-representation theory an explicit theorem hypothesis:
-`SpectralBlockModelInput`, bundled downstream as
+representation theory explicit as named axioms:
+`spectralBlockModelInput_even_from_specht_pieri_schur` and
+`spectralBlockModelInput_odd_from_specht_pieri_schur`, bundled downstream as
 `EvenSpectralBlockModelFamily` and `OddSpectralBlockModelFamily`.
 
-- The generic numerical energy-sum sanity check
-  `youngBlockEnergyModel_exists_from_regular_input` is proved directly from
-  nonnegativity of `l2DistSqToU1`, by placing the energy on a fixed non-`U_1`
-  column diagram.  The actual Section 5 bridge no longer asks this artificial
-  witness to satisfy matching scalarity.
-- The explicit spectral-block-model hypotheses supply the actual Young-block
+- The explicit spectral-block-model axioms supply the actual Young-block
   energies of `F`, the `U_1` energy identification, and the matching-average
   scalar model.  Theorem 4.10, Proposition 4.12, Lemma 4.13, and Theorem 1.1
-  are correspondingly conditional on those model families.
+  now use these named external inputs directly rather than taking anonymous
+  model-family arguments.
 
 Older theorem names such as `Thm2_1_BooleanU1`, `L5_4_ZBoundApp`,
 `L5_5_HEvenApp`, and `L5_6_HOddApp` are preserved inside the corresponding

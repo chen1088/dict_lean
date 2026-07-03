@@ -10,11 +10,9 @@ This is `lem:one-trial-soundness` from `dictatorship_testing_soda27_latest.tex`.
 
 namespace DictatorshipTesting
 
-/-- Lemma 4.13, `lem:one-trial-soundness`, conditional on the Section 5
-spectral block model families: one-trial soundness. -/
-theorem L4_13_OneTrialSoundness
-    (hevenModel : EvenSpectralBlockModelFamily)
-    (hoddModel : OddSpectralBlockModelFamily) :
+/-- Lemma 4.13, `lem:one-trial-soundness`: one-trial soundness, using the
+named external representation-theoretic inputs behind Theorem 4.10. -/
+theorem L4_13_OneTrialSoundness :
     ∃ c0 : ℝ, 0 < c0 ∧
       ∀ n : ℕ, 4 ≤ n → ∀ f : BoolFn (Fin n),
         c0 * (distToDictators f) ^ (2 : ℕ) ≤ oneTrialRejectProbability f := by
@@ -29,8 +27,7 @@ theorem L4_13_OneTrialSoundness
     have hsquare :
         (16 / 27 : ℝ) * l2DistSqToU1 (boolFnToReal f) ≤
           oneTrialDeltaSqExpectation (boolFnToReal f) :=
-      Prop4_12_SquareEnergyControlsGlobalDegree
-        hevenModel hoddModel n hn (boolFnToReal f)
+      Prop4_12_SquareEnergyControlsGlobalDegree n hn (boolFnToReal f)
     have hreject :
         (1 / 4 : ℝ) * oneTrialDeltaSqExpectation (boolFnToReal f) ≤
           oneTrialRejectProbability f :=

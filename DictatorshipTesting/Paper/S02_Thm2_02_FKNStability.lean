@@ -15,7 +15,12 @@ This file isolates the imported FKN/stability theorem used by the paper.
 
 namespace DictatorshipTesting
 
-/-- External FKN/stability input behind Theorem 2.2. -/
+/-- External FKN/stability input behind Theorem 2.2.
+
+Reference: Filmus, *Boolean functions on `S_n` which are nearly linear*,
+Discrete Analysis 2021:25, Theorem 1.5, combined with the Boolean `U₁`
+classification in Theorem 2.8 and the standard reduction recorded in the paper
+around `thm:fkn-input`. -/
 theorem fknStability_input :
     ∃ cFKN : ℝ, 0 < cFKN ∧
       ∀ n : ℕ, 4 ≤ n → ∀ f : BoolFn (Fin n),

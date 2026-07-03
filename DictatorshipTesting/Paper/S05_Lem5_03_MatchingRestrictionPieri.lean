@@ -42,13 +42,16 @@ def MatchingRestrictionOddInput (m : ℕ) : Prop :=
     0 ≤ hOdd m lam ∧ hOdd m lam ≤ youngDim lam
 
 /-- Scalar consequence for even matching subgroups. -/
-theorem matchingRestriction_even_specht_pieri_input (m : ℕ) :
+theorem matchingRestriction_even_specht_pieri_input
+    [TwoStripDimensionBranchingAssumption] (m : ℕ) :
     MatchingRestrictionEvenInput m := by
   intro lam
   exact ⟨hEven_nonneg m lam, hEven_le_youngDim m lam⟩
 
 /-- Scalar consequence for odd matching subgroups. -/
-theorem matchingRestriction_odd_specht_pieri_input (m : ℕ) :
+theorem matchingRestriction_odd_specht_pieri_input
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption] (m : ℕ) :
     MatchingRestrictionOddInput m := by
   intro lam
   exact ⟨hOdd_nonneg m lam, hOdd_le_youngDim m lam⟩
