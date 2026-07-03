@@ -1,0 +1,131 @@
+import DictatorshipTesting.Paper.Defs
+
+/-!
+# One-box removals and Young-diagram rows
+
+This file contains elementary row combinatorics for Young diagrams.  It does
+not use representation theory: a one-box child has row-length difference
+concentrated in exactly one row.
+-/
+
+noncomputable section
+
+namespace DictatorshipTesting
+
+/-- The stored row lengths of a Young diagram sum to its size, restated over
+`Finset.range`. -/
+theorem youngRow_sum_range {n : Nat} (lam : YoungDiagram n) :
+    (Finset.range n).sum (fun i => youngRow lam i) = n := by
+  have hfin : (Finset.univ.sum (fun i : Fin n => youngRow lam i)) =
+      ((Finset.range n).sum (fun i => youngRow lam i)) := by
+    exact Fin.sum_univ_eq_sum_range (fun i => youngRow lam i) n
+  rw [hfin.symm]
+  simpa [youngRow] using lam.sum_rows
+
+/-- Summing the extended row lengths of a diagram of size `k` over one extra
+row still gives `k`. -/
+theorem youngRow_sum_range_succ {k : Nat} (mu : YoungDiagram k) :
+    (Finset.range (k + 1)).sum (fun i => youngRow mu i) = k := by
+  rw [Finset.sum_range_succ]
+  rw [youngRow_sum_range mu]
+  simp [youngRow]
+
+/-- If a natural-valued finite sum is `1`, then exactly one summand is `1` and
+all other summands are `0`. -/
+theorem exists_unique_one_of_sum_eq_one {α : Type*} [DecidableEq α]
+    (s : Finset α) (f : α -> Nat) (hsum : s.sum f = 1) :
+    exists a, a ∈ s ∧ f a = 1 ∧
+      forall b, b ∈ s -> b ≠ a -> f b = 0 := by
+  classical
+  have hexists : exists a, a ∈ s ∧ f a ≠ 0 := by
+    by_contra hnone
+    have hnone_zero : forall a, a ∈ s -> f a = 0 := by
+      intro a ha
+      by_contra hfa
+      exact hnone ⟨a, ha, hfa⟩
+    have hzero : s.sum f = 0 := by
+      exact (Finset.sum_eq_zero_iff).mpr hnone_zero
+    omega
+  rcases hexists with ⟨a, ha, hfa_ne⟩
+  have hfa_le : f a <= 1 := by
+    have hle := Finset.single_le_sum
+      (s := s) (f := f) (fun i _hi => Nat.zero_le (f i)) ha
+    simpa [hsum] using hle
+  have hfa_pos : 0 < f a := Nat.pos_of_ne_zero hfa_ne
+  have hfa : f a = 1 := by
+    omega
+  have herase_sum : (s.erase a).sum f = 0 := by
+    have hsplit := Finset.sum_erase_add s f ha
+    have hsplit' : (s.erase a).sum f + 1 = 1 := by
+      simpa [hsum, hfa] using hsplit
+    omega
+  have herase_zero :
+      forall b, b ∈ s.erase a -> f b = 0 := by
+    exact (Finset.sum_eq_zero_iff).mp herase_sum
+  refine ⟨a, ha, hfa, ?_⟩
+  intro b hb hba
+  exact herase_zero b (Finset.mem_erase.mpr ⟨hba, hb⟩)
+
+/-- For a one-box child, the total row-length difference is `1`. -/
+theorem sum_row_diff_of_oneBoxChild
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) :
+    (Finset.range n).sum (fun i => youngRow lam i - youngRow mu i) = 1 := by
+  rcases h with ⟨hk, hsub⟩
+  have hrow_le : forall i, i < n -> youngRow mu i <= youngRow lam i := by
+    intro i hi
+    simpa using hsub (Fin.mk i hi)
+  have hsumsub := Finset.sum_tsub_distrib (Finset.range n)
+    (f := fun i => youngRow lam i)
+    (g := fun i => youngRow mu i)
+    (by
+      intro i hi
+      exact hrow_le i (Finset.mem_range.mp hi))
+  rw [hsumsub]
+  rw [youngRow_sum_range lam]
+  have hmu : (Finset.range n).sum (fun i => youngRow mu i) = k := by
+    rw [hk.symm]
+    exact youngRow_sum_range_succ mu
+  rw [hmu]
+  omega
+
+/-- For a one-box child `mu` of `lam`, the row-length difference is
+concentrated in one row. -/
+theorem exists_unique_row_of_oneBoxChild
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) :
+    exists r : Nat,
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
+  rcases h with ⟨hk, hsub⟩
+  have hchild : IsOneBoxChild lam mu := ⟨hk, hsub⟩
+  have hrow_le : forall i, i < n -> youngRow mu i <= youngRow lam i := by
+    intro i hi
+    simpa using hsub (Fin.mk i hi)
+  have hdiff_sum :
+      (Finset.range n).sum (fun i => youngRow lam i - youngRow mu i) = 1 :=
+    sum_row_diff_of_oneBoxChild hchild
+  rcases exists_unique_one_of_sum_eq_one
+      (Finset.range n)
+      (fun i => youngRow lam i - youngRow mu i)
+      hdiff_sum with ⟨r, hr_mem, hdiff_r, hdiff_other⟩
+  have hr_lt : r < n := Finset.mem_range.mp hr_mem
+  have hrow_r_le : youngRow mu r <= youngRow lam r := hrow_le r hr_lt
+  refine ⟨r, ?_, ?_⟩
+  · omega
+  · intro s hsr
+    by_cases hs_lt : s < n
+    · have hdiff_s :
+          youngRow lam s - youngRow mu s = 0 :=
+        hdiff_other s (Finset.mem_range.mpr hs_lt) hsr
+      have hrow_s_le : youngRow mu s <= youngRow lam s := hrow_le s hs_lt
+      omega
+    · have hlam_zero : youngRow lam s = 0 := by
+        simp [youngRow, hs_lt]
+      have hmu_not_lt : ¬ s < k := by
+        omega
+      have hmu_zero : youngRow mu s = 0 := by
+        simp [youngRow, hmu_not_lt]
+      rw [hlam_zero, hmu_zero]
+
+end DictatorshipTesting
