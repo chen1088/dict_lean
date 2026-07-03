@@ -50,6 +50,17 @@ leaves a Young diagram. Rows are zero-indexed. -/
 def IsRemovableRow {n : Nat} (lam : YoungDiagram n) (r : Nat) : Prop :=
   youngRow lam (r + 1) < youngRow lam r
 
+/-- A box of a Young diagram, in zero-indexed row-column coordinates. -/
+def IsYoungBox {n : Nat} (lam : YoungDiagram n) (u : Nat × Nat) : Prop :=
+  u.2 < youngRow lam u.1
+
+/-- A removable corner box is the final box of a row whose deletion leaves a
+Young diagram. Coordinates are zero-indexed. -/
+def IsRemovableCornerBox {n : Nat} (lam : YoungDiagram n) (u : Nat × Nat) : Prop :=
+  IsYoungBox lam u ∧
+    u.2 + 1 = youngRow lam u.1 ∧
+    youngRow lam (u.1 + 1) <= u.2
+
 /-- If a natural-valued finite sum is `1`, then exactly one summand is `1` and
 all other summands are `0`. -/
 theorem exists_unique_one_of_sum_eq_one {α : Type*} [DecidableEq α]
@@ -191,5 +202,46 @@ theorem exists_removableRow_of_oneBoxChild
   rcases exists_unique_row_of_oneBoxChild h with ⟨r, hr_eq, hr_other⟩
   exact ⟨r, isRemovableRow_of_oneBoxChild_row h ⟨hr_eq, hr_other⟩,
     hr_eq, hr_other⟩
+
+/-- The final box of a removable row is a removable corner box. -/
+theorem removableCornerBox_of_removableRow
+    {n : Nat} {lam : YoungDiagram n} {r : Nat}
+    (hr : IsRemovableRow lam r) :
+    IsRemovableCornerBox lam (r, youngRow lam r - 1) := by
+  unfold IsRemovableCornerBox IsYoungBox IsRemovableRow at *
+  have hpos : 0 < youngRow lam r := by
+    omega
+  constructor
+  · change youngRow lam r - 1 < youngRow lam r
+    omega
+  constructor
+  · change youngRow lam r - 1 + 1 = youngRow lam r
+    omega
+  · change youngRow lam (r + 1) <= youngRow lam r - 1
+    omega
+
+/-- A one-box child deletes a removable corner box of the parent. -/
+theorem exists_removableCornerBox_of_oneBoxChild
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) :
+    exists u : Nat × Nat,
+      IsRemovableCornerBox lam u ∧
+      u.2 = youngRow mu u.1 ∧
+      youngRow lam u.1 = youngRow mu u.1 + 1 ∧
+      forall s : Nat, s ≠ u.1 -> youngRow lam s = youngRow mu s := by
+  rcases exists_removableRow_of_oneBoxChild h with
+    ⟨r, hr_removable, hr_eq, hr_other⟩
+  refine ⟨(r, youngRow mu r), ?_, rfl, hr_eq, ?_⟩
+  · unfold IsRemovableCornerBox IsYoungBox IsRemovableRow at *
+    constructor
+    · change youngRow mu r < youngRow lam r
+      omega
+    constructor
+    · change youngRow mu r + 1 = youngRow lam r
+      omega
+    · change youngRow lam (r + 1) <= youngRow mu r
+      omega
+  · intro s hs
+    exact hr_other s hs
 
 end DictatorshipTesting

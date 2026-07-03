@@ -41,6 +41,17 @@ theorem S05_oneBox_removable_row
       forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
   exact exists_removableRow_of_oneBoxChild h
 
+/-- Lemma 5.10 removable-corner component. -/
+theorem S05_oneBox_removable_corner
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) :
+    exists u : Nat × Nat,
+      IsRemovableCornerBox lam u ∧
+      u.2 = youngRow mu u.1 ∧
+      youngRow lam u.1 = youngRow mu u.1 + 1 ∧
+      forall s : Nat, s ≠ u.1 -> youngRow lam s = youngRow mu s := by
+  exact exists_removableCornerBox_of_oneBoxChild h
+
 /-- Lemma 5.10 row-form component, paper-numbered name. -/
 theorem S05_Lem5_10_row_form
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
@@ -68,5 +79,16 @@ theorem S05_Lem5_10_removable_row
       youngRow lam r = youngRow mu r + 1 ∧
       forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
   exact S05_oneBox_removable_row h
+
+/-- Lemma 5.10 removable-corner component, paper-numbered name. -/
+theorem S05_Lem5_10_removable_corner
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) :
+    exists u : Nat × Nat,
+      IsRemovableCornerBox lam u ∧
+      u.2 = youngRow mu u.1 ∧
+      youngRow lam u.1 = youngRow mu u.1 + 1 ∧
+      forall s : Nat, s ≠ u.1 -> youngRow lam s = youngRow mu s := by
+  exact S05_oneBox_removable_corner h
 
 end DictatorshipTesting
