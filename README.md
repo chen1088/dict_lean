@@ -100,6 +100,7 @@ Internal bridge components proven:
   particular, `blockScalar_lower_bound_of_traceScalarFormula`,
   `traceScalarValue_of_blockTraceIdentity`,
   `matchingAverageScalarModel_of_blockTraceModel`, `SpectralGapFromBlockScalars`,
+  `SpectralGapFromBlockScalarLowerBounds`,
   `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and
   `L5_2_SpectralCertificate` are proved from explicit spectral-block-model
   hypotheses.

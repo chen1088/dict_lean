@@ -93,6 +93,22 @@ theorem SpectralGapFromBlockScalars {n : ℕ} (c : ℝ)
   exact Finset.sum_le_sum (fun lam hlam => by
     exact mul_le_mul_of_nonneg_right (hscalar_lb lam hlam) (hdecomp lam))
 
+/-- Spectral gap from scalar lower bounds on every non-`U_1` Young block.
+
+This is the purely algebraic wrapper in Lemma 5.8: once the block energies,
+`U_1` identification, matching-average scalarity, and scalar lower bounds are
+available, no representation theory remains. -/
+theorem SpectralGapFromBlockScalarLowerBounds {n : ℕ} (c : ℝ)
+    (F : Perm (Fin n) → ℝ)
+    (blockEnergy theta : YoungDiagram n → ℝ)
+    (hdecomp : YoungBlockDecompositionInput blockEnergy)
+    (hu1 : U1YoungBlockIdentificationInput F blockEnergy)
+    (hscalarity : MatchingAverageScalarityInput F blockEnergy theta)
+    (hscalar_lb : ∀ lam ∈ nonU1YoungBlocks n, c ≤ theta lam) :
+    c * l2DistSqToU1 F ≤ matchingMeanProjectionError F := by
+  exact SpectralGapFromBlockScalars c F blockEnergy theta hdecomp hu1 hscalarity
+    hscalar_lb
+
 /-- Even spectral model hypotheses for all sizes used downstream. -/
 def EvenSpectralBlockModelFamily : Prop :=
   ∀ m : ℕ, 2 ≤ m →

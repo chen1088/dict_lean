@@ -13,6 +13,21 @@ Current classification:
   modulo the dimension branching inputs.
 - Internal open finite certificates: none currently listed.
 
+## Section 5 Paper/Lean Status Table
+
+| Paper statement number | Paper label/title | Lean file | Lean theorem name | Status | Remaining assumption, if any |
+| --- | --- | --- | --- | --- | --- |
+| Lemma 5.1 | `lem:dimension-two-strip-recurrence`, Dimension recursion | `S05_Lem5_01_TwoStripDimensionRecursion.lean` | `youngDim_twoStrip_branching_input` | external standard input | `twoStripDimensionBranchingAssumption_from_specht_pieri`, from Specht/Pieri/Littlewood--Richardson branching |
+| Lemma 5.2 | `lem:dimension-one-box-recurrence`, One-box dimension recursion | `S05_Lem5_02_OneBoxDimensionRecursion.lean` | `youngDim_oneBox_branching_input` | external standard input for `2 <= m`; small cases proved | `oneBoxDimensionBranchingPositiveAssumption_from_specht_branching`, ordinary Specht branching |
+| Lemma 5.3 | `lem:matching-restriction-X`, Restriction to matching subgroup | `S05_Lem5_03_MatchingRestrictionPieri.lean` | `matchingRestriction_even_specht_pieri_input`, `matchingRestriction_odd_specht_pieri_input` | scalar shadow proven from finite certificates; full Specht statement external | full Specht/Pieri restriction to `A_M`, represented downstream by the spectral block model input |
+| Lemma 5.4 | `lem:PM-character-projection`, Local truncation as character projection | `S05_Lem5_04_LocalTruncationCharacterProjection.lean` | `matchingLocalProjection_preserves_low_local_char`, `matchingLocalProjection_kills_high_local_char` | proven | none |
+| Lemma 5.5 | `lem:PM-trace-young-block`, Trace of one local truncation | `S05_Lem5_05_TraceLocalTruncation.lean` | `traceLocalTruncation_even_from_restriction`, `traceLocalTruncation_odd_from_restriction` | algebraic/scalar wrapper | full Young-block trace interpretation belongs to the spectral block model input |
+| Lemma 5.6 | `lem:centralization-matchings`, Centralization over matchings | `S05_Lem5_06_CentralizationOverMatchings.lean` | `centralizationBridge_scalar_eq_trace_div_dimension`, `centralizationBridge_even_scalar_eq_hEven_div_dim`, `centralizationBridge_odd_scalar_eq_hOdd_div_dim` | trace-divided-by-dimension algebra proven | Young-block scalarity by Schur's lemma belongs to the spectral block model input |
+| Lemma 5.8 | `lem:spectral-certificate`, Spectral bridge from finite certificate | `S05_Lem5_08_SpectralBridgeFromCertificates.lean` | `SpectralGapFromBlockScalarLowerBounds`, `L5_2_SpectralCertificate` | algebraic wrapper proven | `spectralBlockModelInput_even_from_specht_pieri_schur`, `spectralBlockModelInput_odd_from_specht_pieri_schur` |
+| Lemma 5.10 | `lem:z-bound-app`, Weight-zero bound | `S05_Lem5_10_ZBoundCertificate.lean` | `L5_4_ZBoundApp` | proven modulo Lemma 5.1 | two-strip dimension branching |
+| Lemma 5.12 | `lem:h-even-app`, Even certificate | `S05_Lem5_12_EvenHCertificate.lean` | `L5_5_HEvenApp` | proven modulo Lemma 5.1 and Lemma 5.10 | two-strip dimension branching |
+| Lemma 5.14 | `lem:h-odd-app`, Odd certificate | `S05_Lem5_14_OddHCertificate.lean` | `L5_6_HOddApp` | proven modulo Lemma 5.2 and Lemma 5.12 | one-box dimension branching and two-strip dimension branching |
+
 ## Remaining `sorry` Declarations
 
 ### Theorem 2.1 Boolean `U_1` Classification
@@ -203,6 +218,7 @@ Downstream dependencies: the trace/scalar-value inputs in Lemma 5.8.
   `traceScalarValue_of_blockTraceIdentity`,
   `matchingAverageScalarModel_of_blockTraceModel`,
   `SpectralGapFromBlockScalars`,
+  `SpectralGapFromBlockScalarLowerBounds`,
   `evenSpectralBlockModelFamily_from_specht_pieri_schur`,
   `oddSpectralBlockModelFamily_from_specht_pieri_schur`,
   `EvenSpectralGapFromCertificates`,
