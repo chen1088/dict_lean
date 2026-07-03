@@ -30,6 +30,26 @@ theorem youngRow_sum_range_succ {k : Nat} (mu : YoungDiagram k) :
   rw [youngRow_sum_range mu]
   simp [youngRow]
 
+/-- Extended row lengths are nonincreasing. -/
+theorem youngRow_succ_le {n : Nat} (lam : YoungDiagram n) (r : Nat) :
+    youngRow lam (r + 1) <= youngRow lam r := by
+  by_cases hsucc : r + 1 < n
+  · have hr : r < n := by omega
+    have hmono := lam.nonincreasing
+      (i := Fin.mk r hr) (j := Fin.mk (r + 1) hsucc) (by
+        change r <= r + 1
+        omega)
+    simpa [youngRow, hr, hsucc] using hmono
+  · have hzero : youngRow lam (r + 1) = 0 := by
+      simp [youngRow, hsucc]
+    rw [hzero]
+    exact Nat.zero_le _
+
+/-- A row of a Young diagram is removable when deleting its final box still
+leaves a Young diagram. Rows are zero-indexed. -/
+def IsRemovableRow {n : Nat} (lam : YoungDiagram n) (r : Nat) : Prop :=
+  youngRow lam (r + 1) < youngRow lam r
+
 /-- If a natural-valued finite sum is `1`, then exactly one summand is `1` and
 all other summands are `0`. -/
 theorem exists_unique_one_of_sum_eq_one {α : Type*} [DecidableEq α]
@@ -127,5 +147,34 @@ theorem exists_unique_row_of_oneBoxChild
       have hmu_zero : youngRow mu s = 0 := by
         simp [youngRow, hmu_not_lt]
       rw [hlam_zero, hmu_zero]
+
+/-- In a one-box child, the changed row is removable in the parent. -/
+theorem isRemovableRow_of_oneBoxChild_row
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (_h : IsOneBoxChild lam mu)
+    {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s) :
+    IsRemovableRow lam r := by
+  unfold IsRemovableRow
+  have hnext_eq : youngRow lam (r + 1) = youngRow mu (r + 1) := by
+    exact hr.2 (r + 1) (by omega)
+  have hmu_succ_le : youngRow mu (r + 1) <= youngRow mu r :=
+    youngRow_succ_le mu r
+  rw [hnext_eq, hr.1]
+  omega
+
+/-- A one-box child removes a box from a removable row of the parent. -/
+theorem exists_removableRow_of_oneBoxChild
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) :
+    exists r : Nat,
+      IsRemovableRow lam r ∧
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
+  rcases exists_unique_row_of_oneBoxChild h with ⟨r, hr_eq, hr_other⟩
+  exact ⟨r, isRemovableRow_of_oneBoxChild_row h ⟨hr_eq, hr_other⟩,
+    hr_eq, hr_other⟩
 
 end DictatorshipTesting
