@@ -1,8 +1,9 @@
 import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 
 /-!
-Paper statement: Section 5 lemma, `lem:one-box-row-form`
-Title in paper: Row form of one-box removals.
+Paper statement: Lemma 5.10 (`lem:one-box-corner-decomposition`), auxiliary
+row-form component.
+Title in paper: One-box corner decomposition.
 
 This is the paper-facing wrapper for the elementary row-combinatorial fact that
 a one-box child differs from its parent in exactly one row.

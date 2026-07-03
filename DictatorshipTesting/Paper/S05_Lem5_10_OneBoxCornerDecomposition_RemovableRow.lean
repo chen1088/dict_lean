@@ -1,8 +1,9 @@
 import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 
 /-!
-Paper statement: Section 5 lemma, `lem:one-box-removable-row`
-Title in paper: One-box removals delete a removable row.
+Paper statement: Lemma 5.10 (`lem:one-box-corner-decomposition`), auxiliary
+removable-row component.
+Title in paper: One-box corner decomposition.
 
 This is an elementary row-combinatorial wrapper for the statement that if
 `mu` is a one-box child of `lambda`, then the deleted box lies at the end of
