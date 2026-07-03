@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Lem5_21_TraceLocalTruncation
+import DictatorshipTesting.Paper.S05_Lem5_21_TraceOfOneLocalTruncationOnOneYoungBlock
 
 /-!
 # Centralization over matchings

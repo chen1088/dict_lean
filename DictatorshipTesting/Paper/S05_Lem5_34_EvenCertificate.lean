@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Lem5_32_ZBoundCertificate
+import DictatorshipTesting.Paper.S05_Lem5_32_WeightZeroEntriesAreNeverAMajority
 
 /-!
 Paper statement: Lemma 5.34 (`lem:h-even-app`)
@@ -2195,7 +2195,7 @@ theorem even_bad_child_classification
       (hasOneRowVerticalChild_classification m hm lam hstd hVrow))
   · exact hasStandardHorizontalChild_classification m hm lam hrow hstd hHstd
 
-/-- Generic induction step for Lemma 5.12, away from the exceptional children.
+/-- Generic induction step for Lemma 5.34, away from the exceptional children.
 
 Horizontal children are handled by the induction hypothesis.  Vertical children
 are handled by the proven `zEven ≤ d/2` bound, which gives the stronger
@@ -3842,7 +3842,7 @@ theorem hEven_ge_one_fifth_youngDim_even_exceptional
   · exact hEven_ge_one_fifth_youngDim_twoRowThreeException m hm lam h33
   · exact hEven_ge_one_fifth_youngDim_threeRowTwoOneException m hm lam h321
 
-/-- Finite Young-diagram induction behind Lemma 5.12. -/
+/-- Finite Young-diagram induction behind Lemma 5.34. -/
 theorem hEven_ge_one_fifth_youngDim_of_not_oneRow_not_standard_finite_induction
     [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m)
@@ -3876,7 +3876,7 @@ theorem hEven_ge_one_fifth_youngDim_of_not_oneRow_not_standard_finite_induction
             (fun mu hmu hone =>
               hbad (Or.inr (Or.inl ⟨mu, hmu, hone⟩)))
 
-/-- Lemma 5.12, `lem:h-even-app`: even certificate.  This preserves the old
+/-- Lemma 5.34, `lem:h-even-app`: even certificate.  This preserves the old
 theorem name `L5_5_HEvenApp`. -/
 theorem L5_5_HEvenApp [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m)

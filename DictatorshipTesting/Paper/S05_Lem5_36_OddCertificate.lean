@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Lem5_34_EvenHCertificate
+import DictatorshipTesting.Paper.S05_Lem5_34_EvenCertificate
 import DictatorshipTesting.Paper.S05_Lem5_16_OneBoxDimensionRecursion
 
 /-!
@@ -679,7 +679,7 @@ theorem hOdd_ge_one_sixth_youngDim_of_no_bad_oneBoxChild
     nlinarith
   exact le_trans hcoeff heven
 
-/-- Finite Young-diagram induction behind Lemma 5.14. -/
+/-- Finite Young-diagram induction behind Lemma 5.36. -/
 theorem hOdd_ge_one_sixth_youngDim_of_not_oneRow_not_standard_finite_induction
     [TwoStripDimensionBranchingAssumption]
     [OneBoxDimensionBranchingPositiveAssumption]
@@ -714,7 +714,7 @@ theorem hOdd_le_youngDim
   rw [hOdd, youngDim_oneBox_branching_input m lam]
   exact Finset.sum_le_sum (fun mu _hmu => hEven_le_youngDim m mu)
 
-/-- Lemma 5.14, `lem:h-odd-app`: odd certificate.  This preserves the old
+/-- Lemma 5.36, `lem:h-odd-app`: odd certificate.  This preserves the old
 theorem name `L5_6_HOddApp`. -/
 theorem L5_6_HOddApp
     [TwoStripDimensionBranchingAssumption]

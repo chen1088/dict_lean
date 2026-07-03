@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Defs
 
 /-!
 Paper statement: Lemma 5.15 (`lem:dimension-two-strip-recurrence`)
-Title in paper: Two-strip dimension recursion.
+Title in paper: Two-box dimension recursion.
 
 Status: external representation-theoretic input in the current Lean
 development, from two-strip Pieri/Littlewood--Richardson branching.  It should
@@ -20,7 +20,7 @@ The finite Z-bound induction only needs this scalar consequence:
 
 `d_lambda = sum_{horizontal children} d_mu + sum_{vertical children} d_mu`.
 
-It is intentionally kept out of `S05_Lem5_32_ZBoundCertificate`: it is a standard
+It is intentionally kept out of `S05_Lem5_32_WeightZeroEntriesAreNeverAMajority`: it is a standard
 representation-theoretic branching input, not an internal finite certificate
 gap.
 -/

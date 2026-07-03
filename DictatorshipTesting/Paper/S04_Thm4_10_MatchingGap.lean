@@ -1,7 +1,8 @@
 import DictatorshipTesting.Paper.Aux_DistanceNonneg
-import DictatorshipTesting.Paper.S05_Lem5_28_30_SpectralBridgeFromCertificates_Legacy
-import DictatorshipTesting.Paper.S05_Lem5_34_EvenHCertificate
-import DictatorshipTesting.Paper.S05_Lem5_36_OddHCertificate
+import DictatorshipTesting.Paper.S05_Lem5_29_EvenSpectralBridge
+import DictatorshipTesting.Paper.S05_Lem5_30_OddSpectralBridge
+import DictatorshipTesting.Paper.S05_Lem5_34_EvenCertificate
+import DictatorshipTesting.Paper.S05_Lem5_36_OddCertificate
 
 /-!
 # Theorem 4.10: Matching-cube spectral gap

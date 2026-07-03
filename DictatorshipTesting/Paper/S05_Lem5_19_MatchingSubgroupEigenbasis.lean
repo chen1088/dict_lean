@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Lem5_36_OddHCertificate
+import DictatorshipTesting.Paper.S05_Lem5_36_OddCertificate
 
 /-!
 Paper statement: Lemma 5.19 (`lem:matching-restriction-X`)

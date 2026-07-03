@@ -1,9 +1,9 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.S05_Lem5_26_BlockScalarAveragedRejection_Legacy
+import DictatorshipTesting.Paper.S05_Lem5_26_BlockScalarOfTheAveragedRejection
 
 /-!
-Paper statement: Lemmas 5.28--5.30 (`lem:spectral-certificate-even`,
-`lem:spectral-certificate-odd`)
+Helper for paper statements: Lemmas 5.28--5.30 (`lem:block-lower-bound-gap`,
+`lem:spectral-certificate-even`, `lem:spectral-certificate-odd`)
 Title in paper: Spectral bridge from the finite certificate.
 
 Legacy scalar-shadow file for the rewritten Section 5 statement.
@@ -54,7 +54,7 @@ theorem blockScalar_lower_bound_of_traceScalarFormula {n : ℕ}
   exact (le_div_iff₀ hdim_pos).mpr (hcert lam hnot_row hnot_std)
 
 /-- Dimension positivity plus the block trace identity imply the trace/scalar
-value formula.  This is the algebraic part of Lemma 5.8(D). -/
+value formula.  This is part of the scalar-shadow helper for Lemmas 5.28--5.30. -/
 theorem traceScalarValue_of_blockTraceIdentity {n : ℕ}
     {height theta : YoungDiagram n → ℝ}
     (hdim : YoungDimensionPositiveInput n)
@@ -98,7 +98,7 @@ theorem SpectralGapFromBlockScalars {n : ℕ} (c : ℝ)
 
 /-- Spectral gap from scalar lower bounds on every non-`U_1` Young block.
 
-This is the purely algebraic wrapper in Lemma 5.8: once the block energies,
+This is the purely algebraic wrapper for Lemma 5.28: once the block energies,
 `U_1` identification, matching-average scalarity, and scalar lower bounds are
 available, no representation theory remains. -/
 theorem SpectralGapFromBlockScalarLowerBounds {n : ℕ} (c : ℝ)
@@ -221,9 +221,9 @@ theorem matchingSpectralGap_of_odd_young_certificate (m : ℕ) (hm : 2 ≤ m) (c
     MatchingSpectralGapConstant (2 * m + 1) c := by
   exact OddSpectralGapFromCertificates m hm c hmodel hcert
 
-/-- Lemma 5.8, `lem:spectral-certificate`: spectral certificate, conditional
-on the representation-theoretic spectral block models.  This preserves the old
-theorem name `L5_2_SpectralCertificate`. -/
+/-- Legacy spectral certificate, conditional on the representation-theoretic
+spectral block models.  This preserves the old theorem name
+`L5_2_SpectralCertificate`. -/
 theorem L5_2_SpectralCertificate (m : ℕ) (hm : 2 ≤ m) (c : ℝ)
     (hevenModel : SpectralBlockModelInput
       (fun lam : YoungDiagram (2 * m) => hEven m lam))

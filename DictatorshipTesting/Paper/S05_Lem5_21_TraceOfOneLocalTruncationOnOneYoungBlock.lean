@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Lem5_19_MatchingSubgroupEigenbasis_LegacyScalarShadow
+import DictatorshipTesting.Paper.S05_Lem5_19_MatchingSubgroupEigenbasis
 
 /-!
 Paper statement: Lemma 5.21 (`lem:PM-trace-young-block`)

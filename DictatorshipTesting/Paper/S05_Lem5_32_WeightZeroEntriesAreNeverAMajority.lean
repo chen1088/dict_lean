@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Lem5_15_TwoStripDimensionRecursion
+import DictatorshipTesting.Paper.S05_Lem5_15_TwoBoxDimensionRecursion
 
 /-!
 Paper statement: Lemma 5.32 (`lem:z-bound-app`)
@@ -38,7 +38,7 @@ theorem youngDim_nonneg {n : ℕ} (lam : YoungDiagram n) :
   exact_mod_cast Nat.zero_le (youngDimNat lam)
 
 /-- The zero-weight count is nonnegative.  This is the easy positivity part of
-the finite induction for Lemma 5.10. -/
+the finite induction for Lemma 5.32. -/
 theorem zEven_nonneg (m : ℕ) (lam : YoungDiagram (2 * m)) :
     0 ≤ zEven m lam := by
   induction m with
@@ -1962,7 +1962,7 @@ theorem zEven_le_half_youngDim_of_noOneRowHorizontalChild
       (youngDim_horizontalChildren_sum_le m hm lam) (by norm_num)
   linarith
 
-/-- Finite Young-diagram induction behind Lemma 5.10. -/
+/-- Finite Young-diagram induction behind Lemma 5.32. -/
 theorem zEven_le_half_youngDim_of_not_oneRow_finite_induction
     [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (lam : YoungDiagram (2 * m)) (hrow : ¬ IsOneRow lam) :
@@ -1984,7 +1984,7 @@ theorem zEven_le_half_youngDim_of_not_oneRow_finite_induction
           · exact zEven_le_half_youngDim_of_noOneRowHorizontalChild
               (Nat.succ (Nat.succ m)) (by omega) lam ih hchild
 
-/-- Lemma 5.10, `lem:z-bound-app`: weight-zero entries are never a majority.
+/-- Lemma 5.32, `lem:z-bound-app`: weight-zero entries are never a majority.
 This preserves the old theorem name `L5_4_ZBoundApp`. -/
 theorem L5_4_ZBoundApp [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (lam : YoungDiagram (2 * m))
