@@ -361,4 +361,59 @@ theorem row_form_deleteRemovableRowDiagram {n : Nat}
     rw [youngRow_deleteRemovableRowDiagram lam hr t]
     simp [ht]
 
+abbrev RemovableRow {n : Nat} (lam : YoungDiagram (n + 1)) :=
+  {r : Nat // IsRemovableRow lam r}
+
+noncomputable instance removableRowFintype {n : Nat}
+    (lam : YoungDiagram (n + 1)) : Fintype (RemovableRow lam) := by
+  classical
+  exact Fintype.ofInjective
+    (fun r : RemovableRow lam => (⟨r.1, removableRow_lt_size r.2⟩ : Fin (n + 1)))
+    (by
+      intro r s h
+      apply Subtype.ext
+      exact congrArg Fin.val h)
+
+def removableRowToOneBoxChild {n : Nat} (lam : YoungDiagram (n + 1))
+    (r : RemovableRow lam) : YoungDiagram n :=
+  deleteRemovableRowDiagram lam r.1 r.2
+
+theorem removableRowToOneBoxChild_isOneBoxChild {n : Nat}
+    (lam : YoungDiagram (n + 1)) (r : RemovableRow lam) :
+    IsOneBoxChild lam (removableRowToOneBoxChild lam r) := by
+  exact deleteRemovableRowDiagram_isOneBoxChild lam r.2
+
+theorem removableRowToOneBoxChild_mem {n : Nat}
+    (lam : YoungDiagram (n + 1)) (r : RemovableRow lam) :
+    removableRowToOneBoxChild lam r ∈ oneBoxChildren lam := by
+  classical
+  rw [oneBoxChildren]
+  exact Finset.mem_filter.mpr
+    ⟨Finset.mem_univ _, removableRowToOneBoxChild_isOneBoxChild lam r⟩
+
+noncomputable def oneBoxChildToRemovableRow {n : Nat}
+    (lam : YoungDiagram (n + 1))
+    (mu : {mu : YoungDiagram n // mu ∈ oneBoxChildren lam}) :
+    RemovableRow lam := by
+  classical
+  have hchild : IsOneBoxChild lam mu.1 := by
+    simpa [oneBoxChildren] using (Finset.mem_filter.mp mu.2).2
+  let hrow := exists_removableRow_of_oneBoxChild hchild
+  exact ⟨Classical.choose hrow, (Classical.choose_spec hrow).1⟩
+
+theorem oneBoxChildToRemovableRow_row_form {n : Nat}
+    (lam : YoungDiagram (n + 1))
+    (mu : {mu : YoungDiagram n // mu ∈ oneBoxChildren lam}) :
+    youngRow lam (oneBoxChildToRemovableRow lam mu).1 =
+        youngRow mu.1 (oneBoxChildToRemovableRow lam mu).1 + 1 ∧
+      forall s : Nat, s ≠ (oneBoxChildToRemovableRow lam mu).1 ->
+        youngRow lam s = youngRow mu.1 s := by
+  classical
+  unfold oneBoxChildToRemovableRow
+  dsimp
+  let hchild : IsOneBoxChild lam mu.1 := by
+    simpa [oneBoxChildren] using (Finset.mem_filter.mp mu.2).2
+  let hrow := exists_removableRow_of_oneBoxChild hchild
+  exact (Classical.choose_spec hrow).2
+
 end DictatorshipTesting
