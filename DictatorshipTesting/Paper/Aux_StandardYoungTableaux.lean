@@ -173,4 +173,76 @@ theorem existsUnique_removableCornerBox_tableauMaxAt {n : Nat}
   intro v hv
   exact huniq v hv.1
 
+/-- Cells other than a specified cell. -/
+abbrev YoungCellExcept {n : Nat} {lam : YoungDiagram n} (u : YoungCell lam) :=
+  {v : YoungCell lam // v ≠ u}
+
+/-- After deleting the maximum-entry cell, the remaining entries lie in `Fin n`. -/
+def tableauDeleteMaxEntry {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) :
+    YoungCellExcept u -> Fin n :=
+  fun v =>
+    ⟨(T.entry v.1 : Nat), by
+      have hnot_last : T.entry v.1 ≠ Fin.last n := by
+        intro hlast
+        have hvu : v.1 = u := T.bijective.1 (by rw [hlast, hu])
+        exact v.2 hvu
+      have hlt_succ : (T.entry v.1 : Nat) < n + 1 := (T.entry v.1).isLt
+      have hnot_eq_n : (T.entry v.1 : Nat) ≠ n := by
+        intro hn
+        apply hnot_last
+        exact Fin.ext (by simpa using hn)
+      omega⟩
+
+/-- The deletion map preserves the numeric value of each nonmaximum entry. -/
+theorem tableauDeleteMaxEntry_val {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) (v : YoungCellExcept u) :
+    (tableauDeleteMaxEntry T hu v : Nat) = (T.entry v.1 : Nat) := by
+  rfl
+
+/-- The set-level deletion map is injective. -/
+theorem tableauDeleteMaxEntry_injective {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) :
+    Function.Injective (tableauDeleteMaxEntry T hu) := by
+  intro a b h
+  apply Subtype.ext
+  apply T.bijective.1
+  apply Fin.ext
+  have hval := congrArg Fin.val h
+  simpa [tableauDeleteMaxEntry_val] using hval
+
+/-- The set-level deletion map is surjective. -/
+theorem tableauDeleteMaxEntry_surjective {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) :
+    Function.Surjective (tableauDeleteMaxEntry T hu) := by
+  intro y
+  let target : Fin (n + 1) := Fin.castSucc y
+  rcases T.bijective.2 target with ⟨v, hv⟩
+  have hne : v ≠ u := by
+    intro hvu
+    have htarget_last : target = Fin.last n := by
+      rw [← hv, hvu, hu]
+    have hval := congrArg Fin.val htarget_last
+    have hylt : (y : Nat) < n := y.isLt
+    simp [target] at hval
+    omega
+  refine ⟨⟨v, hne⟩, ?_⟩
+  apply Fin.ext
+  have hvVal := congrArg Fin.val hv
+  simpa [tableauDeleteMaxEntry_val, target] using hvVal
+
+/-- Deleting the maximum-entry cell gives a bijection from the remaining cells
+to `Fin n`. -/
+theorem tableauDeleteMaxEntry_bijective {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) :
+    Function.Bijective (tableauDeleteMaxEntry T hu) := by
+  exact ⟨tableauDeleteMaxEntry_injective T hu,
+    tableauDeleteMaxEntry_surjective T hu⟩
+
 end DictatorshipTesting

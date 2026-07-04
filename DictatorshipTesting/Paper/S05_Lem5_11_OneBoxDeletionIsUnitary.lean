@@ -1,16 +1,32 @@
-import DictatorshipTesting.Paper.S05_Lem5_10_OneBoxCornerDecomposition
+import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 
 /-!
 Paper statement: Lemma 5.11 (`lem:one-box-deletion-unitary`)
 Title in paper: One-box deletion is unitary.
 
-Status: paper-facing owner file for the rewritten Section 5 statement.  The
-Hilbert-space deletion maps are not yet present in the Lean vocabulary, so this
-patch adds no fake theorem and no new assumption.
+Status: the Hilbert-space unitary statement is still future work.  This file
+now proves the set-level bijection on the deleted tableau basis.
 -/
 
 noncomputable section
 
 namespace DictatorshipTesting
+
+/-- Lemma 5.11 set-level component: deleting the maximum-entry cell gives a
+bijection from the remaining cells to `Fin n`. -/
+theorem S05_Lem5_11_deleteMaxEntry_bijective {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) :
+    Function.Bijective (tableauDeleteMaxEntry T hu) := by
+  exact tableauDeleteMaxEntry_bijective T hu
+
+/-- Compatibility short name for the set-level deletion bijection. -/
+theorem S05_oneBox_deleteMaxEntry_bijective {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) :
+    Function.Bijective (tableauDeleteMaxEntry T hu) := by
+  exact S05_Lem5_11_deleteMaxEntry_bijective T hu
 
 end DictatorshipTesting
