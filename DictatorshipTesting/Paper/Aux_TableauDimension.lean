@@ -940,4 +940,83 @@ theorem secondDeletedCornerOfTwoStepInParent_col {n : Nat}
   rw [childCellToParentCell_col]
   exact secondDeletedCornerOfTwoStepInChild_col lam p
 
+theorem youngRow_deleteTwoRemovableRowsDiagram_eq_parent {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam)
+    (i : Nat) :
+    youngRow (deleteTwoRemovableRowsDiagram lam p) i =
+      if i = p.second.1 then
+        (if i = p.first.1 then youngRow lam p.first.1 - 1 else youngRow lam i) - 1
+      else if i = p.first.1 then youngRow lam p.first.1 - 1 else youngRow lam i := by
+  rw [youngRow_deleteTwoRemovableRowsDiagram]
+  by_cases hi : i = p.second.1
+  · subst i
+    simp [youngRow_deleteRemovableRowDiagram]
+  · simp [hi, youngRow_deleteRemovableRowDiagram]
+
+theorem deleteTwoRemovableRows_vertical_of_distinct_rows {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam)
+    (hrows : p.first.1 ≠ p.second.1) :
+    IsVerticalTwoStripChild lam (deleteTwoRemovableRowsDiagram lam p) := by
+  refine ⟨by omega, deleteTwoRemovableRows_isYoungSubdiagram lam p, ?_⟩
+  intro i
+  rw [youngRow_deleteTwoRemovableRowsDiagram_eq_parent]
+  by_cases hi_second : (i : Nat) = p.second.1
+  · have hi_first : (i : Nat) ≠ p.first.1 := by
+      intro h
+      exact hrows (h.symm.trans hi_second)
+    have hmid_pos :
+        0 < youngRow (twoStepFirstChild lam p) p.second.1 :=
+      removableRow_pos p.second.2
+    have hlam_pos : 0 < youngRow lam (i : Nat) := by
+      have hmid_eq :
+          youngRow (twoStepFirstChild lam p) p.second.1 =
+            youngRow lam p.second.1 := by
+        rw [twoStepFirstChild, youngRow_deleteRemovableRowDiagram]
+        simp [hrows.symm]
+      rw [hi_second]
+      rwa [hmid_eq] at hmid_pos
+    simp [hi_second, hrows.symm]
+    omega
+  · by_cases hi_first : (i : Nat) = p.first.1
+    · have hlam_pos : 0 < youngRow lam (i : Nat) := by
+        rw [hi_first]
+        exact removableRow_pos p.first.2
+      simp [hi_first, hrows]
+      omega
+    · simp [hi_second, hi_first]
+
+theorem deleteTwoRemovableRows_horizontal_of_same_row {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam)
+    (hrows : p.first.1 = p.second.1) :
+    IsHorizontalTwoStripChild lam (deleteTwoRemovableRowsDiagram lam p) := by
+  refine ⟨by omega, deleteTwoRemovableRows_isYoungSubdiagram lam p, ?_⟩
+  intro i
+  rw [youngRow_deleteTwoRemovableRowsDiagram_eq_parent]
+  by_cases hi : (i : Nat) = p.first.1
+  · have hmid_succ :
+        youngRow (deleteRemovableRowDiagram lam p.first.1 p.first.2)
+          (p.first.1 + 1) =
+          youngRow lam (p.first.1 + 1) := by
+      rw [youngRow_deleteRemovableRowDiagram]
+      simp
+    have hmid_self :
+        youngRow (deleteRemovableRowDiagram lam p.first.1 p.first.2)
+          p.first.1 =
+          youngRow lam p.first.1 - 1 := by
+      rw [youngRow_deleteRemovableRowDiagram]
+      simp
+    have hrem := p.second.2
+    unfold IsRemovableRow at hrem
+    rw [← hrows, hmid_succ, hmid_self] at hrem
+    rw [hi]
+    rw [← hrows]
+    simp
+    omega
+  · have hi_second : (i : Nat) ≠ p.second.1 := by
+      intro h
+      exact hi (h.trans hrows.symm)
+    have hmono := youngRow_succ_le lam (i : Nat)
+    simp [hi, hi_second]
+    exact hmono
+
 end DictatorshipTesting
