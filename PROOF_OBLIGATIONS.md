@@ -13,6 +13,31 @@ Current classification:
   modulo the dimension branching inputs.
 - Internal open finite certificates: none currently listed.
 
+## TableauDim Migration Status
+
+The tableau-count recursion track has now proved the internal two-strip and
+one-box dimension recurrences for `tableauDim`, not for the hook-length proxy
+`youngDim`.
+
+Current tableau-count finite-certificate status:
+
+| Certificate layer | Tableau-count status | Active theorem path status |
+| --- | --- | --- |
+| Lemma 5.32, z-bound | Proved as `S05_Lem5_32_tableau_weightZeroEntries_never_majority` and `zEven_le_tableauDim` | The old `youngDim` alias remains active for the spectral bridge |
+| Lemma 5.34, even certificate | `hEvenTableau` recurrence, generic step, one-row/standard facts, and `(2m-2,2)` exception are proved | Not yet active; remaining tableau exceptional families are `(2m-2,1,1)`, `(2m-3,3)`, `(2m-3,2,1)` |
+| Lemma 5.36, odd certificate | Not yet ported to tableau-count height | Still active through old `hOdd` and `youngDim` one-box branching |
+
+Precise active-path blocker: the spectral bridge vocabulary still hard-codes
+`youngDim`.  In particular, `Aux_SpectralBridgeRepresentationInputs.lean`
+states the trace/scalar identity using `youngDim`, while
+`S05_Lem5_28_BlockLowerBoundImpliesTheGap.lean`,
+`S05_Lem5_29_EvenSpectralBridge.lean`, and
+`S05_Lem5_30_OddSpectralBridge.lean` require hypotheses of the form
+`c * youngDim lam <= height lam`.  A tableau-count finite certificate cannot
+feed Theorem 4.10 directly until either the relevant equality
+`tableauDim = youngDim` is proved or the spectral block model is parameterized
+by its dimension function.
+
 ## Section 5 Paper/Lean Status Table
 
 | Paper statement number | Paper label/title | Lean file | Lean theorem name | Status | Remaining assumption, if any |

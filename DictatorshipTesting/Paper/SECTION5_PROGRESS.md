@@ -1,5 +1,55 @@
 # Section 5 Progress
 
+## TableauDim Certificate Migration Batch
+
+Completed commits from the current milestone:
+- `70ccd94` Port z-bound certificate to tableauDim
+- `39e7c3f` Add tableauDim generic even certificate step
+- `2c3fa74` Add tableauDim reusable even certificate facts
+- `db54770` Add exact tableauDim formulas for even certificates
+- `0f16319` Add tableauDim two-row even exception certificate
+
+Main names added in this batch:
+- `zEven_le_half_tableauDim_of_not_oneRow_finite_induction`
+- `S05_Lem5_32_tableau_weightZeroEntries_never_majority`
+- `zEven_le_tableauDim`
+- `tableauDim_standardDiagramEven_formula`
+- `tableauDim_twoRowTwoDiagramEven_formula`
+- `hEvenTableau`
+- `hEvenTableau_ge_one_fifth_tableauDim_generic_step_succ`
+- `hEvenTableau_oneRowDiagram`
+- `hEvenTableau_standardDiagramEven_formula`
+- `hEvenTableau_nonneg`
+- `hEvenTableau_twoRowTwoDiagramEven_formula`
+- `hEvenTableau_ge_one_fifth_tableauDim_twoRowTwoException`
+
+Status:
+- Lemma 5.32 now has an axiom-free tableau-count version.  The old
+  `youngDim` theorem remains for the current spectral bridge, but the finite
+  `zEven` proof no longer needs the two-strip `youngDim` branching input when
+  stated against `tableauDim`.
+- Lemma 5.34 has a parallel tableau-count height recurrence `hEvenTableau`.
+  The generic induction step is proved, the one-row and standard height facts
+  are proved, and the `(2m-2,2)` exceptional family is proved against
+  `tableauDim`.
+- The remaining even tableau-count certificate work is exactly the other three
+  exceptional families:
+  `(2m-2,1,1)`, `(2m-3,3)`, and `(2m-3,2,1)`.  These need exact or sufficient
+  upper tableau-dimension formulas plus the matching `hEvenTableau` recurrence
+  calculations.
+- The odd tableau-count certificate has not yet been ported.  It should be
+  attempted only after the even tableau-count certificate is completed, because
+  the intended odd proof sums over one-box children and uses the even bound.
+- The active Theorem 4.10 path still depends on the old `youngDim` spectral
+  model.  The files `S05_Lem5_28_BlockLowerBoundImpliesTheGap.lean`,
+  `S05_Lem5_29_EvenSpectralBridge.lean`, `S05_Lem5_30_OddSpectralBridge.lean`,
+  and `Aux_SpectralBridgeRepresentationInputs.lean` all state their block
+  lower bounds and trace identities using `youngDim`.  A tableauDim finite
+  certificate therefore cannot be consumed by Theorem 4.10 until either:
+  `tableauDim = youngDim` is proved for the relevant diagrams, or the spectral
+  block model is parameterized so its dimension slot can be instantiated by
+  `tableauDim`.
+
 ## This Run
 
 ### Two-box tableau-count batch
