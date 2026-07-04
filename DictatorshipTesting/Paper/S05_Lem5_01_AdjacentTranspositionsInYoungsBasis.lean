@@ -437,4 +437,26 @@ theorem S05_Lem5_01_youngAdjacentOperator_basis_swappable_other_value {n : Nat}
   exact youngAdjacentOperator_basis_swappable_other_value
     a hrow_ne hcol_ne hST hSswap
 
+/-- Lemma 5.1 involution component: in the same-row case, the adjacent
+operator squares to the identity on a tableau basis vector. -/
+theorem S05_Lem5_01_youngAdjacentOperator_sq_basis_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow : adjacentSameRow T a) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator a (tableauBasisVec T)) =
+      tableauBasisVec T := by
+  exact youngAdjacentOperator_sq_basis_sameRow T a hrow
+
+/-- Lemma 5.1 involution component: in the same-column case, the adjacent
+operator squares to the identity on a tableau basis vector. -/
+theorem S05_Lem5_01_youngAdjacentOperator_sq_basis_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol : adjacentSameCol T a) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator a (tableauBasisVec T)) =
+      tableauBasisVec T := by
+  exact youngAdjacentOperator_sq_basis_sameCol T a hcol
+
 end DictatorshipTesting

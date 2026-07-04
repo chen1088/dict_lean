@@ -413,6 +413,41 @@ theorem youngAdjacentOperator_basis_swappable_other_value {n : Nat}
   rw [youngAdjacentOperator_basis_value,
     youngAdjacentMatrixCoeff_swappable_other a hrow_ne hcol_ne hST hSswap]
 
+theorem youngAdjacentOperator_neg {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (a : Fin n) (f : TableauSpace lam) :
+    youngAdjacentOperator a (fun S => - f S) =
+      fun S => - youngAdjacentOperator a f S := by
+  funext S
+  unfold youngAdjacentOperator
+  rw [← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro T _
+  ring
+
+theorem youngAdjacentOperator_sq_basis_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow : adjacentSameRow T a) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator a (tableauBasisVec T)) =
+      tableauBasisVec T := by
+  rw [youngAdjacentOperator_basis_sameRow T a hrow,
+    youngAdjacentOperator_basis_sameRow T a hrow]
+
+theorem youngAdjacentOperator_sq_basis_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol : adjacentSameCol T a) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator a (tableauBasisVec T)) =
+      tableauBasisVec T := by
+  rw [youngAdjacentOperator_basis_sameCol T a hcol,
+    youngAdjacentOperator_neg,
+    youngAdjacentOperator_basis_sameCol T a hcol]
+  funext S
+  simp
+
 /-- The diagonal content operator in the tableau coordinate basis. -/
 noncomputable def jucysMurphyDiagonalOperator {n : Nat}
     {lam : YoungDiagram n} (a : Fin n) :
