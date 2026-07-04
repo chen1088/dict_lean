@@ -15,6 +15,13 @@ noncomputable section
 
 namespace DictatorshipTesting
 
+/-- Lemma 5.17 scalar-size base case: the empty even diagram has one
+zero-weight entry. -/
+theorem S05_Lem5_17_evenZeroSignPatternCount_zero
+    (lam : YoungDiagram (2 * 0)) :
+    S05_evenZeroSignPatternCount 0 lam = 1 := by
+  exact S05_evenZeroSignPatternCount_zero lam
+
 /-- Lemma 5.17 scalar-size component: the even zero-weight count has the
 horizontal two-strip recursion. -/
 theorem S05_Lem5_17_evenZeroSignPatternCount_succ
@@ -23,6 +30,13 @@ theorem S05_Lem5_17_evenZeroSignPatternCount_succ
       (horizontalTwoStripChildrenEven (m + 1) lam).sum
         (fun mu => S05_evenZeroSignPatternCount m mu) := by
   exact S05_evenZeroSignPatternCount_succ m lam
+
+/-- Lemma 5.17 scalar-size base case: the empty even diagram has no high-weight
+entries. -/
+theorem S05_Lem5_17_evenHighSignPatternCount_zero
+    (lam : YoungDiagram (2 * 0)) :
+    S05_evenHighSignPatternCount 0 lam = 0 := by
+  exact S05_evenHighSignPatternCount_zero lam
 
 /-- Lemma 5.17 scalar-size component: the even high-weight count has the
 horizontal-plus-vertical recursion. -/
