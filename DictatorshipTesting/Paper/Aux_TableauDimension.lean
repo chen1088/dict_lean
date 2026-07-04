@@ -837,4 +837,107 @@ theorem sum_row_diff_deleteTwoRemovableRows {n : Nat}
     (lam := lam) (mu := deleteTwoRemovableRowsDiagram lam p)
     (by omega) (deleteTwoRemovableRows_isYoungSubdiagram lam p)
 
+def twoStepFirstChild {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    YoungDiagram (n + 1) :=
+  deleteRemovableRowDiagram lam p.first.1 p.first.2
+
+theorem twoStepFirstChild_isOneBoxChild {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    IsOneBoxChild lam (twoStepFirstChild lam p) := by
+  exact deleteRemovableRowDiagram_isOneBoxChild lam p.first.2
+
+theorem twoStepFirstChild_row_form {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    youngRow lam p.first.1 =
+        youngRow (twoStepFirstChild lam p) p.first.1 + 1 ∧
+      forall t : Nat, t ≠ p.first.1 ->
+        youngRow lam t = youngRow (twoStepFirstChild lam p) t := by
+  exact row_form_deleteRemovableRowDiagram lam p.first.2
+
+theorem twoStepSecondChild_isOneBoxChild {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    IsOneBoxChild (twoStepFirstChild lam p)
+      (deleteTwoRemovableRowsDiagram lam p) := by
+  exact deleteRemovableRowDiagram_isOneBoxChild
+    (twoStepFirstChild lam p) p.second.2
+
+theorem twoStepSecondChild_row_form {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    youngRow (twoStepFirstChild lam p) p.second.1 =
+        youngRow (deleteTwoRemovableRowsDiagram lam p) p.second.1 + 1 ∧
+      forall t : Nat, t ≠ p.second.1 ->
+        youngRow (twoStepFirstChild lam p) t =
+          youngRow (deleteTwoRemovableRowsDiagram lam p) t := by
+  exact row_form_deleteRemovableRowDiagram (twoStepFirstChild lam p) p.second.2
+
+def firstDeletedCornerOfTwoStep {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    YoungCell lam :=
+  deletedCornerCellOfOneBoxChildRow
+    (twoStepFirstChild_isOneBoxChild lam p)
+    (twoStepFirstChild_row_form lam p)
+
+def secondDeletedCornerOfTwoStepInChild {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    YoungCell (twoStepFirstChild lam p) :=
+  deletedCornerCellOfOneBoxChildRow
+    (twoStepSecondChild_isOneBoxChild lam p)
+    (twoStepSecondChild_row_form lam p)
+
+def secondDeletedCornerOfTwoStepInParent {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    YoungCell lam :=
+  childCellToParentCellOfOneBoxChildRow
+    (twoStepFirstChild_isOneBoxChild lam p)
+    (twoStepFirstChild_row_form lam p)
+    (secondDeletedCornerOfTwoStepInChild lam p)
+
+theorem firstDeletedCornerOfTwoStep_row {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    YoungCell.row (firstDeletedCornerOfTwoStep lam p) = p.first.1 := by
+  exact deletedCornerCell_row
+    (twoStepFirstChild_isOneBoxChild lam p)
+    (twoStepFirstChild_row_form lam p)
+
+theorem firstDeletedCornerOfTwoStep_col {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    YoungCell.col (firstDeletedCornerOfTwoStep lam p) =
+      youngRow (twoStepFirstChild lam p) p.first.1 := by
+  exact deletedCornerCell_col
+    (twoStepFirstChild_isOneBoxChild lam p)
+    (twoStepFirstChild_row_form lam p)
+
+theorem secondDeletedCornerOfTwoStepInChild_row {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    YoungCell.row (secondDeletedCornerOfTwoStepInChild lam p) =
+      p.second.1 := by
+  exact deletedCornerCell_row
+    (twoStepSecondChild_isOneBoxChild lam p)
+    (twoStepSecondChild_row_form lam p)
+
+theorem secondDeletedCornerOfTwoStepInChild_col {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    YoungCell.col (secondDeletedCornerOfTwoStepInChild lam p) =
+      youngRow (deleteTwoRemovableRowsDiagram lam p) p.second.1 := by
+  exact deletedCornerCell_col
+    (twoStepSecondChild_isOneBoxChild lam p)
+    (twoStepSecondChild_row_form lam p)
+
+theorem secondDeletedCornerOfTwoStepInParent_row {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    YoungCell.row (secondDeletedCornerOfTwoStepInParent lam p) =
+      p.second.1 := by
+  rw [secondDeletedCornerOfTwoStepInParent]
+  rw [childCellToParentCell_row]
+  exact secondDeletedCornerOfTwoStepInChild_row lam p
+
+theorem secondDeletedCornerOfTwoStepInParent_col {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    YoungCell.col (secondDeletedCornerOfTwoStepInParent lam p) =
+      youngRow (deleteTwoRemovableRowsDiagram lam p) p.second.1 := by
+  rw [secondDeletedCornerOfTwoStepInParent]
+  rw [childCellToParentCell_col]
+  exact secondDeletedCornerOfTwoStepInChild_col lam p
+
 end DictatorshipTesting
