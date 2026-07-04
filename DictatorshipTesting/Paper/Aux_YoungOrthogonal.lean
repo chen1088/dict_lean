@@ -73,4 +73,88 @@ theorem tableauInner_basis_basis_eq_ite {n : Nat} {lam : YoungDiagram n}
     simp
   · simp [h, tableauInner_basis_basis_ne h]
 
+/-- The adjacent entries indexed by `a` occupy a common row. -/
+def adjacentSameRow {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) : Prop :=
+  YoungCell.row (adjacentLoCell T a) =
+    YoungCell.row (adjacentHiCell T a)
+
+/-- The adjacent entries indexed by `a` occupy a common column. -/
+def adjacentSameCol {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) : Prop :=
+  YoungCell.col (adjacentLoCell T a) =
+    YoungCell.col (adjacentHiCell T a)
+
+/-- Axial distance between the cells of adjacent entries `a` and `a+1`. -/
+def adjacentAxialDistance {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) : Int :=
+  entryContent T (adjacentEntryHi a) -
+    entryContent T (adjacentEntryLo a)
+
+theorem adjacentAxialDistance_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow : adjacentSameRow T a) :
+    adjacentAxialDistance T a = 1 := by
+  have hcontent :
+      entryContent T (adjacentEntryHi a) =
+        entryContent T (adjacentEntryLo a) + 1 := by
+    simpa [entryContent, adjacentHiCell, adjacentLoCell, adjacentSameRow] using
+      adjacent_content_hi_eq_lo_add_one_of_sameRow T a hrow
+  unfold adjacentAxialDistance
+  omega
+
+theorem adjacentAxialDistance_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol : adjacentSameCol T a) :
+    adjacentAxialDistance T a = -1 := by
+  have hcontent :
+      entryContent T (adjacentEntryHi a) =
+        entryContent T (adjacentEntryLo a) - 1 := by
+    simpa [entryContent, adjacentHiCell, adjacentLoCell, adjacentSameCol] using
+      adjacent_content_hi_eq_lo_sub_one_of_sameCol T a hcol
+  unfold adjacentAxialDistance
+  omega
+
+theorem adjacentAxialDistance_swap_neg {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    adjacentAxialDistance (adjacentSwapTableau T a hrow_ne hcol_ne) a =
+      - adjacentAxialDistance T a := by
+  unfold adjacentAxialDistance
+  rw [adjacentSwapTableau_entryContent_hi,
+    adjacentSwapTableau_entryContent_lo]
+  omega
+
+/-- Diagonal coefficient in Young's adjacent-transposition formula. -/
+noncomputable def youngAdjacentDiagCoeff {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) : ℝ :=
+  (adjacentAxialDistance T a : ℝ)⁻¹
+
+/-- Off-diagonal coefficient in Young's adjacent-transposition formula. -/
+noncomputable def youngAdjacentOffCoeff {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) : ℝ :=
+  Real.sqrt (1 - youngAdjacentDiagCoeff T a ^ 2)
+
+theorem youngAdjacentDiagCoeff_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow : adjacentSameRow T a) :
+    youngAdjacentDiagCoeff T a = 1 := by
+  rw [youngAdjacentDiagCoeff, adjacentAxialDistance_sameRow T a hrow]
+  norm_num
+
+theorem youngAdjacentDiagCoeff_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol : adjacentSameCol T a) :
+    youngAdjacentDiagCoeff T a = -1 := by
+  rw [youngAdjacentDiagCoeff, adjacentAxialDistance_sameCol T a hcol]
+  norm_num
+
 end DictatorshipTesting

@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_YoungAdjacentEntries
+import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 
 /-!
 Paper statement: Lemma 5.1 (`lem:young-adjacent-matrices`)
@@ -223,5 +223,52 @@ theorem S05_Lem5_01_adjacentSwapTableau_entryContent_of_ne_lo_hi {n : Nat}
     entryContent (adjacentSwapTableau T a hrow_ne hcol_ne) b =
       entryContent T b := by
   exact adjacentSwapTableau_entryContent_of_ne_lo_hi T a hrow_ne hcol_ne hblo hbhi
+
+/-- Lemma 5.1 coefficient component: the axial distance is `1` in the
+same-row case. -/
+theorem S05_Lem5_01_adjacentAxialDistance_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow : adjacentSameRow T a) :
+    adjacentAxialDistance T a = 1 := by
+  exact adjacentAxialDistance_sameRow T a hrow
+
+/-- Lemma 5.1 coefficient component: the axial distance is `-1` in the
+same-column case. -/
+theorem S05_Lem5_01_adjacentAxialDistance_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol : adjacentSameCol T a) :
+    adjacentAxialDistance T a = -1 := by
+  exact adjacentAxialDistance_sameCol T a hcol
+
+/-- Lemma 5.1 coefficient component: swapping a swappable adjacent pair negates
+the axial distance. -/
+theorem S05_Lem5_01_adjacentAxialDistance_swap_neg {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    adjacentAxialDistance (adjacentSwapTableau T a hrow_ne hcol_ne) a =
+      - adjacentAxialDistance T a := by
+  exact adjacentAxialDistance_swap_neg T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 coefficient component: the diagonal coefficient is `1` in the
+same-row case. -/
+theorem S05_Lem5_01_youngAdjacentDiagCoeff_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow : adjacentSameRow T a) :
+    youngAdjacentDiagCoeff T a = 1 := by
+  exact youngAdjacentDiagCoeff_sameRow T a hrow
+
+/-- Lemma 5.1 coefficient component: the diagonal coefficient is `-1` in the
+same-column case. -/
+theorem S05_Lem5_01_youngAdjacentDiagCoeff_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol : adjacentSameCol T a) :
+    youngAdjacentDiagCoeff T a = -1 := by
+  exact youngAdjacentDiagCoeff_sameCol T a hcol
 
 end DictatorshipTesting
