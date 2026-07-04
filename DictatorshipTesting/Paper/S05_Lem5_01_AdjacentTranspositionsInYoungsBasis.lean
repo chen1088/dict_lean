@@ -40,8 +40,54 @@ theorem S05_Lem5_01_adjacent_row_lt_of_sameCol {n : Nat}
     (hcol :
       YoungCell.col (adjacentLoCell T a) =
         YoungCell.col (adjacentHiCell T a)) :
-    YoungCell.row (adjacentLoCell T a) <
-      YoungCell.row (adjacentHiCell T a) := by
+      YoungCell.row (adjacentLoCell T a) <
+        YoungCell.row (adjacentHiCell T a) := by
   exact adjacent_row_lt_of_sameCol T a hcol
+
+/-- Lemma 5.1 basis-level component: same-row adjacent entries occupy
+neighboring columns. -/
+theorem S05_Lem5_01_adjacent_col_eq_succ_of_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow :
+      YoungCell.row (adjacentLoCell T a) =
+        YoungCell.row (adjacentHiCell T a)) :
+    YoungCell.col (adjacentHiCell T a) =
+      YoungCell.col (adjacentLoCell T a) + 1 := by
+  exact adjacent_col_eq_succ_of_sameRow T a hrow
+
+/-- Lemma 5.1 basis-level component: same-column adjacent entries occupy
+neighboring rows. -/
+theorem S05_Lem5_01_adjacent_row_eq_succ_of_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol :
+      YoungCell.col (adjacentLoCell T a) =
+        YoungCell.col (adjacentHiCell T a)) :
+    YoungCell.row (adjacentHiCell T a) =
+      YoungCell.row (adjacentLoCell T a) + 1 := by
+  exact adjacent_row_eq_succ_of_sameCol T a hcol
+
+/-- Lemma 5.1 basis-level component: same-row adjacent contents differ by `+1`. -/
+theorem S05_Lem5_01_adjacent_content_hi_eq_lo_add_one_of_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow :
+      YoungCell.row (adjacentLoCell T a) =
+        YoungCell.row (adjacentHiCell T a)) :
+    YoungCell.content (adjacentHiCell T a) =
+      YoungCell.content (adjacentLoCell T a) + 1 := by
+  exact adjacent_content_hi_eq_lo_add_one_of_sameRow T a hrow
+
+/-- Lemma 5.1 basis-level component: same-column adjacent contents differ by `-1`. -/
+theorem S05_Lem5_01_adjacent_content_hi_eq_lo_sub_one_of_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol :
+      YoungCell.col (adjacentLoCell T a) =
+        YoungCell.col (adjacentHiCell T a)) :
+    YoungCell.content (adjacentHiCell T a) =
+      YoungCell.content (adjacentLoCell T a) - 1 := by
+  exact adjacent_content_hi_eq_lo_sub_one_of_sameCol T a hcol
 
 end DictatorshipTesting

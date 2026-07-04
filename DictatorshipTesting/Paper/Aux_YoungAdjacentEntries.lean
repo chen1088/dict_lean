@@ -130,4 +130,140 @@ theorem adjacent_row_lt_of_sameCol {n : Nat}
         simpa [lo] using entry_adjacentLoCell T a] at hval
     simp [adjacentEntryHi, adjacentEntryLo] at hval
 
+/-- If adjacent entries lie in the same row, then the upper entry is exactly
+one column to the right. -/
+theorem adjacent_col_eq_succ_of_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow :
+      YoungCell.row (adjacentLoCell T a) =
+        YoungCell.row (adjacentHiCell T a)) :
+    YoungCell.col (adjacentHiCell T a) =
+      YoungCell.col (adjacentLoCell T a) + 1 := by
+  let lo := adjacentLoCell T a
+  let hi := adjacentHiCell T a
+  have hlt : YoungCell.col lo < YoungCell.col hi := by
+    simpa [lo, hi] using adjacent_col_lt_of_sameRow T a hrow
+  by_cases hgap : YoungCell.col lo + 1 < YoungCell.col hi
+  · have hhi_box : YoungCell.col hi < youngRow lam (YoungCell.row hi) := by
+      simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox hi
+    have hmid_cell :
+        YoungCell.col lo + 1 < youngRow lam (YoungCell.row lo) := by
+      rw [show YoungCell.row lo = YoungCell.row hi by
+        simpa [lo, hi] using hrow]
+      omega
+    let mid : YoungCell lam :=
+      youngCellOfNat lam (YoungCell.row lo) (YoungCell.col lo + 1) hmid_cell
+    have hmid_row : YoungCell.row mid = YoungCell.row lo := by
+      simp [mid, youngCellOfNat_row]
+    have hmid_col : YoungCell.col mid = YoungCell.col lo + 1 := by
+      simp [mid, youngCellOfNat_col]
+    have hlo_mid : T.entry lo < T.entry mid := by
+      apply T.row_strict
+      · exact hmid_row.symm
+      · rw [hmid_col]
+        omega
+    have hmid_hi : T.entry mid < T.entry hi := by
+      apply T.row_strict
+      · rw [hmid_row]
+        simpa [lo, hi] using hrow
+      · rw [hmid_col]
+        exact hgap
+    have hlo_val : (T.entry lo : Nat) = (a : Nat) := by
+      rw [show T.entry lo = adjacentEntryLo a by
+        simpa [lo] using entry_adjacentLoCell T a]
+      rfl
+    have hhi_val : (T.entry hi : Nat) = (a : Nat) + 1 := by
+      rw [show T.entry hi = adjacentEntryHi a by
+        simpa [hi] using entry_adjacentHiCell T a]
+      rfl
+    have hlo_mid_val : (T.entry lo : Nat) < (T.entry mid : Nat) := hlo_mid
+    have hmid_hi_val : (T.entry mid : Nat) < (T.entry hi : Nat) := hmid_hi
+    omega
+  · change YoungCell.col hi = YoungCell.col lo + 1
+    omega
+
+/-- If adjacent entries lie in the same column, then the upper entry is exactly
+one row below. -/
+theorem adjacent_row_eq_succ_of_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol :
+      YoungCell.col (adjacentLoCell T a) =
+        YoungCell.col (adjacentHiCell T a)) :
+    YoungCell.row (adjacentHiCell T a) =
+      YoungCell.row (adjacentLoCell T a) + 1 := by
+  let lo := adjacentLoCell T a
+  let hi := adjacentHiCell T a
+  have hlt : YoungCell.row lo < YoungCell.row hi := by
+    simpa [lo, hi] using adjacent_row_lt_of_sameCol T a hcol
+  by_cases hgap : YoungCell.row lo + 1 < YoungCell.row hi
+  · have hhi_box : YoungCell.col hi < youngRow lam (YoungCell.row hi) := by
+      simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox hi
+    have hrow_le :
+        youngRow lam (YoungCell.row hi) <=
+          youngRow lam (YoungCell.row lo + 1) :=
+      youngRow_le_of_le lam (by omega)
+    have hmid_cell :
+        YoungCell.col lo < youngRow lam (YoungCell.row lo + 1) := by
+      rw [show YoungCell.col lo = YoungCell.col hi by
+        simpa [lo, hi] using hcol]
+      omega
+    let mid : YoungCell lam :=
+      youngCellOfNat lam (YoungCell.row lo + 1) (YoungCell.col lo) hmid_cell
+    have hmid_row : YoungCell.row mid = YoungCell.row lo + 1 := by
+      simp [mid, youngCellOfNat_row]
+    have hmid_col : YoungCell.col mid = YoungCell.col lo := by
+      simp [mid, youngCellOfNat_col]
+    have hlo_mid : T.entry lo < T.entry mid := by
+      apply T.col_strict
+      · exact hmid_col.symm
+      · rw [hmid_row]
+        omega
+    have hmid_hi : T.entry mid < T.entry hi := by
+      apply T.col_strict
+      · rw [hmid_col]
+        simpa [lo, hi] using hcol
+      · rw [hmid_row]
+        exact hgap
+    have hlo_val : (T.entry lo : Nat) = (a : Nat) := by
+      rw [show T.entry lo = adjacentEntryLo a by
+        simpa [lo] using entry_adjacentLoCell T a]
+      rfl
+    have hhi_val : (T.entry hi : Nat) = (a : Nat) + 1 := by
+      rw [show T.entry hi = adjacentEntryHi a by
+        simpa [hi] using entry_adjacentHiCell T a]
+      rfl
+    have hlo_mid_val : (T.entry lo : Nat) < (T.entry mid : Nat) := hlo_mid
+    have hmid_hi_val : (T.entry mid : Nat) < (T.entry hi : Nat) := hmid_hi
+    omega
+  · change YoungCell.row hi = YoungCell.row lo + 1
+    omega
+
+/-- In the same-row case, contents differ by `+1`. -/
+theorem adjacent_content_hi_eq_lo_add_one_of_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow :
+      YoungCell.row (adjacentLoCell T a) =
+        YoungCell.row (adjacentHiCell T a)) :
+    YoungCell.content (adjacentHiCell T a) =
+      YoungCell.content (adjacentLoCell T a) + 1 := by
+  unfold YoungCell.content
+  have hcol := adjacent_col_eq_succ_of_sameRow T a hrow
+  omega
+
+/-- In the same-column case, contents differ by `-1`. -/
+theorem adjacent_content_hi_eq_lo_sub_one_of_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol :
+      YoungCell.col (adjacentLoCell T a) =
+        YoungCell.col (adjacentHiCell T a)) :
+    YoungCell.content (adjacentHiCell T a) =
+      YoungCell.content (adjacentLoCell T a) - 1 := by
+  unfold YoungCell.content
+  have hrow := adjacent_row_eq_succ_of_sameCol T a hcol
+  omega
+
 end DictatorshipTesting
