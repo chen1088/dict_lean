@@ -123,6 +123,16 @@ theorem S05_Lem5_01_adjacentSwapValue_comm_of_disjoint_indices {n : Nat}
       adjacentSwapValue b (adjacentSwapValue a x) := by
   exact adjacentSwapValue_comm_of_disjoint_indices a b hdisj x
 
+/-- Lemma 5.1 Coxeter-frontier component: entry functions obtained by distant
+adjacent value swaps commute pointwise. -/
+theorem S05_Lem5_01_adjacentSwapEntry_comm_of_disjoint_indices {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b) (u : YoungCell lam) :
+    adjacentSwapValue a (adjacentSwapEntry T b u) =
+      adjacentSwapValue b (adjacentSwapEntry T a u) := by
+  exact adjacentSwapEntry_comm_of_disjoint_indices T a b hdisj u
+
 /-- Lemma 5.1 basis-level component: if adjacent entries are in different rows
 and columns, swapping their values gives another standard tableau. -/
 noncomputable def S05_Lem5_01_adjacentSwapTableau {n : Nat}

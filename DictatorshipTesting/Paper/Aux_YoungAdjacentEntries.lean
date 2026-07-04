@@ -406,6 +406,15 @@ theorem adjacentSwapEntry_involutive {n : Nat}
     adjacentSwapValue a (adjacentSwapEntry T a u) = T.entry u := by
   rw [adjacentSwapEntry, adjacentSwapValue_involutive]
 
+theorem adjacentSwapEntry_comm_of_disjoint_indices {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b) (u : YoungCell lam) :
+    adjacentSwapValue a (adjacentSwapEntry T b u) =
+      adjacentSwapValue b (adjacentSwapEntry T a u) := by
+  rw [adjacentSwapEntry, adjacentSwapEntry]
+  exact adjacentSwapValue_comm_of_disjoint_indices a b hdisj (T.entry u)
+
 theorem adjacentSwapEntry_bijective {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n) :
