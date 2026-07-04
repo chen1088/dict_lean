@@ -469,6 +469,15 @@ theorem S05_Lem5_01_youngAdjacentMatrixCoeff_symmetric_of_source_sameCol
       youngAdjacentMatrixCoeff a T S := by
   exact youngAdjacentMatrixCoeff_symmetric_of_source_sameCol S T a hcolT
 
+/-- Lemma 5.1 self-adjointness component: the concrete Young adjacent matrix
+coefficients are symmetric. -/
+theorem S05_Lem5_01_youngAdjacentMatrixCoeff_symmetric
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (a : Fin n) (S T : StandardYoungTableau lam) :
+    youngAdjacentMatrixCoeff a S T =
+      youngAdjacentMatrixCoeff a T S := by
+  exact youngAdjacentMatrixCoeff_symmetric a S T
+
 /-- Lemma 5.1 operator component: in the same-row case, the adjacent operator
 fixes the tableau basis vector. -/
 theorem S05_Lem5_01_youngAdjacentOperator_basis_sameRow {n : Nat}
@@ -540,6 +549,19 @@ theorem S05_Lem5_01_youngAdjacentOperator_selfAdjoint_basis_swappable_pair
           (tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne))) := by
   exact youngAdjacentOperator_selfAdjoint_basis_swappable_pair
     T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 self-adjointness component: the adjacent operator is
+self-adjoint on coordinate basis vectors. -/
+theorem S05_Lem5_01_youngAdjacentOperator_selfAdjoint_basis
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (a : Fin n) (S T : StandardYoungTableau lam) :
+    tableauInner
+        (youngAdjacentOperator a (tableauBasisVec T))
+        (tableauBasisVec S) =
+      tableauInner
+        (tableauBasisVec T)
+        (youngAdjacentOperator a (tableauBasisVec S)) := by
+  exact youngAdjacentOperator_selfAdjoint_basis a S T
 
 /-- Lemma 5.1 operator component: in the swappable case, all other basis
 coordinates vanish. -/

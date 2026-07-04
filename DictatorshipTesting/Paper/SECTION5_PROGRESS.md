@@ -523,6 +523,11 @@ Main names added:
 - `tableauInner_left_basis`
 - `youngAdjacentMatrixCoeff_swappable_pair_symmetric`
 - `youngAdjacentOperator_selfAdjoint_basis_swappable_pair`
+- `youngAdjacentMatrixCoeff_symmetric_of_source_sameRow`
+- `youngAdjacentMatrixCoeff_symmetric_of_source_sameCol`
+- `youngAdjacentMatrixCoeff_symmetric_of_source_swappable`
+- `youngAdjacentMatrixCoeff_symmetric`
+- `youngAdjacentOperator_selfAdjoint_basis`
 
 Section 5 numbers progressed:
 - Lemma 5.1: coefficient identities, diagonal involution cases, swap-back
@@ -534,6 +539,9 @@ Section 5 numbers progressed:
 - Lemma 5.1: the two off-diagonal matrix coefficients in a swappable pair are
   proved equal, and the adjacent operator is self-adjoint on that two-tableau
   pair against the tableau coordinate inner product.
+- Lemma 5.1: the full concrete adjacent matrix coefficient symmetry is proved
+  for all tableau pairs, and the adjacent operator is self-adjoint on coordinate
+  basis vectors.
 
 Exact remaining blocker:
 - The local Lemma 5.1 involution-on-basis cases are now proved.  The remaining
@@ -542,6 +550,5 @@ Exact remaining blocker:
   the matching-subgroup and spectral-block model.
 
 Next automatically selected task:
-- Continue with matrix symmetry/self-adjointness facts for the concrete
-  adjacent coefficient matrix outside the swappable pair, then attempt the first
-  Coxeter frontier.
+- Attempt the first Coxeter frontier, starting with support/combinatorics for
+  distant adjacent swaps.

@@ -486,6 +486,26 @@ theorem ne_adjacentSwapTableau_of_sameCol {n : Nat}
   exact hcolS_ne
     ((adjacentSameCol_swap_iff S a hrowS_ne hcolS_ne).1 hswap_col)
 
+theorem ne_adjacentSwapTableau_of_ne_swapped {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T S : StandardYoungTableau lam) (a : Fin n)
+    (hrowT_ne : ¬ adjacentSameRow T a)
+    (hcolT_ne : ¬ adjacentSameCol T a)
+    (hrowS_ne : ¬ adjacentSameRow S a)
+    (hcolS_ne : ¬ adjacentSameCol S a)
+    (hS_ne_swapT :
+      S ≠ adjacentSwapTableau T a hrowT_ne hcolT_ne) :
+    T ≠ adjacentSwapTableau S a hrowS_ne hcolS_ne := by
+  intro h
+  subst T
+  have hinv :
+      adjacentSwapTableau
+          (adjacentSwapTableau S a hrowS_ne hcolS_ne) a
+          hrowT_ne hcolT_ne = S :=
+    adjacentSwapTableau_involutive S a hrowS_ne hcolS_ne
+      hrowT_ne hcolT_ne
+  exact hS_ne_swapT hinv.symm
+
 /-- Matrix coefficient of the Young adjacent-transposition formula in the
 standard tableau basis.  This is only the concrete coefficient model, not yet a
 claim that it realizes a symmetric-group representation. -/
@@ -651,6 +671,45 @@ theorem youngAdjacentMatrixCoeff_symmetric_of_source_sameCol {n : Nat}
   · rw [youngAdjacentMatrixCoeff_sameCol_ne a hcolT hST,
       youngAdjacentMatrixCoeff_target_sameCol_ne a hcolT hST]
 
+theorem youngAdjacentMatrixCoeff_symmetric_of_source_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (S T : StandardYoungTableau lam) (a : Fin n)
+    (hrowT_ne : ¬ adjacentSameRow T a)
+    (hcolT_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a S T =
+      youngAdjacentMatrixCoeff a T S := by
+  by_cases hST : S = T
+  · subst S
+    rfl
+  · by_cases hSswap : S = adjacentSwapTableau T a hrowT_ne hcolT_ne
+    · subst S
+      exact youngAdjacentMatrixCoeff_swappable_pair_symmetric T a
+        hrowT_ne hcolT_ne
+    · rw [youngAdjacentMatrixCoeff_swappable_other a hrowT_ne hcolT_ne
+        hST hSswap]
+      by_cases hrowS : adjacentSameRow S a
+      · rw [youngAdjacentMatrixCoeff_sameRow_ne (S := T) (T := S)
+          a hrowS (fun h => hST h.symm)]
+      · by_cases hcolS : adjacentSameCol S a
+        · rw [youngAdjacentMatrixCoeff_sameCol_ne (S := T) (T := S)
+            a hcolS (fun h => hST h.symm)]
+        · rw [youngAdjacentMatrixCoeff_swappable_other (S := T) (T := S)
+            a hrowS hcolS (fun h => hST h.symm)
+            (ne_adjacentSwapTableau_of_ne_swapped T S a
+              hrowT_ne hcolT_ne hrowS hcolS hSswap)]
+
+theorem youngAdjacentMatrixCoeff_symmetric {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (a : Fin n) (S T : StandardYoungTableau lam) :
+    youngAdjacentMatrixCoeff a S T =
+      youngAdjacentMatrixCoeff a T S := by
+  by_cases hrowT : adjacentSameRow T a
+  · exact youngAdjacentMatrixCoeff_symmetric_of_source_sameRow S T a hrowT
+  · by_cases hcolT : adjacentSameCol T a
+    · exact youngAdjacentMatrixCoeff_symmetric_of_source_sameCol S T a hcolT
+    · exact youngAdjacentMatrixCoeff_symmetric_of_source_swappable
+        S T a hrowT hcolT
+
 /-- The adjacent-transposition matrix on the tableau coordinate space.  This is
 the explicit Young-orthogonal matrix model on a single shape. -/
 noncomputable def youngAdjacentOperator {n : Nat}
@@ -752,6 +811,19 @@ theorem youngAdjacentOperator_selfAdjoint_basis_swappable_pair {n : Nat}
   rw [tableauInner_right_basis, tableauInner_left_basis,
     youngAdjacentOperator_basis_swappable_swap_value,
     youngAdjacentOperator_basis_swappable_swap_symm_value]
+
+theorem youngAdjacentOperator_selfAdjoint_basis {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (a : Fin n) (S T : StandardYoungTableau lam) :
+    tableauInner
+        (youngAdjacentOperator a (tableauBasisVec T))
+        (tableauBasisVec S) =
+      tableauInner
+        (tableauBasisVec T)
+        (youngAdjacentOperator a (tableauBasisVec S)) := by
+  rw [tableauInner_right_basis, tableauInner_left_basis,
+    youngAdjacentOperator_basis_value, youngAdjacentOperator_basis_value,
+    youngAdjacentMatrixCoeff_symmetric]
 
 theorem youngAdjacentOperator_basis_swappable_other_value {n : Nat}
     {lam : YoungDiagram (n + 1)}

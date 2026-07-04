@@ -62,10 +62,11 @@ spectral block model.
 
 The first self-adjointness facts are also internal: tableau inner products
 against coordinate basis vectors evaluate to the matching coordinate, and the
-two off-diagonal matrix coefficients in a swappable tableau pair are equal.
-Full matrix symmetry for arbitrary pairs of tableaux still requires a support
-classification showing that no unrelated tableau can map back into the
-two-tableau support.
+two off-diagonal matrix coefficients in a swappable tableau pair are equal.  The
+full concrete adjacent matrix coefficient symmetry is now proved for all pairs
+of standard tableaux, and the adjacent operator is self-adjoint on coordinate
+basis vectors.  The next local representation-layer frontier is proving Coxeter
+relations for these concrete adjacent operators.
 
 ## Section 5 Paper/Lean Status Table
 
