@@ -1,5 +1,6 @@
 import DictatorshipTesting.Paper.S05_Def5_06_SignedTwoBoxRemovals
 import DictatorshipTesting.Paper.S05_Lem5_11_OneBoxDeletionIsUnitary
+import DictatorshipTesting.Paper.S05_Lem5_12_OneBoxDeletionIntertwinesEarlierSwaps
 
 /-!
 Paper statement: Lemma 5.8 (`lem:two-box-tableau-branching`)
@@ -81,5 +82,23 @@ theorem S05_Lem5_08_second_deleted_cell_removable_corner
     IsRemovableCornerBox mu (YoungCell.toNatPair v) := by
   exact removableCornerBox_of_tableauMaxAt
     (S05_Lem5_08_deleteFirstMaxAsTableau h hr T hu) hv
+
+/-- Lemma 5.8 basis-level component: the first deletion in the two-box
+branching step preserves the content sequence on the remaining entries. -/
+theorem S05_Lem5_08_first_deletion_tableauContentSequence
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr))
+    (a : Fin (n + 1)) :
+    tableauContentSequence (S05_Lem5_08_deleteFirstMaxAsTableau h hr T hu) a =
+      tableauContentSequence T (Fin.castSucc a) := by
+  exact S05_Lem5_12_deleteMax_tableauContentSequence
+    h hr (deletedCornerCellOfOneBoxChildRow h hr)
+    (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) T hu a
 
 end DictatorshipTesting
