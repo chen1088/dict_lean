@@ -98,6 +98,18 @@ theorem S05_Lem5_20_cubeLowDegreeOnePart_matchingCharacter_of_high {m : ℕ}
       fun _ : Cube m => 0 := by
   exact cubeLowDegreeOnePart_cubeChar_of_two_le_card hS
 
+/-- Lemma 5.20, matching-character vocabulary: every matching character is
+either preserved by the local truncation or killed by it. -/
+theorem S05_Lem5_20_cubeLowDegreeOnePart_matchingCharacter_preserved_or_killed
+    {m : ℕ} (S : Finset (Fin m)) :
+    (cubeLowDegreeOnePart (fun x : Cube m => S05_matchingCharacter S x) =
+        fun x : Cube m => S05_matchingCharacter S x) ∨
+      (cubeLowDegreeOnePart (fun x : Cube m => S05_matchingCharacter S x) =
+        fun _ : Cube m => 0) := by
+  rcases S05_matchingCharacter_low_or_high S with hlow | hhigh
+  · exact Or.inl (S05_Lem5_20_cubeLowDegreeOnePart_matchingCharacter_of_low hlow)
+  · exact Or.inr (S05_Lem5_20_cubeLowDegreeOnePart_matchingCharacter_of_high hhigh)
+
 /-- Lemma 5.20, matching-character vocabulary: `P_M` preserves low local
 matching characters. -/
 theorem S05_Lem5_20_matchingLocalProjection_preserves_low_matchingCharacter
