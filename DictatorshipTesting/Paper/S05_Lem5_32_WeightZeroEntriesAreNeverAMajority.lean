@@ -2020,4 +2020,89 @@ theorem S05_Lem5_32_zEven_le_youngDim
     zEven m lam ≤ youngDim lam := by
   exact zEven_le_youngDim m lam
 
+/-!
+## Tableau-dimension certificate layer
+
+The next theorems are the axiom-free part of the migration from the hook-length
+proxy `youngDim` to `tableauDim`, the cardinality of standard Young tableaux.
+They prove the base case and the generic induction step for Lemma 5.32 using
+the tableau-count two-strip recursion from Lemma 5.15.  The remaining work is
+the exceptional-shape checks, where the old proof currently uses explicit
+`youngDim` formulas for the standard and `(2m-2,2)` shapes.
+-/
+
+theorem zEven_le_half_tableauDim_m_one
+    (lam : YoungDiagram (2 * 1)) (hrow : ¬ IsOneRow lam) :
+    zEven 1 lam ≤ (1 / 2 : ℝ) * tableauDim lam := by
+  classical
+  have hrow1pos : 0 < youngRow lam 1 := by
+    unfold IsOneRow youngRow at hrow
+    simp at hrow
+    unfold youngRow
+    simp
+    have hsum : (lam.row 0 : ℕ) + (lam.row 1 : ℕ) = 2 := by
+      simpa using lam.sum_rows
+    have h0ne : ¬ (lam.row 0 : ℕ) = 2 := by
+      exact hrow
+    omega
+  have hz : zEven 1 lam = 0 := by
+    change (horizontalTwoStripChildrenEven 1 lam).sum
+      (fun mu => zEven 0 mu) = 0
+    apply Finset.sum_eq_zero
+    intro mu hmu
+    have hstrip :
+        IsHorizontalTwoStripChild lam mu :=
+      (Finset.mem_filter.mp hmu).2
+    have hle := hstrip.2.2 (0 : Fin (2 * 1))
+    have hmu0 : youngRow mu 0 = 0 := by
+      unfold youngRow
+      simp
+    have hzle : youngRow lam 1 ≤ 0 := by
+      simpa [hmu0] using hle
+    omega
+  rw [hz]
+  exact mul_nonneg (by norm_num) (tableauDim_nonneg lam)
+
+theorem zEven_le_half_tableauDim_of_noOneRowHorizontalChild_succ
+    (m : ℕ) (lam : YoungDiagram (2 * (m + 1)))
+    (ih :
+      ∀ mu : YoungDiagram (2 * m),
+        ¬ IsOneRow mu →
+          zEven m mu ≤ (1 / 2 : ℝ) * tableauDim mu)
+    (hno : ¬ HasOneRowHorizontalChild (m + 1) lam) :
+    zEven (m + 1) lam ≤ (1 / 2 : ℝ) * tableauDim lam := by
+  have hzrec := zEven_horizontal_recurrence (m + 1) (by omega) lam
+  rw [hzrec]
+  change
+    (horizontalTwoStripChildrenEven (m + 1) lam).sum
+        (fun mu => zEven m mu) ≤
+      (1 / 2 : ℝ) * tableauDim lam
+  have hchild_nonrow :
+      ∀ mu ∈ horizontalTwoStripChildrenEven (m + 1) lam, ¬ IsOneRow mu := by
+    intro mu hmu hone
+    exact hno ⟨mu, hmu, hone⟩
+  have hsum_ind :
+      (horizontalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => zEven m mu) ≤
+        (horizontalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => (1 / 2 : ℝ) * tableauDim mu) := by
+    apply Finset.sum_le_sum
+    intro mu hmu
+    exact ih mu (hchild_nonrow mu hmu)
+  have hsum_dim :
+      (horizontalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => (1 / 2 : ℝ) * tableauDim mu) =
+        (1 / 2 : ℝ) *
+          (horizontalTwoStripChildrenEven (m + 1) lam).sum
+            (fun mu => tableauDim mu) := by
+    rw [Finset.mul_sum]
+  have hdim_le :
+      (1 / 2 : ℝ) *
+          (horizontalTwoStripChildrenEven (m + 1) lam).sum
+            (fun mu => tableauDim mu) ≤
+        (1 / 2 : ℝ) * tableauDim lam := by
+    exact mul_le_mul_of_nonneg_left
+      (tableauDim_horizontalChildrenEven_sum_le_succ m lam) (by norm_num)
+  linarith
+
 end DictatorshipTesting

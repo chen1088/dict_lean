@@ -117,4 +117,12 @@ theorem S05_Lem5_15_tableauDim_twoStrip_branching_sized
         (verticalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) := by
   exact tableauDim_twoStrip_branching_sized lam
 
+theorem S05_Lem5_15_tableauDim_twoStripChildrenEven_branching_succ
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :
+    tableauDim lam =
+      (horizontalTwoStripChildrenEven (m + 1) lam).sum (fun mu => tableauDim mu) +
+        (verticalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => tableauDim mu) := by
+  exact tableauDim_twoStripChildrenEven_branching_succ m lam
+
 end DictatorshipTesting

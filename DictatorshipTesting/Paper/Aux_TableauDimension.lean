@@ -2105,6 +2105,42 @@ theorem tableauDim_twoStrip_branching_sized {n : Nat}
           (verticalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) := by
       exact sum_taggedTwoStripChildrenSized lam
 
+theorem horizontalTwoStripChildrenSized_eq_even_succ (m : Nat)
+    (lam : YoungDiagram (2 * (m + 1))) :
+    horizontalTwoStripChildrenSized lam =
+      horizontalTwoStripChildrenEven (m + 1) lam := by
+  ext mu
+  simp [horizontalTwoStripChildrenSized, horizontalTwoStripChildrenEven]
+
+theorem verticalTwoStripChildrenSized_eq_even_succ (m : Nat)
+    (lam : YoungDiagram (2 * (m + 1))) :
+    verticalTwoStripChildrenSized lam =
+      verticalTwoStripChildrenEven (m + 1) lam := by
+  ext mu
+  simp [verticalTwoStripChildrenSized, verticalTwoStripChildrenEven]
+
+theorem tableauDim_twoStripChildrenEven_branching_succ
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :
+    tableauDim lam =
+      (horizontalTwoStripChildrenEven (m + 1) lam).sum (fun mu => tableauDim mu) +
+        (verticalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => tableauDim mu) := by
+  have h := tableauDim_twoStrip_branching_sized lam
+  have hH := horizontalTwoStripChildrenSized_eq_even_succ m lam
+  have hV := verticalTwoStripChildrenSized_eq_even_succ m lam
+  simpa [hH, hV] using h
+
+theorem tableauDim_horizontalChildrenEven_sum_le_succ
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :
+    (horizontalTwoStripChildrenEven (m + 1) lam).sum
+        (fun mu => tableauDim mu) ≤ tableauDim lam := by
+  have hrec := tableauDim_twoStripChildrenEven_branching_succ m lam
+  have hv_nonneg :
+      0 ≤ (verticalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => tableauDim mu) := by
+    exact Finset.sum_nonneg (fun mu _hmu => tableauDim_nonneg mu)
+  linarith
+
 def deleteMaxAtMaxRemovableRow {n : Nat}
     {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
     StandardYoungTableau
