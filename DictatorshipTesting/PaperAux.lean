@@ -23,6 +23,7 @@ import DictatorshipTesting.Paper.Aux_OrderedMatchingTauDepends
 import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
 import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
+import DictatorshipTesting.Paper.Aux_YoungAdjacentEntries
 import DictatorshipTesting.Paper.Aux_CubeOneJuntaHighDegree
 import DictatorshipTesting.Paper.Aux_CubeCharXor
 import DictatorshipTesting.Paper.Aux_CubeDeltaChar
