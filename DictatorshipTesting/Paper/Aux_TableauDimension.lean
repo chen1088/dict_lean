@@ -361,8 +361,26 @@ theorem row_form_deleteRemovableRowDiagram {n : Nat}
     rw [youngRow_deleteRemovableRowDiagram lam hr t]
     simp [ht]
 
+theorem youngDiagram_ext_youngRow {n : Nat} {lam mu : YoungDiagram n}
+    (h : ∀ i : Nat, youngRow lam i = youngRow mu i) :
+    lam = mu := by
+  cases lam
+  cases mu
+  congr
+  funext i
+  apply Fin.ext
+  have hi : (i : Nat) < n := i.isLt
+  have hrow := h i
+  simp [youngRow, hi] at hrow
+  exact hrow
+
 abbrev RemovableRow {n : Nat} (lam : YoungDiagram (n + 1)) :=
   {r : Nat // IsRemovableRow lam r}
+
+def oneBoxChildrenSized {n : Nat} (lam : YoungDiagram (n + 1)) :
+    Finset (YoungDiagram n) := by
+  classical
+  exact Finset.univ.filter (fun mu : YoungDiagram n => IsOneBoxChild lam mu)
 
 noncomputable instance removableRowFintype {n : Nat}
     (lam : YoungDiagram (n + 1)) : Fintype (RemovableRow lam) := by
@@ -391,6 +409,14 @@ theorem removableRowToOneBoxChild_mem {n : Nat}
   exact Finset.mem_filter.mpr
     ⟨Finset.mem_univ _, removableRowToOneBoxChild_isOneBoxChild lam r⟩
 
+theorem removableRowToOneBoxChild_mem_sized {n : Nat}
+    (lam : YoungDiagram (n + 1)) (r : RemovableRow lam) :
+    removableRowToOneBoxChild lam r ∈ oneBoxChildrenSized lam := by
+  classical
+  rw [oneBoxChildrenSized]
+  exact Finset.mem_filter.mpr
+    ⟨Finset.mem_univ _, removableRowToOneBoxChild_isOneBoxChild lam r⟩
+
 noncomputable def oneBoxChildToRemovableRow {n : Nat}
     (lam : YoungDiagram (n + 1))
     (mu : {mu : YoungDiagram n // mu ∈ oneBoxChildren lam}) :
@@ -415,6 +441,83 @@ theorem oneBoxChildToRemovableRow_row_form {n : Nat}
     simpa [oneBoxChildren] using (Finset.mem_filter.mp mu.2).2
   let hrow := exists_removableRow_of_oneBoxChild hchild
   exact (Classical.choose_spec hrow).2
+
+noncomputable def oneBoxChildToRemovableRowSized {n : Nat}
+    (lam : YoungDiagram (n + 1))
+    (mu : {mu : YoungDiagram n // mu ∈ oneBoxChildrenSized lam}) :
+    RemovableRow lam := by
+  classical
+  have hchild : IsOneBoxChild lam mu.1 := by
+    simpa [oneBoxChildrenSized] using (Finset.mem_filter.mp mu.2).2
+  let hrow := exists_removableRow_of_oneBoxChild hchild
+  exact ⟨Classical.choose hrow, (Classical.choose_spec hrow).1⟩
+
+theorem oneBoxChildToRemovableRowSized_row_form {n : Nat}
+    (lam : YoungDiagram (n + 1))
+    (mu : {mu : YoungDiagram n // mu ∈ oneBoxChildrenSized lam}) :
+    youngRow lam (oneBoxChildToRemovableRowSized lam mu).1 =
+        youngRow mu.1 (oneBoxChildToRemovableRowSized lam mu).1 + 1 ∧
+      forall s : Nat, s ≠ (oneBoxChildToRemovableRowSized lam mu).1 ->
+        youngRow lam s = youngRow mu.1 s := by
+  classical
+  unfold oneBoxChildToRemovableRowSized
+  dsimp
+  let hchild : IsOneBoxChild lam mu.1 := by
+    simpa [oneBoxChildrenSized] using (Finset.mem_filter.mp mu.2).2
+  let hrow := exists_removableRow_of_oneBoxChild hchild
+  exact (Classical.choose_spec hrow).2
+
+theorem oneBoxChildToRemovableRowSized_removableRowToOneBoxChild {n : Nat}
+    (lam : YoungDiagram (n + 1)) (r : RemovableRow lam) :
+    oneBoxChildToRemovableRowSized lam
+        ⟨removableRowToOneBoxChild lam r,
+          removableRowToOneBoxChild_mem_sized lam r⟩ = r := by
+  apply Subtype.ext
+  let mu : {mu : YoungDiagram n // mu ∈ oneBoxChildrenSized lam} :=
+    ⟨removableRowToOneBoxChild lam r,
+      removableRowToOneBoxChild_mem_sized lam r⟩
+  have hchosen := oneBoxChildToRemovableRowSized_row_form lam mu
+  have hconstructed := row_form_deleteRemovableRowDiagram lam r.2
+  rcases existsUnique_row_of_oneBoxChild
+      (removableRowToOneBoxChild_isOneBoxChild lam r) with
+    ⟨u, _hu, huniq⟩
+  have hchosen_eq :
+      (oneBoxChildToRemovableRowSized lam mu).1 = u := huniq _ hchosen
+  have hconstructed_eq : r.1 = u := huniq _ hconstructed
+  exact hchosen_eq.trans hconstructed_eq.symm
+
+theorem removableRowToOneBoxChild_oneBoxChildToRemovableRowSized {n : Nat}
+    (lam : YoungDiagram (n + 1))
+    (mu : {mu : YoungDiagram n // mu ∈ oneBoxChildrenSized lam}) :
+    removableRowToOneBoxChild lam (oneBoxChildToRemovableRowSized lam mu) =
+      mu.1 := by
+  let r := oneBoxChildToRemovableRowSized lam mu
+  change deleteRemovableRowDiagram lam r.1 r.2 = mu.1
+  have hmu := oneBoxChildToRemovableRowSized_row_form lam mu
+  change youngRow lam r.1 = youngRow mu.1 r.1 + 1 ∧
+      (∀ s : Nat, s ≠ r.1 -> youngRow lam s = youngRow mu.1 s) at hmu
+  have hconstructed := row_form_deleteRemovableRowDiagram lam r.2
+  apply youngDiagram_ext_youngRow
+  intro i
+  by_cases hir : i = r.1
+  · subst i
+    have hmu_at := hmu.1
+    have hconstructed_at := hconstructed.1
+    omega
+  · have hmu_other := hmu.2 i hir
+    have hconstructed_other := hconstructed.2 i hir
+    rw [← hconstructed_other, ← hmu_other]
+
+noncomputable def removableRowsEquivOneBoxChildren {n : Nat}
+    (lam : YoungDiagram (n + 1)) :
+    RemovableRow lam ≃ {mu : YoungDiagram n // mu ∈ oneBoxChildrenSized lam} where
+  toFun r :=
+    ⟨removableRowToOneBoxChild lam r, removableRowToOneBoxChild_mem_sized lam r⟩
+  invFun mu := oneBoxChildToRemovableRowSized lam mu
+  left_inv r := oneBoxChildToRemovableRowSized_removableRowToOneBoxChild lam r
+  right_inv mu := by
+    apply Subtype.ext
+    exact removableRowToOneBoxChild_oneBoxChildToRemovableRowSized lam mu
 
 theorem isRemovableRow_of_removableCornerBox {n : Nat}
     {lam : YoungDiagram n} {u : Nat × Nat}
@@ -641,5 +744,42 @@ theorem tableauDim_eq_sum_removableRow_children {n : Nat}
       ((Fintype.card
         (StandardYoungTableau (removableRowToOneBoxChild lam r)) : Nat) : ℝ)
   rw [← Nat.cast_sum, hnat]
+
+theorem sum_removableRows_tableauDim_eq_oneBoxChildrenSized {n : Nat}
+    (lam : YoungDiagram (n + 1)) :
+    (∑ r : RemovableRow lam, tableauDim (removableRowToOneBoxChild lam r)) =
+      (oneBoxChildrenSized lam).sum (fun mu => tableauDim mu) := by
+  classical
+  have hsum_subtype :
+      (∑ mu : {mu : YoungDiagram n // mu ∈ oneBoxChildrenSized lam},
+        tableauDim mu.1) =
+        (oneBoxChildrenSized lam).sum (fun mu => tableauDim mu) := by
+    rw [Finset.univ_eq_attach]
+    exact Finset.sum_attach (oneBoxChildrenSized lam) (fun mu => tableauDim mu)
+  exact (Fintype.sum_equiv
+    (removableRowsEquivOneBoxChildren lam)
+    (fun r : RemovableRow lam => tableauDim (removableRowToOneBoxChild lam r))
+    (fun mu : {mu : YoungDiagram n // mu ∈ oneBoxChildrenSized lam} =>
+      tableauDim mu.1)
+    (fun _ => rfl)).trans hsum_subtype
+
+theorem tableauDim_oneBox_branching_sized {n : Nat}
+    (lam : YoungDiagram (n + 1)) :
+    tableauDim lam = (oneBoxChildrenSized lam).sum (fun mu => tableauDim mu) := by
+  rw [tableauDim_eq_sum_removableRow_children lam]
+  exact sum_removableRows_tableauDim_eq_oneBoxChildrenSized lam
+
+theorem oneBoxChildrenSized_eq_oneBoxChildrenOdd (m : Nat)
+    (lam : YoungDiagram (2 * m + 1)) :
+    oneBoxChildrenSized lam = oneBoxChildrenOdd m lam := by
+  ext mu
+  simp [oneBoxChildrenSized, oneBoxChildrenOdd]
+
+theorem tableauDim_oneBoxChildrenOdd_branching (m : Nat)
+    (lam : YoungDiagram (2 * m + 1)) :
+    tableauDim lam =
+      (oneBoxChildrenOdd m lam).sum (fun mu => tableauDim mu) := by
+  rw [← oneBoxChildrenSized_eq_oneBoxChildrenOdd m lam]
+  exact tableauDim_oneBox_branching_sized lam
 
 end DictatorshipTesting
