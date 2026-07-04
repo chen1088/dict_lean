@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
+import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates_Legacy
 import DictatorshipTesting.Paper.S05_Lem5_26_BlockScalarOfTheAveragedRejection
 import DictatorshipTesting.Paper.Aux_TableauDimension
 
@@ -106,5 +107,40 @@ def matchingAverageScalarModel_of_blockTraceModel_withDim {n : Nat}
   scalarity := model.scalarity
   trace_value :=
     traceScalarValue_of_blockTraceIdentity_withDim hdim model.trace_identity
+
+/-- Spectral gap from a scalar trace formula and a finite certificate, for an
+arbitrary block-dimension function. -/
+theorem SpectralGapFromBlockScalarsWithDim {n : Nat} (c : ℝ)
+    (F : Perm (Fin n) -> ℝ)
+    (dim height blockEnergy theta : YoungDiagram n -> ℝ)
+    (hdecomp : YoungBlockDecompositionInput blockEnergy)
+    (hu1 : U1YoungBlockIdentificationInput F blockEnergy)
+    (hscalarity : MatchingAverageScalarityInput F blockEnergy theta)
+    (htrace : TraceScalarValueInputWithDim dim height theta)
+    (hcert :
+      ∀ lam : YoungDiagram n,
+        ¬ IsOneRow lam -> ¬ IsStandard lam -> c * dim lam <= height lam) :
+    c * l2DistSqToU1 F <= matchingMeanProjectionError F := by
+  exact
+    SpectralGapFromBlockScalars c F blockEnergy theta
+      hdecomp hu1 hscalarity
+      (blockScalar_lower_bound_of_traceScalarFormula_withDim htrace hcert)
+
+/-- Spectral gap from a dimension-parameterized spectral-block model and a
+finite certificate.  The representation-theoretic model remains an explicit
+hypothesis. -/
+theorem SpectralGapFromBlockModelWithDim {n : Nat}
+    (c : ℝ) (dim height : YoungDiagram n -> ℝ)
+    (hmodel : SpectralBlockModelInputWithDim dim height)
+    (hcert :
+      ∀ lam : YoungDiagram n,
+        ¬ IsOneRow lam -> ¬ IsStandard lam -> c * dim lam <= height lam) :
+    MatchingSpectralGapConstant n c := by
+  intro F
+  rcases hmodel F with ⟨energy, ⟨scalar⟩⟩
+  exact
+    SpectralGapFromBlockScalarsWithDim c F dim height
+      energy.blockEnergy scalar.theta energy.nonneg energy.u1_identification
+      scalar.scalarity scalar.trace_value hcert
 
 end DictatorshipTesting
