@@ -73,8 +73,11 @@ fully swappable distant adjacent operators commute on tableau basis vectors.
 This has now been extended to the full distant-commutation relation on tableau
 basis vectors and then to the whole tableau coordinate space by finite basis
 expansion and linearity.  The braid frontier has started at the value and entry
-function level.  The next local representation-layer frontier is lifting braid
-from entries to standard tableaux and then to the concrete adjacent operators.
+function level, and it has been lifted to standard tableaux under explicit
+standardness hypotheses for both braid paths.  The next local
+representation-layer frontier is automatic braid standardness transport,
+coefficient comparison across the braid path, and then the concrete adjacent
+operator braid theorem.
 
 ## Section 5 Paper/Lean Status Table
 

@@ -512,6 +512,7 @@ Completed commits in this run so far:
 - `eed15e2` Lift distant adjacent commutation to coordinate functions
 - `7665ed8` Start braid frontier for adjacent value swaps
 - `40190b4` Lift braid frontier to adjacent entry functions
+- `bf3443c` Lift braid frontier to swapped tableaux
 
 Main names added:
 - `youngAdjacentDiagCoeff_swap`
@@ -573,6 +574,7 @@ Main names added:
 - `youngAdjacentOperator_comm_of_disjoint_indices`
 - `adjacentSwapValue_braid_of_succ`
 - `adjacentSwapEntry_braid_of_succ`
+- `adjacentSwapTableau_braid_of_succ`
 
 Section 5 numbers progressed:
 - Lemma 5.1: coefficient identities, diagonal involution cases, swap-back
@@ -606,15 +608,19 @@ Section 5 numbers progressed:
 - Lemma 5.1: the braid frontier has started at the value-combinatorics level:
   consecutive adjacent value swaps satisfy the braid relation, and the relation
   has been lifted pointwise to adjacent entry functions.
+- Lemma 5.1: the braid relation has also been lifted to standard tableaux
+  under explicit hypotheses that all three swaps along both braid paths are
+  standard.
 
 Exact remaining blocker:
 - The local Lemma 5.1 involution-on-basis cases, coefficient symmetry,
   self-adjointness, and the full distant-commutation relation for the concrete
   adjacent operators are now proved.  The remaining representation-layer
   blocker is the braid relation at the tableau/operator level: value and entry
-  functions satisfy the braid relation, but the standard-tableau braid path
-  still needs the corresponding standardness transport and coefficient
-  comparison across the three consecutive swaps.
+  functions satisfy the braid relation, and the standard-tableau braid path is
+  proved when all needed swaps are supplied.  What remains is the automatic
+  standardness transport and coefficient comparison across the three
+  consecutive swaps.
 
 Next automatically selected task:
 - Lift the braid frontier from entry functions to swapped tableaux under
