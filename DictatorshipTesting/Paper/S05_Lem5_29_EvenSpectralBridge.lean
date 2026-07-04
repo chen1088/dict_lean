@@ -1,4 +1,6 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates_Legacy
+import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
+import DictatorshipTesting.Paper.S05_Lem5_34_EvenCertificate
 
 /-!
 Paper statement: Lemma 5.29 (`lem:spectral-certificate-even`)
@@ -36,5 +38,23 @@ theorem S05_Lem5_29_evenSpectralGapFromCertificates
         ¬ IsOneRow lam -> ¬ IsStandard lam -> c * youngDim lam ≤ hEven m lam) :
     MatchingSpectralGapConstant (2 * m) c := by
   exact EvenSpectralGapFromCertificates m hm c hmodel hcert
+
+/-- Lemma 5.29, tableau-count version: the tableauDim finite certificate feeds
+any dimension-parameterized even spectral-block model. -/
+theorem S05_Lem5_29_tableauDim_evenSpectralGapFromCertificates
+    (m : Nat) (hm : 2 <= m)
+    (hmodel :
+      SpectralBlockModelInputWithDim
+        (fun lam : YoungDiagram (2 * m) => tableauDim lam)
+        (fun lam : YoungDiagram (2 * m) => hEvenTableau m lam)) :
+    MatchingSpectralGapConstant (2 * m) (1 / 5 : ℝ) := by
+  exact
+    SpectralGapFromBlockModelWithDim
+      (1 / 5 : ℝ)
+      (fun lam : YoungDiagram (2 * m) => tableauDim lam)
+      (fun lam : YoungDiagram (2 * m) => hEvenTableau m lam)
+      hmodel
+      (fun lam hrow hstd =>
+        S05_Lem5_34_tableau_even_certificate m hm lam hrow hstd)
 
 end DictatorshipTesting

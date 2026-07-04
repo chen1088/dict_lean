@@ -1,4 +1,6 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates_Legacy
+import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
+import DictatorshipTesting.Paper.S05_Lem5_36_OddCertificate
 
 /-!
 Paper statement: Lemma 5.30 (`lem:spectral-certificate-odd`)
@@ -36,5 +38,23 @@ theorem S05_Lem5_30_oddSpectralGapFromCertificates
         ¬ IsOneRow lam -> ¬ IsStandard lam -> c * youngDim lam ≤ hOdd m lam) :
     MatchingSpectralGapConstant (2 * m + 1) c := by
   exact OddSpectralGapFromCertificates m hm c hmodel hcert
+
+/-- Lemma 5.30, tableau-count version: the tableauDim finite certificate feeds
+any dimension-parameterized odd spectral-block model. -/
+theorem S05_Lem5_30_tableauDim_oddSpectralGapFromCertificates
+    (m : Nat) (hm : 2 <= m)
+    (hmodel :
+      SpectralBlockModelInputWithDim
+        (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)
+        (fun lam : YoungDiagram (2 * m + 1) => hOddTableau m lam)) :
+    MatchingSpectralGapConstant (2 * m + 1) (1 / 6 : ℝ) := by
+  exact
+    SpectralGapFromBlockModelWithDim
+      (1 / 6 : ℝ)
+      (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)
+      (fun lam : YoungDiagram (2 * m + 1) => hOddTableau m lam)
+      hmodel
+      (fun lam hrow hstd =>
+        S05_Lem5_36_tableau_odd_certificate m hm lam hrow hstd)
 
 end DictatorshipTesting
