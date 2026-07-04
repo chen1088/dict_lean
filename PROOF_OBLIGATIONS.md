@@ -70,8 +70,11 @@ value swaps commute, this has been lifted to entry functions and tableau swaps,
 the second-swap row/column hypotheses are transported automatically, distant
 swaps preserve the other pair's axial and Young-adjacent coefficients, and the
 fully swappable distant adjacent operators commute on tableau basis vectors.
-The next local representation-layer frontier is extending this to all
-same-row/same-column mixed distant cases and then the braid relation.
+This has now been extended to the full distant-commutation relation on tableau
+basis vectors and then to the whole tableau coordinate space by finite basis
+expansion and linearity.  The braid frontier has started at the value and entry
+function level.  The next local representation-layer frontier is lifting braid
+from entries to standard tableaux and then to the concrete adjacent operators.
 
 ## Section 5 Paper/Lean Status Table
 
@@ -292,7 +295,7 @@ Downstream dependencies: the trace/scalar-value inputs in Lemma 5.8.
   vectors, basis inner product facts, concrete adjacent matrix coefficients,
   the adjacent operator on coordinates, the diagonal content operator,
   coefficient identities, self-adjointness on coordinate basis vectors, and the
-  fully swappable distant-commutation case for the concrete adjacent operators.
+  full distant-commutation relation for the concrete adjacent operators.
 - `S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean`: basis-level adjacent
   transposition facts, including same-row/same-column diagonal behavior and
   swappable two-coordinate support for the concrete coordinate operator.

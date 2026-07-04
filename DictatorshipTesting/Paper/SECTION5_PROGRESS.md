@@ -507,6 +507,11 @@ Completed commits in this run so far:
 - `1e64ffb` Prove automatic distant tableau swap commutation
 - `7595c62` Preserve adjacent coefficients under distant swaps
 - `c5ee082` Prove swappable distant adjacent operator commutation
+- `c96f424` Prove diagonal distant adjacent operator commutation cases
+- `6694602` Prove distant adjacent operator commutation on basis
+- `eed15e2` Lift distant adjacent commutation to coordinate functions
+- `7665ed8` Start braid frontier for adjacent value swaps
+- `40190b4` Lift braid frontier to adjacent entry functions
 
 Main names added:
 - `youngAdjacentDiagCoeff_swap`
@@ -559,6 +564,15 @@ Main names added:
 - `youngAdjacentDiagCoeff_after_disjoint_swap_eq`
 - `youngAdjacentOffCoeff_after_disjoint_swap_eq`
 - `youngAdjacentOperator_comm_basis_swappable_of_disjoint_indices`
+- `youngAdjacentOperator_comm_basis_left_sameRow_of_disjoint_indices`
+- `youngAdjacentOperator_comm_basis_left_sameCol_of_disjoint_indices`
+- `youngAdjacentOperator_comm_basis_of_disjoint_indices`
+- `tableauBasis_expansion`
+- `youngAdjacentOperator_sum`
+- `youngAdjacentOperator_comm_smul_basis_of_disjoint_indices`
+- `youngAdjacentOperator_comm_of_disjoint_indices`
+- `adjacentSwapValue_braid_of_succ`
+- `adjacentSwapEntry_braid_of_succ`
 
 Section 5 numbers progressed:
 - Lemma 5.1: coefficient identities, diagonal involution cases, swap-back
@@ -585,18 +599,24 @@ Section 5 numbers progressed:
 - Lemma 5.1: the first operator-level distant Coxeter statement is proved in
   the fully swappable case: the two concrete adjacent operators commute on a
   tableau basis vector when both adjacent pairs are swappable and disjoint.
+- Lemma 5.1: the same-row and same-column mixed distant cases are proved, and
+  the distant adjacent operators commute on every tableau basis vector.
+- Lemma 5.1: by finite basis expansion and operator linearity over finite sums,
+  distant adjacent operators now commute on the whole tableau coordinate space.
+- Lemma 5.1: the braid frontier has started at the value-combinatorics level:
+  consecutive adjacent value swaps satisfy the braid relation, and the relation
+  has been lifted pointwise to adjacent entry functions.
 
 Exact remaining blocker:
 - The local Lemma 5.1 involution-on-basis cases, coefficient symmetry,
-  self-adjointness, and the fully swappable distant-commutation case are now
-  proved.  The remaining representation-layer blocker is global: proving the
-  rest of the Coxeter relations for the concrete adjacent operators, especially
-  the same-row/same-column mixed distant cases and then the braid relation,
-  before feeding those operators into the matching-subgroup and spectral-block
-  model.
+  self-adjointness, and the full distant-commutation relation for the concrete
+  adjacent operators are now proved.  The remaining representation-layer
+  blocker is the braid relation at the tableau/operator level: value and entry
+  functions satisfy the braid relation, but the standard-tableau braid path
+  still needs the corresponding standardness transport and coefficient
+  comparison across the three consecutive swaps.
 
 Next automatically selected task:
-- Extend the operator-level distant commutation theorem beyond the fully
-  swappable case by handling same-row and same-column interactions, or extract
-  the exact case-splitting helper needed for a unified distant-commutation
-  theorem.
+- Lift the braid frontier from entry functions to swapped tableaux under
+  explicit standardness hypotheses, then identify the coefficient transport
+  needed for an operator-level braid theorem.
