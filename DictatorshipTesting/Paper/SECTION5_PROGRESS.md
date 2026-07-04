@@ -22,6 +22,9 @@ Completed commits:
 - `29ce495` Expose two-box first deletion content compatibility
 - `6e76a08` Expose two-box first deletion cell compatibility
 - `bc5b547` Add iterated two-box deletion interface
+- `e9e0510` Extend iterated deletion cell compatibility
+- `b8355d8` Expose signed two-box row conditions
+- `d4ddd46` Expose one-box removal row and corner facts
 
 Files changed:
 - `DictatorshipTesting/Paper/Aux_YoungAdjacentEntries.lean`
@@ -55,6 +58,8 @@ Files changed:
 - `DictatorshipTesting/Paper/S05_Def5_09_OneBoxDeletionSpaces.lean`
 - `DictatorshipTesting/Paper/S05_Lem5_11_OneBoxDeletionIsUnitary.lean`
 - `DictatorshipTesting/Paper/S05_Lem5_12_OneBoxDeletionIntertwinesEarlierSwaps.lean`
+- `DictatorshipTesting/Paper/S05_Def5_06_SignedTwoBoxRemovals.lean`
+- `DictatorshipTesting/Paper/S05_Def5_07_OneBoxRemovals.lean`
 
 Main names added:
 - `adjacentSwapValue`, `adjacentSwapEntry`
@@ -193,6 +198,18 @@ Main names added:
 - `S05_Lem5_08_deleteSecondMaxAsTableau`
 - `S05_Lem5_08_second_deletion_tableauContentSequence`
 - `S05_Lem5_08_iterated_deletion_tableauContentSequence`
+- `S05_Lem5_08_second_deletion_childCellToParent_cellOfEntry`
+- `S05_Lem5_08_second_deletion_cellOfEntry_row`
+- `S05_Lem5_08_second_deletion_cellOfEntry_col`
+- `S05_Lem5_08_iterated_deletion_cellOfEntry_row`
+- `S05_Lem5_08_iterated_deletion_cellOfEntry_col`
+- `S05_Def5_06_row_le_parent_of_positiveSignedTwoBoxRemoval`
+- `S05_Def5_06_row_le_parent_of_negativeSignedTwoBoxRemoval`
+- `S05_Def5_06_next_parent_row_le_child_row_of_positiveSignedTwoBoxRemoval`
+- `S05_Def5_06_parent_row_le_child_row_add_one_of_negativeSignedTwoBoxRemoval`
+- `S05_Def5_06_row_diff_le_one_of_negativeSignedTwoBoxRemoval`
+- `S05_Def5_07_sum_row_diff_of_oneBoxRemoval`
+- `S05_Def5_07_exists_removableCornerBox_of_oneBoxRemoval`
 
 ## Next Blocker
 
