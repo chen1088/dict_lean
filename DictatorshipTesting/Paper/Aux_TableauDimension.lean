@@ -382,6 +382,12 @@ def oneBoxChildrenSized {n : Nat} (lam : YoungDiagram (n + 1)) :
   classical
   exact Finset.univ.filter (fun mu : YoungDiagram n => IsOneBoxChild lam mu)
 
+theorem mem_oneBoxChildrenSized_iff {n : Nat}
+    (lam : YoungDiagram (n + 1)) (mu : YoungDiagram n) :
+    mu ∈ oneBoxChildrenSized lam ↔ IsOneBoxChild lam mu := by
+  classical
+  simp [oneBoxChildrenSized]
+
 def horizontalTwoStripChildrenSized {n : Nat}
     (lam : YoungDiagram ((n + 1) + 1)) : Finset (YoungDiagram n) := by
   classical
@@ -610,6 +616,134 @@ theorem twoStripRowDiff_maxPositiveDiffRowOfVertical_pos {n : Nat}
     0 < twoStripRowDiff lam x.1 (maxPositiveDiffRowOfVertical lam x) :=
   ((mem_positiveDiffRows_iff lam x.1 _).mp
     (maxPositiveDiffRowOfVertical_mem lam x)).2
+
+theorem isRemovableRow_of_horizontalTwoStripChild_positiveDiff {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)} {mu : YoungDiagram n}
+    (h : IsHorizontalTwoStripChild lam mu) {r : Nat}
+    (hpos : 0 < twoStripRowDiff lam mu r) :
+    IsRemovableRow lam r := by
+  unfold IsRemovableRow
+  unfold twoStripRowDiff at hpos
+  have hnext := next_parent_row_le_child_row_of_horizontalTwoStripChild h r
+  have hrow_le := row_le_parent_of_horizontalTwoStripChild h r
+  omega
+
+theorem isRemovableRow_minPositiveDiffRowOfHorizontal {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    IsRemovableRow lam (minPositiveDiffRowOfHorizontal lam x) :=
+  isRemovableRow_of_horizontalTwoStripChild_positiveDiff
+    ((mem_horizontalTwoStripChildrenSized_iff lam x.1).mp x.2)
+    (twoStripRowDiff_minPositiveDiffRowOfHorizontal_pos lam x)
+
+theorem positiveDiffRows_not_mem_above_max_of_vertical {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam})
+    {i : Nat} (hi : maxPositiveDiffRowOfVertical lam x < i) :
+    i ∉ positiveDiffRows lam x.1 := by
+  intro hmem
+  have hle := (positiveDiffRows lam x.1).le_max' i hmem
+  unfold maxPositiveDiffRowOfVertical at hi
+  omega
+
+theorem isRemovableRow_maxPositiveDiffRowOfVertical {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    IsRemovableRow lam (maxPositiveDiffRowOfVertical lam x) := by
+  let r := maxPositiveDiffRowOfVertical lam x
+  have hchild : IsVerticalTwoStripChild lam x.1 :=
+    (mem_verticalTwoStripChildrenSized_iff lam x.1).mp x.2
+  have hpos : 0 < twoStripRowDiff lam x.1 r := by
+    simpa [r] using twoStripRowDiff_maxPositiveDiffRowOfVertical_pos lam x
+  have hrow_le : youngRow x.1 r <= youngRow lam r :=
+    row_le_parent_of_verticalTwoStripChild hchild r
+  unfold IsRemovableRow
+  change youngRow lam (r + 1) < youngRow lam r
+  by_cases hsucc : r + 1 < (n + 1) + 1
+  · have hnotmem :
+        r + 1 ∉ positiveDiffRows lam x.1 :=
+      positiveDiffRows_not_mem_above_max_of_vertical lam x (by
+        change r < r + 1
+        omega)
+    have hnotpos : ¬ 0 < twoStripRowDiff lam x.1 (r + 1) := by
+      intro hpos_succ
+      exact hnotmem ((mem_positiveDiffRows_iff lam x.1 (r + 1)).mpr
+        ⟨hsucc, hpos_succ⟩)
+    have hrow_succ_le : youngRow x.1 (r + 1) <= youngRow lam (r + 1) :=
+      row_le_parent_of_verticalTwoStripChild hchild (r + 1)
+    have hmu_succ_le : youngRow x.1 (r + 1) <= youngRow x.1 r :=
+      youngRow_succ_le x.1 r
+    have hdiff_succ_zero :
+        twoStripRowDiff lam x.1 (r + 1) = 0 :=
+      Nat.eq_zero_of_not_pos hnotpos
+    unfold twoStripRowDiff at hpos hdiff_succ_zero
+    omega
+  · have hlam_succ_zero : youngRow lam (r + 1) = 0 := by
+      simp [youngRow, hsucc]
+    unfold twoStripRowDiff at hpos
+    rw [hlam_succ_zero]
+    omega
+
+noncomputable def firstRemovableRowOfHorizontalTaggedChild {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    RemovableRow lam :=
+  ⟨minPositiveDiffRowOfHorizontal lam x,
+    isRemovableRow_minPositiveDiffRowOfHorizontal lam x⟩
+
+noncomputable def firstRemovableRowOfVerticalTaggedChild {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    RemovableRow lam :=
+  ⟨maxPositiveDiffRowOfVertical lam x,
+    isRemovableRow_maxPositiveDiffRowOfVertical lam x⟩
+
+theorem isOneBoxChild_deleteRemovableRow_of_positiveDiff {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)} {mu : YoungDiagram n}
+    (hsub : IsYoungSubdiagram mu lam) {r : Nat}
+    (hr : IsRemovableRow lam r)
+    (hpos : 0 < twoStripRowDiff lam mu r) :
+    IsOneBoxChild (deleteRemovableRowDiagram lam r hr) mu := by
+  refine ⟨rfl, ?_⟩
+  intro i
+  rw [youngRow_deleteRemovableRowDiagram lam hr i]
+  have hle_parent : youngRow mu (i : Nat) <= youngRow lam (i : Nat) := by
+    have hi : (i : Nat) < (n + 1) + 1 := by
+      exact Nat.lt_succ_of_lt i.isLt
+    exact hsub ⟨i, hi⟩
+  by_cases hir : (i : Nat) = r
+  · subst r
+    rw [if_pos rfl]
+    unfold twoStripRowDiff at hpos
+    omega
+  · rw [if_neg hir]
+    exact hle_parent
+
+theorem horizontalTaggedChild_after_firstDeletion_mem_oneBoxChildrenSized
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    x.1 ∈ oneBoxChildrenSized
+      (deleteRemovableRowDiagram lam
+        (firstRemovableRowOfHorizontalTaggedChild lam x).1
+        (firstRemovableRowOfHorizontalTaggedChild lam x).2) := by
+  exact (mem_oneBoxChildrenSized_iff _ x.1).mpr
+    (isOneBoxChild_deleteRemovableRow_of_positiveDiff
+      (((mem_horizontalTwoStripChildrenSized_iff lam x.1).mp x.2).2.1)
+      (firstRemovableRowOfHorizontalTaggedChild lam x).2
+      (twoStripRowDiff_minPositiveDiffRowOfHorizontal_pos lam x))
+
+theorem verticalTaggedChild_after_firstDeletion_mem_oneBoxChildrenSized
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    x.1 ∈ oneBoxChildrenSized
+      (deleteRemovableRowDiagram lam
+        (firstRemovableRowOfVerticalTaggedChild lam x).1
+        (firstRemovableRowOfVerticalTaggedChild lam x).2) := by
+  exact (mem_oneBoxChildrenSized_iff _ x.1).mpr
+    (isOneBoxChild_deleteRemovableRow_of_positiveDiff
+      (((mem_verticalTwoStripChildrenSized_iff lam x.1).mp x.2).2.1)
+      (firstRemovableRowOfVerticalTaggedChild lam x).2
+      (twoStripRowDiff_maxPositiveDiffRowOfVertical_pos lam x))
 
 noncomputable instance removableRowFintype {n : Nat}
     (lam : YoungDiagram (n + 1)) : Fintype (RemovableRow lam) := by
@@ -1366,6 +1500,72 @@ theorem taggedTwoStripChildDiagram_twoStepToTagged {n : Nat}
       deleteTwoRemovableRowsDiagram lam p := by
   by_cases hle : p.first.1 <= p.second.1 <;>
     simp [twoStepToTaggedTwoStripChild, hle, taggedTwoStripChildDiagram]
+
+noncomputable def horizontalTaggedChildToTwoStep {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    TwoStepRemovableRows lam where
+  first := firstRemovableRowOfHorizontalTaggedChild lam x
+  second :=
+    oneBoxChildToRemovableRowSized
+      (deleteRemovableRowDiagram lam
+        (firstRemovableRowOfHorizontalTaggedChild lam x).1
+        (firstRemovableRowOfHorizontalTaggedChild lam x).2)
+      ⟨x.1, horizontalTaggedChild_after_firstDeletion_mem_oneBoxChildrenSized lam x⟩
+
+noncomputable def verticalTaggedChildToTwoStep {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    TwoStepRemovableRows lam where
+  first := firstRemovableRowOfVerticalTaggedChild lam x
+  second :=
+    oneBoxChildToRemovableRowSized
+      (deleteRemovableRowDiagram lam
+        (firstRemovableRowOfVerticalTaggedChild lam x).1
+        (firstRemovableRowOfVerticalTaggedChild lam x).2)
+      ⟨x.1, verticalTaggedChild_after_firstDeletion_mem_oneBoxChildrenSized lam x⟩
+
+theorem deleteTwoRemovableRowsDiagram_horizontalTaggedChildToTwoStep
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    deleteTwoRemovableRowsDiagram lam
+      (horizontalTaggedChildToTwoStep lam x) = x.1 := by
+  unfold horizontalTaggedChildToTwoStep deleteTwoRemovableRowsDiagram
+  exact removableRowToOneBoxChild_oneBoxChildToRemovableRowSized
+    (deleteRemovableRowDiagram lam
+      (firstRemovableRowOfHorizontalTaggedChild lam x).1
+      (firstRemovableRowOfHorizontalTaggedChild lam x).2)
+    ⟨x.1, horizontalTaggedChild_after_firstDeletion_mem_oneBoxChildrenSized lam x⟩
+
+theorem deleteTwoRemovableRowsDiagram_verticalTaggedChildToTwoStep
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    deleteTwoRemovableRowsDiagram lam
+      (verticalTaggedChildToTwoStep lam x) = x.1 := by
+  unfold verticalTaggedChildToTwoStep deleteTwoRemovableRowsDiagram
+  exact removableRowToOneBoxChild_oneBoxChildToRemovableRowSized
+    (deleteRemovableRowDiagram lam
+      (firstRemovableRowOfVerticalTaggedChild lam x).1
+      (firstRemovableRowOfVerticalTaggedChild lam x).2)
+    ⟨x.1, verticalTaggedChild_after_firstDeletion_mem_oneBoxChildrenSized lam x⟩
+
+noncomputable def taggedTwoStripChildToTwoStep {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) :
+    TaggedTwoStripChildrenSized lam → TwoStepRemovableRows lam
+  | Sum.inl x => horizontalTaggedChildToTwoStep lam x
+  | Sum.inr x => verticalTaggedChildToTwoStep lam x
+
+theorem deleteTwoRemovableRowsDiagram_taggedTwoStripChildToTwoStep
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (x : TaggedTwoStripChildrenSized lam) :
+    deleteTwoRemovableRowsDiagram lam
+      (taggedTwoStripChildToTwoStep lam x) =
+      taggedTwoStripChildDiagram x := by
+  cases x with
+  | inl x =>
+      exact deleteTwoRemovableRowsDiagram_horizontalTaggedChildToTwoStep lam x
+  | inr x =>
+      exact deleteTwoRemovableRowsDiagram_verticalTaggedChildToTwoStep lam x
 
 noncomputable def twoStepFirstDeletionEquiv {n : Nat}
     (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
