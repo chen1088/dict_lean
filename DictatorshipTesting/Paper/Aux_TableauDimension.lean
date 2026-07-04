@@ -382,6 +382,18 @@ def oneBoxChildrenSized {n : Nat} (lam : YoungDiagram (n + 1)) :
   classical
   exact Finset.univ.filter (fun mu : YoungDiagram n => IsOneBoxChild lam mu)
 
+def horizontalTwoStripChildrenSized {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) : Finset (YoungDiagram n) := by
+  classical
+  exact Finset.univ.filter (fun mu : YoungDiagram n =>
+    IsHorizontalTwoStripChild lam mu)
+
+def verticalTwoStripChildrenSized {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) : Finset (YoungDiagram n) := by
+  classical
+  exact Finset.univ.filter (fun mu : YoungDiagram n =>
+    IsVerticalTwoStripChild lam mu)
+
 noncomputable instance removableRowFintype {n : Nat}
     (lam : YoungDiagram (n + 1)) : Fintype (RemovableRow lam) := by
   classical
@@ -1041,6 +1053,25 @@ theorem deleteTwoRemovableRows_horizontal_of_same_row {n : Nat}
     have hmono := youngRow_succ_le lam (i : Nat)
     simp [hi, hi_second]
     exact hmono
+
+theorem deleteTwoRemovableRows_horizontal_or_vertical {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    IsHorizontalTwoStripChild lam (deleteTwoRemovableRowsDiagram lam p) ∨
+      IsVerticalTwoStripChild lam (deleteTwoRemovableRowsDiagram lam p) := by
+  by_cases hrows : p.first.1 = p.second.1
+  · exact Or.inl (deleteTwoRemovableRows_horizontal_of_same_row lam p hrows)
+  · exact Or.inr (deleteTwoRemovableRows_vertical_of_distinct_rows lam p hrows)
+
+theorem deleteTwoRemovableRows_mem_horizontal_or_vertical_sized {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    deleteTwoRemovableRowsDiagram lam p ∈ horizontalTwoStripChildrenSized lam ∨
+      deleteTwoRemovableRowsDiagram lam p ∈ verticalTwoStripChildrenSized lam := by
+  classical
+  rcases deleteTwoRemovableRows_horizontal_or_vertical lam p with h | h
+  · left
+    simp [horizontalTwoStripChildrenSized, h]
+  · right
+    simp [verticalTwoStripChildrenSized, h]
 
 noncomputable def twoStepFirstDeletionEquiv {n : Nat}
     (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
