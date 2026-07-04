@@ -488,3 +488,46 @@ Status:
   basis-eigenvector facts.  This is the diagonal operator used as the
   Jucys--Murphy coordinate model, not yet the full operator theorem inside a
   formal Specht module.
+
+### Representation-layer sprint: coefficient and involution spine
+
+Completed commits in this run so far:
+- `361722c` Prove coefficient identities for Young adjacent action
+- `f23ef1c` Prove diagonal adjacent operator involution cases
+- `f147e78` Prove swappable adjacent coefficient symmetry facts
+
+Main names added:
+- `youngAdjacentDiagCoeff_swap`
+- `youngAdjacentOffCoeff_swap`
+- `youngAdjacentOffCoeff_nonneg`
+- `youngAdjacentOffCoeff_sq_of_nonneg`
+- `youngAdjacentCoeff_sq_sum_of_nonneg`
+- `youngAdjacentOperator_add`
+- `youngAdjacentOperator_smul`
+- `youngAdjacentOperator_sq_basis_sameRow`
+- `youngAdjacentOperator_sq_basis_sameCol`
+- `adjacentSameRow_swap_iff`
+- `adjacentSameCol_swap_iff`
+- `not_adjacentSameRow_swap`
+- `not_adjacentSameCol_swap`
+- `adjacentSwapTableau_involutive`
+- `youngAdjacentMatrixCoeff_swappable_swap_symm`
+- `youngAdjacentOperator_basis_swappable_swap_symm_value`
+- `youngAdjacentOperator_basis_swappable_eq`
+
+Section 5 numbers progressed:
+- Lemma 5.1: coefficient identities, diagonal involution cases, swap-back
+  tableau facts, reverse off-diagonal coefficient, and the two-coordinate
+  swappable expansion.
+
+Exact remaining blocker:
+- The unconditional swappable involution still needs the missing positivity
+  step showing the square-root radicand is nonnegative, equivalently
+  `youngAdjacentDiagCoeff T a ^ 2 <= 1` in the swappable case.  The current
+  Lean theorem `youngAdjacentCoeff_sq_sum_of_nonneg` makes this hypothesis
+  explicit and proves the square-sum identity once supplied.
+
+Next automatically selected task:
+- Prove the axial-distance nonzero/lower-bound fact for swappable adjacent
+  entries, or continue with matrix symmetry facts that only require the
+  already-proved swap-back coefficient identities.

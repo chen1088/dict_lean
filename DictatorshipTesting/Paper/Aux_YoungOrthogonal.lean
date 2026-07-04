@@ -516,6 +516,31 @@ theorem youngAdjacentOperator_neg {n : Nat}
   intro T _
   ring
 
+theorem youngAdjacentOperator_add {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (a : Fin n) (f g : TableauSpace lam) :
+    youngAdjacentOperator a (fun S => f S + g S) =
+      fun S => youngAdjacentOperator a f S +
+        youngAdjacentOperator a g S := by
+  funext S
+  unfold youngAdjacentOperator
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro T _
+  ring
+
+theorem youngAdjacentOperator_smul {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (a : Fin n) (c : ℝ) (f : TableauSpace lam) :
+    youngAdjacentOperator a (fun S => c * f S) =
+      fun S => c * youngAdjacentOperator a f S := by
+  funext S
+  unfold youngAdjacentOperator
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro T _
+  ring
+
 theorem youngAdjacentOperator_sq_basis_sameRow {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
@@ -538,6 +563,35 @@ theorem youngAdjacentOperator_sq_basis_sameCol {n : Nat}
     youngAdjacentOperator_basis_sameCol T a hcol]
   funext S
   simp
+
+theorem youngAdjacentOperator_basis_swappable_eq {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOperator a (tableauBasisVec T) =
+      fun S =>
+        youngAdjacentDiagCoeff T a * tableauBasisVec T S +
+          youngAdjacentOffCoeff T a *
+            tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S := by
+  funext S
+  let T' := adjacentSwapTableau T a hrow_ne hcol_ne
+  have hT'_ne_T : T' ≠ T := by
+    simpa [T'] using adjacentSwapTableau_ne_self T a hrow_ne hcol_ne
+  by_cases hST : S = T
+  · subst S
+    rw [youngAdjacentOperator_basis_swappable_self_value T a hrow_ne hcol_ne]
+    rw [tableauBasisVec_self, tableauBasisVec_ne hT'_ne_T.symm]
+    ring
+  · by_cases hST' : S = T'
+    · subst S
+      rw [youngAdjacentOperator_basis_swappable_swap_value T a hrow_ne hcol_ne]
+      rw [tableauBasisVec_ne hT'_ne_T, tableauBasisVec_self]
+      ring
+    · rw [youngAdjacentOperator_basis_swappable_other_value a hrow_ne hcol_ne
+        hST (by simpa [T'] using hST')]
+      rw [tableauBasisVec_ne hST, tableauBasisVec_ne hST']
+      ring
 
 /-- The diagonal content operator in the tableau coordinate basis. -/
 noncomputable def jucysMurphyDiagonalOperator {n : Nat}

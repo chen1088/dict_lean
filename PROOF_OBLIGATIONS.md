@@ -49,6 +49,15 @@ diagonal content-operator eigenvector facts.  This is useful scaffolding, but it
 does not yet prove the Specht-module realization, braid/Coxeter relations,
 Schur-lemma scalarity, or the spectral block model.
 
+The adjacent-operator spine has since been strengthened: the diagonal
+same-row/same-column cases now square to the identity on basis vectors, the
+swappable tableau swap is proved involutive, the off-diagonal coefficient is
+proved symmetric across the two-tableau block, and the swappable action is
+expanded as a two-coordinate formula.  The remaining local coefficient blocker
+for the unconditional swappable involution is the concrete inequality
+`youngAdjacentDiagCoeff T a ^ 2 <= 1` (or equivalently nonnegativity of
+`1 - youngAdjacentDiagCoeff T a ^ 2`) in the swappable case.
+
 ## Section 5 Paper/Lean Status Table
 
 | Paper statement number | Paper label/title | Lean file | Lean theorem name | Status | Remaining assumption, if any |
