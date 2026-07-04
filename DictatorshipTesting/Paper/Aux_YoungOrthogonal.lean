@@ -458,6 +458,34 @@ theorem adjacentSwapTableau_involutive {n : Nat}
   intro u
   simp [adjacentSwapTableau, adjacentSwapEntry, adjacentSwapValue_involutive]
 
+theorem ne_adjacentSwapTableau_of_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T S : StandardYoungTableau lam) (a : Fin n)
+    (hrowT : adjacentSameRow T a)
+    (hrowS_ne : ¬ adjacentSameRow S a)
+    (hcolS_ne : ¬ adjacentSameCol S a) :
+    T ≠ adjacentSwapTableau S a hrowS_ne hcolS_ne := by
+  intro h
+  have hswap_row :
+      adjacentSameRow (adjacentSwapTableau S a hrowS_ne hcolS_ne) a := by
+    simpa [h] using hrowT
+  exact hrowS_ne
+    ((adjacentSameRow_swap_iff S a hrowS_ne hcolS_ne).1 hswap_row)
+
+theorem ne_adjacentSwapTableau_of_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T S : StandardYoungTableau lam) (a : Fin n)
+    (hcolT : adjacentSameCol T a)
+    (hrowS_ne : ¬ adjacentSameRow S a)
+    (hcolS_ne : ¬ adjacentSameCol S a) :
+    T ≠ adjacentSwapTableau S a hrowS_ne hcolS_ne := by
+  intro h
+  have hswap_col :
+      adjacentSameCol (adjacentSwapTableau S a hrowS_ne hcolS_ne) a := by
+    simpa [h] using hcolT
+  exact hcolS_ne
+    ((adjacentSameCol_swap_iff S a hrowS_ne hcolS_ne).1 hswap_col)
+
 /-- Matrix coefficient of the Young adjacent-transposition formula in the
 standard tableau basis.  This is only the concrete coefficient model, not yet a
 claim that it realizes a symmetric-group representation. -/
@@ -568,6 +596,60 @@ theorem youngAdjacentMatrixCoeff_swappable_other {n : Nat}
     (hSswap : S ≠ adjacentSwapTableau T a hrow_ne hcol_ne) :
     youngAdjacentMatrixCoeff a S T = 0 := by
   simp [youngAdjacentMatrixCoeff, hrow_ne, hcol_ne, hST, hSswap]
+
+theorem youngAdjacentMatrixCoeff_target_sameRow_ne {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    {S T : StandardYoungTableau lam} (a : Fin n)
+    (hrowT : adjacentSameRow T a) (hST : S ≠ T) :
+    youngAdjacentMatrixCoeff a T S = 0 := by
+  by_cases hrowS : adjacentSameRow S a
+  · exact youngAdjacentMatrixCoeff_sameRow_ne (S := T) (T := S)
+      a hrowS hST.symm
+  · by_cases hcolS : adjacentSameCol S a
+    · exact youngAdjacentMatrixCoeff_sameCol_ne (S := T) (T := S)
+        a hcolS hST.symm
+    · exact youngAdjacentMatrixCoeff_swappable_other (S := T) (T := S)
+        a hrowS hcolS hST.symm
+        (ne_adjacentSwapTableau_of_sameRow T S a hrowT hrowS hcolS)
+
+theorem youngAdjacentMatrixCoeff_target_sameCol_ne {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    {S T : StandardYoungTableau lam} (a : Fin n)
+    (hcolT : adjacentSameCol T a) (hST : S ≠ T) :
+    youngAdjacentMatrixCoeff a T S = 0 := by
+  by_cases hrowS : adjacentSameRow S a
+  · exact youngAdjacentMatrixCoeff_sameRow_ne (S := T) (T := S)
+      a hrowS hST.symm
+  · by_cases hcolS : adjacentSameCol S a
+    · exact youngAdjacentMatrixCoeff_sameCol_ne (S := T) (T := S)
+        a hcolS hST.symm
+    · exact youngAdjacentMatrixCoeff_swappable_other (S := T) (T := S)
+        a hrowS hcolS hST.symm
+        (ne_adjacentSwapTableau_of_sameCol T S a hcolT hrowS hcolS)
+
+theorem youngAdjacentMatrixCoeff_symmetric_of_source_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (S T : StandardYoungTableau lam) (a : Fin n)
+    (hrowT : adjacentSameRow T a) :
+    youngAdjacentMatrixCoeff a S T =
+      youngAdjacentMatrixCoeff a T S := by
+  by_cases hST : S = T
+  · subst S
+    rfl
+  · rw [youngAdjacentMatrixCoeff_sameRow_ne a hrowT hST,
+      youngAdjacentMatrixCoeff_target_sameRow_ne a hrowT hST]
+
+theorem youngAdjacentMatrixCoeff_symmetric_of_source_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (S T : StandardYoungTableau lam) (a : Fin n)
+    (hcolT : adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a S T =
+      youngAdjacentMatrixCoeff a T S := by
+  by_cases hST : S = T
+  · subst S
+    rfl
+  · rw [youngAdjacentMatrixCoeff_sameCol_ne a hcolT hST,
+      youngAdjacentMatrixCoeff_target_sameCol_ne a hcolT hST]
 
 /-- The adjacent-transposition matrix on the tableau coordinate space.  This is
 the explicit Young-orthogonal matrix model on a single shape. -/

@@ -448,6 +448,27 @@ theorem S05_Lem5_01_youngAdjacentMatrixCoeff_swappable_other {n : Nat}
     youngAdjacentMatrixCoeff a S T = 0 := by
   exact youngAdjacentMatrixCoeff_swappable_other a hrow_ne hcol_ne hST hSswap
 
+/-- Lemma 5.1 self-adjointness component: if the source tableau is a same-row
+diagonal case, its matrix coefficient is symmetric against every target. -/
+theorem S05_Lem5_01_youngAdjacentMatrixCoeff_symmetric_of_source_sameRow
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (S T : StandardYoungTableau lam) (a : Fin n)
+    (hrowT : adjacentSameRow T a) :
+    youngAdjacentMatrixCoeff a S T =
+      youngAdjacentMatrixCoeff a T S := by
+  exact youngAdjacentMatrixCoeff_symmetric_of_source_sameRow S T a hrowT
+
+/-- Lemma 5.1 self-adjointness component: if the source tableau is a
+same-column diagonal case, its matrix coefficient is symmetric against every
+target. -/
+theorem S05_Lem5_01_youngAdjacentMatrixCoeff_symmetric_of_source_sameCol
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (S T : StandardYoungTableau lam) (a : Fin n)
+    (hcolT : adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a S T =
+      youngAdjacentMatrixCoeff a T S := by
+  exact youngAdjacentMatrixCoeff_symmetric_of_source_sameCol S T a hcolT
+
 /-- Lemma 5.1 operator component: in the same-row case, the adjacent operator
 fixes the tableau basis vector. -/
 theorem S05_Lem5_01_youngAdjacentOperator_basis_sameRow {n : Nat}
