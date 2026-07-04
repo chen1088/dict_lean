@@ -1019,4 +1019,60 @@ theorem deleteTwoRemovableRows_horizontal_of_same_row {n : Nat}
     simp [hi, hi_second]
     exact hmono
 
+noncomputable def twoStepFirstDeletionEquiv {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    {T : StandardYoungTableau lam //
+      TableauMaxAt T (firstDeletedCornerOfTwoStep lam p)} ≃
+      StandardYoungTableau (twoStepFirstChild lam p) :=
+  oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow
+    (twoStepFirstChild_isOneBoxChild lam p)
+    (twoStepFirstChild_row_form lam p)
+
+noncomputable def twoStepSecondDeletionEquiv {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    {T : StandardYoungTableau (twoStepFirstChild lam p) //
+      TableauMaxAt T (secondDeletedCornerOfTwoStepInChild lam p)} ≃
+      StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p) :=
+  oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow
+    (twoStepSecondChild_isOneBoxChild lam p)
+    (twoStepSecondChild_row_form lam p)
+
+/-- Parent tableaux whose largest entry follows the first deletion of `p` and
+whose next largest entry follows the second deletion of `p`. -/
+abbrev TwoStepDeletionTableaux {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :=
+  {T : {T : StandardYoungTableau lam //
+      TableauMaxAt T (firstDeletedCornerOfTwoStep lam p)} //
+    TableauMaxAt (twoStepFirstDeletionEquiv lam p T)
+      (secondDeletedCornerOfTwoStepInChild lam p)}
+
+noncomputable instance twoStepDeletionTableauxFintype {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    Fintype (TwoStepDeletionTableaux lam p) := by
+  classical
+  infer_instance
+
+noncomputable def twoStepDeletionTableauxEquivChildTableaux {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    TwoStepDeletionTableaux lam p ≃
+      StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p) :=
+  ((twoStepFirstDeletionEquiv lam p).subtypeEquiv
+      (fun _ => Iff.rfl)).trans
+    (twoStepSecondDeletionEquiv lam p)
+
+theorem card_twoStepDeletionTableaux_eq_child {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    Fintype.card (TwoStepDeletionTableaux lam p) =
+      Fintype.card
+        (StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) := by
+  classical
+  exact Fintype.card_congr
+    (twoStepDeletionTableauxEquivChildTableaux lam p)
+
+theorem tableauDim_fixed_twoStepDeletion {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    ((Fintype.card (TwoStepDeletionTableaux lam p) : Nat) : ℝ) =
+      tableauDim (deleteTwoRemovableRowsDiagram lam p) := by
+  rw [tableauDim, tableauDimNat, card_twoStepDeletionTableaux_eq_child]
+
 end DictatorshipTesting
