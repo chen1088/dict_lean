@@ -2195,6 +2195,86 @@ theorem even_bad_child_classification
       (hasOneRowVerticalChild_classification m hm lam hstd hVrow))
   · exact hasStandardHorizontalChild_classification m hm lam hrow hstd hHstd
 
+/-!
+## Tableau-dimension even certificate layer
+
+The original `hEven` recurrence in `Defs.lean` is tied to the hook-length proxy
+`youngDim`.  The tableau-count migration therefore uses a parallel recurrence
+where the vertical contribution is `tableauDim μ - zEven μ`.
+-/
+
+noncomputable def hEvenTableau : (m : ℕ) → YoungDiagram (2 * m) → ℝ
+  | 0, _ => 0
+  | m + 1, lam =>
+      (horizontalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => hEvenTableau m mu) +
+        (verticalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => tableauDim mu - zEven m mu)
+
+theorem hEvenTableau_recurrence_succ
+    (m : ℕ) (lam : YoungDiagram (2 * (m + 1))) :
+    hEvenTableau (m + 1) lam =
+      (horizontalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => hEvenTableau m mu) +
+        (verticalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => tableauDim mu - zEven m mu) := by
+  simp [hEvenTableau]
+
+/-- Generic tableau-dimension induction step for Lemma 5.34, away from the
+exceptional children. -/
+theorem hEvenTableau_ge_one_fifth_tableauDim_generic_step_succ
+    (m : ℕ) (_hm : 1 ≤ m) (lam : YoungDiagram (2 * (m + 1)))
+    (ih :
+      ∀ mu : YoungDiagram (2 * m),
+        ¬ IsOneRow mu → ¬ IsStandard mu →
+          (1 / 5 : ℝ) * tableauDim mu ≤ hEvenTableau m mu)
+    (hHrow :
+      ∀ mu ∈ horizontalTwoStripChildrenEven (m + 1) lam, ¬ IsOneRow mu)
+    (hHstd :
+      ∀ mu ∈ horizontalTwoStripChildrenEven (m + 1) lam, ¬ IsStandard mu)
+    (hVrow :
+      ∀ mu ∈ verticalTwoStripChildrenEven (m + 1) lam, ¬ IsOneRow mu) :
+    (1 / 5 : ℝ) * tableauDim lam ≤ hEvenTableau (m + 1) lam := by
+  classical
+  have hhrec := hEvenTableau_recurrence_succ m lam
+  have hdimrec := tableauDim_twoStripChildrenEven_branching_succ m lam
+  have hH :
+      (horizontalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => (1 / 5 : ℝ) * tableauDim mu) ≤
+        (horizontalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => hEvenTableau m mu) := by
+    apply Finset.sum_le_sum
+    intro mu hmu
+    exact ih mu (hHrow mu hmu) (hHstd mu hmu)
+  have hV :
+      (verticalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => (1 / 5 : ℝ) * tableauDim mu) ≤
+        (verticalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu => tableauDim mu - zEven m mu) := by
+    apply Finset.sum_le_sum
+    intro mu hmu
+    have hz :
+        zEven m mu ≤ (1 / 2 : ℝ) * tableauDim mu :=
+      zEven_le_half_tableauDim_of_not_oneRow_finite_induction
+        m mu (hVrow mu hmu)
+    have hdim_nonneg : 0 ≤ tableauDim mu := tableauDim_nonneg mu
+    nlinarith
+  calc
+    (1 / 5 : ℝ) * tableauDim lam
+        = (horizontalTwoStripChildrenEven (m + 1) lam).sum
+              (fun mu => (1 / 5 : ℝ) * tableauDim mu) +
+            (verticalTwoStripChildrenEven (m + 1) lam).sum
+              (fun mu => (1 / 5 : ℝ) * tableauDim mu) := by
+          rw [hdimrec]
+          rw [mul_add, Finset.mul_sum, Finset.mul_sum]
+    _ ≤
+        (horizontalTwoStripChildrenEven (m + 1) lam).sum
+            (fun mu => hEvenTableau m mu) +
+          (verticalTwoStripChildrenEven (m + 1) lam).sum
+            (fun mu => tableauDim mu - zEven m mu) := by
+          exact add_le_add hH hV
+    _ = hEvenTableau (m + 1) lam := by rw [hhrec]
+
 /-- Generic induction step for Lemma 5.34, away from the exceptional children.
 
 Horizontal children are handled by the induction hypothesis.  Vertical children
