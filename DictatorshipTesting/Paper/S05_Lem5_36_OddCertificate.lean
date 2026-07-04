@@ -657,6 +657,191 @@ theorem odd_bad_oneBoxChild_classification
           · omega
         exact Or.inr ⟨h0, h1, h2⟩
 
+/-- Odd high-weight count using actual tableau dimensions in the even
+children. -/
+noncomputable def hOddTableau (m : ℕ) (lam : YoungDiagram (2 * m + 1)) : ℝ :=
+  (oneBoxChildrenOdd m lam).sum (fun mu => hEvenTableau m mu)
+
+/-- Formula for `hOddTableau` on the canonical odd exception `(2m-1,2)`. -/
+theorem hOddTableau_twoRowTwoDiagramOdd_formula
+    (m : ℕ) (hm : 2 ≤ m) :
+    hOddTableau m (twoRowTwoDiagramOdd m hm) =
+      (m : ℝ) * ((m : ℝ) - 1) / 2 := by
+  rw [hOddTableau, oneBoxChildrenOdd_twoRowTwoDiagramOdd m hm]
+  have hne :
+      twoRowTwoDiagramEven m hm ≠ standardDiagramEven m (by omega) := by
+    intro h
+    have hrow := congrArg (fun yd => youngRow yd 1) h
+    have htwo : youngRow (twoRowTwoDiagramEven m hm) 1 = 2 :=
+      (isTwoRowTwoException_twoRowTwoDiagramEven m hm).2
+    have hstd : youngRow (standardDiagramEven m (by omega)) 1 = 1 :=
+      (isStandard_standardDiagramEven m (by omega)).2.2
+    omega
+  rw [Finset.sum_insert]
+  · rw [Finset.sum_singleton]
+    rw [hEvenTableau_standardDiagramEven_formula]
+    rw [hEvenTableau_twoRowTwoDiagramEven_formula]
+    ring
+  · intro hmem
+    rw [Finset.mem_singleton] at hmem
+    exact hne hmem.symm
+
+/-- Tableau-dimension formula for the canonical odd exception `(2m-1,2)`. -/
+theorem tableauDim_twoRowTwoDiagramOdd_formula
+    (m : ℕ) (hm : 2 ≤ m) :
+    tableauDim (twoRowTwoDiagramOdd m hm) =
+      (2 * (m : ℝ) + 1) * ((m : ℝ) - 1) := by
+  rw [tableauDim_oneBoxChildrenOdd_branching m (twoRowTwoDiagramOdd m hm)]
+  rw [oneBoxChildrenOdd_twoRowTwoDiagramOdd m hm]
+  have hne :
+      twoRowTwoDiagramEven m hm ≠ standardDiagramEven m (by omega) := by
+    intro h
+    have hrow := congrArg (fun yd => youngRow yd 1) h
+    have htwo : youngRow (twoRowTwoDiagramEven m hm) 1 = 2 :=
+      (isTwoRowTwoException_twoRowTwoDiagramEven m hm).2
+    have hstd : youngRow (standardDiagramEven m (by omega)) 1 = 1 :=
+      (isStandard_standardDiagramEven m (by omega)).2.2
+    omega
+  rw [Finset.sum_insert]
+  · rw [Finset.sum_singleton]
+    rw [tableauDim_standardDiagramEven_formula]
+    rw [tableauDim_twoRowTwoDiagramEven_formula]
+    ring
+  · intro hmem
+    rw [Finset.mem_singleton] at hmem
+    exact hne hmem.symm
+
+/-- Formula for `hOddTableau` on the canonical odd exception `(2m-1,1,1)`. -/
+theorem hOddTableau_twoRowOneOneDiagramOdd_formula
+    (m : ℕ) (hm : 2 ≤ m) :
+    hOddTableau m (twoRowOneOneDiagramOdd m hm) =
+      (m : ℝ) * ((m : ℝ) - 1) / 2 := by
+  rw [hOddTableau, oneBoxChildrenOdd_twoRowOneOneDiagramOdd m hm]
+  have hne :
+      twoRowOneOneDiagramEven m hm ≠ standardDiagramEven m (by omega) := by
+    intro h
+    have hrow := congrArg (fun yd => youngRow yd 2) h
+    have htwo : youngRow (twoRowOneOneDiagramEven m hm) 2 = 1 :=
+      (isTwoRowOneOneException_twoRowOneOneDiagramEven m hm).2.2
+    have hstd : youngRow (standardDiagramEven m (by omega)) 2 = 0 := by
+      unfold standardDiagramEven
+      rw [youngRow_twoRowDiagram]
+      simp
+    omega
+  rw [Finset.sum_insert]
+  · rw [Finset.sum_singleton]
+    rw [hEvenTableau_standardDiagramEven_formula]
+    rw [hEvenTableau_twoRowOneOneDiagramEven_formula]
+    ring
+  · intro hmem
+    rw [Finset.mem_singleton] at hmem
+    exact hne hmem.symm
+
+/-- Tableau-dimension formula for the canonical odd exception
+`(2m-1,1,1)`. -/
+theorem tableauDim_twoRowOneOneDiagramOdd_formula
+    (m : ℕ) (hm : 2 ≤ m) :
+    tableauDim (twoRowOneOneDiagramOdd m hm) =
+      (m : ℝ) * (2 * (m : ℝ) - 1) := by
+  rw [tableauDim_oneBoxChildrenOdd_branching m (twoRowOneOneDiagramOdd m hm)]
+  rw [oneBoxChildrenOdd_twoRowOneOneDiagramOdd m hm]
+  have hne :
+      twoRowOneOneDiagramEven m hm ≠ standardDiagramEven m (by omega) := by
+    intro h
+    have hrow := congrArg (fun yd => youngRow yd 2) h
+    have htwo : youngRow (twoRowOneOneDiagramEven m hm) 2 = 1 :=
+      (isTwoRowOneOneException_twoRowOneOneDiagramEven m hm).2.2
+    have hstd : youngRow (standardDiagramEven m (by omega)) 2 = 0 := by
+      unfold standardDiagramEven
+      rw [youngRow_twoRowDiagram]
+      simp
+    omega
+  rw [Finset.sum_insert]
+  · rw [Finset.sum_singleton]
+    rw [tableauDim_standardDiagramEven_formula]
+    rw [tableauDim_twoRowOneOneDiagramEven_formula]
+    ring
+  · intro hmem
+    rw [Finset.mem_singleton] at hmem
+    exact hne hmem.symm
+
+theorem hOddTableau_ge_one_sixth_tableauDim_twoRowTwoOddException
+    (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m + 1))
+    (hshape : IsOddTwoRowTwoException m lam) :
+    (1 / 6 : ℝ) * tableauDim lam ≤ hOddTableau m lam := by
+  rw [eq_twoRowTwoDiagramOdd_of_isOddTwoRowTwoException m hm lam hshape]
+  rw [hOddTableau_twoRowTwoDiagramOdd_formula m hm]
+  rw [tableauDim_twoRowTwoDiagramOdd_formula m hm]
+  have hmR : (2 : ℝ) ≤ m := by exact_mod_cast hm
+  nlinarith
+
+theorem hOddTableau_ge_one_sixth_tableauDim_twoRowOneOneOddException
+    (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m + 1))
+    (hshape : IsOddTwoRowOneOneException m lam) :
+    (1 / 6 : ℝ) * tableauDim lam ≤ hOddTableau m lam := by
+  rw [eq_twoRowOneOneDiagramOdd_of_isOddTwoRowOneOneException m hm lam hshape]
+  rw [hOddTableau_twoRowOneOneDiagramOdd_formula m hm]
+  rw [tableauDim_twoRowOneOneDiagramOdd_formula m hm]
+  have hmR : (2 : ℝ) ≤ m := by exact_mod_cast hm
+  nlinarith
+
+theorem hOddTableau_ge_one_sixth_tableauDim_odd_exceptional
+    (m : ℕ) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m + 1))
+    (hex : IsOddHExceptional m lam) :
+    (1 / 6 : ℝ) * tableauDim lam ≤ hOddTableau m lam := by
+  rcases hex with h22 | h211
+  · exact hOddTableau_ge_one_sixth_tableauDim_twoRowTwoOddException m hm lam h22
+  · exact hOddTableau_ge_one_sixth_tableauDim_twoRowOneOneOddException m hm lam h211
+
+/-- Generic odd step for tableau counts, away from one-row and standard
+one-box children. -/
+theorem hOddTableau_ge_one_sixth_tableauDim_of_no_bad_oneBoxChild
+    (m : ℕ) (hm : 2 ≤ m)
+    (lam : YoungDiagram (2 * m + 1))
+    (hchild_row : ∀ mu ∈ oneBoxChildrenOdd m lam, ¬ IsOneRow mu)
+    (hchild_std : ∀ mu ∈ oneBoxChildrenOdd m lam, ¬ IsStandard mu) :
+    (1 / 6 : ℝ) * tableauDim lam ≤ hOddTableau m lam := by
+  rw [tableauDim_oneBoxChildrenOdd_branching m lam, hOddTableau]
+  rw [Finset.mul_sum]
+  apply Finset.sum_le_sum
+  intro mu hmu
+  have heven :=
+    S05_Lem5_34_tableau_even_certificate
+      m hm mu (hchild_row mu hmu) (hchild_std mu hmu)
+  have hcoeff :
+      (1 / 6 : ℝ) * tableauDim mu ≤ (1 / 5 : ℝ) * tableauDim mu := by
+    have hdim := tableauDim_nonneg mu
+    nlinarith
+  exact le_trans hcoeff heven
+
+/-- Finite Young-diagram induction behind Lemma 5.36, using actual tableau
+counts. -/
+theorem hOddTableau_ge_one_sixth_tableauDim_of_not_oneRow_not_standard_finite_induction
+    (m : ℕ) (hm : 2 ≤ m)
+    (lam : YoungDiagram (2 * m + 1))
+    (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
+    (1 / 6 : ℝ) * tableauDim lam ≤ hOddTableau m lam := by
+  by_cases hbad :
+      HasOneRowOneBoxChild m lam ∨ HasStandardOneBoxChild m lam
+  · exact hOddTableau_ge_one_sixth_tableauDim_odd_exceptional
+      m hm lam
+      (odd_bad_oneBoxChild_classification m hm lam hrow hstd hbad)
+  · apply hOddTableau_ge_one_sixth_tableauDim_of_no_bad_oneBoxChild m hm lam
+    · intro mu hmu hone
+      exact hbad (Or.inl ⟨mu, hmu, hone⟩)
+    · intro mu hmu hstandard
+      exact hbad (Or.inr ⟨mu, hmu, hstandard⟩)
+
+/-- Lemma 5.36, tableau-count version of the odd certificate. -/
+theorem S05_Lem5_36_tableau_odd_certificate
+    (m : ℕ) (hm : 2 ≤ m)
+    (lam : YoungDiagram (2 * m + 1))
+    (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
+    (1 / 6 : ℝ) * tableauDim lam ≤ hOddTableau m lam := by
+  exact
+    hOddTableau_ge_one_sixth_tableauDim_of_not_oneRow_not_standard_finite_induction
+      m hm lam hrow hstd
+
 /-- Generic odd step, away from one-row and standard one-box children. -/
 theorem hOdd_ge_one_sixth_youngDim_of_no_bad_oneBoxChild
     [TwoStripDimensionBranchingAssumption]
