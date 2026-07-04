@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
+import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 
 /-!
 Paper statement: Lemma 5.10 (`lem:one-box-corner-decomposition`)
@@ -52,6 +52,21 @@ theorem S05_oneBox_removable_corner
       forall s : Nat, s ≠ u.1 -> youngRow lam s = youngRow mu s := by
   exact exists_removableCornerBox_of_oneBoxChild h
 
+/-- Lemma 5.10 tableau component: the maximum entry lies in a removable corner. -/
+theorem S05_oneBox_tableau_max_removable_corner {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam)
+    {u : YoungCell lam} (hu : TableauMaxAt T u) :
+    IsRemovableCornerBox lam (YoungCell.toNatPair u) := by
+  exact removableCornerBox_of_tableauMaxAt T hu
+
+/-- Lemma 5.10 tableau component: the maximum entry lies in a unique removable
+corner. -/
+theorem S05_oneBox_tableau_unique_removable_corner {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
+    ∃! u : YoungCell lam,
+      TableauMaxAt T u ∧ IsRemovableCornerBox lam (YoungCell.toNatPair u) := by
+  exact existsUnique_removableCornerBox_tableauMaxAt T
+
 /-- Lemma 5.10 row-form component, paper-numbered name. -/
 theorem S05_Lem5_10_row_form
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
@@ -90,5 +105,19 @@ theorem S05_Lem5_10_removable_corner
       youngRow lam u.1 = youngRow mu u.1 + 1 ∧
       forall s : Nat, s ≠ u.1 -> youngRow lam s = youngRow mu s := by
   exact S05_oneBox_removable_corner h
+
+/-- Lemma 5.10 tableau component, paper-numbered name. -/
+theorem S05_Lem5_10_tableau_max_removable_corner {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam)
+    {u : YoungCell lam} (hu : TableauMaxAt T u) :
+    IsRemovableCornerBox lam (YoungCell.toNatPair u) := by
+  exact S05_oneBox_tableau_max_removable_corner T hu
+
+/-- Lemma 5.10 tableau component, paper-numbered unique-corner name. -/
+theorem S05_Lem5_10_tableau_unique_removable_corner {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
+    ∃! u : YoungCell lam,
+      TableauMaxAt T u ∧ IsRemovableCornerBox lam (YoungCell.toNatPair u) := by
+  exact S05_oneBox_tableau_unique_removable_corner T
 
 end DictatorshipTesting

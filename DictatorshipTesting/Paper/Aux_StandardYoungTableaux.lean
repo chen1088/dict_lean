@@ -75,4 +75,102 @@ theorem mem_oneBoxDeletionTableaux_iff {n : Nat}
     T ∈ OneBoxDeletionTableaux lam u <-> TableauMaxAt T u := by
   rfl
 
+/-- Row lengths are bounded by the total size of the diagram. -/
+theorem youngRow_le_size_aux {n : Nat} (lam : YoungDiagram n) (i : Nat) :
+    youngRow lam i <= n := by
+  unfold youngRow
+  split
+  · exact Nat.le_of_lt_succ (lam.row ⟨i, ‹i < n›⟩).isLt
+  · exact Nat.zero_le _
+
+/-- The maximum entry cell of a standard Young tableau exists uniquely. -/
+theorem existsUnique_tableauMaxAt {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
+    ∃! u : YoungCell lam, TableauMaxAt T u := by
+  rcases T.bijective.2 (Fin.last n) with ⟨u, hu⟩
+  refine ⟨u, hu, ?_⟩
+  intro v hv
+  exact T.bijective.1 (by rw [hv, hu])
+
+/-- A maximum-entry cell has no cell immediately to its right. -/
+theorem no_cell_right_of_tableauMaxAt {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam)
+    {u : YoungCell lam} (hu : TableauMaxAt T u) :
+    ¬ YoungCell.col u + 1 < youngRow lam (YoungCell.row u) := by
+  intro hright
+  rcases u with ⟨⟨r, c⟩, hcell⟩
+  have hright' : (c : Nat) + 1 < youngRow lam (r : Nat) := by
+    simpa [YoungCell.row, YoungCell.col] using hright
+  let cRight : Fin (n + 1) := ⟨(c : Nat) + 1, by
+    have hrow_le : youngRow lam (r : Nat) <= n + 1 :=
+      youngRow_le_size_aux lam (r : Nat)
+    omega⟩
+  let v : YoungCell lam := ⟨(r, cRight), by
+    simp [youngCells, cRight, hright']⟩
+  have hstrict : T.entry ⟨⟨r, c⟩, hcell⟩ < T.entry v := by
+    apply T.row_strict
+    · simp [YoungCell.row, v]
+    · simp [YoungCell.col, v, cRight]
+  have hltVal :
+      (T.entry ⟨⟨r, c⟩, hcell⟩ : Nat) < (T.entry v : Nat) := hstrict
+  have huVal : (T.entry ⟨⟨r, c⟩, hcell⟩ : Nat) = n := by
+    simpa [TableauMaxAt] using congrArg Fin.val hu
+  have hvBound : (T.entry v : Nat) < n + 1 := (T.entry v).isLt
+  omega
+
+/-- A maximum-entry cell has no cell immediately below it. -/
+theorem no_cell_below_tableauMaxAt {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam)
+    {u : YoungCell lam} (hu : TableauMaxAt T u) :
+    ¬ YoungCell.col u < youngRow lam (YoungCell.row u + 1) := by
+  intro hbelow
+  rcases u with ⟨⟨r, c⟩, hcell⟩
+  have hbelow' : (c : Nat) < youngRow lam ((r : Nat) + 1) := by
+    simpa [YoungCell.row, YoungCell.col] using hbelow
+  let rBelow : Fin (n + 1) := ⟨(r : Nat) + 1, by
+    by_contra hnot
+    have hzero : youngRow lam ((r : Nat) + 1) = 0 := by
+      simp [youngRow, hnot]
+    omega⟩
+  let v : YoungCell lam := ⟨(rBelow, c), by
+    simp [youngCells, rBelow, hbelow']⟩
+  have hstrict : T.entry ⟨⟨r, c⟩, hcell⟩ < T.entry v := by
+    apply T.col_strict
+    · simp [YoungCell.col, v]
+    · simp [YoungCell.row, v, rBelow]
+  have hltVal :
+      (T.entry ⟨⟨r, c⟩, hcell⟩ : Nat) < (T.entry v : Nat) := hstrict
+  have huVal : (T.entry ⟨⟨r, c⟩, hcell⟩ : Nat) = n := by
+    simpa [TableauMaxAt] using congrArg Fin.val hu
+  have hvBound : (T.entry v : Nat) < n + 1 := (T.entry v).isLt
+  omega
+
+/-- If the maximum entry of a standard tableau is in `u`, then `u` is a
+removable corner box. -/
+theorem removableCornerBox_of_tableauMaxAt {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam)
+    {u : YoungCell lam} (hu : TableauMaxAt T u) :
+    IsRemovableCornerBox lam (YoungCell.toNatPair u) := by
+  constructor
+  · exact YoungCell.isYoungBox u
+  constructor
+  · have hbox : YoungCell.col u < youngRow lam (YoungCell.row u) := by
+      simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox u
+    have hno_right := no_cell_right_of_tableauMaxAt T hu
+    change YoungCell.col u + 1 = youngRow lam (YoungCell.row u)
+    omega
+  · have hno_below := no_cell_below_tableauMaxAt T hu
+    change youngRow lam (YoungCell.row u + 1) <= YoungCell.col u
+    omega
+
+/-- The maximum entry of a standard tableau lies in a unique removable corner. -/
+theorem existsUnique_removableCornerBox_tableauMaxAt {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
+    ∃! u : YoungCell lam,
+      TableauMaxAt T u ∧ IsRemovableCornerBox lam (YoungCell.toNatPair u) := by
+  rcases existsUnique_tableauMaxAt T with ⟨u, hu, huniq⟩
+  refine ⟨u, ⟨hu, removableCornerBox_of_tableauMaxAt T hu⟩, ?_⟩
+  intro v hv
+  exact huniq v hv.1
+
 end DictatorshipTesting
