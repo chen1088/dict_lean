@@ -394,6 +394,36 @@ def verticalTwoStripChildrenSized {n : Nat}
   exact Finset.univ.filter (fun mu : YoungDiagram n =>
     IsVerticalTwoStripChild lam mu)
 
+abbrev TaggedTwoStripChildrenSized {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) :=
+  Sum
+    {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}
+    {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}
+
+def taggedTwoStripChildDiagram {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)}
+    (x : TaggedTwoStripChildrenSized lam) : YoungDiagram n :=
+  match x with
+  | Sum.inl h => h.1
+  | Sum.inr v => v.1
+
+theorem sum_taggedTwoStripChildrenSized {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) :
+    (∑ x : TaggedTwoStripChildrenSized lam,
+        tableauDim (taggedTwoStripChildDiagram x))
+      =
+    (horizontalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) +
+      (verticalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) := by
+  classical
+  rw [Fintype.sum_sum_type]
+  congr 1
+  · rw [Finset.univ_eq_attach]
+    exact Finset.sum_attach
+      (horizontalTwoStripChildrenSized lam) (fun mu => tableauDim mu)
+  · rw [Finset.univ_eq_attach]
+    exact Finset.sum_attach
+      (verticalTwoStripChildrenSized lam) (fun mu => tableauDim mu)
+
 noncomputable instance removableRowFintype {n : Nat}
     (lam : YoungDiagram (n + 1)) : Fintype (RemovableRow lam) := by
   classical
