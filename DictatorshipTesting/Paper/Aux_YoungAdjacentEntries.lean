@@ -339,6 +339,13 @@ of labels are separated by at least one label. -/
 def adjacentIndexDisjoint {n : Nat} (a b : Fin n) : Prop :=
   (a : Nat) + 1 < (b : Nat) ∨ (b : Nat) + 1 < (a : Nat)
 
+theorem adjacentIndexDisjoint_symm {n : Nat} {a b : Fin n}
+    (hdisj : adjacentIndexDisjoint a b) :
+    adjacentIndexDisjoint b a := by
+  rcases hdisj with hdisj | hdisj
+  · exact Or.inr hdisj
+  · exact Or.inl hdisj
+
 theorem adjacentEntryLo_ne_lo_of_disjoint_indices {n : Nat}
     (a b : Fin n) (hdisj : adjacentIndexDisjoint a b) :
     adjacentEntryLo a ≠ adjacentEntryLo b := by
@@ -727,6 +734,53 @@ theorem adjacentSameCol_after_disjoint_swap_iff {n : Nat}
   rw [adjacentSwapTableau_cell_lo_of_disjoint_indices T a b hdisj hrow_b hcol_b,
     adjacentSwapTableau_cell_hi_of_disjoint_indices T a b hdisj hrow_b hcol_b]
   rfl
+
+theorem adjacentSwapTableau_comm_of_disjoint_indices_auto {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_a :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_a :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a))
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    adjacentSwapTableau
+        (adjacentSwapTableau T b hrow_b hcol_b) a
+        (by
+          intro h
+          exact hrow_a
+            ((adjacentSameRow_after_disjoint_swap_iff T a b hdisj
+              hrow_b hcol_b).1 h))
+        (by
+          intro h
+          exact hcol_a
+            ((adjacentSameCol_after_disjoint_swap_iff T a b hdisj
+              hrow_b hcol_b).1 h)) =
+      adjacentSwapTableau
+        (adjacentSwapTableau T a hrow_a hcol_a) b
+        (by
+          intro h
+          exact hrow_b
+            ((adjacentSameRow_after_disjoint_swap_iff T b a
+              (adjacentIndexDisjoint_symm hdisj) hrow_a hcol_a).1 h))
+        (by
+          intro h
+          exact hcol_b
+            ((adjacentSameCol_after_disjoint_swap_iff T b a
+              (adjacentIndexDisjoint_symm hdisj) hrow_a hcol_a).1 h)) := by
+  apply standardYoungTableau_ext_entry
+  intro u
+  change
+    adjacentSwapValue a (adjacentSwapEntry T b u) =
+      adjacentSwapValue b (adjacentSwapEntry T a u)
+  exact adjacentSwapEntry_comm_of_disjoint_indices T a b hdisj u
 
 theorem adjacentSwapTableau_entryContent_lo {n : Nat}
     {lam : YoungDiagram (n + 1)}

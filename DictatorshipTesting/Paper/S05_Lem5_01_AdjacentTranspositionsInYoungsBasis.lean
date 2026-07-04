@@ -291,6 +291,52 @@ theorem S05_Lem5_01_adjacentSwapTableau_comm_of_disjoint_indices {n : Nat}
     T a b hdisj hrow_a hcol_a hrow_b hcol_b
     hrow_a_after_b hcol_a_after_b hrow_b_after_a hcol_b_after_a
 
+/-- Lemma 5.1 Coxeter-frontier component: distant adjacent tableau swaps
+commute, with the second-swap standardness hypotheses transported
+automatically from disjointness. -/
+theorem S05_Lem5_01_adjacentSwapTableau_comm_of_disjoint_indices_auto
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_a :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_a :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a))
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    adjacentSwapTableau
+        (adjacentSwapTableau T b hrow_b hcol_b) a
+        (by
+          intro h
+          exact hrow_a
+            ((adjacentSameRow_after_disjoint_swap_iff T a b hdisj
+              hrow_b hcol_b).1 h))
+        (by
+          intro h
+          exact hcol_a
+            ((adjacentSameCol_after_disjoint_swap_iff T a b hdisj
+              hrow_b hcol_b).1 h)) =
+      adjacentSwapTableau
+        (adjacentSwapTableau T a hrow_a hcol_a) b
+        (by
+          intro h
+          exact hrow_b
+            ((adjacentSameRow_after_disjoint_swap_iff T b a
+              (adjacentIndexDisjoint_symm hdisj) hrow_a hcol_a).1 h))
+        (by
+          intro h
+          exact hcol_b
+            ((adjacentSameCol_after_disjoint_swap_iff T b a
+              (adjacentIndexDisjoint_symm hdisj) hrow_a hcol_a).1 h)) := by
+  exact adjacentSwapTableau_comm_of_disjoint_indices_auto
+    T a b hdisj hrow_a hcol_a hrow_b hcol_b
+
 /-- Lemma 5.1 coefficient component: the axial distance is `1` in the
 same-row case. -/
 theorem S05_Lem5_01_adjacentAxialDistance_sameRow {n : Nat}
