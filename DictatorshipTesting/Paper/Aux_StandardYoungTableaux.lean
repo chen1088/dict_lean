@@ -305,4 +305,184 @@ def deleteMaxAsStandardDeletedTableau {n : Nat}
   row_strict := tableauDeleteMaxEntry_row_strict T hu
   col_strict := tableauDeleteMaxEntry_col_strict T hu
 
+namespace YoungCell
+
+/-- Two Young cells are equal if their natural row and column coordinates agree. -/
+theorem ext_row_col {n : Nat} {lam : YoungDiagram n}
+    {u v : YoungCell lam}
+    (hrow : row u = row v) (hcol : col u = col v) :
+    u = v := by
+  rcases u with ⟨⟨r, c⟩, hu⟩
+  rcases v with ⟨⟨r', c'⟩, hv⟩
+  apply Subtype.ext
+  apply Prod.ext
+  · apply Fin.ext
+    simpa [row] using hrow
+  · apply Fin.ext
+    simpa [col] using hcol
+
+end YoungCell
+
+/-- Construct a Young cell from natural coordinates satisfying the row bound. -/
+def youngCellOfNat {n : Nat} (lam : YoungDiagram n) (r c : Nat)
+    (hc : c < youngRow lam r) : YoungCell lam :=
+  let hr : r < n := by
+    by_contra hnot
+    have hzero : youngRow lam r = 0 := by
+      simp [youngRow, hnot]
+    omega
+  let hc_lt_n : c < n := by
+    have hrow_le : youngRow lam r <= n := youngRow_le_size_aux lam r
+    omega
+  ⟨(⟨r, hr⟩, ⟨c, hc_lt_n⟩), by
+    simp [youngCells, hc]⟩
+
+theorem youngCellOfNat_row {n : Nat} (lam : YoungDiagram n) (r c : Nat)
+    (hc : c < youngRow lam r) :
+    YoungCell.row (youngCellOfNat lam r c hc) = r := by
+  simp [youngCellOfNat, YoungCell.row]
+
+theorem youngCellOfNat_col {n : Nat} (lam : YoungDiagram n) (r c : Nat)
+    (hc : c < youngRow lam r) :
+    YoungCell.col (youngCellOfNat lam r c hc) = c := by
+  simp [youngCellOfNat, YoungCell.col]
+
+/-- A child cell is a parent cell under a one-box row deletion. -/
+def childCellToParentCellOfOneBoxChildRow
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (v : YoungCell mu) : YoungCell lam :=
+  youngCellOfNat lam (YoungCell.row v) (YoungCell.col v) (by
+    have hv : YoungCell.col v < youngRow mu (YoungCell.row v) := by
+      simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox v
+    exact
+      (parent_cell_iff_child_cell_or_deleted_of_oneBoxChild_row
+        (lam := lam) (mu := mu) h (r := r)
+        (s := YoungCell.row v) (c := YoungCell.col v) hr).mpr
+        (Or.inl hv))
+
+theorem childCellToParentCell_row
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (v : YoungCell mu) :
+    YoungCell.row (childCellToParentCellOfOneBoxChildRow h hr v) =
+      YoungCell.row v := by
+  simp [childCellToParentCellOfOneBoxChildRow, youngCellOfNat_row]
+
+theorem childCellToParentCell_col
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (v : YoungCell mu) :
+    YoungCell.col (childCellToParentCellOfOneBoxChildRow h hr v) =
+      YoungCell.col v := by
+  simp [childCellToParentCellOfOneBoxChildRow, youngCellOfNat_col]
+
+/-- A parent cell different from the deleted corner is a child cell. -/
+def parentCellToChildCellOfOneBoxChildRow
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (v : YoungCell lam)
+    (hnot : ¬ (YoungCell.row v = r ∧ YoungCell.col v = youngRow mu r)) :
+    YoungCell mu :=
+  youngCellOfNat mu (YoungCell.row v) (YoungCell.col v) (by
+    have hv : YoungCell.col v < youngRow lam (YoungCell.row v) := by
+      simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox v
+    exact
+      (child_cell_iff_parent_cell_not_deleted_of_oneBoxChild_row
+        (lam := lam) (mu := mu) h (r := r)
+        (s := YoungCell.row v) (c := YoungCell.col v) hr).mpr
+        ⟨hv, hnot⟩)
+
+theorem parentCellToChildCell_row
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (v : YoungCell lam)
+    (hnot : ¬ (YoungCell.row v = r ∧ YoungCell.col v = youngRow mu r)) :
+    YoungCell.row (parentCellToChildCellOfOneBoxChildRow h hr v hnot) =
+      YoungCell.row v := by
+  simp [parentCellToChildCellOfOneBoxChildRow, youngCellOfNat_row]
+
+theorem parentCellToChildCell_col
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (v : YoungCell lam)
+    (hnot : ¬ (YoungCell.row v = r ∧ YoungCell.col v = youngRow mu r)) :
+    YoungCell.col (parentCellToChildCellOfOneBoxChildRow h hr v hnot) =
+      YoungCell.col v := by
+  simp [parentCellToChildCellOfOneBoxChildRow, youngCellOfNat_col]
+
+/-- Coordinate equivalence between child cells and parent cells except the
+deleted corner. -/
+def youngCellExceptEquivChildOfOneBoxChildRow
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r) :
+    YoungCellExcept u ≃ YoungCell mu where
+  toFun v :=
+    parentCellToChildCellOfOneBoxChildRow h hr v.1 (by
+      intro hdel
+      have hvu : v.1 = u := by
+        apply YoungCell.ext_row_col
+        · rw [hdel.1, hu_row]
+        · rw [hdel.2, hu_col]
+      exact v.2 hvu)
+  invFun w :=
+    let p := childCellToParentCellOfOneBoxChildRow h hr w
+    ⟨p, by
+      intro hpu
+      have hrow_pu : YoungCell.row p = YoungCell.row u := by
+        rw [hpu]
+      have hcol_pu : YoungCell.col p = YoungCell.col u := by
+        rw [hpu]
+      have hrow_w : YoungCell.row w = r := by
+        have hp_row : YoungCell.row p = YoungCell.row w :=
+          childCellToParentCell_row h hr w
+        rw [hp_row, hu_row] at hrow_pu
+        exact hrow_pu
+      have hcol_w : YoungCell.col w = youngRow mu r := by
+        have hp_col : YoungCell.col p = YoungCell.col w :=
+          childCellToParentCell_col h hr w
+        rw [hp_col, hu_col] at hcol_pu
+        exact hcol_pu
+      have hw_box : YoungCell.col w < youngRow mu (YoungCell.row w) := by
+        simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox w
+      rw [hrow_w, hcol_w] at hw_box
+      omega⟩
+  left_inv v := by
+    apply Subtype.ext
+    apply YoungCell.ext_row_col
+    · rw [childCellToParentCell_row h hr]
+      rw [parentCellToChildCell_row h hr]
+    · rw [childCellToParentCell_col h hr]
+      rw [parentCellToChildCell_col h hr]
+  right_inv w := by
+    apply YoungCell.ext_row_col
+    · rw [parentCellToChildCell_row h hr]
+      rw [childCellToParentCell_row h hr]
+    · rw [parentCellToChildCell_col h hr]
+      rw [childCellToParentCell_col h hr]
+
 end DictatorshipTesting

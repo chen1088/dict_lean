@@ -60,4 +60,18 @@ def S05_Lem5_11_deleteMaxAsStandardDeletedTableau {n : Nat}
     StandardDeletedTableau u :=
   deleteMaxAsStandardDeletedTableau T hu
 
+/-- Lemma 5.11 set-level component: parent cells other than the deleted corner
+are equivalent to child cells. -/
+def S05_Lem5_11_youngCellExceptEquivChildOfOneBoxChildRow
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r) :
+    YoungCellExcept u ≃ YoungCell mu :=
+  youngCellExceptEquivChildOfOneBoxChildRow h hr u hu_row hu_col
+
 end DictatorshipTesting
