@@ -795,6 +795,29 @@ structure TwoStepRemovableRows {n : Nat}
   first : RemovableRow lam
   second : RemovableRow (deleteRemovableRowDiagram lam first.1 first.2)
 
+def twoStepRemovableRowsEquivSigma {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) :
+    TwoStepRemovableRows lam ≃
+      Sigma (fun r : RemovableRow lam =>
+        RemovableRow (removableRowToOneBoxChild lam r)) where
+  toFun p := ⟨p.first, p.second⟩
+  invFun x := ⟨x.1, x.2⟩
+  left_inv p := by
+    cases p
+    rfl
+  right_inv x := by
+    cases x
+    rfl
+
+noncomputable instance twoStepRemovableRowsFintype {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) :
+    Fintype (TwoStepRemovableRows lam) := by
+  classical
+  exact Fintype.ofEquiv
+    (Sigma (fun r : RemovableRow lam =>
+      RemovableRow (removableRowToOneBoxChild lam r)))
+    (twoStepRemovableRowsEquivSigma lam).symm
+
 /-- Delete two boxes by deleting a removable row, then deleting a removable row
 of the intermediate child. -/
 def deleteTwoRemovableRowsDiagram {n : Nat}
@@ -1074,6 +1097,53 @@ theorem tableauDim_fixed_twoStepDeletion {n : Nat}
     ((Fintype.card (TwoStepDeletionTableaux lam p) : Nat) : ℝ) =
       tableauDim (deleteTwoRemovableRowsDiagram lam p) := by
   rw [tableauDim, tableauDimNat, card_twoStepDeletionTableaux_eq_child]
+
+theorem tableauDim_eq_sum_twoStepRemovableRows {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) :
+    tableauDim lam =
+      ∑ p : TwoStepRemovableRows lam,
+        tableauDim (deleteTwoRemovableRowsDiagram lam p) := by
+  classical
+  calc
+    tableauDim lam =
+        ∑ r : RemovableRow lam,
+          tableauDim (removableRowToOneBoxChild lam r) := by
+      exact tableauDim_eq_sum_removableRow_children lam
+    _ =
+        ∑ r : RemovableRow lam,
+          ∑ s : RemovableRow (removableRowToOneBoxChild lam r),
+            tableauDim
+              (removableRowToOneBoxChild
+                (removableRowToOneBoxChild lam r) s) := by
+      refine Finset.sum_congr rfl ?_
+      intro r _hr
+      exact tableauDim_eq_sum_removableRow_children
+        (removableRowToOneBoxChild lam r)
+    _ =
+        ∑ x : Sigma (fun r : RemovableRow lam =>
+          RemovableRow (removableRowToOneBoxChild lam r)),
+            tableauDim
+              (removableRowToOneBoxChild
+                (removableRowToOneBoxChild lam x.1) x.2) := by
+      exact (Fintype.sum_sigma
+        (fun x : Sigma (fun r : RemovableRow lam =>
+          RemovableRow (removableRowToOneBoxChild lam r)) =>
+          tableauDim
+            (removableRowToOneBoxChild
+              (removableRowToOneBoxChild lam x.1) x.2))).symm
+    _ =
+        ∑ p : TwoStepRemovableRows lam,
+          tableauDim (deleteTwoRemovableRowsDiagram lam p) := by
+      exact (Fintype.sum_equiv
+        (twoStepRemovableRowsEquivSigma lam)
+        (fun p : TwoStepRemovableRows lam =>
+          tableauDim (deleteTwoRemovableRowsDiagram lam p))
+        (fun x : Sigma (fun r : RemovableRow lam =>
+          RemovableRow (removableRowToOneBoxChild lam r)) =>
+          tableauDim
+            (removableRowToOneBoxChild
+              (removableRowToOneBoxChild lam x.1) x.2))
+        (fun _ => rfl)).symm
 
 def deleteMaxAtMaxRemovableRow {n : Nat}
     {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
