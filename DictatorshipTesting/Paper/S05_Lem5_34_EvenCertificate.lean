@@ -2275,6 +2275,127 @@ theorem hEvenTableau_ge_one_fifth_tableauDim_generic_step_succ
           exact add_le_add hH hV
     _ = hEvenTableau (m + 1) lam := by rw [hhrec]
 
+/-- One-row shapes have no high local character weight in the tableau-count
+recurrence. -/
+theorem hEvenTableau_oneRowDiagram (m : ℕ) :
+    hEvenTableau m (oneRowDiagram (2 * m)) = 0 := by
+  induction m with
+  | zero =>
+      simp [hEvenTableau]
+  | succ m ih =>
+      rw [hEvenTableau]
+      rw [horizontalTwoStripChildrenEven_oneRowDiagram (m + 1) (by omega)]
+      rw [verticalTwoStripChildrenEven_oneRowDiagram (m + 1) (by omega)]
+      rw [Finset.sum_singleton]
+      rw [Finset.sum_empty]
+      simp [ih]
+
+/-- Standard shapes also have no high local character weight in the
+tableau-count recurrence. -/
+theorem hEvenTableau_standardDiagramEven_formula
+    (m : ℕ) (hm : 1 ≤ m) :
+    hEvenTableau m (standardDiagramEven m hm) = 0 := by
+  induction m with
+  | zero =>
+      omega
+  | succ m ih =>
+      cases m with
+      | zero =>
+          have hshape :
+              standardDiagramEven 1 hm = standardDiagramEven 1 (by omega) := by
+            exact standardDiagramEven_proof_irrel 1 hm (by omega)
+          rw [hshape]
+          rw [hEvenTableau]
+          rw [horizontalTwoStripChildrenEven_standardDiagramEven_one_tableauBase]
+          rw [verticalTwoStripChildrenEven_standardDiagramEven_one_tableauBase]
+          have hempty :
+              Finset.sum
+                  (Finset.empty : Finset (YoungDiagram (2 * (1 - 1))))
+                  (fun mu => hEvenTableau 0 mu) = 0 := by
+            exact Finset.sum_empty
+          rw [hempty]
+          rw [Finset.sum_singleton]
+          rw [tableauDim_oneRowDiagram_zero]
+          simp [zEven]
+      | succ k =>
+          have hm2 : 2 ≤ Nat.succ (Nat.succ k) := by omega
+          have hshape :
+              standardDiagramEven (Nat.succ (Nat.succ k)) hm =
+                standardDiagramEven (Nat.succ (Nat.succ k)) (by omega) := by
+            exact standardDiagramEven_proof_irrel _ hm (by omega)
+          rw [hshape]
+          rw [hEvenTableau]
+          have hh :=
+            horizontalTwoStripChildrenEven_standardDiagramEven
+              (Nat.succ (Nat.succ k)) hm2
+          have hv :=
+            verticalTwoStripChildrenEven_standardDiagramEven
+              (Nat.succ (Nat.succ k)) hm2
+          rw [hh, hv]
+          let a : YoungDiagram (2 * (Nat.succ (Nat.succ k) - 1)) :=
+            oneRowDiagram (2 * (Nat.succ (Nat.succ k) - 1))
+          let b : YoungDiagram (2 * (Nat.succ (Nat.succ k) - 1)) :=
+            standardDiagramEven (Nat.succ (Nat.succ k) - 1) (by omega)
+          have hba : b ≠ a := by
+            intro h
+            have hrow := congrArg (fun yd => youngRow yd 1) h
+            have hb1 : youngRow b 1 = 1 := by
+              dsimp [b]
+              exact
+                (isStandard_standardDiagramEven
+                  (Nat.succ (Nat.succ k) - 1) (by omega)).2.2
+            have ha1 : youngRow a 1 = 0 := by
+              dsimp [a]
+              rw [youngRow_oneRowDiagram]
+              simp
+            omega
+          have ha_not :
+              a ∉ ({b} :
+                Finset (YoungDiagram
+                  (2 * (Nat.succ (Nat.succ k) - 1)))) := by
+            intro hmem
+            rw [Finset.mem_singleton] at hmem
+            exact hba hmem.symm
+          change
+            ({a, b} :
+                Finset
+                  (YoungDiagram (2 * (Nat.succ (Nat.succ k) - 1)))).sum
+                (fun mu => hEvenTableau (Nat.succ k) mu) +
+              ({a} :
+                Finset
+                  (YoungDiagram (2 * (Nat.succ (Nat.succ k) - 1)))).sum
+                (fun mu => tableauDim mu - zEven (Nat.succ k) mu) = 0
+          rw [Finset.sum_insert ha_not]
+          rw [Finset.sum_singleton]
+          rw [Finset.sum_singleton]
+          dsimp [a, b]
+          change
+            hEvenTableau (Nat.succ k)
+                (oneRowDiagram (2 * Nat.succ k)) +
+              hEvenTableau (Nat.succ k)
+                (standardDiagramEven (Nat.succ k) (by omega)) +
+              (tableauDim (oneRowDiagram (2 * Nat.succ k)) -
+                zEven (Nat.succ k) (oneRowDiagram (2 * Nat.succ k))) = 0
+          rw [hEvenTableau_oneRowDiagram]
+          rw [ih (by omega : 1 ≤ Nat.succ k)]
+          rw [tableauDim_oneRowDiagram_even]
+          rw [zEven_oneRowDiagram]
+          ring
+
+/-- The tableau-count high-weight recurrence is nonnegative. -/
+theorem hEvenTableau_nonneg
+    (m : ℕ) (lam : YoungDiagram (2 * m)) :
+    0 ≤ hEvenTableau m lam := by
+  induction m with
+  | zero =>
+      simp [hEvenTableau]
+  | succ m ih =>
+      rw [hEvenTableau]
+      apply add_nonneg
+      · exact Finset.sum_nonneg (fun mu _hmu => ih mu)
+      · exact Finset.sum_nonneg (fun mu _hmu =>
+          sub_nonneg.mpr (zEven_le_tableauDim m mu))
+
 /-- Generic induction step for Lemma 5.34, away from the exceptional children.
 
 Horizontal children are handled by the induction hypothesis.  Vertical children
