@@ -114,4 +114,18 @@ theorem S05_Lem5_01_adjacentSwapEntry_bijective {n : Nat}
     Function.Bijective (adjacentSwapEntry T a) := by
   exact adjacentSwapEntry_bijective T a
 
+/-- Lemma 5.1 basis-level component: if adjacent entries are in different rows
+and columns, swapping their values gives another standard tableau. -/
+noncomputable def S05_Lem5_01_adjacentSwapTableau {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a)) :
+    StandardYoungTableau lam :=
+  adjacentSwapTableau T a hrow_ne hcol_ne
+
 end DictatorshipTesting

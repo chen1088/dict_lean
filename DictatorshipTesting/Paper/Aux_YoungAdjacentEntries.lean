@@ -345,4 +345,105 @@ theorem adjacentSwapEntry_bijective {n : Nat}
     refine ⟨u, ?_⟩
     rw [adjacentSwapEntry, hu, adjacentSwapValue_involutive]
 
+theorem adjacentSwapValue_lt_of_lt_of_not_adjacent_pair {n : Nat}
+    (a : Fin n) {x y : Fin (n + 1)}
+    (hxy : x < y)
+    (hpair : ¬ (x = adjacentEntryLo a ∧ y = adjacentEntryHi a)) :
+    adjacentSwapValue a x < adjacentSwapValue a y := by
+  by_cases hxlo : x = adjacentEntryLo a
+  · subst x
+    by_cases hyhi : y = adjacentEntryHi a
+    · exact False.elim (hpair ⟨rfl, hyhi⟩)
+    · have hylo : y ≠ adjacentEntryLo a := by
+        intro hylo
+        subst y
+        exact (lt_irrefl _ hxy)
+      rw [adjacentSwapValue_lo, adjacentSwapValue_of_ne_lo_hi a hylo hyhi]
+      change (adjacentEntryHi a : Nat) < (y : Nat)
+      have hxyv : (adjacentEntryLo a : Nat) < (y : Nat) := hxy
+      have hyhi_val : (y : Nat) ≠ (a : Nat) + 1 := by
+        intro hyval
+        apply hyhi
+        apply Fin.ext
+        simpa [adjacentEntryHi] using hyval
+      simp [adjacentEntryLo, adjacentEntryHi] at hxyv ⊢
+      omega
+  · by_cases hxhi : x = adjacentEntryHi a
+    · subst x
+      have hylo : y ≠ adjacentEntryLo a := by
+        intro hylo
+        subst y
+        have hxyv : (adjacentEntryHi a : Nat) < (adjacentEntryLo a : Nat) := hxy
+        simp [adjacentEntryLo, adjacentEntryHi] at hxyv
+      have hyhi : y ≠ adjacentEntryHi a := by
+        intro hyhi
+        subst y
+        exact (lt_irrefl _ hxy)
+      rw [adjacentSwapValue_hi, adjacentSwapValue_of_ne_lo_hi a hylo hyhi]
+      change (adjacentEntryLo a : Nat) < (y : Nat)
+      have hxyv : (adjacentEntryHi a : Nat) < (y : Nat) := hxy
+      simp [adjacentEntryLo, adjacentEntryHi] at hxyv ⊢
+      omega
+    · by_cases hylo : y = adjacentEntryLo a
+      · subst y
+        rw [adjacentSwapValue_of_ne_lo_hi a hxlo hxhi, adjacentSwapValue_lo]
+        change (x : Nat) < (adjacentEntryHi a : Nat)
+        have hxyv : (x : Nat) < (adjacentEntryLo a : Nat) := hxy
+        simp [adjacentEntryLo, adjacentEntryHi] at hxyv ⊢
+        omega
+      · by_cases hyhi : y = adjacentEntryHi a
+        · subst y
+          rw [adjacentSwapValue_of_ne_lo_hi a hxlo hxhi, adjacentSwapValue_hi]
+          change (x : Nat) < (adjacentEntryLo a : Nat)
+          have hxyv : (x : Nat) < (adjacentEntryHi a : Nat) := hxy
+          have hxlo_val : (x : Nat) ≠ (a : Nat) := by
+            intro hxval
+            apply hxlo
+            apply Fin.ext
+            simpa [adjacentEntryLo] using hxval
+          simp [adjacentEntryLo, adjacentEntryHi] at hxyv ⊢
+          omega
+        · rw [adjacentSwapValue_of_ne_lo_hi a hxlo hxhi,
+            adjacentSwapValue_of_ne_lo_hi a hylo hyhi]
+          exact hxy
+
+noncomputable def adjacentSwapTableau {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a)) :
+    StandardYoungTableau lam where
+  entry := adjacentSwapEntry T a
+  bijective := adjacentSwapEntry_bijective T a
+  row_strict := by
+    intro u v hrow hcol
+    apply adjacentSwapValue_lt_of_lt_of_not_adjacent_pair a
+    · exact T.row_strict hrow hcol
+    · intro hpair
+      rcases hpair with ⟨hu_entry, hv_entry⟩
+      have hu_cell : adjacentLoCell T a = u :=
+        cellOfEntry_eq_of_entry T hu_entry
+      have hv_cell : adjacentHiCell T a = v :=
+        cellOfEntry_eq_of_entry T hv_entry
+      apply hrow_ne
+      rw [hu_cell, hv_cell]
+      exact hrow
+  col_strict := by
+    intro u v hcol hrow
+    apply adjacentSwapValue_lt_of_lt_of_not_adjacent_pair a
+    · exact T.col_strict hcol hrow
+    · intro hpair
+      rcases hpair with ⟨hu_entry, hv_entry⟩
+      have hu_cell : adjacentLoCell T a = u :=
+        cellOfEntry_eq_of_entry T hu_entry
+      have hv_cell : adjacentHiCell T a = v :=
+        cellOfEntry_eq_of_entry T hv_entry
+      apply hcol_ne
+      rw [hu_cell, hv_cell]
+      exact hcol
+
 end DictatorshipTesting
