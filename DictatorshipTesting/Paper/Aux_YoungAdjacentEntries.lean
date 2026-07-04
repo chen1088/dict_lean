@@ -530,6 +530,55 @@ noncomputable def adjacentSwapTableau {n : Nat}
       rw [hu_cell, hv_cell]
       exact hcol
 
+theorem adjacentSwapTableau_comm_of_disjoint_indices {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_a :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_a :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a))
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b))
+    (hrow_a_after_b :
+      YoungCell.row (adjacentLoCell
+          (adjacentSwapTableau T b hrow_b hcol_b) a) ≠
+        YoungCell.row (adjacentHiCell
+          (adjacentSwapTableau T b hrow_b hcol_b) a))
+    (hcol_a_after_b :
+      YoungCell.col (adjacentLoCell
+          (adjacentSwapTableau T b hrow_b hcol_b) a) ≠
+        YoungCell.col (adjacentHiCell
+          (adjacentSwapTableau T b hrow_b hcol_b) a))
+    (hrow_b_after_a :
+      YoungCell.row (adjacentLoCell
+          (adjacentSwapTableau T a hrow_a hcol_a) b) ≠
+        YoungCell.row (adjacentHiCell
+          (adjacentSwapTableau T a hrow_a hcol_a) b))
+    (hcol_b_after_a :
+      YoungCell.col (adjacentLoCell
+          (adjacentSwapTableau T a hrow_a hcol_a) b) ≠
+        YoungCell.col (adjacentHiCell
+          (adjacentSwapTableau T a hrow_a hcol_a) b)) :
+    adjacentSwapTableau
+        (adjacentSwapTableau T b hrow_b hcol_b) a
+        hrow_a_after_b hcol_a_after_b =
+      adjacentSwapTableau
+        (adjacentSwapTableau T a hrow_a hcol_a) b
+        hrow_b_after_a hcol_b_after_a := by
+  apply standardYoungTableau_ext_entry
+  intro u
+  change
+    adjacentSwapValue a (adjacentSwapEntry T b u) =
+      adjacentSwapValue b (adjacentSwapEntry T a u)
+  exact adjacentSwapEntry_comm_of_disjoint_indices T a b hdisj u
+
 theorem adjacentSwapTableau_cell_lo {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)

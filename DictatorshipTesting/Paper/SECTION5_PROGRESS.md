@@ -531,6 +531,8 @@ Main names added:
 - `adjacentIndexDisjoint`
 - `adjacentSwapValue_comm_of_disjoint_entries`
 - `adjacentSwapValue_comm_of_disjoint_indices`
+- `adjacentSwapEntry_comm_of_disjoint_indices`
+- `adjacentSwapTableau_comm_of_disjoint_indices`
 
 Section 5 numbers progressed:
 - Lemma 5.1: coefficient identities, diagonal involution cases, swap-back
@@ -547,6 +549,9 @@ Section 5 numbers progressed:
   basis vectors.
 - Lemma 5.1: the Coxeter frontier has started at the value-combinatorics level:
   adjacent value swaps commute when their adjacent index pairs are disjoint.
+- Lemma 5.1: distant commutation has been lifted to entry functions and to
+  swapped tableaux under explicit hypotheses that the second swaps remain
+  standard.
 
 Exact remaining blocker:
 - The local Lemma 5.1 involution-on-basis cases are now proved.  The remaining
@@ -555,5 +560,5 @@ Exact remaining blocker:
   the matching-subgroup and spectral-block model.
 
 Next automatically selected task:
-- Lift distant value-swap commutation to tableau entry functions and, if the
-  standardness hypotheses can be transported cleanly, to swapped tableaux.
+- Transport the second-swap standardness hypotheses automatically for distant
+  swaps, then formulate an operator-level distant commutation statement.

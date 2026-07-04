@@ -243,6 +243,54 @@ theorem S05_Lem5_01_adjacentSwapTableau_entryContent_of_ne_lo_hi {n : Nat}
       entryContent T b := by
   exact adjacentSwapTableau_entryContent_of_ne_lo_hi T a hrow_ne hcol_ne hblo hbhi
 
+/-- Lemma 5.1 Coxeter-frontier component: distant adjacent tableau swaps
+commute, assuming the needed second swaps are standard. -/
+theorem S05_Lem5_01_adjacentSwapTableau_comm_of_disjoint_indices {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_a :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_a :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a))
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b))
+    (hrow_a_after_b :
+      YoungCell.row (adjacentLoCell
+          (adjacentSwapTableau T b hrow_b hcol_b) a) ≠
+        YoungCell.row (adjacentHiCell
+          (adjacentSwapTableau T b hrow_b hcol_b) a))
+    (hcol_a_after_b :
+      YoungCell.col (adjacentLoCell
+          (adjacentSwapTableau T b hrow_b hcol_b) a) ≠
+        YoungCell.col (adjacentHiCell
+          (adjacentSwapTableau T b hrow_b hcol_b) a))
+    (hrow_b_after_a :
+      YoungCell.row (adjacentLoCell
+          (adjacentSwapTableau T a hrow_a hcol_a) b) ≠
+        YoungCell.row (adjacentHiCell
+          (adjacentSwapTableau T a hrow_a hcol_a) b))
+    (hcol_b_after_a :
+      YoungCell.col (adjacentLoCell
+          (adjacentSwapTableau T a hrow_a hcol_a) b) ≠
+        YoungCell.col (adjacentHiCell
+          (adjacentSwapTableau T a hrow_a hcol_a) b)) :
+    adjacentSwapTableau
+        (adjacentSwapTableau T b hrow_b hcol_b) a
+        hrow_a_after_b hcol_a_after_b =
+      adjacentSwapTableau
+        (adjacentSwapTableau T a hrow_a hcol_a) b
+        hrow_b_after_a hcol_b_after_a := by
+  exact adjacentSwapTableau_comm_of_disjoint_indices
+    T a b hdisj hrow_a hcol_a hrow_b hcol_b
+    hrow_a_after_b hcol_a_after_b hrow_b_after_a hcol_b_after_a
+
 /-- Lemma 5.1 coefficient component: the axial distance is `1` in the
 same-row case. -/
 theorem S05_Lem5_01_adjacentAxialDistance_sameRow {n : Nat}
