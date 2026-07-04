@@ -171,6 +171,54 @@ theorem youngAdjacentDiagCoeff_sameCol {n : Nat}
   rw [youngAdjacentDiagCoeff, adjacentAxialDistance_sameCol T a hcol]
   norm_num
 
+theorem youngAdjacentDiagCoeff_swap {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentDiagCoeff (adjacentSwapTableau T a hrow_ne hcol_ne) a =
+      - youngAdjacentDiagCoeff T a := by
+  rw [youngAdjacentDiagCoeff,
+    adjacentAxialDistance_swap_neg T a hrow_ne hcol_ne,
+    youngAdjacentDiagCoeff]
+  simp
+
+theorem youngAdjacentOffCoeff_swap {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOffCoeff (adjacentSwapTableau T a hrow_ne hcol_ne) a =
+      youngAdjacentOffCoeff T a := by
+  rw [youngAdjacentOffCoeff, youngAdjacentDiagCoeff_swap T a hrow_ne hcol_ne,
+    youngAdjacentOffCoeff]
+  ring_nf
+
+theorem youngAdjacentOffCoeff_nonneg {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    0 ≤ youngAdjacentOffCoeff T a := by
+  exact Real.sqrt_nonneg _
+
+theorem youngAdjacentOffCoeff_sq_of_nonneg {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (h :
+      0 ≤ 1 - youngAdjacentDiagCoeff T a ^ 2) :
+    youngAdjacentOffCoeff T a ^ 2 =
+      1 - youngAdjacentDiagCoeff T a ^ 2 := by
+  rw [youngAdjacentOffCoeff, Real.sq_sqrt h]
+
+theorem youngAdjacentCoeff_sq_sum_of_nonneg {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (h :
+      0 ≤ 1 - youngAdjacentDiagCoeff T a ^ 2) :
+    youngAdjacentDiagCoeff T a ^ 2 +
+        youngAdjacentOffCoeff T a ^ 2 = 1 := by
+  rw [youngAdjacentOffCoeff_sq_of_nonneg T a h]
+  ring
+
 theorem not_adjacentSameRow_of_sameCol {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)

@@ -271,6 +271,47 @@ theorem S05_Lem5_01_youngAdjacentDiagCoeff_sameCol {n : Nat}
     youngAdjacentDiagCoeff T a = -1 := by
   exact youngAdjacentDiagCoeff_sameCol T a hcol
 
+/-- Lemma 5.1 coefficient component: swapping a swappable adjacent pair negates
+the diagonal coefficient. -/
+theorem S05_Lem5_01_youngAdjacentDiagCoeff_swap {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentDiagCoeff (adjacentSwapTableau T a hrow_ne hcol_ne) a =
+      - youngAdjacentDiagCoeff T a := by
+  exact youngAdjacentDiagCoeff_swap T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 coefficient component: swapping a swappable adjacent pair
+preserves the off-diagonal coefficient. -/
+theorem S05_Lem5_01_youngAdjacentOffCoeff_swap {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOffCoeff (adjacentSwapTableau T a hrow_ne hcol_ne) a =
+      youngAdjacentOffCoeff T a := by
+  exact youngAdjacentOffCoeff_swap T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 coefficient component: the off-diagonal coefficient is
+nonnegative by construction. -/
+theorem S05_Lem5_01_youngAdjacentOffCoeff_nonneg {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    0 ≤ youngAdjacentOffCoeff T a := by
+  exact youngAdjacentOffCoeff_nonneg T a
+
+/-- Lemma 5.1 coefficient component: the Young 2-by-2 coefficient squares sum
+to one once the square-root radicand is known to be nonnegative. -/
+theorem S05_Lem5_01_youngAdjacentCoeff_sq_sum_of_nonneg {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (h :
+      0 ≤ 1 - youngAdjacentDiagCoeff T a ^ 2) :
+    youngAdjacentDiagCoeff T a ^ 2 +
+        youngAdjacentOffCoeff T a ^ 2 = 1 := by
+  exact youngAdjacentCoeff_sq_sum_of_nonneg T a h
+
 /-- Lemma 5.1 matrix-coefficient component: same-row adjacent pairs act
 diagonally with coefficient `1` on their tableau. -/
 theorem S05_Lem5_01_youngAdjacentMatrixCoeff_sameRow_self {n : Nat}
