@@ -279,4 +279,90 @@ theorem youngAdjacentMatrixCoeff_swappable_other {n : Nat}
     youngAdjacentMatrixCoeff a S T = 0 := by
   simp [youngAdjacentMatrixCoeff, hrow_ne, hcol_ne, hST, hSswap]
 
+/-- The adjacent-transposition matrix on the tableau coordinate space.  This is
+the explicit Young-orthogonal matrix model on a single shape. -/
+noncomputable def youngAdjacentOperator {n : Nat}
+    {lam : YoungDiagram (n + 1)} (a : Fin n) :
+    TableauSpace lam -> TableauSpace lam :=
+  fun f S =>
+    ∑ T : StandardYoungTableau lam, youngAdjacentMatrixCoeff a S T * f T
+
+theorem youngAdjacentOperator_basis_value {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (a : Fin n) (S T : StandardYoungTableau lam) :
+    youngAdjacentOperator a (tableauBasisVec T) S =
+      youngAdjacentMatrixCoeff a S T := by
+  classical
+  rw [youngAdjacentOperator]
+  rw [Fintype.sum_eq_single T]
+  · simp [tableauBasisVec]
+  · intro U hU
+    simp [tableauBasisVec, hU]
+
+theorem youngAdjacentOperator_basis_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow : adjacentSameRow T a) :
+    youngAdjacentOperator a (tableauBasisVec T) = tableauBasisVec T := by
+  funext S
+  by_cases hST : S = T
+  · subst S
+    rw [youngAdjacentOperator_basis_value,
+      youngAdjacentMatrixCoeff_sameRow_self]
+    · simp
+    · exact hrow
+  · rw [youngAdjacentOperator_basis_value,
+      youngAdjacentMatrixCoeff_sameRow_ne a hrow hST,
+      tableauBasisVec_ne hST]
+
+theorem youngAdjacentOperator_basis_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol : adjacentSameCol T a) :
+    youngAdjacentOperator a (tableauBasisVec T) =
+      fun S => - tableauBasisVec T S := by
+  funext S
+  by_cases hST : S = T
+  · subst S
+    rw [youngAdjacentOperator_basis_value,
+      youngAdjacentMatrixCoeff_sameCol_self]
+    · simp
+    · exact hcol
+  · rw [youngAdjacentOperator_basis_value,
+      youngAdjacentMatrixCoeff_sameCol_ne a hcol hST,
+      tableauBasisVec_ne hST]
+    simp
+
+theorem youngAdjacentOperator_basis_swappable_self_value {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOperator a (tableauBasisVec T) T =
+      youngAdjacentDiagCoeff T a := by
+  rw [youngAdjacentOperator_basis_value,
+    youngAdjacentMatrixCoeff_swappable_self T a hrow_ne hcol_ne]
+
+theorem youngAdjacentOperator_basis_swappable_swap_value {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOperator a (tableauBasisVec T)
+        (adjacentSwapTableau T a hrow_ne hcol_ne) =
+      youngAdjacentOffCoeff T a := by
+  rw [youngAdjacentOperator_basis_value,
+    youngAdjacentMatrixCoeff_swappable_swap T a hrow_ne hcol_ne]
+
+theorem youngAdjacentOperator_basis_swappable_other_value {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    {S T : StandardYoungTableau lam} (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a)
+    (hST : S ≠ T)
+    (hSswap : S ≠ adjacentSwapTableau T a hrow_ne hcol_ne) :
+    youngAdjacentOperator a (tableauBasisVec T) S = 0 := by
+  rw [youngAdjacentOperator_basis_value,
+    youngAdjacentMatrixCoeff_swappable_other a hrow_ne hcol_ne hST hSswap]
+
 end DictatorshipTesting

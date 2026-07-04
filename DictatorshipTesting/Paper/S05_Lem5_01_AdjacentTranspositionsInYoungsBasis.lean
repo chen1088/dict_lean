@@ -341,4 +341,59 @@ theorem S05_Lem5_01_youngAdjacentMatrixCoeff_swappable_other {n : Nat}
     youngAdjacentMatrixCoeff a S T = 0 := by
   exact youngAdjacentMatrixCoeff_swappable_other a hrow_ne hcol_ne hST hSswap
 
+/-- Lemma 5.1 operator component: in the same-row case, the adjacent operator
+fixes the tableau basis vector. -/
+theorem S05_Lem5_01_youngAdjacentOperator_basis_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow : adjacentSameRow T a) :
+    youngAdjacentOperator a (tableauBasisVec T) = tableauBasisVec T := by
+  exact youngAdjacentOperator_basis_sameRow T a hrow
+
+/-- Lemma 5.1 operator component: in the same-column case, the adjacent
+operator negates the tableau basis vector. -/
+theorem S05_Lem5_01_youngAdjacentOperator_basis_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol : adjacentSameCol T a) :
+    youngAdjacentOperator a (tableauBasisVec T) =
+      fun S => - tableauBasisVec T S := by
+  exact youngAdjacentOperator_basis_sameCol T a hcol
+
+/-- Lemma 5.1 operator component: in the swappable case, the value at `T` is
+the diagonal coefficient. -/
+theorem S05_Lem5_01_youngAdjacentOperator_basis_swappable_self_value {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOperator a (tableauBasisVec T) T =
+      youngAdjacentDiagCoeff T a := by
+  exact youngAdjacentOperator_basis_swappable_self_value T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 operator component: in the swappable case, the value at the
+swapped tableau is the off-diagonal coefficient. -/
+theorem S05_Lem5_01_youngAdjacentOperator_basis_swappable_swap_value {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOperator a (tableauBasisVec T)
+        (adjacentSwapTableau T a hrow_ne hcol_ne) =
+      youngAdjacentOffCoeff T a := by
+  exact youngAdjacentOperator_basis_swappable_swap_value T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 operator component: in the swappable case, all other basis
+coordinates vanish. -/
+theorem S05_Lem5_01_youngAdjacentOperator_basis_swappable_other_value {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    {S T : StandardYoungTableau lam} (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a)
+    (hST : S ≠ T)
+    (hSswap : S ≠ adjacentSwapTableau T a hrow_ne hcol_ne) :
+    youngAdjacentOperator a (tableauBasisVec T) S = 0 := by
+  exact youngAdjacentOperator_basis_swappable_other_value
+    a hrow_ne hcol_ne hST hSswap
+
 end DictatorshipTesting
