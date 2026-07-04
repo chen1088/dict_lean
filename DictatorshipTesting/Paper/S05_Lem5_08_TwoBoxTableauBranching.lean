@@ -216,6 +216,98 @@ theorem S05_Lem5_08_second_deletion_tableauContentSequence
     (deletedCornerCell_row h₂ hr₂) (deletedCornerCell_col h₂ hr₂)
     (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) hu₂ a
 
+/-- Lemma 5.8 basis-level component: after the second deletion, the child cell
+containing a remaining entry maps back to its cell after the first deletion. -/
+theorem S05_Lem5_08_second_deletion_childCellToParent_cellOfEntry
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)} {nu : YoungDiagram n}
+    (h₁ : IsOneBoxChild lam mu) {r₁ : Nat}
+    (hr₁ :
+      youngRow lam r₁ = youngRow mu r₁ + 1 ∧
+      forall t : Nat, t ≠ r₁ -> youngRow lam t = youngRow mu t)
+    (h₂ : IsOneBoxChild mu nu) {r₂ : Nat}
+    (hr₂ :
+      youngRow mu r₂ = youngRow nu r₂ + 1 ∧
+      forall t : Nat, t ≠ r₂ -> youngRow mu t = youngRow nu t)
+    (T : StandardYoungTableau lam)
+    (hu₁ : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h₁ hr₁))
+    (hu₂ :
+      TableauMaxAt (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁)
+        (deletedCornerCellOfOneBoxChildRow h₂ hr₂))
+    (a : Fin n) :
+    childCellToParentCellOfOneBoxChildRow h₂ hr₂
+      (cellOfEntry
+        (S05_Lem5_08_deleteSecondMaxAsTableau h₁ hr₁ h₂ hr₂ T hu₁ hu₂) a)
+      =
+    cellOfEntry
+      (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) (Fin.castSucc a) := by
+  exact S05_Lem5_12_childCellToParent_cellOfEntry_deleteMax
+    h₂ hr₂ (deletedCornerCellOfOneBoxChildRow h₂ hr₂)
+    (deletedCornerCell_row h₂ hr₂) (deletedCornerCell_col h₂ hr₂)
+    (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) hu₂ a
+
+/-- Lemma 5.8 basis-level component: the second deletion preserves rows relative
+to the first-deleted tableau. -/
+theorem S05_Lem5_08_second_deletion_cellOfEntry_row
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)} {nu : YoungDiagram n}
+    (h₁ : IsOneBoxChild lam mu) {r₁ : Nat}
+    (hr₁ :
+      youngRow lam r₁ = youngRow mu r₁ + 1 ∧
+      forall t : Nat, t ≠ r₁ -> youngRow lam t = youngRow mu t)
+    (h₂ : IsOneBoxChild mu nu) {r₂ : Nat}
+    (hr₂ :
+      youngRow mu r₂ = youngRow nu r₂ + 1 ∧
+      forall t : Nat, t ≠ r₂ -> youngRow mu t = youngRow nu t)
+    (T : StandardYoungTableau lam)
+    (hu₁ : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h₁ hr₁))
+    (hu₂ :
+      TableauMaxAt (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁)
+        (deletedCornerCellOfOneBoxChildRow h₂ hr₂))
+    (a : Fin n) :
+    YoungCell.row
+      (cellOfEntry
+        (S05_Lem5_08_deleteSecondMaxAsTableau h₁ hr₁ h₂ hr₂ T hu₁ hu₂) a)
+      =
+    YoungCell.row
+      (cellOfEntry
+        (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) (Fin.castSucc a)) := by
+  exact S05_Lem5_12_deleteMax_cellOfEntry_row
+    h₂ hr₂ (deletedCornerCellOfOneBoxChildRow h₂ hr₂)
+    (deletedCornerCell_row h₂ hr₂) (deletedCornerCell_col h₂ hr₂)
+    (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) hu₂ a
+
+/-- Lemma 5.8 basis-level component: the second deletion preserves columns
+relative to the first-deleted tableau. -/
+theorem S05_Lem5_08_second_deletion_cellOfEntry_col
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)} {nu : YoungDiagram n}
+    (h₁ : IsOneBoxChild lam mu) {r₁ : Nat}
+    (hr₁ :
+      youngRow lam r₁ = youngRow mu r₁ + 1 ∧
+      forall t : Nat, t ≠ r₁ -> youngRow lam t = youngRow mu t)
+    (h₂ : IsOneBoxChild mu nu) {r₂ : Nat}
+    (hr₂ :
+      youngRow mu r₂ = youngRow nu r₂ + 1 ∧
+      forall t : Nat, t ≠ r₂ -> youngRow mu t = youngRow nu t)
+    (T : StandardYoungTableau lam)
+    (hu₁ : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h₁ hr₁))
+    (hu₂ :
+      TableauMaxAt (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁)
+        (deletedCornerCellOfOneBoxChildRow h₂ hr₂))
+    (a : Fin n) :
+    YoungCell.col
+      (cellOfEntry
+        (S05_Lem5_08_deleteSecondMaxAsTableau h₁ hr₁ h₂ hr₂ T hu₁ hu₂) a)
+      =
+    YoungCell.col
+      (cellOfEntry
+        (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) (Fin.castSucc a)) := by
+  exact S05_Lem5_12_deleteMax_cellOfEntry_col
+    h₂ hr₂ (deletedCornerCellOfOneBoxChildRow h₂ hr₂)
+    (deletedCornerCell_row h₂ hr₂) (deletedCornerCell_col h₂ hr₂)
+    (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) hu₂ a
+
 /-- Lemma 5.8 basis-level component: after two successive one-box deletions,
 the content sequence is the original content sequence with the two largest
 entries removed. -/
@@ -250,6 +342,82 @@ theorem S05_Lem5_08_iterated_deletion_tableauContentSequence
           h₁ hr₁ h₂ hr₂ T hu₁ hu₂ a
     _ = tableauContentSequence T (Fin.castSucc (Fin.castSucc a)) := by
         exact S05_Lem5_08_first_deletion_tableauContentSequence
+          h₁ hr₁ T hu₁ (Fin.castSucc a)
+
+/-- Lemma 5.8 basis-level component: after two successive one-box deletions,
+each remaining entry has the row it had in the original tableau. -/
+theorem S05_Lem5_08_iterated_deletion_cellOfEntry_row
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)} {nu : YoungDiagram n}
+    (h₁ : IsOneBoxChild lam mu) {r₁ : Nat}
+    (hr₁ :
+      youngRow lam r₁ = youngRow mu r₁ + 1 ∧
+      forall t : Nat, t ≠ r₁ -> youngRow lam t = youngRow mu t)
+    (h₂ : IsOneBoxChild mu nu) {r₂ : Nat}
+    (hr₂ :
+      youngRow mu r₂ = youngRow nu r₂ + 1 ∧
+      forall t : Nat, t ≠ r₂ -> youngRow mu t = youngRow nu t)
+    (T : StandardYoungTableau lam)
+    (hu₁ : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h₁ hr₁))
+    (hu₂ :
+      TableauMaxAt (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁)
+        (deletedCornerCellOfOneBoxChildRow h₂ hr₂))
+    (a : Fin n) :
+    YoungCell.row
+      (cellOfEntry
+        (S05_Lem5_08_deleteSecondMaxAsTableau h₁ hr₁ h₂ hr₂ T hu₁ hu₂) a)
+      =
+    YoungCell.row (cellOfEntry T (Fin.castSucc (Fin.castSucc a))) := by
+  calc
+    YoungCell.row
+      (cellOfEntry
+        (S05_Lem5_08_deleteSecondMaxAsTableau h₁ hr₁ h₂ hr₂ T hu₁ hu₂) a)
+        =
+      YoungCell.row
+        (cellOfEntry
+          (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) (Fin.castSucc a)) := by
+        exact S05_Lem5_08_second_deletion_cellOfEntry_row
+          h₁ hr₁ h₂ hr₂ T hu₁ hu₂ a
+    _ = YoungCell.row (cellOfEntry T (Fin.castSucc (Fin.castSucc a))) := by
+        exact S05_Lem5_08_first_deletion_cellOfEntry_row
+          h₁ hr₁ T hu₁ (Fin.castSucc a)
+
+/-- Lemma 5.8 basis-level component: after two successive one-box deletions,
+each remaining entry has the column it had in the original tableau. -/
+theorem S05_Lem5_08_iterated_deletion_cellOfEntry_col
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)} {nu : YoungDiagram n}
+    (h₁ : IsOneBoxChild lam mu) {r₁ : Nat}
+    (hr₁ :
+      youngRow lam r₁ = youngRow mu r₁ + 1 ∧
+      forall t : Nat, t ≠ r₁ -> youngRow lam t = youngRow mu t)
+    (h₂ : IsOneBoxChild mu nu) {r₂ : Nat}
+    (hr₂ :
+      youngRow mu r₂ = youngRow nu r₂ + 1 ∧
+      forall t : Nat, t ≠ r₂ -> youngRow mu t = youngRow nu t)
+    (T : StandardYoungTableau lam)
+    (hu₁ : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h₁ hr₁))
+    (hu₂ :
+      TableauMaxAt (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁)
+        (deletedCornerCellOfOneBoxChildRow h₂ hr₂))
+    (a : Fin n) :
+    YoungCell.col
+      (cellOfEntry
+        (S05_Lem5_08_deleteSecondMaxAsTableau h₁ hr₁ h₂ hr₂ T hu₁ hu₂) a)
+      =
+    YoungCell.col (cellOfEntry T (Fin.castSucc (Fin.castSucc a))) := by
+  calc
+    YoungCell.col
+      (cellOfEntry
+        (S05_Lem5_08_deleteSecondMaxAsTableau h₁ hr₁ h₂ hr₂ T hu₁ hu₂) a)
+        =
+      YoungCell.col
+        (cellOfEntry
+          (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) (Fin.castSucc a)) := by
+        exact S05_Lem5_08_second_deletion_cellOfEntry_col
+          h₁ hr₁ h₂ hr₂ T hu₁ hu₂ a
+    _ = YoungCell.col (cellOfEntry T (Fin.castSucc (Fin.castSucc a))) := by
+        exact S05_Lem5_08_first_deletion_cellOfEntry_col
           h₁ hr₁ T hu₁ (Fin.castSucc a)
 
 end DictatorshipTesting
