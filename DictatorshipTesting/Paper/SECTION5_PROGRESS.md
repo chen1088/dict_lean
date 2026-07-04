@@ -519,6 +519,10 @@ Main names added:
 - `youngAdjacentMatrixCoeff_swappable_swap_symm`
 - `youngAdjacentOperator_basis_swappable_swap_symm_value`
 - `youngAdjacentOperator_basis_swappable_eq`
+- `tableauInner_right_basis`
+- `tableauInner_left_basis`
+- `youngAdjacentMatrixCoeff_swappable_pair_symmetric`
+- `youngAdjacentOperator_selfAdjoint_basis_swappable_pair`
 
 Section 5 numbers progressed:
 - Lemma 5.1: coefficient identities, diagonal involution cases, swap-back
@@ -527,6 +531,9 @@ Section 5 numbers progressed:
 - Lemma 5.1: the swappable axial distance is nonzero, the diagonal coefficient
   has square at most one, the coefficient squares sum to one, and the
   swappable adjacent operator squares to the identity on basis vectors.
+- Lemma 5.1: the two off-diagonal matrix coefficients in a swappable pair are
+  proved equal, and the adjacent operator is self-adjoint on that two-tableau
+  pair against the tableau coordinate inner product.
 
 Exact remaining blocker:
 - The local Lemma 5.1 involution-on-basis cases are now proved.  The remaining
@@ -536,4 +543,5 @@ Exact remaining blocker:
 
 Next automatically selected task:
 - Continue with matrix symmetry/self-adjointness facts for the concrete
-  adjacent coefficient matrix, then attempt the first Coxeter frontier.
+  adjacent coefficient matrix outside the swappable pair, then attempt the first
+  Coxeter frontier.

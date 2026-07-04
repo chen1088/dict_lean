@@ -423,6 +423,19 @@ theorem S05_Lem5_01_youngAdjacentMatrixCoeff_swappable_swap_symm {n : Nat}
       youngAdjacentOffCoeff T a := by
   exact youngAdjacentMatrixCoeff_swappable_swap_symm T a hrow_ne hcol_ne
 
+/-- Lemma 5.1 self-adjointness component: the two off-diagonal matrix
+coefficients in a swappable tableau pair agree. -/
+theorem S05_Lem5_01_youngAdjacentMatrixCoeff_swappable_pair_symmetric
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a
+        (adjacentSwapTableau T a hrow_ne hcol_ne) T =
+      youngAdjacentMatrixCoeff a T
+        (adjacentSwapTableau T a hrow_ne hcol_ne) := by
+  exact youngAdjacentMatrixCoeff_swappable_pair_symmetric T a hrow_ne hcol_ne
+
 /-- Lemma 5.1 matrix-coefficient component: in the swappable case, all other
 tableaux have coefficient zero. -/
 theorem S05_Lem5_01_youngAdjacentMatrixCoeff_swappable_other {n : Nat}
@@ -488,6 +501,23 @@ theorem S05_Lem5_01_youngAdjacentOperator_basis_swappable_swap_symm_value
         (tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne)) T =
       youngAdjacentOffCoeff T a := by
   exact youngAdjacentOperator_basis_swappable_swap_symm_value
+    T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 self-adjointness component: the adjacent operator is symmetric on
+the two basis vectors in a swappable tableau pair. -/
+theorem S05_Lem5_01_youngAdjacentOperator_selfAdjoint_basis_swappable_pair
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    tableauInner
+        (youngAdjacentOperator a (tableauBasisVec T))
+        (tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne)) =
+      tableauInner
+        (tableauBasisVec T)
+        (youngAdjacentOperator a
+          (tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne))) := by
+  exact youngAdjacentOperator_selfAdjoint_basis_swappable_pair
     T a hrow_ne hcol_ne
 
 /-- Lemma 5.1 operator component: in the swappable case, all other basis

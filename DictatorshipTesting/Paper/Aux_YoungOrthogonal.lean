@@ -73,6 +73,26 @@ theorem tableauInner_basis_basis_eq_ite {n : Nat} {lam : YoungDiagram n}
     simp
   · simp [h, tableauInner_basis_basis_ne h]
 
+theorem tableauInner_right_basis {n : Nat} {lam : YoungDiagram n}
+    (f : TableauSpace lam) (T : StandardYoungTableau lam) :
+    tableauInner f (tableauBasisVec T) = f T := by
+  classical
+  rw [tableauInner]
+  rw [Fintype.sum_eq_single T]
+  · simp [tableauBasisVec]
+  · intro S hS
+    simp [tableauBasisVec, hS]
+
+theorem tableauInner_left_basis {n : Nat} {lam : YoungDiagram n}
+    (T : StandardYoungTableau lam) (f : TableauSpace lam) :
+    tableauInner (tableauBasisVec T) f = f T := by
+  classical
+  rw [tableauInner]
+  rw [Fintype.sum_eq_single T]
+  · simp [tableauBasisVec]
+  · intro S hS
+    simp [tableauBasisVec, hS]
+
 /-- The adjacent entries indexed by `a` occupy a common row. -/
 def adjacentSameRow {n : Nat} {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n) : Prop :=
@@ -527,6 +547,18 @@ theorem youngAdjacentMatrixCoeff_swappable_swap_symm {n : Nat}
     simpa [T'] using youngAdjacentOffCoeff_swap T a hrow_ne hcol_ne
   simpa [T', hinv, hoff] using h
 
+theorem youngAdjacentMatrixCoeff_swappable_pair_symmetric {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a
+        (adjacentSwapTableau T a hrow_ne hcol_ne) T =
+      youngAdjacentMatrixCoeff a T
+        (adjacentSwapTableau T a hrow_ne hcol_ne) := by
+  rw [youngAdjacentMatrixCoeff_swappable_swap,
+    youngAdjacentMatrixCoeff_swappable_swap_symm]
+
 theorem youngAdjacentMatrixCoeff_swappable_other {n : Nat}
     {lam : YoungDiagram (n + 1)}
     {S T : StandardYoungTableau lam} (a : Fin n)
@@ -622,6 +654,22 @@ theorem youngAdjacentOperator_basis_swappable_swap_symm_value {n : Nat}
       youngAdjacentOffCoeff T a := by
   rw [youngAdjacentOperator_basis_value,
     youngAdjacentMatrixCoeff_swappable_swap_symm T a hrow_ne hcol_ne]
+
+theorem youngAdjacentOperator_selfAdjoint_basis_swappable_pair {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    tableauInner
+        (youngAdjacentOperator a (tableauBasisVec T))
+        (tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne)) =
+      tableauInner
+        (tableauBasisVec T)
+        (youngAdjacentOperator a
+          (tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne))) := by
+  rw [tableauInner_right_basis, tableauInner_left_basis,
+    youngAdjacentOperator_basis_swappable_swap_value,
+    youngAdjacentOperator_basis_swappable_swap_symm_value]
 
 theorem youngAdjacentOperator_basis_swappable_other_value {n : Nat}
     {lam : YoungDiagram (n + 1)}

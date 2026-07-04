@@ -60,6 +60,13 @@ axial-distance theorem for swappable adjacent entries.  This still does not
 prove Coxeter relations, the Specht realization, Schur-lemma scalarity, or the
 spectral block model.
 
+The first self-adjointness facts are also internal: tableau inner products
+against coordinate basis vectors evaluate to the matching coordinate, and the
+two off-diagonal matrix coefficients in a swappable tableau pair are equal.
+Full matrix symmetry for arbitrary pairs of tableaux still requires a support
+classification showing that no unrelated tableau can map back into the
+two-tableau support.
+
 ## Section 5 Paper/Lean Status Table
 
 | Paper statement number | Paper label/title | Lean file | Lean theorem name | Status | Remaining assumption, if any |
