@@ -266,4 +266,83 @@ theorem adjacent_content_hi_eq_lo_sub_one_of_sameCol {n : Nat}
   have hrow := adjacent_row_eq_succ_of_sameCol T a hcol
   omega
 
+/-- Swap the two adjacent values `a` and `a+1`, fixing all other values. -/
+def adjacentSwapValue {n : Nat} (a : Fin n) (x : Fin (n + 1)) : Fin (n + 1) :=
+  if x = adjacentEntryLo a then
+    adjacentEntryHi a
+  else if x = adjacentEntryHi a then
+    adjacentEntryLo a
+  else
+    x
+
+theorem adjacentSwapValue_lo {n : Nat} (a : Fin n) :
+    adjacentSwapValue a (adjacentEntryLo a) = adjacentEntryHi a := by
+  simp [adjacentSwapValue]
+
+theorem adjacentSwapValue_hi {n : Nat} (a : Fin n) :
+    adjacentSwapValue a (adjacentEntryHi a) = adjacentEntryLo a := by
+  simp [adjacentSwapValue, (adjacentEntryLo_ne_hi a).symm]
+
+theorem adjacentSwapValue_of_ne_lo_hi {n : Nat} (a : Fin n) {x : Fin (n + 1)}
+    (hlo : x ≠ adjacentEntryLo a) (hhi : x ≠ adjacentEntryHi a) :
+    adjacentSwapValue a x = x := by
+  simp [adjacentSwapValue, hlo, hhi]
+
+theorem adjacentSwapValue_involutive {n : Nat} (a : Fin n) (x : Fin (n + 1)) :
+    adjacentSwapValue a (adjacentSwapValue a x) = x := by
+  by_cases hlo : x = adjacentEntryLo a
+  · subst x
+    rw [adjacentSwapValue_lo, adjacentSwapValue_hi]
+  · by_cases hhi : x = adjacentEntryHi a
+    · subst x
+      rw [adjacentSwapValue_hi, adjacentSwapValue_lo]
+    · rw [adjacentSwapValue_of_ne_lo_hi a hlo hhi]
+      rw [adjacentSwapValue_of_ne_lo_hi a hlo hhi]
+
+/-- Entry function obtained by swapping the two adjacent values. -/
+def adjacentSwapEntry {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    YoungCell lam -> Fin (n + 1) :=
+  fun u => adjacentSwapValue a (T.entry u)
+
+theorem adjacentSwapEntry_loCell {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    adjacentSwapEntry T a (adjacentLoCell T a) = adjacentEntryHi a := by
+  rw [adjacentSwapEntry, entry_adjacentLoCell, adjacentSwapValue_lo]
+
+theorem adjacentSwapEntry_hiCell {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    adjacentSwapEntry T a (adjacentHiCell T a) = adjacentEntryLo a := by
+  rw [adjacentSwapEntry, entry_adjacentHiCell, adjacentSwapValue_hi]
+
+theorem adjacentSwapEntry_of_ne_lo_hi {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) {u : YoungCell lam}
+    (hlo : T.entry u ≠ adjacentEntryLo a)
+    (hhi : T.entry u ≠ adjacentEntryHi a) :
+    adjacentSwapEntry T a u = T.entry u := by
+  rw [adjacentSwapEntry, adjacentSwapValue_of_ne_lo_hi a hlo hhi]
+
+theorem adjacentSwapEntry_involutive {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) (u : YoungCell lam) :
+    adjacentSwapValue a (adjacentSwapEntry T a u) = T.entry u := by
+  rw [adjacentSwapEntry, adjacentSwapValue_involutive]
+
+theorem adjacentSwapEntry_bijective {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    Function.Bijective (adjacentSwapEntry T a) := by
+  constructor
+  · intro u v huv
+    apply T.bijective.1
+    have hswap := congrArg (adjacentSwapValue a) huv
+    simpa [adjacentSwapEntry, adjacentSwapValue_involutive] using hswap
+  · intro y
+    rcases T.bijective.2 (adjacentSwapValue a y) with ⟨u, hu⟩
+    refine ⟨u, ?_⟩
+    rw [adjacentSwapEntry, hu, adjacentSwapValue_involutive]
+
 end DictatorshipTesting

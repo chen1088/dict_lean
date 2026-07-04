@@ -90,4 +90,28 @@ theorem S05_Lem5_01_adjacent_content_hi_eq_lo_sub_one_of_sameCol {n : Nat}
       YoungCell.content (adjacentLoCell T a) - 1 := by
   exact adjacent_content_hi_eq_lo_sub_one_of_sameCol T a hcol
 
+/-- Lemma 5.1 basis-level component: the adjacent swap sends the lower
+adjacent-entry cell to the upper adjacent value. -/
+theorem S05_Lem5_01_adjacentSwapEntry_loCell {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    adjacentSwapEntry T a (adjacentLoCell T a) = adjacentEntryHi a := by
+  exact adjacentSwapEntry_loCell T a
+
+/-- Lemma 5.1 basis-level component: the adjacent swap sends the upper
+adjacent-entry cell to the lower adjacent value. -/
+theorem S05_Lem5_01_adjacentSwapEntry_hiCell {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    adjacentSwapEntry T a (adjacentHiCell T a) = adjacentEntryLo a := by
+  exact adjacentSwapEntry_hiCell T a
+
+/-- Lemma 5.1 basis-level component: swapping two adjacent values is bijective
+on the cell set. -/
+theorem S05_Lem5_01_adjacentSwapEntry_bijective {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    Function.Bijective (adjacentSwapEntry T a) := by
+  exact adjacentSwapEntry_bijective T a
+
 end DictatorshipTesting
