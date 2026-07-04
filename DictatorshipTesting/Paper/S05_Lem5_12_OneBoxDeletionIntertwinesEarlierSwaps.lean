@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.S05_Lem5_11_OneBoxDeletionIsUnitary
+import DictatorshipTesting.Paper.S05_Lem5_02_JucysMurphyEigenbasis
 
 /-!
 Paper statement: Lemma 5.12 (`lem:one-box-deletion-intertwines`)
@@ -89,6 +90,27 @@ theorem S05_Lem5_12_deleteMax_entryContent
         h hr u hu_row hu_col T hu) a
       =
     entryContent T (Fin.castSucc a) := by
+  exact deleteMax_entryContent h hr u hu_row hu_col T hu a
+
+/-- Lemma 5.12 basis-level component: deleting the maximum entry preserves the
+content sequence on all remaining entries. -/
+theorem S05_Lem5_12_deleteMax_tableauContentSequence
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T u)
+    (a : Fin n) :
+    tableauContentSequence
+        (deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+          h hr u hu_row hu_col T hu) a
+      =
+    tableauContentSequence T (Fin.castSucc a) := by
   exact deleteMax_entryContent h hr u hu_row hu_col T hu a
 
 end DictatorshipTesting
