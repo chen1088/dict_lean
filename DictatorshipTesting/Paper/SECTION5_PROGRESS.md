@@ -13,6 +13,12 @@ Completed commits:
 - `9b26e41` Sum tableau dimension over ordered two-step deletions
 - `cee03dc` Expose sized two-strip child interface for tableau counts
 - `b27bc09` Expose ordered tableau-count recursion in Lemma 5.15
+- `919d1e1` Define tagged two-strip children
+- `53695cc` Map ordered deletions to tagged two-strip children
+- `486b26b` Add positive row API for two-strip reindexing
+- `f835646` Construct ordered deletions from tagged two-strip children
+- `39e4c7a` Prove tagged child reconstruction preserves tags
+- `7b84a07` Prove tableau-count two-strip branching
 
 Main names added:
 - `TwoStepRemovableRows`
@@ -36,20 +42,36 @@ Main names added:
 - `tableau_mem_twoStepDataOfTableau`
 - `horizontalTwoStripChildrenSized`
 - `verticalTwoStripChildrenSized`
+- `TaggedTwoStripChildrenSized`
+- `taggedTwoStripChildDiagram`
+- `sum_taggedTwoStripChildrenSized`
 - `deleteTwoRemovableRows_mem_horizontal_or_vertical_sized`
+- `deleteTwoRemovableRows_horizontal_of_first_le_second`
+- `deleteTwoRemovableRows_vertical_of_second_lt_first`
+- `twoStepToTaggedTwoStripChild`
+- `taggedTwoStripChildDiagram_twoStepToTagged`
+- `taggedTwoStripChildToTwoStep`
+- `twoStepToTagged_taggedTwoStripChildToTwoStep`
+- `taggedTwoStripChildToTwoStep_twoStepToTagged`
+- `twoStepRemovableRowsEquivTaggedTwoStripChildren`
+- `sum_twoStepRemovableRows_eq_sum_taggedTwoStripChildren`
+- `tableauDim_twoStrip_branching_sized`
 - `S05_Lem5_15_tableauDim_fixed_twoStepDeletion`
 - `S05_Lem5_15_tableauDim_ordered_twoStep_branching`
 - `S05_Lem5_15_twoStepDeletion_horizontal_or_vertical`
+- `S05_Lem5_15_twoStepRemovableRowsEquivTaggedTwoStripChildren`
+- `S05_Lem5_15_sum_twoStepRemovableRows_eq_sum_taggedTwoStripChildren`
+- `S05_Lem5_15_tableauDim_twoStrip_branching_sized`
 
 Status:
 - `tableauDim` ordered two-step recursion is proved.
-- The full unordered horizontal-plus-vertical two-strip recursion is not yet
-  proved.  The exact remaining blocker is a multiplicity-preserving reindexing
-  between ordered two-step removable-row deletions and the disjoint tagged sum
-  of horizontal and vertical two-strip children.  Disconnected two-box skew
-  shapes are the delicate case: they contribute two deletion orders and also
-  appear in both horizontal and vertical child sets, so the next theorem must
-  match those two copies explicitly.
+- The multiplicity-preserving reindexing between ordered two-step removable-row
+  deletions and the disjoint tagged sum of horizontal and vertical two-strip
+  children is proved.  Disconnected two-box skew shapes are handled by the tag:
+  the two deletion orders map to the horizontal and vertical copies separately.
+- The sized horizontal-plus-vertical two-strip recursion for `tableauDim` is
+  proved as `tableauDim_twoStrip_branching_sized` and exposed in Lemma 5.15 as
+  `S05_Lem5_15_tableauDim_twoStrip_branching_sized`.
 - The old `youngDim` two-strip recursion remains external because `youngDim` is
   still the hook-length proxy.  Removing that assumption still requires either
   the hook-length/tableau-count equality or migrating downstream certificates to
