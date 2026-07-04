@@ -394,6 +394,20 @@ def verticalTwoStripChildrenSized {n : Nat}
   exact Finset.univ.filter (fun mu : YoungDiagram n =>
     IsVerticalTwoStripChild lam mu)
 
+theorem mem_horizontalTwoStripChildrenSized_iff {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (mu : YoungDiagram n) :
+    mu ∈ horizontalTwoStripChildrenSized lam ↔
+      IsHorizontalTwoStripChild lam mu := by
+  classical
+  simp [horizontalTwoStripChildrenSized]
+
+theorem mem_verticalTwoStripChildrenSized_iff {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (mu : YoungDiagram n) :
+    mu ∈ verticalTwoStripChildrenSized lam ↔
+      IsVerticalTwoStripChild lam mu := by
+  classical
+  simp [verticalTwoStripChildrenSized]
+
 abbrev TaggedTwoStripChildrenSized {n : Nat}
     (lam : YoungDiagram ((n + 1) + 1)) :=
   Sum
@@ -423,6 +437,179 @@ theorem sum_taggedTwoStripChildrenSized {n : Nat}
   · rw [Finset.univ_eq_attach]
     exact Finset.sum_attach
       (verticalTwoStripChildrenSized lam) (fun mu => tableauDim mu)
+
+def twoStripRowDiff {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (mu : YoungDiagram n)
+    (i : Nat) : Nat :=
+  youngRow lam i - youngRow mu i
+
+def positiveDiffRows {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (mu : YoungDiagram n) :
+    Finset Nat :=
+  (Finset.range ((n + 1) + 1)).filter
+    (fun i => 0 < twoStripRowDiff lam mu i)
+
+theorem mem_positiveDiffRows_iff {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (mu : YoungDiagram n)
+    (i : Nat) :
+    i ∈ positiveDiffRows lam mu ↔
+      i < (n + 1) + 1 ∧ 0 < twoStripRowDiff lam mu i := by
+  simp [positiveDiffRows]
+
+theorem positiveDiffRows_nonempty_of_twoBoxSubdiagram {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)} {mu : YoungDiagram n}
+    (hsub : IsYoungSubdiagram mu lam) :
+    (positiveDiffRows lam mu).Nonempty := by
+  classical
+  by_contra hempty
+  have hzero :
+      ∀ i ∈ Finset.range ((n + 1) + 1),
+        youngRow lam i - youngRow mu i = 0 := by
+    intro i hi
+    by_contra hne
+    have hpos : 0 < twoStripRowDiff lam mu i := Nat.pos_of_ne_zero hne
+    have hmem : i ∈ positiveDiffRows lam mu := by
+      exact (mem_positiveDiffRows_iff lam mu i).mpr
+        ⟨Finset.mem_range.mp hi, hpos⟩
+    exact hempty ⟨i, hmem⟩
+  have hsum_zero :
+      (Finset.range ((n + 1) + 1)).sum
+        (fun i => youngRow lam i - youngRow mu i) = 0 := by
+    exact (Finset.sum_eq_zero_iff).mpr hzero
+  have hsum_two :
+      (Finset.range ((n + 1) + 1)).sum
+        (fun i => youngRow lam i - youngRow mu i) = 2 :=
+    sum_row_diff_of_twoBoxSubdiagram
+      (lam := lam) (mu := mu) (by omega) hsub
+  omega
+
+theorem positiveDiffRows_nonempty_of_horizontalTwoStripChild {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)} {mu : YoungDiagram n}
+    (h : IsHorizontalTwoStripChild lam mu) :
+    (positiveDiffRows lam mu).Nonempty :=
+  positiveDiffRows_nonempty_of_twoBoxSubdiagram h.2.1
+
+theorem positiveDiffRows_nonempty_of_verticalTwoStripChild {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)} {mu : YoungDiagram n}
+    (h : IsVerticalTwoStripChild lam mu) :
+    (positiveDiffRows lam mu).Nonempty :=
+  positiveDiffRows_nonempty_of_twoBoxSubdiagram h.2.1
+
+noncomputable def minPositiveDiffRowOfHorizontal {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    Nat :=
+  (positiveDiffRows lam x.1).min'
+    (positiveDiffRows_nonempty_of_horizontalTwoStripChild
+      ((mem_horizontalTwoStripChildrenSized_iff lam x.1).mp x.2))
+
+noncomputable def maxPositiveDiffRowOfHorizontal {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    Nat :=
+  (positiveDiffRows lam x.1).max'
+    (positiveDiffRows_nonempty_of_horizontalTwoStripChild
+      ((mem_horizontalTwoStripChildrenSized_iff lam x.1).mp x.2))
+
+noncomputable def minPositiveDiffRowOfVertical {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    Nat :=
+  (positiveDiffRows lam x.1).min'
+    (positiveDiffRows_nonempty_of_verticalTwoStripChild
+      ((mem_verticalTwoStripChildrenSized_iff lam x.1).mp x.2))
+
+noncomputable def maxPositiveDiffRowOfVertical {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    Nat :=
+  (positiveDiffRows lam x.1).max'
+    (positiveDiffRows_nonempty_of_verticalTwoStripChild
+      ((mem_verticalTwoStripChildrenSized_iff lam x.1).mp x.2))
+
+theorem minPositiveDiffRowOfHorizontal_mem {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    minPositiveDiffRowOfHorizontal lam x ∈ positiveDiffRows lam x.1 := by
+  unfold minPositiveDiffRowOfHorizontal
+  exact Finset.min'_mem _ _
+
+theorem maxPositiveDiffRowOfHorizontal_mem {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    maxPositiveDiffRowOfHorizontal lam x ∈ positiveDiffRows lam x.1 := by
+  unfold maxPositiveDiffRowOfHorizontal
+  exact Finset.max'_mem _ _
+
+theorem minPositiveDiffRowOfVertical_mem {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    minPositiveDiffRowOfVertical lam x ∈ positiveDiffRows lam x.1 := by
+  unfold minPositiveDiffRowOfVertical
+  exact Finset.min'_mem _ _
+
+theorem maxPositiveDiffRowOfVertical_mem {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    maxPositiveDiffRowOfVertical lam x ∈ positiveDiffRows lam x.1 := by
+  unfold maxPositiveDiffRowOfVertical
+  exact Finset.max'_mem _ _
+
+theorem minPositiveDiffRowOfHorizontal_lt {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    minPositiveDiffRowOfHorizontal lam x < (n + 1) + 1 :=
+  ((mem_positiveDiffRows_iff lam x.1 _).mp
+    (minPositiveDiffRowOfHorizontal_mem lam x)).1
+
+theorem maxPositiveDiffRowOfHorizontal_lt {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    maxPositiveDiffRowOfHorizontal lam x < (n + 1) + 1 :=
+  ((mem_positiveDiffRows_iff lam x.1 _).mp
+    (maxPositiveDiffRowOfHorizontal_mem lam x)).1
+
+theorem minPositiveDiffRowOfVertical_lt {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    minPositiveDiffRowOfVertical lam x < (n + 1) + 1 :=
+  ((mem_positiveDiffRows_iff lam x.1 _).mp
+    (minPositiveDiffRowOfVertical_mem lam x)).1
+
+theorem maxPositiveDiffRowOfVertical_lt {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    maxPositiveDiffRowOfVertical lam x < (n + 1) + 1 :=
+  ((mem_positiveDiffRows_iff lam x.1 _).mp
+    (maxPositiveDiffRowOfVertical_mem lam x)).1
+
+theorem twoStripRowDiff_minPositiveDiffRowOfHorizontal_pos {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    0 < twoStripRowDiff lam x.1 (minPositiveDiffRowOfHorizontal lam x) :=
+  ((mem_positiveDiffRows_iff lam x.1 _).mp
+    (minPositiveDiffRowOfHorizontal_mem lam x)).2
+
+theorem twoStripRowDiff_maxPositiveDiffRowOfHorizontal_pos {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam}) :
+    0 < twoStripRowDiff lam x.1 (maxPositiveDiffRowOfHorizontal lam x) :=
+  ((mem_positiveDiffRows_iff lam x.1 _).mp
+    (maxPositiveDiffRowOfHorizontal_mem lam x)).2
+
+theorem twoStripRowDiff_minPositiveDiffRowOfVertical_pos {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    0 < twoStripRowDiff lam x.1 (minPositiveDiffRowOfVertical lam x) :=
+  ((mem_positiveDiffRows_iff lam x.1 _).mp
+    (minPositiveDiffRowOfVertical_mem lam x)).2
+
+theorem twoStripRowDiff_maxPositiveDiffRowOfVertical_pos {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1))
+    (x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam}) :
+    0 < twoStripRowDiff lam x.1 (maxPositiveDiffRowOfVertical lam x) :=
+  ((mem_positiveDiffRows_iff lam x.1 _).mp
+    (maxPositiveDiffRowOfVertical_mem lam x)).2
 
 noncomputable instance removableRowFintype {n : Nat}
     (lam : YoungDiagram (n + 1)) : Fintype (RemovableRow lam) := by
