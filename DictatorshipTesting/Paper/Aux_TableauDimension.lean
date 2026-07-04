@@ -599,4 +599,47 @@ theorem card_maxRemovableRow_fiber_eq_child {n : Nat}
     (deleteRemovableRowDiagram_isOneBoxChild lam r.2)
     (row_form_deleteRemovableRowDiagram lam r.2)
 
+noncomputable def standardYoungTableauEquivSigmaMaxRemovableRow {n : Nat}
+    (lam : YoungDiagram (n + 1)) :
+    StandardYoungTableau lam ≃
+      Sigma (fun r : RemovableRow lam =>
+        {T : StandardYoungTableau lam // maxRemovableRow T = r}) where
+  toFun T := ⟨maxRemovableRow T, ⟨T, rfl⟩⟩
+  invFun x := x.2.1
+  left_inv T := rfl
+  right_inv x := by
+    rcases x with ⟨r, T, hT⟩
+    cases hT
+    rfl
+
+theorem card_standardYoungTableau_eq_sum_maxRemovableRow_fibers {n : Nat}
+    (lam : YoungDiagram (n + 1)) :
+    Fintype.card (StandardYoungTableau lam) =
+      ∑ r : RemovableRow lam,
+        Fintype.card {T : StandardYoungTableau lam // maxRemovableRow T = r} := by
+  classical
+  rw [Fintype.card_congr
+    (standardYoungTableauEquivSigmaMaxRemovableRow lam)]
+  exact Fintype.card_sigma
+
+theorem card_standardYoungTableau_eq_sum_removableRow_children {n : Nat}
+    (lam : YoungDiagram (n + 1)) :
+    Fintype.card (StandardYoungTableau lam) =
+      ∑ r : RemovableRow lam,
+        Fintype.card (StandardYoungTableau (removableRowToOneBoxChild lam r)) := by
+  rw [card_standardYoungTableau_eq_sum_maxRemovableRow_fibers lam]
+  exact Finset.sum_congr rfl (fun r _ =>
+    card_maxRemovableRow_fiber_eq_child r)
+
+theorem tableauDim_eq_sum_removableRow_children {n : Nat}
+    (lam : YoungDiagram (n + 1)) :
+    tableauDim lam =
+      ∑ r : RemovableRow lam, tableauDim (removableRowToOneBoxChild lam r) := by
+  have hnat := card_standardYoungTableau_eq_sum_removableRow_children lam
+  change ((Fintype.card (StandardYoungTableau lam) : Nat) : ℝ) =
+    ∑ r : RemovableRow lam,
+      ((Fintype.card
+        (StandardYoungTableau (removableRowToOneBoxChild lam r)) : Nat) : ℝ)
+  rw [← Nat.cast_sum, hnat]
+
 end DictatorshipTesting
