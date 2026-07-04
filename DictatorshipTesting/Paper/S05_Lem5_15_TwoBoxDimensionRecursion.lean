@@ -1,13 +1,17 @@
-import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.Aux_TableauDimension
 
 /-!
 Paper statement: Lemma 5.15 (`lem:dimension-two-strip-recurrence`)
 Title in paper: Two-box dimension recursion.
 
-Status: external representation-theoretic input in the current Lean
-development, from two-strip Pieri/Littlewood--Richardson branching.  It should
-be proved internally only after a formal Specht-module/branching library is
-available.
+Status: the `youngDim` statement remains an external representation-theoretic
+input, because `youngDim` is currently the hook-length dimension proxy.  The
+final section exposes the assumption-free tableau-count layer proved so far:
+fixed ordered two-step deletion fibers and the ordered two-step deletion
+recursion for `tableauDim`.
+
+The remaining tableau-count task is the unordered reindexing from ordered
+two-step deletions to horizontal plus vertical two-strip child sets.
 -/
 
 /-!
@@ -61,5 +65,35 @@ theorem youngDim_twoStrip_branching_input
       (horizontalTwoStripChildrenEven m lam).sum (fun mu => youngDim mu) +
         (verticalTwoStripChildrenEven m lam).sum (fun mu => youngDim mu) := by
   exact TwoStripDimensionBranchingAssumption.branch m hm lam
+
+/-!
+## Tableau-count replacement layer
+
+These wrappers are axiom-free and use `tableauDim`, the count of standard Young
+tableaux.  They prove the ordered two-step deletion recursion.  Reindexing this
+ordered sum by the unordered horizontal and vertical two-strip child sets is the
+remaining combinatorial step for the full tableau-count version of Lemma 5.15.
+-/
+
+theorem S05_Lem5_15_tableauDim_fixed_twoStepDeletion
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) :
+    ((Fintype.card (TwoStepDeletionTableaux lam p) : Nat) : ℝ) =
+      tableauDim (deleteTwoRemovableRowsDiagram lam p) := by
+  exact tableauDim_fixed_twoStepDeletion lam p
+
+theorem S05_Lem5_15_tableauDim_ordered_twoStep_branching
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1)) :
+    tableauDim lam =
+      ∑ p : TwoStepRemovableRows lam,
+        tableauDim (deleteTwoRemovableRowsDiagram lam p) := by
+  exact tableauDim_eq_sum_twoStepRemovableRows lam
+
+theorem S05_Lem5_15_twoStepDeletion_horizontal_or_vertical
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) :
+    IsHorizontalTwoStripChild lam (deleteTwoRemovableRowsDiagram lam p) ∨
+      IsVerticalTwoStripChild lam (deleteTwoRemovableRowsDiagram lam p) := by
+  exact deleteTwoRemovableRows_horizontal_or_vertical lam p
 
 end DictatorshipTesting
