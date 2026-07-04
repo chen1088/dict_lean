@@ -299,6 +299,81 @@ theorem adjacentSwapValue_involutive {n : Nat} (a : Fin n) (x : Fin (n + 1)) :
     · rw [adjacentSwapValue_of_ne_lo_hi a hlo hhi]
       rw [adjacentSwapValue_of_ne_lo_hi a hlo hhi]
 
+theorem adjacentSwapValue_comm_of_disjoint_entries {n : Nat}
+    (a b : Fin n)
+    (hlo_lo : adjacentEntryLo a ≠ adjacentEntryLo b)
+    (hlo_hi : adjacentEntryLo a ≠ adjacentEntryHi b)
+    (hhi_lo : adjacentEntryHi a ≠ adjacentEntryLo b)
+    (hhi_hi : adjacentEntryHi a ≠ adjacentEntryHi b)
+    (x : Fin (n + 1)) :
+    adjacentSwapValue a (adjacentSwapValue b x) =
+      adjacentSwapValue b (adjacentSwapValue a x) := by
+  by_cases hxa_lo : x = adjacentEntryLo a
+  · subst x
+    rw [adjacentSwapValue_of_ne_lo_hi b hlo_lo hlo_hi,
+      adjacentSwapValue_lo,
+      adjacentSwapValue_of_ne_lo_hi b hhi_lo hhi_hi]
+  · by_cases hxa_hi : x = adjacentEntryHi a
+    · subst x
+      rw [adjacentSwapValue_of_ne_lo_hi b hhi_lo hhi_hi,
+        adjacentSwapValue_hi,
+        adjacentSwapValue_of_ne_lo_hi b hlo_lo hlo_hi]
+    · by_cases hxb_lo : x = adjacentEntryLo b
+      · subst x
+        rw [adjacentSwapValue_lo,
+          adjacentSwapValue_of_ne_lo_hi a hlo_hi.symm hhi_hi.symm,
+          adjacentSwapValue_of_ne_lo_hi a hlo_lo.symm hhi_lo.symm,
+          adjacentSwapValue_lo]
+      · by_cases hxb_hi : x = adjacentEntryHi b
+        · subst x
+          rw [adjacentSwapValue_hi,
+            adjacentSwapValue_of_ne_lo_hi a hlo_lo.symm hhi_lo.symm,
+            adjacentSwapValue_of_ne_lo_hi a hlo_hi.symm hhi_hi.symm,
+            adjacentSwapValue_hi]
+        · rw [adjacentSwapValue_of_ne_lo_hi a hxa_lo hxa_hi,
+            adjacentSwapValue_of_ne_lo_hi b hxb_lo hxb_hi,
+            adjacentSwapValue_of_ne_lo_hi a hxa_lo hxa_hi]
+
+/-- Two adjacent-index swaps have disjoint supports when the two adjacent pairs
+of labels are separated by at least one label. -/
+def adjacentIndexDisjoint {n : Nat} (a b : Fin n) : Prop :=
+  (a : Nat) + 1 < (b : Nat) ∨ (b : Nat) + 1 < (a : Nat)
+
+theorem adjacentSwapValue_comm_of_disjoint_indices {n : Nat}
+    (a b : Fin n) (hdisj : adjacentIndexDisjoint a b)
+    (x : Fin (n + 1)) :
+    adjacentSwapValue a (adjacentSwapValue b x) =
+      adjacentSwapValue b (adjacentSwapValue a x) := by
+  apply adjacentSwapValue_comm_of_disjoint_entries
+  · intro h
+    have hv := congrArg Fin.val h
+    rcases hdisj with hdisj | hdisj
+    · simp [adjacentEntryLo] at hv
+      omega
+    · simp [adjacentEntryLo] at hv
+      omega
+  · intro h
+    have hv := congrArg Fin.val h
+    rcases hdisj with hdisj | hdisj
+    · simp [adjacentEntryLo, adjacentEntryHi] at hv
+      omega
+    · simp [adjacentEntryLo, adjacentEntryHi] at hv
+      omega
+  · intro h
+    have hv := congrArg Fin.val h
+    rcases hdisj with hdisj | hdisj
+    · simp [adjacentEntryLo, adjacentEntryHi] at hv
+      omega
+    · simp [adjacentEntryLo, adjacentEntryHi] at hv
+      omega
+  · intro h
+    have hv := congrArg Fin.val h
+    rcases hdisj with hdisj | hdisj
+    · simp [adjacentEntryHi] at hv
+      omega
+    · simp [adjacentEntryHi] at hv
+      omega
+
 /-- Entry function obtained by swapping the two adjacent values. -/
 def adjacentSwapEntry {n : Nat} {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n) :

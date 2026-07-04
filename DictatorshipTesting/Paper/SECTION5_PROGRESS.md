@@ -528,6 +528,9 @@ Main names added:
 - `youngAdjacentMatrixCoeff_symmetric_of_source_swappable`
 - `youngAdjacentMatrixCoeff_symmetric`
 - `youngAdjacentOperator_selfAdjoint_basis`
+- `adjacentIndexDisjoint`
+- `adjacentSwapValue_comm_of_disjoint_entries`
+- `adjacentSwapValue_comm_of_disjoint_indices`
 
 Section 5 numbers progressed:
 - Lemma 5.1: coefficient identities, diagonal involution cases, swap-back
@@ -542,6 +545,8 @@ Section 5 numbers progressed:
 - Lemma 5.1: the full concrete adjacent matrix coefficient symmetry is proved
   for all tableau pairs, and the adjacent operator is self-adjoint on coordinate
   basis vectors.
+- Lemma 5.1: the Coxeter frontier has started at the value-combinatorics level:
+  adjacent value swaps commute when their adjacent index pairs are disjoint.
 
 Exact remaining blocker:
 - The local Lemma 5.1 involution-on-basis cases are now proved.  The remaining
@@ -550,5 +555,5 @@ Exact remaining blocker:
   the matching-subgroup and spectral-block model.
 
 Next automatically selected task:
-- Attempt the first Coxeter frontier, starting with support/combinatorics for
-  distant adjacent swaps.
+- Lift distant value-swap commutation to tableau entry functions and, if the
+  standardness hypotheses can be transported cleanly, to swapped tableaux.

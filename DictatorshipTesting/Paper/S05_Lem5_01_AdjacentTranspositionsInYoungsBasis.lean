@@ -114,6 +114,15 @@ theorem S05_Lem5_01_adjacentSwapEntry_bijective {n : Nat}
     Function.Bijective (adjacentSwapEntry T a) := by
   exact adjacentSwapEntry_bijective T a
 
+/-- Lemma 5.1 Coxeter-frontier component: value swaps for distant adjacent
+indices commute. -/
+theorem S05_Lem5_01_adjacentSwapValue_comm_of_disjoint_indices {n : Nat}
+    (a b : Fin n) (hdisj : adjacentIndexDisjoint a b)
+    (x : Fin (n + 1)) :
+    adjacentSwapValue a (adjacentSwapValue b x) =
+      adjacentSwapValue b (adjacentSwapValue a x) := by
+  exact adjacentSwapValue_comm_of_disjoint_indices a b hdisj x
+
 /-- Lemma 5.1 basis-level component: if adjacent entries are in different rows
 and columns, swapping their values gives another standard tableau. -/
 noncomputable def S05_Lem5_01_adjacentSwapTableau {n : Nat}
