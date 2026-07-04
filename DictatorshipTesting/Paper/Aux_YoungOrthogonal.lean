@@ -448,6 +448,147 @@ theorem not_adjacentSameCol_of_sameRow {n : Nat}
   exact adjacentLoCell_ne_hiCell T a
     (YoungCell.ext_row_col hrow hcol)
 
+theorem not_adjacentSameRow_and_succ_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1) :
+    ¬ (adjacentSameRow T a ∧ adjacentSameCol T b) := by
+  rintro ⟨hrow_a, hcol_b⟩
+  let lo := adjacentLoCell T a
+  let mid := adjacentHiCell T a
+  let hi := adjacentHiCell T b
+  have hmid_eq_lo_b : mid = adjacentLoCell T b := by
+    simpa [mid] using adjacentHiCell_eq_loCell_of_succ T a b hsucc
+  have hrow_lo_mid : YoungCell.row lo = YoungCell.row mid := by
+    simpa [lo, mid, adjacentSameRow] using hrow_a
+  have hcol_mid_hi : YoungCell.col mid = YoungCell.col hi := by
+    have hb :
+        YoungCell.col (adjacentLoCell T b) =
+          YoungCell.col (adjacentHiCell T b) := by
+      simpa [adjacentSameCol] using hcol_b
+    simpa [mid, hi, hmid_eq_lo_b] using hb
+  have hcol_lo_mid : YoungCell.col lo < YoungCell.col mid := by
+    simpa [lo, mid] using adjacent_col_lt_of_sameRow T a hrow_a
+  have hrow_mid_hi : YoungCell.row mid < YoungCell.row hi := by
+    have hb := adjacent_row_lt_of_sameCol T b hcol_b
+    simpa [mid, hi, hmid_eq_lo_b] using hb
+  have hhi_box : YoungCell.col hi < youngRow lam (YoungCell.row hi) := by
+    simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox hi
+  have hcorner_box : YoungCell.col lo < youngRow lam (YoungCell.row hi) := by
+    omega
+  let corner : YoungCell lam :=
+    youngCellOfNat lam (YoungCell.row hi) (YoungCell.col lo) hcorner_box
+  have hlo_corner : T.entry lo < T.entry corner := by
+    apply T.col_strict
+    · simp [corner, youngCellOfNat_col]
+    · simp [corner, youngCellOfNat_row]
+      omega
+  have hcorner_hi : T.entry corner < T.entry hi := by
+    apply T.row_strict
+    · simp [corner, youngCellOfNat_row]
+    · simp [corner, youngCellOfNat_col]
+      omega
+  have hcorner_val : (T.entry corner : Nat) = (a : Nat) + 1 := by
+    have hlo_corner_val : (T.entry lo : Nat) < (T.entry corner : Nat) :=
+      hlo_corner
+    have hcorner_hi_val : (T.entry corner : Nat) < (T.entry hi : Nat) :=
+      hcorner_hi
+    have hlo_val : (T.entry lo : Nat) = (a : Nat) := by
+      rw [show T.entry lo = adjacentEntryLo a by
+        simpa [lo] using entry_adjacentLoCell T a]
+      rfl
+    have hhi_val : (T.entry hi : Nat) = (a : Nat) + 2 := by
+      rw [show T.entry hi = adjacentEntryHi b by
+        simpa [hi] using entry_adjacentHiCell T b]
+      simp [adjacentEntryHi, hsucc]
+    omega
+  have hcorner_entry : T.entry corner = adjacentEntryHi a := by
+    apply Fin.ext
+    simpa [adjacentEntryHi] using hcorner_val
+  have hmid_entry : T.entry mid = adjacentEntryHi a := by
+    simpa [mid] using entry_adjacentHiCell T a
+  have hcorner_eq_mid : corner = mid := by
+    apply T.bijective.1
+    rw [hcorner_entry, hmid_entry]
+  have hrow_corner_mid :
+      YoungCell.row corner = YoungCell.row mid := by
+    exact congrArg YoungCell.row hcorner_eq_mid
+  have hrow_corner_hi : YoungCell.row corner = YoungCell.row hi := by
+    simp [corner, youngCellOfNat_row]
+  omega
+
+theorem not_adjacentSameCol_and_succ_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1) :
+    ¬ (adjacentSameCol T a ∧ adjacentSameRow T b) := by
+  rintro ⟨hcol_a, hrow_b⟩
+  let lo := adjacentLoCell T a
+  let mid := adjacentHiCell T a
+  let hi := adjacentHiCell T b
+  have hmid_eq_lo_b : mid = adjacentLoCell T b := by
+    simpa [mid] using adjacentHiCell_eq_loCell_of_succ T a b hsucc
+  have hcol_lo_mid : YoungCell.col lo = YoungCell.col mid := by
+    simpa [lo, mid, adjacentSameCol] using hcol_a
+  have hrow_mid_hi : YoungCell.row mid = YoungCell.row hi := by
+    have hb :
+        YoungCell.row (adjacentLoCell T b) =
+          YoungCell.row (adjacentHiCell T b) := by
+      simpa [adjacentSameRow] using hrow_b
+    simpa [mid, hi, hmid_eq_lo_b] using hb
+  have hrow_lo_mid : YoungCell.row lo < YoungCell.row mid := by
+    simpa [lo, mid] using adjacent_row_lt_of_sameCol T a hcol_a
+  have hcol_mid_hi : YoungCell.col mid < YoungCell.col hi := by
+    have hb := adjacent_col_lt_of_sameRow T b hrow_b
+    simpa [mid, hi, hmid_eq_lo_b] using hb
+  have hhi_box : YoungCell.col hi < youngRow lam (YoungCell.row hi) := by
+    simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox hi
+  have hrow_le :
+      youngRow lam (YoungCell.row hi) <= youngRow lam (YoungCell.row lo) :=
+    youngRow_le_of_le lam (by omega)
+  have hcorner_box : YoungCell.col hi < youngRow lam (YoungCell.row lo) := by
+    omega
+  let corner : YoungCell lam :=
+    youngCellOfNat lam (YoungCell.row lo) (YoungCell.col hi) hcorner_box
+  have hlo_corner : T.entry lo < T.entry corner := by
+    apply T.row_strict
+    · simp [corner, youngCellOfNat_row]
+    · simp [corner, youngCellOfNat_col]
+      omega
+  have hcorner_hi : T.entry corner < T.entry hi := by
+    apply T.col_strict
+    · simp [corner, youngCellOfNat_col]
+    · simp [corner, youngCellOfNat_row]
+      omega
+  have hcorner_val : (T.entry corner : Nat) = (a : Nat) + 1 := by
+    have hlo_corner_val : (T.entry lo : Nat) < (T.entry corner : Nat) :=
+      hlo_corner
+    have hcorner_hi_val : (T.entry corner : Nat) < (T.entry hi : Nat) :=
+      hcorner_hi
+    have hlo_val : (T.entry lo : Nat) = (a : Nat) := by
+      rw [show T.entry lo = adjacentEntryLo a by
+        simpa [lo] using entry_adjacentLoCell T a]
+      rfl
+    have hhi_val : (T.entry hi : Nat) = (a : Nat) + 2 := by
+      rw [show T.entry hi = adjacentEntryHi b by
+        simpa [hi] using entry_adjacentHiCell T b]
+      simp [adjacentEntryHi, hsucc]
+    omega
+  have hcorner_entry : T.entry corner = adjacentEntryHi a := by
+    apply Fin.ext
+    simpa [adjacentEntryHi] using hcorner_val
+  have hmid_entry : T.entry mid = adjacentEntryHi a := by
+    simpa [mid] using entry_adjacentHiCell T a
+  have hcorner_eq_mid : corner = mid := by
+    apply T.bijective.1
+    rw [hcorner_entry, hmid_entry]
+  have hrow_corner_mid :
+      YoungCell.row corner = YoungCell.row mid := by
+    exact congrArg YoungCell.row hcorner_eq_mid
+  have hrow_corner_lo : YoungCell.row corner = YoungCell.row lo := by
+    simp [corner, youngCellOfNat_row]
+  omega
+
 theorem adjacentSwapTableau_ne_self {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
