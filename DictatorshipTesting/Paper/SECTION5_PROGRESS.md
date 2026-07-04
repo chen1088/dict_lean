@@ -495,6 +495,18 @@ Completed commits in this run so far:
 - `361722c` Prove coefficient identities for Young adjacent action
 - `f23ef1c` Prove diagonal adjacent operator involution cases
 - `f147e78` Prove swappable adjacent coefficient symmetry facts
+- `d58317e` Expand swappable adjacent operator on two-tableau span
+- `f6d3072` Prove adjacent operator involution on tableau basis
+- `03987eb` Prove swappable pair self-adjointness facts
+- `ec93098` Prove diagonal adjacent matrix symmetry cases
+- `2ffbe21` Prove symmetry of Young adjacent matrix coefficients
+- `302d404` Start Coxeter frontier for distant value swaps
+- `7882b5d` Lift distant value swap commutation to entries
+- `a0ac248` Lift distant swap commutation to tableaux
+- `75fc615` Transport distant swap row and column data
+- `1e64ffb` Prove automatic distant tableau swap commutation
+- `7595c62` Preserve adjacent coefficients under distant swaps
+- `c5ee082` Prove swappable distant adjacent operator commutation
 
 Main names added:
 - `youngAdjacentDiagCoeff_swap`
@@ -533,6 +545,20 @@ Main names added:
 - `adjacentSwapValue_comm_of_disjoint_indices`
 - `adjacentSwapEntry_comm_of_disjoint_indices`
 - `adjacentSwapTableau_comm_of_disjoint_indices`
+- `adjacentIndexDisjoint_symm`
+- `adjacentEntryLo_ne_lo_of_disjoint_indices`
+- `adjacentEntryLo_ne_hi_of_disjoint_indices`
+- `adjacentEntryHi_ne_lo_of_disjoint_indices`
+- `adjacentEntryHi_ne_hi_of_disjoint_indices`
+- `adjacentSwapTableau_cell_lo_of_disjoint_indices`
+- `adjacentSwapTableau_cell_hi_of_disjoint_indices`
+- `adjacentSameRow_after_disjoint_swap_iff`
+- `adjacentSameCol_after_disjoint_swap_iff`
+- `adjacentSwapTableau_comm_of_disjoint_indices_auto`
+- `adjacentAxialDistance_after_disjoint_swap_eq`
+- `youngAdjacentDiagCoeff_after_disjoint_swap_eq`
+- `youngAdjacentOffCoeff_after_disjoint_swap_eq`
+- `youngAdjacentOperator_comm_basis_swappable_of_disjoint_indices`
 
 Section 5 numbers progressed:
 - Lemma 5.1: coefficient identities, diagonal involution cases, swap-back
@@ -552,13 +578,25 @@ Section 5 numbers progressed:
 - Lemma 5.1: distant commutation has been lifted to entry functions and to
   swapped tableaux under explicit hypotheses that the second swaps remain
   standard.
+- Lemma 5.1: the second-swap row and column hypotheses are now transported
+  automatically across a disjoint adjacent swap.
+- Lemma 5.1: a distant adjacent swap preserves the other adjacent pair's axial
+  distance, diagonal coefficient, and off-diagonal coefficient.
+- Lemma 5.1: the first operator-level distant Coxeter statement is proved in
+  the fully swappable case: the two concrete adjacent operators commute on a
+  tableau basis vector when both adjacent pairs are swappable and disjoint.
 
 Exact remaining blocker:
-- The local Lemma 5.1 involution-on-basis cases are now proved.  The remaining
-  representation-layer blocker is global: proving Coxeter relations/Young
-  orthogonal representation realization and then feeding those operators into
-  the matching-subgroup and spectral-block model.
+- The local Lemma 5.1 involution-on-basis cases, coefficient symmetry,
+  self-adjointness, and the fully swappable distant-commutation case are now
+  proved.  The remaining representation-layer blocker is global: proving the
+  rest of the Coxeter relations for the concrete adjacent operators, especially
+  the same-row/same-column mixed distant cases and then the braid relation,
+  before feeding those operators into the matching-subgroup and spectral-block
+  model.
 
 Next automatically selected task:
-- Transport the second-swap standardness hypotheses automatically for distant
-  swaps, then formulate an operator-level distant commutation statement.
+- Extend the operator-level distant commutation theorem beyond the fully
+  swappable case by handling same-row and same-column interactions, or extract
+  the exact case-splitting helper needed for a unified distant-commutation
+  theorem.

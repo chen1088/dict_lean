@@ -65,8 +65,13 @@ against coordinate basis vectors evaluate to the matching coordinate, and the
 two off-diagonal matrix coefficients in a swappable tableau pair are equal.  The
 full concrete adjacent matrix coefficient symmetry is now proved for all pairs
 of standard tableaux, and the adjacent operator is self-adjoint on coordinate
-basis vectors.  The next local representation-layer frontier is proving Coxeter
-relations for these concrete adjacent operators.
+basis vectors.  The Coxeter frontier has started internally: distant adjacent
+value swaps commute, this has been lifted to entry functions and tableau swaps,
+the second-swap row/column hypotheses are transported automatically, distant
+swaps preserve the other pair's axial and Young-adjacent coefficients, and the
+fully swappable distant adjacent operators commute on tableau basis vectors.
+The next local representation-layer frontier is extending this to all
+same-row/same-column mixed distant cases and then the braid relation.
 
 ## Section 5 Paper/Lean Status Table
 
@@ -285,7 +290,9 @@ Downstream dependencies: the trace/scalar-value inputs in Lemma 5.8.
   for the spectral-block model used by Lemma 5.8.
 - `Aux_YoungOrthogonal.lean`: coordinate space on standard tableaux, basis
   vectors, basis inner product facts, concrete adjacent matrix coefficients,
-  the adjacent operator on coordinates, and the diagonal content operator.
+  the adjacent operator on coordinates, the diagonal content operator,
+  coefficient identities, self-adjointness on coordinate basis vectors, and the
+  fully swappable distant-commutation case for the concrete adjacent operators.
 - `S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean`: basis-level adjacent
   transposition facts, including same-row/same-column diagonal behavior and
   swappable two-coordinate support for the concrete coordinate operator.
