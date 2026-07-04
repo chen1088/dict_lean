@@ -25,6 +25,9 @@ Completed commits:
 - `e9e0510` Extend iterated deletion cell compatibility
 - `b8355d8` Expose signed two-box row conditions
 - `d4ddd46` Expose one-box removal row and corner facts
+- `ad739ed` Expose sign-pattern size base cases
+- `d8aa8c5` Expose matching character algebra facts
+- `804cd62` Expose matching-character truncation dichotomy
 
 Files changed:
 - `DictatorshipTesting/Paper/Aux_YoungAdjacentEntries.lean`
@@ -36,6 +39,9 @@ Files changed:
 - `DictatorshipTesting/Paper/S05_Def5_05_TwoBoxRemovals.lean`
 - `DictatorshipTesting/Paper/S05_Def5_06_SignedTwoBoxRemovals.lean`
 - `DictatorshipTesting/Paper/S05_Def5_07_OneBoxRemovals.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_17_SizesOfTheSignPatternMultisets.lean`
+- `DictatorshipTesting/Paper/S05_Def5_18_MatchingCharacters.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_20_LocalTruncationOnAMatchingCharacter.lean`
 - `DictatorshipTesting/Paper/S05_Lem5_08_TwoBoxTableauBranching.lean`
 - `DictatorshipTesting/Paper/S05_Def5_13_EvenSignPatternMultiset.lean`
 - `DictatorshipTesting/Paper/S05_Def5_14_OddSignPatternMultiset.lean`
@@ -210,6 +216,12 @@ Main names added:
 - `S05_Def5_06_row_diff_le_one_of_negativeSignedTwoBoxRemoval`
 - `S05_Def5_07_sum_row_diff_of_oneBoxRemoval`
 - `S05_Def5_07_exists_removableCornerBox_of_oneBoxRemoval`
+- `S05_Lem5_17_evenZeroSignPatternCount_zero`
+- `S05_Lem5_17_evenHighSignPatternCount_zero`
+- `S05_matchingCharacter_ne_zero`
+- `S05_matchingCharacter_mul_self`
+- `S05_matchingCharacter_cubeXor`
+- `S05_Lem5_20_cubeLowDegreeOnePart_matchingCharacter_preserved_or_killed`
 
 ## Next Blocker
 
