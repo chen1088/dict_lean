@@ -7,6 +7,9 @@ This file contains the concrete tableau vocabulary needed by Definition 5.9:
 cells of a Young diagram, standard Young tableaux, and the set of tableaux whose
 maximum entry lies in a specified cell.  It does not introduce the later
 Hilbert-space/span version of the deletion spaces.
+
+TODO: the deletion and insertion maps are now defined; package them as an
+equivalence by proving the map-level inverse equalities.
 -/
 
 noncomputable section
@@ -604,5 +607,311 @@ def deleteMaxAsStandardYoungTableauOfOneBoxChildRow
         have hb := youngCellExceptEquivChild_symm_row h hr u hu_row hu_col b
         rw [ha, hb]
         exact hrow }
+
+/-- The specified deleted corner as a parent cell. -/
+def deletedCornerCellOfOneBoxChildRow
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (_h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :
+    YoungCell lam :=
+  youngCellOfNat lam r (youngRow mu r) (by
+    rw [hr.1]
+    omega)
+
+theorem deletedCornerCell_row
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :
+    YoungCell.row (deletedCornerCellOfOneBoxChildRow h hr) = r := by
+  simp [deletedCornerCellOfOneBoxChildRow, youngCellOfNat_row]
+
+theorem deletedCornerCell_col
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :
+    YoungCell.col (deletedCornerCellOfOneBoxChildRow h hr) = youngRow mu r := by
+  simp [deletedCornerCellOfOneBoxChildRow, youngCellOfNat_col]
+
+/-- Extended row lengths are monotone for arbitrary ordered row indices. -/
+theorem youngRow_le_of_le {n : Nat} (lam : YoungDiagram n) {i j : Nat}
+    (hij : i <= j) :
+    youngRow lam j <= youngRow lam i := by
+  by_cases hj : j < n
+  · have hi : i < n := by omega
+    have hmono := lam.nonincreasing
+      (i := Fin.mk i hi) (j := Fin.mk j hj) (by
+        change i <= j
+        exact hij)
+    simpa [youngRow, hi, hj] using hmono
+  · have hzero : youngRow lam j = 0 := by
+      simp [youngRow, hj]
+    rw [hzero]
+    exact Nat.zero_le _
+
+/-- Entry function obtained by inserting the maximum at the deleted corner. -/
+def insertedMaxEntryOfOneBoxChildRow
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) (v : YoungCell lam) : Fin (n + 1) :=
+  let u := deletedCornerCellOfOneBoxChildRow h hr
+  let e := youngCellExceptEquivChildOfOneBoxChildRow
+    h hr u (deletedCornerCell_row h hr) (deletedCornerCell_col h hr)
+  if hv : v = u then
+    Fin.last n
+  else
+    Fin.castSucc (S.entry (e ⟨v, hv⟩))
+
+theorem insertedMaxEntry_deletedCorner
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) :
+    insertedMaxEntryOfOneBoxChildRow h hr S
+      (deletedCornerCellOfOneBoxChildRow h hr) = Fin.last n := by
+  simp [insertedMaxEntryOfOneBoxChildRow]
+
+theorem insertedMaxEntry_ne_deletedCorner
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) {v : YoungCell lam}
+    (hv : v ≠ deletedCornerCellOfOneBoxChildRow h hr) :
+    insertedMaxEntryOfOneBoxChildRow h hr S v =
+      Fin.castSucc
+        (S.entry
+          (youngCellExceptEquivChildOfOneBoxChildRow h hr
+            (deletedCornerCellOfOneBoxChildRow h hr)
+            (deletedCornerCell_row h hr)
+            (deletedCornerCell_col h hr) ⟨v, hv⟩)) := by
+  simp [insertedMaxEntryOfOneBoxChildRow, hv]
+
+theorem insertedMaxEntry_lt_last_of_ne_deletedCorner
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) {v : YoungCell lam}
+    (hv : v ≠ deletedCornerCellOfOneBoxChildRow h hr) :
+    insertedMaxEntryOfOneBoxChildRow h hr S v < Fin.last n := by
+  rw [insertedMaxEntry_ne_deletedCorner h hr S hv]
+  change (S.entry
+    (youngCellExceptEquivChildOfOneBoxChildRow h hr
+      (deletedCornerCellOfOneBoxChildRow h hr)
+      (deletedCornerCell_row h hr)
+      (deletedCornerCell_col h hr) ⟨v, hv⟩) : Nat) < n
+  exact (S.entry
+    (youngCellExceptEquivChildOfOneBoxChildRow h hr
+      (deletedCornerCellOfOneBoxChildRow h hr)
+      (deletedCornerCell_row h hr)
+      (deletedCornerCell_col h hr) ⟨v, hv⟩)).isLt
+
+theorem no_cell_right_of_deletedCornerCell
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (_h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    {v : YoungCell lam}
+    (hrow : YoungCell.row v = r)
+    (hcol : youngRow mu r < YoungCell.col v) :
+    False := by
+  have hv_box : YoungCell.col v < youngRow lam (YoungCell.row v) := by
+    simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox v
+  rw [hrow, hr.1] at hv_box
+  omega
+
+theorem no_cell_below_deletedCornerCell
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (_h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    {v : YoungCell lam}
+    (hrow : r < YoungCell.row v)
+    (hcol : YoungCell.col v = youngRow mu r) :
+    False := by
+  have hv_box : YoungCell.col v < youngRow lam (YoungCell.row v) := by
+    simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox v
+  have hle :
+      youngRow lam (YoungCell.row v) <= youngRow lam (r + 1) :=
+    youngRow_le_of_le lam (by omega)
+  have hnext_eq : youngRow lam (r + 1) = youngRow mu (r + 1) := by
+    exact hr.2 (r + 1) (by omega)
+  have hmu_succ_le : youngRow mu (r + 1) <= youngRow mu r :=
+    youngRow_succ_le mu r
+  rw [hcol] at hv_box
+  omega
+
+/-- Insert a maximum entry into the deleted corner of the parent shape. -/
+def insertMaxAsStandardYoungTableauOfOneBoxChildRow
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) :
+    StandardYoungTableau lam where
+  entry := insertedMaxEntryOfOneBoxChildRow h hr S
+  bijective := by
+    let u := deletedCornerCellOfOneBoxChildRow h hr
+    let e := youngCellExceptEquivChildOfOneBoxChildRow
+      h hr u (deletedCornerCell_row h hr) (deletedCornerCell_col h hr)
+    constructor
+    · intro a b hab
+      by_cases ha : a = u
+      · by_cases hb : b = u
+        · exact ha.trans hb.symm
+        · subst a
+          have hlt := insertedMaxEntry_lt_last_of_ne_deletedCorner h hr S hb
+          rw [← hab, insertedMaxEntry_deletedCorner h hr S] at hlt
+          exact False.elim (by
+            change (Fin.last n : Nat) < (Fin.last n : Nat) at hlt
+            omega)
+      · by_cases hb : b = u
+        · subst b
+          have hlt := insertedMaxEntry_lt_last_of_ne_deletedCorner h hr S ha
+          rw [hab, insertedMaxEntry_deletedCorner h hr S] at hlt
+          exact False.elim (by
+            change (Fin.last n : Nat) < (Fin.last n : Nat) at hlt
+            omega)
+        · have hchild :
+              e ⟨a, ha⟩ = e ⟨b, hb⟩ := by
+            apply S.bijective.1
+            apply Fin.ext
+            have hval := congrArg Fin.val hab
+            rw [insertedMaxEntry_ne_deletedCorner h hr S ha,
+              insertedMaxEntry_ne_deletedCorner h hr S hb] at hval
+            simpa [e, u] using hval
+          have hsub : (⟨a, ha⟩ : YoungCellExcept u) = ⟨b, hb⟩ :=
+            e.injective hchild
+          exact congrArg Subtype.val hsub
+    · intro y
+      by_cases hy : y = Fin.last n
+      · refine ⟨u, ?_⟩
+        rw [hy]
+        exact insertedMaxEntry_deletedCorner h hr S
+      · have hy_ne_val : (y : Nat) ≠ n := by
+          intro hyval
+          apply hy
+          apply Fin.ext
+          simpa using hyval
+        have hy_lt : (y : Nat) < n := by
+          have hy_succ : (y : Nat) < n + 1 := y.isLt
+          omega
+        let y' : Fin n := ⟨(y : Nat), hy_lt⟩
+        rcases S.bijective.2 y' with ⟨w, hw⟩
+        refine ⟨(e.symm w).1, ?_⟩
+        have hne : (e.symm w).1 ≠ u := (e.symm w).2
+        rw [insertedMaxEntry_ne_deletedCorner h hr S hne]
+        have heq : e ⟨(e.symm w).1, hne⟩ = w := by
+          simp
+        rw [heq, hw]
+        apply Fin.ext
+        simp [y']
+  row_strict := by
+    intro a b hrow hcol
+    let u := deletedCornerCellOfOneBoxChildRow h hr
+    let e := youngCellExceptEquivChildOfOneBoxChildRow
+      h hr u (deletedCornerCell_row h hr) (deletedCornerCell_col h hr)
+    by_cases hb : b = u
+    · have ha : a ≠ u := by
+        intro hau
+        rw [hau, hb] at hcol
+        omega
+      rw [hb, insertedMaxEntry_deletedCorner h hr S]
+      exact insertedMaxEntry_lt_last_of_ne_deletedCorner h hr S ha
+    · have ha : a ≠ u := by
+        intro hau
+        have hbrow : YoungCell.row b = r := by
+          have hurow : YoungCell.row u = r := deletedCornerCell_row h hr
+          rw [← hrow, hau, hurow]
+        have hbcol : youngRow mu r < YoungCell.col b := by
+          have hucol : YoungCell.col u = youngRow mu r :=
+            deletedCornerCell_col h hr
+          rw [hau, hucol] at hcol
+          exact hcol
+        exact no_cell_right_of_deletedCornerCell h hr hbrow hbcol
+      rw [insertedMaxEntry_ne_deletedCorner h hr S ha,
+        insertedMaxEntry_ne_deletedCorner h hr S hb]
+      change (S.entry (e ⟨a, ha⟩) : Nat) < (S.entry (e ⟨b, hb⟩) : Nat)
+      apply S.row_strict
+      · have hrow_a := youngCellExceptEquivChild_to_row h hr u
+          (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) ⟨a, ha⟩
+        have hrow_b := youngCellExceptEquivChild_to_row h hr u
+          (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) ⟨b, hb⟩
+        rw [hrow_a, hrow_b]
+        exact hrow
+      · have hcol_a := youngCellExceptEquivChild_to_col h hr u
+          (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) ⟨a, ha⟩
+        have hcol_b := youngCellExceptEquivChild_to_col h hr u
+          (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) ⟨b, hb⟩
+        rw [hcol_a, hcol_b]
+        exact hcol
+  col_strict := by
+    intro a b hcol hrow
+    let u := deletedCornerCellOfOneBoxChildRow h hr
+    let e := youngCellExceptEquivChildOfOneBoxChildRow
+      h hr u (deletedCornerCell_row h hr) (deletedCornerCell_col h hr)
+    by_cases hb : b = u
+    · have ha : a ≠ u := by
+        intro hau
+        rw [hau, hb] at hrow
+        omega
+      rw [hb, insertedMaxEntry_deletedCorner h hr S]
+      exact insertedMaxEntry_lt_last_of_ne_deletedCorner h hr S ha
+    · have ha : a ≠ u := by
+        intro hau
+        have hbrow : r < YoungCell.row b := by
+          have hurow : YoungCell.row u = r := deletedCornerCell_row h hr
+          rw [hau, hurow] at hrow
+          exact hrow
+        have hbcol : YoungCell.col b = youngRow mu r := by
+          have hucol : YoungCell.col u = youngRow mu r :=
+            deletedCornerCell_col h hr
+          rw [hau, hucol] at hcol
+          exact hcol.symm
+        exact no_cell_below_deletedCornerCell h hr hbrow hbcol
+      rw [insertedMaxEntry_ne_deletedCorner h hr S ha,
+        insertedMaxEntry_ne_deletedCorner h hr S hb]
+      change (S.entry (e ⟨a, ha⟩) : Nat) < (S.entry (e ⟨b, hb⟩) : Nat)
+      apply S.col_strict
+      · have hcol_a := youngCellExceptEquivChild_to_col h hr u
+          (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) ⟨a, ha⟩
+        have hcol_b := youngCellExceptEquivChild_to_col h hr u
+          (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) ⟨b, hb⟩
+        rw [hcol_a, hcol_b]
+        exact hcol
+      · have hrow_a := youngCellExceptEquivChild_to_row h hr u
+          (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) ⟨a, ha⟩
+        have hrow_b := youngCellExceptEquivChild_to_row h hr u
+          (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) ⟨b, hb⟩
+        rw [hrow_a, hrow_b]
+        exact hrow
+
+theorem insertMax_tableauMaxAt_deletedCorner
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) :
+    TableauMaxAt
+      (insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S)
+      (deletedCornerCellOfOneBoxChildRow h hr) := by
+  exact insertedMaxEntry_deletedCorner h hr S
 
 end DictatorshipTesting

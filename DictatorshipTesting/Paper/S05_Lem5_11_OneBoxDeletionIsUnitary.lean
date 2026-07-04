@@ -90,4 +90,28 @@ def S05_Lem5_11_deleteMaxAsStandardYoungTableauOfOneBoxChildRow
     StandardYoungTableau mu :=
   deleteMaxAsStandardYoungTableauOfOneBoxChildRow h hr u hu_row hu_col T hu
 
+/-- Lemma 5.11 set-level inverse: insert the maximum entry in the deleted
+corner. -/
+def S05_Lem5_11_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) :
+    StandardYoungTableau lam :=
+  insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S
+
+theorem S05_Lem5_11_insertMax_tableauMaxAt_deletedCorner
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) :
+    TableauMaxAt
+      (S05_Lem5_11_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S)
+      (deletedCornerCellOfOneBoxChildRow h hr) := by
+  exact insertMax_tableauMaxAt_deletedCorner h hr S
+
 end DictatorshipTesting
