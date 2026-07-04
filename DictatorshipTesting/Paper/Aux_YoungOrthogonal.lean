@@ -388,6 +388,53 @@ theorem youngAdjacentDiagCoeff_after_disjoint_swap_eq {n : Nat}
   rw [youngAdjacentDiagCoeff, youngAdjacentDiagCoeff,
     adjacentAxialDistance_after_disjoint_swap_eq T a b hdisj hrow_b hcol_b]
 
+theorem youngAdjacentDiagCoeff_after_left_swap_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_a : ¬ adjacentSameRow T a)
+    (hcol_a : ¬ adjacentSameCol T a) :
+    youngAdjacentDiagCoeff (adjacentSwapTableau T a hrow_a hcol_a) b =
+      ((adjacentAxialDistance T a + adjacentAxialDistance T b : Int) : ℝ)⁻¹ := by
+  rw [youngAdjacentDiagCoeff,
+    adjacentAxialDistance_after_left_swap_of_succ T a b hsucc hrow_a hcol_a]
+
+theorem youngAdjacentDiagCoeff_after_right_swap_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_b : ¬ adjacentSameRow T b)
+    (hcol_b : ¬ adjacentSameCol T b) :
+    youngAdjacentDiagCoeff (adjacentSwapTableau T b hrow_b hcol_b) a =
+      ((adjacentAxialDistance T a + adjacentAxialDistance T b : Int) : ℝ)⁻¹ := by
+  rw [youngAdjacentDiagCoeff,
+    adjacentAxialDistance_after_right_swap_of_succ T a b hsucc hrow_b hcol_b]
+
+theorem inv_braid_left_identity {x y z : ℝ}
+    (hx : x ≠ 0) (hy : y ≠ 0) (hz0 : z ≠ 0)
+    (hsum : z = x + y) :
+    x⁻¹ * (y⁻¹ - z⁻¹) = y⁻¹ * z⁻¹ := by
+  subst z
+  field_simp [hx, hy, hz0]
+  ring
+
+theorem inv_braid_right_identity {x y z : ℝ}
+    (hx : x ≠ 0) (hy : y ≠ 0) (hz0 : z ≠ 0)
+    (hsum : z = x + y) :
+    y⁻¹ * (x⁻¹ - z⁻¹) = x⁻¹ * z⁻¹ := by
+  subst z
+  field_simp [hx, hy, hz0]
+  ring
+
+theorem inv_sq_braid_diag_identity {x y z : ℝ}
+    (hx : x ≠ 0) (hy : y ≠ 0) (hz0 : z ≠ 0)
+    (hsum : z = x + y) :
+    x⁻¹ ^ 2 * y⁻¹ + (1 - x⁻¹ ^ 2) * z⁻¹ =
+      y⁻¹ ^ 2 * x⁻¹ + (1 - y⁻¹ ^ 2) * z⁻¹ := by
+  subst z
+  field_simp [hx, hy, hz0]
+  ring
+
 theorem youngAdjacentDiagCoeff_ne_zero_of_swappable {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
