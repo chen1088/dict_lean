@@ -24,8 +24,8 @@ Current tableau-count finite-certificate status:
 | Certificate layer | Tableau-count status | Active theorem path status |
 | --- | --- | --- |
 | Lemma 5.32, z-bound | Proved as `S05_Lem5_32_tableau_weightZeroEntries_never_majority` and `zEven_le_tableauDim` | The old `youngDim` alias remains active for the spectral bridge |
-| Lemma 5.34, even certificate | `hEvenTableau` recurrence, generic step, one-row/standard facts, and `(2m-2,2)` exception are proved | Not yet active; remaining tableau exceptional families are `(2m-2,1,1)`, `(2m-3,3)`, `(2m-3,2,1)` |
-| Lemma 5.36, odd certificate | Not yet ported to tableau-count height | Still active through old `hOdd` and `youngDim` one-box branching |
+| Lemma 5.34, even certificate | Proved as `S05_Lem5_34_tableau_even_certificate` using `hEvenTableau` and all four exceptional families | The old `youngDim` alias remains active for the spectral bridge |
+| Lemma 5.36, odd certificate | Proved as `S05_Lem5_36_tableau_odd_certificate` using `hOddTableau` and the tableau one-box branching theorem | The old `youngDim` alias remains active for the spectral bridge |
 
 Precise active-path blocker: the spectral bridge vocabulary still hard-codes
 `youngDim`.  In particular, `Aux_SpectralBridgeRepresentationInputs.lean`
@@ -36,7 +36,8 @@ states the trace/scalar identity using `youngDim`, while
 `c * youngDim lam <= height lam`.  A tableau-count finite certificate cannot
 feed Theorem 4.10 directly until either the relevant equality
 `tableauDim = youngDim` is proved or the spectral block model is parameterized
-by its dimension function.
+by its dimension function.  The finite tableau-count certificate side is now
+complete; this is a bridge-interface blocker, not a finite-certificate blocker.
 
 ## Section 5 Paper/Lean Status Table
 
@@ -49,9 +50,9 @@ by its dimension function.
 | Lemma 5.5 | `lem:PM-trace-young-block`, Trace of one local truncation | `S05_Lem5_05_TraceLocalTruncation.lean` | `traceLocalTruncation_even_from_restriction`, `traceLocalTruncation_odd_from_restriction` | algebraic/scalar wrapper | full Young-block trace interpretation belongs to the spectral block model input |
 | Lemma 5.6 | `lem:centralization-matchings`, Centralization over matchings | `S05_Lem5_06_CentralizationOverMatchings.lean` | `centralizationBridge_scalar_eq_trace_div_dimension`, `centralizationBridge_even_scalar_eq_hEven_div_dim`, `centralizationBridge_odd_scalar_eq_hOdd_div_dim` | trace-divided-by-dimension algebra proven | Young-block scalarity by Schur's lemma belongs to the spectral block model input |
 | Lemma 5.8 | `lem:spectral-certificate`, Spectral bridge from finite certificate | `S05_Lem5_08_SpectralBridgeFromCertificates.lean` | `SpectralGapFromBlockScalarLowerBounds`, `L5_2_SpectralCertificate` | algebraic wrapper proven | `spectralBlockModelInput_even_from_specht_pieri_schur`, `spectralBlockModelInput_odd_from_specht_pieri_schur` |
-| Lemma 5.10 | `lem:z-bound-app`, Weight-zero bound | `S05_Lem5_10_ZBoundCertificate.lean` | `L5_4_ZBoundApp` | proven modulo Lemma 5.1 | two-strip dimension branching |
-| Lemma 5.12 | `lem:h-even-app`, Even certificate | `S05_Lem5_12_EvenHCertificate.lean` | `L5_5_HEvenApp` | proven modulo Lemma 5.1 and Lemma 5.10 | two-strip dimension branching |
-| Lemma 5.14 | `lem:h-odd-app`, Odd certificate | `S05_Lem5_14_OddHCertificate.lean` | `L5_6_HOddApp` | proven modulo Lemma 5.2 and Lemma 5.12 | one-box dimension branching and two-strip dimension branching |
+| Lemma 5.32 | Weight-zero entries are never a majority | `S05_Lem5_32_WeightZeroEntriesAreNeverAMajority.lean` | `S05_Lem5_32_tableau_weightZeroEntries_never_majority`, `L5_4_ZBoundApp` | tableau-count certificate proved; legacy `youngDim` theorem remains | active spectral bridge still uses `youngDim` |
+| Lemma 5.34 | `lem:h-even-app`, Even certificate | `S05_Lem5_34_EvenCertificate.lean` | `S05_Lem5_34_tableau_even_certificate`, `L5_5_HEvenApp` | tableau-count certificate proved; legacy `youngDim` theorem remains | active spectral bridge still uses `youngDim` |
+| Lemma 5.36 | `lem:h-odd-app`, Odd certificate | `S05_Lem5_36_OddCertificate.lean` | `S05_Lem5_36_tableau_odd_certificate`, `L5_6_HOddApp` | tableau-count certificate proved; legacy `youngDim` theorem remains | active spectral bridge still uses `youngDim` |
 
 ## Remaining `sorry` Declarations
 
@@ -253,9 +254,12 @@ Downstream dependencies: the trace/scalar-value inputs in Lemma 5.8.
   `L5_2_SpectralCertificate` are proved from the explicit inputs above.
 - `Aux_SpectralBridgeRepresentationInputs.lean`: compact interface definitions
   for the spectral-block model used by Lemma 5.8.
-- `S05_Lem5_10_ZBoundCertificate.lean`: finite `zEven` certificate, proved
-  modulo Lemma 5.1.
-- `S05_Lem5_12_EvenHCertificate.lean`: finite `hEven` certificate, proved
-  modulo Lemma 5.1 and Lemma 5.10.
-- `S05_Lem5_14_OddHCertificate.lean`: finite `hOdd` certificate, proved
-  modulo Lemma 5.2 and Lemma 5.12.
+- `S05_Lem5_32_WeightZeroEntriesAreNeverAMajority.lean`: finite `zEven`
+  certificate, with both the legacy `youngDim` theorem and the tableau-count
+  theorem `S05_Lem5_32_tableau_weightZeroEntries_never_majority`.
+- `S05_Lem5_34_EvenCertificate.lean`: finite even certificate, with both the
+  legacy `hEven`/`youngDim` theorem and the tableau-count theorem
+  `S05_Lem5_34_tableau_even_certificate`.
+- `S05_Lem5_36_OddCertificate.lean`: finite odd certificate, with both the
+  legacy `hOdd`/`youngDim` theorem and the tableau-count theorem
+  `S05_Lem5_36_tableau_odd_certificate`.

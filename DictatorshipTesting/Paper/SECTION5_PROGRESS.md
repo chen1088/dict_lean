@@ -8,6 +8,10 @@ Completed commits from the current milestone:
 - `2c3fa74` Add tableauDim reusable even certificate facts
 - `db54770` Add exact tableauDim formulas for even certificates
 - `0f16319` Add tableauDim two-row even exception certificate
+- `9e1c2e0` Port three-row even tableau exception
+- `4648019` Port two-row three even tableau exception
+- `24ee3d4` Finish tableauDim even certificate
+- `a111e25` Port odd certificate to tableauDim
 
 Main names added in this batch:
 - `zEven_le_half_tableauDim_of_not_oneRow_finite_induction`
@@ -22,6 +26,15 @@ Main names added in this batch:
 - `hEvenTableau_nonneg`
 - `hEvenTableau_twoRowTwoDiagramEven_formula`
 - `hEvenTableau_ge_one_fifth_tableauDim_twoRowTwoException`
+- `hEvenTableau_twoRowOneOneDiagramEven_formula`
+- `tableauDim_twoRowOneOneDiagramEven_formula`
+- `hEvenTableau_ge_one_fifth_tableauDim_twoRowOneOneException`
+- `hEvenTableau_ge_one_fifth_tableauDim_twoRowThreeException`
+- `hEvenTableau_ge_one_fifth_tableauDim_threeRowTwoOneException`
+- `S05_Lem5_34_tableau_even_certificate`
+- `hOddTableau`
+- `hOddTableau_ge_one_sixth_tableauDim_odd_exceptional`
+- `S05_Lem5_36_tableau_odd_certificate`
 
 Status:
 - Lemma 5.32 now has an axiom-free tableau-count version.  The old
@@ -29,17 +42,13 @@ Status:
   `zEven` proof no longer needs the two-strip `youngDim` branching input when
   stated against `tableauDim`.
 - Lemma 5.34 has a parallel tableau-count height recurrence `hEvenTableau`.
-  The generic induction step is proved, the one-row and standard height facts
-  are proved, and the `(2m-2,2)` exceptional family is proved against
+  The generic induction step, one-row and standard height facts, all four
+  exceptional families, and the final certificate
+  `S05_Lem5_34_tableau_even_certificate` are proved against `tableauDim`.
+- Lemma 5.36 now has a parallel tableau-count height recurrence `hOddTableau`.
+  The two odd exceptional families, the generic one-box reduction, and the final
+  certificate `S05_Lem5_36_tableau_odd_certificate` are proved against
   `tableauDim`.
-- The remaining even tableau-count certificate work is exactly the other three
-  exceptional families:
-  `(2m-2,1,1)`, `(2m-3,3)`, and `(2m-3,2,1)`.  These need exact or sufficient
-  upper tableau-dimension formulas plus the matching `hEvenTableau` recurrence
-  calculations.
-- The odd tableau-count certificate has not yet been ported.  It should be
-  attempted only after the even tableau-count certificate is completed, because
-  the intended odd proof sums over one-box children and uses the even bound.
 - The active Theorem 4.10 path still depends on the old `youngDim` spectral
   model.  The files `S05_Lem5_28_BlockLowerBoundImpliesTheGap.lean`,
   `S05_Lem5_29_EvenSpectralBridge.lean`, `S05_Lem5_30_OddSpectralBridge.lean`,

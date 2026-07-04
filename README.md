@@ -42,15 +42,19 @@ paper-level input, see `PROOF_OBLIGATIONS.md`.
 
 Proven finite certificates:
 
-- `S05_Lem5_10_ZBoundCertificate.lean` -- Lemma 5.10 (`lem:z-bound-app`):
-  finite `zEven` certificate, proved from the recursive definitions modulo the
-  explicit two-strip dimension branching assumption in Lemma 5.1.
-- `S05_Lem5_12_EvenHCertificate.lean` -- Lemma 5.12 (`lem:h-even-app`):
-  finite `hEven` certificate, proved from Lemma 5.10 and the two-strip
-  dimension branching assumption.
-- `S05_Lem5_14_OddHCertificate.lean` -- Lemma 5.14 (`lem:h-odd-app`):
-  finite `hOdd` certificate, proved from Lemma 5.12 and the one-box dimension
-  branching assumption.
+- `S05_Lem5_32_WeightZeroEntriesAreNeverAMajority.lean` -- Lemma 5.32:
+  finite `zEven` certificate.  The legacy `youngDim` theorem remains for the
+  active spectral bridge, and the tableau-count theorem
+  `S05_Lem5_32_tableau_weightZeroEntries_never_majority` is proved against
+  `tableauDim`.
+- `S05_Lem5_34_EvenCertificate.lean` -- Lemma 5.34 (`lem:h-even-app`):
+  finite even certificate.  The legacy `hEven`/`youngDim` theorem remains, and
+  the tableau-count theorem `S05_Lem5_34_tableau_even_certificate` is proved
+  using `hEvenTableau`.
+- `S05_Lem5_36_OddCertificate.lean` -- Lemma 5.36 (`lem:h-odd-app`):
+  finite odd certificate.  The legacy `hOdd`/`youngDim` theorem remains, and
+  the tableau-count theorem `S05_Lem5_36_tableau_odd_certificate` is proved
+  using `hOddTableau`.
 
 External standard inputs:
 
@@ -172,7 +176,7 @@ Paper-numbered highlights:
 - `S04_Lem4_01` through `S04_Lem4_13`, plus `S04_Cor4_09`,
   `S04_Thm4_10`, and `S04_Prop4_12`: matching-cube soundness reductions up to
   the one-trial soundness bound.
-- `S05_Lem5_01` through `S05_Lem5_14`: current Section 5 spectral bridge and
+- `S05_Lem5_01` through `S05_Lem5_36`: current Section 5 spectral bridge and
   finite certificate files.  Older Section 5 theorem names such as
   `L5_4_ZBoundApp` are declarations inside these numbered files, not separate
   wrapper modules.
@@ -197,7 +201,9 @@ Useful commands:
 
 ```bash
 lake build DictatorshipTesting
-lake build DictatorshipTesting.Paper.S05_Lem5_10_ZBoundCertificate
+lake build DictatorshipTesting.Paper.S05_Lem5_32_WeightZeroEntriesAreNeverAMajority
+lake build DictatorshipTesting.Paper.S05_Lem5_34_EvenCertificate
+lake build DictatorshipTesting.Paper.S05_Lem5_36_OddCertificate
 rg "sorry" DictatorshipTesting
 ```
 
