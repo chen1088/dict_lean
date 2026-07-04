@@ -44,4 +44,22 @@ theorem S05_Def5_07_exists_removableRow_of_oneBoxRemoval
       forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
   exact exists_removableRow_of_oneBoxChild h
 
+/-- Definition 5.7 row fact: a one-box removal has total row difference `1`. -/
+theorem S05_Def5_07_sum_row_diff_of_oneBoxRemoval
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : S05_IsOneBoxRemoval lam mu) :
+    (Finset.range n).sum (fun i => youngRow lam i - youngRow mu i) = 1 := by
+  exact sum_row_diff_of_oneBoxChild h
+
+/-- Definition 5.7 corner form: a one-box removal deletes a removable corner. -/
+theorem S05_Def5_07_exists_removableCornerBox_of_oneBoxRemoval
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : S05_IsOneBoxRemoval lam mu) :
+    exists u : Nat × Nat,
+      IsRemovableCornerBox lam u ∧
+      u.2 = youngRow mu u.1 ∧
+      youngRow lam u.1 = youngRow mu u.1 + 1 ∧
+      forall s : Nat, s ≠ u.1 -> youngRow lam s = youngRow mu s := by
+  exact exists_removableCornerBox_of_oneBoxChild h
+
 end DictatorshipTesting
