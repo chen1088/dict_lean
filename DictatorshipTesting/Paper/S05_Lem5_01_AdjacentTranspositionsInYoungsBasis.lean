@@ -370,6 +370,18 @@ theorem S05_Lem5_01_youngAdjacentMatrixCoeff_swappable_swap {n : Nat}
       youngAdjacentOffCoeff T a := by
   exact youngAdjacentMatrixCoeff_swappable_swap T a hrow_ne hcol_ne
 
+/-- Lemma 5.1 matrix-coefficient component: the reverse off-diagonal
+coefficient in the swappable two-tableau block is the same. -/
+theorem S05_Lem5_01_youngAdjacentMatrixCoeff_swappable_swap_symm {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a T
+        (adjacentSwapTableau T a hrow_ne hcol_ne) =
+      youngAdjacentOffCoeff T a := by
+  exact youngAdjacentMatrixCoeff_swappable_swap_symm T a hrow_ne hcol_ne
+
 /-- Lemma 5.1 matrix-coefficient component: in the swappable case, all other
 tableaux have coefficient zero. -/
 theorem S05_Lem5_01_youngAdjacentMatrixCoeff_swappable_other {n : Nat}
@@ -423,6 +435,19 @@ theorem S05_Lem5_01_youngAdjacentOperator_basis_swappable_swap_value {n : Nat}
         (adjacentSwapTableau T a hrow_ne hcol_ne) =
       youngAdjacentOffCoeff T a := by
   exact youngAdjacentOperator_basis_swappable_swap_value T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 operator component: in the swappable case, applying the operator
+to the swapped basis vector has the same off-diagonal coordinate at `T`. -/
+theorem S05_Lem5_01_youngAdjacentOperator_basis_swappable_swap_symm_value
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOperator a
+        (tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne)) T =
+      youngAdjacentOffCoeff T a := by
+  exact youngAdjacentOperator_basis_swappable_swap_symm_value
+    T a hrow_ne hcol_ne
 
 /-- Lemma 5.1 operator component: in the swappable case, all other basis
 coordinates vanish. -/

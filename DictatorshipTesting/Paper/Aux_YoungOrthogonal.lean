@@ -252,6 +252,62 @@ theorem adjacentSwapTableau_ne_self {n : Nat}
   rw [adjacentSwapEntry_loCell, entry_adjacentLoCell] at hentry
   exact adjacentEntryLo_ne_hi a hentry.symm
 
+theorem adjacentSameRow_swap_iff {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    adjacentSameRow (adjacentSwapTableau T a hrow_ne hcol_ne) a ↔
+      adjacentSameRow T a := by
+  unfold adjacentSameRow adjacentLoCell adjacentHiCell
+  rw [adjacentSwapTableau_cell_lo, adjacentSwapTableau_cell_hi]
+  exact eq_comm
+
+theorem adjacentSameCol_swap_iff {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    adjacentSameCol (adjacentSwapTableau T a hrow_ne hcol_ne) a ↔
+      adjacentSameCol T a := by
+  unfold adjacentSameCol adjacentLoCell adjacentHiCell
+  rw [adjacentSwapTableau_cell_lo, adjacentSwapTableau_cell_hi]
+  exact eq_comm
+
+theorem not_adjacentSameRow_swap {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    ¬ adjacentSameRow (adjacentSwapTableau T a hrow_ne hcol_ne) a := by
+  intro h
+  exact hrow_ne ((adjacentSameRow_swap_iff T a hrow_ne hcol_ne).1 h)
+
+theorem not_adjacentSameCol_swap {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    ¬ adjacentSameCol (adjacentSwapTableau T a hrow_ne hcol_ne) a := by
+  intro h
+  exact hcol_ne ((adjacentSameCol_swap_iff T a hrow_ne hcol_ne).1 h)
+
+theorem adjacentSwapTableau_involutive {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a)
+    (hrow_ne' :
+      ¬ adjacentSameRow (adjacentSwapTableau T a hrow_ne hcol_ne) a)
+    (hcol_ne' :
+      ¬ adjacentSameCol (adjacentSwapTableau T a hrow_ne hcol_ne) a) :
+    adjacentSwapTableau
+        (adjacentSwapTableau T a hrow_ne hcol_ne) a hrow_ne' hcol_ne' =
+      T := by
+  apply standardYoungTableau_ext_entry
+  intro u
+  simp [adjacentSwapTableau, adjacentSwapEntry, adjacentSwapValue_involutive]
+
 /-- Matrix coefficient of the Young adjacent-transposition formula in the
 standard tableau basis.  This is only the concrete coefficient model, not yet a
 claim that it realizes a symmetric-group representation. -/
@@ -316,6 +372,30 @@ theorem youngAdjacentMatrixCoeff_swappable_swap {n : Nat}
       youngAdjacentOffCoeff T a := by
   have hswap_ne := adjacentSwapTableau_ne_self T a hrow_ne hcol_ne
   simp [youngAdjacentMatrixCoeff, hrow_ne, hcol_ne, hswap_ne]
+
+theorem youngAdjacentMatrixCoeff_swappable_swap_symm {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a T
+        (adjacentSwapTableau T a hrow_ne hcol_ne) =
+      youngAdjacentOffCoeff T a := by
+  let T' := adjacentSwapTableau T a hrow_ne hcol_ne
+  have hrow_ne' : ¬ adjacentSameRow T' a := by
+    simpa [T'] using not_adjacentSameRow_swap T a hrow_ne hcol_ne
+  have hcol_ne' : ¬ adjacentSameCol T' a := by
+    simpa [T'] using not_adjacentSameCol_swap T a hrow_ne hcol_ne
+  have h :=
+    youngAdjacentMatrixCoeff_swappable_swap T' a hrow_ne' hcol_ne'
+  have hinv :
+      adjacentSwapTableau T' a hrow_ne' hcol_ne' = T := by
+    simpa [T'] using
+      adjacentSwapTableau_involutive T a hrow_ne hcol_ne hrow_ne' hcol_ne'
+  have hoff :
+      youngAdjacentOffCoeff T' a = youngAdjacentOffCoeff T a := by
+    simpa [T'] using youngAdjacentOffCoeff_swap T a hrow_ne hcol_ne
+  simpa [T', hinv, hoff] using h
 
 theorem youngAdjacentMatrixCoeff_swappable_other {n : Nat}
     {lam : YoungDiagram (n + 1)}
@@ -401,6 +481,17 @@ theorem youngAdjacentOperator_basis_swappable_swap_value {n : Nat}
       youngAdjacentOffCoeff T a := by
   rw [youngAdjacentOperator_basis_value,
     youngAdjacentMatrixCoeff_swappable_swap T a hrow_ne hcol_ne]
+
+theorem youngAdjacentOperator_basis_swappable_swap_symm_value {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOperator a
+        (tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne)) T =
+      youngAdjacentOffCoeff T a := by
+  rw [youngAdjacentOperator_basis_value,
+    youngAdjacentMatrixCoeff_swappable_swap_symm T a hrow_ne hcol_ne]
 
 theorem youngAdjacentOperator_basis_swappable_other_value {n : Nat}
     {lam : YoungDiagram (n + 1)}
