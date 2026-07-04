@@ -30,6 +30,15 @@ theorem youngRow_sum_range_succ {k : Nat} (mu : YoungDiagram k) :
   rw [youngRow_sum_range mu]
   simp [youngRow]
 
+/-- Summing the extended row lengths of a diagram of size `k` over two extra
+rows still gives `k`. -/
+theorem youngRow_sum_range_add_two {k : Nat} (mu : YoungDiagram k) :
+    (Finset.range (k + 2)).sum (fun i => youngRow mu i) = k := by
+  rw [show k + 2 = k + 1 + 1 by omega]
+  rw [Finset.sum_range_succ]
+  rw [youngRow_sum_range_succ mu]
+  simp [youngRow]
+
 /-- Extended row lengths are nonincreasing. -/
 theorem youngRow_succ_le {n : Nat} (lam : YoungDiagram n) (r : Nat) :
     youngRow lam (r + 1) <= youngRow lam r := by
@@ -118,6 +127,98 @@ theorem sum_row_diff_of_oneBoxChild
     rw [hk.symm]
     exact youngRow_sum_range_succ mu
   rw [hmu]
+  omega
+
+/-- For a two-box subdiagram with size drop `2`, the total row-length
+difference is `2`. -/
+theorem sum_row_diff_of_twoBoxSubdiagram
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (hk : k + 2 = n) (hsub : IsYoungSubdiagram mu lam) :
+    (Finset.range n).sum (fun i => youngRow lam i - youngRow mu i) = 2 := by
+  have hrow_le : forall i, i < n -> youngRow mu i <= youngRow lam i := by
+    intro i hi
+    simpa using hsub (Fin.mk i hi)
+  have hsumsub := Finset.sum_tsub_distrib (Finset.range n)
+    (f := fun i => youngRow lam i)
+    (g := fun i => youngRow mu i)
+    (by
+      intro i hi
+      exact hrow_le i (Finset.mem_range.mp hi))
+  rw [hsumsub]
+  rw [youngRow_sum_range lam]
+  have hmu : (Finset.range n).sum (fun i => youngRow mu i) = k := by
+    rw [hk.symm]
+    exact youngRow_sum_range_add_two mu
+  rw [hmu]
+  omega
+
+/-- For a horizontal two-strip child, the total row-length difference is `2`. -/
+theorem sum_row_diff_of_horizontalTwoStripChild
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsHorizontalTwoStripChild lam mu) :
+    (Finset.range n).sum (fun i => youngRow lam i - youngRow mu i) = 2 := by
+  exact sum_row_diff_of_twoBoxSubdiagram h.1 h.2.1
+
+/-- For a vertical two-strip child, the total row-length difference is `2`. -/
+theorem sum_row_diff_of_verticalTwoStripChild
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsVerticalTwoStripChild lam mu) :
+    (Finset.range n).sum (fun i => youngRow lam i - youngRow mu i) = 2 := by
+  exact sum_row_diff_of_twoBoxSubdiagram h.1 h.2.1
+
+/-- Any two-strip child is rowwise bounded by its parent. -/
+theorem row_le_parent_of_twoBoxSubdiagram
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (hk : k + 2 = n) (hsub : IsYoungSubdiagram mu lam) (i : Nat) :
+    youngRow mu i <= youngRow lam i := by
+  by_cases hi : i < n
+  · exact hsub (Fin.mk i hi)
+  · have hmu_not_lt : ¬ i < k := by omega
+    simp [youngRow, hi, hmu_not_lt]
+
+/-- A horizontal two-strip child is rowwise bounded by its parent. -/
+theorem row_le_parent_of_horizontalTwoStripChild
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsHorizontalTwoStripChild lam mu) (i : Nat) :
+    youngRow mu i <= youngRow lam i :=
+  row_le_parent_of_twoBoxSubdiagram h.1 h.2.1 i
+
+/-- A vertical two-strip child is rowwise bounded by its parent. -/
+theorem row_le_parent_of_verticalTwoStripChild
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsVerticalTwoStripChild lam mu) (i : Nat) :
+    youngRow mu i <= youngRow lam i :=
+  row_le_parent_of_twoBoxSubdiagram h.1 h.2.1 i
+
+/-- Horizontal two-strip row condition: the next parent row is bounded by the
+current child row. -/
+theorem next_parent_row_le_child_row_of_horizontalTwoStripChild
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsHorizontalTwoStripChild lam mu) (i : Nat) :
+    youngRow lam (i + 1) <= youngRow mu i := by
+  rcases h with ⟨hk, hsub, hhorizontal⟩
+  by_cases hi : i < n
+  · exact hhorizontal (Fin.mk i hi)
+  · have hsucc_not_lt : ¬ i + 1 < n := by omega
+    simp [youngRow, hsucc_not_lt]
+
+/-- Vertical two-strip row condition: every parent row exceeds the child row by
+at most one. -/
+theorem parent_row_le_child_row_add_one_of_verticalTwoStripChild
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsVerticalTwoStripChild lam mu) (i : Nat) :
+    youngRow lam i <= youngRow mu i + 1 := by
+  rcases h with ⟨hk, hsub, hvertical⟩
+  by_cases hi : i < n
+  · exact hvertical (Fin.mk i hi)
+  · simp [youngRow, hi]
+
+/-- In a vertical two-strip child, each row loses at most one box. -/
+theorem row_diff_le_one_of_verticalTwoStripChild
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsVerticalTwoStripChild lam mu) (i : Nat) :
+    youngRow lam i - youngRow mu i <= 1 := by
+  have hle := parent_row_le_child_row_add_one_of_verticalTwoStripChild h i
   omega
 
 /-- For a one-box child `mu` of `lam`, the row-length difference is
