@@ -814,4 +814,32 @@ theorem S05_Lem5_01_youngAdjacentOperator_comm_basis_swappable_of_disjoint_indic
   exact youngAdjacentOperator_comm_basis_swappable_of_disjoint_indices
     T a b hdisj hrow_a hcol_a hrow_b hcol_b
 
+/-- Lemma 5.1 Coxeter-frontier component: if the left adjacent pair is in one
+row, the distant adjacent operators commute on a tableau basis vector. -/
+theorem S05_Lem5_01_youngAdjacentOperator_comm_basis_left_sameRow
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_a : adjacentSameRow T a) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b (tableauBasisVec T)) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a (tableauBasisVec T)) := by
+  exact youngAdjacentOperator_comm_basis_left_sameRow_of_disjoint_indices
+    T a b hdisj hrow_a
+
+/-- Lemma 5.1 Coxeter-frontier component: if the left adjacent pair is in one
+column, the distant adjacent operators commute on a tableau basis vector. -/
+theorem S05_Lem5_01_youngAdjacentOperator_comm_basis_left_sameCol
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hcol_a : adjacentSameCol T a) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b (tableauBasisVec T)) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a (tableauBasisVec T)) := by
+  exact youngAdjacentOperator_comm_basis_left_sameCol_of_disjoint_indices
+    T a b hdisj hcol_a
+
 end DictatorshipTesting

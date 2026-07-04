@@ -1150,6 +1150,67 @@ theorem youngAdjacentOperator_comm_basis_swappable_of_disjoint_indices
   rw [hdiag_a_Tb, hoff_a_Tb, hdiag_b_Ta, hoff_b_Ta, hcomm]
   ring
 
+theorem youngAdjacentOperator_comm_basis_left_sameRow_of_disjoint_indices
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_a : adjacentSameRow T a) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b (tableauBasisVec T)) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a (tableauBasisVec T)) := by
+  rw [youngAdjacentOperator_basis_sameRow T a hrow_a]
+  by_cases hrow_b : adjacentSameRow T b
+  · rw [youngAdjacentOperator_basis_sameRow T b hrow_b,
+      youngAdjacentOperator_basis_sameRow T a hrow_a]
+  · by_cases hcol_b : adjacentSameCol T b
+    · rw [youngAdjacentOperator_basis_sameCol T b hcol_b,
+        youngAdjacentOperator_neg,
+        youngAdjacentOperator_basis_sameRow T a hrow_a]
+    · let Tb := adjacentSwapTableau T b hrow_b hcol_b
+      have hrow_a_after_b : adjacentSameRow Tb a := by
+        exact (adjacentSameRow_after_disjoint_swap_iff T a b hdisj
+          hrow_b hcol_b).2 hrow_a
+      rw [youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b,
+        youngAdjacentOperator_add, youngAdjacentOperator_smul,
+        youngAdjacentOperator_smul,
+        youngAdjacentOperator_basis_sameRow T a hrow_a,
+        youngAdjacentOperator_basis_sameRow Tb a hrow_a_after_b]
+
+theorem youngAdjacentOperator_comm_basis_left_sameCol_of_disjoint_indices
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hcol_a : adjacentSameCol T a) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b (tableauBasisVec T)) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a (tableauBasisVec T)) := by
+  by_cases hrow_b : adjacentSameRow T b
+  · rw [youngAdjacentOperator_basis_sameRow T b hrow_b,
+      youngAdjacentOperator_basis_sameCol T a hcol_a,
+      youngAdjacentOperator_neg,
+      youngAdjacentOperator_basis_sameRow T b hrow_b]
+  · by_cases hcol_b : adjacentSameCol T b
+    · rw [youngAdjacentOperator_basis_sameCol T b hcol_b,
+        youngAdjacentOperator_neg,
+        youngAdjacentOperator_basis_sameCol T a hcol_a,
+        youngAdjacentOperator_neg,
+        youngAdjacentOperator_basis_sameCol T b hcol_b]
+    · let Tb := adjacentSwapTableau T b hrow_b hcol_b
+      have hcol_a_after_b : adjacentSameCol Tb a := by
+        exact (adjacentSameCol_after_disjoint_swap_iff T a b hdisj
+          hrow_b hcol_b).2 hcol_a
+      rw [youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b,
+        youngAdjacentOperator_add, youngAdjacentOperator_smul,
+        youngAdjacentOperator_smul,
+        youngAdjacentOperator_basis_sameCol T a hcol_a,
+        youngAdjacentOperator_basis_sameCol Tb a hcol_a_after_b]
+      rw [youngAdjacentOperator_neg,
+        youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b]
+      funext S
+      ring
+
 /-- The diagonal content operator in the tableau coordinate basis. -/
 noncomputable def jucysMurphyDiagonalOperator {n : Nat}
     {lam : YoungDiagram n} (a : Fin n) :
