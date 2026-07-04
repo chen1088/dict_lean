@@ -1,5 +1,6 @@
 import DictatorshipTesting.Paper.Aux_CubeLowDegreeError
 import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
+import DictatorshipTesting.Paper.S05_Def5_18_MatchingCharacters
 
 /-!
 Paper statement: Lemma 5.20 (`lem:PM-character-projection`)
@@ -80,5 +81,45 @@ theorem matchingLocalProjection_kills_high_local_char {α : Type*}
     exact hlocal y
   rw [matchingLocalProjection_apply_mul_tau, hg,
     cubeLowDegreeOnePart_cubeChar_of_two_le_card hS]
+
+/-- Lemma 5.20, matching-character vocabulary: local truncation preserves low
+matching characters. -/
+theorem S05_Lem5_20_cubeLowDegreeOnePart_matchingCharacter_of_low {m : ℕ}
+    {S : Finset (Fin m)} (hS : S05_matchingCharacterLow S) :
+    cubeLowDegreeOnePart (fun x : Cube m => S05_matchingCharacter S x) =
+      fun x : Cube m => S05_matchingCharacter S x := by
+  exact cubeLowDegreeOnePart_cubeChar_of_card_le_one hS
+
+/-- Lemma 5.20, matching-character vocabulary: local truncation kills high
+matching characters. -/
+theorem S05_Lem5_20_cubeLowDegreeOnePart_matchingCharacter_of_high {m : ℕ}
+    {S : Finset (Fin m)} (hS : S05_matchingCharacterHigh S) :
+    cubeLowDegreeOnePart (fun x : Cube m => S05_matchingCharacter S x) =
+      fun _ : Cube m => 0 := by
+  exact cubeLowDegreeOnePart_cubeChar_of_two_le_card hS
+
+/-- Lemma 5.20, matching-character vocabulary: `P_M` preserves low local
+matching characters. -/
+theorem S05_Lem5_20_matchingLocalProjection_preserves_low_matchingCharacter
+    {α : Type*} [Fintype α] [DecidableEq α] (M : OrderedMatching α)
+    (F : Perm α → ℝ) (π : Perm α) {S : Finset (Fin M.edgeCount)}
+    (hS : S05_matchingCharacterLow S)
+    (hlocal : ∀ x : Cube M.edgeCount,
+      F (π * M.tau x) = S05_matchingCharacter S x)
+    (x : Cube M.edgeCount) :
+    matchingLocalProjection M F (π * M.tau x) = F (π * M.tau x) := by
+  exact matchingLocalProjection_preserves_low_local_char M F π hS hlocal x
+
+/-- Lemma 5.20, matching-character vocabulary: `P_M` kills high local matching
+characters. -/
+theorem S05_Lem5_20_matchingLocalProjection_kills_high_matchingCharacter
+    {α : Type*} [Fintype α] [DecidableEq α] (M : OrderedMatching α)
+    (F : Perm α → ℝ) (π : Perm α) {S : Finset (Fin M.edgeCount)}
+    (hS : S05_matchingCharacterHigh S)
+    (hlocal : ∀ x : Cube M.edgeCount,
+      F (π * M.tau x) = S05_matchingCharacter S x)
+    (x : Cube M.edgeCount) :
+    matchingLocalProjection M F (π * M.tau x) = 0 := by
+  exact matchingLocalProjection_kills_high_local_char M F π hS hlocal x
 
 end DictatorshipTesting

@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.Aux_PMConvolutionLegacy
+import DictatorshipTesting.Paper.S05_Def5_22_MatchingIdempotents
 
 /-!
 Paper statement: Lemma 5.23 (`lem:PM-convolution`)
@@ -21,5 +22,22 @@ theorem S05_Lem5_23_local_truncation_as_convolution
       (fun π => F π - matchingLocalProjection M F π) =
         matchingHighConvolution M F := by
   exact L5_1_PMConvolution M F
+
+/-- Lemma 5.23 low-idempotent form: local truncation is the low matching
+idempotent. -/
+theorem S05_Lem5_23_local_truncation_eq_low_idempotent
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (M : OrderedMatching α) (F : Perm α -> ℝ) :
+    matchingLocalProjection M F = S05_matchingLowIdempotent M F := by
+  exact (S05_Lem5_23_local_truncation_as_convolution M F).1
+
+/-- Lemma 5.23 high-idempotent form: the residual `I - P_M` is the high
+matching idempotent. -/
+theorem S05_Lem5_23_residual_eq_high_idempotent
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (M : OrderedMatching α) (F : Perm α -> ℝ) :
+    (fun π => F π - matchingLocalProjection M F π) =
+      S05_matchingHighIdempotent M F := by
+  exact (S05_Lem5_23_local_truncation_as_convolution M F).2
 
 end DictatorshipTesting
