@@ -789,4 +789,29 @@ theorem S05_Lem5_01_youngAdjacentOperator_sq_basis_swappable {n : Nat}
       tableauBasisVec T := by
   exact youngAdjacentOperator_sq_basis_swappable T a hrow_ne hcol_ne
 
+/-- Lemma 5.1 Coxeter-frontier component: in the fully swappable case,
+distant adjacent operators commute on a tableau basis vector. -/
+theorem S05_Lem5_01_youngAdjacentOperator_comm_basis_swappable_of_disjoint_indices
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_a :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_a :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a))
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b (tableauBasisVec T)) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a (tableauBasisVec T)) := by
+  exact youngAdjacentOperator_comm_basis_swappable_of_disjoint_indices
+    T a b hdisj hrow_a hcol_a hrow_b hcol_b
+
 end DictatorshipTesting
