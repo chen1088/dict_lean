@@ -28,6 +28,11 @@ Completed commits:
 - `ad739ed` Expose sign-pattern size base cases
 - `d8aa8c5` Expose matching character algebra facts
 - `804cd62` Expose matching-character truncation dichotomy
+- `78aec24` Add tableau-count dimension
+- `8754b57` Add removable-row tableau dimension helpers
+- `7079695` Control last row after removable deletion
+- `7b389bf` Construct child diagram by deleting a removable row
+- `8a28cc8` Relate removable rows and one-box children
 
 Files changed:
 - `DictatorshipTesting/Paper/Aux_YoungAdjacentEntries.lean`
@@ -42,6 +47,8 @@ Files changed:
 - `DictatorshipTesting/Paper/S05_Lem5_17_SizesOfTheSignPatternMultisets.lean`
 - `DictatorshipTesting/Paper/S05_Def5_18_MatchingCharacters.lean`
 - `DictatorshipTesting/Paper/S05_Lem5_20_LocalTruncationOnAMatchingCharacter.lean`
+- `DictatorshipTesting/Paper/Aux_TableauDimension.lean`
+- `DictatorshipTesting/PaperAux.lean`
 - `DictatorshipTesting/Paper/S05_Lem5_08_TwoBoxTableauBranching.lean`
 - `DictatorshipTesting/Paper/S05_Def5_13_EvenSignPatternMultiset.lean`
 - `DictatorshipTesting/Paper/S05_Def5_14_OddSignPatternMultiset.lean`
@@ -222,6 +229,25 @@ Main names added:
 - `S05_matchingCharacter_mul_self`
 - `S05_matchingCharacter_cubeXor`
 - `S05_Lem5_20_cubeLowDegreeOnePart_matchingCharacter_preserved_or_killed`
+- `standardYoungTableauFintype`
+- `tableauMaxAtSubtypeFintype`
+- `tableauDimNat`
+- `tableauDim`
+- `tableauDim_nonneg`
+- `card_tableaux_maxAt_deletedCorner_eq_child`
+- `tableauDim_fixed_oneBoxChild`
+- `removableRow_lt_size`
+- `youngRow_last_eq_zero_of_removable_lt`
+- `youngRow_last_eq_one_of_removable_not_lt`
+- `deleteRemovableRowDiagram`
+- `youngRow_deleteRemovableRowDiagram`
+- `deleteRemovableRowDiagram_isOneBoxChild`
+- `row_form_deleteRemovableRowDiagram`
+- `RemovableRow`
+- `removableRowToOneBoxChild`
+- `removableRowToOneBoxChild_mem`
+- `oneBoxChildToRemovableRow`
+- `oneBoxChildToRemovableRow_row_form`
 
 ## Next Blocker
 
@@ -232,7 +258,10 @@ new representation-theory input was introduced in this batch.
 
 ## Next Recommended Milestone
 
-Run the self-extension scan for remaining axiom-free improvements.  The most
-likely useful next target is basis-level tableau deletion compatibility in
-Lemmas 5.8--5.12; representation-layer owner files should only receive precise
-interfaces or comments, not new mathematical claims.
+Continue the tableau-count replacement track for Lemma 5.16.  The current
+`tableauDim` layer has the fixed-child deletion-cardinality theorem, the
+constructed child of a removable row, and maps between removable rows and
+one-box children.  The next target is the cardinality partition of all standard
+tableaux by the removable row containing the maximum entry; replacing the
+hook-length `youngDim` axiom still requires a later theorem identifying
+`tableauDim` with `youngDim`.
