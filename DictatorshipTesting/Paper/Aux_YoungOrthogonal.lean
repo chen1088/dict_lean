@@ -194,6 +194,70 @@ theorem adjacentAxialDistance_after_disjoint_swap_eq {n : Nat}
       (adjacentEntryLo_ne_lo_of_disjoint_indices a b hdisj)
       (adjacentEntryLo_ne_hi_of_disjoint_indices a b hdisj)]
 
+theorem adjacentAxialDistance_after_left_swap_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_a :
+      ¬ adjacentSameRow T a)
+    (hcol_a :
+      ¬ adjacentSameCol T a) :
+    adjacentAxialDistance (adjacentSwapTableau T a hrow_a hcol_a) b =
+      adjacentAxialDistance T a + adjacentAxialDistance T b := by
+  have hhi_lo : adjacentEntryHi a = adjacentEntryLo b :=
+    adjacentEntryHi_eq_lo_of_succ a b hsucc
+  have hhi_b_ne_lo_a : adjacentEntryHi b ≠ adjacentEntryLo a := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryHi, adjacentEntryLo, hsucc] at hv
+    omega
+  have hhi_b_ne_hi_a : adjacentEntryHi b ≠ adjacentEntryHi a := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryHi, hsucc] at hv
+  unfold adjacentAxialDistance
+  rw [adjacentSwapTableau_entryContent_of_ne_lo_hi T a hrow_a hcol_a
+      hhi_b_ne_lo_a hhi_b_ne_hi_a]
+  rw [show entryContent (adjacentSwapTableau T a hrow_a hcol_a)
+        (adjacentEntryLo b) =
+        entryContent T (adjacentEntryLo a) by
+      rw [← hhi_lo]
+      exact adjacentSwapTableau_entryContent_hi T a hrow_a hcol_a]
+  rw [hhi_lo]
+  ring
+
+theorem adjacentAxialDistance_after_right_swap_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_b :
+      ¬ adjacentSameRow T b)
+    (hcol_b :
+      ¬ adjacentSameCol T b) :
+    adjacentAxialDistance (adjacentSwapTableau T b hrow_b hcol_b) a =
+      adjacentAxialDistance T a + adjacentAxialDistance T b := by
+  have hhi_lo : adjacentEntryHi a = adjacentEntryLo b :=
+    adjacentEntryHi_eq_lo_of_succ a b hsucc
+  have hlo_a_ne_lo_b : adjacentEntryLo a ≠ adjacentEntryLo b := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryLo, hsucc] at hv
+  have hlo_a_ne_hi_b : adjacentEntryLo a ≠ adjacentEntryHi b := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryLo, adjacentEntryHi, hsucc] at hv
+    omega
+  unfold adjacentAxialDistance
+  rw [show entryContent (adjacentSwapTableau T b hrow_b hcol_b)
+        (adjacentEntryHi a) =
+        entryContent T (adjacentEntryHi b) by
+      rw [hhi_lo]
+      exact adjacentSwapTableau_entryContent_lo T b hrow_b hcol_b]
+  rw [adjacentSwapTableau_entryContent_of_ne_lo_hi T b hrow_b hcol_b
+      hlo_a_ne_lo_b hlo_a_ne_hi_b]
+  rw [hhi_lo]
+  ring
+
 theorem adjacentAxialDistance_ne_zero_of_swappable {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
