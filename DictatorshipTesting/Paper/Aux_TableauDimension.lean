@@ -782,4 +782,59 @@ theorem tableauDim_oneBoxChildrenOdd_branching (m : Nat)
   rw [← oneBoxChildrenSized_eq_oneBoxChildrenOdd m lam]
   exact tableauDim_oneBox_branching_sized lam
 
+theorem youngRow_deleteRemovableRowDiagram_le_parent {n : Nat}
+    (lam : YoungDiagram (n + 1)) {r : Nat} (hr : IsRemovableRow lam r)
+    (i : Nat) :
+    youngRow (deleteRemovableRowDiagram lam r hr) i <= youngRow lam i := by
+  rw [youngRow_deleteRemovableRowDiagram lam hr i]
+  by_cases hir : i = r <;> simp [hir]
+
+/-- Two successive removable-row deletions from a diagram. -/
+structure TwoStepRemovableRows {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) where
+  first : RemovableRow lam
+  second : RemovableRow (deleteRemovableRowDiagram lam first.1 first.2)
+
+/-- Delete two boxes by deleting a removable row, then deleting a removable row
+of the intermediate child. -/
+def deleteTwoRemovableRowsDiagram {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    YoungDiagram n :=
+  deleteRemovableRowDiagram
+    (deleteRemovableRowDiagram lam p.first.1 p.first.2)
+    p.second.1 p.second.2
+
+theorem youngRow_deleteTwoRemovableRowsDiagram {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam)
+    (i : Nat) :
+    youngRow (deleteTwoRemovableRowsDiagram lam p) i =
+      if i = p.second.1 then
+        youngRow (deleteRemovableRowDiagram lam p.first.1 p.first.2)
+          p.second.1 - 1
+      else
+        youngRow (deleteRemovableRowDiagram lam p.first.1 p.first.2) i := by
+  exact youngRow_deleteRemovableRowDiagram
+    (deleteRemovableRowDiagram lam p.first.1 p.first.2) p.second.2 i
+
+theorem deleteTwoRemovableRows_isYoungSubdiagram {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    IsYoungSubdiagram (deleteTwoRemovableRowsDiagram lam p) lam := by
+  intro i
+  calc
+    youngRow (deleteTwoRemovableRowsDiagram lam p) i
+        <= youngRow (deleteRemovableRowDiagram lam p.first.1 p.first.2) i :=
+      youngRow_deleteRemovableRowDiagram_le_parent
+        (deleteRemovableRowDiagram lam p.first.1 p.first.2) p.second.2 i
+    _ <= youngRow lam i :=
+      youngRow_deleteRemovableRowDiagram_le_parent lam p.first.2 i
+
+theorem sum_row_diff_deleteTwoRemovableRows {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    (Finset.range ((n + 1) + 1)).sum
+        (fun i => youngRow lam i -
+          youngRow (deleteTwoRemovableRowsDiagram lam p) i) = 2 := by
+  exact sum_row_diff_of_twoBoxSubdiagram
+    (lam := lam) (mu := deleteTwoRemovableRowsDiagram lam p)
+    (by omega) (deleteTwoRemovableRows_isYoungSubdiagram lam p)
+
 end DictatorshipTesting
