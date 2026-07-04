@@ -25,6 +25,7 @@ import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 import DictatorshipTesting.Paper.Aux_TableauDimension
 import DictatorshipTesting.Paper.Aux_YoungAdjacentEntries
+import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 import DictatorshipTesting.Paper.Aux_CubeOneJuntaHighDegree
 import DictatorshipTesting.Paper.Aux_CubeCharXor
 import DictatorshipTesting.Paper.Aux_CubeDeltaChar
