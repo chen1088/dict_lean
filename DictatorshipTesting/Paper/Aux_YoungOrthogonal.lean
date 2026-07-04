@@ -1207,9 +1207,32 @@ theorem youngAdjacentOperator_comm_basis_left_sameCol_of_disjoint_indices
         youngAdjacentOperator_basis_sameCol T a hcol_a,
         youngAdjacentOperator_basis_sameCol Tb a hcol_a_after_b]
       rw [youngAdjacentOperator_neg,
-        youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b]
+      youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b]
       funext S
       ring
+
+theorem youngAdjacentOperator_comm_basis_of_disjoint_indices
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b (tableauBasisVec T)) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a (tableauBasisVec T)) := by
+  by_cases hrow_a : adjacentSameRow T a
+  · exact youngAdjacentOperator_comm_basis_left_sameRow_of_disjoint_indices
+      T a b hdisj hrow_a
+  · by_cases hcol_a : adjacentSameCol T a
+    · exact youngAdjacentOperator_comm_basis_left_sameCol_of_disjoint_indices
+        T a b hdisj hcol_a
+    · by_cases hrow_b : adjacentSameRow T b
+      · exact (youngAdjacentOperator_comm_basis_left_sameRow_of_disjoint_indices
+          T b a (adjacentIndexDisjoint_symm hdisj) hrow_b).symm
+      · by_cases hcol_b : adjacentSameCol T b
+        · exact (youngAdjacentOperator_comm_basis_left_sameCol_of_disjoint_indices
+            T b a (adjacentIndexDisjoint_symm hdisj) hcol_b).symm
+        · exact youngAdjacentOperator_comm_basis_swappable_of_disjoint_indices
+            T a b hdisj hrow_a hcol_a hrow_b hcol_b
 
 /-- The diagonal content operator in the tableau coordinate basis. -/
 noncomputable def jucysMurphyDiagonalOperator {n : Nat}
