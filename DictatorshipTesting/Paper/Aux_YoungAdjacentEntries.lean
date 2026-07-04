@@ -446,4 +446,104 @@ noncomputable def adjacentSwapTableau {n : Nat}
       rw [hu_cell, hv_cell]
       exact hcol
 
+theorem adjacentSwapTableau_cell_lo {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a)) :
+    cellOfEntry (adjacentSwapTableau T a hrow_ne hcol_ne) (adjacentEntryLo a) =
+      adjacentHiCell T a := by
+  apply cellOfEntry_eq_of_entry
+  exact adjacentSwapEntry_hiCell T a
+
+theorem adjacentSwapTableau_cell_hi {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a)) :
+    cellOfEntry (adjacentSwapTableau T a hrow_ne hcol_ne) (adjacentEntryHi a) =
+      adjacentLoCell T a := by
+  apply cellOfEntry_eq_of_entry
+  exact adjacentSwapEntry_loCell T a
+
+theorem adjacentSwapTableau_cell_of_ne_lo_hi {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a))
+    {b : Fin (n + 1)}
+    (hblo : b ≠ adjacentEntryLo a)
+    (hbhi : b ≠ adjacentEntryHi a) :
+    cellOfEntry (adjacentSwapTableau T a hrow_ne hcol_ne) b =
+      cellOfEntry T b := by
+  apply cellOfEntry_eq_of_entry
+  have hentry : T.entry (cellOfEntry T b) = b := entry_cellOfEntry T b
+  have hlo : T.entry (cellOfEntry T b) ≠ adjacentEntryLo a := by
+    rw [hentry]
+    exact hblo
+  have hhi : T.entry (cellOfEntry T b) ≠ adjacentEntryHi a := by
+    rw [hentry]
+    exact hbhi
+  rw [adjacentSwapTableau]
+  exact (adjacentSwapEntry_of_ne_lo_hi T a hlo hhi).trans hentry
+
+theorem adjacentSwapTableau_entryContent_lo {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a)) :
+    entryContent (adjacentSwapTableau T a hrow_ne hcol_ne) (adjacentEntryLo a) =
+  entryContent T (adjacentEntryHi a) := by
+  unfold entryContent
+  rw [adjacentSwapTableau_cell_lo]
+  simp [adjacentHiCell]
+
+theorem adjacentSwapTableau_entryContent_hi {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a)) :
+    entryContent (adjacentSwapTableau T a hrow_ne hcol_ne) (adjacentEntryHi a) =
+  entryContent T (adjacentEntryLo a) := by
+  unfold entryContent
+  rw [adjacentSwapTableau_cell_hi]
+  simp [adjacentLoCell]
+
+theorem adjacentSwapTableau_entryContent_of_ne_lo_hi {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a))
+    {b : Fin (n + 1)}
+    (hblo : b ≠ adjacentEntryLo a)
+    (hbhi : b ≠ adjacentEntryHi a) :
+    entryContent (adjacentSwapTableau T a hrow_ne hcol_ne) b =
+      entryContent T b := by
+  unfold entryContent
+  rw [adjacentSwapTableau_cell_of_ne_lo_hi T a hrow_ne hcol_ne hblo hbhi]
+
 end DictatorshipTesting

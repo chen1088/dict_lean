@@ -128,4 +128,100 @@ noncomputable def S05_Lem5_01_adjacentSwapTableau {n : Nat}
     StandardYoungTableau lam :=
   adjacentSwapTableau T a hrow_ne hcol_ne
 
+/-- Lemma 5.1 basis-level component: after swapping adjacent values, the lower
+entry lies in the old upper cell. -/
+theorem S05_Lem5_01_adjacentSwapTableau_cell_lo {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a)) :
+    cellOfEntry (adjacentSwapTableau T a hrow_ne hcol_ne) (adjacentEntryLo a) =
+      adjacentHiCell T a := by
+  exact adjacentSwapTableau_cell_lo T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 basis-level component: after swapping adjacent values, the upper
+entry lies in the old lower cell. -/
+theorem S05_Lem5_01_adjacentSwapTableau_cell_hi {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a)) :
+    cellOfEntry (adjacentSwapTableau T a hrow_ne hcol_ne) (adjacentEntryHi a) =
+      adjacentLoCell T a := by
+  exact adjacentSwapTableau_cell_hi T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 basis-level component: non-adjacent entries keep their cells after
+the adjacent swap. -/
+theorem S05_Lem5_01_adjacentSwapTableau_cell_of_ne_lo_hi {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a))
+    {b : Fin (n + 1)}
+    (hblo : b ≠ adjacentEntryLo a)
+    (hbhi : b ≠ adjacentEntryHi a) :
+    cellOfEntry (adjacentSwapTableau T a hrow_ne hcol_ne) b =
+      cellOfEntry T b := by
+  exact adjacentSwapTableau_cell_of_ne_lo_hi T a hrow_ne hcol_ne hblo hbhi
+
+/-- Lemma 5.1 basis-level component: after the adjacent swap, the lower entry
+has the old upper entry's content. -/
+theorem S05_Lem5_01_adjacentSwapTableau_entryContent_lo {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a)) :
+    entryContent (adjacentSwapTableau T a hrow_ne hcol_ne) (adjacentEntryLo a) =
+      entryContent T (adjacentEntryHi a) := by
+  exact adjacentSwapTableau_entryContent_lo T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 basis-level component: after the adjacent swap, the upper entry
+has the old lower entry's content. -/
+theorem S05_Lem5_01_adjacentSwapTableau_entryContent_hi {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a)) :
+    entryContent (adjacentSwapTableau T a hrow_ne hcol_ne) (adjacentEntryHi a) =
+      entryContent T (adjacentEntryLo a) := by
+  exact adjacentSwapTableau_entryContent_hi T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 basis-level component: non-adjacent entry contents are preserved
+by the adjacent swap. -/
+theorem S05_Lem5_01_adjacentSwapTableau_entryContent_of_ne_lo_hi {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a))
+    {b : Fin (n + 1)}
+    (hblo : b ≠ adjacentEntryLo a)
+    (hbhi : b ≠ adjacentEntryHi a) :
+    entryContent (adjacentSwapTableau T a hrow_ne hcol_ne) b =
+      entryContent T b := by
+  exact adjacentSwapTableau_entryContent_of_ne_lo_hi T a hrow_ne hcol_ne hblo hbhi
+
 end DictatorshipTesting
