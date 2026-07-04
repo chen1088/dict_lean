@@ -180,4 +180,185 @@ theorem youngRow_last_eq_one_of_removable_not_lt {n : Nat}
     omega
   omega
 
+def deleteRemovableRowLength {n : Nat} (lam : YoungDiagram (n + 1))
+    (r : Nat) (i : Nat) : Nat :=
+  if i = r then youngRow lam r - 1 else youngRow lam i
+
+theorem deleteRemovableRowLength_lt {n : Nat}
+    (lam : YoungDiagram (n + 1)) {r i : Nat}
+    (hr : IsRemovableRow lam r) (hi : i < n) :
+    deleteRemovableRowLength lam r i < n + 1 := by
+  unfold deleteRemovableRowLength
+  by_cases hir : i = r
+  · subst i
+    have hle : youngRow lam r <= n + 1 := youngRow_le_size_aux lam r
+    simp
+    omega
+  · have hi' : i < n + 1 := by omega
+    simpa [hir] using youngRow_lt_size_of_removable_ne hr hi' hir
+
+theorem deleteRemovableRowLength_monotone {n : Nat}
+    (lam : YoungDiagram (n + 1)) {r i j : Nat}
+    (hr : IsRemovableRow lam r) (hij : i <= j) :
+    deleteRemovableRowLength lam r j <= deleteRemovableRowLength lam r i := by
+  unfold deleteRemovableRowLength
+  by_cases hir : i = r
+  · subst i
+    by_cases hjr : j = r
+    · subst j
+      simp
+    · have hrj : r < j := by omega
+      have hsucc_le_j : r + 1 <= j := by omega
+      have hj_le_succ : youngRow lam j <= youngRow lam (r + 1) :=
+        youngRow_le_of_le lam hsucc_le_j
+      unfold IsRemovableRow at hr
+      simp [hjr]
+      omega
+  · by_cases hjr : j = r
+    · subst j
+      have hr_le_i : youngRow lam r <= youngRow lam i :=
+        youngRow_le_of_le lam hij
+      simp [hir]
+      omega
+    · have hji : youngRow lam j <= youngRow lam i :=
+        youngRow_le_of_le lam hij
+      simp [hir, hjr]
+      exact hji
+
+theorem sum_deleteRemovableRowLength {n : Nat}
+    (lam : YoungDiagram (n + 1)) {r : Nat}
+    (hr : IsRemovableRow lam r) :
+    (Finset.range n).sum (fun i => deleteRemovableRowLength lam r i) = n := by
+  by_cases hrn : r < n
+  · have hlast0 : youngRow lam n = 0 :=
+      youngRow_last_eq_zero_of_removable_lt hr hrn
+    have hsum := youngRow_sum_range lam
+    rw [Finset.sum_range_succ] at hsum
+    rw [hlast0] at hsum
+    simp at hsum
+    let s := Finset.range n
+    have hsum_s : s.sum (fun i => youngRow lam i) = n + 1 := by
+      simpa [s] using hsum
+    have hrmem : r ∈ s := Finset.mem_range.mpr hrn
+    have hsplit_del :=
+      Finset.sum_erase_add s (fun i => deleteRemovableRowLength lam r i) hrmem
+    have hsplit_orig :=
+      Finset.sum_erase_add s (fun i => youngRow lam i) hrmem
+    have herase_eq :
+        (s.erase r).sum (fun i => deleteRemovableRowLength lam r i) =
+          (s.erase r).sum (fun i => youngRow lam i) := by
+      apply Finset.sum_congr rfl
+      intro i hi
+      have hir : i ≠ r := (Finset.mem_erase.mp hi).1
+      simp [deleteRemovableRowLength, hir]
+    have hdel_at : deleteRemovableRowLength lam r r = youngRow lam r - 1 := by
+      simp [deleteRemovableRowLength]
+    have hpos : 0 < youngRow lam r := removableRow_pos hr
+    change s.sum (fun i => deleteRemovableRowLength lam r i) = n
+    rw [← hsplit_del, herase_eq, hdel_at]
+    rw [← hsplit_orig] at hsum_s
+    omega
+  · have hlast1 : youngRow lam n = 1 :=
+      youngRow_last_eq_one_of_removable_not_lt hr hrn
+    have hsum := youngRow_sum_range lam
+    rw [Finset.sum_range_succ] at hsum
+    rw [hlast1] at hsum
+    have hfirst : (Finset.range n).sum (fun i => youngRow lam i) = n := by
+      omega
+    have hr_eq : r = n := by
+      have hr_lt : r < n + 1 := removableRow_lt_size hr
+      omega
+    trans (Finset.range n).sum (fun i => youngRow lam i)
+    · apply Finset.sum_congr rfl
+      intro i hi
+      have hir : i ≠ r := by
+        have hin : i < n := Finset.mem_range.mp hi
+        omega
+      simp [deleteRemovableRowLength, hir]
+    · exact hfirst
+
+def deleteRemovableRowDiagram {n : Nat} (lam : YoungDiagram (n + 1))
+    (r : Nat) (hr : IsRemovableRow lam r) : YoungDiagram n where
+  row := fun i =>
+    ⟨deleteRemovableRowLength lam r i,
+      deleteRemovableRowLength_lt lam hr i.isLt⟩
+  nonincreasing := by
+    intro i j hij
+    change deleteRemovableRowLength lam r j <= deleteRemovableRowLength lam r i
+    exact deleteRemovableRowLength_monotone lam hr hij
+  sum_rows := by
+    have hsum := sum_deleteRemovableRowLength lam hr
+    have hfin :
+        (Finset.univ.sum
+            (fun i : Fin n => deleteRemovableRowLength lam r i)) =
+          (Finset.range n).sum
+            (fun i => deleteRemovableRowLength lam r i) := by
+      exact Fin.sum_univ_eq_sum_range
+        (fun i => deleteRemovableRowLength lam r i) n
+    rw [hfin]
+    exact hsum
+
+theorem youngRow_deleteRemovableRowDiagram_of_lt {n : Nat}
+    (lam : YoungDiagram (n + 1)) {r : Nat}
+    (hr : IsRemovableRow lam r) {i : Nat} (hi : i < n) :
+    youngRow (deleteRemovableRowDiagram lam r hr) i =
+      deleteRemovableRowLength lam r i := by
+  simp [youngRow, deleteRemovableRowDiagram, hi]
+
+theorem youngRow_deleteRemovableRowDiagram {n : Nat}
+    (lam : YoungDiagram (n + 1)) {r : Nat}
+    (hr : IsRemovableRow lam r) (i : Nat) :
+    youngRow (deleteRemovableRowDiagram lam r hr) i =
+      if i = r then youngRow lam r - 1 else youngRow lam i := by
+  by_cases hi : i < n
+  · rw [youngRow_deleteRemovableRowDiagram_of_lt lam hr hi]
+    rfl
+  · have hlhs : youngRow (deleteRemovableRowDiagram lam r hr) i = 0 := by
+      simp [youngRow, hi]
+    rw [hlhs]
+    by_cases hir : i = r
+    · subst i
+      have hlast1 : youngRow lam n = 1 :=
+        youngRow_last_eq_one_of_removable_not_lt hr hi
+      have hr_eq : r = n := by
+        have hr_size : r < n + 1 := removableRow_lt_size hr
+        omega
+      rw [hr_eq]
+      simp [hlast1]
+    · have hzero : youngRow lam i = 0 := by
+        by_cases hi_succ : i < n + 1
+        · have hr_lt : r < n := by
+            have hr_size : r < n + 1 := removableRow_lt_size hr
+            omega
+          have hlast0 : youngRow lam n = 0 :=
+            youngRow_last_eq_zero_of_removable_lt hr hr_lt
+          have hin : i = n := by omega
+          simpa [hin] using hlast0
+        · simp [youngRow, hi_succ]
+      simp [hir, hzero]
+
+theorem deleteRemovableRowDiagram_isOneBoxChild {n : Nat}
+    (lam : YoungDiagram (n + 1)) {r : Nat} (hr : IsRemovableRow lam r) :
+    IsOneBoxChild lam (deleteRemovableRowDiagram lam r hr) := by
+  refine ⟨rfl, ?_⟩
+  intro i
+  rw [youngRow_deleteRemovableRowDiagram lam hr i]
+  by_cases hir : (i : Nat) = r
+  · simp [hir]
+  · simp [hir]
+
+theorem row_form_deleteRemovableRowDiagram {n : Nat}
+    (lam : YoungDiagram (n + 1)) {r : Nat} (hr : IsRemovableRow lam r) :
+    youngRow lam r = youngRow (deleteRemovableRowDiagram lam r hr) r + 1 ∧
+      forall t : Nat, t ≠ r ->
+        youngRow lam t = youngRow (deleteRemovableRowDiagram lam r hr) t := by
+  constructor
+  · rw [youngRow_deleteRemovableRowDiagram lam hr r]
+    simp
+    have hpos : 0 < youngRow lam r := removableRow_pos hr
+    omega
+  · intro t ht
+    rw [youngRow_deleteRemovableRowDiagram lam hr t]
+    simp [ht]
+
 end DictatorshipTesting
