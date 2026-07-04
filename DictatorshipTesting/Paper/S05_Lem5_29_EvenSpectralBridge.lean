@@ -25,4 +25,16 @@ theorem S05_Lem5_29_even_spectral_bridge
     MatchingSpectralGapConstant (2 * m) c := by
   exact matchingSpectralGap_of_even_young_certificate m hm c hmodel hc hcert
 
+/-- Lemma 5.29 paper-numbered alias for the even spectral bridge before the
+extra nonnegativity argument is threaded through. -/
+theorem S05_Lem5_29_evenSpectralGapFromCertificates
+    (m : Nat) (hm : 2 ≤ m) (c : ℝ)
+    (hmodel : SpectralBlockModelInput
+      (fun lam : YoungDiagram (2 * m) => hEven m lam))
+    (hcert :
+      ∀ lam : YoungDiagram (2 * m),
+        ¬ IsOneRow lam -> ¬ IsStandard lam -> c * youngDim lam ≤ hEven m lam) :
+    MatchingSpectralGapConstant (2 * m) c := by
+  exact EvenSpectralGapFromCertificates m hm c hmodel hcert
+
 end DictatorshipTesting

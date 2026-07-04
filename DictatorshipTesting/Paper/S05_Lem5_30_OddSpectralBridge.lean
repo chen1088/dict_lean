@@ -25,4 +25,16 @@ theorem S05_Lem5_30_odd_spectral_bridge
     MatchingSpectralGapConstant (2 * m + 1) c := by
   exact matchingSpectralGap_of_odd_young_certificate m hm c hmodel hc hcert
 
+/-- Lemma 5.30 paper-numbered alias for the odd spectral bridge before the
+extra nonnegativity argument is threaded through. -/
+theorem S05_Lem5_30_oddSpectralGapFromCertificates
+    (m : Nat) (hm : 2 ≤ m) (c : ℝ)
+    (hmodel : SpectralBlockModelInput
+      (fun lam : YoungDiagram (2 * m + 1) => hOdd m lam))
+    (hcert :
+      ∀ lam : YoungDiagram (2 * m + 1),
+        ¬ IsOneRow lam -> ¬ IsStandard lam -> c * youngDim lam ≤ hOdd m lam) :
+    MatchingSpectralGapConstant (2 * m + 1) c := by
+  exact OddSpectralGapFromCertificates m hm c hmodel hcert
+
 end DictatorshipTesting
