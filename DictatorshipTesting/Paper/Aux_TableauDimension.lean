@@ -556,4 +556,47 @@ theorem maxRemovableRow_eq_of_tableauMaxAt_deletedCorner {n : Nat}
     (deleteRemovableRowDiagram_isOneBoxChild lam r.2)
     (row_form_deleteRemovableRowDiagram lam r.2)
 
+noncomputable instance maxRemovableRowFiberFintype {n : Nat}
+    {lam : YoungDiagram (n + 1)} (r : RemovableRow lam) :
+    Fintype {T : StandardYoungTableau lam // maxRemovableRow T = r} := by
+  classical
+  infer_instance
+
+noncomputable def maxRemovableRowFiberEquivDeletedCorner {n : Nat}
+    {lam : YoungDiagram (n + 1)} (r : RemovableRow lam) :
+    {T : StandardYoungTableau lam // maxRemovableRow T = r} ≃
+      {T : StandardYoungTableau lam //
+        TableauMaxAt T
+          (deletedCornerCellOfOneBoxChildRow
+            (deleteRemovableRowDiagram_isOneBoxChild lam r.2)
+            (row_form_deleteRemovableRowDiagram lam r.2))} :=
+  Equiv.subtypeEquivRight (fun T => by
+    constructor
+    · intro hT
+      cases hT
+      exact tableauMaxAt_deletedCorner_maxRemovableRow T
+    · intro hT
+      exact maxRemovableRow_eq_of_tableauMaxAt_deletedCorner r T hT)
+
+theorem card_maxRemovableRow_fiber_eq_deletedCorner {n : Nat}
+    {lam : YoungDiagram (n + 1)} (r : RemovableRow lam) :
+    Fintype.card {T : StandardYoungTableau lam // maxRemovableRow T = r} =
+      Fintype.card
+        {T : StandardYoungTableau lam //
+          TableauMaxAt T
+            (deletedCornerCellOfOneBoxChildRow
+              (deleteRemovableRowDiagram_isOneBoxChild lam r.2)
+              (row_form_deleteRemovableRowDiagram lam r.2))} := by
+  classical
+  exact Fintype.card_congr (maxRemovableRowFiberEquivDeletedCorner r)
+
+theorem card_maxRemovableRow_fiber_eq_child {n : Nat}
+    {lam : YoungDiagram (n + 1)} (r : RemovableRow lam) :
+    Fintype.card {T : StandardYoungTableau lam // maxRemovableRow T = r} =
+      Fintype.card (StandardYoungTableau (removableRowToOneBoxChild lam r)) := by
+  rw [card_maxRemovableRow_fiber_eq_deletedCorner r]
+  exact card_tableaux_maxAt_deletedCorner_eq_child
+    (deleteRemovableRowDiagram_isOneBoxChild lam r.2)
+    (row_form_deleteRemovableRowDiagram lam r.2)
+
 end DictatorshipTesting
