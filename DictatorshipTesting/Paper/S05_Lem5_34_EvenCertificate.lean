@@ -3106,6 +3106,384 @@ theorem hEvenTableau_ge_one_fifth_tableauDim_twoRowThreeException
   rw [eq_twoRowThreeDiagramEven_of_isTwoRowThreeException m hm lam hshape]
   exact hEvenTableau_ge_one_fifth_tableauDim_twoRowThreeDiagramEven m hm
 
+/-- Recursive exceptional check for the canonical shape `(2m-3,2,1)`, using
+actual tableau counts. -/
+theorem hEvenTableau_ge_one_fifth_tableauDim_threeRowTwoOneDiagramEven
+    (m : ℕ) (hm : 3 ≤ m) :
+    (1 / 5 : ℝ) * tableauDim (threeRowTwoOneDiagramEven m hm) ≤
+      hEvenTableau m (threeRowTwoOneDiagramEven m hm) := by
+  induction m with
+  | zero =>
+      omega
+  | succ m ih =>
+      by_cases hm_two : m = 2
+      · subst m
+        have hshape :
+            threeRowTwoOneDiagramEven 3 hm =
+              threeRowTwoOneDiagramEven 3 (by omega) := by
+          exact threeRowTwoOneDiagramEven_proof_irrel 3 hm (by omega)
+        rw [hshape]
+        let a : YoungDiagram (2 * (3 - 1)) := standardDiagramEven 2 (by omega)
+        let b : YoungDiagram (2 * (3 - 1)) := twoRowTwoDiagramEven 2 (by omega)
+        let c : YoungDiagram (2 * (3 - 1)) := twoRowOneOneDiagramEven 2 (by omega)
+        have hba : b ≠ a := by
+          intro h
+          have hrow := congrArg (fun yd => youngRow yd 1) h
+          have hb1 : youngRow b 1 = 2 := by
+            dsimp [b]
+            exact (isTwoRowTwoException_twoRowTwoDiagramEven 2 (by omega)).2
+          have ha1 : youngRow a 1 = 1 := by
+            dsimp [a]
+            exact (isStandard_standardDiagramEven 2 (by omega)).2.2
+          omega
+        have hca : c ≠ a := by
+          intro h
+          have hrow := congrArg (fun yd => youngRow yd 2) h
+          have hc2 : youngRow c 2 = 1 := by
+            dsimp [c]
+            exact (isTwoRowOneOneException_twoRowOneOneDiagramEven 2 (by omega)).2.2
+          have ha2 : youngRow a 2 = 0 := by
+            dsimp [a]
+            unfold standardDiagramEven
+            rw [youngRow_twoRowDiagram]
+            simp
+          omega
+        have hcb : c ≠ b := by
+          intro h
+          have hrow := congrArg (fun yd => youngRow yd 1) h
+          have hc1 : youngRow c 1 = 1 := by
+            dsimp [c]
+            exact (isTwoRowOneOneException_twoRowOneOneDiagramEven 2 (by omega)).2.1
+          have hb1 : youngRow b 1 = 2 := by
+            dsimp [b]
+            exact (isTwoRowTwoException_twoRowTwoDiagramEven 2 (by omega)).2
+          omega
+        have ha_not :
+            a ∉ ({b, c} : Finset (YoungDiagram (2 * (3 - 1)))) := by
+          intro hmem
+          rw [Finset.mem_insert, Finset.mem_singleton] at hmem
+          rcases hmem with hab | hac
+          · exact hba hab.symm
+          · exact hca hac.symm
+        have hb_not :
+            b ∉ ({c} : Finset (YoungDiagram (2 * (3 - 1)))) := by
+          intro hmem
+          rw [Finset.mem_singleton] at hmem
+          exact hcb hmem.symm
+        have hh := horizontalTwoStripChildrenEven_threeRowTwoOneDiagramEven_three
+        have hv := verticalTwoStripChildrenEven_threeRowTwoOneDiagramEven 3 (by omega)
+        have hdimrec :=
+          tableauDim_twoStripChildrenEven_branching_succ
+            2 (threeRowTwoOneDiagramEven 3 (by omega))
+        rw [hh, hv] at hdimrec
+        have hdim_explicit :
+            tableauDim (threeRowTwoOneDiagramEven 3 (by omega)) =
+              (tableauDim a + tableauDim b + tableauDim c) +
+                (tableauDim a + tableauDim b + tableauDim c) := by
+          rw [hdimrec]
+          change
+            ({a, b, c} : Finset (YoungDiagram (2 * (3 - 1)))).sum
+                (fun mu => tableauDim mu) +
+              ({a, b, c} : Finset (YoungDiagram (2 * (3 - 1)))).sum
+                (fun mu => tableauDim mu) =
+              (tableauDim a + tableauDim b + tableauDim c) +
+                (tableauDim a + tableauDim b + tableauDim c)
+          rw [Finset.sum_insert ha_not]
+          rw [Finset.sum_insert hb_not]
+          rw [Finset.sum_singleton]
+          ring
+        have heven_explicit :
+            hEvenTableau 3 (threeRowTwoOneDiagramEven 3 (by omega)) =
+              (hEvenTableau 2 a + hEvenTableau 2 b + hEvenTableau 2 c) +
+                ((tableauDim a - zEven 2 a) +
+                  (tableauDim b - zEven 2 b) +
+                    (tableauDim c - zEven 2 c)) := by
+          rw [hEvenTableau]
+          rw [hh, hv]
+          change
+            ({a, b, c} : Finset (YoungDiagram (2 * (3 - 1)))).sum
+                (fun mu => hEvenTableau 2 mu) +
+              ({a, b, c} : Finset (YoungDiagram (2 * (3 - 1)))).sum
+                (fun mu => tableauDim mu - zEven 2 mu) =
+              (hEvenTableau 2 a + hEvenTableau 2 b + hEvenTableau 2 c) +
+                ((tableauDim a - zEven 2 a) +
+                  (tableauDim b - zEven 2 b) +
+                    (tableauDim c - zEven 2 c))
+          rw [Finset.sum_insert ha_not]
+          rw [Finset.sum_insert hb_not]
+          rw [Finset.sum_singleton]
+          rw [Finset.sum_insert ha_not]
+          rw [Finset.sum_insert hb_not]
+          rw [Finset.sum_singleton]
+          ring
+        rw [hdim_explicit, heven_explicit]
+        dsimp [a, b, c]
+        change
+          (1 / 5 : ℝ) *
+              ((tableauDim (standardDiagramEven 2 (by omega)) +
+                  tableauDim (twoRowTwoDiagramEven 2 (by omega)) +
+                    tableauDim (twoRowOneOneDiagramEven 2 (by omega))) +
+                (tableauDim (standardDiagramEven 2 (by omega)) +
+                  tableauDim (twoRowTwoDiagramEven 2 (by omega)) +
+                    tableauDim (twoRowOneOneDiagramEven 2 (by omega)))) ≤
+            (hEvenTableau 2 (standardDiagramEven 2 (by omega)) +
+                hEvenTableau 2 (twoRowTwoDiagramEven 2 (by omega)) +
+                  hEvenTableau 2 (twoRowOneOneDiagramEven 2 (by omega))) +
+              ((tableauDim (standardDiagramEven 2 (by omega)) -
+                  zEven 2 (standardDiagramEven 2 (by omega))) +
+                (tableauDim (twoRowTwoDiagramEven 2 (by omega)) -
+                  zEven 2 (twoRowTwoDiagramEven 2 (by omega))) +
+                  (tableauDim (twoRowOneOneDiagramEven 2 (by omega)) -
+                    zEven 2 (twoRowOneOneDiagramEven 2 (by omega))))
+        rw [hEvenTableau_standardDiagramEven_formula]
+        rw [hEvenTableau_twoRowTwoDiagramEven_formula]
+        rw [hEvenTableau_twoRowOneOneDiagramEven_formula]
+        have hza :=
+          zEven_le_half_tableauDim_of_not_oneRow_finite_induction
+            2 (standardDiagramEven 2 (by omega))
+            (not_isOneRow_standardDiagramEven 2 (by omega))
+        have hzb :=
+          zEven_le_half_tableauDim_of_not_oneRow_finite_induction
+            2 (twoRowTwoDiagramEven 2 (by omega))
+            (not_isOneRow_twoRowTwoDiagramEven 2 (by omega))
+        have hzc :=
+          zEven_le_half_tableauDim_of_not_oneRow_finite_induction
+            2 (twoRowOneOneDiagramEven 2 (by omega))
+            (not_isOneRow_twoRowOneOneDiagramEven 2 (by omega))
+        have hda := tableauDim_nonneg (standardDiagramEven 2 (by omega))
+        have hdb := tableauDim_nonneg (twoRowTwoDiagramEven 2 (by omega))
+        have hdc := tableauDim_nonneg (twoRowOneOneDiagramEven 2 (by omega))
+        norm_num
+        nlinarith
+      · have hm4 : 4 ≤ Nat.succ m := by omega
+        have hmprev : 3 ≤ m := by omega
+        have hshape :
+            threeRowTwoOneDiagramEven (Nat.succ m) hm =
+              threeRowTwoOneDiagramEven (Nat.succ m) (by omega) := by
+          exact threeRowTwoOneDiagramEven_proof_irrel (Nat.succ m) hm (by omega)
+        rw [hshape]
+        let a : YoungDiagram (2 * (Nat.succ m - 1)) :=
+          standardDiagramEven (Nat.succ m - 1) (by omega)
+        let b : YoungDiagram (2 * (Nat.succ m - 1)) :=
+          twoRowTwoDiagramEven (Nat.succ m - 1) (by omega)
+        let c : YoungDiagram (2 * (Nat.succ m - 1)) :=
+          twoRowOneOneDiagramEven (Nat.succ m - 1) (by omega)
+        let d : YoungDiagram (2 * (Nat.succ m - 1)) :=
+          threeRowTwoOneDiagramEven (Nat.succ m - 1) (by omega)
+        have hba : b ≠ a := by
+          intro h
+          have hrow := congrArg (fun yd => youngRow yd 1) h
+          have hb1 : youngRow b 1 = 2 := by
+            dsimp [b]
+            exact (isTwoRowTwoException_twoRowTwoDiagramEven
+              (Nat.succ m - 1) (by omega)).2
+          have ha1 : youngRow a 1 = 1 := by
+            dsimp [a]
+            exact (isStandard_standardDiagramEven
+              (Nat.succ m - 1) (by omega)).2.2
+          omega
+        have hca : c ≠ a := by
+          intro h
+          have hrow := congrArg (fun yd => youngRow yd 2) h
+          have hc2 : youngRow c 2 = 1 := by
+            dsimp [c]
+            exact (isTwoRowOneOneException_twoRowOneOneDiagramEven
+              (Nat.succ m - 1) (by omega)).2.2
+          have ha2 : youngRow a 2 = 0 := by
+            dsimp [a]
+            unfold standardDiagramEven
+            rw [youngRow_twoRowDiagram]
+            simp
+          omega
+        have hda : d ≠ a := by
+          intro h
+          have hrow := congrArg (fun yd => youngRow yd 1) h
+          have hd1 : youngRow d 1 = 2 := by
+            dsimp [d]
+            exact (isThreeRowTwoOneException_threeRowTwoOneDiagramEven
+              (Nat.succ m - 1) (by omega)).2.1
+          have ha1 : youngRow a 1 = 1 := by
+            dsimp [a]
+            exact (isStandard_standardDiagramEven
+              (Nat.succ m - 1) (by omega)).2.2
+          omega
+        have hcb : c ≠ b := by
+          intro h
+          have hrow := congrArg (fun yd => youngRow yd 1) h
+          have hc1 : youngRow c 1 = 1 := by
+            dsimp [c]
+            exact (isTwoRowOneOneException_twoRowOneOneDiagramEven
+              (Nat.succ m - 1) (by omega)).2.1
+          have hb1 : youngRow b 1 = 2 := by
+            dsimp [b]
+            exact (isTwoRowTwoException_twoRowTwoDiagramEven
+              (Nat.succ m - 1) (by omega)).2
+          omega
+        have hdb : d ≠ b := by
+          intro h
+          have hrow := congrArg (fun yd => youngRow yd 2) h
+          have hd2 : youngRow d 2 = 1 := by
+            dsimp [d]
+            exact (isThreeRowTwoOneException_threeRowTwoOneDiagramEven
+              (Nat.succ m - 1) (by omega)).2.2
+          have hb2 : youngRow b 2 = 0 := by
+            dsimp [b]
+            unfold twoRowTwoDiagramEven
+            rw [youngRow_twoRowDiagram]
+            simp
+          omega
+        have hdc : d ≠ c := by
+          intro h
+          have hrow := congrArg (fun yd => youngRow yd 1) h
+          have hd1 : youngRow d 1 = 2 := by
+            dsimp [d]
+            exact (isThreeRowTwoOneException_threeRowTwoOneDiagramEven
+              (Nat.succ m - 1) (by omega)).2.1
+          have hc1 : youngRow c 1 = 1 := by
+            dsimp [c]
+            exact (isTwoRowOneOneException_twoRowOneOneDiagramEven
+              (Nat.succ m - 1) (by omega)).2.1
+          omega
+        have ha_not_h :
+            a ∉ ({b, c, d} : Finset (YoungDiagram (2 * (Nat.succ m - 1)))) := by
+          intro hmem
+          rw [Finset.mem_insert, Finset.mem_insert, Finset.mem_singleton] at hmem
+          rcases hmem with hab | hac | had
+          · exact hba hab.symm
+          · exact hca hac.symm
+          · exact hda had.symm
+        have hb_not_h :
+            b ∉ ({c, d} : Finset (YoungDiagram (2 * (Nat.succ m - 1)))) := by
+          intro hmem
+          rw [Finset.mem_insert, Finset.mem_singleton] at hmem
+          rcases hmem with hbc | hbd
+          · exact hcb hbc.symm
+          · exact hdb hbd.symm
+        have hc_not_h :
+            c ∉ ({d} : Finset (YoungDiagram (2 * (Nat.succ m - 1)))) := by
+          intro hmem
+          rw [Finset.mem_singleton] at hmem
+          exact hdc hmem.symm
+        have ha_not_v :
+            a ∉ ({b, c} : Finset (YoungDiagram (2 * (Nat.succ m - 1)))) := by
+          intro hmem
+          rw [Finset.mem_insert, Finset.mem_singleton] at hmem
+          rcases hmem with hab | hac
+          · exact hba hab.symm
+          · exact hca hac.symm
+        have hb_not_v :
+            b ∉ ({c} : Finset (YoungDiagram (2 * (Nat.succ m - 1)))) := by
+          intro hmem
+          rw [Finset.mem_singleton] at hmem
+          exact hcb hmem.symm
+        have hh :=
+          horizontalTwoStripChildrenEven_threeRowTwoOneDiagramEven
+            (Nat.succ m) hm4
+        have hv :=
+          verticalTwoStripChildrenEven_threeRowTwoOneDiagramEven
+            (Nat.succ m) (by omega)
+        have hdimrec :=
+          tableauDim_twoStripChildrenEven_branching_succ
+            m (threeRowTwoOneDiagramEven (Nat.succ m) (by omega))
+        rw [hh, hv] at hdimrec
+        have hdim_explicit :
+            tableauDim (threeRowTwoOneDiagramEven (Nat.succ m) (by omega)) =
+              (tableauDim a + tableauDim b + tableauDim c + tableauDim d) +
+                (tableauDim a + tableauDim b + tableauDim c) := by
+          rw [hdimrec]
+          change
+            ({a, b, c, d} : Finset (YoungDiagram (2 * (Nat.succ m - 1)))).sum
+                (fun mu => tableauDim mu) +
+              ({a, b, c} : Finset (YoungDiagram (2 * (Nat.succ m - 1)))).sum
+                (fun mu => tableauDim mu) =
+              (tableauDim a + tableauDim b + tableauDim c + tableauDim d) +
+                (tableauDim a + tableauDim b + tableauDim c)
+          rw [Finset.sum_insert ha_not_h]
+          rw [Finset.sum_insert hb_not_h]
+          rw [Finset.sum_insert hc_not_h]
+          rw [Finset.sum_singleton]
+          rw [Finset.sum_insert ha_not_v]
+          rw [Finset.sum_insert hb_not_v]
+          rw [Finset.sum_singleton]
+          ring
+        have heven_explicit :
+            hEvenTableau (Nat.succ m)
+                (threeRowTwoOneDiagramEven (Nat.succ m) (by omega)) =
+              (hEvenTableau m a + hEvenTableau m b + hEvenTableau m c +
+                  hEvenTableau m d) +
+                ((tableauDim a - zEven m a) +
+                  (tableauDim b - zEven m b) +
+                    (tableauDim c - zEven m c)) := by
+          rw [hEvenTableau]
+          rw [hh, hv]
+          change
+            ({a, b, c, d} : Finset (YoungDiagram (2 * (Nat.succ m - 1)))).sum
+                (fun mu => hEvenTableau m mu) +
+              ({a, b, c} : Finset (YoungDiagram (2 * (Nat.succ m - 1)))).sum
+                (fun mu => tableauDim mu - zEven m mu) =
+              (hEvenTableau m a + hEvenTableau m b + hEvenTableau m c +
+                  hEvenTableau m d) +
+                ((tableauDim a - zEven m a) +
+                  (tableauDim b - zEven m b) +
+                    (tableauDim c - zEven m c))
+          rw [Finset.sum_insert ha_not_h]
+          rw [Finset.sum_insert hb_not_h]
+          rw [Finset.sum_insert hc_not_h]
+          rw [Finset.sum_singleton]
+          rw [Finset.sum_insert ha_not_v]
+          rw [Finset.sum_insert hb_not_v]
+          rw [Finset.sum_singleton]
+          ring
+        rw [hdim_explicit, heven_explicit]
+        dsimp [a, b, c, d]
+        change
+          (1 / 5 : ℝ) *
+              ((tableauDim (standardDiagramEven m (by omega)) +
+                  tableauDim (twoRowTwoDiagramEven m (by omega)) +
+                    tableauDim (twoRowOneOneDiagramEven m (by omega)) +
+                      tableauDim (threeRowTwoOneDiagramEven m (by omega))) +
+                (tableauDim (standardDiagramEven m (by omega)) +
+                  tableauDim (twoRowTwoDiagramEven m (by omega)) +
+                    tableauDim (twoRowOneOneDiagramEven m (by omega)))) ≤
+            (hEvenTableau m (standardDiagramEven m (by omega)) +
+                hEvenTableau m (twoRowTwoDiagramEven m (by omega)) +
+                  hEvenTableau m (twoRowOneOneDiagramEven m (by omega)) +
+                    hEvenTableau m (threeRowTwoOneDiagramEven m (by omega))) +
+              ((tableauDim (standardDiagramEven m (by omega)) -
+                  zEven m (standardDiagramEven m (by omega))) +
+                (tableauDim (twoRowTwoDiagramEven m (by omega)) -
+                  zEven m (twoRowTwoDiagramEven m (by omega))) +
+                  (tableauDim (twoRowOneOneDiagramEven m (by omega)) -
+                    zEven m (twoRowOneOneDiagramEven m (by omega))))
+        rw [hEvenTableau_standardDiagramEven_formula]
+        rw [hEvenTableau_twoRowTwoDiagramEven_formula]
+        rw [hEvenTableau_twoRowOneOneDiagramEven_formula]
+        have ihd := ih hmprev
+        have hza :=
+          zEven_le_half_tableauDim_of_not_oneRow_finite_induction
+            m (standardDiagramEven m (by omega))
+            (not_isOneRow_standardDiagramEven m (by omega))
+        have hzb :=
+          zEven_le_half_tableauDim_of_not_oneRow_finite_induction
+            m (twoRowTwoDiagramEven m (by omega))
+            (not_isOneRow_twoRowTwoDiagramEven m (by omega))
+        have hzc :=
+          zEven_le_half_tableauDim_of_not_oneRow_finite_induction
+            m (twoRowOneOneDiagramEven m (by omega))
+            (not_isOneRow_twoRowOneOneDiagramEven m (by omega))
+        have hda_non := tableauDim_nonneg (standardDiagramEven m (by omega))
+        have hdb_non := tableauDim_nonneg (twoRowTwoDiagramEven m (by omega))
+        have hdc_non := tableauDim_nonneg (twoRowOneOneDiagramEven m (by omega))
+        have hmR : (3 : ℝ) ≤ m := by exact_mod_cast hmprev
+        nlinarith
+
+theorem hEvenTableau_ge_one_fifth_tableauDim_threeRowTwoOneException
+    (m : ℕ) (hm : 3 ≤ m) (lam : YoungDiagram (2 * m))
+    (hshape : IsThreeRowTwoOneException m lam) :
+    (1 / 5 : ℝ) * tableauDim lam ≤ hEvenTableau m lam := by
+  rw [eq_threeRowTwoOneDiagramEven_of_isThreeRowTwoOneException m hm lam hshape]
+  exact hEvenTableau_ge_one_fifth_tableauDim_threeRowTwoOneDiagramEven m hm
+
 /-- Generic induction step for Lemma 5.34, away from the exceptional children.
 
 Horizontal children are handled by the induction hypothesis.  Vertical children
@@ -4165,6 +4543,178 @@ theorem hEven_ge_one_fifth_youngDim_m_two
     constructor
     · omega
     · exact h1
+
+/-- Dimension of the size-four column shape, using actual tableau counts. -/
+theorem tableauDim_fourColumnDiagramFour :
+    tableauDim fourColumnDiagramFour = 1 := by
+  have hrec :=
+    tableauDim_twoStripChildrenEven_branching_succ 1 fourColumnDiagramFour
+  rw [horizontalTwoStripChildrenEven_fourColumnDiagramFour] at hrec
+  rw [verticalTwoStripChildrenEven_fourColumnDiagramFour] at hrec
+  rw [hrec]
+  rw [Finset.sum_empty]
+  rw [Finset.sum_singleton]
+  rw [tableauDim_standardDiagramEven_formula]
+  norm_num
+
+/-- The size-four column shape contributes one high-weight character in the
+tableau-count recurrence. -/
+theorem hEvenTableau_fourColumnDiagramFour :
+    hEvenTableau 2 fourColumnDiagramFour = 1 := by
+  rw [hEvenTableau]
+  rw [horizontalTwoStripChildrenEven_fourColumnDiagramFour]
+  rw [verticalTwoStripChildrenEven_fourColumnDiagramFour]
+  rw [Finset.sum_empty]
+  rw [Finset.sum_singleton]
+  change 0 + (tableauDim (standardDiagramEven 1 (by omega)) -
+    zEven 1 (standardDiagramEven 1 (by omega))) = 1
+  rw [tableauDim_standardDiagramEven_formula]
+  rw [zEven_standardDiagramEven_formula]
+  norm_num
+
+/-- Base case `m = 2` for the tableau-count even certificate. -/
+theorem hEvenTableau_ge_one_fifth_tableauDim_m_two
+    (lam : YoungDiagram (2 * 2))
+    (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
+    (1 / 5 : ℝ) * tableauDim lam ≤ hEvenTableau 2 lam := by
+  have hsum : youngRow lam 0 + youngRow lam 1 + youngRow lam 2 + youngRow lam 3 = 4 := by
+    have h := lam.sum_rows
+    rw [Fin.sum_univ_four] at h
+    unfold youngRow
+    norm_num
+    simpa using h
+  have h10 : youngRow lam 1 ≤ youngRow lam 0 := by
+    unfold youngRow
+    have hle := lam.nonincreasing
+      (i := Fin.mk 0 (by norm_num)) (j := Fin.mk 1 (by norm_num)) (by norm_num)
+    simpa using hle
+  have h20 : youngRow lam 2 ≤ youngRow lam 0 := by
+    unfold youngRow
+    have hle := lam.nonincreasing
+      (i := Fin.mk 0 (by norm_num)) (j := Fin.mk 2 (by norm_num)) (by norm_num)
+    simpa using hle
+  have h30 : youngRow lam 3 ≤ youngRow lam 0 := by
+    unfold youngRow
+    have hle := lam.nonincreasing
+      (i := Fin.mk 0 (by norm_num)) (j := Fin.mk 3 (by norm_num)) (by norm_num)
+    simpa using hle
+  have h21 : youngRow lam 2 ≤ youngRow lam 1 := by
+    unfold youngRow
+    have hle := lam.nonincreasing
+      (i := Fin.mk 1 (by norm_num)) (j := Fin.mk 2 (by norm_num)) (by norm_num)
+    simpa using hle
+  have h32 : youngRow lam 3 ≤ youngRow lam 2 := by
+    unfold youngRow
+    have hle := lam.nonincreasing
+      (i := Fin.mk 2 (by norm_num)) (j := Fin.mk 3 (by norm_num)) (by norm_num)
+    simpa using hle
+  have h0_ne4 : youngRow lam 0 ≠ 4 := by
+    intro h0
+    apply hrow
+    unfold IsOneRow
+    exact h0
+  have h0_le4 : youngRow lam 0 ≤ 4 := by
+    simpa using youngRow_le_size lam 0
+  have h0_cases :
+      youngRow lam 0 = 1 ∨ youngRow lam 0 = 2 ∨ youngRow lam 0 = 3 := by
+    omega
+  rcases h0_cases with h0 | hrest
+  · rw [eq_fourColumnDiagramFour_of_youngRow_zero_eq_one lam h0]
+    rw [hEvenTableau_fourColumnDiagramFour]
+    rw [tableauDim_fourColumnDiagramFour]
+    norm_num
+  rcases hrest with h0 | h0
+  · have h1_cases : youngRow lam 1 = 2 ∨ youngRow lam 1 = 1 := by
+      omega
+    rcases h1_cases with h1 | h1
+    · have hshape : IsTwoRowTwoException 2 lam := by
+        unfold IsTwoRowTwoException
+        constructor
+        · omega
+        · exact h1
+      rw [eq_twoRowTwoDiagramEven_of_isTwoRowTwoException 2 (by omega) lam hshape]
+      rw [hEvenTableau_twoRowTwoDiagramEven_formula]
+      rw [tableauDim_twoRowTwoDiagramEven_formula]
+      norm_num
+    · have h2 : youngRow lam 2 = 1 := by omega
+      have hshape : IsTwoRowOneOneException 2 lam := by
+        unfold IsTwoRowOneOneException
+        constructor
+        · omega
+        constructor
+        · exact h1
+        · exact h2
+      rw [eq_twoRowOneOneDiagramEven_of_isTwoRowOneOneException 2 (by omega) lam hshape]
+      rw [hEvenTableau_twoRowOneOneDiagramEven_formula]
+      rw [tableauDim_twoRowOneOneDiagramEven_formula]
+      norm_num
+  · have h1 : youngRow lam 1 = 1 := by omega
+    exfalso
+    apply hstd
+    unfold IsStandard
+    constructor
+    · norm_num
+    constructor
+    · omega
+    · exact h1
+
+/-- The four exceptional-shape checks bundled for the tableau-count even
+certificate. -/
+theorem hEvenTableau_ge_one_fifth_tableauDim_even_exceptional
+    (m : ℕ) (hm : 3 ≤ m) (lam : YoungDiagram (2 * m))
+    (hex : IsEvenHExceptional m lam) :
+    (1 / 5 : ℝ) * tableauDim lam ≤ hEvenTableau m lam := by
+  rcases hex with h22 | hrest
+  · exact hEvenTableau_ge_one_fifth_tableauDim_twoRowTwoException m hm lam h22
+  rcases hrest with h211 | hrest
+  · exact hEvenTableau_ge_one_fifth_tableauDim_twoRowOneOneException m hm lam h211
+  rcases hrest with h33 | h321
+  · exact hEvenTableau_ge_one_fifth_tableauDim_twoRowThreeException m hm lam h33
+  · exact hEvenTableau_ge_one_fifth_tableauDim_threeRowTwoOneException m hm lam h321
+
+/-- Finite Young-diagram induction behind Lemma 5.34, using actual tableau
+counts. -/
+theorem hEvenTableau_ge_one_fifth_tableauDim_of_not_oneRow_not_standard_finite_induction
+    (m : ℕ) (hm : 2 ≤ m)
+    (lam : YoungDiagram (2 * m))
+    (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
+    (1 / 5 : ℝ) * tableauDim lam ≤ hEvenTableau m lam := by
+  induction m with
+  | zero =>
+      omega
+  | succ m ih =>
+      by_cases hm_one : m = 1
+      · subst m
+        exact hEvenTableau_ge_one_fifth_tableauDim_m_two lam hrow hstd
+      · have hm_ge_two : 2 ≤ m := by omega
+        have hM_ge_three : 3 ≤ Nat.succ m := by omega
+        by_cases hbad :
+            HasOneRowHorizontalChild (Nat.succ m) lam ∨
+              HasOneRowVerticalChild (Nat.succ m) lam ∨
+                HasStandardHorizontalChild (Nat.succ m) lam
+        · exact hEvenTableau_ge_one_fifth_tableauDim_even_exceptional
+            (Nat.succ m) hM_ge_three lam
+            (even_bad_child_classification
+              (Nat.succ m) hM_ge_three lam hrow hstd hbad)
+        · exact hEvenTableau_ge_one_fifth_tableauDim_generic_step_succ
+            m (by omega) lam
+            (fun mu hmu_row hmu_std => ih hm_ge_two mu hmu_row hmu_std)
+            (fun mu hmu hone =>
+              hbad (Or.inl ⟨mu, hmu, hone⟩))
+            (fun mu hmu hstd_mu =>
+              hbad (Or.inr (Or.inr ⟨mu, hmu, hstd_mu⟩)))
+            (fun mu hmu hone =>
+              hbad (Or.inr (Or.inl ⟨mu, hmu, hone⟩)))
+
+/-- Lemma 5.34, tableau-count version of the even certificate. -/
+theorem S05_Lem5_34_tableau_even_certificate
+    (m : ℕ) (hm : 2 ≤ m)
+    (lam : YoungDiagram (2 * m))
+    (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
+    (1 / 5 : ℝ) * tableauDim lam ≤ hEvenTableau m lam := by
+  exact
+    hEvenTableau_ge_one_fifth_tableauDim_of_not_oneRow_not_standard_finite_induction
+      m hm lam hrow hstd
 
 /-- Exceptional case `(2m-2,2)`. -/
 theorem hEven_ge_one_fifth_youngDim_twoRowTwoException
