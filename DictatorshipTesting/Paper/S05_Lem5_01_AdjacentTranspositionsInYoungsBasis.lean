@@ -808,6 +808,24 @@ theorem S05_Lem5_01_youngAdjacentOperator_sq_basis_swappable {n : Nat}
       tableauBasisVec T := by
   exact youngAdjacentOperator_sq_basis_swappable T a hrow_ne hcol_ne
 
+/-- Lemma 5.1 involution component: the adjacent operator squares to the
+identity on every tableau basis vector. -/
+theorem S05_Lem5_01_youngAdjacentOperator_sq_basis {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator a (tableauBasisVec T)) =
+      tableauBasisVec T := by
+  exact youngAdjacentOperator_sq_basis T a
+
+/-- Lemma 5.1 Coxeter component: the adjacent operator is an involution on the
+whole tableau coordinate space. -/
+theorem S05_Lem5_01_youngAdjacentOperator_sq {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (a : Fin n) (f : TableauSpace lam) :
+    youngAdjacentOperator a (youngAdjacentOperator a f) = f := by
+  exact youngAdjacentOperator_sq a f
+
 /-- Lemma 5.1 Coxeter-frontier component: in the fully swappable case,
 distant adjacent operators commute on a tableau basis vector. -/
 theorem S05_Lem5_01_youngAdjacentOperator_comm_basis_swappable_of_disjoint_indices
