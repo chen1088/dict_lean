@@ -1,14 +1,17 @@
-import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.Aux_TableauDimension
 
 /-!
 Paper statement: Lemma 5.16 (`lem:dimension-one-box-recurrence`)
 Title in paper: One-box dimension recursion.
 
-Status: external representation-theoretic input in the current Lean
-development for `2 <= m`, from ordinary one-box branching.  The small cases
-`m = 0` and `m = 1` are proved directly below.  The remaining general statement
-should be proved internally only after a formal Specht-module/branching library
-is available.
+Status: the `youngDim` statement remains an external representation-theoretic
+input for `2 <= m`, because `youngDim` is currently the hook-length dimension
+proxy.  The small cases `m = 0` and `m = 1` are proved directly below.
+
+The final section exposes an assumption-free replacement layer for
+`tableauDim`, the dimension obtained by counting standard Young tableaux.  This
+is the intended route toward eventually removing the `youngDim` input once the
+hook-length/tableau-count equality is formalized.
 -/
 
 /-!
@@ -377,5 +380,38 @@ theorem youngDim_oneBox_branching_input
       exact youngDim_oneBox_branching_one lam
     · have hm : 2 ≤ m := by omega
       exact youngDim_oneBox_branching_positive_input m hm lam
+
+/-!
+## Tableau-count replacement layer
+
+The following wrappers are axiom-free: they use `tableauDim`, defined as the
+cardinality of standard Young tableaux, rather than the hook-length proxy
+`youngDim`.
+-/
+
+theorem S05_Lem5_16_tableauDim_fixed_oneBoxChild
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :
+    ((Fintype.card
+      {T : StandardYoungTableau lam //
+        TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)} : Nat) : ℝ)
+      =
+    tableauDim mu := by
+  exact tableauDim_fixed_oneBoxChild h hr
+
+theorem S05_Lem5_16_tableauDim_oneBox_branching
+    {n : Nat} (lam : YoungDiagram (n + 1)) :
+    tableauDim lam =
+      (oneBoxChildrenSized lam).sum (fun mu => tableauDim mu) := by
+  exact tableauDim_oneBox_branching_sized lam
+
+theorem S05_Lem5_16_tableauDim_oneBoxChildrenOdd_branching
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
+    tableauDim lam =
+      (oneBoxChildrenOdd m lam).sum (fun mu => tableauDim mu) := by
+  exact tableauDim_oneBoxChildrenOdd_branching m lam
 
 end DictatorshipTesting
