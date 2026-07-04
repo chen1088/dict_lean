@@ -2,6 +2,59 @@
 
 ## This Run
 
+### Two-box tableau-count batch
+
+Completed commits:
+- `9d8d578` Define two-step removable-row deletion
+- `c285ce9` Add coordinates for two-step deletions
+- `f57a3a1` Relate two-step deletions to strip directions
+- `1a15282` Count tableaux in a fixed two-step deletion fiber
+- `1cfcf0e` Define canonical two-step data of a tableau
+- `9b26e41` Sum tableau dimension over ordered two-step deletions
+- `cee03dc` Expose sized two-strip child interface for tableau counts
+- `b27bc09` Expose ordered tableau-count recursion in Lemma 5.15
+
+Main names added:
+- `TwoStepRemovableRows`
+- `twoStepRemovableRowsEquivSigma`
+- `deleteTwoRemovableRowsDiagram`
+- `deleteTwoRemovableRows_isYoungSubdiagram`
+- `sum_row_diff_deleteTwoRemovableRows`
+- `firstDeletedCornerOfTwoStep`
+- `secondDeletedCornerOfTwoStepInChild`
+- `secondDeletedCornerOfTwoStepInParent`
+- `deleteTwoRemovableRows_vertical_of_distinct_rows`
+- `deleteTwoRemovableRows_horizontal_of_same_row`
+- `deleteTwoRemovableRows_horizontal_or_vertical`
+- `TwoStepDeletionTableaux`
+- `twoStepDeletionTableauxEquivChildTableaux`
+- `card_twoStepDeletionTableaux_eq_child`
+- `tableauDim_fixed_twoStepDeletion`
+- `tableauDim_eq_sum_twoStepRemovableRows`
+- `deleteMaxAtMaxRemovableRow`
+- `twoStepDataOfTableau`
+- `tableau_mem_twoStepDataOfTableau`
+- `horizontalTwoStripChildrenSized`
+- `verticalTwoStripChildrenSized`
+- `deleteTwoRemovableRows_mem_horizontal_or_vertical_sized`
+- `S05_Lem5_15_tableauDim_fixed_twoStepDeletion`
+- `S05_Lem5_15_tableauDim_ordered_twoStep_branching`
+- `S05_Lem5_15_twoStepDeletion_horizontal_or_vertical`
+
+Status:
+- `tableauDim` ordered two-step recursion is proved.
+- The full unordered horizontal-plus-vertical two-strip recursion is not yet
+  proved.  The exact remaining blocker is a multiplicity-preserving reindexing
+  between ordered two-step removable-row deletions and the disjoint tagged sum
+  of horizontal and vertical two-strip children.  Disconnected two-box skew
+  shapes are the delicate case: they contribute two deletion orders and also
+  appear in both horizontal and vertical child sets, so the next theorem must
+  match those two copies explicitly.
+- The old `youngDim` two-strip recursion remains external because `youngDim` is
+  still the hook-length proxy.  Removing that assumption still requires either
+  the hook-length/tableau-count equality or migrating downstream certificates to
+  `tableauDim`.
+
 Completed commits:
 - `6ba8505` Add adjacent value swap for Lemma 5.1
 - `d796ef7` Add swapped-tableau case for Lemma 5.1
