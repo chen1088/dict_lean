@@ -163,6 +163,26 @@ theorem adjacentAxialDistance_swap_neg {n : Nat}
     adjacentSwapTableau_entryContent_lo]
   omega
 
+theorem adjacentAxialDistance_after_disjoint_swap_eq {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    adjacentAxialDistance (adjacentSwapTableau T b hrow_b hcol_b) a =
+      adjacentAxialDistance T a := by
+  unfold adjacentAxialDistance
+  rw [adjacentSwapTableau_entryContent_of_ne_lo_hi T b hrow_b hcol_b
+      (adjacentEntryHi_ne_lo_of_disjoint_indices a b hdisj)
+      (adjacentEntryHi_ne_hi_of_disjoint_indices a b hdisj),
+    adjacentSwapTableau_entryContent_of_ne_lo_hi T b hrow_b hcol_b
+      (adjacentEntryLo_ne_lo_of_disjoint_indices a b hdisj)
+      (adjacentEntryLo_ne_hi_of_disjoint_indices a b hdisj)]
+
 theorem adjacentAxialDistance_ne_zero_of_swappable {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
@@ -278,6 +298,21 @@ theorem youngAdjacentDiagCoeff_sameCol {n : Nat}
   rw [youngAdjacentDiagCoeff, adjacentAxialDistance_sameCol T a hcol]
   norm_num
 
+theorem youngAdjacentDiagCoeff_after_disjoint_swap_eq {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    youngAdjacentDiagCoeff (adjacentSwapTableau T b hrow_b hcol_b) a =
+      youngAdjacentDiagCoeff T a := by
+  rw [youngAdjacentDiagCoeff, youngAdjacentDiagCoeff,
+    adjacentAxialDistance_after_disjoint_swap_eq T a b hdisj hrow_b hcol_b]
+
 theorem youngAdjacentDiagCoeff_ne_zero_of_swappable {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
@@ -337,6 +372,21 @@ theorem youngAdjacentOffCoeff_nonneg {n : Nat}
     (T : StandardYoungTableau lam) (a : Fin n) :
     0 ≤ youngAdjacentOffCoeff T a := by
   exact Real.sqrt_nonneg _
+
+theorem youngAdjacentOffCoeff_after_disjoint_swap_eq {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    youngAdjacentOffCoeff (adjacentSwapTableau T b hrow_b hcol_b) a =
+      youngAdjacentOffCoeff T a := by
+  rw [youngAdjacentOffCoeff, youngAdjacentOffCoeff,
+    youngAdjacentDiagCoeff_after_disjoint_swap_eq T a b hdisj hrow_b hcol_b]
 
 theorem youngAdjacentOffCoeff_sq_of_nonneg {n : Nat}
     {lam : YoungDiagram (n + 1)}

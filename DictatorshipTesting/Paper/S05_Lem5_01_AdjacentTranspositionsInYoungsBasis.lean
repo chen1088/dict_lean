@@ -366,6 +366,23 @@ theorem S05_Lem5_01_adjacentAxialDistance_swap_neg {n : Nat}
       - adjacentAxialDistance T a := by
   exact adjacentAxialDistance_swap_neg T a hrow_ne hcol_ne
 
+/-- Lemma 5.1 Coxeter-frontier component: a distant adjacent swap preserves
+the axial distance of the other adjacent pair. -/
+theorem S05_Lem5_01_adjacentAxialDistance_after_disjoint_swap_eq
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    adjacentAxialDistance (adjacentSwapTableau T b hrow_b hcol_b) a =
+      adjacentAxialDistance T a := by
+  exact adjacentAxialDistance_after_disjoint_swap_eq
+    T a b hdisj hrow_b hcol_b
+
 /-- Lemma 5.1 coefficient component: in the swappable case, the axial distance
 is nonzero. -/
 theorem S05_Lem5_01_adjacentAxialDistance_ne_zero_of_swappable {n : Nat}
@@ -425,6 +442,23 @@ theorem S05_Lem5_01_youngAdjacentDiagCoeff_swap {n : Nat}
       - youngAdjacentDiagCoeff T a := by
   exact youngAdjacentDiagCoeff_swap T a hrow_ne hcol_ne
 
+/-- Lemma 5.1 Coxeter-frontier component: a distant adjacent swap preserves
+the diagonal coefficient of the other adjacent pair. -/
+theorem S05_Lem5_01_youngAdjacentDiagCoeff_after_disjoint_swap_eq
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    youngAdjacentDiagCoeff (adjacentSwapTableau T b hrow_b hcol_b) a =
+      youngAdjacentDiagCoeff T a := by
+  exact youngAdjacentDiagCoeff_after_disjoint_swap_eq
+    T a b hdisj hrow_b hcol_b
+
 /-- Lemma 5.1 coefficient component: swapping a swappable adjacent pair
 preserves the off-diagonal coefficient. -/
 theorem S05_Lem5_01_youngAdjacentOffCoeff_swap {n : Nat}
@@ -435,6 +469,23 @@ theorem S05_Lem5_01_youngAdjacentOffCoeff_swap {n : Nat}
     youngAdjacentOffCoeff (adjacentSwapTableau T a hrow_ne hcol_ne) a =
       youngAdjacentOffCoeff T a := by
   exact youngAdjacentOffCoeff_swap T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 Coxeter-frontier component: a distant adjacent swap preserves
+the off-diagonal coefficient of the other adjacent pair. -/
+theorem S05_Lem5_01_youngAdjacentOffCoeff_after_disjoint_swap_eq
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    youngAdjacentOffCoeff (adjacentSwapTableau T b hrow_b hcol_b) a =
+      youngAdjacentOffCoeff T a := by
+  exact youngAdjacentOffCoeff_after_disjoint_swap_eq
+    T a b hdisj hrow_b hcol_b
 
 /-- Lemma 5.1 coefficient component: the off-diagonal coefficient is
 nonnegative by construction. -/
