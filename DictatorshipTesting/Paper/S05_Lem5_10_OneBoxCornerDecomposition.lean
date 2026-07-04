@@ -106,6 +106,30 @@ theorem S05_Lem5_10_removable_corner
       forall s : Nat, s ≠ u.1 -> youngRow lam s = youngRow mu s := by
   exact S05_oneBox_removable_corner h
 
+/-- Lemma 5.10 cell component, paper-numbered name: parent cells are child cells
+or the deleted cell. -/
+theorem S05_Lem5_10_parent_cell_iff_child_cell_or_deleted
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r s c : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :
+    c < youngRow lam s <->
+      c < youngRow mu s ∨ (s = r ∧ c = youngRow mu r) := by
+  exact parent_cell_iff_child_cell_or_deleted_of_oneBoxChild_row h hr
+
+/-- Lemma 5.10 cell component, paper-numbered name: child cells are parent cells
+except the deleted cell. -/
+theorem S05_Lem5_10_child_cell_iff_parent_cell_not_deleted
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r s c : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :
+    c < youngRow mu s <->
+      c < youngRow lam s ∧ ¬ (s = r ∧ c = youngRow mu r) := by
+  exact child_cell_iff_parent_cell_not_deleted_of_oneBoxChild_row h hr
+
 /-- Lemma 5.10 tableau component, paper-numbered name. -/
 theorem S05_Lem5_10_tableau_max_removable_corner {n : Nat}
     {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam)

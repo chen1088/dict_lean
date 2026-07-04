@@ -244,4 +244,64 @@ theorem exists_removableCornerBox_of_oneBoxChild
   · intro s hs
     exact hr_other s hs
 
+/-- A parent cell is either already a child cell, or it is the unique deleted
+cell in the changed row. -/
+theorem parent_cell_iff_child_cell_or_deleted_of_oneBoxChild_row
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (_h : IsOneBoxChild lam mu) {r s c : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :
+    c < youngRow lam s <->
+      c < youngRow mu s ∨ (s = r ∧ c = youngRow mu r) := by
+  by_cases hsr : s = r
+  · subst s
+    rw [hr.1]
+    constructor
+    · intro hc
+      by_cases hlt : c < youngRow mu r
+      · exact Or.inl hlt
+      · right
+        constructor
+        · rfl
+        · omega
+    · intro h
+      rcases h with hlt | hdel
+      · omega
+      · rcases hdel with ⟨_, hc_eq⟩
+        omega
+  · rw [hr.2 s hsr]
+    constructor
+    · intro hc
+      exact Or.inl hc
+    · intro h
+      rcases h with hc | hdel
+      · exact hc
+      · exact False.elim (hsr hdel.1)
+
+/-- A child cell is exactly a parent cell that is not the unique deleted cell. -/
+theorem child_cell_iff_parent_cell_not_deleted_of_oneBoxChild_row
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r s c : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :
+    c < youngRow mu s <->
+      c < youngRow lam s ∧ ¬ (s = r ∧ c = youngRow mu r) := by
+  have hparent :=
+    parent_cell_iff_child_cell_or_deleted_of_oneBoxChild_row
+      (lam := lam) (mu := mu) h (r := r) (s := s) (c := c) hr
+  constructor
+  · intro hc
+    constructor
+    · exact hparent.mpr (Or.inl hc)
+    · intro hdel
+      rcases hdel with ⟨hsr, hc_eq⟩
+      subst s
+      omega
+  · intro hp
+    rcases hparent.mp hp.1 with hc | hdel
+    · exact hc
+    · exact False.elim (hp.2 hdel)
+
 end DictatorshipTesting
