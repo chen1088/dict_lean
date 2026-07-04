@@ -1,4 +1,7 @@
 import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.Aux_CubeCharMulSelf
+import DictatorshipTesting.Paper.Aux_CubeCharNonzero
+import DictatorshipTesting.Paper.Aux_CubeCharXor
 
 /-!
 Paper statement: Definition 5.18
@@ -42,6 +45,25 @@ instance {m : Nat} (S : Finset (Fin m)) :
 theorem S05_matchingCharacter_empty {m : Nat} (x : Cube m) :
     S05_matchingCharacter (m := m) ∅ x = 1 := by
   simp [S05_matchingCharacter, cubeChar]
+
+/-- Matching characters are never zero. -/
+theorem S05_matchingCharacter_ne_zero {m : Nat}
+    (S : Finset (Fin m)) (x : Cube m) :
+    S05_matchingCharacter S x ≠ 0 := by
+  exact cubeChar_ne_zero S x
+
+/-- Matching characters square to `1` pointwise. -/
+theorem S05_matchingCharacter_mul_self {m : Nat}
+    (S : Finset (Fin m)) (x : Cube m) :
+    S05_matchingCharacter S x * S05_matchingCharacter S x = 1 := by
+  exact cubeChar_mul_self S x
+
+/-- Matching characters are multiplicative under cube xor. -/
+theorem S05_matchingCharacter_cubeXor {m : Nat}
+    (S : Finset (Fin m)) (x y : Cube m) :
+    S05_matchingCharacter S (cubeXor x y) =
+      S05_matchingCharacter S x * S05_matchingCharacter S y := by
+  exact cubeChar_cubeXor S x y
 
 /-- The empty-support matching character has weight zero. -/
 theorem S05_matchingCharacterWeight_empty {m : Nat} :
