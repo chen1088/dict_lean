@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates_Legacy
+import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
 
 /-!
 Paper statement: Lemma 5.28 (`lem:block-lower-bound-gap`)
@@ -58,5 +59,53 @@ theorem S05_Lem5_28_traceScalarValue_of_blockTraceIdentity {n : Nat}
     (htrace : BlockTraceIdentityInput height theta) :
     TraceScalarValueInput height theta := by
   exact traceScalarValue_of_blockTraceIdentity hdim htrace
+
+/-- Lemma 5.28 dimension-parameterized alias: trace/scalar formula plus a
+finite certificate gives scalar lower bounds on non-`U_1` blocks. -/
+theorem S05_Lem5_28_blockScalar_lower_bound_withDim {n : Nat}
+    {dim height theta : YoungDiagram n -> ℝ} {c : ℝ}
+    (htraceScalar : TraceScalarValueInputWithDim dim height theta)
+    (hcert :
+      ∀ lam : YoungDiagram n,
+        ¬ IsOneRow lam -> ¬ IsStandard lam -> c * dim lam <= height lam) :
+    ∀ lam ∈ nonU1YoungBlocks n, c <= theta lam := by
+  exact blockScalar_lower_bound_of_traceScalarFormula_withDim htraceScalar hcert
+
+/-- Lemma 5.28 dimension-parameterized alias: positive dimension plus the block
+trace identity imply the scalar value formula. -/
+theorem S05_Lem5_28_traceScalarValue_of_blockTraceIdentity_withDim {n : Nat}
+    {dim height theta : YoungDiagram n -> ℝ}
+    (hdim : YoungDimensionPositiveInputWithDim dim)
+    (htrace : BlockTraceIdentityInputWithDim dim height theta) :
+    TraceScalarValueInputWithDim dim height theta := by
+  exact traceScalarValue_of_blockTraceIdentity_withDim hdim htrace
+
+/-- Lemma 5.28 dimension-parameterized alias: spectral gap from scalarity,
+trace/scalar formula, and a certificate with respect to an arbitrary dimension
+function. -/
+theorem S05_Lem5_28_spectralGapFromBlockScalarsWithDim {n : Nat} (c : ℝ)
+    (F : Perm (Fin n) -> ℝ)
+    (dim height blockEnergy theta : YoungDiagram n -> ℝ)
+    (hdecomp : YoungBlockDecompositionInput blockEnergy)
+    (hu1 : U1YoungBlockIdentificationInput F blockEnergy)
+    (hscalarity : MatchingAverageScalarityInput F blockEnergy theta)
+    (htrace : TraceScalarValueInputWithDim dim height theta)
+    (hcert :
+      ∀ lam : YoungDiagram n,
+        ¬ IsOneRow lam -> ¬ IsStandard lam -> c * dim lam <= height lam) :
+    c * l2DistSqToU1 F <= matchingMeanProjectionError F := by
+  exact SpectralGapFromBlockScalarsWithDim c F dim height blockEnergy theta
+    hdecomp hu1 hscalarity htrace hcert
+
+/-- Lemma 5.28 dimension-parameterized alias: a parameterized spectral-block
+model plus a finite certificate imply the spectral gap. -/
+theorem S05_Lem5_28_spectralGapFromBlockModelWithDim {n : Nat}
+    (c : ℝ) (dim height : YoungDiagram n -> ℝ)
+    (hmodel : SpectralBlockModelInputWithDim dim height)
+    (hcert :
+      ∀ lam : YoungDiagram n,
+        ¬ IsOneRow lam -> ¬ IsStandard lam -> c * dim lam <= height lam) :
+    MatchingSpectralGapConstant n c := by
+  exact SpectralGapFromBlockModelWithDim c dim height hmodel hcert
 
 end DictatorshipTesting
