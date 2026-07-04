@@ -12,6 +12,10 @@ Completed commits:
 - `132a1b3` Add row combinatorics for strip removals
 - `ba0eb24` Start basis-level two-box tableau branching
 - `e8adde1` Expose sign-pattern size interfaces
+- `d167717` Expand matching character and idempotent interfaces
+- `b450942` Expose averaged rejection definitions
+- `c648518` Clarify spectral bridge paper-facing wrappers
+- `43450b8` Add paper-numbered finite certificate aliases
 
 Files changed:
 - `DictatorshipTesting/Paper/Aux_YoungAdjacentEntries.lean`
@@ -27,6 +31,21 @@ Files changed:
 - `DictatorshipTesting/Paper/S05_Def5_13_EvenSignPatternMultiset.lean`
 - `DictatorshipTesting/Paper/S05_Def5_14_OddSignPatternMultiset.lean`
 - `DictatorshipTesting/Paper/S05_Lem5_17_SizesOfTheSignPatternMultisets.lean`
+- `DictatorshipTesting/Paper/S05_Def5_18_MatchingCharacters.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_20_LocalTruncationOnAMatchingCharacter.lean`
+- `DictatorshipTesting/Paper/S05_Def5_22_MatchingIdempotents.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_23_LocalTruncationAsConvolution.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_24_CentralAveragedRejection.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_25_YoungBasisScalarCommutant.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_26_BlockScalarOfTheAveragedRejection.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_27_TheDegreeOneSpaceAsYoungBlocks.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_28_BlockLowerBoundImpliesTheGap.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_29_EvenSpectralBridge.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_30_OddSpectralBridge.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_31_CountingOneMoreMatchingEdge.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_32_WeightZeroEntriesAreNeverAMajority.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_34_EvenCertificate.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_36_OddCertificate.lean`
 
 Main names added:
 - `adjacentSwapValue`, `adjacentSwapEntry`
@@ -107,18 +126,57 @@ Main names added:
 - `S05_Lem5_17_oddHighSignPatternCount_eq_evenHigh_sum`
 - `S05_Lem5_17_youngDim_twoStrip_size`
 - `S05_Lem5_17_youngDim_oneBox_size`
+- `S05_matchingCharacterWeight`
+- `S05_matchingCharacterLow`, `S05_matchingCharacterHigh`
+- `S05_matchingCharacter_empty`
+- `S05_matchingCharacterWeight_empty`
+- `S05_matchingCharacterLow_empty`
+- `S05_matchingCharacterWeight_singleton`
+- `S05_matchingCharacterLow_singleton`
+- `S05_not_low_and_high`
+- `S05_matchingCharacter_low_or_high`
+- `S05_Lem5_20_cubeLowDegreeOnePart_matchingCharacter_of_low`
+- `S05_Lem5_20_cubeLowDegreeOnePart_matchingCharacter_of_high`
+- `S05_Lem5_20_matchingLocalProjection_preserves_low_matchingCharacter`
+- `S05_Lem5_20_matchingLocalProjection_kills_high_matchingCharacter`
+- `S05_matchingLowCharacterSet`, `S05_matchingHighCharacterSet`
+- `S05_mem_matchingLowCharacterSet_iff`
+- `S05_mem_matchingHighCharacterSet_iff`
+- `S05_matchingLowIdempotent_apply`
+- `S05_matchingHighIdempotent_apply`
+- `S05_Lem5_23_local_truncation_eq_low_idempotent`
+- `S05_Lem5_23_residual_eq_high_idempotent`
+- `S05_Lem5_24_matchingLocalProjectionError_eq_l2DistSq`
+- `S05_Lem5_24_matchingMeanProjectionError_eq_average`
+- `S05_Lem5_25_YoungBasisScalarCommutantInput`
+- `S05_Lem5_25_matchingAverageScalarity_eq_sum`
+- `S05_Lem5_26_scalar_eq_trace_div_dimension`
+- `S05_Lem5_26_even_scalar_eq_hEven_div_dim`
+- `S05_Lem5_26_odd_scalar_eq_hOdd_div_dim`
+- `S05_nonU1YoungBlocks`
+- `S05_mem_nonU1YoungBlocks_iff`
+- `S05_Lem5_27_l2DistSqToU1_eq_nonU1_sum`
+- `S05_Lem5_28_spectralGapFromBlockScalars`
+- `S05_Lem5_28_blockScalar_lower_bound_of_traceScalarFormula`
+- `S05_Lem5_28_traceScalarValue_of_blockTraceIdentity`
+- `S05_Lem5_29_evenSpectralGapFromCertificates`
+- `S05_Lem5_30_oddSpectralGapFromCertificates`
+- `S05_Lem5_31_counting_one_more_matching_edge`
+- `S05_Lem5_32_weightZeroEntries_never_majority`
+- `S05_Lem5_32_zEven_le_youngDim`
+- `S05_Lem5_34_even_certificate`
+- `S05_Lem5_36_odd_certificate`
 
 ## Next Blocker
 
-The remaining Lemma 5.1 and Lemma 5.2 claims are the future
-representation-layer statements about Young's orthogonal matrices and the
-operator-level Jucys--Murphy eigenbasis.  No new representation-theory input was
-introduced in this batch.
+The remaining early Section 5 claims about Young's orthogonal matrices, the
+operator-level Jucys--Murphy eigenbasis, Specht restriction, Young-block
+scalarity, and Schur-lemma centrality are representation-layer statements.  No
+new representation-theory input was introduced in this batch.
 
 ## Next Recommended Milestone
 
-The current priority queue is complete at the allowed level.  The next useful
-batch is to either add more basis-level tableau deletion compatibility lemmas or
-start a carefully cited representation-layer interface for the Young
-orthogonal/Jucys--Murphy operator statements, without replacing them by broad
-uncited claims.
+Run the self-extension scan for remaining axiom-free improvements.  The most
+likely useful next target is basis-level tableau deletion compatibility in
+Lemmas 5.8--5.12; representation-layer owner files should only receive precise
+interfaces or comments, not new mathematical claims.
