@@ -123,6 +123,15 @@ theorem S05_Lem5_01_adjacentSwapValue_comm_of_disjoint_indices {n : Nat}
       adjacentSwapValue b (adjacentSwapValue a x) := by
   exact adjacentSwapValue_comm_of_disjoint_indices a b hdisj x
 
+/-- Lemma 5.1 Coxeter-frontier component: adjacent value swaps satisfy the
+braid relation for consecutive adjacent indices. -/
+theorem S05_Lem5_01_adjacentSwapValue_braid_of_succ {n : Nat}
+    (a b : Fin n) (hsucc : (b : Nat) = (a : Nat) + 1)
+    (x : Fin (n + 1)) :
+    adjacentSwapValue a (adjacentSwapValue b (adjacentSwapValue a x)) =
+      adjacentSwapValue b (adjacentSwapValue a (adjacentSwapValue b x)) := by
+  exact adjacentSwapValue_braid_of_succ a b hsucc x
+
 /-- Lemma 5.1 Coxeter-frontier component: entry functions obtained by distant
 adjacent value swaps commute pointwise. -/
 theorem S05_Lem5_01_adjacentSwapEntry_comm_of_disjoint_indices {n : Nat}

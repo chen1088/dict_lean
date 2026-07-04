@@ -334,6 +334,62 @@ theorem adjacentSwapValue_comm_of_disjoint_entries {n : Nat}
             adjacentSwapValue_of_ne_lo_hi b hxb_lo hxb_hi,
             adjacentSwapValue_of_ne_lo_hi a hxa_lo hxa_hi]
 
+theorem adjacentSwapValue_braid_of_succ {n : Nat}
+    (a b : Fin n) (hsucc : (b : Nat) = (a : Nat) + 1)
+    (x : Fin (n + 1)) :
+    adjacentSwapValue a (adjacentSwapValue b (adjacentSwapValue a x)) =
+      adjacentSwapValue b (adjacentSwapValue a (adjacentSwapValue b x)) := by
+  have hhi_lo : adjacentEntryHi a = adjacentEntryLo b := by
+    apply Fin.ext
+    simp [adjacentEntryHi, adjacentEntryLo, hsucc]
+  have hlo_ne_lo : adjacentEntryLo a ≠ adjacentEntryLo b := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryLo, hsucc] at hv
+  have hlo_ne_hi : adjacentEntryLo a ≠ adjacentEntryHi b := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryLo, adjacentEntryHi, hsucc] at hv
+    omega
+  have hhi_ne_hi : adjacentEntryHi a ≠ adjacentEntryHi b := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryHi, hsucc] at hv
+  by_cases hx_lo : x = adjacentEntryLo a
+  · subst x
+    rw [adjacentSwapValue_lo,
+      show adjacentSwapValue b (adjacentEntryHi a) = adjacentEntryHi b by
+        simpa [hhi_lo] using adjacentSwapValue_lo b,
+      adjacentSwapValue_of_ne_lo_hi a hlo_ne_hi.symm hhi_ne_hi.symm,
+      adjacentSwapValue_of_ne_lo_hi b hlo_ne_lo hlo_ne_hi,
+      adjacentSwapValue_lo,
+      show adjacentSwapValue b (adjacentEntryHi a) = adjacentEntryHi b by
+        simpa [hhi_lo] using adjacentSwapValue_lo b]
+  · by_cases hx_hi_a : x = adjacentEntryHi a
+    · subst x
+      rw [adjacentSwapValue_hi,
+        adjacentSwapValue_of_ne_lo_hi b hlo_ne_lo hlo_ne_hi,
+        adjacentSwapValue_lo,
+        show adjacentSwapValue b (adjacentEntryHi a) = adjacentEntryHi b by
+          simpa [hhi_lo] using adjacentSwapValue_lo b,
+        adjacentSwapValue_of_ne_lo_hi a hlo_ne_hi.symm hhi_ne_hi.symm,
+        adjacentSwapValue_hi]
+      exact hhi_lo
+    · by_cases hx_hi_b : x = adjacentEntryHi b
+      · subst x
+        rw [adjacentSwapValue_of_ne_lo_hi a hlo_ne_hi.symm hhi_ne_hi.symm,
+          adjacentSwapValue_hi,
+          show adjacentSwapValue a (adjacentEntryLo b) = adjacentEntryLo a by
+            simpa [← hhi_lo] using adjacentSwapValue_hi a,
+          adjacentSwapValue_of_ne_lo_hi b hlo_ne_lo hlo_ne_hi]
+      · have hx_lo_b : x ≠ adjacentEntryLo b := by
+          intro h
+          exact hx_hi_a (by simpa [← hhi_lo] using h)
+        rw [adjacentSwapValue_of_ne_lo_hi a hx_lo hx_hi_a,
+          adjacentSwapValue_of_ne_lo_hi b hx_lo_b hx_hi_b,
+          adjacentSwapValue_of_ne_lo_hi a hx_lo hx_hi_a,
+          adjacentSwapValue_of_ne_lo_hi b hx_lo_b hx_hi_b]
+
 /-- Two adjacent-index swaps have disjoint supports when the two adjacent pairs
 of labels are separated by at least one label. -/
 def adjacentIndexDisjoint {n : Nat} (a b : Fin n) : Prop :=
