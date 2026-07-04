@@ -1078,4 +1078,152 @@ def oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow
   right_inv S := by
     exact deleteMax_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S
 
+/-- The unique cell containing a specified entry of a standard tableau. -/
+noncomputable def cellOfEntry {n : Nat} {lam : YoungDiagram n}
+    (T : StandardYoungTableau lam) (a : Fin n) : YoungCell lam :=
+  Classical.choose (T.bijective.2 a)
+
+theorem entry_cellOfEntry {n : Nat} {lam : YoungDiagram n}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    T.entry (cellOfEntry T a) = a := by
+  exact Classical.choose_spec (T.bijective.2 a)
+
+theorem cellOfEntry_eq_of_entry {n : Nat} {lam : YoungDiagram n}
+    (T : StandardYoungTableau lam) {u : YoungCell lam} {a : Fin n}
+    (hu : T.entry u = a) :
+    cellOfEntry T a = u := by
+  apply T.bijective.1
+  rw [entry_cellOfEntry, hu]
+
+/-- Content of a cell, column minus row. -/
+def YoungCell.content {n : Nat} {lam : YoungDiagram n}
+    (u : YoungCell lam) : Int :=
+  (YoungCell.col u : Int) - (YoungCell.row u : Int)
+
+/-- Content of an entry in a standard tableau. -/
+noncomputable def entryContent {n : Nat} {lam : YoungDiagram n}
+    (T : StandardYoungTableau lam) (a : Fin n) : Int :=
+  YoungCell.content (cellOfEntry T a)
+
+theorem childCellToParent_eq_equiv_symm_val
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (w : YoungCell mu) :
+    childCellToParentCellOfOneBoxChildRow h hr w =
+      ((youngCellExceptEquivChildOfOneBoxChildRow h hr u hu_row hu_col).symm w).1 := by
+  apply YoungCell.ext_row_col
+  · rw [childCellToParentCell_row h hr w]
+    rw [youngCellExceptEquivChild_symm_row h hr u hu_row hu_col w]
+  · rw [childCellToParentCell_col h hr w]
+    rw [youngCellExceptEquivChild_symm_col h hr u hu_row hu_col w]
+
+/-- Deletion preserves the parent cell of every nonmaximum entry. -/
+theorem childCellToParent_cellOfEntry_deleteMax
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T u)
+    (a : Fin n) :
+    childCellToParentCellOfOneBoxChildRow h hr
+      (cellOfEntry
+        (deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+          h hr u hu_row hu_col T hu) a)
+      =
+    cellOfEntry T (Fin.castSucc a) := by
+  let D := deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+    h hr u hu_row hu_col T hu
+  let e := youngCellExceptEquivChildOfOneBoxChildRow h hr u hu_row hu_col
+  let w := cellOfEntry D a
+  have hw_entry : T.entry (e.symm w).1 = Fin.castSucc a := by
+    rw [← castSucc_tableauDeleteMaxEntry T hu (e.symm w)]
+    apply congrArg Fin.castSucc
+    rw [← deleteMaxAsStandardYoungTableau_entry h hr u hu_row hu_col T hu w]
+    exact entry_cellOfEntry D a
+  have hparent :
+      childCellToParentCellOfOneBoxChildRow h hr w = (e.symm w).1 :=
+    childCellToParent_eq_equiv_symm_val h hr u hu_row hu_col w
+  rw [hparent]
+  exact (cellOfEntry_eq_of_entry T hw_entry).symm
+
+theorem deleteMax_cellOfEntry_row
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T u)
+    (a : Fin n) :
+    YoungCell.row
+      (cellOfEntry
+        (deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+          h hr u hu_row hu_col T hu) a)
+      =
+    YoungCell.row (cellOfEntry T (Fin.castSucc a)) := by
+  have hcell :=
+    childCellToParent_cellOfEntry_deleteMax h hr u hu_row hu_col T hu a
+  have hrow := congrArg YoungCell.row hcell
+  rw [childCellToParentCell_row] at hrow
+  exact hrow
+
+theorem deleteMax_cellOfEntry_col
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T u)
+    (a : Fin n) :
+    YoungCell.col
+      (cellOfEntry
+        (deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+          h hr u hu_row hu_col T hu) a)
+      =
+    YoungCell.col (cellOfEntry T (Fin.castSucc a)) := by
+  have hcell :=
+    childCellToParent_cellOfEntry_deleteMax h hr u hu_row hu_col T hu a
+  have hcol := congrArg YoungCell.col hcell
+  rw [childCellToParentCell_col] at hcol
+  exact hcol
+
+theorem deleteMax_entryContent
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T u)
+    (a : Fin n) :
+    entryContent
+      (deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+        h hr u hu_row hu_col T hu) a
+      =
+    entryContent T (Fin.castSucc a) := by
+  unfold entryContent YoungCell.content
+  rw [deleteMax_cellOfEntry_row h hr u hu_row hu_col T hu a,
+    deleteMax_cellOfEntry_col h hr u hu_row hu_col T hu a]
+
 end DictatorshipTesting
