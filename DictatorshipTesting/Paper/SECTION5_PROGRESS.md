@@ -10,6 +10,8 @@ Completed commits:
 - `bc88b48` Add content-sequence API for Lemma 5.2
 - `7e7b8a8` Clarify Young block interface files
 - `132a1b3` Add row combinatorics for strip removals
+- `ba0eb24` Start basis-level two-box tableau branching
+- `e8adde1` Expose sign-pattern size interfaces
 
 Files changed:
 - `DictatorshipTesting/Paper/Aux_YoungAdjacentEntries.lean`
@@ -21,6 +23,10 @@ Files changed:
 - `DictatorshipTesting/Paper/S05_Def5_05_TwoBoxRemovals.lean`
 - `DictatorshipTesting/Paper/S05_Def5_06_SignedTwoBoxRemovals.lean`
 - `DictatorshipTesting/Paper/S05_Def5_07_OneBoxRemovals.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_08_TwoBoxTableauBranching.lean`
+- `DictatorshipTesting/Paper/S05_Def5_13_EvenSignPatternMultiset.lean`
+- `DictatorshipTesting/Paper/S05_Def5_14_OddSignPatternMultiset.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_17_SizesOfTheSignPatternMultisets.lean`
 
 Main names added:
 - `adjacentSwapValue`, `adjacentSwapEntry`
@@ -87,6 +93,20 @@ Main names added:
 - `S05_Def5_06_sum_row_diff_of_negativeSignedTwoBoxRemoval`
 - `S05_Def5_07_existsUnique_row_of_oneBoxRemoval`
 - `S05_Def5_07_exists_removableRow_of_oneBoxRemoval`
+- `S05_Lem5_08_deleteFirstMaxAsTableau`
+- `S05_Lem5_08_first_deleted_cell_removable_corner`
+- `S05_Lem5_08_after_first_deletion_unique_second_corner`
+- `S05_Lem5_08_second_deleted_cell_removable_corner`
+- `S05_evenZeroSignPatternCount_zero`
+- `S05_evenZeroSignPatternCount_succ`
+- `S05_evenHighSignPatternCount_zero`
+- `S05_evenHighSignPatternCount_succ`
+- `S05_oddHighSignPatternCount_eq_evenHigh_sum`
+- `S05_Lem5_17_evenZeroSignPatternCount_succ`
+- `S05_Lem5_17_evenHighSignPatternCount_succ`
+- `S05_Lem5_17_oddHighSignPatternCount_eq_evenHigh_sum`
+- `S05_Lem5_17_youngDim_twoStrip_size`
+- `S05_Lem5_17_youngDim_oneBox_size`
 
 ## Next Blocker
 
@@ -97,6 +117,8 @@ introduced in this batch.
 
 ## Next Recommended Milestone
 
-Start Lemma 5.8 with basis-level two-box tableau branching statements phrased
-as iterated one-box deletion facts.  Do not formalize Specht modules or
-operator branching in that file.
+The current priority queue is complete at the allowed level.  The next useful
+batch is to either add more basis-level tableau deletion compatibility lemmas or
+start a carefully cited representation-layer interface for the Young
+orthogonal/Jucys--Murphy operator statements, without replacing them by broad
+uncited claims.
