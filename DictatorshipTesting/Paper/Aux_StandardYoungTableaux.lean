@@ -485,4 +485,124 @@ def youngCellExceptEquivChildOfOneBoxChildRow
     · rw [parentCellToChildCell_col h hr]
       rw [childCellToParentCell_col h hr]
 
+/-- The equivalence from deleted parent cells to child cells preserves rows. -/
+theorem youngCellExceptEquivChild_to_row
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (v : YoungCellExcept u) :
+    YoungCell.row
+        (youngCellExceptEquivChildOfOneBoxChildRow h hr u hu_row hu_col v)
+      = YoungCell.row v.1 := by
+  dsimp [youngCellExceptEquivChildOfOneBoxChildRow]
+  exact parentCellToChildCell_row h hr v.1 _
+
+/-- The equivalence from deleted parent cells to child cells preserves columns. -/
+theorem youngCellExceptEquivChild_to_col
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (v : YoungCellExcept u) :
+    YoungCell.col
+        (youngCellExceptEquivChildOfOneBoxChildRow h hr u hu_row hu_col v)
+      = YoungCell.col v.1 := by
+  dsimp [youngCellExceptEquivChildOfOneBoxChildRow]
+  exact parentCellToChildCell_col h hr v.1 _
+
+/-- The inverse equivalence from child cells to deleted parent cells preserves
+rows. -/
+theorem youngCellExceptEquivChild_symm_row
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (w : YoungCell mu) :
+    YoungCell.row
+        ((youngCellExceptEquivChildOfOneBoxChildRow h hr u hu_row hu_col).symm w).1
+      = YoungCell.row w := by
+  dsimp [youngCellExceptEquivChildOfOneBoxChildRow]
+  exact childCellToParentCell_row h hr w
+
+/-- The inverse equivalence from child cells to deleted parent cells preserves
+columns. -/
+theorem youngCellExceptEquivChild_symm_col
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (w : YoungCell mu) :
+    YoungCell.col
+        ((youngCellExceptEquivChildOfOneBoxChildRow h hr u hu_row hu_col).symm w).1
+      = YoungCell.col w := by
+  dsimp [youngCellExceptEquivChildOfOneBoxChildRow]
+  exact childCellToParentCell_col h hr w
+
+/-- Delete the maximum-entry cell and view the result as a standard tableau of
+the one-box child shape. -/
+def deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T u) :
+    StandardYoungTableau mu :=
+  let e := youngCellExceptEquivChildOfOneBoxChildRow h hr u hu_row hu_col
+  { entry := fun w => tableauDeleteMaxEntry T hu (e.symm w)
+    bijective := by
+      constructor
+      · intro a b hab
+        have hdel : e.symm a = e.symm b :=
+          tableauDeleteMaxEntry_injective T hu hab
+        have happly := congrArg e hdel
+        simpa using happly
+      · intro y
+        rcases tableauDeleteMaxEntry_surjective T hu y with ⟨v, hv⟩
+        refine ⟨e v, ?_⟩
+        simp [hv]
+    row_strict := by
+      intro a b hrow hcol
+      apply tableauDeleteMaxEntry_row_strict T hu
+      · have ha := youngCellExceptEquivChild_symm_row h hr u hu_row hu_col a
+        have hb := youngCellExceptEquivChild_symm_row h hr u hu_row hu_col b
+        rw [ha, hb]
+        exact hrow
+      · have ha := youngCellExceptEquivChild_symm_col h hr u hu_row hu_col a
+        have hb := youngCellExceptEquivChild_symm_col h hr u hu_row hu_col b
+        rw [ha, hb]
+        exact hcol
+    col_strict := by
+      intro a b hcol hrow
+      apply tableauDeleteMaxEntry_col_strict T hu
+      · have ha := youngCellExceptEquivChild_symm_col h hr u hu_row hu_col a
+        have hb := youngCellExceptEquivChild_symm_col h hr u hu_row hu_col b
+        rw [ha, hb]
+        exact hcol
+      · have ha := youngCellExceptEquivChild_symm_row h hr u hu_row hu_col a
+        have hb := youngCellExceptEquivChild_symm_row h hr u hu_row hu_col b
+        rw [ha, hb]
+        exact hrow }
+
 end DictatorshipTesting

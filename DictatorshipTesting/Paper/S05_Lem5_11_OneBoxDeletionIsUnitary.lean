@@ -74,4 +74,20 @@ def S05_Lem5_11_youngCellExceptEquivChildOfOneBoxChildRow
     YoungCellExcept u ≃ YoungCell mu :=
   youngCellExceptEquivChildOfOneBoxChildRow h hr u hu_row hu_col
 
+/-- Lemma 5.11 set-level component: deleting the maximum cell gives a standard
+tableau of the one-box child shape. -/
+def S05_Lem5_11_deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T u) :
+    StandardYoungTableau mu :=
+  deleteMaxAsStandardYoungTableauOfOneBoxChildRow h hr u hu_row hu_col T hu
+
 end DictatorshipTesting
