@@ -85,6 +85,20 @@ def adjacentSameCol {n : Nat} {lam : YoungDiagram (n + 1)}
   YoungCell.col (adjacentLoCell T a) =
     YoungCell.col (adjacentHiCell T a)
 
+local instance adjacentSameRowDecidable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    Decidable (adjacentSameRow T a) := by
+  unfold adjacentSameRow
+  infer_instance
+
+local instance adjacentSameColDecidable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    Decidable (adjacentSameCol T a) := by
+  unfold adjacentSameCol
+  infer_instance
+
 /-- Axial distance between the cells of adjacent entries `a` and `a+1`. -/
 def adjacentAxialDistance {n : Nat} {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n) : Int :=
@@ -156,5 +170,113 @@ theorem youngAdjacentDiagCoeff_sameCol {n : Nat}
     youngAdjacentDiagCoeff T a = -1 := by
   rw [youngAdjacentDiagCoeff, adjacentAxialDistance_sameCol T a hcol]
   norm_num
+
+theorem not_adjacentSameRow_of_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol : adjacentSameCol T a) :
+    ¬ adjacentSameRow T a := by
+  intro hrow
+  exact adjacentLoCell_ne_hiCell T a
+    (YoungCell.ext_row_col hrow hcol)
+
+theorem not_adjacentSameCol_of_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow : adjacentSameRow T a) :
+    ¬ adjacentSameCol T a := by
+  intro hcol
+  exact adjacentLoCell_ne_hiCell T a
+    (YoungCell.ext_row_col hrow hcol)
+
+theorem adjacentSwapTableau_ne_self {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    adjacentSwapTableau T a hrow_ne hcol_ne ≠ T := by
+  intro h
+  have hentry :=
+    congrArg (fun U : StandardYoungTableau lam =>
+      U.entry (adjacentLoCell T a)) h
+  change adjacentSwapEntry T a (adjacentLoCell T a) =
+    T.entry (adjacentLoCell T a) at hentry
+  rw [adjacentSwapEntry_loCell, entry_adjacentLoCell] at hentry
+  exact adjacentEntryLo_ne_hi a hentry.symm
+
+/-- Matrix coefficient of the Young adjacent-transposition formula in the
+standard tableau basis.  This is only the concrete coefficient model, not yet a
+claim that it realizes a symmetric-group representation. -/
+noncomputable def youngAdjacentMatrixCoeff {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (a : Fin n) (S T : StandardYoungTableau lam) : ℝ :=
+  if hrow : adjacentSameRow T a then
+    if S = T then 1 else 0
+  else if hcol : adjacentSameCol T a then
+    if S = T then -1 else 0
+  else
+    if S = T then youngAdjacentDiagCoeff T a
+    else if S = adjacentSwapTableau T a hrow hcol then
+      youngAdjacentOffCoeff T a
+    else 0
+
+theorem youngAdjacentMatrixCoeff_sameRow_self {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow : adjacentSameRow T a) :
+    youngAdjacentMatrixCoeff a T T = 1 := by
+  simp [youngAdjacentMatrixCoeff, hrow]
+
+theorem youngAdjacentMatrixCoeff_sameRow_ne {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    {S T : StandardYoungTableau lam} (a : Fin n)
+    (hrow : adjacentSameRow T a) (hST : S ≠ T) :
+    youngAdjacentMatrixCoeff a S T = 0 := by
+  simp [youngAdjacentMatrixCoeff, hrow, hST]
+
+theorem youngAdjacentMatrixCoeff_sameCol_self {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol : adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a T T = -1 := by
+  have hrow_ne := not_adjacentSameRow_of_sameCol T a hcol
+  simp [youngAdjacentMatrixCoeff, hrow_ne, hcol]
+
+theorem youngAdjacentMatrixCoeff_sameCol_ne {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    {S T : StandardYoungTableau lam} (a : Fin n)
+    (hcol : adjacentSameCol T a) (hST : S ≠ T) :
+    youngAdjacentMatrixCoeff a S T = 0 := by
+  have hrow_ne := not_adjacentSameRow_of_sameCol T a hcol
+  simp [youngAdjacentMatrixCoeff, hrow_ne, hcol, hST]
+
+theorem youngAdjacentMatrixCoeff_swappable_self {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a T T = youngAdjacentDiagCoeff T a := by
+  simp [youngAdjacentMatrixCoeff, hrow_ne, hcol_ne]
+
+theorem youngAdjacentMatrixCoeff_swappable_swap {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a
+        (adjacentSwapTableau T a hrow_ne hcol_ne) T =
+      youngAdjacentOffCoeff T a := by
+  have hswap_ne := adjacentSwapTableau_ne_self T a hrow_ne hcol_ne
+  simp [youngAdjacentMatrixCoeff, hrow_ne, hcol_ne, hswap_ne]
+
+theorem youngAdjacentMatrixCoeff_swappable_other {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    {S T : StandardYoungTableau lam} (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a)
+    (hST : S ≠ T)
+    (hSswap : S ≠ adjacentSwapTableau T a hrow_ne hcol_ne) :
+    youngAdjacentMatrixCoeff a S T = 0 := by
+  simp [youngAdjacentMatrixCoeff, hrow_ne, hcol_ne, hST, hSswap]
 
 end DictatorshipTesting

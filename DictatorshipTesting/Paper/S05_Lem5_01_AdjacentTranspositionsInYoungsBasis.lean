@@ -271,4 +271,74 @@ theorem S05_Lem5_01_youngAdjacentDiagCoeff_sameCol {n : Nat}
     youngAdjacentDiagCoeff T a = -1 := by
   exact youngAdjacentDiagCoeff_sameCol T a hcol
 
+/-- Lemma 5.1 matrix-coefficient component: same-row adjacent pairs act
+diagonally with coefficient `1` on their tableau. -/
+theorem S05_Lem5_01_youngAdjacentMatrixCoeff_sameRow_self {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow : adjacentSameRow T a) :
+    youngAdjacentMatrixCoeff a T T = 1 := by
+  exact youngAdjacentMatrixCoeff_sameRow_self T a hrow
+
+/-- Lemma 5.1 matrix-coefficient component: same-row adjacent pairs have no
+off-diagonal support. -/
+theorem S05_Lem5_01_youngAdjacentMatrixCoeff_sameRow_ne {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    {S T : StandardYoungTableau lam} (a : Fin n)
+    (hrow : adjacentSameRow T a) (hST : S ≠ T) :
+    youngAdjacentMatrixCoeff a S T = 0 := by
+  exact youngAdjacentMatrixCoeff_sameRow_ne a hrow hST
+
+/-- Lemma 5.1 matrix-coefficient component: same-column adjacent pairs act
+diagonally with coefficient `-1` on their tableau. -/
+theorem S05_Lem5_01_youngAdjacentMatrixCoeff_sameCol_self {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol : adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a T T = -1 := by
+  exact youngAdjacentMatrixCoeff_sameCol_self T a hcol
+
+/-- Lemma 5.1 matrix-coefficient component: same-column adjacent pairs have no
+off-diagonal support. -/
+theorem S05_Lem5_01_youngAdjacentMatrixCoeff_sameCol_ne {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    {S T : StandardYoungTableau lam} (a : Fin n)
+    (hcol : adjacentSameCol T a) (hST : S ≠ T) :
+    youngAdjacentMatrixCoeff a S T = 0 := by
+  exact youngAdjacentMatrixCoeff_sameCol_ne a hcol hST
+
+/-- Lemma 5.1 matrix-coefficient component: in the swappable case, the
+coefficient at `T` is the diagonal axial coefficient. -/
+theorem S05_Lem5_01_youngAdjacentMatrixCoeff_swappable_self {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a T T = youngAdjacentDiagCoeff T a := by
+  exact youngAdjacentMatrixCoeff_swappable_self T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 matrix-coefficient component: in the swappable case, the
+coefficient at the swapped tableau is the off-diagonal axial coefficient. -/
+theorem S05_Lem5_01_youngAdjacentMatrixCoeff_swappable_swap {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentMatrixCoeff a
+        (adjacentSwapTableau T a hrow_ne hcol_ne) T =
+      youngAdjacentOffCoeff T a := by
+  exact youngAdjacentMatrixCoeff_swappable_swap T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 matrix-coefficient component: in the swappable case, all other
+tableaux have coefficient zero. -/
+theorem S05_Lem5_01_youngAdjacentMatrixCoeff_swappable_other {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    {S T : StandardYoungTableau lam} (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a)
+    (hST : S ≠ T)
+    (hSswap : S ≠ adjacentSwapTableau T a hrow_ne hcol_ne) :
+    youngAdjacentMatrixCoeff a S T = 0 := by
+  exact youngAdjacentMatrixCoeff_swappable_other a hrow_ne hcol_ne hST hSswap
+
 end DictatorshipTesting
