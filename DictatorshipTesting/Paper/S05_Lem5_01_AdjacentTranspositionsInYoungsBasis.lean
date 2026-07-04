@@ -854,4 +854,14 @@ theorem S05_Lem5_01_youngAdjacentOperator_comm_basis_of_disjoint_indices
         (youngAdjacentOperator a (tableauBasisVec T)) := by
   exact youngAdjacentOperator_comm_basis_of_disjoint_indices T a b hdisj
 
+/-- Lemma 5.1 Coxeter-frontier component: distant adjacent operators commute
+on the whole tableau coordinate space. -/
+theorem S05_Lem5_01_youngAdjacentOperator_comm_of_disjoint_indices
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (a b : Fin n) (hdisj : adjacentIndexDisjoint a b)
+    (f : TableauSpace lam) :
+    youngAdjacentOperator a (youngAdjacentOperator b f) =
+      youngAdjacentOperator b (youngAdjacentOperator a f) := by
+  exact youngAdjacentOperator_comm_of_disjoint_indices a b hdisj f
+
 end DictatorshipTesting

@@ -42,6 +42,17 @@ theorem tableauBasisVec_ne {n : Nat} {lam : YoungDiagram n}
     tableauBasisVec T S = 0 := by
   simp [tableauBasisVec, h]
 
+theorem tableauBasis_expansion {n : Nat} {lam : YoungDiagram n}
+    (f : TableauSpace lam) :
+    f = fun S => ∑ T : StandardYoungTableau lam, f T * tableauBasisVec T S := by
+  classical
+  funext S
+  rw [Fintype.sum_eq_single S]
+  · simp [tableauBasisVec]
+  · intro T hT
+    rw [tableauBasisVec_ne (fun h => hT h.symm)]
+    ring
+
 @[simp] theorem tableauInner_basis_basis_self {n : Nat} {lam : YoungDiagram n}
     (T : StandardYoungTableau lam) :
     tableauInner (tableauBasisVec T) (tableauBasisVec T) = 1 := by
@@ -923,6 +934,17 @@ theorem youngAdjacentOperator_smul {n : Nat}
   intro T _
   ring
 
+theorem youngAdjacentOperator_sum {n : Nat} {ι : Type}
+    {lam : YoungDiagram (n + 1)} [Fintype ι]
+    (a : Fin n) (f : ι -> TableauSpace lam) :
+    youngAdjacentOperator a (fun S => ∑ i : ι, f i S) =
+      fun S => ∑ i : ι, youngAdjacentOperator a (f i) S := by
+  classical
+  funext S
+  unfold youngAdjacentOperator
+  simp_rw [Finset.mul_sum]
+  rw [Finset.sum_comm]
+
 theorem youngAdjacentOperator_sq_basis_sameRow {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
@@ -1233,6 +1255,79 @@ theorem youngAdjacentOperator_comm_basis_of_disjoint_indices
             T b a (adjacentIndexDisjoint_symm hdisj) hcol_b).symm
         · exact youngAdjacentOperator_comm_basis_swappable_of_disjoint_indices
             T a b hdisj hrow_a hcol_a hrow_b hcol_b
+
+theorem youngAdjacentOperator_comm_smul_basis_of_disjoint_indices
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b) (c : ℝ) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b (fun S => c * tableauBasisVec T S)) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a (fun S => c * tableauBasisVec T S)) := by
+  rw [youngAdjacentOperator_smul b c (tableauBasisVec T),
+    youngAdjacentOperator_smul a c (tableauBasisVec T),
+    youngAdjacentOperator_smul a c
+      (youngAdjacentOperator b (tableauBasisVec T)),
+    youngAdjacentOperator_smul b c
+      (youngAdjacentOperator a (tableauBasisVec T)),
+    youngAdjacentOperator_comm_basis_of_disjoint_indices T a b hdisj]
+
+theorem youngAdjacentOperator_comm_of_disjoint_indices
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (a b : Fin n) (hdisj : adjacentIndexDisjoint a b)
+    (f : TableauSpace lam) :
+    youngAdjacentOperator a (youngAdjacentOperator b f) =
+      youngAdjacentOperator b (youngAdjacentOperator a f) := by
+  classical
+  have hf := tableauBasis_expansion f
+  calc
+    youngAdjacentOperator a (youngAdjacentOperator b f)
+        = youngAdjacentOperator a
+            (youngAdjacentOperator b
+              (fun S =>
+                ∑ T : StandardYoungTableau lam,
+                  f T * tableauBasisVec T S)) := by
+            exact congrArg
+              (fun g => youngAdjacentOperator a (youngAdjacentOperator b g))
+              hf
+    _ = youngAdjacentOperator a
+          (fun S =>
+            ∑ T : StandardYoungTableau lam,
+              youngAdjacentOperator b
+                (fun S => f T * tableauBasisVec T S) S) := by
+            rw [youngAdjacentOperator_sum]
+    _ = (fun S =>
+          ∑ T : StandardYoungTableau lam,
+            youngAdjacentOperator a
+              (youngAdjacentOperator b
+                (fun S => f T * tableauBasisVec T S)) S) := by
+            rw [youngAdjacentOperator_sum]
+    _ = (fun S =>
+          ∑ T : StandardYoungTableau lam,
+            youngAdjacentOperator b
+              (youngAdjacentOperator a
+                (fun S => f T * tableauBasisVec T S)) S) := by
+            funext S
+            apply Finset.sum_congr rfl
+            intro T _
+            rw [youngAdjacentOperator_comm_smul_basis_of_disjoint_indices
+              T a b hdisj (f T)]
+    _ = youngAdjacentOperator b
+          (fun S =>
+            ∑ T : StandardYoungTableau lam,
+              youngAdjacentOperator a
+                (fun S => f T * tableauBasisVec T S) S) := by
+            rw [← youngAdjacentOperator_sum]
+    _ = youngAdjacentOperator b
+          (youngAdjacentOperator a
+            (fun S =>
+              ∑ T : StandardYoungTableau lam,
+                f T * tableauBasisVec T S)) := by
+            rw [← youngAdjacentOperator_sum]
+    _ = youngAdjacentOperator b (youngAdjacentOperator a f) := by
+            exact congrArg
+              (fun g => youngAdjacentOperator b (youngAdjacentOperator a g))
+              hf.symm
 
 /-- The diagonal content operator in the tableau coordinate basis. -/
 noncomputable def jucysMurphyDiagonalOperator {n : Nat}
