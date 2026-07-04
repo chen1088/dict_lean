@@ -161,4 +161,95 @@ theorem S05_Lem5_08_first_deletion_cellOfEntry_col
     h hr (deletedCornerCellOfOneBoxChildRow h hr)
     (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) T hu a
 
+/-- Lemma 5.8 set-level component: perform the second one-box deletion after
+the first one in an iterated two-box tableau deletion. -/
+def S05_Lem5_08_deleteSecondMaxAsTableau
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)} {nu : YoungDiagram n}
+    (h₁ : IsOneBoxChild lam mu) {r₁ : Nat}
+    (hr₁ :
+      youngRow lam r₁ = youngRow mu r₁ + 1 ∧
+      forall t : Nat, t ≠ r₁ -> youngRow lam t = youngRow mu t)
+    (h₂ : IsOneBoxChild mu nu) {r₂ : Nat}
+    (hr₂ :
+      youngRow mu r₂ = youngRow nu r₂ + 1 ∧
+      forall t : Nat, t ≠ r₂ -> youngRow mu t = youngRow nu t)
+    (T : StandardYoungTableau lam)
+    (hu₁ : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h₁ hr₁))
+    (hu₂ :
+      TableauMaxAt (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁)
+        (deletedCornerCellOfOneBoxChildRow h₂ hr₂)) :
+    StandardYoungTableau nu :=
+  deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+    h₂ hr₂
+    (deletedCornerCellOfOneBoxChildRow h₂ hr₂)
+    (deletedCornerCell_row h₂ hr₂)
+    (deletedCornerCell_col h₂ hr₂)
+    (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) hu₂
+
+/-- Lemma 5.8 basis-level component: the second deletion preserves the content
+sequence on entries remaining after that deletion. -/
+theorem S05_Lem5_08_second_deletion_tableauContentSequence
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)} {nu : YoungDiagram n}
+    (h₁ : IsOneBoxChild lam mu) {r₁ : Nat}
+    (hr₁ :
+      youngRow lam r₁ = youngRow mu r₁ + 1 ∧
+      forall t : Nat, t ≠ r₁ -> youngRow lam t = youngRow mu t)
+    (h₂ : IsOneBoxChild mu nu) {r₂ : Nat}
+    (hr₂ :
+      youngRow mu r₂ = youngRow nu r₂ + 1 ∧
+      forall t : Nat, t ≠ r₂ -> youngRow mu t = youngRow nu t)
+    (T : StandardYoungTableau lam)
+    (hu₁ : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h₁ hr₁))
+    (hu₂ :
+      TableauMaxAt (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁)
+        (deletedCornerCellOfOneBoxChildRow h₂ hr₂))
+    (a : Fin n) :
+    tableauContentSequence
+        (S05_Lem5_08_deleteSecondMaxAsTableau h₁ hr₁ h₂ hr₂ T hu₁ hu₂) a
+      =
+    tableauContentSequence
+        (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) (Fin.castSucc a) := by
+  exact S05_Lem5_12_deleteMax_tableauContentSequence
+    h₂ hr₂ (deletedCornerCellOfOneBoxChildRow h₂ hr₂)
+    (deletedCornerCell_row h₂ hr₂) (deletedCornerCell_col h₂ hr₂)
+    (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) hu₂ a
+
+/-- Lemma 5.8 basis-level component: after two successive one-box deletions,
+the content sequence is the original content sequence with the two largest
+entries removed. -/
+theorem S05_Lem5_08_iterated_deletion_tableauContentSequence
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)} {nu : YoungDiagram n}
+    (h₁ : IsOneBoxChild lam mu) {r₁ : Nat}
+    (hr₁ :
+      youngRow lam r₁ = youngRow mu r₁ + 1 ∧
+      forall t : Nat, t ≠ r₁ -> youngRow lam t = youngRow mu t)
+    (h₂ : IsOneBoxChild mu nu) {r₂ : Nat}
+    (hr₂ :
+      youngRow mu r₂ = youngRow nu r₂ + 1 ∧
+      forall t : Nat, t ≠ r₂ -> youngRow mu t = youngRow nu t)
+    (T : StandardYoungTableau lam)
+    (hu₁ : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h₁ hr₁))
+    (hu₂ :
+      TableauMaxAt (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁)
+        (deletedCornerCellOfOneBoxChildRow h₂ hr₂))
+    (a : Fin n) :
+    tableauContentSequence
+        (S05_Lem5_08_deleteSecondMaxAsTableau h₁ hr₁ h₂ hr₂ T hu₁ hu₂) a
+      =
+    tableauContentSequence T (Fin.castSucc (Fin.castSucc a)) := by
+  calc
+    tableauContentSequence
+        (S05_Lem5_08_deleteSecondMaxAsTableau h₁ hr₁ h₂ hr₂ T hu₁ hu₂) a
+        =
+      tableauContentSequence
+        (S05_Lem5_08_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) (Fin.castSucc a) := by
+        exact S05_Lem5_08_second_deletion_tableauContentSequence
+          h₁ hr₁ h₂ hr₂ T hu₁ hu₂ a
+    _ = tableauContentSequence T (Fin.castSucc (Fin.castSucc a)) := by
+        exact S05_Lem5_08_first_deletion_tableauContentSequence
+          h₁ hr₁ T hu₁ (Fin.castSucc a)
+
 end DictatorshipTesting
