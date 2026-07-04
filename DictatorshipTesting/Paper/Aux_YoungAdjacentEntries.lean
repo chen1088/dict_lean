@@ -22,6 +22,12 @@ theorem adjacentEntryHi_val {n : Nat} (a : Fin n) :
     (adjacentEntryHi a : Nat) = (a : Nat) + 1 := by
   rfl
 
+theorem adjacentEntryHi_eq_lo_of_succ {n : Nat}
+    (a b : Fin n) (hsucc : (b : Nat) = (a : Nat) + 1) :
+    adjacentEntryHi a = adjacentEntryLo b := by
+  apply Fin.ext
+  simp [adjacentEntryHi, adjacentEntryLo, hsucc]
+
 theorem adjacentEntryLo_ne_hi {n : Nat} (a : Fin n) :
     adjacentEntryLo a ≠ adjacentEntryHi a := by
   intro h
@@ -51,6 +57,15 @@ theorem entry_adjacentHiCell {n : Nat}
     (T : StandardYoungTableau lam) (a : Fin n) :
     T.entry (adjacentHiCell T a) = adjacentEntryHi a := by
   exact entry_cellOfEntry T (adjacentEntryHi a)
+
+theorem adjacentHiCell_eq_loCell_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1) :
+    adjacentHiCell T a = adjacentLoCell T b := by
+  apply T.bijective.1
+  rw [entry_adjacentHiCell, entry_adjacentLoCell,
+    adjacentEntryHi_eq_lo_of_succ a b hsucc]
 
 theorem adjacentLoCell_ne_hiCell {n : Nat}
     {lam : YoungDiagram (n + 1)}
