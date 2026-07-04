@@ -8,8 +8,6 @@ cells of a Young diagram, standard Young tableaux, and the set of tableaux whose
 maximum entry lies in a specified cell.  It does not introduce the later
 Hilbert-space/span version of the deletion spaces.
 
-TODO: the deletion and insertion maps are now defined; package them as an
-equivalence by proving the map-level inverse equalities.
 -/
 
 noncomputable section
@@ -58,6 +56,19 @@ structure StandardYoungTableau {n : Nat} (lam : YoungDiagram n) where
       YoungCell.col u = YoungCell.col v ->
       YoungCell.row u < YoungCell.row v ->
       entry u < entry v
+
+/-- Two standard Young tableaux are equal if their entry functions agree. -/
+theorem standardYoungTableau_ext_entry {n : Nat} {lam : YoungDiagram n}
+    {T S : StandardYoungTableau lam}
+    (hentry : forall u : YoungCell lam, T.entry u = S.entry u) :
+    T = S := by
+  cases T with
+  | mk entry bijective row_strict col_strict =>
+    cases S with
+    | mk entry' bijective' row_strict' col_strict' =>
+      have hfun : entry = entry' := funext hentry
+      subst hfun
+      rfl
 
 /-- The maximum entry of a tableau of size `n+1` is in cell `u`. -/
 def TableauMaxAt {n : Nat} {lam : YoungDiagram (n + 1)}
@@ -204,6 +215,16 @@ theorem tableauDeleteMaxEntry_val {n : Nat} {lam : YoungDiagram (n + 1)}
     (hu : TableauMaxAt T u) (v : YoungCellExcept u) :
     (tableauDeleteMaxEntry T hu v : Nat) = (T.entry v.1 : Nat) := by
   rfl
+
+/-- Re-embedding a deleted nonmaximum entry into `Fin (n+1)` recovers the
+original entry. -/
+theorem castSucc_tableauDeleteMaxEntry
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) (v : YoungCellExcept u) :
+    Fin.castSucc (tableauDeleteMaxEntry T hu v) = T.entry v.1 := by
+  apply Fin.ext
+  simp [tableauDeleteMaxEntry_val]
 
 /-- The set-level deletion map is injective. -/
 theorem tableauDeleteMaxEntry_injective {n : Nat} {lam : YoungDiagram (n + 1)}
@@ -608,6 +629,25 @@ def deleteMaxAsStandardYoungTableauOfOneBoxChildRow
         rw [ha, hb]
         exact hrow }
 
+theorem deleteMaxAsStandardYoungTableau_entry
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T u)
+    (w : YoungCell mu) :
+    (deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+        h hr u hu_row hu_col T hu).entry w =
+      tableauDeleteMaxEntry T hu
+        ((youngCellExceptEquivChildOfOneBoxChildRow
+            h hr u hu_row hu_col).symm w) := by
+  rfl
+
 /-- The specified deleted corner as a parent cell. -/
 def deletedCornerCellOfOneBoxChildRow
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
@@ -902,6 +942,37 @@ def insertMaxAsStandardYoungTableauOfOneBoxChildRow
         rw [hrow_a, hrow_b]
         exact hrow
 
+/-- Inserted tableaux take the maximum value at the deleted corner. -/
+theorem insertMaxAsStandardYoungTableau_entry_deletedCorner
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) :
+    (insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S).entry
+      (deletedCornerCellOfOneBoxChildRow h hr) = Fin.last n := by
+  exact insertedMaxEntry_deletedCorner h hr S
+
+/-- Away from the deleted corner, inserted tableaux are given by the child
+tableau entry, re-embedded into `Fin (n+1)`. -/
+theorem insertMaxAsStandardYoungTableau_entry_ne_deletedCorner
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) {v : YoungCell lam}
+    (hv : v ≠ deletedCornerCellOfOneBoxChildRow h hr) :
+    (insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S).entry v =
+      Fin.castSucc
+        (S.entry
+          (youngCellExceptEquivChildOfOneBoxChildRow h hr
+            (deletedCornerCellOfOneBoxChildRow h hr)
+            (deletedCornerCell_row h hr)
+            (deletedCornerCell_col h hr) ⟨v, hv⟩)) := by
+  exact insertedMaxEntry_ne_deletedCorner h hr S hv
+
 theorem insertMax_tableauMaxAt_deletedCorner
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
     (h : IsOneBoxChild lam mu) {r : Nat}
@@ -913,5 +984,98 @@ theorem insertMax_tableauMaxAt_deletedCorner
       (insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S)
       (deletedCornerCellOfOneBoxChildRow h hr) := by
   exact insertedMaxEntry_deletedCorner h hr S
+
+/-- Deleting after inserting the maximum gives back the child tableau. -/
+theorem deleteMax_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) :
+    deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+        h hr
+        (deletedCornerCellOfOneBoxChildRow h hr)
+        (deletedCornerCell_row h hr)
+        (deletedCornerCell_col h hr)
+        (insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S)
+        (insertMax_tableauMaxAt_deletedCorner h hr S)
+      = S := by
+  apply standardYoungTableau_ext_entry
+  intro w
+  let u := deletedCornerCellOfOneBoxChildRow h hr
+  let e := youngCellExceptEquivChildOfOneBoxChildRow
+    h hr u (deletedCornerCell_row h hr) (deletedCornerCell_col h hr)
+  apply Fin.ext
+  rw [deleteMaxAsStandardYoungTableau_entry]
+  rw [tableauDeleteMaxEntry_val]
+  have hne : (e.symm w).1 ≠ u := (e.symm w).2
+  rw [insertMaxAsStandardYoungTableau_entry_ne_deletedCorner h hr S hne]
+  change (S.entry (e ⟨(e.symm w).1, hne⟩) : Nat) = (S.entry w : Nat)
+  have heq : e ⟨(e.symm w).1, hne⟩ = w := by
+    simp
+  rw [heq]
+
+/-- Inserting after deleting the maximum gives back the parent tableau. -/
+theorem insertMax_deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)) :
+    insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr
+      (deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+        h hr
+        (deletedCornerCellOfOneBoxChildRow h hr)
+        (deletedCornerCell_row h hr)
+        (deletedCornerCell_col h hr)
+        T hu)
+      = T := by
+  apply standardYoungTableau_ext_entry
+  intro v
+  let u := deletedCornerCellOfOneBoxChildRow h hr
+  let e := youngCellExceptEquivChildOfOneBoxChildRow
+    h hr u (deletedCornerCell_row h hr) (deletedCornerCell_col h hr)
+  by_cases hv : v = u
+  · subst v
+    rw [insertMaxAsStandardYoungTableau_entry_deletedCorner]
+    exact hu.symm
+  · rw [insertMaxAsStandardYoungTableau_entry_ne_deletedCorner h hr
+      (deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+        h hr u (deletedCornerCell_row h hr) (deletedCornerCell_col h hr)
+        T hu) hv]
+    rw [deleteMaxAsStandardYoungTableau_entry]
+    have hsymm : e.symm (e ⟨v, hv⟩) = ⟨v, hv⟩ := by
+      simp
+    rw [hsymm]
+    exact castSucc_tableauDeleteMaxEntry T hu ⟨v, hv⟩
+
+/-- Basis-level one-box deletion equivalence. -/
+def oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :
+    {T : StandardYoungTableau lam //
+      TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)}
+      ≃ StandardYoungTableau mu where
+  toFun T :=
+    deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+      h hr
+      (deletedCornerCellOfOneBoxChildRow h hr)
+      (deletedCornerCell_row h hr)
+      (deletedCornerCell_col h hr)
+      T.1 T.2
+  invFun S :=
+    ⟨insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S,
+      insertMax_tableauMaxAt_deletedCorner h hr S⟩
+  left_inv T := by
+    apply Subtype.ext
+    exact insertMax_deleteMaxAsStandardYoungTableauOfOneBoxChildRow h hr T.1 T.2
+  right_inv S := by
+    exact deleteMax_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S
 
 end DictatorshipTesting

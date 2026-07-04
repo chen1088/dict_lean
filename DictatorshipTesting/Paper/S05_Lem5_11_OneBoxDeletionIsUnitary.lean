@@ -114,4 +114,50 @@ theorem S05_Lem5_11_insertMax_tableauMaxAt_deletedCorner
       (deletedCornerCellOfOneBoxChildRow h hr) := by
   exact insertMax_tableauMaxAt_deletedCorner h hr S
 
+theorem S05_Lem5_11_delete_insert
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) :
+    deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+        h hr
+        (deletedCornerCellOfOneBoxChildRow h hr)
+        (deletedCornerCell_row h hr)
+        (deletedCornerCell_col h hr)
+        (insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S)
+        (insertMax_tableauMaxAt_deletedCorner h hr S)
+      = S := by
+  exact deleteMax_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S
+
+theorem S05_Lem5_11_insert_delete
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)) :
+    insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr
+      (deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+        h hr
+        (deletedCornerCellOfOneBoxChildRow h hr)
+        (deletedCornerCell_row h hr)
+        (deletedCornerCell_col h hr)
+        T hu)
+      = T := by
+  exact insertMax_deleteMaxAsStandardYoungTableauOfOneBoxChildRow h hr T hu
+
+def S05_Lem5_11_oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :
+    {T : StandardYoungTableau lam //
+      TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)}
+      ≃ StandardYoungTableau mu :=
+  oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow h hr
+
 end DictatorshipTesting
