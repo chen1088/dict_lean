@@ -1103,6 +1103,83 @@ theorem deleteTwoRemovableRows_mem_horizontal_or_vertical_sized {n : Nat}
   · right
     simp [verticalTwoStripChildrenSized, h]
 
+theorem deleteTwoRemovableRows_horizontal_of_first_lt_second {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam)
+    (hlt : p.first.1 < p.second.1) :
+    IsHorizontalTwoStripChild lam (deleteTwoRemovableRowsDiagram lam p) := by
+  refine ⟨by omega, deleteTwoRemovableRows_isYoungSubdiagram lam p, ?_⟩
+  intro i
+  rw [youngRow_deleteTwoRemovableRowsDiagram_eq_parent]
+  by_cases hi_first : (i : Nat) = p.first.1
+  · have hrem := p.first.2
+    unfold IsRemovableRow at hrem
+    have hi_second : (i : Nat) ≠ p.second.1 := by omega
+    have hne_fs : p.first.1 ≠ p.second.1 := by omega
+    rw [hi_first]
+    simp [hne_fs]
+    omega
+  · by_cases hi_second : (i : Nat) = p.second.1
+    · have hmid_succ :
+          youngRow (deleteRemovableRowDiagram lam p.first.1 p.first.2)
+            (p.second.1 + 1) =
+            youngRow lam (p.second.1 + 1) := by
+        rw [youngRow_deleteRemovableRowDiagram]
+        have hne : p.second.1 + 1 ≠ p.first.1 := by omega
+        simp [hne]
+      have hmid_self :
+          youngRow (deleteRemovableRowDiagram lam p.first.1 p.first.2)
+            p.second.1 =
+            youngRow lam p.second.1 := by
+        rw [youngRow_deleteRemovableRowDiagram]
+        have hne : p.second.1 ≠ p.first.1 := by omega
+        simp [hne]
+      have hrem := p.second.2
+      unfold IsRemovableRow at hrem
+      rw [hmid_succ, hmid_self] at hrem
+      have hne_sf : p.second.1 ≠ p.first.1 := by omega
+      rw [hi_second]
+      simp [hne_sf]
+      omega
+    · have hmono := youngRow_succ_le lam (i : Nat)
+      simp [hi_first, hi_second]
+      exact hmono
+
+theorem deleteTwoRemovableRows_horizontal_of_first_le_second {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam)
+    (hle : p.first.1 <= p.second.1) :
+    IsHorizontalTwoStripChild lam (deleteTwoRemovableRowsDiagram lam p) := by
+  by_cases hrows : p.first.1 = p.second.1
+  · exact deleteTwoRemovableRows_horizontal_of_same_row lam p hrows
+  · have hlt : p.first.1 < p.second.1 := by omega
+    exact deleteTwoRemovableRows_horizontal_of_first_lt_second lam p hlt
+
+theorem deleteTwoRemovableRows_vertical_of_second_lt_first {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam)
+    (hlt : p.second.1 < p.first.1) :
+    IsVerticalTwoStripChild lam (deleteTwoRemovableRowsDiagram lam p) := by
+  exact deleteTwoRemovableRows_vertical_of_distinct_rows lam p (by omega)
+
+noncomputable def twoStepToTaggedTwoStripChild {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) :
+    TwoStepRemovableRows lam → TaggedTwoStripChildrenSized lam :=
+  fun p =>
+    if hle : p.first.1 <= p.second.1 then
+      Sum.inl ⟨deleteTwoRemovableRowsDiagram lam p, by
+        simp [horizontalTwoStripChildrenSized,
+          deleteTwoRemovableRows_horizontal_of_first_le_second lam p hle]⟩
+    else
+      Sum.inr ⟨deleteTwoRemovableRowsDiagram lam p, by
+        have hlt : p.second.1 < p.first.1 := by omega
+        simp [verticalTwoStripChildrenSized,
+          deleteTwoRemovableRows_vertical_of_second_lt_first lam p hlt]⟩
+
+theorem taggedTwoStripChildDiagram_twoStepToTagged {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    taggedTwoStripChildDiagram (twoStepToTaggedTwoStripChild lam p) =
+      deleteTwoRemovableRowsDiagram lam p := by
+  by_cases hle : p.first.1 <= p.second.1 <;>
+    simp [twoStepToTaggedTwoStripChild, hle, taggedTwoStripChildDiagram]
+
 noncomputable def twoStepFirstDeletionEquiv {n : Nat}
     (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
     {T : StandardYoungTableau lam //
