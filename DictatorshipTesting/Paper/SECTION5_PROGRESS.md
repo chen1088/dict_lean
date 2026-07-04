@@ -16,6 +16,9 @@ Completed commits:
 - `b450942` Expose averaged rejection definitions
 - `c648518` Clarify spectral bridge paper-facing wrappers
 - `43450b8` Add paper-numbered finite certificate aliases
+- `f6729d5` Extend deletion content-sequence compatibility
+- `c702f90` Expose one-box deletion corner interfaces
+- `c12c502` Expose one-box deletion cell equivalence facts
 
 Files changed:
 - `DictatorshipTesting/Paper/Aux_YoungAdjacentEntries.lean`
@@ -46,6 +49,9 @@ Files changed:
 - `DictatorshipTesting/Paper/S05_Lem5_32_WeightZeroEntriesAreNeverAMajority.lean`
 - `DictatorshipTesting/Paper/S05_Lem5_34_EvenCertificate.lean`
 - `DictatorshipTesting/Paper/S05_Lem5_36_OddCertificate.lean`
+- `DictatorshipTesting/Paper/S05_Def5_09_OneBoxDeletionSpaces.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_11_OneBoxDeletionIsUnitary.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_12_OneBoxDeletionIntertwinesEarlierSwaps.lean`
 
 Main names added:
 - `adjacentSwapValue`, `adjacentSwapEntry`
@@ -166,6 +172,17 @@ Main names added:
 - `S05_Lem5_32_zEven_le_youngDim`
 - `S05_Lem5_34_even_certificate`
 - `S05_Lem5_36_odd_certificate`
+- `S05_Def5_09_existsUnique_tableauMaxAt`
+- `S05_Lem5_11_deletedCornerCell_row`
+- `S05_Lem5_11_deletedCornerCell_col`
+- `S05_Lem5_11_insertMax_entry_deletedCorner`
+- `S05_Lem5_11_insertMax_entry_ne_deletedCorner`
+- `S05_Lem5_11_youngCellExceptEquivChild_to_row`
+- `S05_Lem5_11_youngCellExceptEquivChild_to_col`
+- `S05_Lem5_11_youngCellExceptEquivChild_symm_row`
+- `S05_Lem5_11_youngCellExceptEquivChild_symm_col`
+- `S05_Lem5_11_insertMax_entry_lt_last_of_ne_deletedCorner`
+- `S05_Lem5_12_deleteMax_tableauContentSequence`
 
 ## Next Blocker
 
