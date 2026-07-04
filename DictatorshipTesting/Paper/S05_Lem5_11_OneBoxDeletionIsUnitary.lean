@@ -74,6 +74,78 @@ def S05_Lem5_11_youngCellExceptEquivChildOfOneBoxChildRow
     YoungCellExcept u ≃ YoungCell mu :=
   youngCellExceptEquivChildOfOneBoxChildRow h hr u hu_row hu_col
 
+/-- Lemma 5.11 set-level component: the parent-to-child cell equivalence
+preserves rows. -/
+theorem S05_Lem5_11_youngCellExceptEquivChild_to_row
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (v : YoungCellExcept u) :
+    YoungCell.row
+        (S05_Lem5_11_youngCellExceptEquivChildOfOneBoxChildRow
+          h hr u hu_row hu_col v)
+      = YoungCell.row v.1 := by
+  exact youngCellExceptEquivChild_to_row h hr u hu_row hu_col v
+
+/-- Lemma 5.11 set-level component: the parent-to-child cell equivalence
+preserves columns. -/
+theorem S05_Lem5_11_youngCellExceptEquivChild_to_col
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (v : YoungCellExcept u) :
+    YoungCell.col
+        (S05_Lem5_11_youngCellExceptEquivChildOfOneBoxChildRow
+          h hr u hu_row hu_col v)
+      = YoungCell.col v.1 := by
+  exact youngCellExceptEquivChild_to_col h hr u hu_row hu_col v
+
+/-- Lemma 5.11 set-level component: the child-to-parent inverse cell
+equivalence preserves rows. -/
+theorem S05_Lem5_11_youngCellExceptEquivChild_symm_row
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (w : YoungCell mu) :
+    YoungCell.row
+        ((S05_Lem5_11_youngCellExceptEquivChildOfOneBoxChildRow
+          h hr u hu_row hu_col).symm w).1
+      = YoungCell.row w := by
+  exact youngCellExceptEquivChild_symm_row h hr u hu_row hu_col w
+
+/-- Lemma 5.11 set-level component: the child-to-parent inverse cell
+equivalence preserves columns. -/
+theorem S05_Lem5_11_youngCellExceptEquivChild_symm_col
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (u : YoungCell lam)
+    (hu_row : YoungCell.row u = r)
+    (hu_col : YoungCell.col u = youngRow mu r)
+    (w : YoungCell mu) :
+    YoungCell.col
+        ((S05_Lem5_11_youngCellExceptEquivChildOfOneBoxChildRow
+          h hr u hu_row hu_col).symm w).1
+      = YoungCell.col w := by
+  exact youngCellExceptEquivChild_symm_col h hr u hu_row hu_col w
+
 /-- Lemma 5.11 set-level component: deleting the maximum cell gives a standard
 tableau of the one-box child shape. -/
 def S05_Lem5_11_deleteMaxAsStandardYoungTableauOfOneBoxChildRow
@@ -168,6 +240,21 @@ theorem S05_Lem5_11_insertMax_entry_ne_deletedCorner
             (deletedCornerCell_row h hr)
             (deletedCornerCell_col h hr) ⟨v, hv⟩)) := by
   exact insertMaxAsStandardYoungTableau_entry_ne_deletedCorner h hr S hv
+
+/-- Lemma 5.11 set-level component: away from the deleted corner, inserted
+entries are strictly below the new maximum. -/
+theorem S05_Lem5_11_insertMax_entry_lt_last_of_ne_deletedCorner
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu)
+    {v : YoungCell lam}
+    (hv : v ≠ deletedCornerCellOfOneBoxChildRow h hr) :
+    (S05_Lem5_11_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S).entry v <
+      Fin.last n := by
+  exact insertedMaxEntry_lt_last_of_ne_deletedCorner h hr S hv
 
 theorem S05_Lem5_11_delete_insert
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
