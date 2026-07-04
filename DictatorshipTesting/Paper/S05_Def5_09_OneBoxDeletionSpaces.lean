@@ -1,16 +1,35 @@
-import DictatorshipTesting.Paper.S05_Def5_07_OneBoxRemovals
+import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 
 /-!
 Paper statement: Definition 5.9
 Title in paper: One-box deletion spaces.
 
-Status: paper-facing owner file for the rewritten Section 5 definition.  The
-current Lean vocabulary has one-box child diagrams, but not the Hilbert-space
-deletion subspaces used in the tableau proof.
+Status: the set-level tableau deletion spaces are formalized below.  The
+Hilbert-space span version used later in the tableau proof is future work.
 -/
 
 noncomputable section
 
 namespace DictatorshipTesting
+
+/-- Definition 5.9, set-level tableau deletion space. -/
+abbrev S05_Def5_09_OneBoxDeletionTableaux {n : Nat}
+    (lam : YoungDiagram (n + 1)) (u : YoungCell lam) :
+    Set (StandardYoungTableau lam) :=
+  OneBoxDeletionTableaux lam u
+
+/-- Definition 5.9, maximum-entry condition. -/
+abbrev S05_Def5_09_TableauMaxAt {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (u : YoungCell lam) : Prop :=
+  TableauMaxAt T u
+
+/-- Membership in the set-level deletion space is the maximum-entry condition. -/
+theorem S05_Def5_09_mem_iff {n : Nat}
+    {lam : YoungDiagram (n + 1)} {u : YoungCell lam}
+    {T : StandardYoungTableau lam} :
+    T ∈ S05_Def5_09_OneBoxDeletionTableaux lam u <->
+      S05_Def5_09_TableauMaxAt T u := by
+  rfl
 
 end DictatorshipTesting
