@@ -19,6 +19,9 @@ Completed commits:
 - `f6729d5` Extend deletion content-sequence compatibility
 - `c702f90` Expose one-box deletion corner interfaces
 - `c12c502` Expose one-box deletion cell equivalence facts
+- `29ce495` Expose two-box first deletion content compatibility
+- `6e76a08` Expose two-box first deletion cell compatibility
+- `bc5b547` Add iterated two-box deletion interface
 
 Files changed:
 - `DictatorshipTesting/Paper/Aux_YoungAdjacentEntries.lean`
@@ -183,6 +186,13 @@ Main names added:
 - `S05_Lem5_11_youngCellExceptEquivChild_symm_col`
 - `S05_Lem5_11_insertMax_entry_lt_last_of_ne_deletedCorner`
 - `S05_Lem5_12_deleteMax_tableauContentSequence`
+- `S05_Lem5_08_first_deletion_tableauContentSequence`
+- `S05_Lem5_08_first_deletion_childCellToParent_cellOfEntry`
+- `S05_Lem5_08_first_deletion_cellOfEntry_row`
+- `S05_Lem5_08_first_deletion_cellOfEntry_col`
+- `S05_Lem5_08_deleteSecondMaxAsTableau`
+- `S05_Lem5_08_second_deletion_tableauContentSequence`
+- `S05_Lem5_08_iterated_deletion_tableauContentSequence`
 
 ## Next Blocker
 
