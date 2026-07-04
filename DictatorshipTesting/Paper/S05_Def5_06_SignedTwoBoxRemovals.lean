@@ -38,4 +38,39 @@ theorem S05_Def5_06_sum_row_diff_of_negativeSignedTwoBoxRemoval
     (Finset.range n).sum (fun i => youngRow lam i - youngRow mu i) = 2 := by
   exact S05_Def5_05_sum_row_diff_of_verticalTwoBoxRemoval h
 
+/-- The positive signed branch is rowwise bounded by its parent. -/
+theorem S05_Def5_06_row_le_parent_of_positiveSignedTwoBoxRemoval
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : S05_PositiveSignedTwoBoxRemoval lam mu) (i : Nat) :
+    youngRow mu i <= youngRow lam i :=
+  S05_Def5_05_row_le_parent_of_horizontalTwoBoxRemoval h i
+
+/-- The negative signed branch is rowwise bounded by its parent. -/
+theorem S05_Def5_06_row_le_parent_of_negativeSignedTwoBoxRemoval
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : S05_NegativeSignedTwoBoxRemoval lam mu) (i : Nat) :
+    youngRow mu i <= youngRow lam i :=
+  S05_Def5_05_row_le_parent_of_verticalTwoBoxRemoval h i
+
+/-- Positive signed removals satisfy the horizontal two-strip row condition. -/
+theorem S05_Def5_06_next_parent_row_le_child_row_of_positiveSignedTwoBoxRemoval
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : S05_PositiveSignedTwoBoxRemoval lam mu) (i : Nat) :
+    youngRow lam (i + 1) <= youngRow mu i :=
+  S05_Def5_05_next_parent_row_le_child_row_of_horizontalTwoBoxRemoval h i
+
+/-- Negative signed removals satisfy the vertical two-strip row condition. -/
+theorem S05_Def5_06_parent_row_le_child_row_add_one_of_negativeSignedTwoBoxRemoval
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : S05_NegativeSignedTwoBoxRemoval lam mu) (i : Nat) :
+    youngRow lam i <= youngRow mu i + 1 :=
+  S05_Def5_05_parent_row_le_child_row_add_one_of_verticalTwoBoxRemoval h i
+
+/-- In a negative signed removal, each row loses at most one box. -/
+theorem S05_Def5_06_row_diff_le_one_of_negativeSignedTwoBoxRemoval
+    {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
+    (h : S05_NegativeSignedTwoBoxRemoval lam mu) (i : Nat) :
+    youngRow lam i - youngRow mu i <= 1 :=
+  S05_Def5_05_row_diff_le_one_of_verticalTwoBoxRemoval h i
+
 end DictatorshipTesting
