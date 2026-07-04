@@ -8,11 +8,19 @@ Completed commits:
 - `0d0d35c` Add content API for Lemma 5.2
 - `0721c63` Track cells under adjacent tableau swap
 - `bc88b48` Add content-sequence API for Lemma 5.2
+- `7e7b8a8` Clarify Young block interface files
+- `132a1b3` Add row combinatorics for strip removals
 
 Files changed:
 - `DictatorshipTesting/Paper/Aux_YoungAdjacentEntries.lean`
+- `DictatorshipTesting/Paper/Aux_YoungDiagramCorners.lean`
 - `DictatorshipTesting/Paper/S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean`
 - `DictatorshipTesting/Paper/S05_Lem5_02_JucysMurphyEigenbasis.lean`
+- `DictatorshipTesting/Paper/S05_Def5_03_YoungBlock.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_04_RegularYoungBlocks.lean`
+- `DictatorshipTesting/Paper/S05_Def5_05_TwoBoxRemovals.lean`
+- `DictatorshipTesting/Paper/S05_Def5_06_SignedTwoBoxRemovals.lean`
+- `DictatorshipTesting/Paper/S05_Def5_07_OneBoxRemovals.lean`
 
 Main names added:
 - `adjacentSwapValue`, `adjacentSwapEntry`
@@ -49,6 +57,36 @@ Main names added:
 - `S05_Lem5_02_entryContent_adjacent_hi_eq_lo_sub_one_of_sameCol`
 - `S05_Lem5_02_entryContent_adjacent_lo_eq_hi_sub_one_of_sameRow`
 - `S05_Lem5_02_entryContent_adjacent_lo_eq_hi_add_one_of_sameCol`
+- `S05_Def5_03_YoungBlockEnergyModel`
+- `S05_Def5_03_MatchingAverageScalarModel`
+- `S05_Def5_03_SpectralBlockModelInput`
+- `S05_Lem5_04_YoungBlockDecompositionInput`
+- `S05_Lem5_04_U1YoungBlockIdentificationInput`
+- `S05_Lem5_04_blockEnergy_nonnegative`
+- `S05_Lem5_04_u1_identification`
+- `youngRow_sum_range_add_two`
+- `sum_row_diff_of_twoBoxSubdiagram`
+- `sum_row_diff_of_horizontalTwoStripChild`
+- `sum_row_diff_of_verticalTwoStripChild`
+- `row_le_parent_of_twoBoxSubdiagram`
+- `row_le_parent_of_horizontalTwoStripChild`
+- `row_le_parent_of_verticalTwoStripChild`
+- `next_parent_row_le_child_row_of_horizontalTwoStripChild`
+- `parent_row_le_child_row_add_one_of_verticalTwoStripChild`
+- `row_diff_le_one_of_verticalTwoStripChild`
+- `S05_Def5_05_sum_row_diff_of_horizontalTwoBoxRemoval`
+- `S05_Def5_05_sum_row_diff_of_verticalTwoBoxRemoval`
+- `S05_Def5_05_row_le_parent_of_horizontalTwoBoxRemoval`
+- `S05_Def5_05_row_le_parent_of_verticalTwoBoxRemoval`
+- `S05_Def5_05_next_parent_row_le_child_row_of_horizontalTwoBoxRemoval`
+- `S05_Def5_05_parent_row_le_child_row_add_one_of_verticalTwoBoxRemoval`
+- `S05_Def5_05_row_diff_le_one_of_verticalTwoBoxRemoval`
+- `S05_PositiveSignedTwoBoxRemoval`
+- `S05_NegativeSignedTwoBoxRemoval`
+- `S05_Def5_06_sum_row_diff_of_positiveSignedTwoBoxRemoval`
+- `S05_Def5_06_sum_row_diff_of_negativeSignedTwoBoxRemoval`
+- `S05_Def5_07_existsUnique_row_of_oneBoxRemoval`
+- `S05_Def5_07_exists_removableRow_of_oneBoxRemoval`
 
 ## Next Blocker
 
@@ -59,6 +97,6 @@ introduced in this batch.
 
 ## Next Recommended Milestone
 
-Inspect the Lemma 5.3 and Lemma 5.4 Young-block interface files and expose only
-the existing honest model/input structures needed for the later
-representation-layer formalization.
+Start Lemma 5.8 with basis-level two-box tableau branching statements phrased
+as iterated one-box deletion facts.  Do not formalize Specht modules or
+operator branching in that file.
