@@ -142,6 +142,16 @@ theorem S05_Lem5_01_adjacentSwapEntry_comm_of_disjoint_indices {n : Nat}
       adjacentSwapValue b (adjacentSwapEntry T a u) := by
   exact adjacentSwapEntry_comm_of_disjoint_indices T a b hdisj u
 
+/-- Lemma 5.1 Coxeter-frontier component: entry functions inherit the value
+braid relation for consecutive adjacent indices. -/
+theorem S05_Lem5_01_adjacentSwapEntry_braid_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1) (u : YoungCell lam) :
+    adjacentSwapValue a (adjacentSwapValue b (adjacentSwapEntry T a u)) =
+      adjacentSwapValue b (adjacentSwapValue a (adjacentSwapEntry T b u)) := by
+  exact adjacentSwapEntry_braid_of_succ T a b hsucc u
+
 /-- Lemma 5.1 basis-level component: if adjacent entries are in different rows
 and columns, swapping their values gives another standard tableau. -/
 noncomputable def S05_Lem5_01_adjacentSwapTableau {n : Nat}

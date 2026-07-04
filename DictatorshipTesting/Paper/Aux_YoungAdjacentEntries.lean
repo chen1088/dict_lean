@@ -498,6 +498,15 @@ theorem adjacentSwapEntry_comm_of_disjoint_indices {n : Nat}
   rw [adjacentSwapEntry, adjacentSwapEntry]
   exact adjacentSwapValue_comm_of_disjoint_indices a b hdisj (T.entry u)
 
+theorem adjacentSwapEntry_braid_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1) (u : YoungCell lam) :
+    adjacentSwapValue a (adjacentSwapValue b (adjacentSwapEntry T a u)) =
+      adjacentSwapValue b (adjacentSwapValue a (adjacentSwapEntry T b u)) := by
+  rw [adjacentSwapEntry, adjacentSwapEntry]
+  exact adjacentSwapValue_braid_of_succ a b hsucc (T.entry u)
+
 theorem adjacentSwapEntry_bijective {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n) :
