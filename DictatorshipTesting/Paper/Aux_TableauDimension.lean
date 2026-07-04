@@ -416,4 +416,84 @@ theorem oneBoxChildToRemovableRow_row_form {n : Nat}
   let hrow := exists_removableRow_of_oneBoxChild hchild
   exact (Classical.choose_spec hrow).2
 
+theorem isRemovableRow_of_removableCornerBox {n : Nat}
+    {lam : YoungDiagram n} {u : Nat × Nat}
+    (h : IsRemovableCornerBox lam u) :
+    IsRemovableRow lam u.1 := by
+  unfold IsRemovableCornerBox IsYoungBox IsRemovableRow at *
+  omega
+
+noncomputable def maxRemovableCornerCell {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
+    YoungCell lam :=
+  Classical.choose (ExistsUnique.exists
+    (existsUnique_removableCornerBox_tableauMaxAt T))
+
+theorem maxRemovableCornerCell_spec {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
+    TableauMaxAt T (maxRemovableCornerCell T) ∧
+      IsRemovableCornerBox lam
+        (YoungCell.toNatPair (maxRemovableCornerCell T)) := by
+  unfold maxRemovableCornerCell
+  exact Classical.choose_spec (ExistsUnique.exists
+    (existsUnique_removableCornerBox_tableauMaxAt T))
+
+noncomputable def maxRemovableRow {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
+    RemovableRow lam :=
+  ⟨YoungCell.row (maxRemovableCornerCell T),
+    isRemovableRow_of_removableCornerBox
+      (maxRemovableCornerCell_spec T).2⟩
+
+theorem tableauMaxAt_maxRemovableCornerCell {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
+    TableauMaxAt T (maxRemovableCornerCell T) := by
+  exact (maxRemovableCornerCell_spec T).1
+
+theorem maxRemovableRow_isRemovable {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
+    IsRemovableRow lam (maxRemovableRow T).1 :=
+  (maxRemovableRow T).2
+
+theorem tableauMaxAt_deletedCorner_maxRemovableRow {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
+    TableauMaxAt T
+      (deletedCornerCellOfOneBoxChildRow
+        (deleteRemovableRowDiagram_isOneBoxChild lam (maxRemovableRow T).2)
+        (row_form_deleteRemovableRowDiagram lam (maxRemovableRow T).2)) := by
+  let u := maxRemovableCornerCell T
+  let r : RemovableRow lam := maxRemovableRow T
+  have hcorner :
+      IsRemovableCornerBox lam (YoungCell.toNatPair u) :=
+    (maxRemovableCornerCell_spec T).2
+  have hcol_u : YoungCell.col u = youngRow lam r.1 - 1 := by
+    unfold IsRemovableCornerBox IsYoungBox YoungCell.toNatPair at hcorner
+    rcases hcorner with ⟨_hbox, hlast, _hbelow⟩
+    change YoungCell.col u + 1 = youngRow lam (YoungCell.row u) at hlast
+    have hrow_u : YoungCell.row u = r.1 := by
+      simp [r, maxRemovableRow, u]
+    rw [hrow_u] at hlast
+    omega
+  have hchild_row :
+      youngRow (deleteRemovableRowDiagram lam r.1 r.2) r.1 =
+        youngRow lam r.1 - 1 := by
+    rw [youngRow_deleteRemovableRowDiagram lam r.2 r.1]
+    simp
+  have hcell :
+      deletedCornerCellOfOneBoxChildRow
+          (deleteRemovableRowDiagram_isOneBoxChild lam r.2)
+          (row_form_deleteRemovableRowDiagram lam r.2)
+        = u := by
+    apply YoungCell.ext_row_col
+    · rw [deletedCornerCell_row]
+      simp [r, maxRemovableRow, u]
+    · rw [deletedCornerCell_col]
+      rw [hchild_row, hcol_u]
+  change TableauMaxAt T
+      (deletedCornerCellOfOneBoxChildRow
+        (deleteRemovableRowDiagram_isOneBoxChild lam r.2)
+        (row_form_deleteRemovableRowDiagram lam r.2))
+  rw [hcell]
+  exact tableauMaxAt_maxRemovableCornerCell T
+
 end DictatorshipTesting
