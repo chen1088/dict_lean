@@ -449,3 +449,42 @@ Use the completed one-box tableau-count layer as the template for the analogous
 two-box tableau-count branching layer around Lemma 5.15.  Replacing the
 hook-length `youngDim` axioms still requires a later theorem identifying
 `tableauDim` with `youngDim`.
+
+### Young-orthogonal coordinate batch
+
+Completed commits in the current representation-layer cleanup:
+- `ece8f6f` Add tableau coordinate space
+- `8c58536` Add adjacent axial coefficient facts
+- `1d8d3ae` Add adjacent matrix coefficient support
+- `d39e26f` Define adjacent operator on tableau coordinates
+
+Main names added:
+- `TableauSpace`
+- `tableauBasisVec`
+- `tableauInner`
+- `youngAdjacentDiagCoeff`
+- `youngAdjacentOffCoeff`
+- `youngAdjacentMatrixCoeff`
+- `youngAdjacentOperator`
+- `youngAdjacentOperator_basis_sameRow`
+- `youngAdjacentOperator_basis_sameCol`
+- `youngAdjacentOperator_basis_swappable_self_value`
+- `youngAdjacentOperator_basis_swappable_swap_value`
+- `youngAdjacentOperator_basis_swappable_other_value`
+- `jucysMurphyDiagonalOperator`
+- `jucysMurphyDiagonalOperator_basis_self`
+- `jucysMurphyDiagonalOperator_basis_ne`
+- `jucysMurphyDiagonalOperator_basis_eigen`
+
+Status:
+- Lemma 5.1 now has an internal coordinate-matrix model for adjacent
+  transpositions on the standard-tableau basis.  The same-row and same-column
+  diagonal behavior is proved, and the swappable case is proved to have support
+  only on the original tableau and the swapped tableau.
+- This does not yet prove that these matrices satisfy the symmetric-group
+  relations or realize the Specht module.  Those remain representation-layer
+  obligations.
+- Lemma 5.2 now also has the coordinate-level diagonal content operator and its
+  basis-eigenvector facts.  This is the diagonal operator used as the
+  Jucys--Murphy coordinate model, not yet the full operator theorem inside a
+  formal Specht module.

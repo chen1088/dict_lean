@@ -187,4 +187,31 @@ theorem S05_Lem5_02_entryContent_adjacent_lo_eq_hi_add_one_of_sameCol
     S05_Lem5_02_entryContent_adjacent_hi_eq_lo_sub_one_of_sameCol T a hcol
   omega
 
+/-- Lemma 5.2 coordinate component: the diagonal content operator has
+eigenvalue equal to the entry content on the matching tableau basis vector. -/
+theorem S05_Lem5_02_jucysMurphyDiagonalOperator_basis_self
+    {n : Nat} {lam : YoungDiagram n}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    jucysMurphyDiagonalOperator a (tableauBasisVec T) T =
+      (entryContent T a : ℝ) := by
+  exact jucysMurphyDiagonalOperator_basis_self T a
+
+/-- Lemma 5.2 coordinate component: the diagonal content operator has zero
+coordinate on every other tableau basis vector. -/
+theorem S05_Lem5_02_jucysMurphyDiagonalOperator_basis_ne
+    {n : Nat} {lam : YoungDiagram n}
+    {S T : StandardYoungTableau lam} (a : Fin n)
+    (hST : S ≠ T) :
+    jucysMurphyDiagonalOperator a (tableauBasisVec T) S = 0 := by
+  exact jucysMurphyDiagonalOperator_basis_ne a hST
+
+/-- Lemma 5.2 coordinate component: each tableau basis vector is an eigenvector
+of the diagonal content operator. -/
+theorem S05_Lem5_02_jucysMurphyDiagonalOperator_basis_eigen
+    {n : Nat} {lam : YoungDiagram n}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    jucysMurphyDiagonalOperator a (tableauBasisVec T) =
+      fun S => (entryContent T a : ℝ) * tableauBasisVec T S := by
+  exact jucysMurphyDiagonalOperator_basis_eigen T a
+
 end DictatorshipTesting

@@ -365,4 +365,35 @@ theorem youngAdjacentOperator_basis_swappable_other_value {n : Nat}
   rw [youngAdjacentOperator_basis_value,
     youngAdjacentMatrixCoeff_swappable_other a hrow_ne hcol_ne hST hSswap]
 
+/-- The diagonal content operator in the tableau coordinate basis. -/
+noncomputable def jucysMurphyDiagonalOperator {n : Nat}
+    {lam : YoungDiagram n} (a : Fin n) :
+    TableauSpace lam -> TableauSpace lam :=
+  fun f T => (entryContent T a : ℝ) * f T
+
+theorem jucysMurphyDiagonalOperator_basis_self {n : Nat}
+    {lam : YoungDiagram n}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    jucysMurphyDiagonalOperator a (tableauBasisVec T) T =
+      (entryContent T a : ℝ) := by
+  simp [jucysMurphyDiagonalOperator, tableauBasisVec]
+
+theorem jucysMurphyDiagonalOperator_basis_ne {n : Nat}
+    {lam : YoungDiagram n}
+    {S T : StandardYoungTableau lam} (a : Fin n)
+    (hST : S ≠ T) :
+    jucysMurphyDiagonalOperator a (tableauBasisVec T) S = 0 := by
+  simp [jucysMurphyDiagonalOperator, tableauBasisVec, hST]
+
+theorem jucysMurphyDiagonalOperator_basis_eigen {n : Nat}
+    {lam : YoungDiagram n}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    jucysMurphyDiagonalOperator a (tableauBasisVec T) =
+      fun S => (entryContent T a : ℝ) * tableauBasisVec T S := by
+  funext S
+  by_cases hST : S = T
+  · subst S
+    simp [jucysMurphyDiagonalOperator, tableauBasisVec]
+  · simp [jucysMurphyDiagonalOperator, tableauBasisVec, hST]
+
 end DictatorshipTesting

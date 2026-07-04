@@ -40,6 +40,15 @@ spectral block model itself: Young-block decomposition, `U_1` identification,
 matching-average scalarity, and trace/scalar value with block dimension
 `tableauDim`.
 
+The newest internal representation-layer objects are coordinate-level only:
+`Aux_YoungOrthogonal.lean` defines the tableau coordinate space, standard basis,
+the adjacent-transposition coefficient matrix, the resulting finite operator,
+and the diagonal content operator.  Lemma 5.1 exposes same-row, same-column, and
+swappable support behavior for that concrete matrix; Lemma 5.2 exposes the
+diagonal content-operator eigenvector facts.  This is useful scaffolding, but it
+does not yet prove the Specht-module realization, braid/Coxeter relations,
+Schur-lemma scalarity, or the spectral block model.
+
 ## Section 5 Paper/Lean Status Table
 
 | Paper statement number | Paper label/title | Lean file | Lean theorem name | Status | Remaining assumption, if any |
@@ -255,6 +264,15 @@ Downstream dependencies: the trace/scalar-value inputs in Lemma 5.8.
   `L5_2_SpectralCertificate` are proved from the explicit inputs above.
 - `Aux_SpectralBridgeRepresentationInputs.lean`: compact interface definitions
   for the spectral-block model used by Lemma 5.8.
+- `Aux_YoungOrthogonal.lean`: coordinate space on standard tableaux, basis
+  vectors, basis inner product facts, concrete adjacent matrix coefficients,
+  the adjacent operator on coordinates, and the diagonal content operator.
+- `S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean`: basis-level adjacent
+  transposition facts, including same-row/same-column diagonal behavior and
+  swappable two-coordinate support for the concrete coordinate operator.
+- `S05_Lem5_02_JucysMurphyEigenbasis.lean`: basis-level content API and the
+  diagonal content-operator eigenvector facts.  The full Jucys--Murphy
+  representation theorem remains a representation-layer obligation.
 - `S05_Lem5_32_WeightZeroEntriesAreNeverAMajority.lean`: finite `zEven`
   certificate, with both the legacy `youngDim` theorem and the tableau-count
   theorem `S05_Lem5_32_tableau_weightZeroEntries_never_majority`.
