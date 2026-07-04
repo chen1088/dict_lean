@@ -152,4 +152,32 @@ theorem youngRow_last_eq_zero_of_removable_lt {n : Nat}
   rw [hleft, hsum] at hlower
   omega
 
+theorem youngRow_last_eq_one_of_removable_not_lt {n : Nat}
+    {lam : YoungDiagram (n + 1)} {r : Nat}
+    (hr : IsRemovableRow lam r) (hrn : ¬ r < n) :
+    youngRow lam n = 1 := by
+  have hr_lt : r < n + 1 := removableRow_lt_size hr
+  have hr_eq : r = n := by omega
+  have hlast_pos : 0 < youngRow lam n := by
+    simpa [hr_eq] using removableRow_pos hr
+  have hsum := youngRow_sum_range lam
+  have hlast_le_one : youngRow lam n <= 1 := by
+    by_contra hnot
+    have htwo : 2 <= youngRow lam n := by omega
+    have hlower :
+        (Finset.range (n + 1)).sum (fun _ => 2) <=
+          (Finset.range (n + 1)).sum (fun i => youngRow lam i) := by
+      apply Finset.sum_le_sum
+      intro i hi
+      have hin : i <= n := Nat.le_of_lt_succ (Finset.mem_range.mp hi)
+      have hlast_le : youngRow lam n <= youngRow lam i :=
+        youngRow_le_of_le lam hin
+      omega
+    have hleft :
+        (Finset.range (n + 1)).sum (fun _ => 2) = 2 * (n + 1) := by
+      simp [Finset.sum_const, mul_comm]
+    rw [hleft, hsum] at hlower
+    omega
+  omega
+
 end DictatorshipTesting
