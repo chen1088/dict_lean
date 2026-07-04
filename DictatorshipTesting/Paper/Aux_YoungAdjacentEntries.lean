@@ -339,40 +339,60 @@ of labels are separated by at least one label. -/
 def adjacentIndexDisjoint {n : Nat} (a b : Fin n) : Prop :=
   (a : Nat) + 1 < (b : Nat) ∨ (b : Nat) + 1 < (a : Nat)
 
+theorem adjacentEntryLo_ne_lo_of_disjoint_indices {n : Nat}
+    (a b : Fin n) (hdisj : adjacentIndexDisjoint a b) :
+    adjacentEntryLo a ≠ adjacentEntryLo b := by
+  intro h
+  have hv := congrArg Fin.val h
+  rcases hdisj with hdisj | hdisj
+  · simp [adjacentEntryLo] at hv
+    omega
+  · simp [adjacentEntryLo] at hv
+    omega
+
+theorem adjacentEntryLo_ne_hi_of_disjoint_indices {n : Nat}
+    (a b : Fin n) (hdisj : adjacentIndexDisjoint a b) :
+    adjacentEntryLo a ≠ adjacentEntryHi b := by
+  intro h
+  have hv := congrArg Fin.val h
+  rcases hdisj with hdisj | hdisj
+  · simp [adjacentEntryLo, adjacentEntryHi] at hv
+    omega
+  · simp [adjacentEntryLo, adjacentEntryHi] at hv
+    omega
+
+theorem adjacentEntryHi_ne_lo_of_disjoint_indices {n : Nat}
+    (a b : Fin n) (hdisj : adjacentIndexDisjoint a b) :
+    adjacentEntryHi a ≠ adjacentEntryLo b := by
+  intro h
+  have hv := congrArg Fin.val h
+  rcases hdisj with hdisj | hdisj
+  · simp [adjacentEntryLo, adjacentEntryHi] at hv
+    omega
+  · simp [adjacentEntryLo, adjacentEntryHi] at hv
+    omega
+
+theorem adjacentEntryHi_ne_hi_of_disjoint_indices {n : Nat}
+    (a b : Fin n) (hdisj : adjacentIndexDisjoint a b) :
+    adjacentEntryHi a ≠ adjacentEntryHi b := by
+  intro h
+  have hv := congrArg Fin.val h
+  rcases hdisj with hdisj | hdisj
+  · simp [adjacentEntryHi] at hv
+    omega
+  · simp [adjacentEntryHi] at hv
+    omega
+
 theorem adjacentSwapValue_comm_of_disjoint_indices {n : Nat}
     (a b : Fin n) (hdisj : adjacentIndexDisjoint a b)
     (x : Fin (n + 1)) :
     adjacentSwapValue a (adjacentSwapValue b x) =
       adjacentSwapValue b (adjacentSwapValue a x) := by
   apply adjacentSwapValue_comm_of_disjoint_entries
-  · intro h
-    have hv := congrArg Fin.val h
-    rcases hdisj with hdisj | hdisj
-    · simp [adjacentEntryLo] at hv
-      omega
-    · simp [adjacentEntryLo] at hv
-      omega
-  · intro h
-    have hv := congrArg Fin.val h
-    rcases hdisj with hdisj | hdisj
-    · simp [adjacentEntryLo, adjacentEntryHi] at hv
-      omega
-    · simp [adjacentEntryLo, adjacentEntryHi] at hv
-      omega
-  · intro h
-    have hv := congrArg Fin.val h
-    rcases hdisj with hdisj | hdisj
-    · simp [adjacentEntryLo, adjacentEntryHi] at hv
-      omega
-    · simp [adjacentEntryLo, adjacentEntryHi] at hv
-      omega
-  · intro h
-    have hv := congrArg Fin.val h
-    rcases hdisj with hdisj | hdisj
-    · simp [adjacentEntryHi] at hv
-      omega
-    · simp [adjacentEntryHi] at hv
-      omega
+  · exact adjacentEntryLo_ne_lo_of_disjoint_indices a b hdisj
+  · exact adjacentEntryLo_ne_hi_of_disjoint_indices a b hdisj
+  · exact adjacentEntryHi_ne_lo_of_disjoint_indices a b hdisj
+  · exact adjacentEntryHi_ne_hi_of_disjoint_indices a b hdisj
 
 /-- Entry function obtained by swapping the two adjacent values. -/
 def adjacentSwapEntry {n : Nat} {lam : YoungDiagram (n + 1)}
@@ -631,6 +651,82 @@ theorem adjacentSwapTableau_cell_of_ne_lo_hi {n : Nat}
     exact hbhi
   rw [adjacentSwapTableau]
   exact (adjacentSwapEntry_of_ne_lo_hi T a hlo hhi).trans hentry
+
+theorem adjacentSwapTableau_cell_lo_of_disjoint_indices {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    cellOfEntry (adjacentSwapTableau T b hrow_b hcol_b)
+        (adjacentEntryLo a) =
+      adjacentLoCell T a := by
+  exact adjacentSwapTableau_cell_of_ne_lo_hi T b hrow_b hcol_b
+    (adjacentEntryLo_ne_lo_of_disjoint_indices a b hdisj)
+    (adjacentEntryLo_ne_hi_of_disjoint_indices a b hdisj)
+
+theorem adjacentSwapTableau_cell_hi_of_disjoint_indices {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    cellOfEntry (adjacentSwapTableau T b hrow_b hcol_b)
+        (adjacentEntryHi a) =
+      adjacentHiCell T a := by
+  exact adjacentSwapTableau_cell_of_ne_lo_hi T b hrow_b hcol_b
+    (adjacentEntryHi_ne_lo_of_disjoint_indices a b hdisj)
+    (adjacentEntryHi_ne_hi_of_disjoint_indices a b hdisj)
+
+theorem adjacentSameRow_after_disjoint_swap_iff {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    YoungCell.row (adjacentLoCell
+        (adjacentSwapTableau T b hrow_b hcol_b) a) =
+      YoungCell.row (adjacentHiCell
+        (adjacentSwapTableau T b hrow_b hcol_b) a) ↔
+    YoungCell.row (adjacentLoCell T a) =
+      YoungCell.row (adjacentHiCell T a) := by
+  unfold adjacentLoCell adjacentHiCell
+  rw [adjacentSwapTableau_cell_lo_of_disjoint_indices T a b hdisj hrow_b hcol_b,
+    adjacentSwapTableau_cell_hi_of_disjoint_indices T a b hdisj hrow_b hcol_b]
+  rfl
+
+theorem adjacentSameCol_after_disjoint_swap_iff {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hdisj : adjacentIndexDisjoint a b)
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b)) :
+    YoungCell.col (adjacentLoCell
+        (adjacentSwapTableau T b hrow_b hcol_b) a) =
+      YoungCell.col (adjacentHiCell
+        (adjacentSwapTableau T b hrow_b hcol_b) a) ↔
+    YoungCell.col (adjacentLoCell T a) =
+      YoungCell.col (adjacentHiCell T a) := by
+  unfold adjacentLoCell adjacentHiCell
+  rw [adjacentSwapTableau_cell_lo_of_disjoint_indices T a b hdisj hrow_b hcol_b,
+    adjacentSwapTableau_cell_hi_of_disjoint_indices T a b hdisj hrow_b hcol_b]
+  rfl
 
 theorem adjacentSwapTableau_entryContent_lo {n : Nat}
     {lam : YoungDiagram (n + 1)}
