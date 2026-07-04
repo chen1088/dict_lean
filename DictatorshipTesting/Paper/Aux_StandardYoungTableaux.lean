@@ -245,4 +245,64 @@ theorem tableauDeleteMaxEntry_bijective {n : Nat}
   exact ⟨tableauDeleteMaxEntry_injective T hu,
     tableauDeleteMaxEntry_surjective T hu⟩
 
+/-- Deleted entries remain row-strict on the remaining cells. -/
+theorem tableauDeleteMaxEntry_row_strict {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) :
+    forall {a b : YoungCellExcept u},
+      YoungCell.row a.1 = YoungCell.row b.1 ->
+      YoungCell.col a.1 < YoungCell.col b.1 ->
+      tableauDeleteMaxEntry T hu a < tableauDeleteMaxEntry T hu b := by
+  intro a b hrow hcol
+  have hstrict : T.entry a.1 < T.entry b.1 := T.row_strict hrow hcol
+  change (tableauDeleteMaxEntry T hu a : Nat) <
+    (tableauDeleteMaxEntry T hu b : Nat)
+  rw [tableauDeleteMaxEntry_val T hu a, tableauDeleteMaxEntry_val T hu b]
+  exact hstrict
+
+/-- Deleted entries remain column-strict on the remaining cells. -/
+theorem tableauDeleteMaxEntry_col_strict {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) :
+    forall {a b : YoungCellExcept u},
+      YoungCell.col a.1 = YoungCell.col b.1 ->
+      YoungCell.row a.1 < YoungCell.row b.1 ->
+      tableauDeleteMaxEntry T hu a < tableauDeleteMaxEntry T hu b := by
+  intro a b hcol hrow
+  have hstrict : T.entry a.1 < T.entry b.1 := T.col_strict hcol hrow
+  change (tableauDeleteMaxEntry T hu a : Nat) <
+    (tableauDeleteMaxEntry T hu b : Nat)
+  rw [tableauDeleteMaxEntry_val T hu a, tableauDeleteMaxEntry_val T hu b]
+  exact hstrict
+
+/-- A standard tableau on the cell set obtained by deleting one cell. -/
+structure StandardDeletedTableau {n : Nat}
+    {lam : YoungDiagram (n + 1)} (u : YoungCell lam) where
+  entry : YoungCellExcept u -> Fin n
+  bijective : Function.Bijective entry
+  row_strict :
+    forall {a b : YoungCellExcept u},
+      YoungCell.row a.1 = YoungCell.row b.1 ->
+      YoungCell.col a.1 < YoungCell.col b.1 ->
+      entry a < entry b
+  col_strict :
+    forall {a b : YoungCellExcept u},
+      YoungCell.col a.1 = YoungCell.col b.1 ->
+      YoungCell.row a.1 < YoungCell.row b.1 ->
+      entry a < entry b
+
+/-- Delete the maximum-entry cell of a standard tableau, as a standard tableau
+on the remaining cell set. -/
+def deleteMaxAsStandardDeletedTableau {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) :
+    StandardDeletedTableau u where
+  entry := tableauDeleteMaxEntry T hu
+  bijective := tableauDeleteMaxEntry_bijective T hu
+  row_strict := tableauDeleteMaxEntry_row_strict T hu
+  col_strict := tableauDeleteMaxEntry_col_strict T hu
+
 end DictatorshipTesting

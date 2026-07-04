@@ -29,4 +29,35 @@ theorem S05_oneBox_deleteMaxEntry_bijective {n : Nat}
     Function.Bijective (tableauDeleteMaxEntry T hu) := by
   exact S05_Lem5_11_deleteMaxEntry_bijective T hu
 
+/-- Lemma 5.11 set-level component: deleted entries remain row-strict. -/
+theorem S05_Lem5_11_deleteMaxEntry_row_strict {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) :
+    forall {a b : YoungCellExcept u},
+      YoungCell.row a.1 = YoungCell.row b.1 ->
+      YoungCell.col a.1 < YoungCell.col b.1 ->
+      tableauDeleteMaxEntry T hu a < tableauDeleteMaxEntry T hu b := by
+  exact tableauDeleteMaxEntry_row_strict T hu
+
+/-- Lemma 5.11 set-level component: deleted entries remain column-strict. -/
+theorem S05_Lem5_11_deleteMaxEntry_col_strict {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) :
+    forall {a b : YoungCellExcept u},
+      YoungCell.col a.1 = YoungCell.col b.1 ->
+      YoungCell.row a.1 < YoungCell.row b.1 ->
+      tableauDeleteMaxEntry T hu a < tableauDeleteMaxEntry T hu b := by
+  exact tableauDeleteMaxEntry_col_strict T hu
+
+/-- Lemma 5.11 set-level component: deleting the max cell gives a standard
+tableau on the remaining cell set. -/
+def S05_Lem5_11_deleteMaxAsStandardDeletedTableau {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) {u : YoungCell lam}
+    (hu : TableauMaxAt T u) :
+    StandardDeletedTableau u :=
+  deleteMaxAsStandardDeletedTableau T hu
+
 end DictatorshipTesting
