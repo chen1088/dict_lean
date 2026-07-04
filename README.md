@@ -108,6 +108,16 @@ Internal bridge components proven:
   `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and
   `L5_2_SpectralCertificate` are proved from explicit spectral-block-model
   hypotheses.
+- `Aux_SpectralBridgeDimensionParam.lean`: dimension-parameterized algebraic
+  bridge.  It proves `blockScalar_lower_bound_of_traceScalarFormula_withDim`,
+  `traceScalarValue_of_blockTraceIdentity_withDim`,
+  `SpectralGapFromBlockScalarsWithDim`, and `SpectralGapFromBlockModelWithDim`
+  for an arbitrary dimension function.
+- `S05_Lem5_29_EvenSpectralBridge.lean` and
+  `S05_Lem5_30_OddSpectralBridge.lean`: tableau-count bridge wrappers
+  `S05_Lem5_29_tableauDim_evenSpectralGapFromCertificates` and
+  `S05_Lem5_30_tableauDim_oddSpectralGapFromCertificates`, conditional on a
+  dimension-parameterized spectral model using `tableauDim`.
 - `Aux_SpectralBridgeRepresentationInputs.lean`: the compact interface for the
   spectral-block model used by Lemma 5.8.  It contains only the Young-block
   energy, `U_1` identification, scalarity, and trace/scalar-value predicates.
@@ -126,6 +136,10 @@ representation theory explicit as named axioms:
   scalar model.  Theorem 4.10, Proposition 4.12, Lemma 4.13, and Theorem 1.1
   now use these named external inputs directly rather than taking anonymous
   model-family arguments.
+- The active Theorem 4.10 path still uses the legacy `youngDim` spectral model.
+  The tableau-count bridge is ready at the algebraic level, but consuming it
+  requires a `SpectralBlockModelInputWithDim` instance for `tableauDim` and the
+  tableau-count heights `hEvenTableau`/`hOddTableau`.
 
 Older theorem names such as `Thm2_1_BooleanU1`, `L5_4_ZBoundApp`,
 `L5_5_HEvenApp`, and `L5_6_HOddApp` are preserved inside the corresponding

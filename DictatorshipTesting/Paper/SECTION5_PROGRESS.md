@@ -12,6 +12,11 @@ Completed commits from the current milestone:
 - `4648019` Port two-row three even tableau exception
 - `24ee3d4` Finish tableauDim even certificate
 - `a111e25` Port odd certificate to tableauDim
+- `d474c1a` Add dimension-parameterized spectral bridge interfaces
+- `5274c2b` Port scalar lower-bound algebra to generic dimensions
+- `6ff0e04` Prove spectral gap from generic block dimensions
+- `3bd4c77` Expose dimension-parameterized block lower bound
+- `cedddbe` Connect tableauDim certificates to generic spectral bridge
 
 Main names added in this batch:
 - `zEven_le_half_tableauDim_of_not_oneRow_finite_induction`
@@ -35,6 +40,17 @@ Main names added in this batch:
 - `hOddTableau`
 - `hOddTableau_ge_one_sixth_tableauDim_odd_exceptional`
 - `S05_Lem5_36_tableau_odd_certificate`
+- `YoungDimensionPositiveInputWithDim`
+- `TraceScalarValueInputWithDim`
+- `BlockTraceIdentityInputWithDim`
+- `SpectralBlockModelInputWithDim`
+- `blockScalar_lower_bound_of_traceScalarFormula_withDim`
+- `traceScalarValue_of_blockTraceIdentity_withDim`
+- `SpectralGapFromBlockScalarsWithDim`
+- `SpectralGapFromBlockModelWithDim`
+- `S05_Lem5_28_spectralGapFromBlockModelWithDim`
+- `S05_Lem5_29_tableauDim_evenSpectralGapFromCertificates`
+- `S05_Lem5_30_tableauDim_oddSpectralGapFromCertificates`
 
 Status:
 - Lemma 5.32 now has an axiom-free tableau-count version.  The old
@@ -49,15 +65,15 @@ Status:
   The two odd exceptional families, the generic one-box reduction, and the final
   certificate `S05_Lem5_36_tableau_odd_certificate` are proved against
   `tableauDim`.
+- The spectral-bridge algebra now has a dimension-parameterized route in
+  `Aux_SpectralBridgeDimensionParam.lean` and paper-facing wrappers in Lemmas
+  5.28--5.30.  The tableauDim even and odd certificates feed this route
+  conditional on a model of type `SpectralBlockModelInputWithDim`.
 - The active Theorem 4.10 path still depends on the old `youngDim` spectral
-  model.  The files `S05_Lem5_28_BlockLowerBoundImpliesTheGap.lean`,
-  `S05_Lem5_29_EvenSpectralBridge.lean`, `S05_Lem5_30_OddSpectralBridge.lean`,
-  and `Aux_SpectralBridgeRepresentationInputs.lean` all state their block
-  lower bounds and trace identities using `youngDim`.  A tableauDim finite
-  certificate therefore cannot be consumed by Theorem 4.10 until either:
-  `tableauDim = youngDim` is proved for the relevant diagrams, or the spectral
-  block model is parameterized so its dimension slot can be instantiated by
-  `tableauDim`.
+  model.  The remaining Section 5 blocker is not the finite certificate or the
+  algebraic bridge; it is proving/internalizing the tableauDim spectral block
+  model: Young-block decomposition, `U_1` identification, matching-average
+  scalarity, and trace/scalar value with `tableauDim`.
 
 ## This Run
 
