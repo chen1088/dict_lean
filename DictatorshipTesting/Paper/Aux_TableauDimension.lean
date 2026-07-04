@@ -1168,6 +1168,29 @@ structure TwoStepRemovableRows {n : Nat}
   first : RemovableRow lam
   second : RemovableRow (deleteRemovableRowDiagram lam first.1 first.2)
 
+theorem twoStepRemovableRows_ext {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)}
+    {p q : TwoStepRemovableRows lam}
+    (hfirst : p.first.1 = q.first.1)
+    (hsecond : p.second.1 = q.second.1) :
+    p = q := by
+  cases p with
+  | mk pfirst psecond =>
+      cases q with
+      | mk qfirst qsecond =>
+          cases pfirst with
+          | mk pfirst hpfirst =>
+              cases qfirst with
+              | mk qfirst hqfirst =>
+                  cases psecond with
+                  | mk psecond hpsecond =>
+                      cases qsecond with
+                      | mk qsecond hqsecond =>
+                          dsimp at hfirst hsecond
+                          subst qfirst
+                          subst qsecond
+                          rfl
+
 def twoStepRemovableRowsEquivSigma {n : Nat}
     (lam : YoungDiagram ((n + 1) + 1)) :
     TwoStepRemovableRows lam ≃
@@ -1250,6 +1273,20 @@ theorem twoStepFirstChild_row_form {n : Nat}
       forall t : Nat, t ≠ p.first.1 ->
         youngRow lam t = youngRow (twoStepFirstChild lam p) t := by
   exact row_form_deleteRemovableRowDiagram lam p.first.2
+
+theorem twoStepFirstChild_eq_of_first_row_eq {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) {p q : TwoStepRemovableRows lam}
+    (h : p.first.1 = q.first.1) :
+    twoStepFirstChild lam p = twoStepFirstChild lam q := by
+  apply youngDiagram_ext_youngRow
+  intro i
+  rw [twoStepFirstChild, twoStepFirstChild]
+  rw [youngRow_deleteRemovableRowDiagram, youngRow_deleteRemovableRowDiagram]
+  by_cases hip : i = p.first.1
+  · have hiq : i = q.first.1 := by omega
+    simp [hip, h]
+  · have hiq : i ≠ q.first.1 := by omega
+    simp [hip, hiq]
 
 theorem twoStepSecondChild_isOneBoxChild {n : Nat}
     (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
@@ -1348,6 +1385,91 @@ theorem youngRow_deleteTwoRemovableRowsDiagram_eq_parent {n : Nat}
   · subst i
     simp [youngRow_deleteRemovableRowDiagram]
   · simp [hi, youngRow_deleteRemovableRowDiagram]
+
+theorem firstDeletedRow_mem_positiveDiffRows_of_twoStep {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
+    p.first.1 ∈
+      positiveDiffRows lam (deleteTwoRemovableRowsDiagram lam p) := by
+  apply (mem_positiveDiffRows_iff lam
+    (deleteTwoRemovableRowsDiagram lam p) p.first.1).mpr
+  constructor
+  · exact removableRow_lt_size p.first.2
+  · unfold twoStripRowDiff
+    have hchild_le_mid :
+        youngRow (deleteTwoRemovableRowsDiagram lam p) p.first.1 <=
+          youngRow (twoStepFirstChild lam p) p.first.1 :=
+      youngRow_deleteRemovableRowDiagram_le_parent
+        (twoStepFirstChild lam p) p.second.2 p.first.1
+    have hfirst_changed := (twoStepFirstChild_row_form lam p).1
+    omega
+
+theorem positiveDiffRows_not_mem_below_first_of_twoStep_first_le_second
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) (hle : p.first.1 <= p.second.1)
+    {i : Nat} (hi : i < p.first.1) :
+    i ∉ positiveDiffRows lam (deleteTwoRemovableRowsDiagram lam p) := by
+  intro hmem
+  have hpos := ((mem_positiveDiffRows_iff lam
+    (deleteTwoRemovableRowsDiagram lam p) i).mp hmem).2
+  unfold twoStripRowDiff at hpos
+  rw [youngRow_deleteTwoRemovableRowsDiagram_eq_parent] at hpos
+  have hi_first : i ≠ p.first.1 := by omega
+  have hi_second : i ≠ p.second.1 := by omega
+  simp [hi_first, hi_second] at hpos
+
+theorem minPositiveDiffRow_eq_first_of_twoStep_first_le_second
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) (hle : p.first.1 <= p.second.1)
+    (hmem :
+      deleteTwoRemovableRowsDiagram lam p ∈
+        horizontalTwoStripChildrenSized lam) :
+    minPositiveDiffRowOfHorizontal lam
+      ⟨deleteTwoRemovableRowsDiagram lam p, hmem⟩ = p.first.1 := by
+  let s := positiveDiffRows lam (deleteTwoRemovableRowsDiagram lam p)
+  have hfirst_mem : p.first.1 ∈ s := by
+    simpa [s] using firstDeletedRow_mem_positiveDiffRows_of_twoStep lam p
+  apply le_antisymm
+  · exact s.min'_le p.first.1 hfirst_mem
+  · apply s.le_min'
+    intro y hy
+    by_contra hnot
+    have hy_lt : y < p.first.1 := by omega
+    exact positiveDiffRows_not_mem_below_first_of_twoStep_first_le_second
+      lam p hle hy_lt hy
+
+theorem positiveDiffRows_not_mem_above_first_of_twoStep_second_lt_first
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) (hlt : p.second.1 < p.first.1)
+    {i : Nat} (hi : p.first.1 < i) :
+    i ∉ positiveDiffRows lam (deleteTwoRemovableRowsDiagram lam p) := by
+  intro hmem
+  have hpos := ((mem_positiveDiffRows_iff lam
+    (deleteTwoRemovableRowsDiagram lam p) i).mp hmem).2
+  unfold twoStripRowDiff at hpos
+  rw [youngRow_deleteTwoRemovableRowsDiagram_eq_parent] at hpos
+  have hi_first : i ≠ p.first.1 := by omega
+  have hi_second : i ≠ p.second.1 := by omega
+  simp [hi_first, hi_second] at hpos
+
+theorem maxPositiveDiffRow_eq_first_of_twoStep_second_lt_first
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) (hlt : p.second.1 < p.first.1)
+    (hmem :
+      deleteTwoRemovableRowsDiagram lam p ∈
+        verticalTwoStripChildrenSized lam) :
+    maxPositiveDiffRowOfVertical lam
+      ⟨deleteTwoRemovableRowsDiagram lam p, hmem⟩ = p.first.1 := by
+  let s := positiveDiffRows lam (deleteTwoRemovableRowsDiagram lam p)
+  have hfirst_mem : p.first.1 ∈ s := by
+    simpa [s] using firstDeletedRow_mem_positiveDiffRows_of_twoStep lam p
+  apply le_antisymm
+  · apply s.max'_le
+    intro y hy
+    by_contra hnot
+    have hy_gt : p.first.1 < y := by omega
+    exact positiveDiffRows_not_mem_above_first_of_twoStep_second_lt_first
+      lam p hlt hy_gt hy
+  · exact s.le_max' p.first.1 hfirst_mem
 
 theorem deleteTwoRemovableRows_vertical_of_distinct_rows {n : Nat}
     (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam)
@@ -1708,6 +1830,159 @@ theorem twoStepToTagged_taggedTwoStripChildToTwoStep
       simp [taggedTwoStripChildToTwoStep, twoStepToTaggedTwoStripChild,
         hnot, deleteTwoRemovableRowsDiagram_verticalTaggedChildToTwoStep]
 
+theorem taggedTwoStripChildToTwoStep_twoStepToTagged_of_first_le_second
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) (hle : p.first.1 <= p.second.1) :
+    taggedTwoStripChildToTwoStep lam
+      (twoStepToTaggedTwoStripChild lam p) = p := by
+  cases p with
+  | mk first second =>
+      have hle' : first.1 <= second.1 := hle
+      have hmem :
+          deleteTwoRemovableRowsDiagram lam ⟨first, second⟩ ∈
+            horizontalTwoStripChildrenSized lam := by
+        exact (mem_horizontalTwoStripChildrenSized_iff lam
+          (deleteTwoRemovableRowsDiagram lam ⟨first, second⟩)).mpr
+          (deleteTwoRemovableRows_horizontal_of_first_le_second
+            lam ⟨first, second⟩ hle')
+      let x : {mu : YoungDiagram n // mu ∈ horizontalTwoStripChildrenSized lam} :=
+        ⟨deleteTwoRemovableRowsDiagram lam ⟨first, second⟩, hmem⟩
+      have htag :
+          twoStepToTaggedTwoStripChild lam ⟨first, second⟩ =
+            Sum.inl x := by
+        simp [twoStepToTaggedTwoStripChild, hle', x]
+      rw [htag]
+      change horizontalTaggedChildToTwoStep lam x =
+        (⟨first, second⟩ : TwoStepRemovableRows lam)
+      have hfirst_val :
+          (horizontalTaggedChildToTwoStep lam x).first.1 = first.1 := by
+        change minPositiveDiffRowOfHorizontal lam x = first.1
+        exact minPositiveDiffRow_eq_first_of_twoStep_first_le_second
+          lam ⟨first, second⟩ hle' hmem
+      apply twoStepRemovableRows_ext
+      · exact hfirst_val
+      · let p0 : TwoStepRemovableRows lam := ⟨first, second⟩
+        let p1 : TwoStepRemovableRows lam := horizontalTaggedChildToTwoStep lam x
+        have hmid_eq : twoStepFirstChild lam p1 = twoStepFirstChild lam p0 :=
+          twoStepFirstChild_eq_of_first_row_eq lam hfirst_val
+        have hfinal_eq :
+            deleteTwoRemovableRowsDiagram lam p1 =
+              deleteTwoRemovableRowsDiagram lam p0 := by
+          simpa [p0, p1, x] using
+            deleteTwoRemovableRowsDiagram_horizontalTaggedChildToTwoStep lam x
+        have hrow1 :
+            youngRow (twoStepFirstChild lam p0) p1.second.1 =
+                youngRow (deleteTwoRemovableRowsDiagram lam p0) p1.second.1 + 1 ∧
+              forall s : Nat, s ≠ p1.second.1 ->
+                youngRow (twoStepFirstChild lam p0) s =
+                  youngRow (deleteTwoRemovableRowsDiagram lam p0) s := by
+          simpa [hmid_eq, hfinal_eq] using
+            (twoStepSecondChild_row_form lam p1)
+        have hrow0 := twoStepSecondChild_row_form lam p0
+        rcases existsUnique_row_of_oneBoxChild
+            (twoStepSecondChild_isOneBoxChild lam p0) with
+          ⟨u, _hu, huniq⟩
+        have hp1 : p1.second.1 = u := huniq _ hrow1
+        have hp0 : p0.second.1 = u := huniq _ hrow0
+        exact hp1.trans hp0.symm
+
+theorem taggedTwoStripChildToTwoStep_twoStepToTagged_of_second_lt_first
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) (hlt : p.second.1 < p.first.1) :
+    taggedTwoStripChildToTwoStep lam
+      (twoStepToTaggedTwoStripChild lam p) = p := by
+  cases p with
+  | mk first second =>
+      have hlt' : second.1 < first.1 := hlt
+      have hnot : ¬ first.1 <= second.1 := by omega
+      have hmem :
+          deleteTwoRemovableRowsDiagram lam ⟨first, second⟩ ∈
+            verticalTwoStripChildrenSized lam := by
+        exact (mem_verticalTwoStripChildrenSized_iff lam
+          (deleteTwoRemovableRowsDiagram lam ⟨first, second⟩)).mpr
+          (deleteTwoRemovableRows_vertical_of_second_lt_first
+            lam ⟨first, second⟩ hlt')
+      let x : {mu : YoungDiagram n // mu ∈ verticalTwoStripChildrenSized lam} :=
+        ⟨deleteTwoRemovableRowsDiagram lam ⟨first, second⟩, hmem⟩
+      have htag :
+          twoStepToTaggedTwoStripChild lam ⟨first, second⟩ =
+            Sum.inr x := by
+        simp [twoStepToTaggedTwoStripChild, hnot, x]
+      rw [htag]
+      change verticalTaggedChildToTwoStep lam x =
+        (⟨first, second⟩ : TwoStepRemovableRows lam)
+      have hfirst_val :
+          (verticalTaggedChildToTwoStep lam x).first.1 = first.1 := by
+        change maxPositiveDiffRowOfVertical lam x = first.1
+        exact maxPositiveDiffRow_eq_first_of_twoStep_second_lt_first
+          lam ⟨first, second⟩ hlt' hmem
+      apply twoStepRemovableRows_ext
+      · exact hfirst_val
+      · let p0 : TwoStepRemovableRows lam := ⟨first, second⟩
+        let p1 : TwoStepRemovableRows lam := verticalTaggedChildToTwoStep lam x
+        have hmid_eq : twoStepFirstChild lam p1 = twoStepFirstChild lam p0 :=
+          twoStepFirstChild_eq_of_first_row_eq lam hfirst_val
+        have hfinal_eq :
+            deleteTwoRemovableRowsDiagram lam p1 =
+              deleteTwoRemovableRowsDiagram lam p0 := by
+          simpa [p0, p1, x] using
+            deleteTwoRemovableRowsDiagram_verticalTaggedChildToTwoStep lam x
+        have hrow1 :
+            youngRow (twoStepFirstChild lam p0) p1.second.1 =
+                youngRow (deleteTwoRemovableRowsDiagram lam p0) p1.second.1 + 1 ∧
+              forall s : Nat, s ≠ p1.second.1 ->
+                youngRow (twoStepFirstChild lam p0) s =
+                  youngRow (deleteTwoRemovableRowsDiagram lam p0) s := by
+          simpa [hmid_eq, hfinal_eq] using
+            (twoStepSecondChild_row_form lam p1)
+        have hrow0 := twoStepSecondChild_row_form lam p0
+        rcases existsUnique_row_of_oneBoxChild
+            (twoStepSecondChild_isOneBoxChild lam p0) with
+          ⟨u, _hu, huniq⟩
+        have hp1 : p1.second.1 = u := huniq _ hrow1
+        have hp0 : p0.second.1 = u := huniq _ hrow0
+        exact hp1.trans hp0.symm
+
+theorem taggedTwoStripChildToTwoStep_twoStepToTagged
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) :
+    taggedTwoStripChildToTwoStep lam
+      (twoStepToTaggedTwoStripChild lam p) = p := by
+  by_cases hle : p.first.1 <= p.second.1
+  · exact taggedTwoStripChildToTwoStep_twoStepToTagged_of_first_le_second
+      lam p hle
+  · have hlt : p.second.1 < p.first.1 := by omega
+    exact taggedTwoStripChildToTwoStep_twoStepToTagged_of_second_lt_first
+      lam p hlt
+
+noncomputable def twoStepRemovableRowsEquivTaggedTwoStripChildren {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) :
+    TwoStepRemovableRows lam ≃ TaggedTwoStripChildrenSized lam where
+  toFun := twoStepToTaggedTwoStripChild lam
+  invFun := taggedTwoStripChildToTwoStep lam
+  left_inv := taggedTwoStripChildToTwoStep_twoStepToTagged lam
+  right_inv := twoStepToTagged_taggedTwoStripChildToTwoStep lam
+
+theorem sum_twoStepRemovableRows_eq_sum_taggedTwoStripChildren
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1)) :
+    (∑ p : TwoStepRemovableRows lam,
+        tableauDim (deleteTwoRemovableRowsDiagram lam p))
+      =
+    ∑ x : TaggedTwoStripChildrenSized lam,
+      tableauDim (taggedTwoStripChildDiagram x) := by
+  classical
+  exact Fintype.sum_equiv
+    (twoStepRemovableRowsEquivTaggedTwoStripChildren lam)
+    (fun p : TwoStepRemovableRows lam =>
+      tableauDim (deleteTwoRemovableRowsDiagram lam p))
+    (fun x : TaggedTwoStripChildrenSized lam =>
+      tableauDim (taggedTwoStripChildDiagram x))
+    (fun p => by
+      change tableauDim (deleteTwoRemovableRowsDiagram lam p) =
+        tableauDim
+          (taggedTwoStripChildDiagram (twoStepToTaggedTwoStripChild lam p))
+      rw [taggedTwoStripChildDiagram_twoStepToTagged])
+
 noncomputable def twoStepFirstDeletionEquiv {n : Nat}
     (lam : YoungDiagram ((n + 1) + 1)) (p : TwoStepRemovableRows lam) :
     {T : StandardYoungTableau lam //
@@ -1810,6 +2085,25 @@ theorem tableauDim_eq_sum_twoStepRemovableRows {n : Nat}
             (removableRowToOneBoxChild
               (removableRowToOneBoxChild lam x.1) x.2))
         (fun _ => rfl)).symm
+
+theorem tableauDim_twoStrip_branching_sized {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) :
+    tableauDim lam =
+      (horizontalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) +
+        (verticalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) := by
+  calc
+    tableauDim lam =
+        ∑ p : TwoStepRemovableRows lam,
+          tableauDim (deleteTwoRemovableRowsDiagram lam p) := by
+      exact tableauDim_eq_sum_twoStepRemovableRows lam
+    _ =
+        ∑ x : TaggedTwoStripChildrenSized lam,
+          tableauDim (taggedTwoStripChildDiagram x) := by
+      exact sum_twoStepRemovableRows_eq_sum_taggedTwoStripChildren lam
+    _ =
+        (horizontalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) +
+          (verticalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) := by
+      exact sum_taggedTwoStripChildrenSized lam
 
 def deleteMaxAtMaxRemovableRow {n : Nat}
     {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :

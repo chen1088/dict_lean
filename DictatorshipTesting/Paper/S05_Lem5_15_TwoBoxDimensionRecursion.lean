@@ -6,12 +6,10 @@ Title in paper: Two-box dimension recursion.
 
 Status: the `youngDim` statement remains an external representation-theoretic
 input, because `youngDim` is currently the hook-length dimension proxy.  The
-final section exposes the assumption-free tableau-count layer proved so far:
-fixed ordered two-step deletion fibers and the ordered two-step deletion
-recursion for `tableauDim`.
-
-The remaining tableau-count task is the unordered reindexing from ordered
-two-step deletions to horizontal plus vertical two-strip child sets.
+final section exposes the assumption-free tableau-count layer: fixed ordered
+two-step deletion fibers, the ordered two-step deletion recursion, the
+multiplicity-preserving reindexing by tagged horizontal/vertical two-strip
+children, and the sized two-strip branching theorem for `tableauDim`.
 -/
 
 /-!
@@ -70,9 +68,8 @@ theorem youngDim_twoStrip_branching_input
 ## Tableau-count replacement layer
 
 These wrappers are axiom-free and use `tableauDim`, the count of standard Young
-tableaux.  They prove the ordered two-step deletion recursion.  Reindexing this
-ordered sum by the unordered horizontal and vertical two-strip child sets is the
-remaining combinatorial step for the full tableau-count version of Lemma 5.15.
+tableaux.  They prove the ordered two-step deletion recursion and reindex that
+ordered sum by the tagged horizontal/vertical two-strip child sets.
 -/
 
 theorem S05_Lem5_15_tableauDim_fixed_twoStepDeletion
@@ -95,5 +92,29 @@ theorem S05_Lem5_15_twoStepDeletion_horizontal_or_vertical
     IsHorizontalTwoStripChild lam (deleteTwoRemovableRowsDiagram lam p) ∨
       IsVerticalTwoStripChild lam (deleteTwoRemovableRowsDiagram lam p) := by
   exact deleteTwoRemovableRows_horizontal_or_vertical lam p
+
+/-- The multiplicity-preserving reindexing between ordered two-step deletions
+and tagged horizontal/vertical two-strip children.  Disconnected two-box skew
+shapes appear once under each tag, matching the two deletion orders. -/
+noncomputable def S05_Lem5_15_twoStepRemovableRowsEquivTaggedTwoStripChildren
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1)) :
+    TwoStepRemovableRows lam ≃ TaggedTwoStripChildrenSized lam :=
+  twoStepRemovableRowsEquivTaggedTwoStripChildren lam
+
+theorem S05_Lem5_15_sum_twoStepRemovableRows_eq_sum_taggedTwoStripChildren
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1)) :
+    (∑ p : TwoStepRemovableRows lam,
+        tableauDim (deleteTwoRemovableRowsDiagram lam p))
+      =
+    ∑ x : TaggedTwoStripChildrenSized lam,
+      tableauDim (taggedTwoStripChildDiagram x) := by
+  exact sum_twoStepRemovableRows_eq_sum_taggedTwoStripChildren lam
+
+theorem S05_Lem5_15_tableauDim_twoStrip_branching_sized
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1)) :
+    tableauDim lam =
+      (horizontalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) +
+        (verticalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) := by
+  exact tableauDim_twoStrip_branching_sized lam
 
 end DictatorshipTesting
