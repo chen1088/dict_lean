@@ -33,6 +33,11 @@ Completed commits:
 - `7079695` Control last row after removable deletion
 - `7b389bf` Construct child diagram by deleting a removable row
 - `8a28cc8` Relate removable rows and one-box children
+- `b5fca2e` Relate max removable row to deleted corner
+- `da83c7c` Count tableaux by maximum removable row fiber
+- `1f8cd71` Sum tableau dimension over removable rows
+- `07bfda0` Prove one-box tableau-count branching
+- `475dab0` Expose tableau-count one-box recursion in Lemma 5.16
 
 Files changed:
 - `DictatorshipTesting/Paper/Aux_YoungAdjacentEntries.lean`
@@ -49,6 +54,7 @@ Files changed:
 - `DictatorshipTesting/Paper/S05_Lem5_20_LocalTruncationOnAMatchingCharacter.lean`
 - `DictatorshipTesting/Paper/Aux_TableauDimension.lean`
 - `DictatorshipTesting/PaperAux.lean`
+- `DictatorshipTesting/Paper/S05_Lem5_16_OneBoxDimensionRecursion.lean`
 - `DictatorshipTesting/Paper/S05_Lem5_08_TwoBoxTableauBranching.lean`
 - `DictatorshipTesting/Paper/S05_Def5_13_EvenSignPatternMultiset.lean`
 - `DictatorshipTesting/Paper/S05_Def5_14_OddSignPatternMultiset.lean`
@@ -248,20 +254,48 @@ Main names added:
 - `removableRowToOneBoxChild_mem`
 - `oneBoxChildToRemovableRow`
 - `oneBoxChildToRemovableRow_row_form`
+- `deletedCornerCell_removableCornerBox_of_removableRow`
+- `maxRemovableRow_eq_of_tableauMaxAt_deletedCorner`
+- `maxRemovableRowFiberEquivDeletedCorner`
+- `card_maxRemovableRow_fiber_eq_deletedCorner`
+- `card_maxRemovableRow_fiber_eq_child`
+- `standardYoungTableauEquivSigmaMaxRemovableRow`
+- `card_standardYoungTableau_eq_sum_maxRemovableRow_fibers`
+- `card_standardYoungTableau_eq_sum_removableRow_children`
+- `tableauDim_eq_sum_removableRow_children`
+- `youngDiagram_ext_youngRow`
+- `oneBoxChildrenSized`
+- `removableRowToOneBoxChild_mem_sized`
+- `oneBoxChildToRemovableRowSized`
+- `oneBoxChildToRemovableRowSized_row_form`
+- `oneBoxChildToRemovableRowSized_removableRowToOneBoxChild`
+- `removableRowToOneBoxChild_oneBoxChildToRemovableRowSized`
+- `removableRowsEquivOneBoxChildren`
+- `sum_removableRows_tableauDim_eq_oneBoxChildrenSized`
+- `tableauDim_oneBox_branching_sized`
+- `oneBoxChildrenSized_eq_oneBoxChildrenOdd`
+- `tableauDim_oneBoxChildrenOdd_branching`
+- `S05_Lem5_16_tableauDim_fixed_oneBoxChild`
+- `S05_Lem5_16_tableauDim_oneBox_branching`
+- `S05_Lem5_16_tableauDim_oneBoxChildrenOdd_branching`
 
 ## Next Blocker
 
-The remaining early Section 5 claims about Young's orthogonal matrices, the
+The one-box branching recursion is now proved for the assumption-free
+tableau-count dimension `tableauDim`, including the odd-specialized form used by
+Lemma 5.16.  The remaining blocker for removing the old `youngDim` ordinary
+branching input is not one-box tableau counting; it is the separate theorem
+identifying the hook-length proxy `youngDim` with the tableau-count dimension
+`tableauDim`.
+
+The remaining spectral bridge claims about Young's orthogonal matrices, the
 operator-level Jucys--Murphy eigenbasis, Specht restriction, Young-block
-scalarity, and Schur-lemma centrality are representation-layer statements.  No
-new representation-theory input was introduced in this batch.
+scalarity, and Schur-lemma centrality are still representation-layer statements.
+No new representation-theory input was introduced in this batch.
 
 ## Next Recommended Milestone
 
-Continue the tableau-count replacement track for Lemma 5.16.  The current
-`tableauDim` layer has the fixed-child deletion-cardinality theorem, the
-constructed child of a removable row, and maps between removable rows and
-one-box children.  The next target is the cardinality partition of all standard
-tableaux by the removable row containing the maximum entry; replacing the
-hook-length `youngDim` axiom still requires a later theorem identifying
+Use the completed one-box tableau-count layer as the template for the analogous
+two-box tableau-count branching layer around Lemma 5.15.  Replacing the
+hook-length `youngDim` axioms still requires a later theorem identifying
 `tableauDim` with `youngDim`.
