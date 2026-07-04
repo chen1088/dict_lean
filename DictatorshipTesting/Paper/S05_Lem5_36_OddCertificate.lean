@@ -727,4 +727,14 @@ theorem L5_6_HOddApp
     hOdd_ge_one_sixth_youngDim_of_not_oneRow_not_standard_finite_induction
       m hm lam hrow hstd
 
+/-- Lemma 5.36 paper-numbered alias: odd certificate. -/
+theorem S05_Lem5_36_odd_certificate
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption]
+    (m : ℕ) (hm : 2 ≤ m)
+    (lam : YoungDiagram (2 * m + 1))
+    (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
+    (1 / 6 : ℝ) * youngDim lam ≤ hOdd m lam := by
+  exact L5_6_HOddApp m hm lam hrow hstd
+
 end DictatorshipTesting

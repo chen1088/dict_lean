@@ -2003,4 +2003,21 @@ theorem zEven_le_youngDim [TwoStripDimensionBranchingAssumption]
     have hdim := youngDim_nonneg lam
     nlinarith
 
+/-- Lemma 5.32 paper-numbered alias: weight-zero entries are never a majority
+outside the one-row block. -/
+theorem S05_Lem5_32_weightZeroEntries_never_majority
+    [TwoStripDimensionBranchingAssumption]
+    (m : ℕ) (lam : YoungDiagram (2 * m))
+    (hrow : ¬ IsOneRow lam) :
+    zEven m lam ≤ (1 / 2 : ℝ) * youngDim lam := by
+  exact L5_4_ZBoundApp m lam hrow
+
+/-- Lemma 5.32 paper-numbered corollary: the zero-weight count is bounded by
+the whole Young dimension. -/
+theorem S05_Lem5_32_zEven_le_youngDim
+    [TwoStripDimensionBranchingAssumption]
+    (m : ℕ) (lam : YoungDiagram (2 * m)) :
+    zEven m lam ≤ youngDim lam := by
+  exact zEven_le_youngDim m lam
+
 end DictatorshipTesting

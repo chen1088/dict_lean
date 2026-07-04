@@ -3887,4 +3887,13 @@ theorem L5_5_HEvenApp [TwoStripDimensionBranchingAssumption]
     hEven_ge_one_fifth_youngDim_of_not_oneRow_not_standard_finite_induction
       m hm lam hrow hstd
 
+/-- Lemma 5.34 paper-numbered alias: even certificate. -/
+theorem S05_Lem5_34_even_certificate
+    [TwoStripDimensionBranchingAssumption]
+    (m : ℕ) (hm : 2 ≤ m)
+    (lam : YoungDiagram (2 * m))
+    (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
+    (1 / 5 : ℝ) * youngDim lam ≤ hEven m lam := by
+  exact L5_5_HEvenApp m hm lam hrow hstd
+
 end DictatorshipTesting
