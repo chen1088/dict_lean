@@ -253,6 +253,16 @@ theorem S05_Lem5_01_adjacentAxialDistance_swap_neg {n : Nat}
       - adjacentAxialDistance T a := by
   exact adjacentAxialDistance_swap_neg T a hrow_ne hcol_ne
 
+/-- Lemma 5.1 coefficient component: in the swappable case, the axial distance
+is nonzero. -/
+theorem S05_Lem5_01_adjacentAxialDistance_ne_zero_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    adjacentAxialDistance T a ≠ 0 := by
+  exact adjacentAxialDistance_ne_zero_of_swappable T a hrow_ne hcol_ne
+
 /-- Lemma 5.1 coefficient component: the diagonal coefficient is `1` in the
 same-row case. -/
 theorem S05_Lem5_01_youngAdjacentDiagCoeff_sameRow {n : Nat}
@@ -270,6 +280,26 @@ theorem S05_Lem5_01_youngAdjacentDiagCoeff_sameCol {n : Nat}
     (hcol : adjacentSameCol T a) :
     youngAdjacentDiagCoeff T a = -1 := by
   exact youngAdjacentDiagCoeff_sameCol T a hcol
+
+/-- Lemma 5.1 coefficient component: in the swappable case, the diagonal
+coefficient is nonzero. -/
+theorem S05_Lem5_01_youngAdjacentDiagCoeff_ne_zero_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentDiagCoeff T a ≠ 0 := by
+  exact youngAdjacentDiagCoeff_ne_zero_of_swappable T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 coefficient component: in the swappable case, the diagonal
+coefficient has square at most one. -/
+theorem S05_Lem5_01_youngAdjacentDiagCoeff_sq_le_one_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentDiagCoeff T a ^ 2 ≤ 1 := by
+  exact youngAdjacentDiagCoeff_sq_le_one_of_swappable T a hrow_ne hcol_ne
 
 /-- Lemma 5.1 coefficient component: swapping a swappable adjacent pair negates
 the diagonal coefficient. -/
@@ -311,6 +341,17 @@ theorem S05_Lem5_01_youngAdjacentCoeff_sq_sum_of_nonneg {n : Nat}
     youngAdjacentDiagCoeff T a ^ 2 +
         youngAdjacentOffCoeff T a ^ 2 = 1 := by
   exact youngAdjacentCoeff_sq_sum_of_nonneg T a h
+
+/-- Lemma 5.1 coefficient component: in the swappable case, the Young 2-by-2
+coefficient squares sum to one. -/
+theorem S05_Lem5_01_youngAdjacentCoeff_sq_sum_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentDiagCoeff T a ^ 2 +
+        youngAdjacentOffCoeff T a ^ 2 = 1 := by
+  exact youngAdjacentCoeff_sq_sum_of_swappable T a hrow_ne hcol_ne
 
 /-- Lemma 5.1 matrix-coefficient component: same-row adjacent pairs act
 diagonally with coefficient `1` on their tableau. -/
@@ -498,5 +539,17 @@ theorem S05_Lem5_01_youngAdjacentOperator_sq_basis_sameCol {n : Nat}
         (youngAdjacentOperator a (tableauBasisVec T)) =
       tableauBasisVec T := by
   exact youngAdjacentOperator_sq_basis_sameCol T a hcol
+
+/-- Lemma 5.1 involution component: in the swappable case, the adjacent
+operator squares to the identity on a tableau basis vector. -/
+theorem S05_Lem5_01_youngAdjacentOperator_sq_basis_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator a (tableauBasisVec T)) =
+      tableauBasisVec T := by
+  exact youngAdjacentOperator_sq_basis_swappable T a hrow_ne hcol_ne
 
 end DictatorshipTesting

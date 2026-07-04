@@ -52,11 +52,13 @@ Schur-lemma scalarity, or the spectral block model.
 The adjacent-operator spine has since been strengthened: the diagonal
 same-row/same-column cases now square to the identity on basis vectors, the
 swappable tableau swap is proved involutive, the off-diagonal coefficient is
-proved symmetric across the two-tableau block, and the swappable action is
-expanded as a two-coordinate formula.  The remaining local coefficient blocker
-for the unconditional swappable involution is the concrete inequality
-`youngAdjacentDiagCoeff T a ^ 2 <= 1` (or equivalently nonnegativity of
-`1 - youngAdjacentDiagCoeff T a ^ 2`) in the swappable case.
+proved symmetric across the two-tableau block, the swappable action is expanded
+as a two-coordinate formula, and the swappable case also squares to the identity
+on basis vectors.  The local coefficient inequality
+`youngAdjacentDiagCoeff T a ^ 2 <= 1` is now proved from the nonzero
+axial-distance theorem for swappable adjacent entries.  This still does not
+prove Coxeter relations, the Specht realization, Schur-lemma scalarity, or the
+spectral block model.
 
 ## Section 5 Paper/Lean Status Table
 

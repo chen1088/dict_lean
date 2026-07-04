@@ -502,10 +502,15 @@ Main names added:
 - `youngAdjacentOffCoeff_nonneg`
 - `youngAdjacentOffCoeff_sq_of_nonneg`
 - `youngAdjacentCoeff_sq_sum_of_nonneg`
+- `adjacentAxialDistance_ne_zero_of_swappable`
+- `youngAdjacentDiagCoeff_ne_zero_of_swappable`
+- `youngAdjacentDiagCoeff_sq_le_one_of_swappable`
+- `youngAdjacentCoeff_sq_sum_of_swappable`
 - `youngAdjacentOperator_add`
 - `youngAdjacentOperator_smul`
 - `youngAdjacentOperator_sq_basis_sameRow`
 - `youngAdjacentOperator_sq_basis_sameCol`
+- `youngAdjacentOperator_sq_basis_swappable`
 - `adjacentSameRow_swap_iff`
 - `adjacentSameCol_swap_iff`
 - `not_adjacentSameRow_swap`
@@ -519,15 +524,16 @@ Section 5 numbers progressed:
 - Lemma 5.1: coefficient identities, diagonal involution cases, swap-back
   tableau facts, reverse off-diagonal coefficient, and the two-coordinate
   swappable expansion.
+- Lemma 5.1: the swappable axial distance is nonzero, the diagonal coefficient
+  has square at most one, the coefficient squares sum to one, and the
+  swappable adjacent operator squares to the identity on basis vectors.
 
 Exact remaining blocker:
-- The unconditional swappable involution still needs the missing positivity
-  step showing the square-root radicand is nonnegative, equivalently
-  `youngAdjacentDiagCoeff T a ^ 2 <= 1` in the swappable case.  The current
-  Lean theorem `youngAdjacentCoeff_sq_sum_of_nonneg` makes this hypothesis
-  explicit and proves the square-sum identity once supplied.
+- The local Lemma 5.1 involution-on-basis cases are now proved.  The remaining
+  representation-layer blocker is global: proving Coxeter relations/Young
+  orthogonal representation realization and then feeding those operators into
+  the matching-subgroup and spectral-block model.
 
 Next automatically selected task:
-- Prove the axial-distance nonzero/lower-bound fact for swappable adjacent
-  entries, or continue with matrix symmetry facts that only require the
-  already-proved swap-back coefficient identities.
+- Continue with matrix symmetry/self-adjointness facts for the concrete
+  adjacent coefficient matrix, then attempt the first Coxeter frontier.

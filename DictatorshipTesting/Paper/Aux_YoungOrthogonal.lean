@@ -143,6 +143,93 @@ theorem adjacentAxialDistance_swap_neg {n : Nat}
     adjacentSwapTableau_entryContent_lo]
   omega
 
+theorem adjacentAxialDistance_ne_zero_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (_hcol_ne : ¬ adjacentSameCol T a) :
+    adjacentAxialDistance T a ≠ 0 := by
+  intro hzero
+  let lo := adjacentLoCell T a
+  let hi := adjacentHiCell T a
+  have hrow_ne_raw : YoungCell.row lo ≠ YoungCell.row hi := by
+    simpa [lo, hi, adjacentSameRow] using hrow_ne
+  have hcontent_entry :
+      entryContent T (adjacentEntryHi a) =
+        entryContent T (adjacentEntryLo a) := by
+    unfold adjacentAxialDistance at hzero
+    omega
+  have hcontent : YoungCell.content hi = YoungCell.content lo := by
+    simpa [entryContent, adjacentHiCell, adjacentLoCell, lo, hi]
+      using hcontent_entry
+  rcases lt_or_gt_of_ne hrow_ne_raw with hrow_lt | hrow_lt
+  · have hcol_lt : YoungCell.col lo < YoungCell.col hi := by
+      unfold YoungCell.content at hcontent
+      omega
+    have hhi_box : YoungCell.col hi < youngRow lam (YoungCell.row hi) := by
+      simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox hi
+    have hrow_le :
+        youngRow lam (YoungCell.row hi) <=
+          youngRow lam (YoungCell.row lo) :=
+      youngRow_le_of_le lam (Nat.le_of_lt hrow_lt)
+    have hmid_cell :
+        YoungCell.col hi < youngRow lam (YoungCell.row lo) := by
+      omega
+    let mid : YoungCell lam :=
+      youngCellOfNat lam (YoungCell.row lo) (YoungCell.col hi) hmid_cell
+    have hlo_mid : T.entry lo < T.entry mid := by
+      apply T.row_strict
+      · simp [mid, youngCellOfNat_row]
+      · simp [mid, youngCellOfNat_col, hcol_lt]
+    have hmid_hi : T.entry mid < T.entry hi := by
+      apply T.col_strict
+      · simp [mid, youngCellOfNat_col]
+      · simp [mid, youngCellOfNat_row, hrow_lt]
+    have hlo_mid_val : (T.entry lo : Nat) < (T.entry mid : Nat) := hlo_mid
+    have hmid_hi_val : (T.entry mid : Nat) < (T.entry hi : Nat) := hmid_hi
+    have hlo_val : (T.entry lo : Nat) = (a : Nat) := by
+      rw [show T.entry lo = adjacentEntryLo a by
+        simpa [lo] using entry_adjacentLoCell T a]
+      rfl
+    have hhi_val : (T.entry hi : Nat) = (a : Nat) + 1 := by
+      rw [show T.entry hi = adjacentEntryHi a by
+        simpa [hi] using entry_adjacentHiCell T a]
+      rfl
+    omega
+  · have hcol_lt : YoungCell.col hi < YoungCell.col lo := by
+      unfold YoungCell.content at hcontent
+      omega
+    have hlo_box : YoungCell.col lo < youngRow lam (YoungCell.row lo) := by
+      simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox lo
+    have hrow_le :
+        youngRow lam (YoungCell.row lo) <=
+          youngRow lam (YoungCell.row hi) :=
+      youngRow_le_of_le lam (Nat.le_of_lt hrow_lt)
+    have hmid_cell :
+        YoungCell.col lo < youngRow lam (YoungCell.row hi) := by
+      omega
+    let mid : YoungCell lam :=
+      youngCellOfNat lam (YoungCell.row hi) (YoungCell.col lo) hmid_cell
+    have hhi_mid : T.entry hi < T.entry mid := by
+      apply T.row_strict
+      · simp [mid, youngCellOfNat_row]
+      · simp [mid, youngCellOfNat_col, hcol_lt]
+    have hmid_lo : T.entry mid < T.entry lo := by
+      apply T.col_strict
+      · simp [mid, youngCellOfNat_col]
+      · simp [mid, youngCellOfNat_row, hrow_lt]
+    have hhi_mid_val : (T.entry hi : Nat) < (T.entry mid : Nat) := hhi_mid
+    have hmid_lo_val : (T.entry mid : Nat) < (T.entry lo : Nat) := hmid_lo
+    have hlo_val : (T.entry lo : Nat) = (a : Nat) := by
+      rw [show T.entry lo = adjacentEntryLo a by
+        simpa [lo] using entry_adjacentLoCell T a]
+      rfl
+    have hhi_val : (T.entry hi : Nat) = (a : Nat) + 1 := by
+      rw [show T.entry hi = adjacentEntryHi a by
+        simpa [hi] using entry_adjacentHiCell T a]
+      rfl
+    omega
+
 /-- Diagonal coefficient in Young's adjacent-transposition formula. -/
 noncomputable def youngAdjacentDiagCoeff {n : Nat}
     {lam : YoungDiagram (n + 1)}
@@ -170,6 +257,37 @@ theorem youngAdjacentDiagCoeff_sameCol {n : Nat}
     youngAdjacentDiagCoeff T a = -1 := by
   rw [youngAdjacentDiagCoeff, adjacentAxialDistance_sameCol T a hcol]
   norm_num
+
+theorem youngAdjacentDiagCoeff_ne_zero_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentDiagCoeff T a ≠ 0 := by
+  unfold youngAdjacentDiagCoeff
+  have hx_int := adjacentAxialDistance_ne_zero_of_swappable
+    T a hrow_ne hcol_ne
+  have hx_real : ((adjacentAxialDistance T a : ℝ) ≠ 0) := by
+    exact_mod_cast hx_int
+  exact inv_ne_zero hx_real
+
+theorem youngAdjacentDiagCoeff_sq_le_one_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentDiagCoeff T a ^ 2 ≤ 1 := by
+  rw [sq_le_one_iff_abs_le_one]
+  unfold youngAdjacentDiagCoeff
+  rw [abs_inv]
+  have hx_int := adjacentAxialDistance_ne_zero_of_swappable
+    T a hrow_ne hcol_ne
+  have hx_abs_int : (1 : Int) ≤ |adjacentAxialDistance T a| :=
+    Int.one_le_abs hx_int
+  have hx_abs_real : (1 : ℝ) ≤ |(adjacentAxialDistance T a : ℝ)| := by
+    rw [← Int.cast_abs]
+    exact_mod_cast hx_abs_int
+  exact inv_le_one_of_one_le₀ hx_abs_real
 
 theorem youngAdjacentDiagCoeff_swap {n : Nat}
     {lam : YoungDiagram (n + 1)}
@@ -218,6 +336,18 @@ theorem youngAdjacentCoeff_sq_sum_of_nonneg {n : Nat}
         youngAdjacentOffCoeff T a ^ 2 = 1 := by
   rw [youngAdjacentOffCoeff_sq_of_nonneg T a h]
   ring
+
+theorem youngAdjacentCoeff_sq_sum_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentDiagCoeff T a ^ 2 +
+        youngAdjacentOffCoeff T a ^ 2 = 1 := by
+  apply youngAdjacentCoeff_sq_sum_of_nonneg
+  have hle := youngAdjacentDiagCoeff_sq_le_one_of_swappable
+    T a hrow_ne hcol_ne
+  linarith
 
 theorem not_adjacentSameRow_of_sameCol {n : Nat}
     {lam : YoungDiagram (n + 1)}
@@ -591,6 +721,60 @@ theorem youngAdjacentOperator_basis_swappable_eq {n : Nat}
     · rw [youngAdjacentOperator_basis_swappable_other_value a hrow_ne hcol_ne
         hST (by simpa [T'] using hST')]
       rw [tableauBasisVec_ne hST, tableauBasisVec_ne hST']
+      ring
+
+theorem youngAdjacentOperator_sq_basis_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_ne :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a)) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator a (tableauBasisVec T)) =
+      tableauBasisVec T := by
+  let T' := adjacentSwapTableau T a hrow_ne hcol_ne
+  let d := youngAdjacentDiagCoeff T a
+  let o := youngAdjacentOffCoeff T a
+  have hT'_ne_T : T' ≠ T := by
+    simpa [T'] using adjacentSwapTableau_ne_self T a hrow_ne hcol_ne
+  have hrow_ne' : ¬ adjacentSameRow T' a := by
+    simpa [T'] using not_adjacentSameRow_swap T a hrow_ne hcol_ne
+  have hcol_ne' : ¬ adjacentSameCol T' a := by
+    simpa [T'] using not_adjacentSameCol_swap T a hrow_ne hcol_ne
+  have hinv :
+      adjacentSwapTableau T' a hrow_ne' hcol_ne' = T := by
+    simpa [T'] using
+      adjacentSwapTableau_involutive T a hrow_ne hcol_ne hrow_ne' hcol_ne'
+  have hdiag :
+      youngAdjacentDiagCoeff T' a = -d := by
+    simpa [T', d] using youngAdjacentDiagCoeff_swap T a hrow_ne hcol_ne
+  have hoff :
+      youngAdjacentOffCoeff T' a = o := by
+    simpa [T', o] using youngAdjacentOffCoeff_swap T a hrow_ne hcol_ne
+  have hcoeff : d * d + o * o = 1 := by
+    have h := youngAdjacentCoeff_sq_sum_of_swappable T a hrow_ne hcol_ne
+    simpa [d, o, pow_two] using h
+  rw [youngAdjacentOperator_basis_swappable_eq T a hrow_ne hcol_ne,
+    youngAdjacentOperator_add,
+    youngAdjacentOperator_smul,
+    youngAdjacentOperator_smul,
+    youngAdjacentOperator_basis_swappable_eq T a hrow_ne hcol_ne,
+    youngAdjacentOperator_basis_swappable_eq T' a hrow_ne' hcol_ne']
+  funext S
+  rw [hdiag, hoff, hinv]
+  simp only
+  by_cases hST : S = T
+  · subst S
+    rw [tableauBasisVec_self, tableauBasisVec_ne hT'_ne_T.symm]
+    nlinarith
+  · by_cases hST' : S = T'
+    · subst S
+      rw [tableauBasisVec_ne hT'_ne_T, tableauBasisVec_self]
+      ring
+    · rw [tableauBasisVec_ne hST, tableauBasisVec_ne hST']
       ring
 
 /-- The diagonal content operator in the tableau coordinate basis. -/
