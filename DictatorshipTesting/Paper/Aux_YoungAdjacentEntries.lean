@@ -847,6 +847,95 @@ theorem adjacentSwapTableau_comm_of_disjoint_indices_auto {n : Nat}
       adjacentSwapValue b (adjacentSwapEntry T a u)
   exact adjacentSwapEntry_comm_of_disjoint_indices T a b hdisj u
 
+theorem adjacentSwapTableau_braid_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_a :
+      YoungCell.row (adjacentLoCell T a) ≠
+        YoungCell.row (adjacentHiCell T a))
+    (hcol_a :
+      YoungCell.col (adjacentLoCell T a) ≠
+        YoungCell.col (adjacentHiCell T a))
+    (hrow_b_after_a :
+      YoungCell.row (adjacentLoCell
+          (adjacentSwapTableau T a hrow_a hcol_a) b) ≠
+        YoungCell.row (adjacentHiCell
+          (adjacentSwapTableau T a hrow_a hcol_a) b))
+    (hcol_b_after_a :
+      YoungCell.col (adjacentLoCell
+          (adjacentSwapTableau T a hrow_a hcol_a) b) ≠
+        YoungCell.col (adjacentHiCell
+          (adjacentSwapTableau T a hrow_a hcol_a) b))
+    (hrow_a_after_b_after_a :
+      YoungCell.row (adjacentLoCell
+          (adjacentSwapTableau
+            (adjacentSwapTableau T a hrow_a hcol_a) b
+            hrow_b_after_a hcol_b_after_a) a) ≠
+        YoungCell.row (adjacentHiCell
+          (adjacentSwapTableau
+            (adjacentSwapTableau T a hrow_a hcol_a) b
+            hrow_b_after_a hcol_b_after_a) a))
+    (hcol_a_after_b_after_a :
+      YoungCell.col (adjacentLoCell
+          (adjacentSwapTableau
+            (adjacentSwapTableau T a hrow_a hcol_a) b
+            hrow_b_after_a hcol_b_after_a) a) ≠
+        YoungCell.col (adjacentHiCell
+          (adjacentSwapTableau
+            (adjacentSwapTableau T a hrow_a hcol_a) b
+            hrow_b_after_a hcol_b_after_a) a))
+    (hrow_b :
+      YoungCell.row (adjacentLoCell T b) ≠
+        YoungCell.row (adjacentHiCell T b))
+    (hcol_b :
+      YoungCell.col (adjacentLoCell T b) ≠
+        YoungCell.col (adjacentHiCell T b))
+    (hrow_a_after_b :
+      YoungCell.row (adjacentLoCell
+          (adjacentSwapTableau T b hrow_b hcol_b) a) ≠
+        YoungCell.row (adjacentHiCell
+          (adjacentSwapTableau T b hrow_b hcol_b) a))
+    (hcol_a_after_b :
+      YoungCell.col (adjacentLoCell
+          (adjacentSwapTableau T b hrow_b hcol_b) a) ≠
+        YoungCell.col (adjacentHiCell
+          (adjacentSwapTableau T b hrow_b hcol_b) a))
+    (hrow_b_after_a_after_b :
+      YoungCell.row (adjacentLoCell
+          (adjacentSwapTableau
+            (adjacentSwapTableau T b hrow_b hcol_b) a
+            hrow_a_after_b hcol_a_after_b) b) ≠
+        YoungCell.row (adjacentHiCell
+          (adjacentSwapTableau
+            (adjacentSwapTableau T b hrow_b hcol_b) a
+            hrow_a_after_b hcol_a_after_b) b))
+    (hcol_b_after_a_after_b :
+      YoungCell.col (adjacentLoCell
+          (adjacentSwapTableau
+            (adjacentSwapTableau T b hrow_b hcol_b) a
+            hrow_a_after_b hcol_a_after_b) b) ≠
+        YoungCell.col (adjacentHiCell
+          (adjacentSwapTableau
+            (adjacentSwapTableau T b hrow_b hcol_b) a
+            hrow_a_after_b hcol_a_after_b) b)) :
+    adjacentSwapTableau
+        (adjacentSwapTableau
+          (adjacentSwapTableau T a hrow_a hcol_a) b
+          hrow_b_after_a hcol_b_after_a) a
+        hrow_a_after_b_after_a hcol_a_after_b_after_a =
+      adjacentSwapTableau
+        (adjacentSwapTableau
+          (adjacentSwapTableau T b hrow_b hcol_b) a
+          hrow_a_after_b hcol_a_after_b) b
+        hrow_b_after_a_after_b hcol_b_after_a_after_b := by
+  apply standardYoungTableau_ext_entry
+  intro u
+  change
+    adjacentSwapValue a (adjacentSwapValue b (adjacentSwapEntry T a u)) =
+      adjacentSwapValue b (adjacentSwapValue a (adjacentSwapEntry T b u))
+  exact adjacentSwapEntry_braid_of_succ T a b hsucc u
+
 theorem adjacentSwapTableau_entryContent_lo {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
