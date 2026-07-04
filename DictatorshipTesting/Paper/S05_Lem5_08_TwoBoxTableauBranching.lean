@@ -101,4 +101,64 @@ theorem S05_Lem5_08_first_deletion_tableauContentSequence
     h hr (deletedCornerCellOfOneBoxChildRow h hr)
     (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) T hu a
 
+/-- Lemma 5.8 basis-level component: after the first deletion, the child cell
+containing a remaining entry maps back to the original parent cell. -/
+theorem S05_Lem5_08_first_deletion_childCellToParent_cellOfEntry
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr))
+    (a : Fin (n + 1)) :
+    childCellToParentCellOfOneBoxChildRow h hr
+      (cellOfEntry (S05_Lem5_08_deleteFirstMaxAsTableau h hr T hu) a)
+      =
+    cellOfEntry T (Fin.castSucc a) := by
+  exact S05_Lem5_12_childCellToParent_cellOfEntry_deleteMax
+    h hr (deletedCornerCellOfOneBoxChildRow h hr)
+    (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) T hu a
+
+/-- Lemma 5.8 basis-level component: the first deletion preserves the row of
+each remaining entry. -/
+theorem S05_Lem5_08_first_deletion_cellOfEntry_row
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr))
+    (a : Fin (n + 1)) :
+    YoungCell.row
+      (cellOfEntry (S05_Lem5_08_deleteFirstMaxAsTableau h hr T hu) a)
+      =
+    YoungCell.row (cellOfEntry T (Fin.castSucc a)) := by
+  exact S05_Lem5_12_deleteMax_cellOfEntry_row
+    h hr (deletedCornerCellOfOneBoxChildRow h hr)
+    (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) T hu a
+
+/-- Lemma 5.8 basis-level component: the first deletion preserves the column of
+each remaining entry. -/
+theorem S05_Lem5_08_first_deletion_cellOfEntry_col
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (T : StandardYoungTableau lam)
+    (hu : TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr))
+    (a : Fin (n + 1)) :
+    YoungCell.col
+      (cellOfEntry (S05_Lem5_08_deleteFirstMaxAsTableau h hr T hu) a)
+      =
+    YoungCell.col (cellOfEntry T (Fin.castSucc a)) := by
+  exact S05_Lem5_12_deleteMax_cellOfEntry_col
+    h hr (deletedCornerCellOfOneBoxChildRow h hr)
+    (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) T hu a
+
 end DictatorshipTesting
