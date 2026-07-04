@@ -102,6 +102,28 @@ def S05_Lem5_11_insertMaxAsStandardYoungTableauOfOneBoxChildRow
     StandardYoungTableau lam :=
   insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S
 
+/-- Lemma 5.11 set-level component: the deleted corner has the row prescribed
+by the one-box row form. -/
+theorem S05_Lem5_11_deletedCornerCell_row
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :
+    YoungCell.row (deletedCornerCellOfOneBoxChildRow h hr) = r := by
+  exact deletedCornerCell_row h hr
+
+/-- Lemma 5.11 set-level component: the deleted corner is the final column of
+the removed row. -/
+theorem S05_Lem5_11_deletedCornerCell_col
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :
+    YoungCell.col (deletedCornerCellOfOneBoxChildRow h hr) = youngRow mu r := by
+  exact deletedCornerCell_col h hr
+
 theorem S05_Lem5_11_insertMax_tableauMaxAt_deletedCorner
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
     (h : IsOneBoxChild lam mu) {r : Nat}
@@ -113,6 +135,39 @@ theorem S05_Lem5_11_insertMax_tableauMaxAt_deletedCorner
       (S05_Lem5_11_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S)
       (deletedCornerCellOfOneBoxChildRow h hr) := by
   exact insertMax_tableauMaxAt_deletedCorner h hr S
+
+/-- Lemma 5.11 set-level component: insertion puts the new maximum entry at
+the deleted corner. -/
+theorem S05_Lem5_11_insertMax_entry_deletedCorner
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) :
+    (S05_Lem5_11_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S).entry
+      (deletedCornerCellOfOneBoxChildRow h hr) = Fin.last n := by
+  exact insertMaxAsStandardYoungTableau_entry_deletedCorner h hr S
+
+/-- Lemma 5.11 set-level component: away from the deleted corner, insertion
+agrees with the child tableau through the parent-child cell equivalence. -/
+theorem S05_Lem5_11_insertMax_entry_ne_deletedCorner
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu)
+    (v : YoungCell lam)
+    (hv : v ≠ deletedCornerCellOfOneBoxChildRow h hr) :
+    (S05_Lem5_11_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S).entry v =
+      Fin.castSucc
+        (S.entry
+          (youngCellExceptEquivChildOfOneBoxChildRow h hr
+            (deletedCornerCellOfOneBoxChildRow h hr)
+            (deletedCornerCell_row h hr)
+            (deletedCornerCell_col h hr) ⟨v, hv⟩)) := by
+  exact insertMaxAsStandardYoungTableau_entry_ne_deletedCorner h hr S hv
 
 theorem S05_Lem5_11_delete_insert
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}

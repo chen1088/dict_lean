@@ -32,4 +32,11 @@ theorem S05_Def5_09_mem_iff {n : Nat}
       S05_Def5_09_TableauMaxAt T u := by
   rfl
 
+/-- Definition 5.9 set-level component: every standard tableau has a unique
+maximum-entry cell. -/
+theorem S05_Def5_09_existsUnique_tableauMaxAt {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
+    ∃! u : YoungCell lam, S05_Def5_09_TableauMaxAt T u := by
+  exact existsUnique_tableauMaxAt T
+
 end DictatorshipTesting
