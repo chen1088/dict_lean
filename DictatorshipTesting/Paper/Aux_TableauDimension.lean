@@ -1075,4 +1075,46 @@ theorem tableauDim_fixed_twoStepDeletion {n : Nat}
       tableauDim (deleteTwoRemovableRowsDiagram lam p) := by
   rw [tableauDim, tableauDimNat, card_twoStepDeletionTableaux_eq_child]
 
+def deleteMaxAtMaxRemovableRow {n : Nat}
+    {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
+    StandardYoungTableau
+      (removableRowToOneBoxChild lam (maxRemovableRow T)) :=
+  oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow
+    (removableRowToOneBoxChild_isOneBoxChild lam (maxRemovableRow T))
+    (row_form_deleteRemovableRowDiagram lam (maxRemovableRow T).2)
+    ⟨T, tableauMaxAt_deletedCorner_maxRemovableRow T⟩
+
+def twoStepDataOfTableau {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)}
+    (T : StandardYoungTableau lam) : TwoStepRemovableRows lam where
+  first := maxRemovableRow T
+  second := maxRemovableRow (deleteMaxAtMaxRemovableRow T)
+
+def tableau_mem_twoStepDataOfTableau {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)}
+    (T : StandardYoungTableau lam) :
+    TwoStepDeletionTableaux lam (twoStepDataOfTableau T) :=
+  ⟨⟨T, tableauMaxAt_deletedCorner_maxRemovableRow T⟩,
+    tableauMaxAt_deletedCorner_maxRemovableRow
+      (deleteMaxAtMaxRemovableRow T)⟩
+
+@[simp] theorem twoStepDataOfTableau_first {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)}
+    (T : StandardYoungTableau lam) :
+    (twoStepDataOfTableau T).first = maxRemovableRow T := by
+  rfl
+
+@[simp] theorem twoStepDataOfTableau_second {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)}
+    (T : StandardYoungTableau lam) :
+    (twoStepDataOfTableau T).second =
+      maxRemovableRow (deleteMaxAtMaxRemovableRow T) := by
+  rfl
+
+@[simp] theorem tableau_mem_twoStepDataOfTableau_parent {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)}
+    (T : StandardYoungTableau lam) :
+    (tableau_mem_twoStepDataOfTableau T).1.1 = T := by
+  rfl
+
 end DictatorshipTesting
