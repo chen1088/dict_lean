@@ -340,6 +340,10 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   through `S05_Lem5_16_tableauDim_twoStrip_size` and
   `S05_Lem5_16_tableauDim_oneBox_size`.  The legacy `youngDim` wrappers remain
   conditional on the named dimension-branching inputs.
+- `S05_Lem5_18_MatchingSubgroupEigenbasis.lean`: concrete canonical
+  matching-cube operator algebra, including fixed ordered-product wrappers and
+  edge-sign product-to-character wrappers.  The full Specht-module restriction
+  theorem remains a representation-layer input.
 - `S05_Lem5_23_CentralAveragedRejection.lean`: finite-average local rejection
   identities, including the high-idempotent norm formula
   `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average`.  The

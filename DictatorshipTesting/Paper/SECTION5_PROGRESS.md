@@ -45,6 +45,11 @@ Detailed maps:
   `S05_Lem5_16_tableauDim_twoStrip_size` and
   `S05_Lem5_16_tableauDim_oneBox_size`, while keeping the legacy `youngDim`
   wrappers visibly conditional on the named dimension-branching inputs.
+- Lemma 5.18 exposes more of the concrete matching-cube action:
+  `S05_Lem5_18_canonicalMatchingCubeOperatorEven_eq_indexedProduct` gives the
+  fixed ordered-product form, and
+  `S05_Lem5_18_matchingEdgeSign_finRange_product_eq_matchingCharacter` turns
+  the selected edge-sign product into the matching character.
 - Lemma 5.23 now proves the finite-average/high-idempotent part of central
   averaged rejection: `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average`
   rewrites the mean local rejection as the average of squared high-idempotent
@@ -55,10 +60,8 @@ Detailed maps:
   `S05_Lem5_26_spectralGapFromBlockTraceModelWithDim` derive the spectral-gap
   inequality directly from scalarity, a block trace identity, dimension
   positivity, and the finite certificate.
-- Lemma 5.18 contains the current matching-cube operator algebra wrappers,
-  including cube XOR laws, simultaneous matching-eigenvector predicates,
-  matching-character action on simultaneous eigenvectors, and the first
-  one-edge projection wrappers.
+- Lemma 5.18 still does not claim the full Specht-module matching-restriction
+  theorem; that remains a representation-layer input.
 - Lemma 5.30 has a tableau-count z-bound theorem
   `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.
 - Lemma 5.32 has a tableau-count even certificate theorem

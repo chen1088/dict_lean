@@ -116,6 +116,14 @@ Proven Lemma 5.16 tableau-count size components:
   one-box size recurrences from Lemmas 5.14 and 5.15.  The legacy `youngDim`
   wrappers remain conditional on the named dimension-branching inputs.
 
+Proven Lemma 5.18 matching-cube operator/character components:
+
+- `S05_Lem5_18_MatchingSubgroupEigenbasis.lean` -- Lemma 5.18
+  (`lem:matching-restriction-X`): exposes the concrete canonical matching-cube
+  action as a fixed ordered product of commuting matching-edge operators and
+  proves that selected edge signs multiply to the matching character.  The full
+  Specht-module restriction theorem remains a representation-layer input.
+
 Proven Lemma 5.23 finite-average/high-idempotent components:
 
 - `S05_Lem5_23_CentralAveragedRejection.lean` -- Lemma 5.23

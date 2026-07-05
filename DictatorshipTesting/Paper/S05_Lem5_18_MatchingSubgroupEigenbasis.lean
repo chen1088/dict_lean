@@ -147,6 +147,28 @@ theorem S05_Lem5_18_canonicalMatchingCubeOperatorOdd_xor
         (canonicalMatchingCubeOperatorOdd (lam := lam) y f) := by
   exact canonicalMatchingCubeOperatorOdd_xor x y
 
+/-- Lemma 5.18 matching-cube component: the even canonical matching-cube
+operator is the fixed ordered product of the selected edge operators. -/
+theorem S05_Lem5_18_canonicalMatchingCubeOperatorEven_eq_indexedProduct
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (x : Cube m) :
+    canonicalMatchingCubeOperatorEven (lam := lam) x =
+      indexedOperatorListProduct
+        (fun r : Fin m => canonicalMatchingYoungOperatorEven (lam := lam) r)
+        x (List.finRange m) := by
+  exact canonicalMatchingCubeOperatorEven_eq_indexedProduct x
+
+/-- Lemma 5.18 matching-cube component: the odd canonical matching-cube
+operator is the fixed ordered product of the selected edge operators. -/
+theorem S05_Lem5_18_canonicalMatchingCubeOperatorOdd_eq_indexedProduct
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (x : Cube m) :
+    canonicalMatchingCubeOperatorOdd (lam := lam) x =
+      indexedOperatorListProduct
+        (fun r : Fin m => canonicalMatchingYoungOperatorOdd (lam := lam) r)
+        x (List.finRange m) := by
+  exact canonicalMatchingCubeOperatorOdd_eq_indexedProduct x
+
 /-- Lemma 5.18 matching-character component: simultaneous even matching-edge
 eigenvectors are indexed by a character support. -/
 abbrev S05_IsMatchingEigenvectorEven
@@ -160,6 +182,39 @@ abbrev S05_IsMatchingEigenvectorOdd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
     (f : TableauSpace lam) (R : Finset (Fin m)) : Prop :=
   IsMatchingEigenvectorOdd f R
+
+/-- Lemma 5.18 matching-character component: the product of selected edge
+signs is the matching character. -/
+theorem S05_Lem5_18_matchingEdgeSign_finRange_product_eq_matchingCharacter
+    {m : Nat} (R : Finset (Fin m)) (x : Cube m) :
+    ((List.finRange m).map
+      (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod =
+        S05_matchingCharacter R x := by
+  exact matchingEdgeSign_finRange_product_eq_cubeChar R x
+
+/-- Lemma 5.18 matching-character component: on an even simultaneous
+matching-edge eigenspace, the cube action is the product of selected edge
+signs. -/
+theorem S05_Lem5_18_matchingCube_product_action_even
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    {f : TableauSpace lam} {R : Finset (Fin m)}
+    (hf : S05_IsMatchingEigenvectorEven f R) (x : Cube m) :
+    canonicalMatchingCubeOperatorEven (lam := lam) x f =
+      ((List.finRange m).map
+        (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod • f := by
+  exact canonicalMatchingCubeOperatorEven_apply_of_isMatchingEigenvector hf x
+
+/-- Lemma 5.18 matching-character component: on an odd simultaneous
+matching-edge eigenspace, the cube action is the product of selected edge
+signs. -/
+theorem S05_Lem5_18_matchingCube_product_action_odd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {f : TableauSpace lam} {R : Finset (Fin m)}
+    (hf : S05_IsMatchingEigenvectorOdd f R) (x : Cube m) :
+    canonicalMatchingCubeOperatorOdd (lam := lam) x f =
+      ((List.finRange m).map
+        (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod • f := by
+  exact canonicalMatchingCubeOperatorOdd_apply_of_isMatchingEigenvector hf x
 
 /-- Lemma 5.18 matching-character component: on an even simultaneous
 matching-edge eigenspace, the cube action is the matching character. -/
