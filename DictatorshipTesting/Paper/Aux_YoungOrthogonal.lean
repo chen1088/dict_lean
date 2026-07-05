@@ -1853,6 +1853,261 @@ theorem youngAdjacentOperator_comm_of_disjoint_indices
               (fun g => youngAdjacentOperator b (youngAdjacentOperator a g))
               hf.symm
 
+theorem youngAdjacentOperator_braid_basis_swappable_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_a : ¬ adjacentSameRow T a)
+    (hcol_a : ¬ adjacentSameCol T a)
+    (hrow_b : ¬ adjacentSameRow T b)
+    (hcol_b : ¬ adjacentSameCol T b)
+    (hrow_b_after_a :
+      ¬ adjacentSameRow (adjacentSwapTableau T a hrow_a hcol_a) b)
+    (hcol_b_after_a :
+      ¬ adjacentSameCol (adjacentSwapTableau T a hrow_a hcol_a) b)
+    (hrow_a_after_b_after_a :
+      ¬ adjacentSameRow
+        (adjacentSwapTableau
+          (adjacentSwapTableau T a hrow_a hcol_a) b
+          hrow_b_after_a hcol_b_after_a) a)
+    (hcol_a_after_b_after_a :
+      ¬ adjacentSameCol
+        (adjacentSwapTableau
+          (adjacentSwapTableau T a hrow_a hcol_a) b
+          hrow_b_after_a hcol_b_after_a) a)
+    (hrow_a_after_b :
+      ¬ adjacentSameRow (adjacentSwapTableau T b hrow_b hcol_b) a)
+    (hcol_a_after_b :
+      ¬ adjacentSameCol (adjacentSwapTableau T b hrow_b hcol_b) a)
+    (hrow_b_after_a_after_b :
+      ¬ adjacentSameRow
+        (adjacentSwapTableau
+          (adjacentSwapTableau T b hrow_b hcol_b) a
+          hrow_a_after_b hcol_a_after_b) b)
+    (hcol_b_after_a_after_b :
+      ¬ adjacentSameCol
+        (adjacentSwapTableau
+          (adjacentSwapTableau T b hrow_b hcol_b) a
+          hrow_a_after_b hcol_a_after_b) b) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b
+          (youngAdjacentOperator a (tableauBasisVec T))) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a
+          (youngAdjacentOperator b (tableauBasisVec T))) := by
+  let Ta := adjacentSwapTableau T a hrow_a hcol_a
+  let Tb := adjacentSwapTableau T b hrow_b hcol_b
+  let Tab := adjacentSwapTableau Ta b hrow_b_after_a hcol_b_after_a
+  let Tba := adjacentSwapTableau Tb a hrow_a_after_b hcol_a_after_b
+  let Taba :=
+    adjacentSwapTableau Tab a hrow_a_after_b_after_a
+      hcol_a_after_b_after_a
+  let Tbab :=
+    adjacentSwapTableau Tba b hrow_b_after_a_after_b
+      hcol_b_after_a_after_b
+  let da := youngAdjacentDiagCoeff T a
+  let db := youngAdjacentDiagCoeff T b
+  let dz := youngAdjacentDiagCoeff Ta b
+  let oa := youngAdjacentOffCoeff T a
+  let ob := youngAdjacentOffCoeff T b
+  let oz := youngAdjacentOffCoeff Ta b
+  have hrow_a_after_a : ¬ adjacentSameRow Ta a := by
+    simpa [Ta] using not_adjacentSameRow_swap T a hrow_a hcol_a
+  have hcol_a_after_a : ¬ adjacentSameCol Ta a := by
+    simpa [Ta] using not_adjacentSameCol_swap T a hrow_a hcol_a
+  have hrow_b_after_b : ¬ adjacentSameRow Tb b := by
+    simpa [Tb] using not_adjacentSameRow_swap T b hrow_b hcol_b
+  have hcol_b_after_b : ¬ adjacentSameCol Tb b := by
+    simpa [Tb] using not_adjacentSameCol_swap T b hrow_b hcol_b
+  have hinv_a :
+      adjacentSwapTableau Ta a hrow_a_after_a hcol_a_after_a = T := by
+    simpa [Ta] using
+      adjacentSwapTableau_involutive T a hrow_a hcol_a
+        hrow_a_after_a hcol_a_after_a
+  have hinv_b :
+      adjacentSwapTableau Tb b hrow_b_after_b hcol_b_after_b = T := by
+    simpa [Tb] using
+      adjacentSwapTableau_involutive T b hrow_b hcol_b
+        hrow_b_after_b hcol_b_after_b
+  have hbraid : Taba = Tbab := by
+    simpa [Ta, Tb, Tab, Tba, Taba, Tbab] using
+      adjacentSwapTableau_braid_of_succ T a b hsucc
+        hrow_a hcol_a hrow_b_after_a hcol_b_after_a
+        hrow_a_after_b_after_a hcol_a_after_b_after_a
+        hrow_b hcol_b hrow_a_after_b hcol_a_after_b
+        hrow_b_after_a_after_b hcol_b_after_a_after_b
+  have hdiag_Ta_a : youngAdjacentDiagCoeff Ta a = -da := by
+    simpa [Ta, da] using youngAdjacentDiagCoeff_swap T a hrow_a hcol_a
+  have hoff_Ta_a : youngAdjacentOffCoeff Ta a = oa := by
+    simpa [Ta, oa] using youngAdjacentOffCoeff_swap T a hrow_a hcol_a
+  have hdiag_Tb_b : youngAdjacentDiagCoeff Tb b = -db := by
+    simpa [Tb, db] using youngAdjacentDiagCoeff_swap T b hrow_b hcol_b
+  have hoff_Tb_b : youngAdjacentOffCoeff Tb b = ob := by
+    simpa [Tb, ob] using youngAdjacentOffCoeff_swap T b hrow_b hcol_b
+  have hdiag_Tb_a : youngAdjacentDiagCoeff Tb a = dz := by
+    simpa [Ta, Tb, dz] using
+      (youngAdjacentDiagCoeff_after_left_swap_eq_after_right_swap_of_succ
+        T a b hsucc hrow_a hcol_a hrow_b hcol_b).symm
+  have hoff_Tb_a : youngAdjacentOffCoeff Tb a = oz := by
+    simpa [Ta, Tb, oz] using
+      (youngAdjacentOffCoeff_after_left_swap_eq_after_right_swap_of_succ
+        T a b hsucc hrow_a hcol_a hrow_b hcol_b).symm
+  have hdiag_Tab_a : youngAdjacentDiagCoeff Tab a = db := by
+    simpa [Ta, Tab, db] using
+      youngAdjacentDiagCoeff_after_left_right_swap_of_succ
+        T a b hsucc hrow_a hcol_a hrow_b_after_a hcol_b_after_a
+  have hoff_Tab_a : youngAdjacentOffCoeff Tab a = ob := by
+    simpa [Ta, Tab, ob] using
+      youngAdjacentOffCoeff_after_left_right_swap_of_succ
+        T a b hsucc hrow_a hcol_a hrow_b_after_a hcol_b_after_a
+  have hdiag_Tba_b : youngAdjacentDiagCoeff Tba b = da := by
+    simpa [Tb, Tba, da] using
+      youngAdjacentDiagCoeff_after_right_left_swap_of_succ
+        T a b hsucc hrow_b hcol_b hrow_a_after_b hcol_a_after_b
+  have hoff_Tba_b : youngAdjacentOffCoeff Tba b = oa := by
+    simpa [Tb, Tba, oa] using
+      youngAdjacentOffCoeff_after_right_left_swap_of_succ
+        T a b hsucc hrow_b hcol_b hrow_a_after_b hcol_a_after_b
+  let x : ℝ := (adjacentAxialDistance T a : ℝ)
+  let y : ℝ := (adjacentAxialDistance T b : ℝ)
+  let z : ℝ := ((adjacentAxialDistance T a +
+    adjacentAxialDistance T b : Int) : ℝ)
+  have hx : x ≠ 0 := by
+    have hx_int := adjacentAxialDistance_ne_zero_of_swappable
+      T a hrow_a hcol_a
+    have hx_real : ((adjacentAxialDistance T a : ℝ) ≠ 0) := by
+      exact_mod_cast hx_int
+    simpa [x] using hx_real
+  have hy : y ≠ 0 := by
+    have hy_int := adjacentAxialDistance_ne_zero_of_swappable
+      T b hrow_b hcol_b
+    have hy_real : ((adjacentAxialDistance T b : ℝ) ≠ 0) := by
+      exact_mod_cast hy_int
+    simpa [y] using hy_real
+  have hz0 : z ≠ 0 := by
+    have hz_int := adjacentAxialDistance_ne_zero_of_swappable
+      Ta b hrow_b_after_a hcol_b_after_a
+    have hz_real : ((adjacentAxialDistance Ta b : ℝ) ≠ 0) := by
+      exact_mod_cast hz_int
+    have hsum_real : ((adjacentAxialDistance Ta b : ℝ)) = z := by
+      simpa [Ta, z] using congrArg (fun m : Int => (m : ℝ))
+        (adjacentAxialDistance_after_left_swap_of_succ
+          T a b hsucc hrow_a hcol_a)
+    rwa [hsum_real] at hz_real
+  have hsum : z = x + y := by
+    simp [x, y, z]
+  have hdz : dz = z⁻¹ := by
+    simpa [Ta, dz, z] using
+      youngAdjacentDiagCoeff_after_left_swap_of_succ
+        T a b hsucc hrow_a hcol_a
+  have hTa_coeff : da * (db - dz) = db * dz := by
+    have h := inv_braid_left_identity hx hy hz0 hsum
+    simpa [da, db, dz, x, y, z, hdz, youngAdjacentDiagCoeff]
+      using h
+  have hTb_coeff : db * (da - dz) = da * dz := by
+    have h := inv_braid_right_identity hx hy hz0 hsum
+    simpa [da, db, dz, x, y, z, hdz, youngAdjacentDiagCoeff]
+      using h
+  have hcoeff_a : da ^ 2 + oa ^ 2 = 1 := by
+    simpa [da, oa] using
+      youngAdjacentCoeff_sq_sum_of_swappable T a hrow_a hcol_a
+  have hcoeff_b : db ^ 2 + ob ^ 2 = 1 := by
+    simpa [db, ob] using
+      youngAdjacentCoeff_sq_sum_of_swappable T b hrow_b hcol_b
+  have hoa_sq : oa ^ 2 = 1 - da ^ 2 := by
+    nlinarith
+  have hob_sq : ob ^ 2 = 1 - db ^ 2 := by
+    nlinarith
+  have hT_inv :
+      da ^ 2 * db + (1 - da ^ 2) * dz =
+        db ^ 2 * da + (1 - db ^ 2) * dz := by
+    have h := inv_sq_braid_diag_identity hx hy hz0 hsum
+    simpa [da, db, dz, x, y, z, hdz, youngAdjacentDiagCoeff]
+      using h
+  have hT_coeff :
+      da ^ 2 * db + oa ^ 2 * dz =
+        db ^ 2 * da + ob ^ 2 * dz := by
+    rw [hoa_sq, hob_sq]
+    exact hT_inv
+  have hleft :
+      youngAdjacentOperator a
+          (youngAdjacentOperator b
+            (youngAdjacentOperator a (tableauBasisVec T))) =
+        fun S =>
+          da * (db * (da * tableauBasisVec T S +
+                oa * tableauBasisVec Ta S) +
+              ob * (dz * tableauBasisVec Tb S +
+                oz * tableauBasisVec Tba S)) +
+            oa * (dz * ((-da) * tableauBasisVec Ta S +
+                oa * tableauBasisVec T S) +
+              oz * (db * tableauBasisVec Tab S +
+                ob * tableauBasisVec Taba S)) := by
+    rw [youngAdjacentOperator_basis_swappable_eq T a hrow_a hcol_a,
+      youngAdjacentOperator_add, youngAdjacentOperator_smul,
+      youngAdjacentOperator_smul,
+      youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b,
+      youngAdjacentOperator_basis_swappable_eq Ta b hrow_b_after_a
+        hcol_b_after_a,
+      youngAdjacentOperator_add, youngAdjacentOperator_smul,
+      youngAdjacentOperator_smul,
+      youngAdjacentOperator_add, youngAdjacentOperator_smul,
+      youngAdjacentOperator_smul,
+      youngAdjacentOperator_basis_swappable_eq T a hrow_a hcol_a,
+      youngAdjacentOperator_basis_swappable_eq Tb a hrow_a_after_b
+        hcol_a_after_b,
+      youngAdjacentOperator_add, youngAdjacentOperator_smul,
+      youngAdjacentOperator_smul,
+      youngAdjacentOperator_basis_swappable_eq Ta a hrow_a_after_a
+        hcol_a_after_a,
+      youngAdjacentOperator_basis_swappable_eq Tab a
+        hrow_a_after_b_after_a hcol_a_after_b_after_a]
+    funext S
+    rw [hdiag_Tb_a, hoff_Tb_a, hdiag_Ta_a, hoff_Ta_a, hinv_a,
+      hdiag_Tab_a, hoff_Tab_a]
+  have hright :
+      youngAdjacentOperator b
+          (youngAdjacentOperator a
+            (youngAdjacentOperator b (tableauBasisVec T))) =
+        fun S =>
+          db * (da * (db * tableauBasisVec T S +
+                ob * tableauBasisVec Tb S) +
+              oa * (dz * tableauBasisVec Ta S +
+                oz * tableauBasisVec Tab S)) +
+            ob * (dz * ((-db) * tableauBasisVec Tb S +
+                ob * tableauBasisVec T S) +
+              oz * (da * tableauBasisVec Tba S +
+                oa * tableauBasisVec Tbab S)) := by
+    rw [youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b,
+      youngAdjacentOperator_add, youngAdjacentOperator_smul,
+      youngAdjacentOperator_smul,
+      youngAdjacentOperator_basis_swappable_eq T a hrow_a hcol_a,
+      youngAdjacentOperator_basis_swappable_eq Tb a hrow_a_after_b
+        hcol_a_after_b,
+      youngAdjacentOperator_add, youngAdjacentOperator_smul,
+      youngAdjacentOperator_smul,
+      youngAdjacentOperator_add, youngAdjacentOperator_smul,
+      youngAdjacentOperator_smul,
+      youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b,
+      youngAdjacentOperator_basis_swappable_eq Ta b hrow_b_after_a
+        hcol_b_after_a,
+      youngAdjacentOperator_add, youngAdjacentOperator_smul,
+      youngAdjacentOperator_smul,
+      youngAdjacentOperator_basis_swappable_eq Tb b hrow_b_after_b
+        hcol_b_after_b,
+      youngAdjacentOperator_basis_swappable_eq Tba b
+        hrow_b_after_a_after_b hcol_b_after_a_after_b]
+    funext S
+    rw [hdiag_Tb_a, hoff_Tb_a, hdiag_Tb_b, hoff_Tb_b, hinv_b,
+      hdiag_Tba_b, hoff_Tba_b]
+  rw [hleft, hright]
+  funext S
+  rw [hbraid]
+  exact braid_six_coefficient_identity da db dz oa ob oz
+    (tableauBasisVec T S) (tableauBasisVec Ta S)
+    (tableauBasisVec Tb S) (tableauBasisVec Tab S)
+    (tableauBasisVec Tba S) (tableauBasisVec Tbab S)
+    hT_coeff hTa_coeff hTb_coeff
+
 /-- The diagonal content operator in the tableau coordinate basis. -/
 noncomputable def jucysMurphyDiagonalOperator {n : Nat}
     {lam : YoungDiagram n} (a : Fin n) :
