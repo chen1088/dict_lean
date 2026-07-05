@@ -72,6 +72,46 @@ theorem S05_Lem5_19_canonicalMatchingYoungOperatorOdd_comm
         (canonicalMatchingYoungOperatorOdd r f) := by
   exact canonicalMatchingYoungOperatorOdd_comm hrs f
 
+/-- Lemma 5.19 matching-edge eigenspace component: `v + A_r v` is a `+1`
+eigenvector for an even matching edge. -/
+theorem S05_Lem5_19_matchingEdge_plusEigenVec_even
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (fun T => f T + canonicalMatchingYoungOperatorEven r f T) =
+      fun T => f T + canonicalMatchingYoungOperatorEven r f T := by
+  exact canonicalMatchingYoungOperatorEven_plusEigenVec r f
+
+/-- Lemma 5.19 matching-edge eigenspace component: `v - A_r v` is a `-1`
+eigenvector for an even matching edge. -/
+theorem S05_Lem5_19_matchingEdge_minusEigenVec_even
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (fun T => f T - canonicalMatchingYoungOperatorEven r f T) =
+      fun T => - (f T - canonicalMatchingYoungOperatorEven r f T) := by
+  exact canonicalMatchingYoungOperatorEven_minusEigenVec r f
+
+/-- Lemma 5.19 matching-edge eigenspace component: `v + A_r v` is a `+1`
+eigenvector for an odd matching edge. -/
+theorem S05_Lem5_19_matchingEdge_plusEigenVec_odd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (fun T => f T + canonicalMatchingYoungOperatorOdd r f T) =
+      fun T => f T + canonicalMatchingYoungOperatorOdd r f T := by
+  exact canonicalMatchingYoungOperatorOdd_plusEigenVec r f
+
+/-- Lemma 5.19 matching-edge eigenspace component: `v - A_r v` is a `-1`
+eigenvector for an odd matching edge. -/
+theorem S05_Lem5_19_matchingEdge_minusEigenVec_odd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (fun T => f T - canonicalMatchingYoungOperatorOdd r f T) =
+      fun T => - (f T - canonicalMatchingYoungOperatorOdd r f T) := by
+  exact canonicalMatchingYoungOperatorOdd_minusEigenVec r f
+
 /-- Lemma 5.19 matching-cube component: the zero cube element acts trivially in
 the even canonical matching action. -/
 theorem S05_Lem5_19_canonicalMatchingCubeOperatorEven_zero

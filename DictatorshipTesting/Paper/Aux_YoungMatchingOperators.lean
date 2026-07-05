@@ -102,6 +102,76 @@ theorem canonicalMatchingYoungOperatorOdd_involutive
         (canonicalMatchingYoungOperatorOdd r f) = f := by
   exact youngAdjacentOperator_sq (canonicalNearMatchingAdjacentIndex m r) f
 
+/-- The `+` projection vector associated to an even matching edge is a
+`+1` eigenvector. -/
+theorem canonicalMatchingYoungOperatorEven_plusEigenVec
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (fun T => f T + canonicalMatchingYoungOperatorEven r f T) =
+      fun T => f T + canonicalMatchingYoungOperatorEven r f T := by
+  unfold canonicalMatchingYoungOperatorEven
+  rw [youngAdjacentOperator_add,
+    youngAdjacentOperator_sq (canonicalMatchingAdjacentIndex m r) f]
+  funext T
+  ring
+
+/-- The `-` projection vector associated to an even matching edge is a
+`-1` eigenvector. -/
+theorem canonicalMatchingYoungOperatorEven_minusEigenVec
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (fun T => f T - canonicalMatchingYoungOperatorEven r f T) =
+      fun T => - (f T - canonicalMatchingYoungOperatorEven r f T) := by
+  unfold canonicalMatchingYoungOperatorEven
+  rw [show
+      (fun T =>
+          f T - youngAdjacentOperator (canonicalMatchingAdjacentIndex m r) f T) =
+        (fun T =>
+          f T + (fun U =>
+            - youngAdjacentOperator (canonicalMatchingAdjacentIndex m r) f U) T) by
+        rfl]
+  rw [youngAdjacentOperator_add, youngAdjacentOperator_neg,
+    youngAdjacentOperator_sq (canonicalMatchingAdjacentIndex m r) f]
+  funext T
+  ring
+
+/-- The `+` projection vector associated to an odd matching edge is a
+`+1` eigenvector. -/
+theorem canonicalMatchingYoungOperatorOdd_plusEigenVec
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (fun T => f T + canonicalMatchingYoungOperatorOdd r f T) =
+      fun T => f T + canonicalMatchingYoungOperatorOdd r f T := by
+  unfold canonicalMatchingYoungOperatorOdd
+  rw [youngAdjacentOperator_add,
+    youngAdjacentOperator_sq (canonicalNearMatchingAdjacentIndex m r) f]
+  funext T
+  ring
+
+/-- The `-` projection vector associated to an odd matching edge is a
+`-1` eigenvector. -/
+theorem canonicalMatchingYoungOperatorOdd_minusEigenVec
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (fun T => f T - canonicalMatchingYoungOperatorOdd r f T) =
+      fun T => - (f T - canonicalMatchingYoungOperatorOdd r f T) := by
+  unfold canonicalMatchingYoungOperatorOdd
+  rw [show
+      (fun T =>
+          f T - youngAdjacentOperator (canonicalNearMatchingAdjacentIndex m r) f T) =
+        (fun T =>
+          f T + (fun U =>
+            - youngAdjacentOperator (canonicalNearMatchingAdjacentIndex m r) f U) T) by
+        rfl]
+  rw [youngAdjacentOperator_add, youngAdjacentOperator_neg,
+    youngAdjacentOperator_sq (canonicalNearMatchingAdjacentIndex m r) f]
+  funext T
+  ring
+
 theorem canonicalMatchingYoungOperatorEven_comm
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
     {r s : Fin m} (hrs : r ≠ s) (f : TableauSpace lam) :

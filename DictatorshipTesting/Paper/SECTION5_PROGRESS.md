@@ -22,6 +22,27 @@ Checked against `../dictatorship_testing_soda27_latest.tex`.
   scalarity, `U_1` block identification, and the `SpectralBlockModelInputWithDim`
   route needed for the tableau-count bridge.
 
+## Lemma 5.19 Matching-Operator Layer
+
+Latest continuation after the Section 5 verification:
+
+- The one-edge involution trick is now formalized for the canonical matching
+  Young operators.  For each even or odd matching edge, `v + A_r v` is proved a
+  `+1` eigenvector and `v - A_r v` is proved a `-1` eigenvector.
+- Aux names:
+  `canonicalMatchingYoungOperatorEven_plusEigenVec`,
+  `canonicalMatchingYoungOperatorEven_minusEigenVec`,
+  `canonicalMatchingYoungOperatorOdd_plusEigenVec`, and
+  `canonicalMatchingYoungOperatorOdd_minusEigenVec`.
+- Paper-facing wrappers:
+  `S05_Lem5_19_matchingEdge_plusEigenVec_even`,
+  `S05_Lem5_19_matchingEdge_minusEigenVec_even`,
+  `S05_Lem5_19_matchingEdge_plusEigenVec_odd`, and
+  `S05_Lem5_19_matchingEdge_minusEigenVec_odd`.
+- The full matching-subgroup Specht restriction/eigenbasis theorem is still not
+  claimed.  The next internal target remains the cube product/XOR law for the
+  fixed-order product of commuting matching-edge involutions.
+
 ## TableauDim Certificate Migration Batch
 
 Completed commits from the current milestone:
