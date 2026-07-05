@@ -86,6 +86,98 @@ theorem S05_Lem5_19_canonicalMatchingCubeOperatorOdd_zero
     canonicalMatchingCubeOperatorOdd (lam := lam) (cubeZero m) = id := by
   exact canonicalMatchingCubeOperatorOdd_zero
 
+/-- Lemma 5.19 one-edge component: an even matching edge fixes a same-row
+tableau basis vector. -/
+theorem S05_Lem5_19_matchingEdge_basis_sameRow_even
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow : adjacentSameRow T (canonicalMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorEven r (tableauBasisVec T) =
+      tableauBasisVec T := by
+  exact canonicalMatchingYoungOperatorEven_basis_sameRow T r hrow
+
+/-- Lemma 5.19 one-edge component: an even matching edge negates a same-column
+tableau basis vector. -/
+theorem S05_Lem5_19_matchingEdge_basis_sameCol_even
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hcol : adjacentSameCol T (canonicalMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorEven r (tableauBasisVec T) =
+      fun S => -tableauBasisVec T S := by
+  exact canonicalMatchingYoungOperatorEven_basis_sameCol T r hcol
+
+/-- Lemma 5.19 one-edge component: in an even swappable edge, the diagonal
+coordinate is the Young axial coefficient. -/
+theorem S05_Lem5_19_matchingEdge_basis_swappable_self_value_even
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow_ne : ¬ adjacentSameRow T (canonicalMatchingAdjacentIndex m r))
+    (hcol_ne : ¬ adjacentSameCol T (canonicalMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorEven r (tableauBasisVec T) T =
+      youngAdjacentDiagCoeff T (canonicalMatchingAdjacentIndex m r) := by
+  exact canonicalMatchingYoungOperatorEven_basis_swappable_self_value
+    T r hrow_ne hcol_ne
+
+/-- Lemma 5.19 one-edge component: in an even swappable edge, the swapped
+coordinate is the Young off-diagonal coefficient. -/
+theorem S05_Lem5_19_matchingEdge_basis_swappable_swap_value_even
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow_ne : ¬ adjacentSameRow T (canonicalMatchingAdjacentIndex m r))
+    (hcol_ne : ¬ adjacentSameCol T (canonicalMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorEven r (tableauBasisVec T)
+        (adjacentSwapTableau T (canonicalMatchingAdjacentIndex m r)
+          hrow_ne hcol_ne) =
+      youngAdjacentOffCoeff T (canonicalMatchingAdjacentIndex m r) := by
+  exact canonicalMatchingYoungOperatorEven_basis_swappable_swap_value
+    T r hrow_ne hcol_ne
+
+/-- Lemma 5.19 one-edge component: an odd matching edge fixes a same-row
+tableau basis vector. -/
+theorem S05_Lem5_19_matchingEdge_basis_sameRow_odd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow : adjacentSameRow T (canonicalNearMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorOdd r (tableauBasisVec T) =
+      tableauBasisVec T := by
+  exact canonicalMatchingYoungOperatorOdd_basis_sameRow T r hrow
+
+/-- Lemma 5.19 one-edge component: an odd matching edge negates a same-column
+tableau basis vector. -/
+theorem S05_Lem5_19_matchingEdge_basis_sameCol_odd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hcol : adjacentSameCol T (canonicalNearMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorOdd r (tableauBasisVec T) =
+      fun S => -tableauBasisVec T S := by
+  exact canonicalMatchingYoungOperatorOdd_basis_sameCol T r hcol
+
+/-- Lemma 5.19 one-edge component: in an odd swappable edge, the diagonal
+coordinate is the Young axial coefficient. -/
+theorem S05_Lem5_19_matchingEdge_basis_swappable_self_value_odd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow_ne : ¬ adjacentSameRow T (canonicalNearMatchingAdjacentIndex m r))
+    (hcol_ne : ¬ adjacentSameCol T (canonicalNearMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorOdd r (tableauBasisVec T) T =
+      youngAdjacentDiagCoeff T (canonicalNearMatchingAdjacentIndex m r) := by
+  exact canonicalMatchingYoungOperatorOdd_basis_swappable_self_value
+    T r hrow_ne hcol_ne
+
+/-- Lemma 5.19 one-edge component: in an odd swappable edge, the swapped
+coordinate is the Young off-diagonal coefficient. -/
+theorem S05_Lem5_19_matchingEdge_basis_swappable_swap_value_odd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow_ne : ¬ adjacentSameRow T (canonicalNearMatchingAdjacentIndex m r))
+    (hcol_ne : ¬ adjacentSameCol T (canonicalNearMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorOdd r (tableauBasisVec T)
+        (adjacentSwapTableau T (canonicalNearMatchingAdjacentIndex m r)
+          hrow_ne hcol_ne) =
+      youngAdjacentOffCoeff T (canonicalNearMatchingAdjacentIndex m r) := by
+  exact canonicalMatchingYoungOperatorOdd_basis_swappable_swap_value
+    T r hrow_ne hcol_ne
+
 /-- Even matching-restriction input, in the scalar vocabulary currently
 available in Lean. -/
 def MatchingRestrictionEvenInput (m : ℕ) : Prop :=

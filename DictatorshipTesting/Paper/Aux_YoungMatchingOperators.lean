@@ -191,4 +191,84 @@ theorem canonicalMatchingCubeOperatorOdd_zero
   rw [List.ofFn_const]
   exact composeOperatorList_replicate_id m
 
+theorem canonicalMatchingYoungOperatorEven_basis_sameRow
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow : adjacentSameRow T (canonicalMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorEven r (tableauBasisVec T) =
+      tableauBasisVec T := by
+  exact youngAdjacentOperator_basis_sameRow
+    T (canonicalMatchingAdjacentIndex m r) hrow
+
+theorem canonicalMatchingYoungOperatorEven_basis_sameCol
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hcol : adjacentSameCol T (canonicalMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorEven r (tableauBasisVec T) =
+      fun S => -tableauBasisVec T S := by
+  exact youngAdjacentOperator_basis_sameCol
+    T (canonicalMatchingAdjacentIndex m r) hcol
+
+theorem canonicalMatchingYoungOperatorEven_basis_swappable_self_value
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow_ne : ¬ adjacentSameRow T (canonicalMatchingAdjacentIndex m r))
+    (hcol_ne : ¬ adjacentSameCol T (canonicalMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorEven r (tableauBasisVec T) T =
+      youngAdjacentDiagCoeff T (canonicalMatchingAdjacentIndex m r) := by
+  exact youngAdjacentOperator_basis_swappable_self_value
+    T (canonicalMatchingAdjacentIndex m r) hrow_ne hcol_ne
+
+theorem canonicalMatchingYoungOperatorEven_basis_swappable_swap_value
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow_ne : ¬ adjacentSameRow T (canonicalMatchingAdjacentIndex m r))
+    (hcol_ne : ¬ adjacentSameCol T (canonicalMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorEven r (tableauBasisVec T)
+        (adjacentSwapTableau T (canonicalMatchingAdjacentIndex m r)
+          hrow_ne hcol_ne) =
+      youngAdjacentOffCoeff T (canonicalMatchingAdjacentIndex m r) := by
+  exact youngAdjacentOperator_basis_swappable_swap_value
+    T (canonicalMatchingAdjacentIndex m r) hrow_ne hcol_ne
+
+theorem canonicalMatchingYoungOperatorOdd_basis_sameRow
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow : adjacentSameRow T (canonicalNearMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorOdd r (tableauBasisVec T) =
+      tableauBasisVec T := by
+  exact youngAdjacentOperator_basis_sameRow
+    T (canonicalNearMatchingAdjacentIndex m r) hrow
+
+theorem canonicalMatchingYoungOperatorOdd_basis_sameCol
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hcol : adjacentSameCol T (canonicalNearMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorOdd r (tableauBasisVec T) =
+      fun S => -tableauBasisVec T S := by
+  exact youngAdjacentOperator_basis_sameCol
+    T (canonicalNearMatchingAdjacentIndex m r) hcol
+
+theorem canonicalMatchingYoungOperatorOdd_basis_swappable_self_value
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow_ne : ¬ adjacentSameRow T (canonicalNearMatchingAdjacentIndex m r))
+    (hcol_ne : ¬ adjacentSameCol T (canonicalNearMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorOdd r (tableauBasisVec T) T =
+      youngAdjacentDiagCoeff T (canonicalNearMatchingAdjacentIndex m r) := by
+  exact youngAdjacentOperator_basis_swappable_self_value
+    T (canonicalNearMatchingAdjacentIndex m r) hrow_ne hcol_ne
+
+theorem canonicalMatchingYoungOperatorOdd_basis_swappable_swap_value
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow_ne : ¬ adjacentSameRow T (canonicalNearMatchingAdjacentIndex m r))
+    (hcol_ne : ¬ adjacentSameCol T (canonicalNearMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorOdd r (tableauBasisVec T)
+        (adjacentSwapTableau T (canonicalNearMatchingAdjacentIndex m r)
+          hrow_ne hcol_ne) =
+      youngAdjacentOffCoeff T (canonicalNearMatchingAdjacentIndex m r) := by
+  exact youngAdjacentOperator_basis_swappable_swap_value
+    T (canonicalNearMatchingAdjacentIndex m r) hrow_ne hcol_ne
+
 end DictatorshipTesting
