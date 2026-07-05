@@ -2575,6 +2575,210 @@ theorem youngAdjacentOperator_braid_basis_sameCol_sameCol_of_succ
             ha_neg,
             youngAdjacentOperator_basis_sameCol T b hcol_b]
 
+theorem youngAdjacentOperator_braid_basis_left_sameRow_right_swappable_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_a : adjacentSameRow T a)
+    (hrow_b : ¬ adjacentSameRow T b)
+    (hcol_b : ¬ adjacentSameCol T b) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b
+          (youngAdjacentOperator a (tableauBasisVec T))) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a
+          (youngAdjacentOperator b (tableauBasisVec T))) := by
+  let Tb := adjacentSwapTableau T b hrow_b hcol_b
+  let db := youngAdjacentDiagCoeff T b
+  let ob := youngAdjacentOffCoeff T b
+  have hrow_a_after_b : ¬ adjacentSameRow Tb a := by
+    simpa [Tb] using
+      not_adjacentSameRow_after_right_swap_of_left_sameRow_of_succ
+        T a b hsucc hrow_a hrow_b hcol_b
+  have hrow_b_after_b : ¬ adjacentSameRow Tb b := by
+    simpa [Tb] using not_adjacentSameRow_swap T b hrow_b hcol_b
+  have hcol_b_after_b : ¬ adjacentSameCol Tb b := by
+    simpa [Tb] using not_adjacentSameCol_swap T b hrow_b hcol_b
+  have hinv_b :
+      adjacentSwapTableau Tb b hrow_b_after_b hcol_b_after_b = T := by
+    simpa [Tb] using
+      adjacentSwapTableau_involutive T b hrow_b hcol_b
+        hrow_b_after_b hcol_b_after_b
+  have hdiag_Tb_b : youngAdjacentDiagCoeff Tb b = -db := by
+    simpa [Tb, db] using youngAdjacentDiagCoeff_swap T b hrow_b hcol_b
+  have hoff_Tb_b : youngAdjacentOffCoeff Tb b = ob := by
+    simpa [Tb, ob] using youngAdjacentOffCoeff_swap T b hrow_b hcol_b
+  have hcoeff_b : db ^ 2 + ob ^ 2 = 1 := by
+    simpa [db, ob] using
+      youngAdjacentCoeff_sq_sum_of_swappable T b hrow_b hcol_b
+  by_cases hcol_a_after_b : adjacentSameCol Tb a
+  · have hdist_b : adjacentAxialDistance T b = -2 := by
+      have hafter :
+          adjacentAxialDistance Tb a =
+            adjacentAxialDistance T a + adjacentAxialDistance T b := by
+        simpa [Tb] using
+          adjacentAxialDistance_after_right_swap_of_succ
+            T a b hsucc hrow_b hcol_b
+      have ha := adjacentAxialDistance_sameRow T a hrow_a
+      have hafter_col := adjacentAxialDistance_sameCol Tb a hcol_a_after_b
+      omega
+    have hdb : db = -(1 / 2 : ℝ) := by
+      change youngAdjacentDiagCoeff T b = -(1 / 2 : ℝ)
+      rw [youngAdjacentDiagCoeff, hdist_b]
+      norm_num
+    have hT_coeff : db ^ 2 - ob ^ 2 = db := by
+      nlinarith
+    have hTb_coeff : db * ob + ob * db = -ob := by
+      nlinarith
+    have hleft :
+        youngAdjacentOperator a
+            (youngAdjacentOperator b
+              (youngAdjacentOperator a (tableauBasisVec T))) =
+          fun S => db * tableauBasisVec T S - ob * tableauBasisVec Tb S := by
+      rw [youngAdjacentOperator_basis_sameRow T a hrow_a,
+        youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b,
+        youngAdjacentOperator_add, youngAdjacentOperator_smul,
+        youngAdjacentOperator_smul,
+        youngAdjacentOperator_basis_sameRow T a hrow_a,
+        youngAdjacentOperator_basis_sameCol Tb a hcol_a_after_b]
+      funext S
+      ring
+    have hright :
+        youngAdjacentOperator b
+            (youngAdjacentOperator a
+              (youngAdjacentOperator b (tableauBasisVec T))) =
+          fun S =>
+            (db ^ 2 - ob ^ 2) * tableauBasisVec T S +
+              (db * ob + ob * db) * tableauBasisVec Tb S := by
+      rw [youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b,
+        youngAdjacentOperator_add, youngAdjacentOperator_smul,
+        youngAdjacentOperator_smul,
+        youngAdjacentOperator_basis_sameRow T a hrow_a,
+        youngAdjacentOperator_basis_sameCol Tb a hcol_a_after_b,
+        youngAdjacentOperator_add, youngAdjacentOperator_smul,
+        youngAdjacentOperator_smul,
+        youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b,
+        youngAdjacentOperator_neg,
+        youngAdjacentOperator_basis_swappable_eq Tb b hrow_b_after_b
+          hcol_b_after_b]
+      funext S
+      rw [hdiag_Tb_b, hoff_Tb_b, hinv_b]
+      ring
+    rw [hleft, hright]
+    funext S
+    rw [hT_coeff, hTb_coeff]
+    ring
+  · let Tba := adjacentSwapTableau Tb a hrow_a_after_b hcol_a_after_b
+    let dz := youngAdjacentDiagCoeff Tb a
+    let oz := youngAdjacentOffCoeff Tb a
+    have hdiag_Tba_b : youngAdjacentDiagCoeff Tba b = 1 := by
+      have hdist :
+          adjacentAxialDistance Tba b = 1 := by
+        have hdist0 :
+            adjacentAxialDistance Tba b = adjacentAxialDistance T a := by
+          simpa [Tb, Tba] using
+            adjacentAxialDistance_after_right_left_swap_of_succ
+              T a b hsucc hrow_b hcol_b hrow_a_after_b hcol_a_after_b
+        have ha := adjacentAxialDistance_sameRow T a hrow_a
+        omega
+      rw [youngAdjacentDiagCoeff, hdist]
+      norm_num
+    have hrow_b_after_a_after_b : adjacentSameRow Tba b := by
+      apply adjacentSameRow_of_axialDistance_eq_one
+      simpa [youngAdjacentDiagCoeff] using hdiag_Tba_b
+    have hleft :
+        youngAdjacentOperator a
+            (youngAdjacentOperator b
+              (youngAdjacentOperator a (tableauBasisVec T))) =
+          fun S =>
+            db * tableauBasisVec T S +
+              ob * (dz * tableauBasisVec Tb S +
+                oz * tableauBasisVec Tba S) := by
+      rw [youngAdjacentOperator_basis_sameRow T a hrow_a,
+        youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b,
+        youngAdjacentOperator_add, youngAdjacentOperator_smul,
+        youngAdjacentOperator_smul,
+        youngAdjacentOperator_basis_sameRow T a hrow_a,
+        youngAdjacentOperator_basis_swappable_eq Tb a hrow_a_after_b
+          hcol_a_after_b]
+    have hright :
+        youngAdjacentOperator b
+            (youngAdjacentOperator a
+              (youngAdjacentOperator b (tableauBasisVec T))) =
+          fun S =>
+            (db ^ 2 + ob ^ 2 * dz) * tableauBasisVec T S +
+              (db * ob - ob * dz * db) * tableauBasisVec Tb S +
+              ob * oz * tableauBasisVec Tba S := by
+      rw [youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b,
+        youngAdjacentOperator_add, youngAdjacentOperator_smul,
+        youngAdjacentOperator_smul,
+        youngAdjacentOperator_basis_sameRow T a hrow_a,
+        youngAdjacentOperator_basis_swappable_eq Tb a hrow_a_after_b
+          hcol_a_after_b,
+        youngAdjacentOperator_add, youngAdjacentOperator_smul,
+        youngAdjacentOperator_smul,
+        youngAdjacentOperator_basis_swappable_eq T b hrow_b hcol_b,
+        youngAdjacentOperator_add, youngAdjacentOperator_smul,
+        youngAdjacentOperator_smul,
+        youngAdjacentOperator_basis_swappable_eq Tb b hrow_b_after_b
+          hcol_b_after_b,
+        youngAdjacentOperator_basis_sameRow Tba b hrow_b_after_a_after_b]
+      funext S
+      rw [hdiag_Tb_b, hoff_Tb_b, hinv_b]
+      ring
+    have hdist_after :
+        adjacentAxialDistance Tb a =
+          1 + adjacentAxialDistance T b := by
+      have hafter :
+          adjacentAxialDistance Tb a =
+            adjacentAxialDistance T a + adjacentAxialDistance T b := by
+        simpa [Tb] using
+          adjacentAxialDistance_after_right_swap_of_succ
+            T a b hsucc hrow_b hcol_b
+      have ha := adjacentAxialDistance_sameRow T a hrow_a
+      omega
+    let y : ℝ := (adjacentAxialDistance T b : ℝ)
+    let z : ℝ := ((1 : Int) + adjacentAxialDistance T b : Int)
+    have hy : y ≠ 0 := by
+      have hy_int := adjacentAxialDistance_ne_zero_of_swappable
+        T b hrow_b hcol_b
+      have hy_real : ((adjacentAxialDistance T b : ℝ) ≠ 0) := by
+        exact_mod_cast hy_int
+      simpa [y] using hy_real
+    have hz0 : z ≠ 0 := by
+      have hz_int := adjacentAxialDistance_ne_zero_of_swappable
+        Tb a hrow_a_after_b hcol_a_after_b
+      have hz_real : ((adjacentAxialDistance Tb a : ℝ) ≠ 0) := by
+        exact_mod_cast hz_int
+      have hz_eq : ((adjacentAxialDistance Tb a : ℝ)) = z := by
+        rw [hdist_after]
+      rwa [hz_eq] at hz_real
+    have hsum : z = 1 + y := by
+      simp [z, y]
+    have hzsum : (1 : ℝ) + y ≠ 0 := by
+      simpa [← hsum] using hz0
+    have hdz : dz = z⁻¹ := by
+      change youngAdjacentDiagCoeff Tb a = z⁻¹
+      rw [youngAdjacentDiagCoeff, hdist_after]
+    have hdb : db = y⁻¹ := by
+      change youngAdjacentDiagCoeff T b = y⁻¹
+      simp [y, youngAdjacentDiagCoeff]
+    have hT_coeff : db ^ 2 + ob ^ 2 * dz = db := by
+      have hob_sq : ob ^ 2 = 1 - db ^ 2 := by nlinarith
+      rw [hdb, hdz, hob_sq]
+      rw [hdb, hsum]
+      field_simp [hy, hzsum]
+      ring
+    have hTb_coeff : db * ob - ob * dz * db = ob * dz := by
+      rw [hdb, hdz]
+      rw [hsum]
+      field_simp [hy, hzsum]
+      ring
+    rw [hleft, hright]
+    funext S
+    rw [hT_coeff, hTb_coeff]
+    ring
+
 /-- The diagonal content operator in the tableau coordinate basis. -/
 noncomputable def jucysMurphyDiagonalOperator {n : Nat}
     {lam : YoungDiagram n} (a : Fin n) :
