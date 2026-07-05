@@ -109,6 +109,13 @@ Proven Lemma 5.11 diagonal-content deletion component:
   coordinate map intertwines the explicit diagonal content operators.  The full
   Young-adjacent-operator intertwining remains future work.
 
+Proven Lemma 5.16 tableau-count size components:
+
+- `S05_Lem5_16_SizesOfTheSignPatternMultisets.lean` -- Lemma 5.16
+  (`lem:X-size`): exposes the assumption-free `tableauDim` two-strip and
+  one-box size recurrences from Lemmas 5.14 and 5.15.  The legacy `youngDim`
+  wrappers remain conditional on the named dimension-branching inputs.
+
 Remaining Lemma 5.1 representation-theory boundary:
 
 - The Lean development does not claim a classical Specht-module

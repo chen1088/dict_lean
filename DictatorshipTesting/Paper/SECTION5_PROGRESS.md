@@ -41,6 +41,10 @@ Detailed maps:
   shows that the one-box deletion coordinate map intertwines the explicit
   diagonal content operators on surviving entries.  The full Young-adjacent
   operator intertwining remains future work.
+- Lemma 5.16 now exposes the assumption-free `tableauDim` size components
+  `S05_Lem5_16_tableauDim_twoStrip_size` and
+  `S05_Lem5_16_tableauDim_oneBox_size`, while keeping the legacy `youngDim`
+  wrappers visibly conditional on the named dimension-branching inputs.
 - Lemma 5.18 contains the current matching-cube operator algebra wrappers,
   including cube XOR laws, simultaneous matching-eigenvector predicates,
   matching-character action on simultaneous eigenvectors, and the first

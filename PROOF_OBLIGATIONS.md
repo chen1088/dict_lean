@@ -335,6 +335,11 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   diagonal-content intertwining through
   `S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines`.  The full
   Young-adjacent-operator intertwining statement remains open.
+- `S05_Lem5_16_SizesOfTheSignPatternMultisets.lean`: scalar sign-pattern count
+  recurrences and assumption-free `tableauDim` two-strip/one-box size wrappers
+  through `S05_Lem5_16_tableauDim_twoStrip_size` and
+  `S05_Lem5_16_tableauDim_oneBox_size`.  The legacy `youngDim` wrappers remain
+  conditional on the named dimension-branching inputs.
 - `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority.lean`: finite `zEven`
   certificate, with both the legacy `youngDim` theorem and the tableau-count
   theorem `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.
