@@ -152,6 +152,62 @@ Status:
   the hook-length/tableau-count equality or migrating downstream certificates to
   `tableauDim`.
 
+### Coxeter/action-layer sprint
+
+Completed commits:
+- `594a7e0` Lift adjacent involution to coordinate functions
+- `192b997` Relate adjacent successor cells for braid
+- `605ce1f` Rule out mixed adjacent braid shapes
+- `1a4bc1a` Track adjacent axial distances under braid swaps
+- `c2e88a9` Add braid coefficient identities
+- `2327b73` Add second-step braid axial identities
+- `139d723` Lift braid axial identities to coefficients
+- `14e92f0` Factor braid six-coefficient algebra
+- `4d0fa71` Prove swappable adjacent operator braid case
+- `ad7ee18` Prove diagonal adjacent operator braid cases
+- `0b5624b` Constrain neighbor swap braid boundary shapes
+
+Main names added:
+- `youngAdjacentOperator_sq`
+- `adjacentEntryHi_eq_lo_of_succ`
+- `adjacentHiCell_eq_loCell_of_succ`
+- `not_adjacentSameRow_and_succ_sameCol`
+- `not_adjacentSameCol_and_succ_sameRow`
+- `adjacentAxialDistance_after_left_swap_of_succ`
+- `adjacentAxialDistance_after_right_swap_of_succ`
+- `adjacentAxialDistance_after_left_right_swap_of_succ`
+- `adjacentAxialDistance_after_right_left_swap_of_succ`
+- `youngAdjacentDiagCoeff_after_left_swap_eq_after_right_swap_of_succ`
+- `youngAdjacentOffCoeff_after_left_swap_eq_after_right_swap_of_succ`
+- `youngAdjacentDiagCoeff_after_left_right_swap_of_succ`
+- `youngAdjacentOffCoeff_after_left_right_swap_of_succ`
+- `youngAdjacentDiagCoeff_after_right_left_swap_of_succ`
+- `youngAdjacentOffCoeff_after_right_left_swap_of_succ`
+- `braid_six_coefficient_identity`
+- `youngAdjacentOperator_braid_basis_swappable_of_succ`
+- `youngAdjacentOperator_braid_basis_sameRow_sameRow_of_succ`
+- `youngAdjacentOperator_braid_basis_sameCol_sameCol_of_succ`
+- `not_adjacentSameRow_after_right_swap_of_left_sameRow_of_succ`
+- `not_adjacentSameCol_after_right_swap_of_left_sameCol_of_succ`
+- `not_adjacentSameRow_after_left_swap_of_right_sameRow_of_succ`
+- `not_adjacentSameCol_after_left_swap_of_right_sameCol_of_succ`
+
+Status:
+- The adjacent operator is now proved involutive on the whole tableau
+  coordinate space.
+- The braid relation has been lifted from value/entry/tableau swaps to the
+  concrete adjacent operator in the fully swappable basis case.
+- The two purely diagonal boundary cases, all three entries in one row or all
+  three entries in one column, are proved.
+- The remaining local operator-braid boundary cases reduce to degenerate
+  coefficient configurations where an axial distance becomes `+1` or `-1`
+  after a neighboring swap.  The precise missing elementary tableau facts are
+  the converse classifications
+  `adjacentAxialDistance T a = 1 -> adjacentSameRow T a` and
+  `adjacentAxialDistance T a = -1 -> adjacentSameCol T a` (or equivalent
+  swappable-exclusion lemmas `not same row/column -> axial distance != +/-1`).
+  No Specht-module or spectral-block input is involved in this blocker.
+
 Completed commits:
 - `6ba8505` Add adjacent value swap for Lemma 5.1
 - `d796ef7` Add swapped-tableau case for Lemma 5.1

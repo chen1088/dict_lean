@@ -79,6 +79,19 @@ representation-layer frontier is automatic braid standardness transport,
 coefficient comparison across the braid path, and then the concrete adjacent
 operator braid theorem.
 
+The concrete Coxeter/action layer is now stronger: the adjacent operator is
+proved involutive on the full tableau coordinate space, distant adjacent
+operators commute on the full coordinate space, the fully swappable consecutive
+braid case is proved for `youngAdjacentOperator`, and the two purely diagonal
+consecutive braid cases are proved.  The current local blocker for the full
+operator-level braid is elementary tableau geometry, not representation theory:
+the boundary cases require proving that axial distance `+1` forces a same-row
+adjacent pair and axial distance `-1` forces a same-column adjacent pair (or an
+equivalent exclusion of `+/-1` axial distances in the swappable case).  Once
+those converse axial-distance classifications are available, the remaining
+boundary braid cases should reduce to the existing coefficient identities and
+neighbor-swap shape lemmas in `Aux_YoungOrthogonal.lean`.
+
 ## Section 5 Paper/Lean Status Table
 
 | Paper statement number | Paper label/title | Lean file | Lean theorem name | Status | Remaining assumption, if any |
