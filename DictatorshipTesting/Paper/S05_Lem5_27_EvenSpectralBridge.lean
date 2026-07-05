@@ -14,7 +14,7 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Lemma 5.29: even finite Young-diagram inequalities imply the matching
+/-- Lemma 5.27: even finite Young-diagram inequalities imply the matching
 spectral gap, conditional on the spectral-block model. -/
 theorem S05_Lem5_27_even_spectral_bridge
     (m : Nat) (hm : 2 ≤ m) (c : ℝ)
@@ -27,7 +27,7 @@ theorem S05_Lem5_27_even_spectral_bridge
     MatchingSpectralGapConstant (2 * m) c := by
   exact matchingSpectralGap_of_even_young_certificate m hm c hmodel hc hcert
 
-/-- Lemma 5.29 paper-numbered alias for the even spectral bridge before the
+/-- Lemma 5.27 paper-numbered alias for the even spectral bridge before the
 extra nonnegativity argument is threaded through. -/
 theorem S05_Lem5_27_evenSpectralGapFromCertificates
     (m : Nat) (hm : 2 ≤ m) (c : ℝ)
@@ -39,7 +39,7 @@ theorem S05_Lem5_27_evenSpectralGapFromCertificates
     MatchingSpectralGapConstant (2 * m) c := by
   exact EvenSpectralGapFromCertificates m hm c hmodel hcert
 
-/-- Lemma 5.29, tableau-count version: the tableauDim finite certificate feeds
+/-- Lemma 5.27, tableau-count version: the tableauDim finite certificate feeds
 any dimension-parameterized even spectral-block model. -/
 theorem S05_Lem5_27_tableauDim_evenSpectralGapFromCertificates
     (m : Nat) (hm : 2 <= m)

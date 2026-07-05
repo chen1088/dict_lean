@@ -17,7 +17,7 @@ abbrev S05_oddHighSignPatternCount
     (m : Nat) (lam : YoungDiagram (2 * m + 1)) : ℝ :=
   hOdd m lam
 
-/-- Definition 5.14 scalar shadow: odd high-weight entries are summed over
+/-- Definition 5.13 scalar shadow: odd high-weight entries are summed over
 one-box removals to even shapes. -/
 theorem S05_oddHighSignPatternCount_eq_evenHigh_sum
     (m : Nat) (lam : YoungDiagram (2 * m + 1)) :

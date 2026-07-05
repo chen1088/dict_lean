@@ -23,14 +23,14 @@ abbrev S05_evenHighSignPatternCount :
     (m : Nat) -> YoungDiagram (2 * m) -> ℝ :=
   hEven
 
-/-- Definition 5.13 scalar shadow: the empty even diagram has one zero-weight
+/-- Definition 5.12 scalar shadow: the empty even diagram has one zero-weight
 entry. -/
 theorem S05_evenZeroSignPatternCount_zero
     (lam : YoungDiagram (2 * 0)) :
     S05_evenZeroSignPatternCount 0 lam = 1 := by
   simp [S05_evenZeroSignPatternCount, zEven]
 
-/-- Definition 5.13 scalar shadow: zero-weight entries recurse through
+/-- Definition 5.12 scalar shadow: zero-weight entries recurse through
 horizontal two-strip removals. -/
 theorem S05_evenZeroSignPatternCount_succ
     (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :
@@ -39,14 +39,14 @@ theorem S05_evenZeroSignPatternCount_succ
         (fun mu => S05_evenZeroSignPatternCount m mu) := by
   simp [S05_evenZeroSignPatternCount, zEven]
 
-/-- Definition 5.13 scalar shadow: the empty even diagram has no high-weight
+/-- Definition 5.12 scalar shadow: the empty even diagram has no high-weight
 entries. -/
 theorem S05_evenHighSignPatternCount_zero
     (lam : YoungDiagram (2 * 0)) :
     S05_evenHighSignPatternCount 0 lam = 0 := by
   simp [S05_evenHighSignPatternCount, hEven]
 
-/-- Definition 5.13 scalar shadow: high-weight entries recurse through the
+/-- Definition 5.12 scalar shadow: high-weight entries recurse through the
 horizontal branch and the vertical nonzero contribution. -/
 theorem S05_evenHighSignPatternCount_succ
     (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :

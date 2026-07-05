@@ -14,7 +14,7 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Lemma 5.30: odd finite Young-diagram inequalities imply the matching
+/-- Lemma 5.28: odd finite Young-diagram inequalities imply the matching
 spectral gap, conditional on the spectral-block model. -/
 theorem S05_Lem5_28_odd_spectral_bridge
     (m : Nat) (hm : 2 ≤ m) (c : ℝ)
@@ -27,7 +27,7 @@ theorem S05_Lem5_28_odd_spectral_bridge
     MatchingSpectralGapConstant (2 * m + 1) c := by
   exact matchingSpectralGap_of_odd_young_certificate m hm c hmodel hc hcert
 
-/-- Lemma 5.30 paper-numbered alias for the odd spectral bridge before the
+/-- Lemma 5.28 paper-numbered alias for the odd spectral bridge before the
 extra nonnegativity argument is threaded through. -/
 theorem S05_Lem5_28_oddSpectralGapFromCertificates
     (m : Nat) (hm : 2 ≤ m) (c : ℝ)
@@ -39,7 +39,7 @@ theorem S05_Lem5_28_oddSpectralGapFromCertificates
     MatchingSpectralGapConstant (2 * m + 1) c := by
   exact OddSpectralGapFromCertificates m hm c hmodel hcert
 
-/-- Lemma 5.30, tableau-count version: the tableauDim finite certificate feeds
+/-- Lemma 5.28, tableau-count version: the tableauDim finite certificate feeds
 any dimension-parameterized odd spectral-block model. -/
 theorem S05_Lem5_28_tableauDim_oddSpectralGapFromCertificates
     (m : Nat) (hm : 2 <= m)

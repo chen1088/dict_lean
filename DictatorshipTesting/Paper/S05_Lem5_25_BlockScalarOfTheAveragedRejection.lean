@@ -59,14 +59,14 @@ theorem centralizationBridge_odd_scalar_eq_hOdd_div_dim
     theta = hOdd m lam / youngDim lam := by
   exact odd_youngBlockScalar_eq_hOdd_div_dim m lam theta hdim htrace
 
-/-- Lemma 5.26 paper-numbered scalar algebra: trace divided by dimension. -/
+/-- Lemma 5.25 paper-numbered scalar algebra: trace divided by dimension. -/
 theorem S05_Lem5_25_scalar_eq_trace_div_dimension
     (d h theta : ℝ) (hd : d ≠ 0)
     (htrace : d ^ (2 : ℕ) * theta = d * h) :
     theta = h / d := by
   exact centralizationBridge_scalar_eq_trace_div_dimension d h theta hd htrace
 
-/-- Lemma 5.26 paper-numbered even scalar formula. -/
+/-- Lemma 5.25 paper-numbered even scalar formula. -/
 theorem S05_Lem5_25_even_scalar_eq_hEven_div_dim
     (m : ℕ) (lam : YoungDiagram (2 * m)) (theta : ℝ)
     (hdim : youngDim lam ≠ 0)
@@ -76,7 +76,7 @@ theorem S05_Lem5_25_even_scalar_eq_hEven_div_dim
     theta = hEven m lam / youngDim lam := by
   exact centralizationBridge_even_scalar_eq_hEven_div_dim m lam theta hdim htrace
 
-/-- Lemma 5.26 paper-numbered odd scalar formula. -/
+/-- Lemma 5.25 paper-numbered odd scalar formula. -/
 theorem S05_Lem5_25_odd_scalar_eq_hOdd_div_dim
     (m : ℕ) (lam : YoungDiagram (2 * m + 1)) (theta : ℝ)
     (hdim : youngDim lam ≠ 0)

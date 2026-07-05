@@ -8,7 +8,7 @@ Title in paper: Matching subgroup eigenbasis.
 
 Legacy scalar-shadow file for the rewritten Section 5 statement.
 
-Status: the paper's Lemma 5.19 is the full Specht-module restriction statement
+Status: the paper's Lemma 5.18 is the full Specht-module restriction statement
 obtained from repeated Pieri/Littlewood--Richardson branching.  The current
 Lean file does not formalize Specht modules or restriction functors; it proves
 only the scalar/multiplicity shadow used downstream by the scaffold.
@@ -33,7 +33,7 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Lemma 5.19 matching-operator component: a canonical even matching edge
+/-- Lemma 5.18 matching-operator component: a canonical even matching edge
 operator is an involution. -/
 theorem S05_Lem5_18_canonicalMatchingYoungOperatorEven_involutive
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -42,7 +42,7 @@ theorem S05_Lem5_18_canonicalMatchingYoungOperatorEven_involutive
         (canonicalMatchingYoungOperatorEven r f) = f := by
   exact canonicalMatchingYoungOperatorEven_involutive r f
 
-/-- Lemma 5.19 matching-operator component: distinct canonical even matching
+/-- Lemma 5.18 matching-operator component: distinct canonical even matching
 edge operators commute. -/
 theorem S05_Lem5_18_canonicalMatchingYoungOperatorEven_comm
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -53,7 +53,7 @@ theorem S05_Lem5_18_canonicalMatchingYoungOperatorEven_comm
         (canonicalMatchingYoungOperatorEven r f) := by
   exact canonicalMatchingYoungOperatorEven_comm hrs f
 
-/-- Lemma 5.19 matching-operator component: a canonical odd matching edge
+/-- Lemma 5.18 matching-operator component: a canonical odd matching edge
 operator is an involution. -/
 theorem S05_Lem5_18_canonicalMatchingYoungOperatorOdd_involutive
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -62,7 +62,7 @@ theorem S05_Lem5_18_canonicalMatchingYoungOperatorOdd_involutive
         (canonicalMatchingYoungOperatorOdd r f) = f := by
   exact canonicalMatchingYoungOperatorOdd_involutive r f
 
-/-- Lemma 5.19 matching-operator component: distinct canonical odd matching
+/-- Lemma 5.18 matching-operator component: distinct canonical odd matching
 edge operators commute. -/
 theorem S05_Lem5_18_canonicalMatchingYoungOperatorOdd_comm
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -73,7 +73,7 @@ theorem S05_Lem5_18_canonicalMatchingYoungOperatorOdd_comm
         (canonicalMatchingYoungOperatorOdd r f) := by
   exact canonicalMatchingYoungOperatorOdd_comm hrs f
 
-/-- Lemma 5.19 matching-edge eigenspace component: `v + A_r v` is a `+1`
+/-- Lemma 5.18 matching-edge eigenspace component: `v + A_r v` is a `+1`
 eigenvector for an even matching edge. -/
 theorem S05_Lem5_18_matchingEdge_plusEigenVec_even
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -83,7 +83,7 @@ theorem S05_Lem5_18_matchingEdge_plusEigenVec_even
       fun T => f T + canonicalMatchingYoungOperatorEven r f T := by
   exact canonicalMatchingYoungOperatorEven_plusEigenVec r f
 
-/-- Lemma 5.19 matching-edge eigenspace component: `v - A_r v` is a `-1`
+/-- Lemma 5.18 matching-edge eigenspace component: `v - A_r v` is a `-1`
 eigenvector for an even matching edge. -/
 theorem S05_Lem5_18_matchingEdge_minusEigenVec_even
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -93,7 +93,7 @@ theorem S05_Lem5_18_matchingEdge_minusEigenVec_even
       fun T => - (f T - canonicalMatchingYoungOperatorEven r f T) := by
   exact canonicalMatchingYoungOperatorEven_minusEigenVec r f
 
-/-- Lemma 5.19 matching-edge eigenspace component: `v + A_r v` is a `+1`
+/-- Lemma 5.18 matching-edge eigenspace component: `v + A_r v` is a `+1`
 eigenvector for an odd matching edge. -/
 theorem S05_Lem5_18_matchingEdge_plusEigenVec_odd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -103,7 +103,7 @@ theorem S05_Lem5_18_matchingEdge_plusEigenVec_odd
       fun T => f T + canonicalMatchingYoungOperatorOdd r f T := by
   exact canonicalMatchingYoungOperatorOdd_plusEigenVec r f
 
-/-- Lemma 5.19 matching-edge eigenspace component: `v - A_r v` is a `-1`
+/-- Lemma 5.18 matching-edge eigenspace component: `v - A_r v` is a `-1`
 eigenvector for an odd matching edge. -/
 theorem S05_Lem5_18_matchingEdge_minusEigenVec_odd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -113,21 +113,21 @@ theorem S05_Lem5_18_matchingEdge_minusEigenVec_odd
       fun T => - (f T - canonicalMatchingYoungOperatorOdd r f T) := by
   exact canonicalMatchingYoungOperatorOdd_minusEigenVec r f
 
-/-- Lemma 5.19 matching-cube component: the zero cube element acts trivially in
+/-- Lemma 5.18 matching-cube component: the zero cube element acts trivially in
 the even canonical matching action. -/
 theorem S05_Lem5_18_canonicalMatchingCubeOperatorEven_zero
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)} :
     canonicalMatchingCubeOperatorEven (lam := lam) (cubeZero m) = id := by
   exact canonicalMatchingCubeOperatorEven_zero
 
-/-- Lemma 5.19 matching-cube component: the zero cube element acts trivially in
+/-- Lemma 5.18 matching-cube component: the zero cube element acts trivially in
 the odd canonical matching action. -/
 theorem S05_Lem5_18_canonicalMatchingCubeOperatorOdd_zero
     {m : Nat} {lam : YoungDiagram (2 * m + 1)} :
     canonicalMatchingCubeOperatorOdd (lam := lam) (cubeZero m) = id := by
   exact canonicalMatchingCubeOperatorOdd_zero
 
-/-- Lemma 5.19 matching-cube component: the even canonical matching operators
+/-- Lemma 5.18 matching-cube component: the even canonical matching operators
 respect the cube XOR law. -/
 theorem S05_Lem5_18_canonicalMatchingCubeOperatorEven_xor
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -137,7 +137,7 @@ theorem S05_Lem5_18_canonicalMatchingCubeOperatorEven_xor
         (canonicalMatchingCubeOperatorEven (lam := lam) y f) := by
   exact canonicalMatchingCubeOperatorEven_xor x y
 
-/-- Lemma 5.19 matching-cube component: the odd canonical matching operators
+/-- Lemma 5.18 matching-cube component: the odd canonical matching operators
 respect the cube XOR law. -/
 theorem S05_Lem5_18_canonicalMatchingCubeOperatorOdd_xor
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -147,21 +147,21 @@ theorem S05_Lem5_18_canonicalMatchingCubeOperatorOdd_xor
         (canonicalMatchingCubeOperatorOdd (lam := lam) y f) := by
   exact canonicalMatchingCubeOperatorOdd_xor x y
 
-/-- Lemma 5.19 matching-character component: simultaneous even matching-edge
+/-- Lemma 5.18 matching-character component: simultaneous even matching-edge
 eigenvectors are indexed by a character support. -/
 abbrev S05_IsMatchingEigenvectorEven
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
     (f : TableauSpace lam) (R : Finset (Fin m)) : Prop :=
   IsMatchingEigenvectorEven f R
 
-/-- Lemma 5.19 matching-character component: simultaneous odd matching-edge
+/-- Lemma 5.18 matching-character component: simultaneous odd matching-edge
 eigenvectors are indexed by a character support. -/
 abbrev S05_IsMatchingEigenvectorOdd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
     (f : TableauSpace lam) (R : Finset (Fin m)) : Prop :=
   IsMatchingEigenvectorOdd f R
 
-/-- Lemma 5.19 matching-character component: on an even simultaneous
+/-- Lemma 5.18 matching-character component: on an even simultaneous
 matching-edge eigenspace, the cube action is the matching character. -/
 theorem S05_Lem5_18_matchingCube_character_action_even
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -172,7 +172,7 @@ theorem S05_Lem5_18_matchingCube_character_action_even
   exact canonicalMatchingCubeOperatorEven_apply_character_of_isMatchingEigenvector
     hf x
 
-/-- Lemma 5.19 matching-character component: on an odd simultaneous
+/-- Lemma 5.18 matching-character component: on an odd simultaneous
 matching-edge eigenspace, the cube action is the matching character. -/
 theorem S05_Lem5_18_matchingCube_character_action_odd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -183,7 +183,7 @@ theorem S05_Lem5_18_matchingCube_character_action_odd
   exact canonicalMatchingCubeOperatorOdd_apply_character_of_isMatchingEigenvector
     hf x
 
-/-- Lemma 5.19 projection component: the one-edge even plus projection lands in
+/-- Lemma 5.18 projection component: the one-edge even plus projection lands in
 the `+1` eigenspace of that edge. -/
 theorem S05_Lem5_18_matchingEdgePlusProjectionEven_isPlusEigen
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -193,7 +193,7 @@ theorem S05_Lem5_18_matchingEdgePlusProjectionEven_isPlusEigen
       matchingEdgePlusProjectionEven r f := by
   exact matchingEdgePlusProjectionEven_isPlusEigen r f
 
-/-- Lemma 5.19 projection component: the one-edge even minus projection lands
+/-- Lemma 5.18 projection component: the one-edge even minus projection lands
 in the `-1` eigenspace of that edge. -/
 theorem S05_Lem5_18_matchingEdgeMinusProjectionEven_isMinusEigen
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -203,7 +203,7 @@ theorem S05_Lem5_18_matchingEdgeMinusProjectionEven_isMinusEigen
       (-1 : ℝ) • matchingEdgeMinusProjectionEven r f := by
   exact matchingEdgeMinusProjectionEven_isMinusEigen r f
 
-/-- Lemma 5.19 projection component: the one-edge odd plus projection lands in
+/-- Lemma 5.18 projection component: the one-edge odd plus projection lands in
 the `+1` eigenspace of that edge. -/
 theorem S05_Lem5_18_matchingEdgePlusProjectionOdd_isPlusEigen
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -213,7 +213,7 @@ theorem S05_Lem5_18_matchingEdgePlusProjectionOdd_isPlusEigen
       matchingEdgePlusProjectionOdd r f := by
   exact matchingEdgePlusProjectionOdd_isPlusEigen r f
 
-/-- Lemma 5.19 projection component: the one-edge odd minus projection lands
+/-- Lemma 5.18 projection component: the one-edge odd minus projection lands
 in the `-1` eigenspace of that edge. -/
 theorem S05_Lem5_18_matchingEdgeMinusProjectionOdd_isMinusEigen
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -223,7 +223,7 @@ theorem S05_Lem5_18_matchingEdgeMinusProjectionOdd_isMinusEigen
       (-1 : ℝ) • matchingEdgeMinusProjectionOdd r f := by
   exact matchingEdgeMinusProjectionOdd_isMinusEigen r f
 
-/-- Lemma 5.19 one-edge component: an even matching edge fixes a same-row
+/-- Lemma 5.18 one-edge component: an even matching edge fixes a same-row
 tableau basis vector. -/
 theorem S05_Lem5_18_matchingEdge_basis_sameRow_even
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -233,7 +233,7 @@ theorem S05_Lem5_18_matchingEdge_basis_sameRow_even
       tableauBasisVec T := by
   exact canonicalMatchingYoungOperatorEven_basis_sameRow T r hrow
 
-/-- Lemma 5.19 one-edge component: an even matching edge negates a same-column
+/-- Lemma 5.18 one-edge component: an even matching edge negates a same-column
 tableau basis vector. -/
 theorem S05_Lem5_18_matchingEdge_basis_sameCol_even
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -243,7 +243,7 @@ theorem S05_Lem5_18_matchingEdge_basis_sameCol_even
       fun S => -tableauBasisVec T S := by
   exact canonicalMatchingYoungOperatorEven_basis_sameCol T r hcol
 
-/-- Lemma 5.19 one-edge eigenspace component: in the even case, a same-row
+/-- Lemma 5.18 one-edge eigenspace component: in the even case, a same-row
 tableau basis vector has eigenvalue `1`. -/
 theorem S05_Lem5_18_matchingEdge_sameRow_eigen_even
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -253,7 +253,7 @@ theorem S05_Lem5_18_matchingEdge_sameRow_eigen_even
       (1 : ℝ) • tableauBasisVec T := by
   exact canonicalMatchingYoungOperatorEven_basis_sameRow_eigen T r hrow
 
-/-- Lemma 5.19 one-edge eigenspace component: in the even case, a same-column
+/-- Lemma 5.18 one-edge eigenspace component: in the even case, a same-column
 tableau basis vector has eigenvalue `-1`. -/
 theorem S05_Lem5_18_matchingEdge_sameCol_eigen_even
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -263,7 +263,7 @@ theorem S05_Lem5_18_matchingEdge_sameCol_eigen_even
       (-1 : ℝ) • tableauBasisVec T := by
   exact canonicalMatchingYoungOperatorEven_basis_sameCol_eigen T r hcol
 
-/-- Lemma 5.19 one-edge component: in an even swappable edge, the diagonal
+/-- Lemma 5.18 one-edge component: in an even swappable edge, the diagonal
 coordinate is the Young axial coefficient. -/
 theorem S05_Lem5_18_matchingEdge_basis_swappable_self_value_even
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -275,7 +275,7 @@ theorem S05_Lem5_18_matchingEdge_basis_swappable_self_value_even
   exact canonicalMatchingYoungOperatorEven_basis_swappable_self_value
     T r hrow_ne hcol_ne
 
-/-- Lemma 5.19 one-edge component: in an even swappable edge, the swapped
+/-- Lemma 5.18 one-edge component: in an even swappable edge, the swapped
 coordinate is the Young off-diagonal coefficient. -/
 theorem S05_Lem5_18_matchingEdge_basis_swappable_swap_value_even
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
@@ -289,7 +289,7 @@ theorem S05_Lem5_18_matchingEdge_basis_swappable_swap_value_even
   exact canonicalMatchingYoungOperatorEven_basis_swappable_swap_value
     T r hrow_ne hcol_ne
 
-/-- Lemma 5.19 one-edge component: an odd matching edge fixes a same-row
+/-- Lemma 5.18 one-edge component: an odd matching edge fixes a same-row
 tableau basis vector. -/
 theorem S05_Lem5_18_matchingEdge_basis_sameRow_odd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -299,7 +299,7 @@ theorem S05_Lem5_18_matchingEdge_basis_sameRow_odd
       tableauBasisVec T := by
   exact canonicalMatchingYoungOperatorOdd_basis_sameRow T r hrow
 
-/-- Lemma 5.19 one-edge component: an odd matching edge negates a same-column
+/-- Lemma 5.18 one-edge component: an odd matching edge negates a same-column
 tableau basis vector. -/
 theorem S05_Lem5_18_matchingEdge_basis_sameCol_odd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -309,7 +309,7 @@ theorem S05_Lem5_18_matchingEdge_basis_sameCol_odd
       fun S => -tableauBasisVec T S := by
   exact canonicalMatchingYoungOperatorOdd_basis_sameCol T r hcol
 
-/-- Lemma 5.19 one-edge eigenspace component: in the odd case, a same-row
+/-- Lemma 5.18 one-edge eigenspace component: in the odd case, a same-row
 tableau basis vector has eigenvalue `1`. -/
 theorem S05_Lem5_18_matchingEdge_sameRow_eigen_odd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -319,7 +319,7 @@ theorem S05_Lem5_18_matchingEdge_sameRow_eigen_odd
       (1 : ℝ) • tableauBasisVec T := by
   exact canonicalMatchingYoungOperatorOdd_basis_sameRow_eigen T r hrow
 
-/-- Lemma 5.19 one-edge eigenspace component: in the odd case, a same-column
+/-- Lemma 5.18 one-edge eigenspace component: in the odd case, a same-column
 tableau basis vector has eigenvalue `-1`. -/
 theorem S05_Lem5_18_matchingEdge_sameCol_eigen_odd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -329,7 +329,7 @@ theorem S05_Lem5_18_matchingEdge_sameCol_eigen_odd
       (-1 : ℝ) • tableauBasisVec T := by
   exact canonicalMatchingYoungOperatorOdd_basis_sameCol_eigen T r hcol
 
-/-- Lemma 5.19 one-edge component: in an odd swappable edge, the diagonal
+/-- Lemma 5.18 one-edge component: in an odd swappable edge, the diagonal
 coordinate is the Young axial coefficient. -/
 theorem S05_Lem5_18_matchingEdge_basis_swappable_self_value_odd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
@@ -341,7 +341,7 @@ theorem S05_Lem5_18_matchingEdge_basis_swappable_self_value_odd
   exact canonicalMatchingYoungOperatorOdd_basis_swappable_self_value
     T r hrow_ne hcol_ne
 
-/-- Lemma 5.19 one-edge component: in an odd swappable edge, the swapped
+/-- Lemma 5.18 one-edge component: in an odd swappable edge, the swapped
 coordinate is the Young off-diagonal coefficient. -/
 theorem S05_Lem5_18_matchingEdge_basis_swappable_swap_value_odd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
