@@ -2108,6 +2108,77 @@ theorem youngAdjacentOperator_braid_basis_swappable_of_succ
     (tableauBasisVec Tba S) (tableauBasisVec Tbab S)
     hT_coeff hTa_coeff hTb_coeff
 
+theorem youngAdjacentOperator_braid_basis_sameRow_sameRow_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (_hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_a : adjacentSameRow T a)
+    (hrow_b : adjacentSameRow T b) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b
+          (youngAdjacentOperator a (tableauBasisVec T))) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a
+          (youngAdjacentOperator b (tableauBasisVec T))) := by
+  calc
+    youngAdjacentOperator a
+        (youngAdjacentOperator b
+          (youngAdjacentOperator a (tableauBasisVec T))) =
+        tableauBasisVec T := by
+          rw [youngAdjacentOperator_basis_sameRow T a hrow_a,
+            youngAdjacentOperator_basis_sameRow T b hrow_b,
+            youngAdjacentOperator_basis_sameRow T a hrow_a]
+    _ = youngAdjacentOperator b
+        (youngAdjacentOperator a
+          (youngAdjacentOperator b (tableauBasisVec T))) := by
+          rw [youngAdjacentOperator_basis_sameRow T b hrow_b,
+            youngAdjacentOperator_basis_sameRow T a hrow_a,
+            youngAdjacentOperator_basis_sameRow T b hrow_b]
+
+theorem youngAdjacentOperator_braid_basis_sameCol_sameCol_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (_hsucc : (b : Nat) = (a : Nat) + 1)
+    (hcol_a : adjacentSameCol T a)
+    (hcol_b : adjacentSameCol T b) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b
+          (youngAdjacentOperator a (tableauBasisVec T))) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a
+          (youngAdjacentOperator b (tableauBasisVec T))) := by
+  have ha_neg :
+      youngAdjacentOperator a (fun S => -tableauBasisVec T S) =
+        tableauBasisVec T := by
+    rw [youngAdjacentOperator_neg,
+      youngAdjacentOperator_basis_sameCol T a hcol_a]
+    funext S
+    simp
+  have hb_neg :
+      youngAdjacentOperator b (fun S => -tableauBasisVec T S) =
+        tableauBasisVec T := by
+    rw [youngAdjacentOperator_neg,
+      youngAdjacentOperator_basis_sameCol T b hcol_b]
+    funext S
+    simp
+  calc
+    youngAdjacentOperator a
+        (youngAdjacentOperator b
+          (youngAdjacentOperator a (tableauBasisVec T))) =
+        youngAdjacentOperator a
+          (youngAdjacentOperator b (fun S => -tableauBasisVec T S)) := by
+          rw [youngAdjacentOperator_basis_sameCol T a hcol_a]
+    _ = youngAdjacentOperator a (tableauBasisVec T) := by
+          rw [hb_neg]
+    _ = (fun S => -tableauBasisVec T S) := by
+          rw [youngAdjacentOperator_basis_sameCol T a hcol_a]
+    _ = youngAdjacentOperator b
+        (youngAdjacentOperator a
+          (youngAdjacentOperator b (tableauBasisVec T))) := by
+          rw [youngAdjacentOperator_basis_sameCol T b hcol_b,
+            ha_neg,
+            youngAdjacentOperator_basis_sameCol T b hcol_b]
+
 /-- The diagonal content operator in the tableau coordinate basis. -/
 noncomputable def jucysMurphyDiagonalOperator {n : Nat}
     {lam : YoungDiagram n} (a : Fin n) :
