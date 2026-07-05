@@ -1262,7 +1262,7 @@ theorem S05_Lem5_01_adjacentCoxeterClassPerm_mk
       adjacentWordPerm w := by
   rfl
 
-/-- Strongest axiom-free Lemma 5.1 package currently formalized: the concrete
+/-- Strongest assumption-free Lemma 5.1 package currently formalized: the concrete
 Young adjacent operators are the generators of a Coxeter action model, their
 word action is invariant under Coxeter moves, and the same moves preserve the
 underlying adjacent-transposition word in `Perm (Fin (n+1))`.

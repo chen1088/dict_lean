@@ -56,6 +56,30 @@ Proven finite certificates:
   the tableau-count theorem `S05_Lem5_36_tableau_odd_certificate` is proved
   using `hOddTableau`.
 
+Proven Lemma 5.1 coordinate Coxeter package:
+
+- `S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean` -- Lemma 5.1
+  (`lem:young-adjacent-matrices`): the concrete tableau-coordinate Young
+  adjacent operators are defined and proved to have the same-row,
+  same-column, and swappable two-by-two matrix behavior.  The swappable block
+  has nonzero `+1` and `-1` eigenvectors.
+- `Aux_YoungAdjacentAction.lean`: packages those adjacent operators as
+  `YoungAdjacentActionModel`, defines adjacent words and their operators,
+  proves invariance under cancellation, distant commutation, and braid
+  Coxeter moves, defines the adjacent-word permutation shadow
+  `adjacentWordPerm`, and descends both the operator and permutation shadow to
+  the formal quotient `AdjacentCoxeterClass`.
+
+Remaining Lemma 5.1 representation-theory boundary:
+
+- The Lean development does not claim a classical Specht-module
+  identification for the coordinate model, nor a full action of arbitrary
+  `Equiv.Perm (Fin (n+1))` on `TableauSpace lam`.  The precise missing
+  infrastructure is the type-A symmetric-group Coxeter presentation/Matsumoto
+  theorem for adjacent words, or a usable mathlib `CoxeterSystem
+  (CoxeterMatrix.A n) (Equiv.Perm (Fin (n+1)))` connecting the adjacent-word
+  quotient to permutations.
+
 External standard inputs:
 
 - `S02_Thm2_01_BooleanU1Classification.lean` -- Theorem 2.1

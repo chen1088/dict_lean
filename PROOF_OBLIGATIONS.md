@@ -13,6 +13,45 @@ Current classification:
   modulo the dimension branching inputs.
 - Internal open finite certificates: none currently listed.
 
+## Lemma 5.1 Young Adjacent Action Status
+
+Lemma 5.1 now has an axiom-free coordinate Coxeter model in Lean.
+
+Proved internally:
+
+- `Aux_YoungOrthogonal.lean` defines the tableau coordinate space, basis
+  vectors, Young adjacent matrix coefficients, and `youngAdjacentOperator`.
+- The paper-facing file
+  `S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean` exposes the
+  same-row, same-column, and swappable two-by-two Young adjacent matrix
+  formulas.
+- The swappable block has a positive/nonzero off-diagonal coefficient and
+  nonzero `+1` and `-1` eigenvectors.
+- The concrete adjacent operators satisfy the Coxeter relations on the full
+  tableau coordinate space:
+  `youngAdjacentOperator_sq`,
+  `youngAdjacentOperator_comm_of_disjoint_indices`, and
+  `youngAdjacentOperator_braid_of_succ`.
+- `Aux_YoungAdjacentAction.lean` packages these operators as
+  `YoungAdjacentActionModel`, defines adjacent words and
+  `youngAdjacentWordOperator`, proves invariance under the elementary Coxeter
+  word moves, defines the adjacent-word permutation shadow `adjacentWordPerm`,
+  and descends both the operator and permutation shadow to the formal quotient
+  `AdjacentCoxeterClass`.
+- The strongest paper-facing package currently exposed is
+  `S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel`.
+
+Not proved, and not claimed:
+
+- The coordinate model has not been identified with the classical Specht module
+  or irreducible Young orthogonal representation.
+- There is no full action of `Equiv.Perm (Fin (n+1))` on `TableauSpace lam`
+  defined from arbitrary permutations.  The precise missing theorem is the
+  type-A symmetric-group Coxeter presentation/Matsumoto theorem for adjacent
+  words, or a mathlib `CoxeterSystem (CoxeterMatrix.A n)
+  (Equiv.Perm (Fin (n+1)))` interface connecting the adjacent-word quotient to
+  permutations.
+
 ## TableauDim Migration Status
 
 The tableau-count recursion track has now proved the internal two-strip and
@@ -40,57 +79,10 @@ spectral block model itself: Young-block decomposition, `U_1` identification,
 matching-average scalarity, and trace/scalar value with block dimension
 `tableauDim`.
 
-The newest internal representation-layer objects are coordinate-level only:
-`Aux_YoungOrthogonal.lean` defines the tableau coordinate space, standard basis,
-the adjacent-transposition coefficient matrix, the resulting finite operator,
-and the diagonal content operator.  Lemma 5.1 exposes same-row, same-column, and
-swappable support behavior for that concrete matrix; Lemma 5.2 exposes the
-diagonal content-operator eigenvector facts.  This is useful scaffolding, but it
-does not yet prove the Specht-module realization, braid/Coxeter relations,
-Schur-lemma scalarity, or the spectral block model.
-
-The adjacent-operator spine has since been strengthened: the diagonal
-same-row/same-column cases now square to the identity on basis vectors, the
-swappable tableau swap is proved involutive, the off-diagonal coefficient is
-proved symmetric across the two-tableau block, the swappable action is expanded
-as a two-coordinate formula, and the swappable case also squares to the identity
-on basis vectors.  The local coefficient inequality
-`youngAdjacentDiagCoeff T a ^ 2 <= 1` is now proved from the nonzero
-axial-distance theorem for swappable adjacent entries.  This still does not
-prove Coxeter relations, the Specht realization, Schur-lemma scalarity, or the
-spectral block model.
-
-The first self-adjointness facts are also internal: tableau inner products
-against coordinate basis vectors evaluate to the matching coordinate, and the
-two off-diagonal matrix coefficients in a swappable tableau pair are equal.  The
-full concrete adjacent matrix coefficient symmetry is now proved for all pairs
-of standard tableaux, and the adjacent operator is self-adjoint on coordinate
-basis vectors.  The Coxeter frontier has started internally: distant adjacent
-value swaps commute, this has been lifted to entry functions and tableau swaps,
-the second-swap row/column hypotheses are transported automatically, distant
-swaps preserve the other pair's axial and Young-adjacent coefficients, and the
-fully swappable distant adjacent operators commute on tableau basis vectors.
-This has now been extended to the full distant-commutation relation on tableau
-basis vectors and then to the whole tableau coordinate space by finite basis
-expansion and linearity.  The braid frontier has started at the value and entry
-function level, and it has been lifted to standard tableaux under explicit
-standardness hypotheses for both braid paths.  The next local
-representation-layer frontier is automatic braid standardness transport,
-coefficient comparison across the braid path, and then the concrete adjacent
-operator braid theorem.
-
-The concrete Coxeter/action layer is now stronger: the adjacent operator is
-proved involutive on the full tableau coordinate space, distant adjacent
-operators commute on the full coordinate space, the fully swappable consecutive
-braid case is proved for `youngAdjacentOperator`, and the two purely diagonal
-consecutive braid cases are proved.  The current local blocker for the full
-operator-level braid is elementary tableau geometry, not representation theory:
-the boundary cases require proving that axial distance `+1` forces a same-row
-adjacent pair and axial distance `-1` forces a same-column adjacent pair (or an
-equivalent exclusion of `+/-1` axial distances in the swappable case).  Once
-those converse axial-distance classifications are available, the remaining
-boundary braid cases should reduce to the existing coefficient identities and
-neighbor-swap shape lemmas in `Aux_YoungOrthogonal.lean`.
+The newest internal representation-layer objects are still coordinate-level:
+they give a concrete Young adjacent Coxeter model, not a formal Specht-module
+realization.  Schur-lemma scalarity and the spectral block model remain outside
+Lemma 5.1 and are tracked separately below.
 
 ## Section 5 Paper/Lean Status Table
 
