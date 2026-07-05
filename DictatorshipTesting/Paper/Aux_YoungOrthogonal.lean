@@ -258,6 +258,72 @@ theorem adjacentAxialDistance_after_right_swap_of_succ {n : Nat}
   rw [hhi_lo]
   ring
 
+theorem adjacentAxialDistance_after_left_right_swap_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_a : ¬ adjacentSameRow T a)
+    (hcol_a : ¬ adjacentSameCol T a)
+    (hrow_b_after_a :
+      ¬ adjacentSameRow (adjacentSwapTableau T a hrow_a hcol_a) b)
+    (hcol_b_after_a :
+      ¬ adjacentSameCol (adjacentSwapTableau T a hrow_a hcol_a) b) :
+    adjacentAxialDistance
+        (adjacentSwapTableau
+          (adjacentSwapTableau T a hrow_a hcol_a) b
+          hrow_b_after_a hcol_b_after_a) a =
+      adjacentAxialDistance T b := by
+  let Ta := adjacentSwapTableau T a hrow_a hcol_a
+  have hright :
+      adjacentAxialDistance
+          (adjacentSwapTableau Ta b hrow_b_after_a hcol_b_after_a) a =
+        adjacentAxialDistance Ta a + adjacentAxialDistance Ta b := by
+    exact adjacentAxialDistance_after_right_swap_of_succ
+      Ta a b hsucc hrow_b_after_a hcol_b_after_a
+  have hswap :
+      adjacentAxialDistance Ta a = - adjacentAxialDistance T a := by
+    simpa [Ta] using adjacentAxialDistance_swap_neg T a hrow_a hcol_a
+  have hneighbor :
+      adjacentAxialDistance Ta b =
+        adjacentAxialDistance T a + adjacentAxialDistance T b := by
+    simpa [Ta] using
+      adjacentAxialDistance_after_left_swap_of_succ T a b hsucc hrow_a hcol_a
+  rw [hright, hswap, hneighbor]
+  omega
+
+theorem adjacentAxialDistance_after_right_left_swap_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_b : ¬ adjacentSameRow T b)
+    (hcol_b : ¬ adjacentSameCol T b)
+    (hrow_a_after_b :
+      ¬ adjacentSameRow (adjacentSwapTableau T b hrow_b hcol_b) a)
+    (hcol_a_after_b :
+      ¬ adjacentSameCol (adjacentSwapTableau T b hrow_b hcol_b) a) :
+    adjacentAxialDistance
+        (adjacentSwapTableau
+          (adjacentSwapTableau T b hrow_b hcol_b) a
+          hrow_a_after_b hcol_a_after_b) b =
+      adjacentAxialDistance T a := by
+  let Tb := adjacentSwapTableau T b hrow_b hcol_b
+  have hleft :
+      adjacentAxialDistance
+          (adjacentSwapTableau Tb a hrow_a_after_b hcol_a_after_b) b =
+        adjacentAxialDistance Tb a + adjacentAxialDistance Tb b := by
+    exact adjacentAxialDistance_after_left_swap_of_succ
+      Tb a b hsucc hrow_a_after_b hcol_a_after_b
+  have hneighbor :
+      adjacentAxialDistance Tb a =
+        adjacentAxialDistance T a + adjacentAxialDistance T b := by
+    simpa [Tb] using
+      adjacentAxialDistance_after_right_swap_of_succ T a b hsucc hrow_b hcol_b
+  have hswap :
+      adjacentAxialDistance Tb b = - adjacentAxialDistance T b := by
+    simpa [Tb] using adjacentAxialDistance_swap_neg T b hrow_b hcol_b
+  rw [hleft, hneighbor, hswap]
+  omega
+
 theorem adjacentAxialDistance_ne_zero_of_swappable {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
