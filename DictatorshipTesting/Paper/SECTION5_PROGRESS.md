@@ -24,6 +24,12 @@ Detailed maps:
 
 - Lemma 5.1 exposes the concrete tableau-coordinate Coxeter model through
   `S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel`.
+- Lemma 5.2 is proved internally for explicit diagonal content operators:
+  `S05_Lem5_02_tableauContentSequence_injective` proves content-sequence
+  injectivity, `S05_Lem5_02_diagonalContent_commonEigen_support` separates
+  distinct tableaux by a content coordinate, and
+  `S05_Lem5_02_diagonalContentEigenspaces` proves that the common eigenspaces
+  are the tableau basis lines.
 - Lemma 5.18 contains the current matching-cube operator algebra wrappers,
   including cube XOR laws, simultaneous matching-eigenvector predicates,
   matching-character action on simultaneous eigenvectors, and the first

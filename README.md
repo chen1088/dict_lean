@@ -77,6 +77,15 @@ Proven Lemma 5.1 coordinate Coxeter package:
   `adjacentWordPerm`, and descends both the operator and permutation shadow to
   the formal quotient `AdjacentCoxeterClass`.
 
+Proven Lemma 5.2 diagonal content package:
+
+- `S05_Lem5_02_DiagonalContentEigenspaces.lean` -- Lemma 5.2
+  (`lem:jucys-murphy-eigenbasis`, rewritten Section 5 form): proves that
+  content sequences determine standard tableaux, distinct tableaux differ in a
+  content coordinate, and simultaneous eigenspaces of the explicit diagonal
+  content operators are the tableau basis lines.  Appendix A.2 remains the
+  external group-algebra Jucys--Murphy identification.
+
 Remaining Lemma 5.1 representation-theory boundary:
 
 - The Lean development does not claim a classical Specht-module

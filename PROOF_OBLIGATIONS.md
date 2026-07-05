@@ -318,9 +318,11 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
 - `S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean`: basis-level adjacent
   transposition facts, including same-row/same-column diagonal behavior and
   swappable two-coordinate support for the concrete coordinate operator.
-- `S05_Lem5_02_DiagonalContentEigenspaces.lean`: basis-level content API and the
-  diagonal content-operator eigenvector facts.  The full Jucys--Murphy
-  representation theorem remains a representation-layer obligation.
+- `S05_Lem5_02_DiagonalContentEigenspaces.lean`: basis-level content API,
+  content-sequence injectivity, separation of distinct tableaux by a content
+  coordinate, and the one-dimensional common eigenspaces of the explicit
+  diagonal content operators.  The group-algebra Jucys--Murphy identification
+  is the separate Appendix A.2 external input.
 - `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority.lean`: finite `zEven`
   certificate, with both the legacy `youngDim` theorem and the tableau-count
   theorem `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.
