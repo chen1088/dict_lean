@@ -1857,6 +1857,119 @@ theorem youngAdjacentOperator_basis_swappable_eq {n : Nat}
       rw [tableauBasisVec_ne hST, tableauBasisVec_ne hST']
       ring
 
+theorem youngAdjacentOperator_basis_swappable_swap_eq {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOperator a
+        (tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne)) =
+      fun S =>
+        youngAdjacentOffCoeff T a * tableauBasisVec T S -
+          youngAdjacentDiagCoeff T a *
+            tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S := by
+  let T' := adjacentSwapTableau T a hrow_ne hcol_ne
+  have hrow_ne' : ¬ adjacentSameRow T' a := by
+    simpa [T'] using not_adjacentSameRow_swap T a hrow_ne hcol_ne
+  have hcol_ne' : ¬ adjacentSameCol T' a := by
+    simpa [T'] using not_adjacentSameCol_swap T a hrow_ne hcol_ne
+  have hswap :
+      adjacentSwapTableau T' a hrow_ne' hcol_ne' = T := by
+    simpa [T'] using
+      adjacentSwapTableau_involutive T a hrow_ne hcol_ne hrow_ne' hcol_ne'
+  have hdiag :
+      youngAdjacentDiagCoeff T' a = - youngAdjacentDiagCoeff T a := by
+    simpa [T'] using youngAdjacentDiagCoeff_swap T a hrow_ne hcol_ne
+  have hoff :
+      youngAdjacentOffCoeff T' a = youngAdjacentOffCoeff T a := by
+    simpa [T'] using youngAdjacentOffCoeff_swap T a hrow_ne hcol_ne
+  rw [show adjacentSwapTableau T a hrow_ne hcol_ne = T' by rfl]
+  rw [youngAdjacentOperator_basis_swappable_eq T' a hrow_ne' hcol_ne']
+  funext S
+  rw [hdiag, hoff, hswap]
+  ring
+
+theorem youngAdjacentOperator_swappable_eigen_plus {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOperator a
+        (fun S =>
+          youngAdjacentOffCoeff T a * tableauBasisVec T S +
+            (1 - youngAdjacentDiagCoeff T a) *
+              tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S) =
+      fun S =>
+        youngAdjacentOffCoeff T a * tableauBasisVec T S +
+          (1 - youngAdjacentDiagCoeff T a) *
+            tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S := by
+  let T' := adjacentSwapTableau T a hrow_ne hcol_ne
+  let d := youngAdjacentDiagCoeff T a
+  let o := youngAdjacentOffCoeff T a
+  have hsq : d ^ 2 + o ^ 2 = 1 := by
+    simpa [d, o] using youngAdjacentCoeff_sq_sum_of_swappable
+      T a hrow_ne hcol_ne
+  rw [youngAdjacentOperator_add, youngAdjacentOperator_smul,
+    youngAdjacentOperator_smul]
+  rw [youngAdjacentOperator_basis_swappable_eq T a hrow_ne hcol_ne,
+    youngAdjacentOperator_basis_swappable_swap_eq T a hrow_ne hcol_ne]
+  funext S
+  let x := tableauBasisVec T S
+  let y := tableauBasisVec T' S
+  change
+      o * (d * x + o * y) + (1 - d) * (o * x - d * y) =
+        o * x + (1 - d) * y
+  calc
+    o * (d * x + o * y) + (1 - d) * (o * x - d * y)
+        = o * x - d * y + (d ^ 2 + o ^ 2) * y := by ring
+    _ = o * x - d * y + 1 * y := by rw [hsq]
+    _ = o * x + (1 - d) * y := by ring
+
+theorem youngAdjacentOperator_swappable_eigen_minus {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOperator a
+        (fun S =>
+          youngAdjacentOffCoeff T a * tableauBasisVec T S -
+            (1 + youngAdjacentDiagCoeff T a) *
+              tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S) =
+      fun S =>
+        - (youngAdjacentOffCoeff T a * tableauBasisVec T S -
+            (1 + youngAdjacentDiagCoeff T a) *
+              tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S) := by
+  let T' := adjacentSwapTableau T a hrow_ne hcol_ne
+  let d := youngAdjacentDiagCoeff T a
+  let o := youngAdjacentOffCoeff T a
+  have hsq : d ^ 2 + o ^ 2 = 1 := by
+    simpa [d, o] using youngAdjacentCoeff_sq_sum_of_swappable
+      T a hrow_ne hcol_ne
+  rw [show
+      (fun S =>
+        youngAdjacentOffCoeff T a * tableauBasisVec T S -
+          (1 + youngAdjacentDiagCoeff T a) * tableauBasisVec T' S) =
+        fun S =>
+          youngAdjacentOffCoeff T a * tableauBasisVec T S +
+            (-(1 + youngAdjacentDiagCoeff T a)) * tableauBasisVec T' S by
+        funext S
+        ring]
+  rw [youngAdjacentOperator_add, youngAdjacentOperator_smul,
+    youngAdjacentOperator_smul]
+  rw [youngAdjacentOperator_basis_swappable_eq T a hrow_ne hcol_ne,
+    youngAdjacentOperator_basis_swappable_swap_eq T a hrow_ne hcol_ne]
+  funext S
+  let x := tableauBasisVec T S
+  let y := tableauBasisVec T' S
+  change
+      o * (d * x + o * y) + (-(1 + d)) * (o * x - d * y) =
+        - (o * x - (1 + d) * y)
+  calc
+    o * (d * x + o * y) + (-(1 + d)) * (o * x - d * y)
+        = -o * x + d * y + (d ^ 2 + o ^ 2) * y := by ring
+    _ = -o * x + d * y + 1 * y := by rw [hsq]
+    _ = - (o * x - (1 + d) * y) := by ring
+
 noncomputable def youngAdjacentNeighbor {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n) :
