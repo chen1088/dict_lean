@@ -19,7 +19,7 @@ identification were moved to Appendix A-facing files:
 | Paper stmt | Environment | Paper title | Lean file | Main wrappers | Status |
 | --- | --- | --- | --- | --- | --- |
 | 5.1 | lemma | Tableau Coxeter model for adjacent transpositions | `S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean` | `S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel` | proved |
-| 5.2 | lemma | Diagonal content eigenspaces | `S05_Lem5_02_JucysMurphyEigenbasis.lean` | `S05_Lem5_02_jucysMurphyDiagonalOperator_basis_eigen` | conditional |
+| 5.2 | lemma | Diagonal content eigenspaces | `S05_Lem5_02_DiagonalContentEigenspaces.lean` | `S05_Lem5_02_jucysMurphyDiagonalOperator_basis_eigen` | conditional |
 | 5.3 | definition | Young block | `S05_Def5_03_YoungBlock.lean` | `S05_YoungBlock`, `S05_Def5_03_SpectralBlockModelInput` | definition only |
 | 5.4 | definition | Two-box removals | `S05_Def5_04_TwoBoxRemovals.lean` | `S05_IsHorizontalTwoBoxRemoval`, `S05_IsVerticalTwoBoxRemoval` | definition only |
 | 5.5 | definition | Signed two-box removals | `S05_Def5_05_SignedTwoBoxRemovals.lean` | `S05_PositiveSignedTwoBoxRemoval`, `S05_NegativeSignedTwoBoxRemoval` | definition only |

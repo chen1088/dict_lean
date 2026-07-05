@@ -1,5 +1,5 @@
 import DictatorshipTesting.Paper.S05_Lem5_10_OneBoxDeletionIsUnitary
-import DictatorshipTesting.Paper.S05_Lem5_02_JucysMurphyEigenbasis
+import DictatorshipTesting.Paper.S05_Lem5_02_DiagonalContentEigenspaces
 
 /-!
 Paper statement: Lemma 5.11 (`lem:one-box-deletion-intertwines`)
