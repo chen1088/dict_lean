@@ -3936,6 +3936,115 @@ theorem youngAdjacentOperator_braid_basis_of_succ
                   hrow_a_after_b hcol_a_after_b
                   hrow_b_after_a_after_b hcol_b_after_a_after_b
 
+theorem youngAdjacentOperator_braid_smul_basis_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1) (c : ℝ) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b
+          (youngAdjacentOperator a
+            (fun S => c * tableauBasisVec T S))) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a
+          (youngAdjacentOperator b
+            (fun S => c * tableauBasisVec T S))) := by
+  rw [youngAdjacentOperator_smul a c (tableauBasisVec T),
+    youngAdjacentOperator_smul b c
+      (youngAdjacentOperator a (tableauBasisVec T)),
+    youngAdjacentOperator_smul a c
+      (youngAdjacentOperator b
+        (youngAdjacentOperator a (tableauBasisVec T))),
+    youngAdjacentOperator_smul b c (tableauBasisVec T),
+    youngAdjacentOperator_smul a c
+      (youngAdjacentOperator b (tableauBasisVec T)),
+    youngAdjacentOperator_smul b c
+      (youngAdjacentOperator a
+        (youngAdjacentOperator b (tableauBasisVec T))),
+    youngAdjacentOperator_braid_basis_of_succ T a b hsucc]
+
+theorem youngAdjacentOperator_braid_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (a b : Fin n) (hsucc : (b : Nat) = (a : Nat) + 1)
+    (f : TableauSpace lam) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b (youngAdjacentOperator a f)) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a (youngAdjacentOperator b f)) := by
+  classical
+  have hf := tableauBasis_expansion f
+  calc
+    youngAdjacentOperator a
+        (youngAdjacentOperator b (youngAdjacentOperator a f))
+        = youngAdjacentOperator a
+            (youngAdjacentOperator b
+              (youngAdjacentOperator a
+                (fun S =>
+                  ∑ T : StandardYoungTableau lam,
+                    f T * tableauBasisVec T S))) := by
+            exact congrArg
+              (fun g => youngAdjacentOperator a
+                (youngAdjacentOperator b (youngAdjacentOperator a g)))
+              hf
+    _ = youngAdjacentOperator a
+          (youngAdjacentOperator b
+            (fun S =>
+              ∑ T : StandardYoungTableau lam,
+                youngAdjacentOperator a
+                  (fun S => f T * tableauBasisVec T S) S)) := by
+            rw [youngAdjacentOperator_sum]
+    _ = youngAdjacentOperator a
+          (fun S =>
+            ∑ T : StandardYoungTableau lam,
+              youngAdjacentOperator b
+                (youngAdjacentOperator a
+                  (fun S => f T * tableauBasisVec T S)) S) := by
+            rw [youngAdjacentOperator_sum]
+    _ = (fun S =>
+          ∑ T : StandardYoungTableau lam,
+            youngAdjacentOperator a
+              (youngAdjacentOperator b
+                (youngAdjacentOperator a
+                  (fun S => f T * tableauBasisVec T S))) S) := by
+            rw [youngAdjacentOperator_sum]
+    _ = (fun S =>
+          ∑ T : StandardYoungTableau lam,
+            youngAdjacentOperator b
+              (youngAdjacentOperator a
+                (youngAdjacentOperator b
+                  (fun S => f T * tableauBasisVec T S))) S) := by
+            funext S
+            apply Finset.sum_congr rfl
+            intro T _
+            rw [youngAdjacentOperator_braid_smul_basis_of_succ
+              T a b hsucc (f T)]
+    _ = youngAdjacentOperator b
+          (fun S =>
+            ∑ T : StandardYoungTableau lam,
+              youngAdjacentOperator a
+                (youngAdjacentOperator b
+                  (fun S => f T * tableauBasisVec T S)) S) := by
+            rw [← youngAdjacentOperator_sum]
+    _ = youngAdjacentOperator b
+          (youngAdjacentOperator a
+            (fun S =>
+              ∑ T : StandardYoungTableau lam,
+                youngAdjacentOperator b
+                  (fun S => f T * tableauBasisVec T S) S)) := by
+            rw [← youngAdjacentOperator_sum]
+    _ = youngAdjacentOperator b
+          (youngAdjacentOperator a
+            (youngAdjacentOperator b
+              (fun S =>
+                ∑ T : StandardYoungTableau lam,
+                  f T * tableauBasisVec T S))) := by
+            rw [← youngAdjacentOperator_sum]
+    _ = youngAdjacentOperator b
+          (youngAdjacentOperator a (youngAdjacentOperator b f)) := by
+            exact congrArg
+              (fun g => youngAdjacentOperator b
+                (youngAdjacentOperator a (youngAdjacentOperator b g)))
+              hf.symm
+
 /-- The diagonal content operator in the tableau coordinate basis. -/
 noncomputable def jucysMurphyDiagonalOperator {n : Nat}
     {lam : YoungDiagram n} (a : Fin n) :
