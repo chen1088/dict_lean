@@ -2023,7 +2023,7 @@ theorem S05_Lem5_32_zEven_le_youngDim
 /-!
 ## Tableau-dimension certificate layer
 
-The next theorems are the axiom-free part of the migration from the hook-length
+The next theorems are the assumption-free part of the migration from the hook-length
 proxy `youngDim` to `tableauDim`, the cardinality of standard Young tableaux.
 They prove Lemma 5.32 for `tableauDim` using the tableau-count two-strip
 recursion from Lemma 5.15 and explicit finite checks for the two exceptional

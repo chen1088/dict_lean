@@ -67,7 +67,7 @@ theorem youngDim_twoStrip_branching_input
 /-!
 ## Tableau-count replacement layer
 
-These wrappers are axiom-free and use `tableauDim`, the count of standard Young
+These wrappers are assumption-free and use `tableauDim`, the count of standard Young
 tableaux.  They prove the ordered two-step deletion recursion and reindex that
 ordered sum by the tagged horizontal/vertical two-strip child sets.
 -/

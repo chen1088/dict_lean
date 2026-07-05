@@ -1,5 +1,27 @@
 # Section 5 Progress
 
+## Verification After Lemma 5.1 Rewrite
+
+Checked against `../dictatorship_testing_soda27_latest.tex`.
+
+- Section 5 has 36 theorem-like numbered statements when counting
+  `definition`, `lemma`, `proposition`, `theorem`, and `corollary`
+  environments and excluding remarks.
+- The paper-facing Lean file count is also 36:
+  `DictatorshipTesting/Paper/S05_*5_*.lean`.
+- Lemma 5.1 is aligned with the rewritten paper statement
+  `lem:young-adjacent-matrices`: the Lean file
+  `S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean` exposes
+  `S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel`.
+- Lemma 5.1 proves the explicit tableau-coordinate Coxeter model.  It does not
+  claim the external classical Specht-module/Young-orthogonal identification.
+- The detailed 36-row file map is
+  `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`.
+- The remaining Section 5 blocker is still the representation/spectral-block
+  model input: matching subgroup eigenbasis, trace formula, central averaged
+  scalarity, `U_1` block identification, and the `SpectralBlockModelInputWithDim`
+  route needed for the tableau-count bridge.
+
 ## TableauDim Certificate Migration Batch
 
 Completed commits from the current milestone:

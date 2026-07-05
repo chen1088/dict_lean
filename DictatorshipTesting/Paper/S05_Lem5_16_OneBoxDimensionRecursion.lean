@@ -384,7 +384,7 @@ theorem youngDim_oneBox_branching_input
 /-!
 ## Tableau-count replacement layer
 
-The following wrappers are axiom-free: they use `tableauDim`, defined as the
+The following wrappers are assumption-free: they use `tableauDim`, defined as the
 cardinality of standard Young tableaux, rather than the hook-length proxy
 `youngDim`.
 -/

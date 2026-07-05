@@ -40,6 +40,11 @@ Current proof-status by mathematical obligation:
 For a declaration-by-declaration ledger of every remaining `sorry` and
 paper-level input, see `PROOF_OBLIGATIONS.md`.
 
+For the current rewritten Section 5 statement-to-file map, see
+`DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`.  The checked paper source has
+36 theorem-like Section 5 statements when remarks are excluded, and the Lean
+paper-facing file count is also 36.
+
 Proven finite certificates:
 
 - `S05_Lem5_32_WeightZeroEntriesAreNeverAMajority.lean` -- Lemma 5.32:
@@ -90,25 +95,25 @@ External standard inputs:
 - `S02_Thm2_02_FKNStability.lean` -- Theorem 2.2 (`thm:fkn-input`):
   external FKN/stability theorem on `S_n`, stated only for the `4 <= n`
   range used by the one-trial soundness proof.
-- `S05_Lem5_01_TwoStripDimensionRecursion.lean` -- Lemma 5.1
+- `S05_Lem5_15_TwoBoxDimensionRecursion.lean` -- Lemma 5.15
   (`lem:dimension-two-strip-recurrence`): external two-strip
   Pieri/Littlewood-Richardson dimension branching input, exposed as the named
   axiom `twoStripDimensionBranchingAssumption_from_specht_pieri` and the
   typeclass `TwoStripDimensionBranchingAssumption`.
-- `S05_Lem5_02_OneBoxDimensionRecursion.lean` -- Lemma 5.2
+- `S05_Lem5_16_OneBoxDimensionRecursion.lean` -- Lemma 5.16
   (`lem:dimension-one-box-recurrence`): ordinary one-box dimension branching
   input.  The `m = 0` and `m = 1` cases are proved directly; the remaining
   external input is exposed as the named axiom
   `oneBoxDimensionBranchingPositiveAssumption_from_specht_branching` and the
   typeclass `OneBoxDimensionBranchingPositiveAssumption`.
-- `S05_Lem5_03_MatchingRestrictionPieri.lean` -- Lemma 5.3
+- `S05_Lem5_19_MatchingSubgroupEigenbasis.lean` -- Lemma 5.19
   (`lem:matching-restriction-X`): the paper-level statement is the full
   Specht/Pieri restriction theorem.  The current Lean file formalizes only the
   scalar/multiplicity shadow needed downstream; that scalar shadow is proved
   from the finite certificate bounds.
-- `S05_Lem5_08_SpectralBridgeFromCertificates.lean` -- Lemma 5.8
-  (`lem:spectral-certificate`): the external Specht/Pieri/Schur spectral bridge
-  is exposed as the named axioms
+- Lemmas 5.28--5.30, especially `S05_Lem5_29_EvenSpectralBridge.lean` and
+  `S05_Lem5_30_OddSpectralBridge.lean`: the external Specht/Pieri/Schur
+  spectral bridge is exposed as the named axioms
   `spectralBlockModelInput_even_from_specht_pieri_schur` and
   `spectralBlockModelInput_odd_from_specht_pieri_schur`.  These axioms cite the
   regular Specht decomposition, Littlewood-Richardson restriction to Young
@@ -116,22 +121,21 @@ External standard inputs:
 
 Internal bridge components proven:
 
-- `S05_Lem5_04_LocalTruncationCharacterProjection.lean` -- Lemma 5.4
+- `S05_Lem5_20_LocalTruncationOnAMatchingCharacter.lean` -- Lemma 5.20
   (`lem:PM-character-projection`): proved matching-cube character projection.
-- `S05_Lem5_05_TraceLocalTruncation.lean` -- Lemma 5.5
+- `S05_Lem5_21_TraceOfOneLocalTruncationOnOneYoungBlock.lean` -- Lemma 5.21
   (`lem:PM-trace-young-block`): scalar trace formula in the current Lean
-  vocabulary, conditional on Lemma 5.3's scalar shadow.
-- `S05_Lem5_06_CentralizationOverMatchings.lean` -- Lemma 5.6
-  (`lem:centralization-matchings`): proved trace-divided-by-dimension algebra.
-- `S05_Lem5_08_SpectralBridgeFromCertificates.lean` -- Lemma 5.8
-  (`lem:spectral-certificate`): the purely algebraic bridge is proved.  In
-  particular, `blockScalar_lower_bound_of_traceScalarFormula`,
-  `traceScalarValue_of_blockTraceIdentity`,
-  `matchingAverageScalarModel_of_blockTraceModel`, `SpectralGapFromBlockScalars`,
-  `SpectralGapFromBlockScalarLowerBounds`,
-  `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and
-  `L5_2_SpectralCertificate` are proved from explicit spectral-block-model
-  hypotheses.
+  vocabulary, conditional on Lemma 5.19's scalar shadow.
+- `S05_Lem5_26_BlockScalarOfTheAveragedRejection.lean` -- Lemma 5.26
+  (`lem:centralization-matchings`): proved trace-divided-by-dimension scalar
+  algebra.
+- `S05_Lem5_28_BlockLowerBoundImpliesTheGap.lean`,
+  `S05_Lem5_29_EvenSpectralBridge.lean`, and
+  `S05_Lem5_30_OddSpectralBridge.lean`: the purely algebraic bridge is proved
+  from explicit spectral-block-model hypotheses.  In particular,
+  `SpectralGapFromBlockScalars`, `SpectralGapFromBlockScalarLowerBounds`,
+  `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and the
+  dimension-parameterized `SpectralGapFromBlockModelWithDim` route are proved.
 - `Aux_SpectralBridgeDimensionParam.lean`: dimension-parameterized algebraic
   bridge.  It proves `blockScalar_lower_bound_of_traceScalarFormula_withDim`,
   `traceScalarValue_of_blockTraceIdentity_withDim`,
@@ -143,14 +147,14 @@ Internal bridge components proven:
   `S05_Lem5_30_tableauDim_oddSpectralGapFromCertificates`, conditional on a
   dimension-parameterized spectral model using `tableauDim`.
 - `Aux_SpectralBridgeRepresentationInputs.lean`: the compact interface for the
-  spectral-block model used by Lemma 5.8.  It contains only the Young-block
+  spectral-block model used by the spectral bridge.  It contains only the Young-block
   energy, `U_1` identification, scalarity, and trace/scalar-value predicates.
 
-Remaining Lemma 5.8 representation-theory boundary:
+Remaining spectral-bridge representation-theory boundary:
 
-There are no longer `sorry` declarations for the Lemma 5.8 spectral bridge.
-Instead, `S05_Lem5_08_SpectralBridgeFromCertificates.lean` makes the missing
-representation theory explicit as named axioms:
+There are no longer `sorry` declarations for the spectral bridge.  Instead, the
+Section 5 spectral-bridge files make the missing representation theory explicit
+as named axioms:
 `spectralBlockModelInput_even_from_specht_pieri_schur` and
 `spectralBlockModelInput_odd_from_specht_pieri_schur`, bundled downstream as
 `EvenSpectralBlockModelFamily` and `OddSpectralBlockModelFamily`.

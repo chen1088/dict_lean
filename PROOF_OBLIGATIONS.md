@@ -9,8 +9,9 @@ Current classification:
 - External standard inputs: Section 2 structural/stability theorems, explicit
   Specht dimension-branching hypotheses, and the representation-theoretic
   pieces of the Section 5 spectral bridge.
-- Internal finite certificates: Lemmas 5.10, 5.12, and 5.14 are proved in Lean
-  modulo the dimension branching inputs.
+- Internal finite certificates: Lemmas 5.32, 5.34, and 5.36 have
+  tableau-count versions proved in Lean.  The legacy `youngDim` variants still
+  depend on the named dimension-branching inputs.
 - Internal open finite certificates: none currently listed.
 
 ## Lemma 5.1 Young Adjacent Action Status
@@ -86,18 +87,20 @@ Lemma 5.1 and are tracked separately below.
 
 ## Section 5 Paper/Lean Status Table
 
-| Paper statement number | Paper label/title | Lean file | Lean theorem name | Status | Remaining assumption, if any |
-| --- | --- | --- | --- | --- | --- |
-| Lemma 5.1 | `lem:dimension-two-strip-recurrence`, Dimension recursion | `S05_Lem5_01_TwoStripDimensionRecursion.lean` | `youngDim_twoStrip_branching_input` | external standard input | `twoStripDimensionBranchingAssumption_from_specht_pieri`, from Specht/Pieri/Littlewood--Richardson branching |
-| Lemma 5.2 | `lem:dimension-one-box-recurrence`, One-box dimension recursion | `S05_Lem5_02_OneBoxDimensionRecursion.lean` | `youngDim_oneBox_branching_input` | external standard input for `2 <= m`; small cases proved | `oneBoxDimensionBranchingPositiveAssumption_from_specht_branching`, ordinary Specht branching |
-| Lemma 5.3 | `lem:matching-restriction-X`, Restriction to matching subgroup | `S05_Lem5_03_MatchingRestrictionPieri.lean` | `matchingRestriction_even_specht_pieri_input`, `matchingRestriction_odd_specht_pieri_input` | scalar shadow proven from finite certificates; full Specht statement external | full Specht/Pieri restriction to `A_M`, represented downstream by the spectral block model input |
-| Lemma 5.4 | `lem:PM-character-projection`, Local truncation as character projection | `S05_Lem5_04_LocalTruncationCharacterProjection.lean` | `matchingLocalProjection_preserves_low_local_char`, `matchingLocalProjection_kills_high_local_char` | proven | none |
-| Lemma 5.5 | `lem:PM-trace-young-block`, Trace of one local truncation | `S05_Lem5_05_TraceLocalTruncation.lean` | `traceLocalTruncation_even_from_restriction`, `traceLocalTruncation_odd_from_restriction` | algebraic/scalar wrapper | full Young-block trace interpretation belongs to the spectral block model input |
-| Lemma 5.6 | `lem:centralization-matchings`, Centralization over matchings | `S05_Lem5_06_CentralizationOverMatchings.lean` | `centralizationBridge_scalar_eq_trace_div_dimension`, `centralizationBridge_even_scalar_eq_hEven_div_dim`, `centralizationBridge_odd_scalar_eq_hOdd_div_dim` | trace-divided-by-dimension algebra proven | Young-block scalarity by Schur's lemma belongs to the spectral block model input |
-| Lemma 5.8 | `lem:spectral-certificate`, Spectral bridge from finite certificate | `Aux_SpectralBridgeFromCertificates_Legacy.lean`, `Aux_SpectralBridgeDimensionParam.lean`, `S05_Lem5_28_BlockLowerBoundImpliesTheGap.lean` | `SpectralGapFromBlockScalarLowerBounds`, `SpectralGapFromBlockModelWithDim`, `L5_2_SpectralCertificate` | algebraic wrappers proven, including generic-dimension route | old route uses `spectralBlockModelInput_even_from_specht_pieri_schur` and `spectralBlockModelInput_odd_from_specht_pieri_schur`; tableau route requires `SpectralBlockModelInputWithDim` |
-| Lemma 5.32 | Weight-zero entries are never a majority | `S05_Lem5_32_WeightZeroEntriesAreNeverAMajority.lean` | `S05_Lem5_32_tableau_weightZeroEntries_never_majority`, `L5_4_ZBoundApp` | tableau-count certificate proved; legacy `youngDim` theorem remains | none for finite certificate |
-| Lemma 5.34 | `lem:h-even-app`, Even certificate | `S05_Lem5_34_EvenCertificate.lean` | `S05_Lem5_34_tableau_even_certificate`, `L5_5_HEvenApp` | tableau-count certificate proved; legacy `youngDim` theorem remains | none for finite certificate |
-| Lemma 5.36 | `lem:h-odd-app`, Odd certificate | `S05_Lem5_36_OddCertificate.lean` | `S05_Lem5_36_tableau_odd_certificate`, `L5_6_HOddApp` | tableau-count certificate proved; legacy `youngDim` theorem remains | none for finite certificate |
+The current Section 5 source has 36 theorem-like numbered statements when
+remarks are excluded.  The paper-facing Lean files also number 36.  The full
+statement-to-file map is maintained in
+`DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`.
+
+The most important numbering corrections after the Lemma 5.1 rewrite are:
+
+- Lemma 5.1 is the explicit tableau Coxeter model, represented by
+  `S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean`.
+- The two-box and one-box dimension recursions are Lemmas 5.15 and 5.16,
+  represented by `S05_Lem5_15_TwoBoxDimensionRecursion.lean` and
+  `S05_Lem5_16_OneBoxDimensionRecursion.lean`.
+- The spectral bridge is split across Lemmas 5.28--5.30, with the remaining
+  representation-layer input exposed by named spectral-block model axioms.
 
 ## Remaining `sorry` Declarations
 
@@ -151,11 +154,11 @@ Downstream dependencies: one-trial soundness and the main theorem.
 
 ## Paper-Level Obligations Without a Current `sorry`
 
-### Lemma 5.1 Two-Strip Dimension Branching
+### Lemma 5.15 Two-Box Dimension Branching
 
-Paper statement: Lemma 5.1 (`lem:dimension-two-strip-recurrence`).
+Paper statement: Lemma 5.15 (`lem:dimension-two-strip-recurrence`).
 
-Lean file: `DictatorshipTesting/Paper/S05_Lem5_01_TwoStripDimensionRecursion.lean`
+Lean file: `DictatorshipTesting/Paper/S05_Lem5_15_TwoBoxDimensionRecursion.lean`
 
 Lean names: `twoStripDimensionBranchingAssumption_from_specht_pieri`,
 `TwoStripDimensionBranchingAssumption`,
@@ -181,11 +184,11 @@ arXiv:1210.5579, Theorem 1.1 and the paragraph following it; Sagan,
 Downstream dependencies: finite certificates `L5_4_ZBoundApp` and
 `L5_5_HEvenApp`, which now carry `[TwoStripDimensionBranchingAssumption]`.
 
-### Lemma 5.2 One-Box Dimension Branching
+### Lemma 5.16 One-Box Dimension Branching
 
-Paper statement: Lemma 5.2 (`lem:dimension-one-box-recurrence`).
+Paper statement: Lemma 5.16 (`lem:dimension-one-box-recurrence`).
 
-Lean file: `DictatorshipTesting/Paper/S05_Lem5_02_OneBoxDimensionRecursion.lean`
+Lean file: `DictatorshipTesting/Paper/S05_Lem5_16_OneBoxDimensionRecursion.lean`
 
 Lean names:
 `oneBoxDimensionBranchingPositiveAssumption_from_specht_branching`,
@@ -209,12 +212,18 @@ Citation target if external: ordinary Specht-module branching rule, e.g. Sagan,
 Downstream dependencies: finite certificate `L5_6_HOddApp`, which now carries
 `[OneBoxDimensionBranchingPositiveAssumption]`.
 
-### Lemma 5.8 Spectral Block Model Families
+### Lemmas 5.28--5.30 Spectral Block Model Families
 
-Paper statement: Lemma 5.8 spectral bridge, Young-block decomposition,
-matching-average scalarity, and trace/scalar value.
+Paper statements: Lemma 5.28 block lower bound, Lemma 5.29 even spectral
+bridge, and Lemma 5.30 odd spectral bridge, together with the Young-block
+decomposition, matching-average scalarity, and trace/scalar value inputs they
+use.
 
-Lean file: `DictatorshipTesting/Paper/S05_Lem5_08_SpectralBridgeFromCertificates.lean`
+Lean files: `DictatorshipTesting/Paper/S05_Lem5_28_BlockLowerBoundImpliesTheGap.lean`,
+`DictatorshipTesting/Paper/S05_Lem5_29_EvenSpectralBridge.lean`,
+`DictatorshipTesting/Paper/S05_Lem5_30_OddSpectralBridge.lean`,
+`DictatorshipTesting/Paper/Aux_SpectralBridgeFromCertificates_Legacy.lean`,
+and `DictatorshipTesting/Paper/Aux_SpectralBridgeDimensionParam.lean`.
 
 Lean names: `spectralBlockModelInput_even_from_specht_pieri_schur`,
 `spectralBlockModelInput_odd_from_specht_pieri_schur`,
@@ -249,11 +258,11 @@ Downstream dependencies: `L5_2_SpectralCertificate`,
 `L4_13_OneTrialSoundness`, and `Thm1_1_MainIntro`, which now use the named
 external spectral block model axioms directly.
 
-### Lemma 5.3 Full Matching-Restriction/Pieri Statement
+### Lemma 5.19 Full Matching-Restriction/Pieri Statement
 
-Paper statement: Lemma 5.3 (`lem:matching-restriction-X`).
+Paper statement: Lemma 5.19 (`lem:matching-restriction-X`).
 
-Lean file: `DictatorshipTesting/Paper/S05_Lem5_03_MatchingRestrictionPieri.lean`
+Lean file: `DictatorshipTesting/Paper/S05_Lem5_19_MatchingSubgroupEigenbasis.lean`
 
 Lean theorem names:
 `matchingRestriction_even_specht_pieri_input`,
@@ -274,31 +283,32 @@ statement.
 Citation target if external: repeated Pieri/Littlewood--Richardson branching
 for restriction to Young subgroups and then to the matching subgroup.
 
-Downstream dependencies: the trace/scalar-value inputs in Lemma 5.8.
+Downstream dependencies: the trace/scalar-value inputs used by Lemmas
+5.28--5.30.
 
 ## Proven Internal Components
 
-- `S05_Lem5_04_LocalTruncationCharacterProjection.lean`: matching-cube
+- `S05_Lem5_20_LocalTruncationOnAMatchingCharacter.lean`: matching-cube
   character projection.
-- `S05_Lem5_05_TraceLocalTruncation.lean`: local trace formula in the current
+- `S05_Lem5_21_TraceOfOneLocalTruncationOnOneYoungBlock.lean`: local trace formula in the current
   scalar vocabulary, conditional on the scalar matching-restriction data.
-- `S05_Lem5_06_CentralizationOverMatchings.lean`: trace-divided-by-dimension
+- `S05_Lem5_26_BlockScalarOfTheAveragedRejection.lean`: trace-divided-by-dimension
   scalar algebra.
-- `S05_Lem5_08_SpectralBridgeFromCertificates.lean`:
+- `S05_Lem5_28_BlockLowerBoundImpliesTheGap.lean`,
+  `S05_Lem5_29_EvenSpectralBridge.lean`, and
+  `S05_Lem5_30_OddSpectralBridge.lean`:
   `blockScalar_lower_bound_of_traceScalarFormula`,
   `traceScalarValue_of_blockTraceIdentity`,
-  `matchingAverageScalarModel_of_blockTraceModel`,
   `SpectralGapFromBlockScalars`,
   `SpectralGapFromBlockScalarLowerBounds`,
-  `evenSpectralBlockModelFamily_from_specht_pieri_schur`,
-  `oddSpectralBlockModelFamily_from_specht_pieri_schur`,
   `EvenSpectralGapFromCertificates`,
   `OddSpectralGapFromCertificates`,
-  `matchingSpectralGap_of_even_young_certificate`,
-  `matchingSpectralGap_of_odd_young_certificate`, and
-  `L5_2_SpectralCertificate` are proved from the explicit inputs above.
+  `SpectralGapFromBlockModelWithDim`,
+  `S05_Lem5_29_tableauDim_evenSpectralGapFromCertificates`, and
+  `S05_Lem5_30_tableauDim_oddSpectralGapFromCertificates` are proved from the
+  explicit inputs above.
 - `Aux_SpectralBridgeRepresentationInputs.lean`: compact interface definitions
-  for the spectral-block model used by Lemma 5.8.
+  for the spectral-block model used by the Section 5 spectral bridge.
 - `Aux_YoungOrthogonal.lean`: coordinate space on standard tableaux, basis
   vectors, basis inner product facts, concrete adjacent matrix coefficients,
   the adjacent operator on coordinates, the diagonal content operator,
