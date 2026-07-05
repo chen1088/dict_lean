@@ -12,9 +12,12 @@ This is `thm:matching-gap` from `dictatorship_testing_soda27_latest.tex`.
 
 namespace DictatorshipTesting
 
-/-- Theorem 4.10, `thm:matching-gap`: matching-cube spectral gap, using the
-named external Specht/Pieri/Schur inputs in Section 5. -/
+/-- Theorem 4.10, `thm:matching-gap`: matching-cube spectral gap.  The active
+theorem path still uses the older `youngDim` finite-certificate route, so it
+carries the corresponding dimension-branching assumptions explicitly. -/
 theorem Thm4_10_MatchingGap
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption]
     (n : ℕ) (hn : 4 ≤ n)
     (F : Perm (Fin n) → ℝ) :
     (1 / 6 : ℝ) * l2DistSqToU1 F ≤ matchingMeanProjectionError F ∧

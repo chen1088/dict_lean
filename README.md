@@ -162,16 +162,18 @@ External standard inputs:
   external FKN/stability theorem on `S_n`, stated only for the `4 <= n`
   range used by the one-trial soundness proof.
 - `S05_Lem5_14_TwoBoxDimensionRecursion.lean` -- Lemma 5.14
-  (`lem:dimension-two-strip-recurrence`): external two-strip
-  Pieri/Littlewood-Richardson dimension branching input, exposed as the named
-  axiom `twoStripDimensionBranchingAssumption_from_specht_pieri` and the
-  typeclass `TwoStripDimensionBranchingAssumption`.
+  (`lem:dimension-two-strip-recurrence`): the current paper route uses the
+  proved `tableauDim` wrapper
+  `S05_Lem5_14_tableauDim_twoStrip_branching_sized`.  The older `youngDim`
+  wrapper remains only as an explicit external alternative requiring
+  `[TwoStripDimensionBranchingAssumption]`; no axiom instance is registered.
 - `S05_Lem5_15_OneBoxDimensionRecursion.lean` -- Lemma 5.15
-  (`lem:dimension-one-box-recurrence`): ordinary one-box dimension branching
-  input.  The `m = 0` and `m = 1` cases are proved directly; the remaining
-  external input is exposed as the named axiom
-  `oneBoxDimensionBranchingPositiveAssumption_from_specht_branching` and the
-  typeclass `OneBoxDimensionBranchingPositiveAssumption`.
+  (`lem:dimension-one-box-recurrence`): the current paper route uses the
+  proved `tableauDim` wrapper
+  `S05_Lem5_15_tableauDim_oneBoxChildrenOdd_branching`.  The older `youngDim`
+  wrapper remains only as an explicit external alternative requiring
+  `[OneBoxDimensionBranchingPositiveAssumption]`; no axiom instance is
+  registered.
 - `S05_Lem5_18_MatchingSubgroupEigenbasis.lean` -- Lemma 5.18
   (`lem:matching-restriction-X`): the paper-level statement is the full
   Specht/Pieri restriction theorem.  The current Lean file formalizes only the
@@ -231,8 +233,12 @@ as named axioms:
   scalar model.  Theorem 4.10, Proposition 4.12, Lemma 4.13, and Theorem 1.1
   now use these named external inputs directly rather than taking anonymous
   model-family arguments.
-- The active Theorem 4.10 path still uses the original `youngDim` spectral model.
-  The tableau-count bridge is ready at the algebraic level, but consuming it
+- The active Theorem 4.10 path still uses the original `youngDim` spectral
+  model, so Theorem 4.10 and the downstream wrappers carry
+  `[TwoStripDimensionBranchingAssumption]` and
+  `[OneBoxDimensionBranchingPositiveAssumption]` explicitly.  No instance is
+  registered for those assumptions.
+- The tableau-count bridge is ready at the algebraic level, but consuming it
   requires a `SpectralBlockModelInputWithDim` instance for `tableauDim` and the
   tableau-count heights `hEvenTableau`/`hOddTableau`.
 

@@ -82,6 +82,7 @@ theorems:
 - A.4 Degree-one Young-block identification.
 - A.5 Connectedness of standard tableaux.
 
-The Appendix A files do not add axioms.  Existing named axioms remain in the
-dimension-branching and spectral-block-model helper files and are tracked in
-`PROOF_OBLIGATIONS.md`.
+The Appendix A files do not add axioms.  The current Section 5 tableau-count
+dimension route also no longer registers the older `youngDim`
+dimension-branching instances.  The remaining named axioms are the
+spectral-block-model inputs tracked in `PROOF_OBLIGATIONS.md`.

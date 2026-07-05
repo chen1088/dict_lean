@@ -6,13 +6,12 @@ precise external theorem or a precise internal theorem still intended for Lean.
 
 Current classification:
 
-- External standard inputs: Section 2 structural/stability theorems, explicit
-  Specht dimension-branching hypotheses, and the representation-theoretic
-  pieces of the Section 5 spectral bridge.
+- External standard inputs: Section 2 structural/stability theorems and the
+  representation-theoretic pieces of the Section 5 spectral bridge.
 - Internal finite certificates: Lemmas 5.30, 5.32, and 5.34 have
   tableau-count versions proved in Lean.  The older `youngDim` variants still
-  depend on the named dimension-branching inputs and are not the current
-  tableau-count proof route.
+  require explicit dimension-branching typeclass hypotheses and are not the
+  current tableau-count proof route.
 - Internal open finite certificates: none currently listed.
 
 ## Current Section 5 Route Summary
@@ -30,6 +29,10 @@ Proven current Section 5 components:
   `S05_Lem5_32_tableau_even_certificate`.
 - Lemma 5.34 tableauDim odd certificate:
   `S05_Lem5_34_tableau_odd_certificate`.
+- Lemma 5.14 tableauDim two-strip dimension recursion:
+  `S05_Lem5_14_tableauDim_twoStrip_branching_sized`.
+- Lemma 5.15 tableauDim one-box dimension recursion:
+  `S05_Lem5_15_tableauDim_oneBoxChildrenOdd_branching`.
 - Dimension-parameterized spectral bridge algebra:
   `SpectralGapFromBlockScalarsWithDim` and
   `SpectralGapFromBlockModelWithDim`.
@@ -60,8 +63,11 @@ Obsolete old routes:
 
 - No active file is classified as obsolete.  The older `youngDim` variants of
   Lemmas 5.30, 5.32, and 5.34 remain in their paper files for compatibility and
-  for the original Specht-dimension route, but the current proof-status tables
-  promote the tableau-count statements.
+  for the original Specht-dimension route.  They now require explicit
+  `TwoStripDimensionBranchingAssumption` and/or
+  `OneBoxDimensionBranchingPositiveAssumption` hypotheses; no axiom instance is
+  registered for those assumptions.  The current proof-status tables promote
+  the tableau-count statements.
 - The active helper files for local convolution and spectral certificate
   algebra are `Aux_PMConvolution.lean` and
   `Aux_SpectralBridgeFromCertificates.lean`.
@@ -127,10 +133,13 @@ expose these wrappers for the paper-facing interface.
 
 Precise active-path blocker: Theorem 4.10 still uses the old `youngDim`
 spectral model and has not yet been rewired through the new dimension-parametric
-interface.  The remaining Section 5 mathematical input is the tableauDim
-spectral block model itself: Young-block decomposition, `U_1` identification,
-matching-average scalarity, and trace/scalar value with block dimension
-`tableauDim`.
+interface.  Theorem 4.10 and downstream wrappers therefore carry
+`[TwoStripDimensionBranchingAssumption]` and
+`[OneBoxDimensionBranchingPositiveAssumption]` explicitly; no instance is
+registered for those assumptions.  The remaining Section 5 mathematical input
+for the tableau-count route is the tableauDim spectral block model itself:
+Young-block decomposition, `U_1` identification, matching-average scalarity,
+and trace/scalar value with block dimension `tableauDim`.
 
 The newest internal representation-layer objects are still coordinate-level:
 they give a concrete Young adjacent Coxeter model, not a formal Specht-module
@@ -207,24 +216,27 @@ Downstream dependencies: one-trial soundness and the main theorem.
 
 ## Paper-Level Obligations Without a Current `sorry`
 
-### Lemma 5.14 Two-Box Dimension Branching
+### Older `youngDim` Two-Box Dimension Branching Alternative
 
-Paper statement: Lemma 5.14 (`lem:dimension-two-strip-recurrence`).
+Current paper statement: Lemma 5.14 (`lem:dimension-two-strip-recurrence`) is
+represented by the proved `tableauDim` wrapper
+`S05_Lem5_14_tableauDim_twoStrip_branching_sized`.
 
 Lean file: `DictatorshipTesting/Paper/S05_Lem5_14_TwoBoxDimensionRecursion.lean`
 
-Lean names: `twoStripDimensionBranchingAssumption_from_specht_pieri`,
-`TwoStripDimensionBranchingAssumption`,
+Older alternative Lean names: `TwoStripDimensionBranchingAssumption`,
 `youngDim_twoStrip_branching_input`.
 
-Current status: named external axiom/instance, not a `sorry` declaration.
+Current status: no axiom is registered.  The older `youngDim` wrapper is a
+theorem with an explicit `[TwoStripDimensionBranchingAssumption]` hypothesis and
+is not part of the current tableau-count proof spine.
 
 Mathematical content: for `lambda |- 2m`, the Young dimension satisfies the
 two-strip recursion
 `d_lambda = sum_{horizontal two-strip children} d_mu
           + sum_{vertical two-strip children} d_mu`.
 
-Why it is external or why it should be proven: this is the dimension shadow of
+Why the older route is external: this is the dimension shadow of
 Specht-module restriction via the two-strip Pieri/Littlewood--Richardson rule.
 It should become internal only after a formal Specht-module/branching library is
 available.
@@ -234,36 +246,43 @@ Symmetric Group*, Section 2.8.13; Bowman--De Visscher--Orellana,
 arXiv:1210.5579, Theorem 1.1 and the paragraph following it; Sagan,
 *The Symmetric Group*, for the Pieri/Littlewood--Richardson background.
 
-Downstream dependencies: finite certificates `L5_4_ZBoundApp` and
-`L5_5_HEvenApp`, which now carry `[TwoStripDimensionBranchingAssumption]`.
+Downstream dependencies: only older `youngDim` alternatives such as
+`L5_4_ZBoundApp`, `L5_5_HEvenApp`, and related compatibility wrappers carry
+`[TwoStripDimensionBranchingAssumption]`.  The promoted Lemmas 5.14, 5.30, and
+5.32 use `tableauDim` and do not need it.
 
-### Lemma 5.15 One-Box Dimension Branching
+### Older `youngDim` One-Box Dimension Branching Alternative
 
-Paper statement: Lemma 5.15 (`lem:dimension-one-box-recurrence`).
+Current paper statement: Lemma 5.15 (`lem:dimension-one-box-recurrence`) is
+represented by the proved `tableauDim` wrapper
+`S05_Lem5_15_tableauDim_oneBoxChildrenOdd_branching`.
 
 Lean file: `DictatorshipTesting/Paper/S05_Lem5_15_OneBoxDimensionRecursion.lean`
 
-Lean names:
-`oneBoxDimensionBranchingPositiveAssumption_from_specht_branching`,
+Older alternative Lean names:
 `OneBoxDimensionBranchingPositiveAssumption`,
 `youngDim_oneBox_branching_positive_input`,
 `youngDim_oneBox_branching_input`.
 
-Current status: named external axiom/instance for `2 <= m`, not a `sorry`
-declaration.  The `m = 0` and `m = 1` cases are proved directly.
+Current status: no axiom is registered.  The older positive-range `youngDim`
+wrapper is a theorem with an explicit
+`[OneBoxDimensionBranchingPositiveAssumption]` hypothesis.  The `m = 0` and
+`m = 1` cases are proved directly.
 
 Mathematical content: for `lambda |- 2m+1`, the Young dimension is the sum of
 the dimensions of its one-box children.
 
-Why it is external or why it should be proven: this is the ordinary branching
-rule for Specht modules.  The remaining positive-range proof needs formal
-Specht-module infrastructure.
+Why the older route is external: this is the ordinary branching rule for Specht
+modules.  The remaining positive-range proof needs formal Specht-module
+infrastructure.
 
 Citation target if external: ordinary Specht-module branching rule, e.g. Sagan,
 *The Symmetric Group*, Section 2.8, or James--Kerber.
 
-Downstream dependencies: finite certificate `L5_6_HOddApp`, which now carries
-`[OneBoxDimensionBranchingPositiveAssumption]`.
+Downstream dependencies: only older `youngDim` alternatives such as
+`L5_6_HOddApp` and related compatibility wrappers carry
+`[OneBoxDimensionBranchingPositiveAssumption]`.  The promoted Lemmas 5.15 and
+5.34 use `tableauDim` and do not need it.
 
 ### Lemmas 5.26--5.28 Spectral Block Model Families
 
@@ -308,8 +327,9 @@ following it; Pieri special cases for the two-strip matching-subgroup chain.
 
 Downstream dependencies: `L5_2_SpectralCertificate`,
 `Thm4_10_MatchingGap`, `Prop4_12_SquareEnergyControlsGlobalDegree`,
-`L4_13_OneTrialSoundness`, and `Thm1_1_MainIntro`, which now use the named
-external spectral block model axioms directly.
+`L4_13_OneTrialSoundness`, and `Thm1_1_MainIntro`, which use the named
+external spectral block model axioms directly and carry the older dimension
+typeclass hypotheses explicitly until the tableauDim spectral model is supplied.
 
 ### Lemma 5.18 Full Matching-Restriction/Pieri Statement
 

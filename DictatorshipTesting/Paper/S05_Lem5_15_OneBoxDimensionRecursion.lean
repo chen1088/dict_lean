@@ -4,18 +4,15 @@ import DictatorshipTesting.Paper.Aux_TableauDimension
 Paper statement: Lemma 5.15 (`lem:dimension-one-box-recurrence`)
 Title in paper: One-box dimension recursion.
 
-Status: the `youngDim` statement remains an external representation-theoretic
-input for `2 <= m`, because `youngDim` is currently the hook-length dimension
-proxy.  The small cases `m = 0` and `m = 1` are proved directly below.
-
-The final section exposes an assumption-free replacement layer for
-`tableauDim`, the dimension obtained by counting standard Young tableaux.  This
-is the intended route toward eventually removing the `youngDim` input once the
-hook-length/tableau-count equality is formalized.
+Status: the paper-facing Section 5 route uses the assumption-free
+`tableauDim` one-box recursion proved below.  The older `youngDim` wrapper is
+kept only as an explicit external-alternative theorem requiring
+`[OneBoxDimensionBranchingPositiveAssumption]`; this file no longer provides a
+bundled instance for that assumption.
 -/
 
 /-!
-# Young-dimension one-box branching input for Lemma 5.16
+# Young-dimension one-box branching interface for the older route
 
 This file isolates the dimension shadow of the ordinary one-box branching rule
 used in the odd Section 5 certificate.
@@ -23,7 +20,9 @@ used in the odd Section 5 certificate.
 For a Young diagram `lambda` with `2*m+1` boxes, the Specht dimension is the
 sum of the dimensions of its one-box children.  This is the standard ordinary
 branching input for restricting from `S_{2m+1}` to `S_{2m}`; in this scaffold,
-only the remaining `2 <= m` case is external.
+only the remaining `2 <= m` case is external.  No instance is registered
+here; callers of the older route must carry
+`[OneBoxDimensionBranchingPositiveAssumption]` explicitly.
 -/
 
 noncomputable section
@@ -346,18 +345,6 @@ branching rule in the remaining `2 <= m` range. -/
 class OneBoxDimensionBranchingPositiveAssumption : Prop where
   branch : ∀ (m : ℕ), 2 ≤ m → ∀ lam : YoungDiagram (2 * m + 1),
     youngDim lam = (oneBoxChildrenOdd m lam).sum (fun mu => youngDim mu)
-
-/-- External ordinary Specht branching input.
-
-Reference: the ordinary branching rule for Specht modules, e.g. Sagan,
-*The Symmetric Group*, Section 2.8, or James--Kerber, *The Representation
-Theory of the Symmetric Group*. The rule says that restricting `S^lambda` from
-`S_N` to `S_{N-1}` decomposes over all removable-corner deletions. Taking
-dimensions gives this one-box recursion. -/
-axiom oneBoxDimensionBranchingPositiveAssumption_from_specht_branching :
-  OneBoxDimensionBranchingPositiveAssumption
-
-attribute [instance] oneBoxDimensionBranchingPositiveAssumption_from_specht_branching
 
 /-- Dimension shadow of the ordinary one-box branching rule in the remaining
 `2 <= m` range, available from the explicit assumption class. -/

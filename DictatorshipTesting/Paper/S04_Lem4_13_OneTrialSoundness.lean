@@ -10,9 +10,11 @@ This is `lem:one-trial-soundness` from `dictatorship_testing_soda27_latest.tex`.
 
 namespace DictatorshipTesting
 
-/-- Lemma 4.13, `lem:one-trial-soundness`: one-trial soundness, using the
-named external representation-theoretic inputs behind Theorem 4.10. -/
-theorem L4_13_OneTrialSoundness :
+/-- Lemma 4.13, `lem:one-trial-soundness`: one-trial soundness, carrying the
+same explicit older-dimension-route assumptions as Theorem 4.10. -/
+theorem L4_13_OneTrialSoundness
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption] :
     ∃ c0 : ℝ, 0 < c0 ∧
       ∀ n : ℕ, 4 ≤ n → ∀ f : BoolFn (Fin n),
         c0 * (distToDictators f) ^ (2 : ℕ) ≤ oneTrialRejectProbability f := by

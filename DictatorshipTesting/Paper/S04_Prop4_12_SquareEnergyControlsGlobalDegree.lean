@@ -9,9 +9,11 @@ This is the proposition containing equation `eq:square-energy-global-bound`.
 
 namespace DictatorshipTesting
 
-/-- Proposition 4.12: square energy controls global degree, using the named
-external representation-theoretic inputs behind Theorem 4.10. -/
+/-- Proposition 4.12: square energy controls global degree, carrying the same
+explicit older-dimension-route assumptions as Theorem 4.10. -/
 theorem Prop4_12_SquareEnergyControlsGlobalDegree
+    [TwoStripDimensionBranchingAssumption]
+    [OneBoxDimensionBranchingPositiveAssumption]
     (n : ℕ) (hn : 4 ≤ n)
     (F : Perm (Fin n) → ℝ) :
     (16 / 27 : ℝ) * l2DistSqToU1 F ≤ oneTrialDeltaSqExpectation F := by

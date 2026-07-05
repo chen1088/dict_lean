@@ -4,27 +4,26 @@ import DictatorshipTesting.Paper.Aux_TableauDimension
 Paper statement: Lemma 5.14 (`lem:dimension-two-strip-recurrence`)
 Title in paper: Two-box dimension recursion.
 
-Status: the `youngDim` statement remains an external representation-theoretic
-input, because `youngDim` is currently the hook-length dimension proxy.  The
-final section exposes the assumption-free tableau-count layer: fixed ordered
-two-step deletion fibers, the ordered two-step deletion recursion, the
-multiplicity-preserving reindexing by tagged horizontal/vertical two-strip
-children, and the sized two-strip branching theorem for `tableauDim`.
+Status: the paper-facing Section 5 route uses the assumption-free
+`tableauDim` two-strip recursion proved below.  The older `youngDim` wrapper is
+kept only as an explicit external-alternative theorem requiring
+`[TwoStripDimensionBranchingAssumption]`; this file no longer provides a
+bundled instance for that assumption.
 -/
 
 /-!
-# Young-dimension branching input for Lemma 5.15
+# Young-dimension branching interface for the older route
 
 This file isolates the dimension shadow of the two-strip
-Pieri/Littlewood-Richardson branching rule used in Section 5.
+Pieri/Littlewood-Richardson branching rule used by the older `youngDim` route.
+The current Section 5 proof spine uses the proved `tableauDim` recursion below.
 
 The finite Z-bound induction only needs this scalar consequence:
 
 `d_lambda = sum_{horizontal children} d_mu + sum_{vertical children} d_mu`.
 
-It is intentionally kept out of `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority`: it is a standard
-representation-theoretic branching input, not an internal finite certificate
-gap.
+No instance is registered here; callers of the older route must carry
+`[TwoStripDimensionBranchingAssumption]` explicitly.
 -/
 
 noncomputable section
@@ -40,19 +39,6 @@ class TwoStripDimensionBranchingAssumption : Prop where
     youngDim lam =
       (horizontalTwoStripChildrenEven m lam).sum (fun mu => youngDim mu) +
         (verticalTwoStripChildrenEven m lam).sum (fun mu => youngDim mu)
-
-/-- External Specht/Pieri dimension-branching input.
-
-Reference: James--Kerber, *The Representation Theory of the Symmetric Group*,
-Section 2.8.13 (Littlewood--Richardson rule), as quoted for restriction to
-Young subgroups in Bowman--De Visscher--Orellana, arXiv:1210.5579, Theorem 1.1
-and the paragraph following it. Specializing the second factor to the two
-partitions of `2`, `(2)` and `(1,1)`, gives the horizontal/vertical two-strip
-Pieri cases. Taking dimensions gives this recursion. -/
-axiom twoStripDimensionBranchingAssumption_from_specht_pieri :
-  TwoStripDimensionBranchingAssumption
-
-attribute [instance] twoStripDimensionBranchingAssumption_from_specht_pieri
 
 /-- Dimension shadow of the two-strip branching rule, available from the
 explicit assumption class. -/
