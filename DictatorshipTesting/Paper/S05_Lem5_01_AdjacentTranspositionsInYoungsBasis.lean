@@ -1244,6 +1244,24 @@ theorem S05_Lem5_01_adjacentWordPerm_respects_coxeter_equiv
     adjacentWordPerm w = adjacentWordPerm w' := by
   exact adjacentWordPerm_respects_coxeter_equiv h
 
+/-- Lemma 5.1 Coxeter-class component: the Young adjacent word action descends
+to the Coxeter-word quotient. -/
+theorem S05_Lem5_01_youngAdjacentCoxeterClassOperator_mk
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (w : AdjacentWord n) :
+    youngAdjacentCoxeterClassOperator (lam := lam)
+        (AdjacentCoxeterClass.mk w) =
+      youngAdjacentWordOperator (lam := lam) w := by
+  rfl
+
+/-- Lemma 5.1 Coxeter-class component: the adjacent-word permutation shadow also
+descends to the Coxeter-word quotient. -/
+theorem S05_Lem5_01_adjacentCoxeterClassPerm_mk
+    {n : Nat} (w : AdjacentWord n) :
+    adjacentCoxeterClassPerm (AdjacentCoxeterClass.mk w) =
+      adjacentWordPerm w := by
+  rfl
+
 /-- Strongest axiom-free Lemma 5.1 package currently formalized: the concrete
 Young adjacent operators are the generators of a Coxeter action model, their
 word action is invariant under Coxeter moves, and the same moves preserve the
@@ -1271,8 +1289,15 @@ theorem S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel
       youngAdjacentWordOperator (lam := lam) w =
         youngAdjacentWordOperator (lam := lam) w') ∧
     (∀ {w w' : AdjacentWord n}, AdjacentWord.CoxeterEquiv w w' →
-      adjacentWordPerm w = adjacentWordPerm w') := by
-  refine ⟨rfl, ?_, ?_, ?_, ?_, ?_⟩
+      adjacentWordPerm w = adjacentWordPerm w') ∧
+    (∀ w : AdjacentWord n,
+      youngAdjacentCoxeterClassOperator (lam := lam)
+          (AdjacentCoxeterClass.mk w) =
+        youngAdjacentWordOperator (lam := lam) w) ∧
+    (∀ w : AdjacentWord n,
+      adjacentCoxeterClassPerm (AdjacentCoxeterClass.mk w) =
+        adjacentWordPerm w) := by
+  refine ⟨rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · intro a f
     exact youngAdjacentOperator_sq a f
   · intro a b hdisj f
@@ -1283,5 +1308,9 @@ theorem S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel
     exact youngAdjacentWordOperator_respects_coxeter_equiv (lam := lam) h
   · intro w w' h
     exact adjacentWordPerm_respects_coxeter_equiv h
+  · intro w
+    rfl
+  · intro w
+    rfl
 
 end DictatorshipTesting
