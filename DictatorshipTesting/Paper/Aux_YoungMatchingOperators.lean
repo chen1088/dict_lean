@@ -637,6 +637,80 @@ theorem canonicalMatchingCubeOperatorOdd_apply_character_of_isMatchingEigenvecto
   rw [canonicalMatchingCubeOperatorOdd_apply_of_isMatchingEigenvector hf x]
   rw [matchingEdgeSign_finRange_product_eq_cubeChar R x]
 
+/-- The `+1` projection for one even canonical matching edge. -/
+noncomputable def matchingEdgePlusProjectionEven
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f : TableauSpace lam) : TableauSpace lam :=
+  (1 / 2 : ℝ) •
+    (fun T => f T + canonicalMatchingYoungOperatorEven r f T)
+
+/-- The `-1` projection for one even canonical matching edge. -/
+noncomputable def matchingEdgeMinusProjectionEven
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f : TableauSpace lam) : TableauSpace lam :=
+  (1 / 2 : ℝ) •
+    (fun T => f T - canonicalMatchingYoungOperatorEven r f T)
+
+/-- The `+1` projection for one odd canonical matching edge. -/
+noncomputable def matchingEdgePlusProjectionOdd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f : TableauSpace lam) : TableauSpace lam :=
+  (1 / 2 : ℝ) •
+    (fun T => f T + canonicalMatchingYoungOperatorOdd r f T)
+
+/-- The `-1` projection for one odd canonical matching edge. -/
+noncomputable def matchingEdgeMinusProjectionOdd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f : TableauSpace lam) : TableauSpace lam :=
+  (1 / 2 : ℝ) •
+    (fun T => f T - canonicalMatchingYoungOperatorOdd r f T)
+
+theorem matchingEdgePlusProjectionEven_isPlusEigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (matchingEdgePlusProjectionEven r f) =
+      matchingEdgePlusProjectionEven r f := by
+  unfold matchingEdgePlusProjectionEven
+  rw [canonicalMatchingYoungOperatorEven_smul,
+    canonicalMatchingYoungOperatorEven_plusEigenVec]
+
+theorem matchingEdgeMinusProjectionEven_isMinusEigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (matchingEdgeMinusProjectionEven r f) =
+      (-1 : ℝ) • matchingEdgeMinusProjectionEven r f := by
+  unfold matchingEdgeMinusProjectionEven
+  rw [canonicalMatchingYoungOperatorEven_smul,
+    canonicalMatchingYoungOperatorEven_minusEigenVec]
+  funext T
+  simp [Pi.smul_apply]
+  ring
+
+theorem matchingEdgePlusProjectionOdd_isPlusEigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (matchingEdgePlusProjectionOdd r f) =
+      matchingEdgePlusProjectionOdd r f := by
+  unfold matchingEdgePlusProjectionOdd
+  rw [canonicalMatchingYoungOperatorOdd_smul,
+    canonicalMatchingYoungOperatorOdd_plusEigenVec]
+
+theorem matchingEdgeMinusProjectionOdd_isMinusEigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (matchingEdgeMinusProjectionOdd r f) =
+      (-1 : ℝ) • matchingEdgeMinusProjectionOdd r f := by
+  unfold matchingEdgeMinusProjectionOdd
+  rw [canonicalMatchingYoungOperatorOdd_smul,
+    canonicalMatchingYoungOperatorOdd_minusEigenVec]
+  funext T
+  simp [Pi.smul_apply]
+  ring
+
 theorem canonicalMatchingYoungOperatorEven_basis_sameRow
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
     (T : StandardYoungTableau lam) (r : Fin m)

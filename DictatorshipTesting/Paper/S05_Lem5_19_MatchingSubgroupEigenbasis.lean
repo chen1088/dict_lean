@@ -183,6 +183,46 @@ theorem S05_Lem5_19_matchingCube_character_action_odd
   exact canonicalMatchingCubeOperatorOdd_apply_character_of_isMatchingEigenvector
     hf x
 
+/-- Lemma 5.19 projection component: the one-edge even plus projection lands in
+the `+1` eigenspace of that edge. -/
+theorem S05_Lem5_19_matchingEdgePlusProjectionEven_isPlusEigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (matchingEdgePlusProjectionEven r f) =
+      matchingEdgePlusProjectionEven r f := by
+  exact matchingEdgePlusProjectionEven_isPlusEigen r f
+
+/-- Lemma 5.19 projection component: the one-edge even minus projection lands
+in the `-1` eigenspace of that edge. -/
+theorem S05_Lem5_19_matchingEdgeMinusProjectionEven_isMinusEigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (matchingEdgeMinusProjectionEven r f) =
+      (-1 : ℝ) • matchingEdgeMinusProjectionEven r f := by
+  exact matchingEdgeMinusProjectionEven_isMinusEigen r f
+
+/-- Lemma 5.19 projection component: the one-edge odd plus projection lands in
+the `+1` eigenspace of that edge. -/
+theorem S05_Lem5_19_matchingEdgePlusProjectionOdd_isPlusEigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (matchingEdgePlusProjectionOdd r f) =
+      matchingEdgePlusProjectionOdd r f := by
+  exact matchingEdgePlusProjectionOdd_isPlusEigen r f
+
+/-- Lemma 5.19 projection component: the one-edge odd minus projection lands
+in the `-1` eigenspace of that edge. -/
+theorem S05_Lem5_19_matchingEdgeMinusProjectionOdd_isMinusEigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (matchingEdgeMinusProjectionOdd r f) =
+      (-1 : ℝ) • matchingEdgeMinusProjectionOdd r f := by
+  exact matchingEdgeMinusProjectionOdd_isMinusEigen r f
+
 /-- Lemma 5.19 one-edge component: an even matching edge fixes a same-row
 tableau basis vector. -/
 theorem S05_Lem5_19_matchingEdge_basis_sameRow_even
