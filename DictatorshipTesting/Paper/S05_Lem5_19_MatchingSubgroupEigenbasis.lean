@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.Aux_YoungMatchingOperators
+import DictatorshipTesting.Paper.S05_Def5_18_MatchingCharacters
 import DictatorshipTesting.Paper.S05_Lem5_36_OddCertificate
 
 /-!
@@ -145,6 +146,42 @@ theorem S05_Lem5_19_canonicalMatchingCubeOperatorOdd_xor
       fun f => canonicalMatchingCubeOperatorOdd (lam := lam) x
         (canonicalMatchingCubeOperatorOdd (lam := lam) y f) := by
   exact canonicalMatchingCubeOperatorOdd_xor x y
+
+/-- Lemma 5.19 matching-character component: simultaneous even matching-edge
+eigenvectors are indexed by a character support. -/
+abbrev S05_IsMatchingEigenvectorEven
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (f : TableauSpace lam) (R : Finset (Fin m)) : Prop :=
+  IsMatchingEigenvectorEven f R
+
+/-- Lemma 5.19 matching-character component: simultaneous odd matching-edge
+eigenvectors are indexed by a character support. -/
+abbrev S05_IsMatchingEigenvectorOdd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (f : TableauSpace lam) (R : Finset (Fin m)) : Prop :=
+  IsMatchingEigenvectorOdd f R
+
+/-- Lemma 5.19 matching-character component: on an even simultaneous
+matching-edge eigenspace, the cube action is the matching character. -/
+theorem S05_Lem5_19_matchingCube_character_action_even
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    {f : TableauSpace lam} {R : Finset (Fin m)}
+    (hf : S05_IsMatchingEigenvectorEven f R) (x : Cube m) :
+    canonicalMatchingCubeOperatorEven (lam := lam) x f =
+      S05_matchingCharacter R x • f := by
+  exact canonicalMatchingCubeOperatorEven_apply_character_of_isMatchingEigenvector
+    hf x
+
+/-- Lemma 5.19 matching-character component: on an odd simultaneous
+matching-edge eigenspace, the cube action is the matching character. -/
+theorem S05_Lem5_19_matchingCube_character_action_odd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {f : TableauSpace lam} {R : Finset (Fin m)}
+    (hf : S05_IsMatchingEigenvectorOdd f R) (x : Cube m) :
+    canonicalMatchingCubeOperatorOdd (lam := lam) x f =
+      S05_matchingCharacter R x • f := by
+  exact canonicalMatchingCubeOperatorOdd_apply_character_of_isMatchingEigenvector
+    hf x
 
 /-- Lemma 5.19 one-edge component: an even matching edge fixes a same-row
 tableau basis vector. -/

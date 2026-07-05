@@ -196,6 +196,34 @@ theorem canonicalMatchingYoungOperatorOdd_comm
     (canonicalNearMatchingAdjacentIndex m s)
     (canonicalNearMatchingAdjacentIndex_disjoint m hrs) f
 
+theorem canonicalMatchingYoungOperatorEven_smul
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (c : ℝ) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r (c • f) =
+      c • canonicalMatchingYoungOperatorEven r f := by
+  unfold canonicalMatchingYoungOperatorEven
+  funext T
+  change
+    youngAdjacentOperator (canonicalMatchingAdjacentIndex m r)
+        (fun S => c * f S) T =
+      c * youngAdjacentOperator (canonicalMatchingAdjacentIndex m r) f T
+  exact congrFun
+    (youngAdjacentOperator_smul (canonicalMatchingAdjacentIndex m r) c f) T
+
+theorem canonicalMatchingYoungOperatorOdd_smul
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (c : ℝ) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r (c • f) =
+      c • canonicalMatchingYoungOperatorOdd r f := by
+  unfold canonicalMatchingYoungOperatorOdd
+  funext T
+  change
+    youngAdjacentOperator (canonicalNearMatchingAdjacentIndex m r)
+        (fun S => c * f S) T =
+      c * youngAdjacentOperator (canonicalNearMatchingAdjacentIndex m r) f T
+  exact congrFun
+    (youngAdjacentOperator_smul (canonicalNearMatchingAdjacentIndex m r) c f) T
+
 /-- Compose a list of endomorphisms in the displayed order. -/
 def composeOperatorList {V : Type*} : List (V -> V) -> V -> V
   | [] => id
@@ -287,6 +315,117 @@ theorem indexedOperatorListProduct_xor_apply {ι V : Type*}
         (indexedOperatorListProduct A x L (indexedOperatorListProduct A y L v))]
       rw [operatorBit_commute_indexedOperatorListProduct
         (A := A) hcomm x y i L (indexedOperatorListProduct A y L v)]
+
+/-- If each generator acts by a scalar on a vector, then the fixed-order
+Boolean-selected product acts by the product of the selected scalars. -/
+theorem indexedOperatorListProduct_eigen_apply {ι V : Type*} [MulAction ℝ V]
+    {A : ι -> V -> V} {c : ι -> ℝ}
+    (hA : ∀ i v, A i v = c i • v)
+    (x : ι -> Bool) (L : List ι) (v : V) :
+    indexedOperatorListProduct A x L v =
+      ((L.map fun i => if x i then c i else 1).prod) • v := by
+  induction L generalizing v with
+  | nil =>
+      simp [indexedOperatorListProduct]
+  | cons i L ih =>
+      by_cases hxi : x i
+      · simp [indexedOperatorListProduct, operatorBit, hxi, hA, ih, mul_smul]
+      · simp [indexedOperatorListProduct, operatorBit, hxi, ih]
+
+/-- Fixed-vector version of `indexedOperatorListProduct_eigen_apply`: if one
+vector is a simultaneous eigenvector and the operators are homogeneous on its
+scalar multiples, then the product acts by the product of the eigenvalues. -/
+theorem indexedOperatorListProduct_eigenvector_apply {ι V : Type*}
+    [MulAction ℝ V]
+    {A : ι -> V -> V} {c : ι -> ℝ} (v : V)
+    (hsmul : ∀ i (a : ℝ), A i (a • v) = a • A i v)
+    (hA : ∀ i, A i v = c i • v)
+    (x : ι -> Bool) (L : List ι) :
+    indexedOperatorListProduct A x L v =
+      ((L.map fun i => if x i then c i else 1).prod) • v := by
+  induction L with
+  | nil =>
+      simp [indexedOperatorListProduct]
+  | cons i L ih =>
+      by_cases hxi : x i
+      · simp [indexedOperatorListProduct, operatorBit, hxi]
+        rw [ih]
+        rw [hsmul i ((L.map fun i => if x i then c i else 1).prod)]
+        rw [hA i]
+        rw [smul_smul]
+        rw [mul_comm]
+      · simp [indexedOperatorListProduct, operatorBit, hxi, ih]
+
+/-- The sign of one matching-cube edge for a character support. -/
+def matchingEdgeSign {m : Nat} (R : Finset (Fin m)) (r : Fin m) : ℝ :=
+  if r ∈ R then -1 else 1
+
+/-- The fixed-order product of selected edge signs is the matching-cube
+character with the same support. -/
+theorem matchingEdgeSign_finRange_product_eq_cubeChar
+    {m : Nat} (R : Finset (Fin m)) (x : Cube m) :
+    ((List.finRange m).map
+      (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod =
+      cubeChar R x := by
+  change ((Finset.univ : Finset (Fin m)).val.map
+      (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod =
+      cubeChar R x
+  change (Finset.univ : Finset (Fin m)).prod
+      (fun r : Fin m => if x r then matchingEdgeSign R r else 1) =
+      cubeChar R x
+  unfold cubeChar matchingEdgeSign
+  have hswap :
+      (Finset.univ : Finset (Fin m)).prod
+          (fun r : Fin m => if x r then (if r ∈ R then (-1 : ℝ) else 1) else 1) =
+        (Finset.univ : Finset (Fin m)).prod
+          (fun r : Fin m => if r ∈ R then (if x r then (-1 : ℝ) else 1) else 1) := by
+    apply Finset.prod_congr rfl
+    intro r _hr
+    by_cases hx : x r <;> by_cases hr : r ∈ R <;> simp [hx, hr]
+  rw [hswap]
+  rw [Finset.prod_ite_mem_eq]
+
+/-- Simultaneous eigenspace predicate for the canonical even matching edges. -/
+def IsMatchingEigenvectorEven
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (f : TableauSpace lam) (R : Finset (Fin m)) : Prop :=
+  ∀ r : Fin m,
+    canonicalMatchingYoungOperatorEven r f = matchingEdgeSign R r • f
+
+/-- Simultaneous eigenspace predicate for the canonical odd matching edges. -/
+def IsMatchingEigenvectorOdd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (f : TableauSpace lam) (R : Finset (Fin m)) : Prop :=
+  ∀ r : Fin m,
+    canonicalMatchingYoungOperatorOdd r f = matchingEdgeSign R r • f
+
+theorem IsMatchingEigenvectorEven.edge_mem
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    {f : TableauSpace lam} {R : Finset (Fin m)}
+    (hf : IsMatchingEigenvectorEven f R) {r : Fin m} (hr : r ∈ R) :
+    canonicalMatchingYoungOperatorEven r f = (-1 : ℝ) • f := by
+  simpa [IsMatchingEigenvectorEven, matchingEdgeSign, hr] using hf r
+
+theorem IsMatchingEigenvectorEven.edge_notMem
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    {f : TableauSpace lam} {R : Finset (Fin m)}
+    (hf : IsMatchingEigenvectorEven f R) {r : Fin m} (hr : r ∉ R) :
+    canonicalMatchingYoungOperatorEven r f = (1 : ℝ) • f := by
+  simpa [IsMatchingEigenvectorEven, matchingEdgeSign, hr] using hf r
+
+theorem IsMatchingEigenvectorOdd.edge_mem
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {f : TableauSpace lam} {R : Finset (Fin m)}
+    (hf : IsMatchingEigenvectorOdd f R) {r : Fin m} (hr : r ∈ R) :
+    canonicalMatchingYoungOperatorOdd r f = (-1 : ℝ) • f := by
+  simpa [IsMatchingEigenvectorOdd, matchingEdgeSign, hr] using hf r
+
+theorem IsMatchingEigenvectorOdd.edge_notMem
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {f : TableauSpace lam} {R : Finset (Fin m)}
+    (hf : IsMatchingEigenvectorOdd f R) {r : Fin m} (hr : r ∉ R) :
+    canonicalMatchingYoungOperatorOdd r f = (1 : ℝ) • f := by
+  simpa [IsMatchingEigenvectorOdd, matchingEdgeSign, hr] using hf r
 
 /-- The edge operator selected by one cube bit in the even case. -/
 noncomputable def canonicalMatchingYoungOperatorEvenBit
@@ -445,6 +584,58 @@ theorem canonicalMatchingCubeOperatorOdd_xor
         (canonicalMatchingCubeOperatorOdd (lam := lam) y f) := by
   funext f
   exact canonicalMatchingCubeOperatorOdd_xor_apply x y f
+
+/-- On a simultaneous even matching eigenspace, a cube element acts by the
+product of its selected edge signs. -/
+theorem canonicalMatchingCubeOperatorEven_apply_of_isMatchingEigenvector
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    {f : TableauSpace lam} {R : Finset (Fin m)}
+    (hf : IsMatchingEigenvectorEven f R) (x : Cube m) :
+    canonicalMatchingCubeOperatorEven (lam := lam) x f =
+      ((List.finRange m).map
+        (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod • f := by
+  rw [canonicalMatchingCubeOperatorEven_eq_indexedProduct (lam := lam) x]
+  exact indexedOperatorListProduct_eigenvector_apply
+    (A := fun r : Fin m => canonicalMatchingYoungOperatorEven (lam := lam) r)
+    (c := fun r : Fin m => matchingEdgeSign R r) f
+    (fun r a => canonicalMatchingYoungOperatorEven_smul r a f)
+    hf x (List.finRange m)
+
+/-- On a simultaneous odd matching eigenspace, a cube element acts by the
+product of its selected edge signs. -/
+theorem canonicalMatchingCubeOperatorOdd_apply_of_isMatchingEigenvector
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {f : TableauSpace lam} {R : Finset (Fin m)}
+    (hf : IsMatchingEigenvectorOdd f R) (x : Cube m) :
+    canonicalMatchingCubeOperatorOdd (lam := lam) x f =
+      ((List.finRange m).map
+        (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod • f := by
+  rw [canonicalMatchingCubeOperatorOdd_eq_indexedProduct (lam := lam) x]
+  exact indexedOperatorListProduct_eigenvector_apply
+    (A := fun r : Fin m => canonicalMatchingYoungOperatorOdd (lam := lam) r)
+    (c := fun r : Fin m => matchingEdgeSign R r) f
+    (fun r a => canonicalMatchingYoungOperatorOdd_smul r a f)
+    hf x (List.finRange m)
+
+/-- On a simultaneous even matching eigenspace, a cube element acts by the
+matching character indexed by that eigenspace. -/
+theorem canonicalMatchingCubeOperatorEven_apply_character_of_isMatchingEigenvector
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    {f : TableauSpace lam} {R : Finset (Fin m)}
+    (hf : IsMatchingEigenvectorEven f R) (x : Cube m) :
+    canonicalMatchingCubeOperatorEven (lam := lam) x f = cubeChar R x • f := by
+  rw [canonicalMatchingCubeOperatorEven_apply_of_isMatchingEigenvector hf x]
+  rw [matchingEdgeSign_finRange_product_eq_cubeChar R x]
+
+/-- On a simultaneous odd matching eigenspace, a cube element acts by the
+matching character indexed by that eigenspace. -/
+theorem canonicalMatchingCubeOperatorOdd_apply_character_of_isMatchingEigenvector
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {f : TableauSpace lam} {R : Finset (Fin m)}
+    (hf : IsMatchingEigenvectorOdd f R) (x : Cube m) :
+    canonicalMatchingCubeOperatorOdd (lam := lam) x f = cubeChar R x • f := by
+  rw [canonicalMatchingCubeOperatorOdd_apply_of_isMatchingEigenvector hf x]
+  rw [matchingEdgeSign_finRange_product_eq_cubeChar R x]
 
 theorem canonicalMatchingYoungOperatorEven_basis_sameRow
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
