@@ -50,6 +50,11 @@ Detailed maps:
   rewrites the mean local rejection as the average of squared high-idempotent
   norms.  Operator centrality on Young blocks remains a representation-layer
   target.
+- Lemma 5.26 now exposes trace-model-to-gap algebra:
+  `S05_Lem5_26_spectralGapFromBlockTraceModel` and
+  `S05_Lem5_26_spectralGapFromBlockTraceModelWithDim` derive the spectral-gap
+  inequality directly from scalarity, a block trace identity, dimension
+  positivity, and the finite certificate.
 - Lemma 5.18 contains the current matching-cube operator algebra wrappers,
   including cube XOR laws, simultaneous matching-eigenvector predicates,
   matching-character action on simultaneous eigenvectors, and the first

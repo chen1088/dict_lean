@@ -344,6 +344,10 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   identities, including the high-idempotent norm formula
   `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average`.  The
   operator centrality refinement remains a representation-layer target.
+- `S05_Lem5_26_BlockLowerBoundImpliesTheGap.lean`: weighted-sum spectral-gap
+  algebra, including trace-model-to-gap wrappers
+  `S05_Lem5_26_spectralGapFromBlockTraceModel` and
+  `S05_Lem5_26_spectralGapFromBlockTraceModelWithDim`.
 - `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority.lean`: finite `zEven`
   certificate, with both the legacy `youngDim` theorem and the tableau-count
   theorem `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.

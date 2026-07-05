@@ -124,6 +124,13 @@ Proven Lemma 5.23 finite-average/high-idempotent components:
   mean rejection is the average of those squared high-idempotent norms.  The
   operator centrality statement remains a representation-layer target.
 
+Proven Lemma 5.26 trace-model-to-gap algebra:
+
+- `S05_Lem5_26_BlockLowerBoundImpliesTheGap.lean` -- Lemma 5.26
+  (`lem:block-lower-bound-gap`): proves the weighted-sum spectral-gap algebra,
+  including wrappers that start from scalarity, a block trace identity,
+  dimension positivity, and a finite certificate.
+
 Remaining Lemma 5.1 representation-theory boundary:
 
 - The Lean development does not claim a classical Specht-module
