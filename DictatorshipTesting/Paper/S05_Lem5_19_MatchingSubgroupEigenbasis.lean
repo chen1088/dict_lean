@@ -72,6 +72,20 @@ theorem S05_Lem5_19_canonicalMatchingYoungOperatorOdd_comm
         (canonicalMatchingYoungOperatorOdd r f) := by
   exact canonicalMatchingYoungOperatorOdd_comm hrs f
 
+/-- Lemma 5.19 matching-cube component: the zero cube element acts trivially in
+the even canonical matching action. -/
+theorem S05_Lem5_19_canonicalMatchingCubeOperatorEven_zero
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)} :
+    canonicalMatchingCubeOperatorEven (lam := lam) (cubeZero m) = id := by
+  exact canonicalMatchingCubeOperatorEven_zero
+
+/-- Lemma 5.19 matching-cube component: the zero cube element acts trivially in
+the odd canonical matching action. -/
+theorem S05_Lem5_19_canonicalMatchingCubeOperatorOdd_zero
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)} :
+    canonicalMatchingCubeOperatorOdd (lam := lam) (cubeZero m) = id := by
+  exact canonicalMatchingCubeOperatorOdd_zero
+
 /-- Even matching-restriction input, in the scalar vocabulary currently
 available in Lean. -/
 def MatchingRestrictionEvenInput (m : ℕ) : Prop :=

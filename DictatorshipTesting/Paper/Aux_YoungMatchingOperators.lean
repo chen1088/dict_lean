@@ -126,4 +126,69 @@ theorem canonicalMatchingYoungOperatorOdd_comm
     (canonicalNearMatchingAdjacentIndex m s)
     (canonicalNearMatchingAdjacentIndex_disjoint m hrs) f
 
+/-- Compose a list of endomorphisms in the displayed order. -/
+def composeOperatorList {V : Type*} : List (V -> V) -> V -> V
+  | [] => id
+  | op :: ops => fun v => op (composeOperatorList ops v)
+
+@[simp] theorem composeOperatorList_replicate_id {V : Type*} (m : Nat) :
+    composeOperatorList (List.replicate m (id : V -> V)) = id := by
+  induction m with
+  | zero => rfl
+  | succ m ih =>
+      funext v
+      simp [List.replicate, composeOperatorList, ih]
+
+/-- The edge operator selected by one cube bit in the even case. -/
+noncomputable def canonicalMatchingYoungOperatorEvenBit
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (x : Cube m) (r : Fin m) : TableauSpace lam -> TableauSpace lam :=
+  if x r then canonicalMatchingYoungOperatorEven r else id
+
+/-- The edge operator selected by one cube bit in the odd case. -/
+noncomputable def canonicalMatchingYoungOperatorOddBit
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (x : Cube m) (r : Fin m) : TableauSpace lam -> TableauSpace lam :=
+  if x r then canonicalMatchingYoungOperatorOdd r else id
+
+/-- Fixed-order product action of the canonical matching cube in the even case. -/
+noncomputable def canonicalMatchingCubeOperatorEven
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (x : Cube m) : TableauSpace lam -> TableauSpace lam :=
+  composeOperatorList
+    (List.ofFn fun r : Fin m =>
+      canonicalMatchingYoungOperatorEvenBit (lam := lam) x r)
+
+/-- Fixed-order product action of the canonical matching cube in the odd case. -/
+noncomputable def canonicalMatchingCubeOperatorOdd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (x : Cube m) : TableauSpace lam -> TableauSpace lam :=
+  composeOperatorList
+    (List.ofFn fun r : Fin m =>
+      canonicalMatchingYoungOperatorOddBit (lam := lam) x r)
+
+theorem canonicalMatchingCubeOperatorEven_zero
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)} :
+    canonicalMatchingCubeOperatorEven (lam := lam) (cubeZero m) = id := by
+  rw [canonicalMatchingCubeOperatorEven]
+  rw [show
+      (List.ofFn fun r : Fin m =>
+        canonicalMatchingYoungOperatorEvenBit (lam := lam) (cubeZero m) r) =
+        List.ofFn (fun _ : Fin m => (id : TableauSpace lam -> TableauSpace lam)) by
+        simp [canonicalMatchingYoungOperatorEvenBit, cubeZero]]
+  rw [List.ofFn_const]
+  exact composeOperatorList_replicate_id m
+
+theorem canonicalMatchingCubeOperatorOdd_zero
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)} :
+    canonicalMatchingCubeOperatorOdd (lam := lam) (cubeZero m) = id := by
+  rw [canonicalMatchingCubeOperatorOdd]
+  rw [show
+      (List.ofFn fun r : Fin m =>
+        canonicalMatchingYoungOperatorOddBit (lam := lam) (cubeZero m) r) =
+        List.ofFn (fun _ : Fin m => (id : TableauSpace lam -> TableauSpace lam)) by
+        simp [canonicalMatchingYoungOperatorOddBit, cubeZero]]
+  rw [List.ofFn_const]
+  exact composeOperatorList_replicate_id m
+
 end DictatorshipTesting
