@@ -912,6 +912,186 @@ theorem not_adjacentSameCol_and_succ_sameRow {n : Nat}
     simp [corner, youngCellOfNat_row]
   omega
 
+theorem not_adjacentSameRow_after_right_swap_of_left_sameRow_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_a : adjacentSameRow T a)
+    (hrow_b : ¬ adjacentSameRow T b)
+    (hcol_b : ¬ adjacentSameCol T b) :
+    ¬ adjacentSameRow (adjacentSwapTableau T b hrow_b hcol_b) a := by
+  intro hrow_after
+  let Tb := adjacentSwapTableau T b hrow_b hcol_b
+  have hhi_lo : adjacentHiCell T a = adjacentLoCell T b := by
+    simpa using adjacentHiCell_eq_loCell_of_succ T a b hsucc
+  have hlo_a_ne_lo_b : adjacentEntryLo a ≠ adjacentEntryLo b := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryLo, hsucc] at hv
+  have hlo_a_ne_hi_b : adjacentEntryLo a ≠ adjacentEntryHi b := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryLo, adjacentEntryHi, hsucc] at hv
+    omega
+  have hlo_after :
+      adjacentLoCell Tb a = adjacentLoCell T a := by
+    unfold adjacentLoCell
+    rw [adjacentSwapTableau_cell_of_ne_lo_hi T b hrow_b hcol_b
+      hlo_a_ne_lo_b hlo_a_ne_hi_b]
+  have hhi_after :
+      adjacentHiCell Tb a = adjacentHiCell T b := by
+    unfold adjacentHiCell
+    rw [show adjacentEntryHi a = adjacentEntryLo b by
+      exact adjacentEntryHi_eq_lo_of_succ a b hsucc]
+    exact adjacentSwapTableau_cell_lo T b hrow_b hcol_b
+  have hrow_lo_a_hi_b :
+      YoungCell.row (adjacentLoCell T a) =
+        YoungCell.row (adjacentHiCell T b) := by
+    simpa [adjacentSameRow, hlo_after, hhi_after, Tb] using hrow_after
+  have hrow_b_raw : adjacentSameRow T b := by
+    calc
+      YoungCell.row (adjacentLoCell T b)
+          = YoungCell.row (adjacentHiCell T a) := by rw [← hhi_lo]
+      _ = YoungCell.row (adjacentLoCell T a) := by
+            simpa [adjacentSameRow] using hrow_a.symm
+      _ = YoungCell.row (adjacentHiCell T b) := hrow_lo_a_hi_b
+  exact hrow_b hrow_b_raw
+
+theorem not_adjacentSameCol_after_right_swap_of_left_sameCol_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hcol_a : adjacentSameCol T a)
+    (hrow_b : ¬ adjacentSameRow T b)
+    (hcol_b : ¬ adjacentSameCol T b) :
+    ¬ adjacentSameCol (adjacentSwapTableau T b hrow_b hcol_b) a := by
+  intro hcol_after
+  let Tb := adjacentSwapTableau T b hrow_b hcol_b
+  have hhi_lo : adjacentHiCell T a = adjacentLoCell T b := by
+    simpa using adjacentHiCell_eq_loCell_of_succ T a b hsucc
+  have hlo_a_ne_lo_b : adjacentEntryLo a ≠ adjacentEntryLo b := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryLo, hsucc] at hv
+  have hlo_a_ne_hi_b : adjacentEntryLo a ≠ adjacentEntryHi b := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryLo, adjacentEntryHi, hsucc] at hv
+    omega
+  have hlo_after :
+      adjacentLoCell Tb a = adjacentLoCell T a := by
+    unfold adjacentLoCell
+    rw [adjacentSwapTableau_cell_of_ne_lo_hi T b hrow_b hcol_b
+      hlo_a_ne_lo_b hlo_a_ne_hi_b]
+  have hhi_after :
+      adjacentHiCell Tb a = adjacentHiCell T b := by
+    unfold adjacentHiCell
+    rw [show adjacentEntryHi a = adjacentEntryLo b by
+      exact adjacentEntryHi_eq_lo_of_succ a b hsucc]
+    exact adjacentSwapTableau_cell_lo T b hrow_b hcol_b
+  have hcol_lo_a_hi_b :
+      YoungCell.col (adjacentLoCell T a) =
+        YoungCell.col (adjacentHiCell T b) := by
+    simpa [adjacentSameCol, hlo_after, hhi_after, Tb] using hcol_after
+  have hcol_b_raw : adjacentSameCol T b := by
+    calc
+      YoungCell.col (adjacentLoCell T b)
+          = YoungCell.col (adjacentHiCell T a) := by rw [← hhi_lo]
+      _ = YoungCell.col (adjacentLoCell T a) := by
+            simpa [adjacentSameCol] using hcol_a.symm
+      _ = YoungCell.col (adjacentHiCell T b) := hcol_lo_a_hi_b
+  exact hcol_b hcol_b_raw
+
+theorem not_adjacentSameRow_after_left_swap_of_right_sameRow_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_b : adjacentSameRow T b)
+    (hrow_a : ¬ adjacentSameRow T a)
+    (hcol_a : ¬ adjacentSameCol T a) :
+    ¬ adjacentSameRow (adjacentSwapTableau T a hrow_a hcol_a) b := by
+  intro hrow_after
+  let Ta := adjacentSwapTableau T a hrow_a hcol_a
+  have hhi_lo : adjacentHiCell T a = adjacentLoCell T b := by
+    simpa using adjacentHiCell_eq_loCell_of_succ T a b hsucc
+  have hhi_b_ne_lo_a : adjacentEntryHi b ≠ adjacentEntryLo a := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryHi, adjacentEntryLo, hsucc] at hv
+    omega
+  have hhi_b_ne_hi_a : adjacentEntryHi b ≠ adjacentEntryHi a := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryHi, hsucc] at hv
+  have hlo_after :
+      adjacentLoCell Ta b = adjacentLoCell T a := by
+    unfold adjacentLoCell
+    rw [show adjacentEntryLo b = adjacentEntryHi a by
+      exact (adjacentEntryHi_eq_lo_of_succ a b hsucc).symm]
+    exact adjacentSwapTableau_cell_hi T a hrow_a hcol_a
+  have hhi_after :
+      adjacentHiCell Ta b = adjacentHiCell T b := by
+    unfold adjacentHiCell
+    rw [adjacentSwapTableau_cell_of_ne_lo_hi T a hrow_a hcol_a
+      hhi_b_ne_lo_a hhi_b_ne_hi_a]
+  have hrow_lo_a_hi_b :
+      YoungCell.row (adjacentLoCell T a) =
+        YoungCell.row (adjacentHiCell T b) := by
+    simpa [adjacentSameRow, hlo_after, hhi_after, Ta] using hrow_after
+  have hrow_a_raw : adjacentSameRow T a := by
+    calc
+      YoungCell.row (adjacentLoCell T a)
+          = YoungCell.row (adjacentHiCell T b) := hrow_lo_a_hi_b
+      _ = YoungCell.row (adjacentLoCell T b) := by
+            simpa [adjacentSameRow] using hrow_b.symm
+      _ = YoungCell.row (adjacentHiCell T a) := by rw [← hhi_lo]
+  exact hrow_a hrow_a_raw
+
+theorem not_adjacentSameCol_after_left_swap_of_right_sameCol_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hcol_b : adjacentSameCol T b)
+    (hrow_a : ¬ adjacentSameRow T a)
+    (hcol_a : ¬ adjacentSameCol T a) :
+    ¬ adjacentSameCol (adjacentSwapTableau T a hrow_a hcol_a) b := by
+  intro hcol_after
+  let Ta := adjacentSwapTableau T a hrow_a hcol_a
+  have hhi_lo : adjacentHiCell T a = adjacentLoCell T b := by
+    simpa using adjacentHiCell_eq_loCell_of_succ T a b hsucc
+  have hhi_b_ne_lo_a : adjacentEntryHi b ≠ adjacentEntryLo a := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryHi, adjacentEntryLo, hsucc] at hv
+    omega
+  have hhi_b_ne_hi_a : adjacentEntryHi b ≠ adjacentEntryHi a := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryHi, hsucc] at hv
+  have hlo_after :
+      adjacentLoCell Ta b = adjacentLoCell T a := by
+    unfold adjacentLoCell
+    rw [show adjacentEntryLo b = adjacentEntryHi a by
+      exact (adjacentEntryHi_eq_lo_of_succ a b hsucc).symm]
+    exact adjacentSwapTableau_cell_hi T a hrow_a hcol_a
+  have hhi_after :
+      adjacentHiCell Ta b = adjacentHiCell T b := by
+    unfold adjacentHiCell
+    rw [adjacentSwapTableau_cell_of_ne_lo_hi T a hrow_a hcol_a
+      hhi_b_ne_lo_a hhi_b_ne_hi_a]
+  have hcol_lo_a_hi_b :
+      YoungCell.col (adjacentLoCell T a) =
+        YoungCell.col (adjacentHiCell T b) := by
+    simpa [adjacentSameCol, hlo_after, hhi_after, Ta] using hcol_after
+  have hcol_a_raw : adjacentSameCol T a := by
+    calc
+      YoungCell.col (adjacentLoCell T a)
+          = YoungCell.col (adjacentHiCell T b) := hcol_lo_a_hi_b
+      _ = YoungCell.col (adjacentLoCell T b) := by
+            simpa [adjacentSameCol] using hcol_b.symm
+      _ = YoungCell.col (adjacentHiCell T a) := by rw [← hhi_lo]
+  exact hcol_a hcol_a_raw
+
 theorem adjacentSwapTableau_ne_self {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
