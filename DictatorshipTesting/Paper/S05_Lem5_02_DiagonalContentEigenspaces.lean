@@ -1,12 +1,14 @@
 import DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis
 
 /-!
-Paper statement: Lemma 5.2 (`lem:jucys-murphy-eigenbasis`)
+Paper statement: Lemma 5.2 (`lem:jucys-murphy-eigenbasis`), rewritten
+Section 5 form.
 Title in paper: Diagonal content eigenspaces.
 
-Status: this file records the basis-level content API used by the future
-Jucys--Murphy statement.  The actual operator/eigenbasis theorem remains future
-work in the Specht-module/tableau representation layer.
+Status: proved internally for the explicit diagonal content operators.  The
+content sequence determines a standard tableau, distinct tableaux differ in a
+content coordinate, and the common eigenspaces are the tableau basis lines.
+Appendix A.2 remains the external group-algebra Jucys--Murphy identification.
 -/
 
 noncomputable section
