@@ -3774,6 +3774,168 @@ theorem youngAdjacentOperator_braid_basis_swappable_middle_sameCol_of_succ
   rw [hT_coeff, hTa_coeff, ← hTb_coeff]
   ring
 
+theorem youngAdjacentOperator_braid_basis_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b
+          (youngAdjacentOperator a (tableauBasisVec T))) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a
+          (youngAdjacentOperator b (tableauBasisVec T))) := by
+  by_cases hrow_a : adjacentSameRow T a
+  · by_cases hrow_b : adjacentSameRow T b
+    · exact youngAdjacentOperator_braid_basis_sameRow_sameRow_of_succ
+        T a b hsucc hrow_a hrow_b
+    · by_cases hcol_b : adjacentSameCol T b
+      · exact False.elim
+          ((not_adjacentSameRow_and_succ_sameCol T a b hsucc)
+            ⟨hrow_a, hcol_b⟩)
+      · exact
+          youngAdjacentOperator_braid_basis_left_sameRow_right_swappable_of_succ
+            T a b hsucc hrow_a hrow_b hcol_b
+  · by_cases hcol_a : adjacentSameCol T a
+    · by_cases hrow_b : adjacentSameRow T b
+      · exact False.elim
+          ((not_adjacentSameCol_and_succ_sameRow T a b hsucc)
+            ⟨hcol_a, hrow_b⟩)
+      · by_cases hcol_b : adjacentSameCol T b
+        · exact youngAdjacentOperator_braid_basis_sameCol_sameCol_of_succ
+            T a b hsucc hcol_a hcol_b
+        · exact
+            youngAdjacentOperator_braid_basis_left_sameCol_right_swappable_of_succ
+              T a b hsucc hcol_a hrow_b hcol_b
+    · by_cases hrow_b : adjacentSameRow T b
+      · exact
+          youngAdjacentOperator_braid_basis_left_swappable_right_sameRow_of_succ
+            T a b hsucc hrow_a hcol_a hrow_b
+      · by_cases hcol_b : adjacentSameCol T b
+        · exact
+            youngAdjacentOperator_braid_basis_left_swappable_right_sameCol_of_succ
+              T a b hsucc hrow_a hcol_a hcol_b
+        · let Ta := adjacentSwapTableau T a hrow_a hcol_a
+          let Tb := adjacentSwapTableau T b hrow_b hcol_b
+          by_cases hrow_b_after_a : adjacentSameRow Ta b
+          · exact
+              youngAdjacentOperator_braid_basis_swappable_middle_sameRow_of_succ
+                T a b hsucc hrow_a hcol_a hrow_b hcol_b
+                (by simpa [Ta] using hrow_b_after_a)
+          · by_cases hcol_b_after_a : adjacentSameCol Ta b
+            · exact
+                youngAdjacentOperator_braid_basis_swappable_middle_sameCol_of_succ
+                  T a b hsucc hrow_a hcol_a hrow_b hcol_b
+                  (by simpa [Ta] using hcol_b_after_a)
+            · have hrow_a_after_b : ¬ adjacentSameRow Tb a := by
+                intro hrow
+                have hdist_right :
+                    adjacentAxialDistance Tb a =
+                      adjacentAxialDistance T a +
+                        adjacentAxialDistance T b := by
+                  simpa [Tb] using
+                    adjacentAxialDistance_after_right_swap_of_succ
+                      T a b hsucc hrow_b hcol_b
+                have hdist_left :
+                    adjacentAxialDistance Ta b =
+                      adjacentAxialDistance T a +
+                        adjacentAxialDistance T b := by
+                  simpa [Ta] using
+                    adjacentAxialDistance_after_left_swap_of_succ
+                      T a b hsucc hrow_a hcol_a
+                have hsame : adjacentAxialDistance Ta b = 1 := by
+                  have hr := adjacentAxialDistance_sameRow Tb a hrow
+                  omega
+                exact hrow_b_after_a
+                  (adjacentSameRow_of_axialDistance_eq_one Ta b hsame)
+              have hcol_a_after_b : ¬ adjacentSameCol Tb a := by
+                intro hcol
+                have hdist_right :
+                    adjacentAxialDistance Tb a =
+                      adjacentAxialDistance T a +
+                        adjacentAxialDistance T b := by
+                  simpa [Tb] using
+                    adjacentAxialDistance_after_right_swap_of_succ
+                      T a b hsucc hrow_b hcol_b
+                have hdist_left :
+                    adjacentAxialDistance Ta b =
+                      adjacentAxialDistance T a +
+                        adjacentAxialDistance T b := by
+                  simpa [Ta] using
+                    adjacentAxialDistance_after_left_swap_of_succ
+                      T a b hsucc hrow_a hcol_a
+                have hsame : adjacentAxialDistance Ta b = -1 := by
+                  have hc := adjacentAxialDistance_sameCol Tb a hcol
+                  omega
+                exact hcol_b_after_a
+                  (adjacentSameCol_of_axialDistance_eq_neg_one Ta b hsame)
+              let Tab :=
+                adjacentSwapTableau Ta b hrow_b_after_a hcol_b_after_a
+              let Tba :=
+                adjacentSwapTableau Tb a hrow_a_after_b hcol_a_after_b
+              have hrow_a_after_b_after_a :
+                  ¬ adjacentSameRow Tab a := by
+                intro hrow
+                have hdist :
+                    adjacentAxialDistance Tab a =
+                      adjacentAxialDistance T b := by
+                  simpa [Ta, Tab] using
+                    adjacentAxialDistance_after_left_right_swap_of_succ
+                      T a b hsucc hrow_a hcol_a
+                      hrow_b_after_a hcol_b_after_a
+                have hb_dist := adjacentAxialDistance_sameRow Tab a hrow
+                exact hrow_b
+                  (adjacentSameRow_of_axialDistance_eq_one T b (by
+                    omega))
+              have hcol_a_after_b_after_a :
+                  ¬ adjacentSameCol Tab a := by
+                intro hcol
+                have hdist :
+                    adjacentAxialDistance Tab a =
+                      adjacentAxialDistance T b := by
+                  simpa [Ta, Tab] using
+                    adjacentAxialDistance_after_left_right_swap_of_succ
+                      T a b hsucc hrow_a hcol_a
+                      hrow_b_after_a hcol_b_after_a
+                have hb_dist := adjacentAxialDistance_sameCol Tab a hcol
+                exact hcol_b
+                  (adjacentSameCol_of_axialDistance_eq_neg_one T b (by
+                    omega))
+              have hrow_b_after_a_after_b :
+                  ¬ adjacentSameRow Tba b := by
+                intro hrow
+                have hdist :
+                    adjacentAxialDistance Tba b =
+                      adjacentAxialDistance T a := by
+                  simpa [Tb, Tba] using
+                    adjacentAxialDistance_after_right_left_swap_of_succ
+                      T a b hsucc hrow_b hcol_b
+                      hrow_a_after_b hcol_a_after_b
+                have ha_dist := adjacentAxialDistance_sameRow Tba b hrow
+                exact hrow_a
+                  (adjacentSameRow_of_axialDistance_eq_one T a (by
+                    omega))
+              have hcol_b_after_a_after_b :
+                  ¬ adjacentSameCol Tba b := by
+                intro hcol
+                have hdist :
+                    adjacentAxialDistance Tba b =
+                      adjacentAxialDistance T a := by
+                  simpa [Tb, Tba] using
+                    adjacentAxialDistance_after_right_left_swap_of_succ
+                      T a b hsucc hrow_b hcol_b
+                      hrow_a_after_b hcol_a_after_b
+                have ha_dist := adjacentAxialDistance_sameCol Tba b hcol
+                exact hcol_a
+                  (adjacentSameCol_of_axialDistance_eq_neg_one T a (by
+                    omega))
+              exact
+                youngAdjacentOperator_braid_basis_swappable_of_succ
+                  T a b hsucc hrow_a hcol_a hrow_b hcol_b
+                  hrow_b_after_a hcol_b_after_a
+                  hrow_a_after_b_after_a hcol_a_after_b_after_a
+                  hrow_a_after_b hcol_a_after_b
+                  hrow_b_after_a_after_b hcol_b_after_a_after_b
+
 /-- The diagonal content operator in the tableau coordinate basis. -/
 noncomputable def jucysMurphyDiagonalOperator {n : Nat}
     {lam : YoungDiagram n} (a : Fin n) :
