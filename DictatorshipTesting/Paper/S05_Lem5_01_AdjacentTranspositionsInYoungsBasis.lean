@@ -791,6 +791,36 @@ theorem S05_Lem5_01_youngAdjacentOperator_basis_swappable_swap_eq {n : Nat}
             tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S := by
   exact youngAdjacentOperator_basis_swappable_swap_eq T a hrow_ne hcol_ne
 
+/-- Lemma 5.1 coefficient component: in the genuine two-tableau case the
+diagonal coefficient has square strictly below `1`. -/
+theorem S05_Lem5_01_youngAdjacentDiagCoeff_sq_lt_one_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentDiagCoeff T a ^ 2 < 1 := by
+  exact youngAdjacentDiagCoeff_sq_lt_one_of_swappable T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 coefficient component: in the genuine two-tableau case the
+off-diagonal coefficient is positive. -/
+theorem S05_Lem5_01_youngAdjacentOffCoeff_pos_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    0 < youngAdjacentOffCoeff T a := by
+  exact youngAdjacentOffCoeff_pos_of_swappable T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 coefficient component: in the genuine two-tableau case the
+off-diagonal coefficient is nonzero. -/
+theorem S05_Lem5_01_youngAdjacentOffCoeff_ne_zero_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOffCoeff T a ≠ 0 := by
+  exact youngAdjacentOffCoeff_ne_zero_of_swappable T a hrow_ne hcol_ne
+
 /-- Lemma 5.1 eigenline component: in the swappable two-tableau block, the
 explicit vector `b e_T + (1-a)e_{T'}` has eigenvalue `+1`. -/
 theorem S05_Lem5_01_youngAdjacentOperator_swappable_eigen_plus {n : Nat}
@@ -805,9 +835,23 @@ theorem S05_Lem5_01_youngAdjacentOperator_swappable_eigen_plus {n : Nat}
               tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S) =
       fun S =>
         youngAdjacentOffCoeff T a * tableauBasisVec T S +
-          (1 - youngAdjacentDiagCoeff T a) *
-            tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S := by
+            (1 - youngAdjacentDiagCoeff T a) *
+              tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S := by
   exact youngAdjacentOperator_swappable_eigen_plus T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 eigenline component: the displayed `+1` eigenvector in the
+swappable block is nonzero. -/
+theorem S05_Lem5_01_youngAdjacentOperator_swappable_eigen_plus_ne_zero {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    (fun S =>
+          youngAdjacentOffCoeff T a * tableauBasisVec T S +
+            (1 - youngAdjacentDiagCoeff T a) *
+              tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S)
+      ≠ (0 : TableauSpace lam) := by
+  exact youngAdjacentOperator_swappable_eigen_plus_ne_zero T a hrow_ne hcol_ne
 
 /-- Lemma 5.1 eigenline component: in the swappable two-tableau block, the
 explicit vector `b e_T - (1+a)e_{T'}` has eigenvalue `-1`. -/
@@ -826,6 +870,20 @@ theorem S05_Lem5_01_youngAdjacentOperator_swappable_eigen_minus {n : Nat}
             (1 + youngAdjacentDiagCoeff T a) *
               tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S) := by
   exact youngAdjacentOperator_swappable_eigen_minus T a hrow_ne hcol_ne
+
+/-- Lemma 5.1 eigenline component: the displayed `-1` eigenvector in the
+swappable block is nonzero. -/
+theorem S05_Lem5_01_youngAdjacentOperator_swappable_eigen_minus_ne_zero {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    (fun S =>
+          youngAdjacentOffCoeff T a * tableauBasisVec T S -
+            (1 + youngAdjacentDiagCoeff T a) *
+              tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S)
+      ≠ (0 : TableauSpace lam) := by
+  exact youngAdjacentOperator_swappable_eigen_minus_ne_zero T a hrow_ne hcol_ne
 
 /-- Lemma 5.1, bundled Young orthogonal adjacent-transposition formula in
 tableau coordinates.  In the swappable case this is exactly the block
@@ -890,6 +948,61 @@ theorem S05_Lem5_01_youngAdjacent_matrices {n : Nat}
       youngAdjacentCoeff_sq_sum_of_swappable T a hrow_ne hcol_ne,
       youngAdjacentOperator_swappable_eigen_plus T a hrow_ne hcol_ne,
       youngAdjacentOperator_swappable_eigen_minus T a hrow_ne hcol_ne⟩
+
+/-- Lemma 5.1, eigenline-strengthened swappable block statement.  In the
+genuine two-tableau case the off-diagonal coefficient is nonzero, and the
+displayed `+1` and `-1` eigenvectors are nonzero. -/
+theorem S05_Lem5_01_youngAdjacent_swappable_eigenlines {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n) :
+    ∀ hrow_ne : ¬ adjacentSameRow T a,
+      ∀ hcol_ne : ¬ adjacentSameCol T a,
+        youngAdjacentDiagCoeff T a ^ 2 < 1 ∧
+        0 < youngAdjacentOffCoeff T a ∧
+        youngAdjacentOffCoeff T a ≠ 0 ∧
+        youngAdjacentOperator a
+            (fun S =>
+              youngAdjacentOffCoeff T a * tableauBasisVec T S +
+                (1 - youngAdjacentDiagCoeff T a) *
+                  tableauBasisVec
+                    (adjacentSwapTableau T a hrow_ne hcol_ne) S) =
+          (fun S =>
+            youngAdjacentOffCoeff T a * tableauBasisVec T S +
+              (1 - youngAdjacentDiagCoeff T a) *
+                tableauBasisVec
+                  (adjacentSwapTableau T a hrow_ne hcol_ne) S) ∧
+        (fun S =>
+              youngAdjacentOffCoeff T a * tableauBasisVec T S +
+                (1 - youngAdjacentDiagCoeff T a) *
+                  tableauBasisVec
+                    (adjacentSwapTableau T a hrow_ne hcol_ne) S)
+          ≠ (0 : TableauSpace lam) ∧
+        youngAdjacentOperator a
+            (fun S =>
+              youngAdjacentOffCoeff T a * tableauBasisVec T S -
+                (1 + youngAdjacentDiagCoeff T a) *
+                  tableauBasisVec
+                    (adjacentSwapTableau T a hrow_ne hcol_ne) S) =
+          (fun S =>
+            - (youngAdjacentOffCoeff T a * tableauBasisVec T S -
+                (1 + youngAdjacentDiagCoeff T a) *
+                  tableauBasisVec
+                    (adjacentSwapTableau T a hrow_ne hcol_ne) S)) ∧
+        (fun S =>
+              youngAdjacentOffCoeff T a * tableauBasisVec T S -
+                (1 + youngAdjacentDiagCoeff T a) *
+                  tableauBasisVec
+                    (adjacentSwapTableau T a hrow_ne hcol_ne) S)
+          ≠ (0 : TableauSpace lam) := by
+  intro hrow_ne hcol_ne
+  exact ⟨
+    youngAdjacentDiagCoeff_sq_lt_one_of_swappable T a hrow_ne hcol_ne,
+    youngAdjacentOffCoeff_pos_of_swappable T a hrow_ne hcol_ne,
+    youngAdjacentOffCoeff_ne_zero_of_swappable T a hrow_ne hcol_ne,
+    youngAdjacentOperator_swappable_eigen_plus T a hrow_ne hcol_ne,
+    youngAdjacentOperator_swappable_eigen_plus_ne_zero T a hrow_ne hcol_ne,
+    youngAdjacentOperator_swappable_eigen_minus T a hrow_ne hcol_ne,
+    youngAdjacentOperator_swappable_eigen_minus_ne_zero T a hrow_ne hcol_ne⟩
 
 /-- Lemma 5.1 involution component: in the same-row case, the adjacent
 operator squares to the identity on a tableau basis vector. -/
@@ -1059,5 +1172,29 @@ theorem S05_Lem5_01_youngAdjacentOperator_braid_of_succ
       youngAdjacentOperator b
         (youngAdjacentOperator a (youngAdjacentOperator b f)) := by
   exact youngAdjacentOperator_braid_of_succ a b hsucc f
+
+/-- Lemma 5.1, bundled Coxeter relations for the concrete Young adjacent
+operators on tableau coordinates: involution, distant commutation, and braid. -/
+theorem S05_Lem5_01_youngAdjacent_coxeter_relations
+    {n : Nat} {lam : YoungDiagram (n + 1)} :
+    (∀ (a : Fin n) (f : TableauSpace lam),
+      youngAdjacentOperator a (youngAdjacentOperator a f) = f) ∧
+    (∀ (a b : Fin n), adjacentIndexDisjoint a b →
+      ∀ f : TableauSpace lam,
+        youngAdjacentOperator a (youngAdjacentOperator b f) =
+          youngAdjacentOperator b (youngAdjacentOperator a f)) ∧
+    (∀ (a b : Fin n), (b : Nat) = (a : Nat) + 1 →
+      ∀ f : TableauSpace lam,
+        youngAdjacentOperator a
+            (youngAdjacentOperator b (youngAdjacentOperator a f)) =
+          youngAdjacentOperator b
+            (youngAdjacentOperator a (youngAdjacentOperator b f))) := by
+  refine ⟨?_, ?_, ?_⟩
+  · intro a f
+    exact youngAdjacentOperator_sq a f
+  · intro a b hdisj f
+    exact youngAdjacentOperator_comm_of_disjoint_indices a b hdisj f
+  · intro a b hsucc f
+    exact youngAdjacentOperator_braid_of_succ a b hsucc f
 
 end DictatorshipTesting

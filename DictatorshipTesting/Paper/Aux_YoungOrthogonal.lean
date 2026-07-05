@@ -894,6 +894,41 @@ theorem youngAdjacentDiagCoeff_sq_le_one_of_swappable {n : Nat}
     exact_mod_cast hx_abs_int
   exact inv_le_one_of_one_le₀ hx_abs_real
 
+theorem adjacentAxialDistance_abs_two_le_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    (2 : Int) ≤ |adjacentAxialDistance T a| := by
+  let x := adjacentAxialDistance T a
+  have hx0 := adjacentAxialDistance_ne_zero_of_swappable T a hrow_ne hcol_ne
+  have hx1 := adjacentAxialDistance_ne_one_of_swappable T a hrow_ne hcol_ne
+  have hxm1 := adjacentAxialDistance_ne_neg_one_of_swappable T a hrow_ne hcol_ne
+  change (2 : Int) ≤ |x|
+  by_cases hx_nonneg : 0 ≤ x
+  · have hxabs : |x| = x := abs_of_nonneg hx_nonneg
+    omega
+  · have hx_neg : x < 0 := lt_of_not_ge hx_nonneg
+    have hxabs : |x| = -x := abs_of_neg hx_neg
+    omega
+
+theorem youngAdjacentDiagCoeff_sq_lt_one_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentDiagCoeff T a ^ 2 < 1 := by
+  rw [sq_lt_one_iff_abs_lt_one]
+  unfold youngAdjacentDiagCoeff
+  rw [abs_inv]
+  have hx_abs_int :=
+    adjacentAxialDistance_abs_two_le_of_swappable T a hrow_ne hcol_ne
+  have hx_abs_real :
+      (2 : ℝ) ≤ |(adjacentAxialDistance T a : ℝ)| := by
+    rw [← Int.cast_abs]
+    exact_mod_cast hx_abs_int
+  exact inv_lt_one_of_one_lt₀ (by linarith)
+
 theorem youngAdjacentDiagCoeff_swap {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
@@ -922,6 +957,26 @@ theorem youngAdjacentOffCoeff_nonneg {n : Nat}
     (T : StandardYoungTableau lam) (a : Fin n) :
     0 ≤ youngAdjacentOffCoeff T a := by
   exact Real.sqrt_nonneg _
+
+theorem youngAdjacentOffCoeff_pos_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    0 < youngAdjacentOffCoeff T a := by
+  rw [youngAdjacentOffCoeff]
+  apply Real.sqrt_pos_of_pos
+  have hlt := youngAdjacentDiagCoeff_sq_lt_one_of_swappable
+    T a hrow_ne hcol_ne
+  linarith
+
+theorem youngAdjacentOffCoeff_ne_zero_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    youngAdjacentOffCoeff T a ≠ 0 := by
+  exact ne_of_gt (youngAdjacentOffCoeff_pos_of_swappable T a hrow_ne hcol_ne)
 
 theorem youngAdjacentOffCoeff_after_disjoint_swap_eq {n : Nat}
     {lam : YoungDiagram (n + 1)}
@@ -1925,6 +1980,26 @@ theorem youngAdjacentOperator_swappable_eigen_plus {n : Nat}
     _ = o * x - d * y + 1 * y := by rw [hsq]
     _ = o * x + (1 - d) * y := by ring
 
+theorem youngAdjacentOperator_swappable_eigen_plus_ne_zero {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    (fun S =>
+          youngAdjacentOffCoeff T a * tableauBasisVec T S +
+            (1 - youngAdjacentDiagCoeff T a) *
+              tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S)
+      ≠ (0 : TableauSpace lam) := by
+  let T' := adjacentSwapTableau T a hrow_ne hcol_ne
+  have hT'_ne_T : T' ≠ T := by
+    simpa [T'] using adjacentSwapTableau_ne_self T a hrow_ne hcol_ne
+  intro hzero
+  have hcoord := congrFun hzero T
+  have hpos := youngAdjacentOffCoeff_pos_of_swappable T a hrow_ne hcol_ne
+  rw [Pi.zero_apply] at hcoord
+  rw [tableauBasisVec_self, tableauBasisVec_ne (Ne.symm hT'_ne_T)] at hcoord
+  linarith
+
 theorem youngAdjacentOperator_swappable_eigen_minus {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
@@ -1969,6 +2044,26 @@ theorem youngAdjacentOperator_swappable_eigen_minus {n : Nat}
         = -o * x + d * y + (d ^ 2 + o ^ 2) * y := by ring
     _ = -o * x + d * y + 1 * y := by rw [hsq]
     _ = - (o * x - (1 + d) * y) := by ring
+
+theorem youngAdjacentOperator_swappable_eigen_minus_ne_zero {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    (fun S =>
+          youngAdjacentOffCoeff T a * tableauBasisVec T S -
+            (1 + youngAdjacentDiagCoeff T a) *
+              tableauBasisVec (adjacentSwapTableau T a hrow_ne hcol_ne) S)
+      ≠ (0 : TableauSpace lam) := by
+  let T' := adjacentSwapTableau T a hrow_ne hcol_ne
+  have hT'_ne_T : T' ≠ T := by
+    simpa [T'] using adjacentSwapTableau_ne_self T a hrow_ne hcol_ne
+  intro hzero
+  have hcoord := congrFun hzero T
+  have hpos := youngAdjacentOffCoeff_pos_of_swappable T a hrow_ne hcol_ne
+  rw [Pi.zero_apply] at hcoord
+  rw [tableauBasisVec_self, tableauBasisVec_ne (Ne.symm hT'_ne_T)] at hcoord
+  linarith
 
 noncomputable def youngAdjacentNeighbor {n : Nat}
     {lam : YoungDiagram (n + 1)}
