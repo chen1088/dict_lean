@@ -340,6 +340,10 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   through `S05_Lem5_16_tableauDim_twoStrip_size` and
   `S05_Lem5_16_tableauDim_oneBox_size`.  The legacy `youngDim` wrappers remain
   conditional on the named dimension-branching inputs.
+- `S05_Lem5_23_CentralAveragedRejection.lean`: finite-average local rejection
+  identities, including the high-idempotent norm formula
+  `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average`.  The
+  operator centrality refinement remains a representation-layer target.
 - `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority.lean`: finite `zEven`
   certificate, with both the legacy `youngDim` theorem and the tableau-count
   theorem `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.

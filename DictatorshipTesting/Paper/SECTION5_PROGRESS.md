@@ -45,6 +45,11 @@ Detailed maps:
   `S05_Lem5_16_tableauDim_twoStrip_size` and
   `S05_Lem5_16_tableauDim_oneBox_size`, while keeping the legacy `youngDim`
   wrappers visibly conditional on the named dimension-branching inputs.
+- Lemma 5.23 now proves the finite-average/high-idempotent part of central
+  averaged rejection: `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average`
+  rewrites the mean local rejection as the average of squared high-idempotent
+  norms.  Operator centrality on Young blocks remains a representation-layer
+  target.
 - Lemma 5.18 contains the current matching-cube operator algebra wrappers,
   including cube XOR laws, simultaneous matching-eigenvector predicates,
   matching-character action on simultaneous eigenvectors, and the first

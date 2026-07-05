@@ -116,6 +116,14 @@ Proven Lemma 5.16 tableau-count size components:
   one-box size recurrences from Lemmas 5.14 and 5.15.  The legacy `youngDim`
   wrappers remain conditional on the named dimension-branching inputs.
 
+Proven Lemma 5.23 finite-average/high-idempotent components:
+
+- `S05_Lem5_23_CentralAveragedRejection.lean` -- Lemma 5.23
+  (`lem:averaged-rejection-central`): proves that the local rejection error is
+  the squared distance of the high matching idempotent from zero, and that the
+  mean rejection is the average of those squared high-idempotent norms.  The
+  operator centrality statement remains a representation-layer target.
+
 Remaining Lemma 5.1 representation-theory boundary:
 
 - The Lean development does not claim a classical Specht-module

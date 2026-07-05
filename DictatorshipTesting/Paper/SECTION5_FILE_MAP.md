@@ -40,7 +40,7 @@ identification were moved to Appendix A-facing files:
 | 5.20 | lemma | Trace of one local truncation on one Young block | `S05_Lem5_20_TraceOfOneLocalTruncationOnOneYoungBlock.lean` | `traceLocalTruncation_even_from_restriction`, `traceLocalTruncation_odd_from_restriction` | conditional |
 | 5.21 | definition | Matching idempotents | `S05_Def5_21_MatchingIdempotents.lean` | `S05_matchingLowIdempotent`, `S05_matchingHighIdempotent` | definition only |
 | 5.22 | lemma | Local truncation as convolution | `S05_Lem5_22_LocalTruncationAsConvolution.lean` | `S05_Lem5_22_local_truncation_as_convolution` | proved |
-| 5.23 | lemma | Central averaged rejection | `S05_Lem5_23_CentralAveragedRejection.lean` | `S05_Lem5_23_matchingMeanProjectionError_eq_average` | conditional |
+| 5.23 | lemma | Central averaged rejection | `S05_Lem5_23_CentralAveragedRejection.lean` | `S05_Lem5_23_matchingMeanProjectionError_eq_average`, `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average` | finite-average/high-idempotent components proved; centrality conditional |
 | 5.24 | lemma | Young-basis scalar commutant | `S05_Lem5_24_YoungBasisScalarCommutant.lean` | `S05_Lem5_24_YoungBasisScalarCommutantInput`, `S05_Lem5_24_matchingAverageScalarity_eq_sum` | appendix input |
 | 5.25 | lemma | Block scalar of the averaged rejection | `S05_Lem5_25_BlockScalarOfTheAveragedRejection.lean` | `S05_Lem5_25_scalar_eq_trace_div_dimension`, `S05_Lem5_25_even_scalar_eq_hEven_div_dim` | conditional |
 | 5.26 | lemma | Block lower bound implies the gap | `S05_Lem5_26_BlockLowerBoundImpliesTheGap.lean` | `S05_Lem5_26_spectralGapFromBlockScalars`, `S05_Lem5_26_spectralGapFromBlockModelWithDim` | proved |
