@@ -94,6 +94,13 @@ Proven Lemma 5.7 fixed two-step tableau branching package:
   tableaux of the resulting child diagram, plus iterated deletion preservation
   of content, row, and column coordinates.
 
+Proven Lemma 5.10 coordinate one-box deletion package:
+
+- `S05_Lem5_10_OneBoxDeletionIsUnitary.lean` -- Lemma 5.10
+  (`lem:one-box-deletion-unitary`): proves the set-level deletion/insertion
+  equivalence and that the induced coordinate map preserves the finite
+  coordinate inner product.
+
 Remaining Lemma 5.1 representation-theory boundary:
 
 - The Lean development does not claim a classical Specht-module

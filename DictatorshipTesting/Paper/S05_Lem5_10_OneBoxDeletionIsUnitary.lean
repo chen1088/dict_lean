@@ -1,18 +1,21 @@
-import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
+import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 
 /-!
 Paper statement: Lemma 5.10 (`lem:one-box-deletion-unitary`)
 Title in paper: One-box deletion is unitary.
 
-Status: the Hilbert-space unitary statement is still future work.  This file
-now proves the set-level bijection on the deleted tableau basis.
+Status: proved below for the concrete coordinate model: deletion gives a
+set-level bijection on the deleted tableau basis, and the induced coordinate
+map preserves the finite coordinate inner product.
 -/
 
 noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Lemma 5.11 set-level component: deleting the maximum-entry cell gives a
+open scoped BigOperators
+
+/-- Lemma 5.10 set-level component: deleting the maximum-entry cell gives a
 bijection from the remaining cells to `Fin n`. -/
 theorem S05_Lem5_10_deleteMaxEntry_bijective {n : Nat}
     {lam : YoungDiagram (n + 1)}
@@ -29,7 +32,7 @@ theorem S05_oneBox_deleteMaxEntry_bijective {n : Nat}
     Function.Bijective (tableauDeleteMaxEntry T hu) := by
   exact S05_Lem5_10_deleteMaxEntry_bijective T hu
 
-/-- Lemma 5.11 set-level component: deleted entries remain row-strict. -/
+/-- Lemma 5.10 set-level component: deleted entries remain row-strict. -/
 theorem S05_Lem5_10_deleteMaxEntry_row_strict {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) {u : YoungCell lam}
@@ -40,7 +43,7 @@ theorem S05_Lem5_10_deleteMaxEntry_row_strict {n : Nat}
       tableauDeleteMaxEntry T hu a < tableauDeleteMaxEntry T hu b := by
   exact tableauDeleteMaxEntry_row_strict T hu
 
-/-- Lemma 5.11 set-level component: deleted entries remain column-strict. -/
+/-- Lemma 5.10 set-level component: deleted entries remain column-strict. -/
 theorem S05_Lem5_10_deleteMaxEntry_col_strict {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) {u : YoungCell lam}
@@ -51,7 +54,7 @@ theorem S05_Lem5_10_deleteMaxEntry_col_strict {n : Nat}
       tableauDeleteMaxEntry T hu a < tableauDeleteMaxEntry T hu b := by
   exact tableauDeleteMaxEntry_col_strict T hu
 
-/-- Lemma 5.11 set-level component: deleting the max cell gives a standard
+/-- Lemma 5.10 set-level component: deleting the max cell gives a standard
 tableau on the remaining cell set. -/
 def S05_Lem5_10_deleteMaxAsStandardDeletedTableau {n : Nat}
     {lam : YoungDiagram (n + 1)}
@@ -60,7 +63,7 @@ def S05_Lem5_10_deleteMaxAsStandardDeletedTableau {n : Nat}
     StandardDeletedTableau u :=
   deleteMaxAsStandardDeletedTableau T hu
 
-/-- Lemma 5.11 set-level component: parent cells other than the deleted corner
+/-- Lemma 5.10 set-level component: parent cells other than the deleted corner
 are equivalent to child cells. -/
 def S05_Lem5_10_youngCellExceptEquivChildOfOneBoxChildRow
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
@@ -74,7 +77,7 @@ def S05_Lem5_10_youngCellExceptEquivChildOfOneBoxChildRow
     YoungCellExcept u ≃ YoungCell mu :=
   youngCellExceptEquivChildOfOneBoxChildRow h hr u hu_row hu_col
 
-/-- Lemma 5.11 set-level component: the parent-to-child cell equivalence
+/-- Lemma 5.10 set-level component: the parent-to-child cell equivalence
 preserves rows. -/
 theorem S05_Lem5_10_youngCellExceptEquivChild_to_row
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
@@ -92,7 +95,7 @@ theorem S05_Lem5_10_youngCellExceptEquivChild_to_row
       = YoungCell.row v.1 := by
   exact youngCellExceptEquivChild_to_row h hr u hu_row hu_col v
 
-/-- Lemma 5.11 set-level component: the parent-to-child cell equivalence
+/-- Lemma 5.10 set-level component: the parent-to-child cell equivalence
 preserves columns. -/
 theorem S05_Lem5_10_youngCellExceptEquivChild_to_col
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
@@ -110,7 +113,7 @@ theorem S05_Lem5_10_youngCellExceptEquivChild_to_col
       = YoungCell.col v.1 := by
   exact youngCellExceptEquivChild_to_col h hr u hu_row hu_col v
 
-/-- Lemma 5.11 set-level component: the child-to-parent inverse cell
+/-- Lemma 5.10 set-level component: the child-to-parent inverse cell
 equivalence preserves rows. -/
 theorem S05_Lem5_10_youngCellExceptEquivChild_symm_row
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
@@ -128,7 +131,7 @@ theorem S05_Lem5_10_youngCellExceptEquivChild_symm_row
       = YoungCell.row w := by
   exact youngCellExceptEquivChild_symm_row h hr u hu_row hu_col w
 
-/-- Lemma 5.11 set-level component: the child-to-parent inverse cell
+/-- Lemma 5.10 set-level component: the child-to-parent inverse cell
 equivalence preserves columns. -/
 theorem S05_Lem5_10_youngCellExceptEquivChild_symm_col
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
@@ -146,7 +149,7 @@ theorem S05_Lem5_10_youngCellExceptEquivChild_symm_col
       = YoungCell.col w := by
   exact youngCellExceptEquivChild_symm_col h hr u hu_row hu_col w
 
-/-- Lemma 5.11 set-level component: deleting the maximum cell gives a standard
+/-- Lemma 5.10 set-level component: deleting the maximum cell gives a standard
 tableau of the one-box child shape. -/
 def S05_Lem5_10_deleteMaxAsStandardYoungTableauOfOneBoxChildRow
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
@@ -162,7 +165,7 @@ def S05_Lem5_10_deleteMaxAsStandardYoungTableauOfOneBoxChildRow
     StandardYoungTableau mu :=
   deleteMaxAsStandardYoungTableauOfOneBoxChildRow h hr u hu_row hu_col T hu
 
-/-- Lemma 5.11 set-level inverse: insert the maximum entry in the deleted
+/-- Lemma 5.10 set-level inverse: insert the maximum entry in the deleted
 corner. -/
 def S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
@@ -174,7 +177,7 @@ def S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow
     StandardYoungTableau lam :=
   insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S
 
-/-- Lemma 5.11 set-level component: the deleted corner has the row prescribed
+/-- Lemma 5.10 set-level component: the deleted corner has the row prescribed
 by the one-box row form. -/
 theorem S05_Lem5_10_deletedCornerCell_row
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
@@ -185,7 +188,7 @@ theorem S05_Lem5_10_deletedCornerCell_row
     YoungCell.row (deletedCornerCellOfOneBoxChildRow h hr) = r := by
   exact deletedCornerCell_row h hr
 
-/-- Lemma 5.11 set-level component: the deleted corner is the final column of
+/-- Lemma 5.10 set-level component: the deleted corner is the final column of
 the removed row. -/
 theorem S05_Lem5_10_deletedCornerCell_col
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
@@ -208,7 +211,7 @@ theorem S05_Lem5_10_insertMax_tableauMaxAt_deletedCorner
       (deletedCornerCellOfOneBoxChildRow h hr) := by
   exact insertMax_tableauMaxAt_deletedCorner h hr S
 
-/-- Lemma 5.11 set-level component: insertion puts the new maximum entry at
+/-- Lemma 5.10 set-level component: insertion puts the new maximum entry at
 the deleted corner. -/
 theorem S05_Lem5_10_insertMax_entry_deletedCorner
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
@@ -221,7 +224,7 @@ theorem S05_Lem5_10_insertMax_entry_deletedCorner
       (deletedCornerCellOfOneBoxChildRow h hr) = Fin.last n := by
   exact insertMaxAsStandardYoungTableau_entry_deletedCorner h hr S
 
-/-- Lemma 5.11 set-level component: away from the deleted corner, insertion
+/-- Lemma 5.10 set-level component: away from the deleted corner, insertion
 agrees with the child tableau through the parent-child cell equivalence. -/
 theorem S05_Lem5_10_insertMax_entry_ne_deletedCorner
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
@@ -241,7 +244,7 @@ theorem S05_Lem5_10_insertMax_entry_ne_deletedCorner
             (deletedCornerCell_col h hr) ⟨v, hv⟩)) := by
   exact insertMaxAsStandardYoungTableau_entry_ne_deletedCorner h hr S hv
 
-/-- Lemma 5.11 set-level component: away from the deleted corner, inserted
+/-- Lemma 5.10 set-level component: away from the deleted corner, inserted
 entries are strictly below the new maximum. -/
 theorem S05_Lem5_10_insertMax_entry_lt_last_of_ne_deletedCorner
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
@@ -301,5 +304,67 @@ def S05_Lem5_10_oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow
       TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)}
       ≃ StandardYoungTableau mu :=
   oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow h hr
+
+/-- Coordinate functions on the parent tableaux whose maximum entry is in the
+deleted corner. -/
+abbrev S05_Lem5_10_OneBoxDeletionCoordinateSpace
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t) :=
+    {T : StandardYoungTableau lam //
+      TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)} -> ℝ
+
+/-- The coordinate inner product on the one-box deletion fiber. -/
+def S05_Lem5_10_oneBoxDeletionInner
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (f g : S05_Lem5_10_OneBoxDeletionCoordinateSpace h hr) : ℝ :=
+  ∑ T : {T : StandardYoungTableau lam //
+      TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)}, f T * g T
+
+/-- The coordinate map induced by deleting the maximum-entry box. -/
+def S05_Lem5_10_deletionCoordinateMap
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (f : S05_Lem5_10_OneBoxDeletionCoordinateSpace h hr) :
+    TableauSpace mu :=
+  fun S =>
+    f ((S05_Lem5_10_oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow
+      h hr).symm S)
+
+/-- Lemma 5.10 coordinate form: the deletion equivalence preserves the finite
+coordinate inner product. -/
+theorem S05_Lem5_10_deletionCoordinateMap_inner
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (f g : S05_Lem5_10_OneBoxDeletionCoordinateSpace h hr) :
+    tableauInner
+        (S05_Lem5_10_deletionCoordinateMap h hr f)
+        (S05_Lem5_10_deletionCoordinateMap h hr g)
+      =
+    S05_Lem5_10_oneBoxDeletionInner h hr f g := by
+  classical
+  let e := S05_Lem5_10_oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow
+    h hr
+  change
+    (∑ S : StandardYoungTableau mu, f (e.symm S) * g (e.symm S)) =
+      ∑ T : {T : StandardYoungTableau lam //
+        TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)}, f T * g T
+  exact Fintype.sum_equiv e.symm
+    (fun S : StandardYoungTableau mu => f (e.symm S) * g (e.symm S))
+    (fun T : {T : StandardYoungTableau lam //
+        TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)} => f T * g T)
+    (fun _ => rfl)
 
 end DictatorshipTesting

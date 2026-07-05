@@ -327,6 +327,9 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   branching through `S05_Lem5_07_twoStepDeletionTableauxEquivChildTableaux`,
   plus iterated deletion preservation of content, row, and column coordinates.
   This is a concrete tableau statement, not a Specht-module branching theorem.
+- `S05_Lem5_10_OneBoxDeletionIsUnitary.lean`: set-level one-box
+  deletion/insertion equivalence and coordinate inner-product preservation
+  through `S05_Lem5_10_deletionCoordinateMap_inner`.
 - `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority.lean`: finite `zEven`
   certificate, with both the legacy `youngDim` theorem and the tableau-count
   theorem `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.

@@ -33,6 +33,9 @@ Detailed maps:
 - Lemma 5.7 now exposes the concrete fixed two-step tableau branching
   equivalence `S05_Lem5_07_twoStepDeletionTableauxEquivChildTableaux`, together
   with the iterated deletion content/row/column preservation wrappers.
+- Lemma 5.10 now proves the concrete coordinate form of one-box deletion
+  unitarity: `S05_Lem5_10_deletionCoordinateMap_inner` shows that the deletion
+  equivalence preserves the finite coordinate inner product.
 - Lemma 5.18 contains the current matching-cube operator algebra wrappers,
   including cube XOR laws, simultaneous matching-eigenvector predicates,
   matching-character action on simultaneous eigenvectors, and the first
