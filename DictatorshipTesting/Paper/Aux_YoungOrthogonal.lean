@@ -604,6 +604,49 @@ theorem inv_sq_braid_diag_identity {x y z : ℝ}
   field_simp [hx, hy, hz0]
   ring
 
+theorem braid_six_coefficient_identity
+    (da db dz oa ob oz xT xTa xTb xTab xTba xTop : ℝ)
+    (hT :
+      da ^ 2 * db + oa ^ 2 * dz =
+        db ^ 2 * da + ob ^ 2 * dz)
+    (hTa : da * (db - dz) = db * dz)
+    (hTb : db * (da - dz) = da * dz) :
+    da * (db * (da * xT + oa * xTa) +
+          ob * (dz * xTb + oz * xTba)) +
+        oa * (dz * ((-da) * xTa + oa * xT) +
+          oz * (db * xTab + ob * xTop)) =
+      db * (da * (db * xT + ob * xTb) +
+          oa * (dz * xTa + oz * xTab)) +
+        ob * (dz * ((-db) * xTb + ob * xT) +
+          oz * (da * xTba + oa * xTop)) := by
+  calc
+    da * (db * (da * xT + oa * xTa) +
+          ob * (dz * xTb + oz * xTba)) +
+        oa * (dz * ((-da) * xTa + oa * xT) +
+          oz * (db * xTab + ob * xTop))
+        =
+      (da ^ 2 * db + oa ^ 2 * dz) * xT +
+        oa * (da * (db - dz)) * xTa +
+        ob * (da * dz) * xTb +
+        db * oa * oz * xTab +
+        da * ob * oz * xTba +
+        oa * ob * oz * xTop := by
+          ring
+    _ =
+      (db ^ 2 * da + ob ^ 2 * dz) * xT +
+        oa * (db * dz) * xTa +
+        ob * (db * (da - dz)) * xTb +
+        db * oa * oz * xTab +
+        da * ob * oz * xTba +
+        oa * ob * oz * xTop := by
+          rw [hT, hTa, hTb]
+    _ =
+      db * (da * (db * xT + ob * xTb) +
+          oa * (dz * xTa + oz * xTab)) +
+        ob * (dz * ((-db) * xTb + ob * xT) +
+          oz * (da * xTba + oa * xTop)) := by
+          ring
+
 theorem youngAdjacentDiagCoeff_ne_zero_of_swappable {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a : Fin n)
