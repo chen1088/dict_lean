@@ -1,5 +1,5 @@
 import DictatorshipTesting.Paper.Aux_YoungAdjacentEntries
-import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
+import DictatorshipTesting.Paper.Aux_TableauDimension
 
 /-!
 Elementary coordinate-space objects for the tableau-basis side of the rewritten

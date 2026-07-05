@@ -1,3 +1,4 @@
+import DictatorshipTesting.Paper.Aux_YoungMatchingOperators
 import DictatorshipTesting.Paper.S05_Lem5_36_OddCertificate
 
 /-!
@@ -30,6 +31,46 @@ bounds already formalized.
 noncomputable section
 
 namespace DictatorshipTesting
+
+/-- Lemma 5.19 matching-operator component: a canonical even matching edge
+operator is an involution. -/
+theorem S05_Lem5_19_canonicalMatchingYoungOperatorEven_involutive
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (canonicalMatchingYoungOperatorEven r f) = f := by
+  exact canonicalMatchingYoungOperatorEven_involutive r f
+
+/-- Lemma 5.19 matching-operator component: distinct canonical even matching
+edge operators commute. -/
+theorem S05_Lem5_19_canonicalMatchingYoungOperatorEven_comm
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    {r s : Fin m} (hrs : r ≠ s) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (canonicalMatchingYoungOperatorEven s f) =
+      canonicalMatchingYoungOperatorEven s
+        (canonicalMatchingYoungOperatorEven r f) := by
+  exact canonicalMatchingYoungOperatorEven_comm hrs f
+
+/-- Lemma 5.19 matching-operator component: a canonical odd matching edge
+operator is an involution. -/
+theorem S05_Lem5_19_canonicalMatchingYoungOperatorOdd_involutive
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (canonicalMatchingYoungOperatorOdd r f) = f := by
+  exact canonicalMatchingYoungOperatorOdd_involutive r f
+
+/-- Lemma 5.19 matching-operator component: distinct canonical odd matching
+edge operators commute. -/
+theorem S05_Lem5_19_canonicalMatchingYoungOperatorOdd_comm
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {r s : Fin m} (hrs : r ≠ s) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (canonicalMatchingYoungOperatorOdd s f) =
+      canonicalMatchingYoungOperatorOdd s
+        (canonicalMatchingYoungOperatorOdd r f) := by
+  exact canonicalMatchingYoungOperatorOdd_comm hrs f
 
 /-- Even matching-restriction input, in the scalar vocabulary currently
 available in Lean. -/

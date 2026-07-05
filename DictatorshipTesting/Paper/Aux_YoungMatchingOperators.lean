@@ -73,4 +73,57 @@ theorem canonicalNearMatchingAdjacentIndex_disjoint
       simp [canonicalNearMatchingAdjacentIndex]
       omega)
 
+/-- Young's adjacent operator for the `r`th edge of the canonical matching in
+the even case.  The shape is written as `(2*m - 1) + 1` so it matches the
+`n+1` convention of `youngAdjacentOperator` definitionally. -/
+noncomputable def canonicalMatchingYoungOperatorEven
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) : TableauSpace lam -> TableauSpace lam :=
+  youngAdjacentOperator (canonicalMatchingAdjacentIndex m r)
+
+/-- Young's adjacent operator for the `r`th edge of the canonical matching in
+the odd case, leaving the final label unmatched. -/
+noncomputable def canonicalMatchingYoungOperatorOdd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) : TableauSpace lam -> TableauSpace lam :=
+  youngAdjacentOperator (canonicalNearMatchingAdjacentIndex m r)
+
+theorem canonicalMatchingYoungOperatorEven_involutive
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (canonicalMatchingYoungOperatorEven r f) = f := by
+  exact youngAdjacentOperator_sq (canonicalMatchingAdjacentIndex m r) f
+
+theorem canonicalMatchingYoungOperatorOdd_involutive
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (canonicalMatchingYoungOperatorOdd r f) = f := by
+  exact youngAdjacentOperator_sq (canonicalNearMatchingAdjacentIndex m r) f
+
+theorem canonicalMatchingYoungOperatorEven_comm
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    {r s : Fin m} (hrs : r ≠ s) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (canonicalMatchingYoungOperatorEven s f) =
+      canonicalMatchingYoungOperatorEven s
+        (canonicalMatchingYoungOperatorEven r f) := by
+  exact youngAdjacentOperator_comm_of_disjoint_indices
+    (canonicalMatchingAdjacentIndex m r)
+    (canonicalMatchingAdjacentIndex m s)
+    (canonicalMatchingAdjacentIndex_disjoint m hrs) f
+
+theorem canonicalMatchingYoungOperatorOdd_comm
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {r s : Fin m} (hrs : r ≠ s) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (canonicalMatchingYoungOperatorOdd s f) =
+      canonicalMatchingYoungOperatorOdd s
+        (canonicalMatchingYoungOperatorOdd r f) := by
+  exact youngAdjacentOperator_comm_of_disjoint_indices
+    (canonicalNearMatchingAdjacentIndex m r)
+    (canonicalNearMatchingAdjacentIndex m s)
+    (canonicalNearMatchingAdjacentIndex_disjoint m hrs) f
+
 end DictatorshipTesting
