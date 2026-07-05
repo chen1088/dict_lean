@@ -36,6 +36,11 @@ Detailed maps:
 - Lemma 5.10 now proves the concrete coordinate form of one-box deletion
   unitarity: `S05_Lem5_10_deletionCoordinateMap_inner` shows that the deletion
   equivalence preserves the finite coordinate inner product.
+- Lemma 5.11 now proves the deletion/content compatibility needed by the
+  rewritten spine: `S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines`
+  shows that the one-box deletion coordinate map intertwines the explicit
+  diagonal content operators on surviving entries.  The full Young-adjacent
+  operator intertwining remains future work.
 - Lemma 5.18 contains the current matching-cube operator algebra wrappers,
   including cube XOR laws, simultaneous matching-eigenvector predicates,
   matching-character action on simultaneous eigenvectors, and the first

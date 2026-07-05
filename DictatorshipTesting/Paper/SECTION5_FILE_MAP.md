@@ -28,7 +28,7 @@ identification were moved to Appendix A-facing files:
 | 5.8 | definition | One-box deletion spaces | `S05_Def5_08_OneBoxDeletionSpaces.lean` | `S05_Def5_08_OneBoxDeletionTableaux`, `S05_Def5_08_existsUnique_tableauMaxAt` | definition only |
 | 5.9 | lemma | One-box corner decomposition | `S05_Lem5_09_OneBoxCornerDecomposition.lean` | `S05_Lem5_09_row_form`, `S05_Lem5_09_removable_corner`, `S05_Lem5_09_tableau_unique_removable_corner` | proved |
 | 5.10 | lemma | One-box deletion is unitary | `S05_Lem5_10_OneBoxDeletionIsUnitary.lean` | `S05_Lem5_10_oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow`, `S05_Lem5_10_deletionCoordinateMap_inner` | proved |
-| 5.11 | lemma | One-box deletion intertwines earlier swaps | `S05_Lem5_11_OneBoxDeletionIntertwinesEarlierSwaps.lean` | `S05_Lem5_11_deleteMax_tableauContentSequence` | conditional |
+| 5.11 | lemma | One-box deletion intertwines earlier swaps | `S05_Lem5_11_OneBoxDeletionIntertwinesEarlierSwaps.lean` | `S05_Lem5_11_deleteMax_tableauContentSequence`, `S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines` | partial: diagonal-content component proved |
 | 5.12 | definition | Even sign-pattern multiset | `S05_Def5_12_EvenSignPatternMultiset.lean` | `S05_evenZeroSignPatternCount`, `S05_evenHighSignPatternCount` | definition only |
 | 5.13 | definition | Odd sign-pattern multiset | `S05_Def5_13_OddSignPatternMultiset.lean` | `S05_oddHighSignPatternCount` | definition only |
 | 5.14 | lemma | Two-box dimension recursion | `S05_Lem5_14_TwoBoxDimensionRecursion.lean` | `youngDim_twoStrip_branching_input`, `S05_Lem5_14_tableauDim_twoStrip_branching_sized` | legacy axiom dependency |

@@ -101,6 +101,14 @@ Proven Lemma 5.10 coordinate one-box deletion package:
   equivalence and that the induced coordinate map preserves the finite
   coordinate inner product.
 
+Proven Lemma 5.11 diagonal-content deletion component:
+
+- `S05_Lem5_11_OneBoxDeletionIntertwinesEarlierSwaps.lean` -- Lemma 5.11
+  (`lem:one-box-deletion-intertwines`): proves that deleting the maximum entry
+  preserves the surviving content sequence and that the one-box deletion
+  coordinate map intertwines the explicit diagonal content operators.  The full
+  Young-adjacent-operator intertwining remains future work.
+
 Remaining Lemma 5.1 representation-theory boundary:
 
 - The Lean development does not claim a classical Specht-module

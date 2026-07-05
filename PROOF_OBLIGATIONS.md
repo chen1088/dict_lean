@@ -330,6 +330,11 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
 - `S05_Lem5_10_OneBoxDeletionIsUnitary.lean`: set-level one-box
   deletion/insertion equivalence and coordinate inner-product preservation
   through `S05_Lem5_10_deletionCoordinateMap_inner`.
+- `S05_Lem5_11_OneBoxDeletionIntertwinesEarlierSwaps.lean`: basis-level
+  content preservation under maximum-entry deletion and coordinate-level
+  diagonal-content intertwining through
+  `S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines`.  The full
+  Young-adjacent-operator intertwining statement remains open.
 - `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority.lean`: finite `zEven`
   certificate, with both the legacy `youngDim` theorem and the tableau-count
   theorem `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.
