@@ -126,6 +126,26 @@ theorem S05_Lem5_19_canonicalMatchingCubeOperatorOdd_zero
     canonicalMatchingCubeOperatorOdd (lam := lam) (cubeZero m) = id := by
   exact canonicalMatchingCubeOperatorOdd_zero
 
+/-- Lemma 5.19 matching-cube component: the even canonical matching operators
+respect the cube XOR law. -/
+theorem S05_Lem5_19_canonicalMatchingCubeOperatorEven_xor
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (x y : Cube m) :
+    canonicalMatchingCubeOperatorEven (lam := lam) (cubeXor x y) =
+      fun f => canonicalMatchingCubeOperatorEven (lam := lam) x
+        (canonicalMatchingCubeOperatorEven (lam := lam) y f) := by
+  exact canonicalMatchingCubeOperatorEven_xor x y
+
+/-- Lemma 5.19 matching-cube component: the odd canonical matching operators
+respect the cube XOR law. -/
+theorem S05_Lem5_19_canonicalMatchingCubeOperatorOdd_xor
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (x y : Cube m) :
+    canonicalMatchingCubeOperatorOdd (lam := lam) (cubeXor x y) =
+      fun f => canonicalMatchingCubeOperatorOdd (lam := lam) x
+        (canonicalMatchingCubeOperatorOdd (lam := lam) y f) := by
+  exact canonicalMatchingCubeOperatorOdd_xor x y
+
 /-- Lemma 5.19 one-edge component: an even matching edge fixes a same-row
 tableau basis vector. -/
 theorem S05_Lem5_19_matchingEdge_basis_sameRow_even
