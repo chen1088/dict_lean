@@ -476,6 +476,109 @@ theorem youngAdjacentDiagCoeff_after_right_swap_of_succ {n : Nat}
   rw [youngAdjacentDiagCoeff,
     adjacentAxialDistance_after_right_swap_of_succ T a b hsucc hrow_b hcol_b]
 
+theorem youngAdjacentDiagCoeff_after_left_swap_eq_after_right_swap_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_a : ¬ adjacentSameRow T a)
+    (hcol_a : ¬ adjacentSameCol T a)
+    (hrow_b : ¬ adjacentSameRow T b)
+    (hcol_b : ¬ adjacentSameCol T b) :
+    youngAdjacentDiagCoeff (adjacentSwapTableau T a hrow_a hcol_a) b =
+      youngAdjacentDiagCoeff (adjacentSwapTableau T b hrow_b hcol_b) a := by
+  rw [youngAdjacentDiagCoeff_after_left_swap_of_succ T a b hsucc hrow_a hcol_a,
+    youngAdjacentDiagCoeff_after_right_swap_of_succ T a b hsucc hrow_b hcol_b]
+
+theorem youngAdjacentOffCoeff_after_left_swap_eq_after_right_swap_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_a : ¬ adjacentSameRow T a)
+    (hcol_a : ¬ adjacentSameCol T a)
+    (hrow_b : ¬ adjacentSameRow T b)
+    (hcol_b : ¬ adjacentSameCol T b) :
+    youngAdjacentOffCoeff (adjacentSwapTableau T a hrow_a hcol_a) b =
+      youngAdjacentOffCoeff (adjacentSwapTableau T b hrow_b hcol_b) a := by
+  rw [youngAdjacentOffCoeff, youngAdjacentOffCoeff,
+    youngAdjacentDiagCoeff_after_left_swap_eq_after_right_swap_of_succ
+      T a b hsucc hrow_a hcol_a hrow_b hcol_b]
+
+theorem youngAdjacentDiagCoeff_after_left_right_swap_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_a : ¬ adjacentSameRow T a)
+    (hcol_a : ¬ adjacentSameCol T a)
+    (hrow_b_after_a :
+      ¬ adjacentSameRow (adjacentSwapTableau T a hrow_a hcol_a) b)
+    (hcol_b_after_a :
+      ¬ adjacentSameCol (adjacentSwapTableau T a hrow_a hcol_a) b) :
+    youngAdjacentDiagCoeff
+        (adjacentSwapTableau
+          (adjacentSwapTableau T a hrow_a hcol_a) b
+          hrow_b_after_a hcol_b_after_a) a =
+      youngAdjacentDiagCoeff T b := by
+  rw [youngAdjacentDiagCoeff, youngAdjacentDiagCoeff,
+    adjacentAxialDistance_after_left_right_swap_of_succ
+      T a b hsucc hrow_a hcol_a hrow_b_after_a hcol_b_after_a]
+
+theorem youngAdjacentOffCoeff_after_left_right_swap_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_a : ¬ adjacentSameRow T a)
+    (hcol_a : ¬ adjacentSameCol T a)
+    (hrow_b_after_a :
+      ¬ adjacentSameRow (adjacentSwapTableau T a hrow_a hcol_a) b)
+    (hcol_b_after_a :
+      ¬ adjacentSameCol (adjacentSwapTableau T a hrow_a hcol_a) b) :
+    youngAdjacentOffCoeff
+        (adjacentSwapTableau
+          (adjacentSwapTableau T a hrow_a hcol_a) b
+          hrow_b_after_a hcol_b_after_a) a =
+      youngAdjacentOffCoeff T b := by
+  rw [youngAdjacentOffCoeff, youngAdjacentOffCoeff,
+    youngAdjacentDiagCoeff_after_left_right_swap_of_succ
+      T a b hsucc hrow_a hcol_a hrow_b_after_a hcol_b_after_a]
+
+theorem youngAdjacentDiagCoeff_after_right_left_swap_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_b : ¬ adjacentSameRow T b)
+    (hcol_b : ¬ adjacentSameCol T b)
+    (hrow_a_after_b :
+      ¬ adjacentSameRow (adjacentSwapTableau T b hrow_b hcol_b) a)
+    (hcol_a_after_b :
+      ¬ adjacentSameCol (adjacentSwapTableau T b hrow_b hcol_b) a) :
+    youngAdjacentDiagCoeff
+        (adjacentSwapTableau
+          (adjacentSwapTableau T b hrow_b hcol_b) a
+          hrow_a_after_b hcol_a_after_b) b =
+      youngAdjacentDiagCoeff T a := by
+  rw [youngAdjacentDiagCoeff, youngAdjacentDiagCoeff,
+    adjacentAxialDistance_after_right_left_swap_of_succ
+      T a b hsucc hrow_b hcol_b hrow_a_after_b hcol_a_after_b]
+
+theorem youngAdjacentOffCoeff_after_right_left_swap_of_succ {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1)
+    (hrow_b : ¬ adjacentSameRow T b)
+    (hcol_b : ¬ adjacentSameCol T b)
+    (hrow_a_after_b :
+      ¬ adjacentSameRow (adjacentSwapTableau T b hrow_b hcol_b) a)
+    (hcol_a_after_b :
+      ¬ adjacentSameCol (adjacentSwapTableau T b hrow_b hcol_b) a) :
+    youngAdjacentOffCoeff
+        (adjacentSwapTableau
+          (adjacentSwapTableau T b hrow_b hcol_b) a
+          hrow_a_after_b hcol_a_after_b) b =
+      youngAdjacentOffCoeff T a := by
+  rw [youngAdjacentOffCoeff, youngAdjacentOffCoeff,
+    youngAdjacentDiagCoeff_after_right_left_swap_of_succ
+      T a b hsucc hrow_b hcol_b hrow_a_after_b hcol_a_after_b]
+
 theorem inv_braid_left_identity {x y z : ℝ}
     (hx : x ≠ 0) (hy : y ≠ 0) (hz0 : z ≠ 0)
     (hsum : z = x + y) :
