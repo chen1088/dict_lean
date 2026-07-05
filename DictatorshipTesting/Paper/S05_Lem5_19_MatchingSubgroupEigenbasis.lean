@@ -106,6 +106,26 @@ theorem S05_Lem5_19_matchingEdge_basis_sameCol_even
       fun S => -tableauBasisVec T S := by
   exact canonicalMatchingYoungOperatorEven_basis_sameCol T r hcol
 
+/-- Lemma 5.19 one-edge eigenspace component: in the even case, a same-row
+tableau basis vector has eigenvalue `1`. -/
+theorem S05_Lem5_19_matchingEdge_sameRow_eigen_even
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow : adjacentSameRow T (canonicalMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorEven r (tableauBasisVec T) =
+      (1 : ℝ) • tableauBasisVec T := by
+  exact canonicalMatchingYoungOperatorEven_basis_sameRow_eigen T r hrow
+
+/-- Lemma 5.19 one-edge eigenspace component: in the even case, a same-column
+tableau basis vector has eigenvalue `-1`. -/
+theorem S05_Lem5_19_matchingEdge_sameCol_eigen_even
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hcol : adjacentSameCol T (canonicalMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorEven r (tableauBasisVec T) =
+      (-1 : ℝ) • tableauBasisVec T := by
+  exact canonicalMatchingYoungOperatorEven_basis_sameCol_eigen T r hcol
+
 /-- Lemma 5.19 one-edge component: in an even swappable edge, the diagonal
 coordinate is the Young axial coefficient. -/
 theorem S05_Lem5_19_matchingEdge_basis_swappable_self_value_even
@@ -151,6 +171,26 @@ theorem S05_Lem5_19_matchingEdge_basis_sameCol_odd
     canonicalMatchingYoungOperatorOdd r (tableauBasisVec T) =
       fun S => -tableauBasisVec T S := by
   exact canonicalMatchingYoungOperatorOdd_basis_sameCol T r hcol
+
+/-- Lemma 5.19 one-edge eigenspace component: in the odd case, a same-row
+tableau basis vector has eigenvalue `1`. -/
+theorem S05_Lem5_19_matchingEdge_sameRow_eigen_odd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow : adjacentSameRow T (canonicalNearMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorOdd r (tableauBasisVec T) =
+      (1 : ℝ) • tableauBasisVec T := by
+  exact canonicalMatchingYoungOperatorOdd_basis_sameRow_eigen T r hrow
+
+/-- Lemma 5.19 one-edge eigenspace component: in the odd case, a same-column
+tableau basis vector has eigenvalue `-1`. -/
+theorem S05_Lem5_19_matchingEdge_sameCol_eigen_odd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hcol : adjacentSameCol T (canonicalNearMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorOdd r (tableauBasisVec T) =
+      (-1 : ℝ) • tableauBasisVec T := by
+  exact canonicalMatchingYoungOperatorOdd_basis_sameCol_eigen T r hcol
 
 /-- Lemma 5.19 one-edge component: in an odd swappable edge, the diagonal
 coordinate is the Young axial coefficient. -/

@@ -209,6 +209,25 @@ theorem canonicalMatchingYoungOperatorEven_basis_sameCol
   exact youngAdjacentOperator_basis_sameCol
     T (canonicalMatchingAdjacentIndex m r) hcol
 
+theorem canonicalMatchingYoungOperatorEven_basis_sameRow_eigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow : adjacentSameRow T (canonicalMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorEven r (tableauBasisVec T) =
+      (1 : ℝ) • tableauBasisVec T := by
+  rw [canonicalMatchingYoungOperatorEven_basis_sameRow T r hrow]
+  simp
+
+theorem canonicalMatchingYoungOperatorEven_basis_sameCol_eigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hcol : adjacentSameCol T (canonicalMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorEven r (tableauBasisVec T) =
+      (-1 : ℝ) • tableauBasisVec T := by
+  rw [canonicalMatchingYoungOperatorEven_basis_sameCol T r hcol]
+  funext S
+  simp
+
 theorem canonicalMatchingYoungOperatorEven_basis_swappable_self_value
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
     (T : StandardYoungTableau lam) (r : Fin m)
@@ -248,6 +267,25 @@ theorem canonicalMatchingYoungOperatorOdd_basis_sameCol
       fun S => -tableauBasisVec T S := by
   exact youngAdjacentOperator_basis_sameCol
     T (canonicalNearMatchingAdjacentIndex m r) hcol
+
+theorem canonicalMatchingYoungOperatorOdd_basis_sameRow_eigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hrow : adjacentSameRow T (canonicalNearMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorOdd r (tableauBasisVec T) =
+      (1 : ℝ) • tableauBasisVec T := by
+  rw [canonicalMatchingYoungOperatorOdd_basis_sameRow T r hrow]
+  simp
+
+theorem canonicalMatchingYoungOperatorOdd_basis_sameCol_eigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (T : StandardYoungTableau lam) (r : Fin m)
+    (hcol : adjacentSameCol T (canonicalNearMatchingAdjacentIndex m r)) :
+    canonicalMatchingYoungOperatorOdd r (tableauBasisVec T) =
+      (-1 : ℝ) • tableauBasisVec T := by
+  rw [canonicalMatchingYoungOperatorOdd_basis_sameCol T r hcol]
+  funext S
+  simp
 
 theorem canonicalMatchingYoungOperatorOdd_basis_swappable_self_value
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
