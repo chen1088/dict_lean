@@ -411,6 +411,206 @@ theorem adjacentAxialDistance_ne_zero_of_swappable {n : Nat}
       rfl
     omega
 
+theorem adjacentAxialDistance_ne_one_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    adjacentAxialDistance T a ≠ 1 := by
+  intro hone
+  let lo := adjacentLoCell T a
+  let hi := adjacentHiCell T a
+  have hrow_ne_raw : YoungCell.row lo ≠ YoungCell.row hi := by
+    simpa [lo, hi, adjacentSameRow] using hrow_ne
+  have hcol_ne_raw : YoungCell.col lo ≠ YoungCell.col hi := by
+    simpa [lo, hi, adjacentSameCol] using hcol_ne
+  have hcontent_entry :
+      entryContent T (adjacentEntryHi a) =
+        entryContent T (adjacentEntryLo a) + 1 := by
+    unfold adjacentAxialDistance at hone
+    omega
+  have hcontent : YoungCell.content hi = YoungCell.content lo + 1 := by
+    simpa [entryContent, adjacentHiCell, adjacentLoCell, lo, hi]
+      using hcontent_entry
+  rcases lt_or_gt_of_ne hrow_ne_raw with hrow_lt | hrow_lt
+  · have hcol_lt : YoungCell.col lo < YoungCell.col hi := by
+      unfold YoungCell.content at hcontent
+      omega
+    have hhi_box : YoungCell.col hi < youngRow lam (YoungCell.row hi) := by
+      simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox hi
+    have hrow_le :
+        youngRow lam (YoungCell.row hi) <=
+          youngRow lam (YoungCell.row lo) :=
+      youngRow_le_of_le lam (Nat.le_of_lt hrow_lt)
+    have hmid_cell :
+        YoungCell.col hi < youngRow lam (YoungCell.row lo) := by
+      omega
+    let mid : YoungCell lam :=
+      youngCellOfNat lam (YoungCell.row lo) (YoungCell.col hi) hmid_cell
+    have hlo_mid : T.entry lo < T.entry mid := by
+      apply T.row_strict
+      · simp [mid, youngCellOfNat_row]
+      · simp [mid, youngCellOfNat_col, hcol_lt]
+    have hmid_hi : T.entry mid < T.entry hi := by
+      apply T.col_strict
+      · simp [mid, youngCellOfNat_col]
+      · simp [mid, youngCellOfNat_row, hrow_lt]
+    have hlo_mid_val : (T.entry lo : Nat) < (T.entry mid : Nat) := hlo_mid
+    have hmid_hi_val : (T.entry mid : Nat) < (T.entry hi : Nat) := hmid_hi
+    have hlo_val : (T.entry lo : Nat) = (a : Nat) := by
+      rw [show T.entry lo = adjacentEntryLo a by
+        simpa [lo] using entry_adjacentLoCell T a]
+      rfl
+    have hhi_val : (T.entry hi : Nat) = (a : Nat) + 1 := by
+      rw [show T.entry hi = adjacentEntryHi a by
+        simpa [hi] using entry_adjacentHiCell T a]
+      rfl
+    omega
+  · have hcol_lt : YoungCell.col hi < YoungCell.col lo := by
+      unfold YoungCell.content at hcontent
+      omega
+    have hlo_box : YoungCell.col lo < youngRow lam (YoungCell.row lo) := by
+      simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox lo
+    have hrow_le :
+        youngRow lam (YoungCell.row lo) <=
+          youngRow lam (YoungCell.row hi) :=
+      youngRow_le_of_le lam (Nat.le_of_lt hrow_lt)
+    have hmid_cell :
+        YoungCell.col lo < youngRow lam (YoungCell.row hi) := by
+      omega
+    let mid : YoungCell lam :=
+      youngCellOfNat lam (YoungCell.row hi) (YoungCell.col lo) hmid_cell
+    have hhi_mid : T.entry hi < T.entry mid := by
+      apply T.row_strict
+      · simp [mid, youngCellOfNat_row]
+      · simp [mid, youngCellOfNat_col, hcol_lt]
+    have hmid_lo : T.entry mid < T.entry lo := by
+      apply T.col_strict
+      · simp [mid, youngCellOfNat_col]
+      · simp [mid, youngCellOfNat_row, hrow_lt]
+    have hhi_mid_val : (T.entry hi : Nat) < (T.entry mid : Nat) := hhi_mid
+    have hmid_lo_val : (T.entry mid : Nat) < (T.entry lo : Nat) := hmid_lo
+    have hlo_val : (T.entry lo : Nat) = (a : Nat) := by
+      rw [show T.entry lo = adjacentEntryLo a by
+        simpa [lo] using entry_adjacentLoCell T a]
+      rfl
+    have hhi_val : (T.entry hi : Nat) = (a : Nat) + 1 := by
+      rw [show T.entry hi = adjacentEntryHi a by
+        simpa [hi] using entry_adjacentHiCell T a]
+      rfl
+    omega
+
+theorem adjacentAxialDistance_ne_neg_one_of_swappable {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow T a)
+    (hcol_ne : ¬ adjacentSameCol T a) :
+    adjacentAxialDistance T a ≠ -1 := by
+  intro hneg
+  let lo := adjacentLoCell T a
+  let hi := adjacentHiCell T a
+  have hrow_ne_raw : YoungCell.row lo ≠ YoungCell.row hi := by
+    simpa [lo, hi, adjacentSameRow] using hrow_ne
+  have hcol_ne_raw : YoungCell.col lo ≠ YoungCell.col hi := by
+    simpa [lo, hi, adjacentSameCol] using hcol_ne
+  have hcontent_entry :
+      entryContent T (adjacentEntryHi a) =
+        entryContent T (adjacentEntryLo a) - 1 := by
+    unfold adjacentAxialDistance at hneg
+    omega
+  have hcontent : YoungCell.content hi = YoungCell.content lo - 1 := by
+    simpa [entryContent, adjacentHiCell, adjacentLoCell, lo, hi]
+      using hcontent_entry
+  rcases lt_or_gt_of_ne hcol_ne_raw with hcol_lt | hcol_lt
+  · have hrow_lt : YoungCell.row lo < YoungCell.row hi := by
+      unfold YoungCell.content at hcontent
+      omega
+    have hhi_box : YoungCell.col hi < youngRow lam (YoungCell.row hi) := by
+      simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox hi
+    have hmid_cell :
+        YoungCell.col lo < youngRow lam (YoungCell.row hi) := by
+      omega
+    let mid : YoungCell lam :=
+      youngCellOfNat lam (YoungCell.row hi) (YoungCell.col lo) hmid_cell
+    have hlo_mid : T.entry lo < T.entry mid := by
+      apply T.col_strict
+      · simp [mid, youngCellOfNat_col]
+      · simp [mid, youngCellOfNat_row, hrow_lt]
+    have hmid_hi : T.entry mid < T.entry hi := by
+      apply T.row_strict
+      · simp [mid, youngCellOfNat_row]
+      · simp [mid, youngCellOfNat_col, hcol_lt]
+    have hlo_mid_val : (T.entry lo : Nat) < (T.entry mid : Nat) := hlo_mid
+    have hmid_hi_val : (T.entry mid : Nat) < (T.entry hi : Nat) := hmid_hi
+    have hlo_val : (T.entry lo : Nat) = (a : Nat) := by
+      rw [show T.entry lo = adjacentEntryLo a by
+        simpa [lo] using entry_adjacentLoCell T a]
+      rfl
+    have hhi_val : (T.entry hi : Nat) = (a : Nat) + 1 := by
+      rw [show T.entry hi = adjacentEntryHi a by
+        simpa [hi] using entry_adjacentHiCell T a]
+      rfl
+    omega
+  · have hrow_lt : YoungCell.row hi < YoungCell.row lo := by
+      unfold YoungCell.content at hcontent
+      omega
+    have hlo_box : YoungCell.col lo < youngRow lam (YoungCell.row lo) := by
+      simpa [YoungCell.toNatPair, IsYoungBox] using YoungCell.isYoungBox lo
+    have hrow_le :
+        youngRow lam (YoungCell.row lo) <=
+          youngRow lam (YoungCell.row hi) :=
+      youngRow_le_of_le lam (Nat.le_of_lt hrow_lt)
+    have hmid_cell :
+        YoungCell.col lo < youngRow lam (YoungCell.row hi) := by
+      omega
+    let mid : YoungCell lam :=
+      youngCellOfNat lam (YoungCell.row hi) (YoungCell.col lo) hmid_cell
+    have hhi_mid : T.entry hi < T.entry mid := by
+      apply T.row_strict
+      · simp [mid, youngCellOfNat_row]
+      · simp [mid, youngCellOfNat_col, hcol_lt]
+    have hmid_lo : T.entry mid < T.entry lo := by
+      apply T.col_strict
+      · simp [mid, youngCellOfNat_col]
+      · simp [mid, youngCellOfNat_row, hrow_lt]
+    have hhi_mid_val : (T.entry hi : Nat) < (T.entry mid : Nat) := hhi_mid
+    have hmid_lo_val : (T.entry mid : Nat) < (T.entry lo : Nat) := hmid_lo
+    have hlo_val : (T.entry lo : Nat) = (a : Nat) := by
+      rw [show T.entry lo = adjacentEntryLo a by
+        simpa [lo] using entry_adjacentLoCell T a]
+      rfl
+    have hhi_val : (T.entry hi : Nat) = (a : Nat) + 1 := by
+      rw [show T.entry hi = adjacentEntryHi a by
+        simpa [hi] using entry_adjacentHiCell T a]
+      rfl
+    omega
+
+theorem adjacentSameRow_of_axialDistance_eq_one {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (h : adjacentAxialDistance T a = 1) :
+    adjacentSameRow T a := by
+  by_cases hrow : adjacentSameRow T a
+  · exact hrow
+  · by_cases hcol : adjacentSameCol T a
+    · have hneg := adjacentAxialDistance_sameCol T a hcol
+      omega
+    · exact False.elim
+        (adjacentAxialDistance_ne_one_of_swappable T a hrow hcol h)
+
+theorem adjacentSameCol_of_axialDistance_eq_neg_one {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (h : adjacentAxialDistance T a = -1) :
+    adjacentSameCol T a := by
+  by_cases hcol : adjacentSameCol T a
+  · exact hcol
+  · by_cases hrow : adjacentSameRow T a
+    · have hone := adjacentAxialDistance_sameRow T a hrow
+      omega
+    · exact False.elim
+        (adjacentAxialDistance_ne_neg_one_of_swappable T a hrow hcol h)
+
 /-- Diagonal coefficient in Young's adjacent-transposition formula. -/
 noncomputable def youngAdjacentDiagCoeff {n : Nat}
     {lam : YoungDiagram (n + 1)}
