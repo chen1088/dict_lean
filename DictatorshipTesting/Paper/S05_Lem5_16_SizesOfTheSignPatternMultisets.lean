@@ -8,8 +8,8 @@ Title in paper: Sizes of the sign-pattern multisets.
 
 Status: paper-facing owner file for the rewritten Section 5 statement.  The
 current finite scaffold uses the scalar counts `zEven`, `hEven`, and `hOdd`.
-The `youngDim` size wrappers remain conditional on the named dimension
-branching inputs, while the `tableauDim` size wrappers are assumption-free.
+The `youngDim` size wrappers assume the named dimension branching inputs,
+while the `tableauDim` size wrappers are assumption-free.
 -/
 
 noncomputable section

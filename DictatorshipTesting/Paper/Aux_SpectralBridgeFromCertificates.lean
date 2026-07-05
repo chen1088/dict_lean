@@ -6,8 +6,6 @@ Helper for paper statements: Lemmas 5.26--5.28 (`lem:block-lower-bound-gap`,
 `lem:spectral-certificate-even`, `lem:spectral-certificate-odd`)
 Title in paper: Spectral bridge from the finite certificate.
 
-Legacy scalar-shadow file for the rewritten Section 5 statement.
-
 Status: the algebraic block-scalar implication is proved below.  The remaining
 inputs are exactly the representation-theoretic construction of Young-block
 energies and scalars from the regular representation, the identification of the
@@ -54,7 +52,7 @@ theorem blockScalar_lower_bound_of_traceScalarFormula {n : ℕ}
   exact (le_div_iff₀ hdim_pos).mpr (hcert lam hnot_row hnot_std)
 
 /-- Dimension positivity plus the block trace identity imply the trace/scalar
-value formula.  This is part of the scalar-shadow helper for Lemmas 5.26--5.28. -/
+value formula.  This is part of the algebraic helper for Lemmas 5.26--5.28. -/
 theorem traceScalarValue_of_blockTraceIdentity {n : ℕ}
     {height theta : YoungDiagram n → ℝ}
     (hdim : YoungDimensionPositiveInput n)
@@ -221,9 +219,9 @@ theorem matchingSpectralGap_of_odd_young_certificate (m : ℕ) (hm : 2 ≤ m) (c
     MatchingSpectralGapConstant (2 * m + 1) c := by
   exact OddSpectralGapFromCertificates m hm c hmodel hcert
 
-/-- Legacy spectral certificate, conditional on the representation-theoretic
-spectral block models.  This preserves the old theorem name
-`L5_2_SpectralCertificate`. -/
+/-- Spectral certificate using explicit representation-theoretic spectral-block
+model hypotheses.  The theorem name is preserved for compatibility with
+existing imports. -/
 theorem L5_2_SpectralCertificate (m : ℕ) (hm : 2 ≤ m) (c : ℝ)
     (hevenModel : SpectralBlockModelInput
       (fun lam : YoungDiagram (2 * m) => hEven m lam))

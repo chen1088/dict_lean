@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates_Legacy
+import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates
 import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
 
 /-!

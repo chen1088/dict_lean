@@ -4,8 +4,9 @@ import DictatorshipTesting.Paper.S05_Lem5_30_WeightZeroEntriesAreNeverAMajority
 Paper statement: Lemma 5.32 (`lem:h-even-app`)
 Title in paper: Even certificate.
 
-Status: finite Young-diagram certificate proved below, modulo the two-strip
-dimension recursion input and Lemma 5.32.
+Status: the tableau-count even certificate is proved below.  The older
+`youngDim` wrapper in this file remains part of the external Specht-dimension
+route.
 -/
 
 /-!

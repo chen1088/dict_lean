@@ -4,8 +4,6 @@ import DictatorshipTesting.Paper.Aux_CentralizationOverMatchings
 Paper statement: Lemma 5.25 (`lem:centralization-matchings`)
 Title in paper: Block scalar of the averaged rejection.
 
-Legacy scalar-shadow file for the rewritten Section 5 statement.
-
 Status: finite-dimensional trace-divided-by-dimension algebra is proved in the
 helper imported here; the remaining Young-block scalarity belongs to the
 spectral bridge input.
@@ -37,7 +35,7 @@ theorem centralizationBridge_scalar_eq_trace_div_dimension
     theta = h / d := by
   exact scalar_eq_trace_div_dimension d h theta hd htrace
 
-/-- Even Young-block scalar formula, conditional on scalarity and the trace
+/-- Even Young-block scalar formula, assuming scalarity and the trace
 identity. -/
 theorem centralizationBridge_even_scalar_eq_hEven_div_dim
     (m : ℕ) (lam : YoungDiagram (2 * m)) (theta : ℝ)
@@ -48,7 +46,7 @@ theorem centralizationBridge_even_scalar_eq_hEven_div_dim
     theta = hEven m lam / youngDim lam := by
   exact even_youngBlockScalar_eq_hEven_div_dim m lam theta hdim htrace
 
-/-- Odd Young-block scalar formula, conditional on scalarity and the trace
+/-- Odd Young-block scalar formula, assuming scalarity and the trace
 identity. -/
 theorem centralizationBridge_odd_scalar_eq_hOdd_div_dim
     (m : ℕ) (lam : YoungDiagram (2 * m + 1)) (theta : ℝ)

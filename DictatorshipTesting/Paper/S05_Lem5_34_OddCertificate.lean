@@ -5,8 +5,9 @@ import DictatorshipTesting.Paper.S05_Lem5_15_OneBoxDimensionRecursion
 Paper statement: Lemma 5.34 (`lem:h-odd-app`)
 Title in paper: Odd certificate.
 
-Status: finite Young-diagram certificate proved below, modulo the one-box
-dimension recursion input and Lemma 5.34.
+Status: the tableau-count odd certificate is proved below.  The older
+`youngDim` wrapper in this file remains part of the external Specht-dimension
+route.
 -/
 
 /-!

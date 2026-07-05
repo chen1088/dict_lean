@@ -50,18 +50,20 @@ external representation-theoretic inputs are mapped separately in
 Proven finite certificates:
 
 - `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority.lean` -- Lemma 5.30:
-  finite `zEven` certificate.  The legacy `youngDim` theorem remains for the
-  active spectral bridge, and the tableau-count theorem
+  finite `zEven` certificate.  The current tableau-count theorem
   `S05_Lem5_30_tableau_weightZeroEntries_never_majority` is proved against
-  `tableauDim`.
+  `tableauDim`; the older `youngDim` variant remains as an external
+  Specht-dimension route.
 - `S05_Lem5_32_EvenCertificate.lean` -- Lemma 5.32 (`lem:h-even-app`):
-  finite even certificate.  The legacy `hEven`/`youngDim` theorem remains, and
-  the tableau-count theorem `S05_Lem5_32_tableau_even_certificate` is proved
-  using `hEvenTableau`.
+  finite even certificate.  The current tableau-count theorem
+  `S05_Lem5_32_tableau_even_certificate` is proved using `hEvenTableau`; the
+  older `hEven`/`youngDim` variant remains as an external Specht-dimension
+  route.
 - `S05_Lem5_34_OddCertificate.lean` -- Lemma 5.34 (`lem:h-odd-app`):
-  finite odd certificate.  The legacy `hOdd`/`youngDim` theorem remains, and
-  the tableau-count theorem `S05_Lem5_34_tableau_odd_certificate` is proved
-  using `hOddTableau`.
+  finite odd certificate.  The current tableau-count theorem
+  `S05_Lem5_34_tableau_odd_certificate` is proved using `hOddTableau`; the
+  older `hOdd`/`youngDim` variant remains as an external Specht-dimension
+  route.
 
 Proven Lemma 5.1 coordinate Coxeter package:
 
@@ -101,7 +103,7 @@ Proven Lemma 5.10 coordinate one-box deletion package:
   equivalence and that the induced coordinate map preserves the finite
   coordinate inner product.
 
-Proven Lemma 5.11 diagonal-content deletion component:
+Proven component inside unproven Lemma 5.11:
 
 - `S05_Lem5_11_OneBoxDeletionIntertwinesEarlierSwaps.lean` -- Lemma 5.11
   (`lem:one-box-deletion-intertwines`): proves that deleting the maximum entry
@@ -113,10 +115,10 @@ Proven Lemma 5.16 tableau-count size components:
 
 - `S05_Lem5_16_SizesOfTheSignPatternMultisets.lean` -- Lemma 5.16
   (`lem:X-size`): exposes the assumption-free `tableauDim` two-strip and
-  one-box size recurrences from Lemmas 5.14 and 5.15.  The legacy `youngDim`
-  wrappers remain conditional on the named dimension-branching inputs.
+  one-box size recurrences from Lemmas 5.14 and 5.15.  The older `youngDim`
+  wrappers assume the named dimension-branching inputs.
 
-Proven Lemma 5.18 matching-cube operator/character components:
+Proven matching-cube components used near external Lemma 5.18:
 
 - `S05_Lem5_18_MatchingSubgroupEigenbasis.lean` -- Lemma 5.18
   (`lem:matching-restriction-X`): exposes the concrete canonical matching-cube
@@ -124,7 +126,7 @@ Proven Lemma 5.18 matching-cube operator/character components:
   proves that selected edge signs multiply to the matching character.  The full
   Specht-module restriction theorem remains a representation-layer input.
 
-Proven Lemma 5.23 finite-average/high-idempotent components:
+Proven finite-average components used near external Lemma 5.23:
 
 - `S05_Lem5_23_CentralAveragedRejection.lean` -- Lemma 5.23
   (`lem:averaged-rejection-central`): proves that the local rejection error is
@@ -173,8 +175,8 @@ External standard inputs:
 - `S05_Lem5_18_MatchingSubgroupEigenbasis.lean` -- Lemma 5.18
   (`lem:matching-restriction-X`): the paper-level statement is the full
   Specht/Pieri restriction theorem.  The current Lean file formalizes only the
-  scalar/multiplicity shadow needed downstream; that scalar shadow is proved
-  from the finite certificate bounds.
+  concrete matching-operator and scalar-bound interfaces needed downstream.
+  The full Specht/Pieri restriction theorem is external.
 - Lemmas 5.26--5.28, especially `S05_Lem5_27_EvenSpectralBridge.lean` and
   `S05_Lem5_28_OddSpectralBridge.lean`: the external Specht/Pieri/Schur
   spectral bridge is exposed as the named axioms
@@ -187,32 +189,33 @@ Internal bridge components proven:
 
 - `S05_Lem5_19_LocalTruncationOnAMatchingCharacter.lean` -- Lemma 5.19
   (`lem:PM-character-projection`): proved matching-cube character projection.
-- `S05_Lem5_20_TraceOfOneLocalTruncationOnOneYoungBlock.lean` -- Lemma 5.20
-  (`lem:PM-trace-young-block`): scalar trace formula in the current Lean
-  vocabulary, conditional on Lemma 5.18's scalar shadow.
-- `S05_Lem5_25_BlockScalarOfTheAveragedRejection.lean` -- Lemma 5.25
-  (`lem:centralization-matchings`): proved trace-divided-by-dimension scalar
-  algebra.
-- `S05_Lem5_26_BlockLowerBoundImpliesTheGap.lean`,
-  `S05_Lem5_27_EvenSpectralBridge.lean`, and
-  `S05_Lem5_28_OddSpectralBridge.lean`: the purely algebraic bridge is proved
-  from explicit spectral-block-model hypotheses.  In particular,
+- `S05_Lem5_26_BlockLowerBoundImpliesTheGap.lean`: the purely algebraic bridge
+  is proved with explicit spectral-block-model hypotheses in its statement. In
+  particular,
   `SpectralGapFromBlockScalars`, `SpectralGapFromBlockScalarLowerBounds`,
   `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and the
   dimension-parameterized `SpectralGapFromBlockModelWithDim` route are proved.
+- `S05_Lem5_27_EvenSpectralBridge.lean` and
+  `S05_Lem5_28_OddSpectralBridge.lean`: the standalone paper-level spectral
+  bridges are unproven until the external spectral-block model is supplied.
 - `Aux_SpectralBridgeDimensionParam.lean`: dimension-parameterized algebraic
   bridge.  It proves `blockScalar_lower_bound_of_traceScalarFormula_withDim`,
   `traceScalarValue_of_blockTraceIdentity_withDim`,
   `SpectralGapFromBlockScalarsWithDim`, and `SpectralGapFromBlockModelWithDim`
   for an arbitrary dimension function.
-- `S05_Lem5_27_EvenSpectralBridge.lean` and
-  `S05_Lem5_28_OddSpectralBridge.lean`: tableau-count bridge wrappers
-  `S05_Lem5_27_tableauDim_evenSpectralGapFromCertificates` and
-  `S05_Lem5_28_tableauDim_oddSpectralGapFromCertificates`, conditional on a
-  dimension-parameterized spectral model using `tableauDim`.
 - `Aux_SpectralBridgeRepresentationInputs.lean`: the compact interface for the
   spectral-block model used by the spectral bridge.  It contains only the Young-block
   energy, `U_1` identification, scalarity, and trace/scalar-value predicates.
+
+External or unproven bridge statements:
+
+- `S05_Lem5_20_TraceOfOneLocalTruncationOnOneYoungBlock.lean` -- Lemma 5.20:
+  external until the matching-character restriction data is supplied.
+- `S05_Lem5_25_BlockScalarOfTheAveragedRejection.lean` -- Lemma 5.25:
+  external until scalarity and trace identity inputs are supplied.
+- `S05_Lem5_27_EvenSpectralBridge.lean` and
+  `S05_Lem5_28_OddSpectralBridge.lean`: unproven as standalone paper-level
+  spectral bridges until the spectral-block model is supplied.
 
 Remaining spectral-bridge representation-theory boundary:
 
@@ -228,7 +231,7 @@ as named axioms:
   scalar model.  Theorem 4.10, Proposition 4.12, Lemma 4.13, and Theorem 1.1
   now use these named external inputs directly rather than taking anonymous
   model-family arguments.
-- The active Theorem 4.10 path still uses the legacy `youngDim` spectral model.
+- The active Theorem 4.10 path still uses the original `youngDim` spectral model.
   The tableau-count bridge is ready at the algebraic level, but consuming it
   requires a `SpectralBlockModelInputWithDim` instance for `tableauDim` and the
   tableau-count heights `hEvenTableau`/`hOddTableau`.
@@ -292,7 +295,7 @@ Paper-numbered highlights:
 - `S##_ThmA_BB_...`, `S##_LemA_BB_...`, `S##_PropA_BB_...`,
   `S##_CorA_BB_...`: preferred paper-facing filenames with explicit section
   and paper statement number.
-- `ThmA_B_...`, `LA_B_...`, `PropA_B_...`, `CorA_B_...`: legacy
+- `ThmA_B_...`, `LA_B_...`, `PropA_B_...`, `CorA_B_...`: older
   paper-facing filenames still used by earlier sections of the scaffold.
 - `Aux_...`: Lean helper lemma, implementation detail, or isolated external
   input that is not itself the paper-facing statement.

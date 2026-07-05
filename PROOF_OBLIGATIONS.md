@@ -10,9 +10,61 @@ Current classification:
   Specht dimension-branching hypotheses, and the representation-theoretic
   pieces of the Section 5 spectral bridge.
 - Internal finite certificates: Lemmas 5.30, 5.32, and 5.34 have
-  tableau-count versions proved in Lean.  The legacy `youngDim` variants still
-  depend on the named dimension-branching inputs.
+  tableau-count versions proved in Lean.  The older `youngDim` variants still
+  depend on the named dimension-branching inputs and are not the current
+  tableau-count proof route.
 - Internal open finite certificates: none currently listed.
+
+## Current Section 5 Route Summary
+
+Proven current Section 5 components:
+
+- Lemma 5.1 tableau Coxeter model:
+  `S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel`.
+- Lemma 5.2 diagonal content eigenspaces:
+  `S05_Lem5_02_tableauContentSequence_injective` and
+  `S05_Lem5_02_diagonalContentEigenspaces`.
+- Lemma 5.30 tableauDim z-bound certificate:
+  `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.
+- Lemma 5.32 tableauDim even certificate:
+  `S05_Lem5_32_tableau_even_certificate`.
+- Lemma 5.34 tableauDim odd certificate:
+  `S05_Lem5_34_tableau_odd_certificate`.
+- Dimension-parameterized spectral bridge algebra:
+  `SpectralGapFromBlockScalarsWithDim` and
+  `SpectralGapFromBlockModelWithDim`.
+
+External Appendix A inputs:
+
+- A.1 Young orthogonal realization.
+- A.2 Jucys--Murphy content spectrum.
+- A.3 regular Young-block decomposition.
+- A.4 degree-one Young-block identification.
+- A.5 standard-tableau swap connectedness.
+
+Unproven internal/current-route boundary:
+
+- `SpectralBlockModelInputWithDim` for the `tableauDim` model with
+  `hEvenTableau` and `hOddTableau` heights is still needed for the fully
+  tableau-count spectral bridge.
+- The standalone paper-level Lemmas 5.27 and 5.28 remain unproven until that
+  spectral-block model is supplied; the Lean files currently prove algebraic
+  implications whose model assumptions are explicit hypotheses.
+- The full Lemma 5.11 Young-adjacent-operator intertwining is still missing;
+  the diagonal-content deletion component is proved.
+- The concrete Lemma 5.18 matching-cube operator/character components are
+  proved, but the full Specht-module matching-restriction theorem is an
+  external representation-theoretic input.
+
+Obsolete old routes:
+
+- No active file is classified as obsolete.  The older `youngDim` variants of
+  Lemmas 5.30, 5.32, and 5.34 remain in their paper files for compatibility and
+  for the original Specht-dimension route, but the current proof-status tables
+  promote the tableau-count statements.
+- The active helper files for local convolution and spectral certificate
+  algebra are `Aux_PMConvolution.lean` and
+  `Aux_SpectralBridgeFromCertificates.lean`.
 
 ## Lemma 5.1 Young Adjacent Action Status
 
@@ -223,7 +275,7 @@ use.
 Lean files: `DictatorshipTesting/Paper/S05_Lem5_26_BlockLowerBoundImpliesTheGap.lean`,
 `DictatorshipTesting/Paper/S05_Lem5_27_EvenSpectralBridge.lean`,
 `DictatorshipTesting/Paper/S05_Lem5_28_OddSpectralBridge.lean`,
-`DictatorshipTesting/Paper/Aux_SpectralBridgeFromCertificates_Legacy.lean`,
+`DictatorshipTesting/Paper/Aux_SpectralBridgeFromCertificates.lean`,
 and `DictatorshipTesting/Paper/Aux_SpectralBridgeDimensionParam.lean`.
 
 Lean names: `spectralBlockModelInput_even_from_specht_pieri_schur`,
@@ -291,23 +343,16 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
 
 - `S05_Lem5_19_LocalTruncationOnAMatchingCharacter.lean`: matching-cube
   character projection.
-- `S05_Lem5_20_TraceOfOneLocalTruncationOnOneYoungBlock.lean`: local trace formula in the current
-  scalar vocabulary, conditional on the scalar matching-restriction data.
-- `S05_Lem5_25_BlockScalarOfTheAveragedRejection.lean`: trace-divided-by-dimension
-  scalar algebra.
-- `S05_Lem5_26_BlockLowerBoundImpliesTheGap.lean`,
-  `S05_Lem5_27_EvenSpectralBridge.lean`, and
-  `S05_Lem5_28_OddSpectralBridge.lean`:
+- `S05_Lem5_26_BlockLowerBoundImpliesTheGap.lean`:
   `blockScalar_lower_bound_of_traceScalarFormula`,
   `traceScalarValue_of_blockTraceIdentity`,
   `SpectralGapFromBlockScalars`,
   `SpectralGapFromBlockScalarLowerBounds`,
   `EvenSpectralGapFromCertificates`,
   `OddSpectralGapFromCertificates`,
-  `SpectralGapFromBlockModelWithDim`,
-  `S05_Lem5_27_tableauDim_evenSpectralGapFromCertificates`, and
-  `S05_Lem5_28_tableauDim_oddSpectralGapFromCertificates` are proved from the
-  explicit inputs above.
+  and `SpectralGapFromBlockModelWithDim` are proved algebraic implications.
+  The standalone paper-level Lemmas 5.27 and 5.28 are tracked above as
+  unproven until the spectral-block model input is supplied.
 - `Aux_SpectralBridgeRepresentationInputs.lean`: compact interface definitions
   for the spectral-block model used by the Section 5 spectral bridge.
 - `Aux_YoungOrthogonal.lean`: coordinate space on standard tableaux, basis
@@ -338,8 +383,8 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
 - `S05_Lem5_16_SizesOfTheSignPatternMultisets.lean`: scalar sign-pattern count
   recurrences and assumption-free `tableauDim` two-strip/one-box size wrappers
   through `S05_Lem5_16_tableauDim_twoStrip_size` and
-  `S05_Lem5_16_tableauDim_oneBox_size`.  The legacy `youngDim` wrappers remain
-  conditional on the named dimension-branching inputs.
+  `S05_Lem5_16_tableauDim_oneBox_size`.  The older `youngDim` wrappers assume
+  the named dimension-branching inputs.
 - `S05_Lem5_18_MatchingSubgroupEigenbasis.lean`: concrete canonical
   matching-cube operator algebra, including fixed ordered-product wrappers and
   edge-sign product-to-character wrappers.  The full Specht-module restriction
@@ -353,11 +398,12 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   `S05_Lem5_26_spectralGapFromBlockTraceModel` and
   `S05_Lem5_26_spectralGapFromBlockTraceModelWithDim`.
 - `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority.lean`: finite `zEven`
-  certificate, with both the legacy `youngDim` theorem and the tableau-count
-  theorem `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.
+  certificate, with current tableau-count theorem
+  `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.  The older
+  `youngDim` variant remains for the external Specht-dimension route.
 - `S05_Lem5_32_EvenCertificate.lean`: finite even certificate, with both the
-  legacy `hEven`/`youngDim` theorem and the tableau-count theorem
-  `S05_Lem5_32_tableau_even_certificate`.
+  current tableau-count theorem `S05_Lem5_32_tableau_even_certificate` and an
+  older `hEven`/`youngDim` variant for the external Specht-dimension route.
 - `S05_Lem5_34_OddCertificate.lean`: finite odd certificate, with both the
-  legacy `hOdd`/`youngDim` theorem and the tableau-count theorem
-  `S05_Lem5_34_tableau_odd_certificate`.
+  current tableau-count theorem `S05_Lem5_34_tableau_odd_certificate` and an
+  older `hOdd`/`youngDim` variant for the external Specht-dimension route.

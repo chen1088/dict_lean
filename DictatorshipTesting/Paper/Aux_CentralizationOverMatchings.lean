@@ -34,7 +34,7 @@ theorem scalar_eq_trace_div_dimension
     _ = h / d := by
       field_simp [hd]
 
-/-- Even Young-block scalar formula, conditional on scalarity and the trace
+/-- Even Young-block scalar formula, assuming scalarity and the trace
 identity. -/
 theorem even_youngBlockScalar_eq_hEven_div_dim
     (m : ℕ) (lam : YoungDiagram (2 * m)) (theta : ℝ)
@@ -46,7 +46,7 @@ theorem even_youngBlockScalar_eq_hEven_div_dim
   exact scalar_eq_trace_div_dimension
     (youngDim lam) (hEven m lam) theta hdim htrace
 
-/-- Odd Young-block scalar formula, conditional on scalarity and the trace
+/-- Odd Young-block scalar formula, assuming scalarity and the trace
 identity. -/
 theorem odd_youngBlockScalar_eq_hOdd_div_dim
     (m : ℕ) (lam : YoungDiagram (2 * m + 1)) (theta : ℝ)

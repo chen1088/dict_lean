@@ -33,8 +33,8 @@ namespace DictatorshipTesting
 
 /-- Explicit assumption class for the dimension shadow of the two-strip
 branching rule.  Keeping this as a typeclass makes downstream certificate
-theorems visibly conditional without introducing a global postulate or hidden
-proof hole. -/
+theorems state their required external input without introducing a hidden proof
+hole. -/
 class TwoStripDimensionBranchingAssumption : Prop where
   branch : ∀ (m : ℕ), 2 ≤ m → ∀ lam : YoungDiagram (2 * m),
     youngDim lam =

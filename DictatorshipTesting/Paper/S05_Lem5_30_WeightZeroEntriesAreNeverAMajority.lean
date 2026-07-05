@@ -4,8 +4,8 @@ import DictatorshipTesting.Paper.S05_Lem5_14_TwoBoxDimensionRecursion
 Paper statement: Lemma 5.30 (`lem:z-bound-app`)
 Title in paper: Weight-zero entries are never a majority.
 
-Status: finite Young-diagram certificate proved below, modulo the two-strip
-dimension recursion input.
+Status: the tableau-count certificate is proved below.  The older `youngDim`
+wrapper in this file remains part of the external Specht-dimension route.
 -/
 
 /-!

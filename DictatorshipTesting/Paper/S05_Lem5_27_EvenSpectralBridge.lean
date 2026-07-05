@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates_Legacy
+import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates
 import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
 import DictatorshipTesting.Paper.S05_Lem5_32_EvenCertificate
 
@@ -6,8 +6,8 @@ import DictatorshipTesting.Paper.S05_Lem5_32_EvenCertificate
 Paper statement: Lemma 5.27 (`lem:spectral-certificate-even`)
 Title in paper: Even spectral bridge.
 
-Status: paper-facing wrapper around the existing even spectral bridge, still
-conditional on the explicit spectral-block model input.
+Status: unproven as a standalone spectral bridge until the external
+spectral-block model input is supplied.
 -/
 
 noncomputable section
@@ -15,7 +15,7 @@ noncomputable section
 namespace DictatorshipTesting
 
 /-- Lemma 5.27: even finite Young-diagram inequalities imply the matching
-spectral gap, conditional on the spectral-block model. -/
+spectral gap, assuming the stated spectral-block model. -/
 theorem S05_Lem5_27_even_spectral_bridge
     (m : Nat) (hm : 2 ≤ m) (c : ℝ)
     (hmodel : SpectralBlockModelInput

@@ -43,8 +43,8 @@ Detailed maps:
   operator intertwining remains future work.
 - Lemma 5.16 now exposes the assumption-free `tableauDim` size components
   `S05_Lem5_16_tableauDim_twoStrip_size` and
-  `S05_Lem5_16_tableauDim_oneBox_size`, while keeping the legacy `youngDim`
-  wrappers visibly conditional on the named dimension-branching inputs.
+  `S05_Lem5_16_tableauDim_oneBox_size`, while the older `youngDim`
+  wrappers state the named dimension-branching inputs they require.
 - Lemma 5.18 exposes more of the concrete matching-cube action:
   `S05_Lem5_18_canonicalMatchingCubeOperatorEven_eq_indexedProduct` gives the
   fixed ordered-product form, and
@@ -83,5 +83,5 @@ theorems:
 - A.5 Connectedness of standard tableaux.
 
 The Appendix A files do not add axioms.  Existing named axioms remain in the
-legacy dimension-branching and spectral-block-model files and are tracked in
+dimension-branching and spectral-block-model helper files and are tracked in
 `PROOF_OBLIGATIONS.md`.

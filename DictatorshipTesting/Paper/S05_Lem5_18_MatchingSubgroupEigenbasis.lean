@@ -6,8 +6,6 @@ import DictatorshipTesting.Paper.S05_Lem5_34_OddCertificate
 Paper statement: Lemma 5.18 (`lem:matching-restriction-X`)
 Title in paper: Matching subgroup eigenbasis.
 
-Legacy scalar-shadow file for the rewritten Section 5 statement.
-
 Status: the paper's Lemma 5.18 is the full Specht-module restriction statement
 obtained from repeated Pieri/Littlewood--Richardson branching.  The current
 Lean file does not formalize Specht modules or restriction functors; it proves
@@ -24,9 +22,10 @@ character-weight multiset is the recursively defined multiset counted by
 
 The current Lean vocabulary does not yet contain Specht modules or restriction
 functors.  The statements below therefore do not claim to be the full
-restriction theorem.  They record the scalar bounds needed by the rest of the
-scaffold, and those scalar consequences are proved from the finite certificate
-bounds already formalized.
+restriction theorem.  They record concrete matching-operator and matching-cube
+character components, plus scalar-bound interfaces used by the rest of the
+scaffold.  The full restriction theorem remains an external
+representation-theoretic input.
 -/
 
 noncomputable section

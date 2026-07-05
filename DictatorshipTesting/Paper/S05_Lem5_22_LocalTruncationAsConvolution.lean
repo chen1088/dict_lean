@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_PMConvolutionLegacy
+import DictatorshipTesting.Paper.Aux_PMConvolution
 import DictatorshipTesting.Paper.S05_Def5_21_MatchingIdempotents
 
 /-!
