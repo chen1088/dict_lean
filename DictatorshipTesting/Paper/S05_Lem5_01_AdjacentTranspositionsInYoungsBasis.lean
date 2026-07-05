@@ -901,4 +901,46 @@ theorem S05_Lem5_01_youngAdjacentOperator_comm_of_disjoint_indices
       youngAdjacentOperator b (youngAdjacentOperator a f) := by
   exact youngAdjacentOperator_comm_of_disjoint_indices a b hdisj f
 
+/-- Lemma 5.1 Coxeter component: consecutive adjacent operators satisfy the
+braid relation on every tableau basis vector. -/
+theorem S05_Lem5_01_youngAdjacentOperator_braid_basis_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b
+          (youngAdjacentOperator a (tableauBasisVec T))) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a
+          (youngAdjacentOperator b (tableauBasisVec T))) := by
+  exact youngAdjacentOperator_braid_basis_of_succ T a b hsucc
+
+/-- Lemma 5.1 Coxeter component: consecutive adjacent operators satisfy the
+braid relation on scalar multiples of tableau basis vectors. -/
+theorem S05_Lem5_01_youngAdjacentOperator_braid_smul_basis_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a b : Fin n)
+    (hsucc : (b : Nat) = (a : Nat) + 1) (c : ℝ) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b
+          (youngAdjacentOperator a
+            (fun S => c * tableauBasisVec T S))) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a
+          (youngAdjacentOperator b
+            (fun S => c * tableauBasisVec T S))) := by
+  exact youngAdjacentOperator_braid_smul_basis_of_succ T a b hsucc c
+
+/-- Lemma 5.1 Coxeter component: consecutive adjacent operators satisfy the
+braid relation on the whole tableau coordinate space. -/
+theorem S05_Lem5_01_youngAdjacentOperator_braid_of_succ
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (a b : Fin n) (hsucc : (b : Nat) = (a : Nat) + 1)
+    (f : TableauSpace lam) :
+    youngAdjacentOperator a
+        (youngAdjacentOperator b (youngAdjacentOperator a f)) =
+      youngAdjacentOperator b
+        (youngAdjacentOperator a (youngAdjacentOperator b f)) := by
+  exact youngAdjacentOperator_braid_of_succ a b hsucc f
+
 end DictatorshipTesting
