@@ -639,6 +639,22 @@ theorem youngAdjacentDiagCoeff_sameCol {n : Nat}
   rw [youngAdjacentDiagCoeff, adjacentAxialDistance_sameCol T a hcol]
   norm_num
 
+theorem youngAdjacentOffCoeff_sameRow {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hrow : adjacentSameRow T a) :
+    youngAdjacentOffCoeff T a = 0 := by
+  rw [youngAdjacentOffCoeff, youngAdjacentDiagCoeff_sameRow T a hrow]
+  norm_num
+
+theorem youngAdjacentOffCoeff_sameCol {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (T : StandardYoungTableau lam) (a : Fin n)
+    (hcol : adjacentSameCol T a) :
+    youngAdjacentOffCoeff T a = 0 := by
+  rw [youngAdjacentOffCoeff, youngAdjacentDiagCoeff_sameCol T a hcol]
+  norm_num
+
 theorem youngAdjacentDiagCoeff_after_disjoint_swap_eq {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) (a b : Fin n)
