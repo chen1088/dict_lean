@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Aux_YoungAdjacentAction
 
 /-!
 Paper statement: Lemma 5.1 (`lem:young-adjacent-matrices`)
-Title in paper: Adjacent transpositions in Young's basis.
+Title in paper: Tableau Coxeter model for adjacent transpositions.
 
 Status: this file formalizes the concrete tableau-coordinate Young orthogonal
 adjacent-transposition formula: the same-row and same-column diagonal cases,

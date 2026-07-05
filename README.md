@@ -42,23 +42,25 @@ paper-level input, see `PROOF_OBLIGATIONS.md`.
 
 For the current rewritten Section 5 statement-to-file map, see
 `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`.  The checked paper source has
-36 theorem-like Section 5 statements when remarks are excluded, and the Lean
-paper-facing file count is also 36.
+34 theorem-like Section 5 statements when remarks and Appendix A inputs are
+excluded, and the Lean Section 5 paper-facing file count is also 34.  Appendix A
+external representation-theoretic inputs are mapped separately in
+`DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
 Proven finite certificates:
 
-- `S05_Lem5_32_WeightZeroEntriesAreNeverAMajority.lean` -- Lemma 5.32:
+- `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority.lean` -- Lemma 5.30:
   finite `zEven` certificate.  The legacy `youngDim` theorem remains for the
   active spectral bridge, and the tableau-count theorem
-  `S05_Lem5_32_tableau_weightZeroEntries_never_majority` is proved against
+  `S05_Lem5_30_tableau_weightZeroEntries_never_majority` is proved against
   `tableauDim`.
-- `S05_Lem5_34_EvenCertificate.lean` -- Lemma 5.34 (`lem:h-even-app`):
+- `S05_Lem5_32_EvenCertificate.lean` -- Lemma 5.32 (`lem:h-even-app`):
   finite even certificate.  The legacy `hEven`/`youngDim` theorem remains, and
-  the tableau-count theorem `S05_Lem5_34_tableau_even_certificate` is proved
+  the tableau-count theorem `S05_Lem5_32_tableau_even_certificate` is proved
   using `hEvenTableau`.
-- `S05_Lem5_36_OddCertificate.lean` -- Lemma 5.36 (`lem:h-odd-app`):
+- `S05_Lem5_34_OddCertificate.lean` -- Lemma 5.34 (`lem:h-odd-app`):
   finite odd certificate.  The legacy `hOdd`/`youngDim` theorem remains, and
-  the tableau-count theorem `S05_Lem5_36_tableau_odd_certificate` is proved
+  the tableau-count theorem `S05_Lem5_34_tableau_odd_certificate` is proved
   using `hOddTableau`.
 
 Proven Lemma 5.1 coordinate Coxeter package:
@@ -95,24 +97,24 @@ External standard inputs:
 - `S02_Thm2_02_FKNStability.lean` -- Theorem 2.2 (`thm:fkn-input`):
   external FKN/stability theorem on `S_n`, stated only for the `4 <= n`
   range used by the one-trial soundness proof.
-- `S05_Lem5_15_TwoBoxDimensionRecursion.lean` -- Lemma 5.15
+- `S05_Lem5_14_TwoBoxDimensionRecursion.lean` -- Lemma 5.14
   (`lem:dimension-two-strip-recurrence`): external two-strip
   Pieri/Littlewood-Richardson dimension branching input, exposed as the named
   axiom `twoStripDimensionBranchingAssumption_from_specht_pieri` and the
   typeclass `TwoStripDimensionBranchingAssumption`.
-- `S05_Lem5_16_OneBoxDimensionRecursion.lean` -- Lemma 5.16
+- `S05_Lem5_15_OneBoxDimensionRecursion.lean` -- Lemma 5.15
   (`lem:dimension-one-box-recurrence`): ordinary one-box dimension branching
   input.  The `m = 0` and `m = 1` cases are proved directly; the remaining
   external input is exposed as the named axiom
   `oneBoxDimensionBranchingPositiveAssumption_from_specht_branching` and the
   typeclass `OneBoxDimensionBranchingPositiveAssumption`.
-- `S05_Lem5_19_MatchingSubgroupEigenbasis.lean` -- Lemma 5.19
+- `S05_Lem5_18_MatchingSubgroupEigenbasis.lean` -- Lemma 5.18
   (`lem:matching-restriction-X`): the paper-level statement is the full
   Specht/Pieri restriction theorem.  The current Lean file formalizes only the
   scalar/multiplicity shadow needed downstream; that scalar shadow is proved
   from the finite certificate bounds.
-- Lemmas 5.28--5.30, especially `S05_Lem5_29_EvenSpectralBridge.lean` and
-  `S05_Lem5_30_OddSpectralBridge.lean`: the external Specht/Pieri/Schur
+- Lemmas 5.26--5.28, especially `S05_Lem5_27_EvenSpectralBridge.lean` and
+  `S05_Lem5_28_OddSpectralBridge.lean`: the external Specht/Pieri/Schur
   spectral bridge is exposed as the named axioms
   `spectralBlockModelInput_even_from_specht_pieri_schur` and
   `spectralBlockModelInput_odd_from_specht_pieri_schur`.  These axioms cite the
@@ -121,17 +123,17 @@ External standard inputs:
 
 Internal bridge components proven:
 
-- `S05_Lem5_20_LocalTruncationOnAMatchingCharacter.lean` -- Lemma 5.20
+- `S05_Lem5_19_LocalTruncationOnAMatchingCharacter.lean` -- Lemma 5.19
   (`lem:PM-character-projection`): proved matching-cube character projection.
-- `S05_Lem5_21_TraceOfOneLocalTruncationOnOneYoungBlock.lean` -- Lemma 5.21
+- `S05_Lem5_20_TraceOfOneLocalTruncationOnOneYoungBlock.lean` -- Lemma 5.20
   (`lem:PM-trace-young-block`): scalar trace formula in the current Lean
-  vocabulary, conditional on Lemma 5.19's scalar shadow.
-- `S05_Lem5_26_BlockScalarOfTheAveragedRejection.lean` -- Lemma 5.26
+  vocabulary, conditional on Lemma 5.18's scalar shadow.
+- `S05_Lem5_25_BlockScalarOfTheAveragedRejection.lean` -- Lemma 5.25
   (`lem:centralization-matchings`): proved trace-divided-by-dimension scalar
   algebra.
-- `S05_Lem5_28_BlockLowerBoundImpliesTheGap.lean`,
-  `S05_Lem5_29_EvenSpectralBridge.lean`, and
-  `S05_Lem5_30_OddSpectralBridge.lean`: the purely algebraic bridge is proved
+- `S05_Lem5_26_BlockLowerBoundImpliesTheGap.lean`,
+  `S05_Lem5_27_EvenSpectralBridge.lean`, and
+  `S05_Lem5_28_OddSpectralBridge.lean`: the purely algebraic bridge is proved
   from explicit spectral-block-model hypotheses.  In particular,
   `SpectralGapFromBlockScalars`, `SpectralGapFromBlockScalarLowerBounds`,
   `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and the
@@ -141,10 +143,10 @@ Internal bridge components proven:
   `traceScalarValue_of_blockTraceIdentity_withDim`,
   `SpectralGapFromBlockScalarsWithDim`, and `SpectralGapFromBlockModelWithDim`
   for an arbitrary dimension function.
-- `S05_Lem5_29_EvenSpectralBridge.lean` and
-  `S05_Lem5_30_OddSpectralBridge.lean`: tableau-count bridge wrappers
-  `S05_Lem5_29_tableauDim_evenSpectralGapFromCertificates` and
-  `S05_Lem5_30_tableauDim_oddSpectralGapFromCertificates`, conditional on a
+- `S05_Lem5_27_EvenSpectralBridge.lean` and
+  `S05_Lem5_28_OddSpectralBridge.lean`: tableau-count bridge wrappers
+  `S05_Lem5_27_tableauDim_evenSpectralGapFromCertificates` and
+  `S05_Lem5_28_tableauDim_oddSpectralGapFromCertificates`, conditional on a
   dimension-parameterized spectral model using `tableauDim`.
 - `Aux_SpectralBridgeRepresentationInputs.lean`: the compact interface for the
   spectral-block model used by the spectral bridge.  It contains only the Young-block
@@ -218,7 +220,7 @@ Paper-numbered highlights:
 - `S04_Lem4_01` through `S04_Lem4_13`, plus `S04_Cor4_09`,
   `S04_Thm4_10`, and `S04_Prop4_12`: matching-cube soundness reductions up to
   the one-trial soundness bound.
-- `S05_Lem5_01` through `S05_Lem5_36`: current Section 5 spectral bridge and
+- `S05_Lem5_01` through `S05_Lem5_34`: current Section 5 spectral bridge and
   finite certificate files.  Older Section 5 theorem names such as
   `L5_4_ZBoundApp` are declarations inside these numbered files, not separate
   wrapper modules.
@@ -243,9 +245,9 @@ Useful commands:
 
 ```bash
 lake build DictatorshipTesting
-lake build DictatorshipTesting.Paper.S05_Lem5_32_WeightZeroEntriesAreNeverAMajority
-lake build DictatorshipTesting.Paper.S05_Lem5_34_EvenCertificate
-lake build DictatorshipTesting.Paper.S05_Lem5_36_OddCertificate
+lake build DictatorshipTesting.Paper.S05_Lem5_30_WeightZeroEntriesAreNeverAMajority
+lake build DictatorshipTesting.Paper.S05_Lem5_32_EvenCertificate
+lake build DictatorshipTesting.Paper.S05_Lem5_34_OddCertificate
 rg "sorry" DictatorshipTesting
 ```
 

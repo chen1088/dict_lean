@@ -1,8 +1,8 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.S05_Lem5_26_BlockScalarOfTheAveragedRejection
+import DictatorshipTesting.Paper.S05_Lem5_25_BlockScalarOfTheAveragedRejection
 
 /-!
-Helper for paper statements: Lemmas 5.28--5.30 (`lem:block-lower-bound-gap`,
+Helper for paper statements: Lemmas 5.26--5.28 (`lem:block-lower-bound-gap`,
 `lem:spectral-certificate-even`, `lem:spectral-certificate-odd`)
 Title in paper: Spectral bridge from the finite certificate.
 
@@ -54,7 +54,7 @@ theorem blockScalar_lower_bound_of_traceScalarFormula {n : ℕ}
   exact (le_div_iff₀ hdim_pos).mpr (hcert lam hnot_row hnot_std)
 
 /-- Dimension positivity plus the block trace identity imply the trace/scalar
-value formula.  This is part of the scalar-shadow helper for Lemmas 5.28--5.30. -/
+value formula.  This is part of the scalar-shadow helper for Lemmas 5.26--5.28. -/
 theorem traceScalarValue_of_blockTraceIdentity {n : ℕ}
     {height theta : YoungDiagram n → ℝ}
     (hdim : YoungDimensionPositiveInput n)

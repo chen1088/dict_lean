@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 
 /-!
-Paper statement: Definition 5.3
+Paper statement: Definition 5.3 (`def:young-block`)
 Title in paper: Young block.
 
 Status: the current Lean scaffold represents Young-block indices by
