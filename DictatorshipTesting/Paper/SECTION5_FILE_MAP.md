@@ -24,7 +24,7 @@ identification were moved to Appendix A-facing files:
 | 5.4 | definition | Two-box removals | `S05_Def5_04_TwoBoxRemovals.lean` | `S05_IsHorizontalTwoBoxRemoval`, `S05_IsVerticalTwoBoxRemoval` | definition only |
 | 5.5 | definition | Signed two-box removals | `S05_Def5_05_SignedTwoBoxRemovals.lean` | `S05_PositiveSignedTwoBoxRemoval`, `S05_NegativeSignedTwoBoxRemoval` | definition only |
 | 5.6 | definition | One-box removals | `S05_Def5_06_OneBoxRemovals.lean` | `S05_IsOneBoxRemoval`, `S05_oneBoxChildrenOdd` | proved |
-| 5.7 | lemma | Two-box tableau branching | `S05_Lem5_07_TwoBoxTableauBranching.lean` | `S05_Lem5_07_deleteFirstMaxAsTableau`, `S05_Lem5_07_iterated_deletion_tableauContentSequence` | conditional |
+| 5.7 | lemma | Two-box tableau branching | `S05_Lem5_07_TwoBoxTableauBranching.lean` | `S05_Lem5_07_iterated_deletion_tableauContentSequence`, `S05_Lem5_07_twoStepDeletionTableauxEquivChildTableaux` | proved |
 | 5.8 | definition | One-box deletion spaces | `S05_Def5_08_OneBoxDeletionSpaces.lean` | `S05_Def5_08_OneBoxDeletionTableaux`, `S05_Def5_08_existsUnique_tableauMaxAt` | definition only |
 | 5.9 | lemma | One-box corner decomposition | `S05_Lem5_09_OneBoxCornerDecomposition.lean` | `S05_Lem5_09_row_form`, `S05_Lem5_09_removable_corner`, `S05_Lem5_09_tableau_unique_removable_corner` | proved |
 | 5.10 | lemma | One-box deletion is unitary | `S05_Lem5_10_OneBoxDeletionIsUnitary.lean` | `S05_Lem5_10_oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow` | conditional |

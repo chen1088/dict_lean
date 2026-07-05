@@ -86,6 +86,14 @@ Proven Lemma 5.2 diagonal content package:
   content operators are the tableau basis lines.  Appendix A.2 remains the
   external group-algebra Jucys--Murphy identification.
 
+Proven Lemma 5.7 fixed two-step tableau branching package:
+
+- `S05_Lem5_07_TwoBoxTableauBranching.lean` -- Lemma 5.7
+  (`lem:two-box-tableau-branching`): exposes the concrete bijection between
+  parent tableaux following a fixed two-step removable-row deletion pattern and
+  tableaux of the resulting child diagram, plus iterated deletion preservation
+  of content, row, and column coordinates.
+
 Remaining Lemma 5.1 representation-theory boundary:
 
 - The Lean development does not claim a classical Specht-module

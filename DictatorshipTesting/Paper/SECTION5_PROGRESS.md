@@ -30,6 +30,9 @@ Detailed maps:
   distinct tableaux by a content coordinate, and
   `S05_Lem5_02_diagonalContentEigenspaces` proves that the common eigenspaces
   are the tableau basis lines.
+- Lemma 5.7 now exposes the concrete fixed two-step tableau branching
+  equivalence `S05_Lem5_07_twoStepDeletionTableauxEquivChildTableaux`, together
+  with the iterated deletion content/row/column preservation wrappers.
 - Lemma 5.18 contains the current matching-cube operator algebra wrappers,
   including cube XOR laws, simultaneous matching-eigenvector predicates,
   matching-character action on simultaneous eigenvectors, and the first

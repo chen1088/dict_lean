@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.S05_Def5_05_SignedTwoBoxRemovals
+import DictatorshipTesting.Paper.Aux_TableauDimension
 import DictatorshipTesting.Paper.S05_Lem5_10_OneBoxDeletionIsUnitary
 import DictatorshipTesting.Paper.S05_Lem5_11_OneBoxDeletionIntertwinesEarlierSwaps
 
@@ -6,9 +7,9 @@ import DictatorshipTesting.Paper.S05_Lem5_11_OneBoxDeletionIntertwinesEarlierSwa
 Paper statement: Lemma 5.7 (`lem:two-box-tableau-branching`)
 Title in paper: Two-box tableau branching.
 
-Status: paper-facing owner file for the rewritten Section 5 statement.  The
-current Lean development contains the scalar dimension shadow later in Lemma
-5.15, but not the full tableau/Specht branching theorem.
+Status: proved below as a concrete set-level tableau branching statement for a
+fixed two-step deletion pattern, with content/row/column preservation wrappers.
+No Specht-module branching theorem is asserted here.
 -/
 
 noncomputable section
@@ -419,5 +420,34 @@ theorem S05_Lem5_07_iterated_deletion_cellOfEntry_col
     _ = YoungCell.col (cellOfEntry T (Fin.castSucc (Fin.castSucc a))) := by
         exact S05_Lem5_07_first_deletion_cellOfEntry_col
           h₁ hr₁ T hu₁ (Fin.castSucc a)
+
+/-- Lemma 5.7 set-level branching statement: fixing the two deleted removable
+rows gives a bijection between parent tableaux following that two-step deletion
+pattern and tableaux of the resulting child diagram. -/
+noncomputable def S05_Lem5_07_twoStepDeletionTableauxEquivChildTableaux
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) :
+    TwoStepDeletionTableaux lam p ≃
+      StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p) :=
+  twoStepDeletionTableauxEquivChildTableaux lam p
+
+/-- Lemma 5.7 cardinality form of the fixed two-step tableau branching
+bijection. -/
+theorem S05_Lem5_07_card_twoStepDeletionTableaux_eq_child
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) :
+    Fintype.card (TwoStepDeletionTableaux lam p) =
+      Fintype.card
+        (StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) := by
+  exact card_twoStepDeletionTableaux_eq_child lam p
+
+/-- Lemma 5.7 dimension form of the fixed two-step tableau branching
+bijection. -/
+theorem S05_Lem5_07_tableauDim_fixed_twoStepDeletion
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) :
+    ((Fintype.card (TwoStepDeletionTableaux lam p) : Nat) : ℝ) =
+      tableauDim (deleteTwoRemovableRowsDiagram lam p) := by
+  exact tableauDim_fixed_twoStepDeletion lam p
 
 end DictatorshipTesting

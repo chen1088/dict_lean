@@ -323,6 +323,10 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   coordinate, and the one-dimensional common eigenspaces of the explicit
   diagonal content operators.  The group-algebra Jucys--Murphy identification
   is the separate Appendix A.2 external input.
+- `S05_Lem5_07_TwoBoxTableauBranching.lean`: fixed two-step deletion tableau
+  branching through `S05_Lem5_07_twoStepDeletionTableauxEquivChildTableaux`,
+  plus iterated deletion preservation of content, row, and column coordinates.
+  This is a concrete tableau statement, not a Specht-module branching theorem.
 - `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority.lean`: finite `zEven`
   certificate, with both the legacy `youngDim` theorem and the tableau-count
   theorem `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.
