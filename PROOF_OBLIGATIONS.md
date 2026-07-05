@@ -54,7 +54,8 @@ Unproven internal/current-route boundary:
   spectral-block model is supplied; the Lean files currently prove algebraic
   implications whose model assumptions are explicit hypotheses.
 - The full Lemma 5.11 Young-adjacent-operator intertwining is still missing;
-  the diagonal-content deletion component is proved.
+  the diagonal-content deletion component and the earlier-adjacent
+  row/column/coefficient preservation components are proved.
 - The concrete Lemma 5.18 matching-cube operator/character components are
   proved, but the full Specht-module matching-restriction theorem is an
   external representation-theoretic input.
@@ -396,7 +397,10 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   deletion/insertion equivalence and coordinate inner-product preservation
   through `S05_Lem5_10_deletionCoordinateMap_inner`.
 - `S05_Lem5_11_OneBoxDeletionIntertwinesEarlierSwaps.lean`: basis-level
-  content preservation under maximum-entry deletion and coordinate-level
+  content preservation under maximum-entry deletion, earlier-adjacent
+  row/column and coefficient preservation under one-box insertion through
+  `S05_Lem5_11_insertMax_youngAdjacentDiagCoeff` and
+  `S05_Lem5_11_insertMax_youngAdjacentOffCoeff`, and coordinate-level
   diagonal-content intertwining through
   `S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines`.  The full
   Young-adjacent-operator intertwining statement remains open.

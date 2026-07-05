@@ -37,9 +37,13 @@ Detailed maps:
   unitarity: `S05_Lem5_10_deletionCoordinateMap_inner` shows that the deletion
   equivalence preserves the finite coordinate inner product.
 - Lemma 5.11 now proves the deletion/content compatibility needed by the
-  rewritten spine: `S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines`
-  shows that the one-box deletion coordinate map intertwines the explicit
-  diagonal content operators on surviving entries.  The full Young-adjacent
+  rewritten spine and the earlier-adjacent coefficient preservation needed for
+  the next operator step: `S05_Lem5_11_insertMax_youngAdjacentDiagCoeff` and
+  `S05_Lem5_11_insertMax_youngAdjacentOffCoeff` preserve the concrete Young
+  adjacent coefficients under one-box insertion, and
+  `S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines` shows that
+  the one-box deletion coordinate map intertwines the explicit diagonal content
+  operators on surviving entries.  The full coordinate-level Young-adjacent
   operator intertwining remains future work.
 - Lemma 5.16 now exposes the assumption-free `tableauDim` size components
   `S05_Lem5_16_tableauDim_twoStrip_size` and

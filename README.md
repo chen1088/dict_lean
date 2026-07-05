@@ -107,9 +107,11 @@ Proven component inside unproven Lemma 5.11:
 
 - `S05_Lem5_11_OneBoxDeletionIntertwinesEarlierSwaps.lean` -- Lemma 5.11
   (`lem:one-box-deletion-intertwines`): proves that deleting the maximum entry
-  preserves the surviving content sequence and that the one-box deletion
-  coordinate map intertwines the explicit diagonal content operators.  The full
-  Young-adjacent-operator intertwining remains future work.
+  preserves the surviving content sequence, that one-box insertion preserves
+  earlier-adjacent row/column data and the concrete Young-adjacent coefficients,
+  and that the one-box deletion coordinate map intertwines the explicit
+  diagonal content operators.  The full coordinate-level Young-adjacent-operator
+  intertwining remains future work.
 
 Proven Lemma 5.16 tableau-count size components:
 
