@@ -384,6 +384,268 @@ theorem S05_Lem5_11_insertMax_youngAdjacentOffCoeff
   rw [youngAdjacentOffCoeff, youngAdjacentOffCoeff,
     S05_Lem5_11_insertMax_youngAdjacentDiagCoeff h hr S a]
 
+/-- Reindexing helper: value swaps commute with adding a new maximum value
+above the adjacent pair. -/
+theorem S05_Lem5_11_adjacentSwapValue_castSucc
+    {n : Nat} (a : Fin n) (x : Fin (n + 1)) :
+    Fin.castSucc (adjacentSwapValue a x) =
+      adjacentSwapValue (Fin.castSucc a) (Fin.castSucc x) := by
+  by_cases hlo : x = adjacentEntryLo a
+  · subst x
+    rw [adjacentSwapValue_lo,
+      S05_Lem5_11_castSucc_adjacentEntryHi,
+      S05_Lem5_11_castSucc_adjacentEntryLo,
+      adjacentSwapValue_lo]
+  · by_cases hhi : x = adjacentEntryHi a
+    · subst x
+      rw [adjacentSwapValue_hi,
+        S05_Lem5_11_castSucc_adjacentEntryLo,
+        S05_Lem5_11_castSucc_adjacentEntryHi,
+        adjacentSwapValue_hi]
+    · have hlo' :
+        Fin.castSucc x ≠ adjacentEntryLo (Fin.castSucc a) := by
+        intro h
+        apply hlo
+        apply Fin.ext
+        simpa [adjacentEntryLo] using congrArg Fin.val h
+      have hhi' :
+        Fin.castSucc x ≠ adjacentEntryHi (Fin.castSucc a) := by
+        intro h
+        apply hhi
+        apply Fin.ext
+        simpa [adjacentEntryHi] using congrArg Fin.val h
+      rw [adjacentSwapValue_of_ne_lo_hi a hlo hhi,
+        adjacentSwapValue_of_ne_lo_hi (Fin.castSucc a) hlo' hhi']
+
+/-- Reindexing helper: an earlier adjacent value swap fixes the newly inserted
+maximum value. -/
+theorem S05_Lem5_11_adjacentSwapValue_last_castSucc
+    {n : Nat} (a : Fin n) :
+    adjacentSwapValue (Fin.castSucc a) (Fin.last (n + 1)) =
+      Fin.last (n + 1) := by
+  have hlo :
+      Fin.last (n + 1) ≠ adjacentEntryLo (Fin.castSucc a) := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryLo] at hv
+    omega
+  have hhi :
+      Fin.last (n + 1) ≠ adjacentEntryHi (Fin.castSucc a) := by
+    intro h
+    have hv := congrArg Fin.val h
+    simp [adjacentEntryHi] at hv
+    omega
+  exact adjacentSwapValue_of_ne_lo_hi (Fin.castSucc a) hlo hhi
+
+/-- Lemma 5.11 basis component: inserting the maximum box commutes with an
+earlier adjacent tableau swap. -/
+theorem S05_Lem5_11_insertMax_adjacentSwapTableau
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S : StandardYoungTableau mu) (a : Fin n)
+    (hrow_ne : ¬ adjacentSameRow S a)
+    (hcol_ne : ¬ adjacentSameCol S a) :
+    S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr
+        (adjacentSwapTableau S a hrow_ne hcol_ne)
+      =
+    adjacentSwapTableau
+      (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S)
+      (Fin.castSucc a)
+      (by
+        intro hp
+        exact hrow_ne
+          ((S05_Lem5_11_insertMax_adjacentSameRow_iff h hr S a).1 hp))
+      (by
+        intro hp
+        exact hcol_ne
+          ((S05_Lem5_11_insertMax_adjacentSameCol_iff h hr S a).1 hp)) := by
+  apply standardYoungTableau_ext_entry
+  intro u
+  by_cases hu : u = deletedCornerCellOfOneBoxChildRow h hr
+  · subst u
+    change
+      (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr
+          (adjacentSwapTableau S a hrow_ne hcol_ne)).entry
+        (deletedCornerCellOfOneBoxChildRow h hr)
+        =
+      adjacentSwapEntry
+        (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S)
+        (Fin.castSucc a)
+        (deletedCornerCellOfOneBoxChildRow h hr)
+    rw [S05_Lem5_10_insertMax_entry_deletedCorner,
+      adjacentSwapEntry, S05_Lem5_10_insertMax_entry_deletedCorner,
+      S05_Lem5_11_adjacentSwapValue_last_castSucc]
+  · change
+      (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr
+          (adjacentSwapTableau S a hrow_ne hcol_ne)).entry u
+        =
+      adjacentSwapEntry
+        (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S)
+        (Fin.castSucc a) u
+    let v : YoungCell mu :=
+      (youngCellExceptEquivChildOfOneBoxChildRow h hr
+        (deletedCornerCellOfOneBoxChildRow h hr)
+        (deletedCornerCell_row h hr)
+        (deletedCornerCell_col h hr)) ⟨u, hu⟩
+    have hleft :
+        (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr
+            (adjacentSwapTableau S a hrow_ne hcol_ne)).entry u =
+          Fin.castSucc ((adjacentSwapTableau S a hrow_ne hcol_ne).entry v) := by
+      simpa [v] using
+        S05_Lem5_10_insertMax_entry_ne_deletedCorner
+          h hr (adjacentSwapTableau S a hrow_ne hcol_ne) u hu
+    have hright :
+        adjacentSwapEntry
+            (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S)
+            (Fin.castSucc a) u =
+          adjacentSwapValue (Fin.castSucc a) (Fin.castSucc (S.entry v)) := by
+      rw [adjacentSwapEntry]
+      congr
+      simpa [v] using
+        S05_Lem5_10_insertMax_entry_ne_deletedCorner h hr S u hu
+    rw [hleft, hright]
+    simpa [adjacentSwapTableau, adjacentSwapEntry] using
+      S05_Lem5_11_adjacentSwapValue_castSucc a (S.entry v)
+
+/-- Lemma 5.11 basis component: one-box insertion is injective on standard
+tableaux of the child shape. -/
+theorem S05_Lem5_11_insertMax_injective
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    {S T : StandardYoungTableau mu}
+    (hST :
+      S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S =
+        S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr T) :
+    S = T := by
+  let e :=
+    S05_Lem5_10_oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow h hr
+  have hsub : e.symm S = e.symm T := by
+    apply Subtype.ext
+    change
+      insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S =
+        insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr T
+    simpa [S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow]
+      using hST
+  exact e.symm.injective hsub
+
+/-- Lemma 5.11 matrix component: one-box insertion preserves the concrete
+Young-adjacent matrix coefficients for every earlier adjacent pair. -/
+theorem S05_Lem5_11_insertMax_youngAdjacentMatrixCoeff
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (S T : StandardYoungTableau mu) (a : Fin n) :
+    youngAdjacentMatrixCoeff (Fin.castSucc a)
+      (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S)
+      (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr T)
+      =
+    youngAdjacentMatrixCoeff a S T := by
+  by_cases hrowT : adjacentSameRow T a
+  · have hrowP :
+        adjacentSameRow
+          (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr T)
+          (Fin.castSucc a) :=
+      (S05_Lem5_11_insertMax_adjacentSameRow_iff h hr T a).2 hrowT
+    by_cases hST : S = T
+    · subst S
+      rw [youngAdjacentMatrixCoeff_sameRow_self
+          (T := S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+            h hr T) (a := Fin.castSucc a) hrowP,
+        youngAdjacentMatrixCoeff_sameRow_self (T := T) (a := a) hrowT]
+    · have hPST :
+          S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S ≠
+            S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr T := by
+        intro hp
+        exact hST (S05_Lem5_11_insertMax_injective h hr hp)
+      rw [youngAdjacentMatrixCoeff_sameRow_ne (a := Fin.castSucc a) hrowP hPST,
+        youngAdjacentMatrixCoeff_sameRow_ne (a := a) hrowT hST]
+  · by_cases hcolT : adjacentSameCol T a
+    · have hcolP :
+          adjacentSameCol
+            (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr T)
+            (Fin.castSucc a) :=
+        (S05_Lem5_11_insertMax_adjacentSameCol_iff h hr T a).2 hcolT
+      by_cases hST : S = T
+      · subst S
+        rw [youngAdjacentMatrixCoeff_sameCol_self
+            (T := S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+              h hr T) (a := Fin.castSucc a) hcolP,
+          youngAdjacentMatrixCoeff_sameCol_self (T := T) (a := a) hcolT]
+      · have hPST :
+            S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S ≠
+              S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr T := by
+          intro hp
+          exact hST (S05_Lem5_11_insertMax_injective h hr hp)
+        rw [youngAdjacentMatrixCoeff_sameCol_ne (a := Fin.castSucc a) hcolP hPST,
+          youngAdjacentMatrixCoeff_sameCol_ne (a := a) hcolT hST]
+    · have hrowP :
+          ¬ adjacentSameRow
+            (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr T)
+            (Fin.castSucc a) := by
+        intro hp
+        exact hrowT
+          ((S05_Lem5_11_insertMax_adjacentSameRow_iff h hr T a).1 hp)
+      have hcolP :
+          ¬ adjacentSameCol
+            (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr T)
+            (Fin.castSucc a) := by
+        intro hp
+        exact hcolT
+          ((S05_Lem5_11_insertMax_adjacentSameCol_iff h hr T a).1 hp)
+      by_cases hST : S = T
+      · subst S
+        rw [youngAdjacentMatrixCoeff_swappable_self
+            (T := S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+              h hr T) (a := Fin.castSucc a) hrowP hcolP,
+          youngAdjacentMatrixCoeff_swappable_self (T := T) (a := a) hrowT hcolT,
+          ← S05_Lem5_11_insertMax_youngAdjacentDiagCoeff h hr T a]
+      · by_cases hSswap : S = adjacentSwapTableau T a hrowT hcolT
+        · subst S
+          have hswap :=
+            S05_Lem5_11_insertMax_adjacentSwapTableau h hr T a hrowT hcolT
+          rw [hswap,
+            youngAdjacentMatrixCoeff_swappable_swap
+              (T := S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+                h hr T) (a := Fin.castSucc a) hrowP hcolP,
+            youngAdjacentMatrixCoeff_swappable_swap (T := T) (a := a)
+              hrowT hcolT,
+            ← S05_Lem5_11_insertMax_youngAdjacentOffCoeff h hr T a]
+        · have hPST :
+              S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S ≠
+                S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr T := by
+            intro hp
+            exact hST (S05_Lem5_11_insertMax_injective h hr hp)
+          have hPswap :
+              S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S ≠
+                adjacentSwapTableau
+                  (S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+                    h hr T)
+                  (Fin.castSucc a) hrowP hcolP := by
+            intro hp
+            have hswap :=
+              S05_Lem5_11_insertMax_adjacentSwapTableau h hr T a hrowT hcolT
+            have hp' :
+                S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+                    h hr S =
+                  S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+                    h hr (adjacentSwapTableau T a hrowT hcolT) := by
+              exact hp.trans hswap.symm
+            exact hSswap (S05_Lem5_11_insertMax_injective h hr hp')
+          rw [youngAdjacentMatrixCoeff_swappable_other
+              (a := Fin.castSucc a) hrowP hcolP hPST hPswap,
+            youngAdjacentMatrixCoeff_swappable_other
+              (a := a) hrowT hcolT hST hSswap]
+
 /-- Lemma 5.11 coordinate component: one-box deletion intertwines the diagonal
 content operator for every entry that survives the deletion. -/
 theorem S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines

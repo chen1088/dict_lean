@@ -38,9 +38,9 @@ Detailed maps:
   equivalence preserves the finite coordinate inner product.
 - Lemma 5.11 now proves the deletion/content compatibility needed by the
   rewritten spine and the earlier-adjacent coefficient preservation needed for
-  the next operator step: `S05_Lem5_11_insertMax_youngAdjacentDiagCoeff` and
-  `S05_Lem5_11_insertMax_youngAdjacentOffCoeff` preserve the concrete Young
-  adjacent coefficients under one-box insertion, and
+  the next operator step: `S05_Lem5_11_insertMax_youngAdjacentMatrixCoeff`
+  preserves the full concrete Young-adjacent matrix coefficient under one-box
+  insertion for earlier adjacent pairs, and
   `S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines` shows that
   the one-box deletion coordinate map intertwines the explicit diagonal content
   operators on surviving entries.  The full coordinate-level Young-adjacent
