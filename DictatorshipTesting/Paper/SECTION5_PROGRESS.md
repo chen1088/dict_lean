@@ -58,7 +58,10 @@ Detailed maps:
   the selected edge-sign product into the matching character.  The one-edge
   projection lemmas now also prove preservation of all other edge eigenvalues,
   for example
-  `S05_Lem5_18_matchingEdgePlusProjectionEven_preserves_otherEigen`.
+  `S05_Lem5_18_matchingEdgePlusProjectionEven_preserves_otherEigen`; the
+  support-selected one-edge projection wrappers such as
+  `S05_Lem5_18_matchingEdgeSignProjectionEven_isMatchingEigen` package the
+  plus/minus choice by character support.
 - Lemma 5.23 now proves the finite-average/high-idempotent part of central
   averaged rejection: `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average`
   rewrites the mean local rejection as the average of squared high-idempotent

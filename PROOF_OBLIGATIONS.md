@@ -411,7 +411,10 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   edge-sign product-to-character wrappers, plus preservation of other edge
   eigenvalues by one-edge projections through
   `S05_Lem5_18_matchingEdgePlusProjectionEven_preserves_otherEigen` and its
-  even/odd plus/minus companions.  The full Specht-module restriction theorem
+  even/odd plus/minus companions.  It also includes support-selected one-edge
+  projection wrappers such as
+  `S05_Lem5_18_matchingEdgeSignProjectionEven_isMatchingEigen`.  The full
+  Specht-module restriction theorem
   remains a representation-layer input.
 - `S05_Lem5_23_CentralAveragedRejection.lean`: finite-average local rejection
   identities, including the high-idempotent norm formula

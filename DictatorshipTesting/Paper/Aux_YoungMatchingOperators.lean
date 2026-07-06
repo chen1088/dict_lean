@@ -817,6 +817,80 @@ theorem matchingEdgeMinusProjectionOdd_preserves_otherEigen
   simp [Pi.smul_apply]
   ring
 
+/-- The one-edge even projection selected by a matching-character support:
+minus if the edge is in the support and plus otherwise. -/
+noncomputable def matchingEdgeSignProjectionEven
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (R : Finset (Fin m)) (r : Fin m)
+    (f : TableauSpace lam) : TableauSpace lam :=
+  if r ∈ R then
+    matchingEdgeMinusProjectionEven r f
+  else
+    matchingEdgePlusProjectionEven r f
+
+/-- The one-edge odd projection selected by a matching-character support:
+minus if the edge is in the support and plus otherwise. -/
+noncomputable def matchingEdgeSignProjectionOdd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (R : Finset (Fin m)) (r : Fin m)
+    (f : TableauSpace lam) : TableauSpace lam :=
+  if r ∈ R then
+    matchingEdgeMinusProjectionOdd r f
+  else
+    matchingEdgePlusProjectionOdd r f
+
+theorem matchingEdgeSignProjectionEven_isMatchingEigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (R : Finset (Fin m)) (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (matchingEdgeSignProjectionEven R r f) =
+      matchingEdgeSign R r • matchingEdgeSignProjectionEven R r f := by
+  unfold matchingEdgeSignProjectionEven matchingEdgeSign
+  by_cases hr : r ∈ R
+  · simp [hr, matchingEdgeMinusProjectionEven_isMinusEigen r f]
+  · simp [hr, matchingEdgePlusProjectionEven_isPlusEigen r f]
+
+theorem matchingEdgeSignProjectionOdd_isMatchingEigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (R : Finset (Fin m)) (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (matchingEdgeSignProjectionOdd R r f) =
+      matchingEdgeSign R r • matchingEdgeSignProjectionOdd R r f := by
+  unfold matchingEdgeSignProjectionOdd matchingEdgeSign
+  by_cases hr : r ∈ R
+  · simp [hr, matchingEdgeMinusProjectionOdd_isMinusEigen r f]
+  · simp [hr, matchingEdgePlusProjectionOdd_isPlusEigen r f]
+
+theorem matchingEdgeSignProjectionEven_preserves_otherEigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (R : Finset (Fin m)) {r s : Fin m} (hrs : r ≠ s)
+    {c : ℝ} {f : TableauSpace lam}
+    (hf : canonicalMatchingYoungOperatorEven s f = c • f) :
+    canonicalMatchingYoungOperatorEven s
+        (matchingEdgeSignProjectionEven R r f) =
+      c • matchingEdgeSignProjectionEven R r f := by
+  unfold matchingEdgeSignProjectionEven
+  by_cases hr : r ∈ R
+  · simp [hr]
+    exact matchingEdgeMinusProjectionEven_preserves_otherEigen hrs hf
+  · simp [hr]
+    exact matchingEdgePlusProjectionEven_preserves_otherEigen hrs hf
+
+theorem matchingEdgeSignProjectionOdd_preserves_otherEigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (R : Finset (Fin m)) {r s : Fin m} (hrs : r ≠ s)
+    {c : ℝ} {f : TableauSpace lam}
+    (hf : canonicalMatchingYoungOperatorOdd s f = c • f) :
+    canonicalMatchingYoungOperatorOdd s
+        (matchingEdgeSignProjectionOdd R r f) =
+      c • matchingEdgeSignProjectionOdd R r f := by
+  unfold matchingEdgeSignProjectionOdd
+  by_cases hr : r ∈ R
+  · simp [hr]
+    exact matchingEdgeMinusProjectionOdd_preserves_otherEigen hrs hf
+  · simp [hr]
+    exact matchingEdgePlusProjectionOdd_preserves_otherEigen hrs hf
+
 theorem canonicalMatchingYoungOperatorEven_basis_sameRow
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
     (T : StandardYoungTableau lam) (r : Fin m)

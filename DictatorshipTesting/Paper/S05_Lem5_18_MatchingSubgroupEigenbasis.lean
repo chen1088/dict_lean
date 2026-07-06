@@ -317,6 +317,50 @@ theorem S05_Lem5_18_matchingEdgeMinusProjectionOdd_preserves_otherEigen
       c • matchingEdgeMinusProjectionOdd r f := by
   exact matchingEdgeMinusProjectionOdd_preserves_otherEigen hrs hf
 
+/-- Lemma 5.18 projection component: the sign-selected even one-edge
+projection has the edge eigenvalue prescribed by the support. -/
+theorem S05_Lem5_18_matchingEdgeSignProjectionEven_isMatchingEigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (R : Finset (Fin m)) (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r
+        (matchingEdgeSignProjectionEven R r f) =
+      matchingEdgeSign R r • matchingEdgeSignProjectionEven R r f := by
+  exact matchingEdgeSignProjectionEven_isMatchingEigen R r f
+
+/-- Lemma 5.18 projection component: the sign-selected odd one-edge projection
+has the edge eigenvalue prescribed by the support. -/
+theorem S05_Lem5_18_matchingEdgeSignProjectionOdd_isMatchingEigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (R : Finset (Fin m)) (r : Fin m) (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r
+        (matchingEdgeSignProjectionOdd R r f) =
+      matchingEdgeSign R r • matchingEdgeSignProjectionOdd R r f := by
+  exact matchingEdgeSignProjectionOdd_isMatchingEigen R r f
+
+/-- Lemma 5.18 projection component: the sign-selected even one-edge projection
+preserves every other edge eigenvalue. -/
+theorem S05_Lem5_18_matchingEdgeSignProjectionEven_preserves_otherEigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (R : Finset (Fin m)) {r s : Fin m} (hrs : r ≠ s)
+    {c : ℝ} {f : TableauSpace lam}
+    (hf : canonicalMatchingYoungOperatorEven s f = c • f) :
+    canonicalMatchingYoungOperatorEven s
+        (matchingEdgeSignProjectionEven R r f) =
+      c • matchingEdgeSignProjectionEven R r f := by
+  exact matchingEdgeSignProjectionEven_preserves_otherEigen R hrs hf
+
+/-- Lemma 5.18 projection component: the sign-selected odd one-edge projection
+preserves every other edge eigenvalue. -/
+theorem S05_Lem5_18_matchingEdgeSignProjectionOdd_preserves_otherEigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (R : Finset (Fin m)) {r s : Fin m} (hrs : r ≠ s)
+    {c : ℝ} {f : TableauSpace lam}
+    (hf : canonicalMatchingYoungOperatorOdd s f = c • f) :
+    canonicalMatchingYoungOperatorOdd s
+        (matchingEdgeSignProjectionOdd R r f) =
+      c • matchingEdgeSignProjectionOdd R r f := by
+  exact matchingEdgeSignProjectionOdd_preserves_otherEigen R hrs hf
+
 /-- Lemma 5.18 one-edge component: an even matching edge fixes a same-row
 tableau basis vector. -/
 theorem S05_Lem5_18_matchingEdge_basis_sameRow_even
