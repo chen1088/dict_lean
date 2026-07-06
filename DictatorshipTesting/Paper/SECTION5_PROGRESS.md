@@ -55,7 +55,10 @@ Detailed maps:
   `S05_Lem5_18_canonicalMatchingCubeOperatorEven_eq_indexedProduct` gives the
   fixed ordered-product form, and
   `S05_Lem5_18_matchingEdgeSign_finRange_product_eq_matchingCharacter` turns
-  the selected edge-sign product into the matching character.
+  the selected edge-sign product into the matching character.  The one-edge
+  projection lemmas now also prove preservation of all other edge eigenvalues,
+  for example
+  `S05_Lem5_18_matchingEdgePlusProjectionEven_preserves_otherEigen`.
 - Lemma 5.23 now proves the finite-average/high-idempotent part of central
   averaged rejection: `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average`
   rewrites the mean local rejection as the average of squared high-idempotent

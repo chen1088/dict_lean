@@ -53,8 +53,8 @@ Unproven internal/current-route boundary:
 - The standalone paper-level Lemmas 5.27 and 5.28 remain unproven until that
   spectral-block model is supplied; the Lean files currently prove algebraic
   implications whose model assumptions are explicit hypotheses.
-- The concrete Lemma 5.18 matching-cube operator/character components are
-  proved, but the full Specht-module matching-restriction theorem is an
+- The concrete Lemma 5.18 matching-cube operator/character/projection algebra
+  is proved, but the full Specht-module matching-restriction theorem is an
   external representation-theoretic input.
 
 Obsolete old routes:
@@ -408,8 +408,11 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   the named dimension-branching inputs.
 - `S05_Lem5_18_MatchingSubgroupEigenbasis.lean`: concrete canonical
   matching-cube operator algebra, including fixed ordered-product wrappers and
-  edge-sign product-to-character wrappers.  The full Specht-module restriction
-  theorem remains a representation-layer input.
+  edge-sign product-to-character wrappers, plus preservation of other edge
+  eigenvalues by one-edge projections through
+  `S05_Lem5_18_matchingEdgePlusProjectionEven_preserves_otherEigen` and its
+  even/odd plus/minus companions.  The full Specht-module restriction theorem
+  remains a representation-layer input.
 - `S05_Lem5_23_CentralAveragedRejection.lean`: finite-average local rejection
   identities, including the high-idempotent norm formula
   `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average`.  The

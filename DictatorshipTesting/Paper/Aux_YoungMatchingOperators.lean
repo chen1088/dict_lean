@@ -224,6 +224,52 @@ theorem canonicalMatchingYoungOperatorOdd_smul
   exact congrFun
     (youngAdjacentOperator_smul (canonicalNearMatchingAdjacentIndex m r) c f) T
 
+theorem canonicalMatchingYoungOperatorEven_add
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f g : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r (fun T => f T + g T) =
+      fun T => canonicalMatchingYoungOperatorEven r f T +
+        canonicalMatchingYoungOperatorEven r g T := by
+  unfold canonicalMatchingYoungOperatorEven
+  exact youngAdjacentOperator_add (canonicalMatchingAdjacentIndex m r) f g
+
+theorem canonicalMatchingYoungOperatorOdd_add
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f g : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r (fun T => f T + g T) =
+      fun T => canonicalMatchingYoungOperatorOdd r f T +
+        canonicalMatchingYoungOperatorOdd r g T := by
+  unfold canonicalMatchingYoungOperatorOdd
+  exact youngAdjacentOperator_add (canonicalNearMatchingAdjacentIndex m r) f g
+
+theorem canonicalMatchingYoungOperatorEven_sub
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (r : Fin m) (f g : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven r (fun T => f T - g T) =
+      fun T => canonicalMatchingYoungOperatorEven r f T -
+        canonicalMatchingYoungOperatorEven r g T := by
+  unfold canonicalMatchingYoungOperatorEven
+  rw [show (fun T => f T - g T) =
+      (fun T => f T + (fun U => -g U) T) by
+        funext T
+        ring]
+  rw [youngAdjacentOperator_add, youngAdjacentOperator_neg]
+  rfl
+
+theorem canonicalMatchingYoungOperatorOdd_sub
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (r : Fin m) (f g : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd r (fun T => f T - g T) =
+      fun T => canonicalMatchingYoungOperatorOdd r f T -
+        canonicalMatchingYoungOperatorOdd r g T := by
+  unfold canonicalMatchingYoungOperatorOdd
+  rw [show (fun T => f T - g T) =
+      (fun T => f T + (fun U => -g U) T) by
+        funext T
+        ring]
+  rw [youngAdjacentOperator_add, youngAdjacentOperator_neg]
+  rfl
+
 /-- Compose a list of endomorphisms in the displayed order. -/
 def composeOperatorList {V : Type*} : List (V -> V) -> V -> V
   | [] => id
@@ -707,6 +753,66 @@ theorem matchingEdgeMinusProjectionOdd_isMinusEigen
   unfold matchingEdgeMinusProjectionOdd
   rw [canonicalMatchingYoungOperatorOdd_smul,
     canonicalMatchingYoungOperatorOdd_minusEigenVec]
+  funext T
+  simp [Pi.smul_apply]
+  ring
+
+theorem matchingEdgePlusProjectionEven_preserves_otherEigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    {r s : Fin m} (hrs : r ≠ s) {c : ℝ} {f : TableauSpace lam}
+    (hf : canonicalMatchingYoungOperatorEven s f = c • f) :
+    canonicalMatchingYoungOperatorEven s (matchingEdgePlusProjectionEven r f) =
+      c • matchingEdgePlusProjectionEven r f := by
+  unfold matchingEdgePlusProjectionEven
+  rw [canonicalMatchingYoungOperatorEven_smul,
+    canonicalMatchingYoungOperatorEven_add, hf,
+    canonicalMatchingYoungOperatorEven_comm (r := s) (s := r) (Ne.symm hrs) f,
+    hf, canonicalMatchingYoungOperatorEven_smul]
+  funext T
+  simp [Pi.smul_apply]
+  ring
+
+theorem matchingEdgeMinusProjectionEven_preserves_otherEigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    {r s : Fin m} (hrs : r ≠ s) {c : ℝ} {f : TableauSpace lam}
+    (hf : canonicalMatchingYoungOperatorEven s f = c • f) :
+    canonicalMatchingYoungOperatorEven s (matchingEdgeMinusProjectionEven r f) =
+      c • matchingEdgeMinusProjectionEven r f := by
+  unfold matchingEdgeMinusProjectionEven
+  rw [canonicalMatchingYoungOperatorEven_smul,
+    canonicalMatchingYoungOperatorEven_sub, hf,
+    canonicalMatchingYoungOperatorEven_comm (r := s) (s := r) (Ne.symm hrs) f,
+    hf, canonicalMatchingYoungOperatorEven_smul]
+  funext T
+  simp [Pi.smul_apply]
+  ring
+
+theorem matchingEdgePlusProjectionOdd_preserves_otherEigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {r s : Fin m} (hrs : r ≠ s) {c : ℝ} {f : TableauSpace lam}
+    (hf : canonicalMatchingYoungOperatorOdd s f = c • f) :
+    canonicalMatchingYoungOperatorOdd s (matchingEdgePlusProjectionOdd r f) =
+      c • matchingEdgePlusProjectionOdd r f := by
+  unfold matchingEdgePlusProjectionOdd
+  rw [canonicalMatchingYoungOperatorOdd_smul,
+    canonicalMatchingYoungOperatorOdd_add, hf,
+    canonicalMatchingYoungOperatorOdd_comm (r := s) (s := r) (Ne.symm hrs) f,
+    hf, canonicalMatchingYoungOperatorOdd_smul]
+  funext T
+  simp [Pi.smul_apply]
+  ring
+
+theorem matchingEdgeMinusProjectionOdd_preserves_otherEigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {r s : Fin m} (hrs : r ≠ s) {c : ℝ} {f : TableauSpace lam}
+    (hf : canonicalMatchingYoungOperatorOdd s f = c • f) :
+    canonicalMatchingYoungOperatorOdd s (matchingEdgeMinusProjectionOdd r f) =
+      c • matchingEdgeMinusProjectionOdd r f := by
+  unfold matchingEdgeMinusProjectionOdd
+  rw [canonicalMatchingYoungOperatorOdd_smul,
+    canonicalMatchingYoungOperatorOdd_sub, hf,
+    canonicalMatchingYoungOperatorOdd_comm (r := s) (s := r) (Ne.symm hrs) f,
+    hf, canonicalMatchingYoungOperatorOdd_smul]
   funext T
   simp [Pi.smul_apply]
   ring

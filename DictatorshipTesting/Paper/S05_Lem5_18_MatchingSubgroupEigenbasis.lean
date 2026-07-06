@@ -277,6 +277,46 @@ theorem S05_Lem5_18_matchingEdgeMinusProjectionOdd_isMinusEigen
       (-1 : ℝ) • matchingEdgeMinusProjectionOdd r f := by
   exact matchingEdgeMinusProjectionOdd_isMinusEigen r f
 
+/-- Lemma 5.18 projection component: projecting to the `+1` eigenspace of one
+even matching edge preserves every other edge eigenvalue. -/
+theorem S05_Lem5_18_matchingEdgePlusProjectionEven_preserves_otherEigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    {r s : Fin m} (hrs : r ≠ s) {c : ℝ} {f : TableauSpace lam}
+    (hf : canonicalMatchingYoungOperatorEven s f = c • f) :
+    canonicalMatchingYoungOperatorEven s (matchingEdgePlusProjectionEven r f) =
+      c • matchingEdgePlusProjectionEven r f := by
+  exact matchingEdgePlusProjectionEven_preserves_otherEigen hrs hf
+
+/-- Lemma 5.18 projection component: projecting to the `-1` eigenspace of one
+even matching edge preserves every other edge eigenvalue. -/
+theorem S05_Lem5_18_matchingEdgeMinusProjectionEven_preserves_otherEigen
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    {r s : Fin m} (hrs : r ≠ s) {c : ℝ} {f : TableauSpace lam}
+    (hf : canonicalMatchingYoungOperatorEven s f = c • f) :
+    canonicalMatchingYoungOperatorEven s (matchingEdgeMinusProjectionEven r f) =
+      c • matchingEdgeMinusProjectionEven r f := by
+  exact matchingEdgeMinusProjectionEven_preserves_otherEigen hrs hf
+
+/-- Lemma 5.18 projection component: projecting to the `+1` eigenspace of one
+odd matching edge preserves every other edge eigenvalue. -/
+theorem S05_Lem5_18_matchingEdgePlusProjectionOdd_preserves_otherEigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {r s : Fin m} (hrs : r ≠ s) {c : ℝ} {f : TableauSpace lam}
+    (hf : canonicalMatchingYoungOperatorOdd s f = c • f) :
+    canonicalMatchingYoungOperatorOdd s (matchingEdgePlusProjectionOdd r f) =
+      c • matchingEdgePlusProjectionOdd r f := by
+  exact matchingEdgePlusProjectionOdd_preserves_otherEigen hrs hf
+
+/-- Lemma 5.18 projection component: projecting to the `-1` eigenspace of one
+odd matching edge preserves every other edge eigenvalue. -/
+theorem S05_Lem5_18_matchingEdgeMinusProjectionOdd_preserves_otherEigen
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {r s : Fin m} (hrs : r ≠ s) {c : ℝ} {f : TableauSpace lam}
+    (hf : canonicalMatchingYoungOperatorOdd s f = c • f) :
+    canonicalMatchingYoungOperatorOdd s (matchingEdgeMinusProjectionOdd r f) =
+      c • matchingEdgeMinusProjectionOdd r f := by
+  exact matchingEdgeMinusProjectionOdd_preserves_otherEigen hrs hf
+
 /-- Lemma 5.18 one-edge component: an even matching edge fixes a same-row
 tableau basis vector. -/
 theorem S05_Lem5_18_matchingEdge_basis_sameRow_even

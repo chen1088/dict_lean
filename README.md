@@ -124,8 +124,10 @@ Proven matching-cube components used near external Lemma 5.18:
 - `S05_Lem5_18_MatchingSubgroupEigenbasis.lean` -- Lemma 5.18
   (`lem:matching-restriction-X`): exposes the concrete canonical matching-cube
   action as a fixed ordered product of commuting matching-edge operators and
-  proves that selected edge signs multiply to the matching character.  The full
-  Specht-module restriction theorem remains a representation-layer input.
+  proves that selected edge signs multiply to the matching character.  It also
+  proves that one-edge plus/minus projections preserve all other edge
+  eigenvalues.  The full Specht-module restriction theorem remains a
+  representation-layer input.
 
 Proven finite-average components used near external Lemma 5.23:
 
