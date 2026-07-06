@@ -15,6 +15,18 @@ noncomputable section
 
 namespace DictatorshipTesting
 
+/-- Appendix A spectral-block model input for the tableau-count odd route.
+
+This is the remaining representation-theoretic bridge for the active Theorem
+4.10 path: regular Specht-block decomposition, `U_1` identification,
+matching-average scalarity, and the trace/scalar formula with block dimension
+`tableauDim` and height `hOddTableau`. -/
+axiom spectralBlockModelInputWithDim_odd_from_appendixA
+    (m : Nat) (hm : 2 <= m) :
+    SpectralBlockModelInputWithDim
+      (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)
+      (fun lam : YoungDiagram (2 * m + 1) => hOddTableau m lam)
+
 /-- Lemma 5.28: odd finite Young-diagram inequalities imply the matching
 spectral gap, assuming the stated spectral-block model. -/
 theorem S05_Lem5_28_odd_spectral_bridge

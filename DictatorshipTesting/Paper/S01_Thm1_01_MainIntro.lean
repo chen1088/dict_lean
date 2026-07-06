@@ -10,10 +10,8 @@ This is the paper's introduction theorem, `thm:main-intro`.
 namespace DictatorshipTesting
 
 /-- Theorem 1.1, `thm:main-intro`: a dimension-free one-sided tester exists,
-carrying the same explicit older-dimension-route assumptions as Theorem 4.10. -/
-theorem Thm1_1_MainIntro
-    [TwoStripDimensionBranchingAssumption]
-    [OneBoxDimensionBranchingPositiveAssumption] :
+using the one-trial soundness theorem. -/
+theorem Thm1_1_MainIntro :
     ∃ C : ℝ, 0 < C ∧
       ∀ n : ℕ, ∀ ε : ℝ, 0 < ε → ε < 1 →
         ∃ tester : OracleTester (Fin n),

@@ -15,6 +15,18 @@ noncomputable section
 
 namespace DictatorshipTesting
 
+/-- Appendix A spectral-block model input for the tableau-count even route.
+
+This is the remaining representation-theoretic bridge for the active Theorem
+4.10 path: regular Specht-block decomposition, `U_1` identification,
+matching-average scalarity, and the trace/scalar formula with block dimension
+`tableauDim` and height `hEvenTableau`. -/
+axiom spectralBlockModelInputWithDim_even_from_appendixA
+    (m : Nat) (hm : 2 <= m) :
+    SpectralBlockModelInputWithDim
+      (fun lam : YoungDiagram (2 * m) => tableauDim lam)
+      (fun lam : YoungDiagram (2 * m) => hEvenTableau m lam)
+
 /-- Lemma 5.27: even finite Young-diagram inequalities imply the matching
 spectral gap, assuming the stated spectral-block model. -/
 theorem S05_Lem5_27_even_spectral_bridge
