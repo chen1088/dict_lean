@@ -126,9 +126,10 @@ Proven matching-cube components used near external Lemma 5.18:
   action as a fixed ordered product of commuting matching-edge operators and
   proves that selected edge signs multiply to the matching character.  It also
   proves that one-edge plus/minus projections preserve all other edge
-  eigenvalues, and packages the support-selected one-edge projection choice.
-  The full Specht-module restriction theorem remains a representation-layer
-  input.
+  eigenvalues, packages the support-selected one-edge projection choice, and
+  proves that iterating those choices gives a simultaneous matching-edge
+  eigenvector.  The full Specht-module restriction theorem remains a
+  representation-layer input.
 
 Proven finite-average components used near external Lemma 5.23:
 

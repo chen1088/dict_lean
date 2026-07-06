@@ -307,7 +307,7 @@ def indexedOperatorListProduct {ι V : Type*} (A : ι -> V -> V)
 
 theorem composeOperatorList_map_operatorBit {ι V : Type*}
     (A : ι -> V -> V) (x : ι -> Bool) (L : List ι) :
-    composeOperatorList (L.map fun i => operatorBit A x i) =
+  composeOperatorList (L.map fun i => operatorBit A x i) =
       indexedOperatorListProduct A x L := by
   induction L with
   | nil => rfl
@@ -890,6 +890,104 @@ theorem matchingEdgeSignProjectionOdd_preserves_otherEigen
     exact matchingEdgeMinusProjectionOdd_preserves_otherEigen hrs hf
   · simp [hr]
     exact matchingEdgePlusProjectionOdd_preserves_otherEigen hrs hf
+
+/-- Iterated even sign projection along a finite edge list. -/
+noncomputable def matchingSignProjectionEvenList
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (R : Finset (Fin m)) : List (Fin m) -> TableauSpace lam -> TableauSpace lam
+  | [], f => f
+  | r :: rs, f =>
+      matchingEdgeSignProjectionEven R r
+        (matchingSignProjectionEvenList R rs f)
+
+/-- Iterated odd sign projection along a finite edge list. -/
+noncomputable def matchingSignProjectionOddList
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (R : Finset (Fin m)) : List (Fin m) -> TableauSpace lam -> TableauSpace lam
+  | [], f => f
+  | r :: rs, f =>
+      matchingEdgeSignProjectionOdd R r
+        (matchingSignProjectionOddList R rs f)
+
+theorem matchingSignProjectionEvenList_isEigen_of_mem
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (R : Finset (Fin m)) {L : List (Fin m)}
+    (hnd : L.Nodup) {s : Fin m} (hs : s ∈ L)
+    (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorEven s
+        (matchingSignProjectionEvenList R L f) =
+      matchingEdgeSign R s • matchingSignProjectionEvenList R L f := by
+  induction L generalizing s with
+  | nil =>
+      cases hs
+  | cons r rs ih =>
+      have hnd_tail : rs.Nodup := (List.nodup_cons.mp hnd).2
+      have hr_not_mem : r ∉ rs := (List.nodup_cons.mp hnd).1
+      rcases List.mem_cons.mp hs with hsr | hs_tail
+      · subst s
+        exact matchingEdgeSignProjectionEven_isMatchingEigen R r
+          (matchingSignProjectionEvenList R rs f)
+      · have hrs : r ≠ s := by
+          intro h
+          subst s
+          exact hr_not_mem hs_tail
+        exact matchingEdgeSignProjectionEven_preserves_otherEigen
+          R hrs (ih hnd_tail hs_tail)
+
+theorem matchingSignProjectionOddList_isEigen_of_mem
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (R : Finset (Fin m)) {L : List (Fin m)}
+    (hnd : L.Nodup) {s : Fin m} (hs : s ∈ L)
+    (f : TableauSpace lam) :
+    canonicalMatchingYoungOperatorOdd s
+        (matchingSignProjectionOddList R L f) =
+      matchingEdgeSign R s • matchingSignProjectionOddList R L f := by
+  induction L generalizing s with
+  | nil =>
+      cases hs
+  | cons r rs ih =>
+      have hnd_tail : rs.Nodup := (List.nodup_cons.mp hnd).2
+      have hr_not_mem : r ∉ rs := (List.nodup_cons.mp hnd).1
+      rcases List.mem_cons.mp hs with hsr | hs_tail
+      · subst s
+        exact matchingEdgeSignProjectionOdd_isMatchingEigen R r
+          (matchingSignProjectionOddList R rs f)
+      · have hrs : r ≠ s := by
+          intro h
+          subst s
+          exact hr_not_mem hs_tail
+        exact matchingEdgeSignProjectionOdd_preserves_otherEigen
+          R hrs (ih hnd_tail hs_tail)
+
+/-- Simultaneous even sign projection over all canonical matching edges. -/
+noncomputable def matchingSignProjectionEven
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (R : Finset (Fin m)) (f : TableauSpace lam) : TableauSpace lam :=
+  matchingSignProjectionEvenList R (List.finRange m) f
+
+/-- Simultaneous odd sign projection over all canonical matching edges. -/
+noncomputable def matchingSignProjectionOdd
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (R : Finset (Fin m)) (f : TableauSpace lam) : TableauSpace lam :=
+  matchingSignProjectionOddList R (List.finRange m) f
+
+theorem matchingSignProjectionEven_isMatchingEigenvector
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (R : Finset (Fin m)) (f : TableauSpace lam) :
+    IsMatchingEigenvectorEven (matchingSignProjectionEven R f) R := by
+  intro s
+  unfold matchingSignProjectionEven
+  exact matchingSignProjectionEvenList_isEigen_of_mem R
+    (List.nodup_finRange m) (by simp [List.mem_finRange]) f
+
+theorem matchingSignProjectionOdd_isMatchingEigenvector
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (R : Finset (Fin m)) (f : TableauSpace lam) :
+    IsMatchingEigenvectorOdd (matchingSignProjectionOdd R f) R := by
+  intro s
+  unfold matchingSignProjectionOdd
+  exact matchingSignProjectionOddList_isEigen_of_mem R
+    (List.nodup_finRange m) (by simp [List.mem_finRange]) f
 
 theorem canonicalMatchingYoungOperatorEven_basis_sameRow
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}

@@ -361,6 +361,22 @@ theorem S05_Lem5_18_matchingEdgeSignProjectionOdd_preserves_otherEigen
       c • matchingEdgeSignProjectionOdd R r f := by
   exact matchingEdgeSignProjectionOdd_preserves_otherEigen R hrs hf
 
+/-- Lemma 5.18 projection component: the iterated even support-selected
+projection is a simultaneous matching-edge eigenvector. -/
+theorem S05_Lem5_18_matchingSignProjectionEven_isMatchingEigenvector
+    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
+    (R : Finset (Fin m)) (f : TableauSpace lam) :
+    S05_IsMatchingEigenvectorEven (matchingSignProjectionEven R f) R := by
+  exact matchingSignProjectionEven_isMatchingEigenvector R f
+
+/-- Lemma 5.18 projection component: the iterated odd support-selected
+projection is a simultaneous matching-edge eigenvector. -/
+theorem S05_Lem5_18_matchingSignProjectionOdd_isMatchingEigenvector
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    (R : Finset (Fin m)) (f : TableauSpace lam) :
+    S05_IsMatchingEigenvectorOdd (matchingSignProjectionOdd R f) R := by
+  exact matchingSignProjectionOdd_isMatchingEigenvector R f
+
 /-- Lemma 5.18 one-edge component: an even matching edge fixes a same-row
 tableau basis vector. -/
 theorem S05_Lem5_18_matchingEdge_basis_sameRow_even
