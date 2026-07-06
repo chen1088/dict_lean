@@ -1,6 +1,15 @@
 const graphData = window.DICT_DEPENDENCY_DATA;
 const nodeById = new Map(graphData.nodes.map((node) => [node.id, node]));
 
+const section5Roots = [
+  "S05_01", "S05_02", "S05_03", "S05_04", "S05_05", "S05_06",
+  "S05_07", "S05_08", "S05_09", "S05_10", "S05_11", "S05_12",
+  "S05_13", "S05_14", "S05_15", "S05_16", "S05_17", "S05_18",
+  "S05_19", "S05_20", "S05_21", "S05_22", "S05_23", "S05_24",
+  "S05_25", "S05_26", "S05_27", "S05_28", "S05_29", "S05_30",
+  "S05_31", "S05_32", "S05_33", "S05_34",
+];
+
 const rootViews = {
   paper: {
     label: "Paper map",
@@ -24,8 +33,8 @@ const rootViews = {
   },
   section5: {
     label: "Section 5",
-    roots: ["S05_27", "S05_28", "S05_18", "S05_01", "S05_03"],
-    open: ["S05_27", "S05_28", "S05_32", "S05_34", "S05_18", "S05_01", "S05_03"],
+    roots: section5Roots,
+    open: ["S05_27", "S05_28", "S05_26", "S05_25", "S05_18", "S05_01"],
   },
   certificates: {
     label: "Finite certificates",

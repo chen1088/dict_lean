@@ -804,8 +804,8 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proved",
       file: "DictatorshipTesting/Paper/S05_Lem5_26_BlockLowerBoundImpliesTheGap.lean",
       wrappers: ["S05_Lem5_26_spectralGapFromBlockScalars", "S05_Lem5_26_spectralGapFromBlockModelWithDim"],
-      deps: ["AuxSpectralBridgeDimensionParam"],
-      summary: "Weighted-sum spectral-gap algebra from block scalar lower bounds."
+      deps: ["S05_25", "AuxSpectralBridgeDimensionParam"],
+      summary: "Weighted-sum spectral-gap algebra from block scalar lower bounds; in the paper chain this follows the block-scalar calculation of Lemma 5.25."
     },
     {
       id: "S05_27",
