@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 Paper statement: Definition 5.3 (`def:standard-tableaux`)
 Title in paper: Standard Young tableaux and occupation notation.
 
-Status: paper-facing wrapper for standard tableaux and the box occupied by an
+Status: definition/interface. Paper-facing wrapper for standard tableaux and the box occupied by an
 entry.
 -/
 

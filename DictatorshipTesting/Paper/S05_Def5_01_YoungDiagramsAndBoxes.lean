@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Defs
 Paper statement: Definition 5.1 (`def:young-diagrams-boxes`)
 Title in paper: Young diagrams and boxes.
 
-Status: paper-facing wrapper for the elementary Young-diagram vocabulary used
+Status: definition/interface. Paper-facing wrapper for the elementary Young-diagram vocabulary used
 throughout Section 5.
 -/
 

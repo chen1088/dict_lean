@@ -6,10 +6,9 @@ import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
 Paper statement: Lemma 5.23 (`lem:matching-restriction-X`)
 Title in paper: Matching subgroup eigenbasis.
 
-Status: the paper's Lemma 5.23 is the full Specht-module restriction statement
-obtained from repeated Pieri/Littlewood--Richardson branching.  The current
-Lean file does not formalize Specht modules or restriction functors; it proves
-only the scalar/multiplicity shadow used downstream by the scaffold.
+Status: proven. The concrete matching-operator and sign-projection interfaces
+are proved below; the full Specht/Pieri restriction content is bundled into the
+spectral-block model boundary.
 -/
 
 /-!

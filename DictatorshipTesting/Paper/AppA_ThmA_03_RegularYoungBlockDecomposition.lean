@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 Paper statement: Theorem A.3 (`thm:app-regular-young-decomposition`)
 Title in paper: Regular Young-block decomposition.
 
-Status: Appendix A external representation-theoretic input.  The
+Status: external: Appendix A representation-theoretic input.  The
 regular-representation decomposition into Young blocks is currently represented
 by the external spectral-block model interface, not an internal Lean proof.
 -/

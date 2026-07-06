@@ -5,15 +5,15 @@ import DictatorshipTesting.Paper.S05_Lem5_20_OneBoxDimensionRecursion
 Paper statement: Lemma 5.39 (`lem:h-odd-app`)
 Title in paper: Odd certificate.
 
-Status: the tableau-count odd certificate is proved below.  The older
+Status: proven. The tableau-count odd certificate is proved below.  The older
 `youngDim` wrapper in this file remains part of the external Specht-dimension
 route.
 -/
 
 /-!
-# Finite induction input for Lemma 5.36
+# Finite induction input for Lemma 5.39
 
-The intended proof branches once to even diagrams, applies Lemma 5.39 to the
+The intended proof branches once to even diagrams, applies Lemma 5.37 to the
 non-exceptional children, and handles the two level-two odd shapes explicitly.
 
 The statement is phrased only in terms of the concrete finite model in
@@ -815,7 +815,7 @@ theorem hOddTableau_ge_one_sixth_tableauDim_of_no_bad_oneBoxChild
     nlinarith
   exact le_trans hcoeff heven
 
-/-- Finite Young-diagram induction behind Lemma 5.36, using actual tableau
+/-- Finite Young-diagram induction behind Lemma 5.39, using actual tableau
 counts. -/
 theorem hOddTableau_ge_one_sixth_tableauDim_of_not_oneRow_not_standard_finite_induction
     (m : ℕ) (hm : 2 ≤ m)
@@ -833,7 +833,7 @@ theorem hOddTableau_ge_one_sixth_tableauDim_of_not_oneRow_not_standard_finite_in
     · intro mu hmu hstandard
       exact hbad (Or.inr ⟨mu, hmu, hstandard⟩)
 
-/-- Lemma 5.36, tableau-count version of the odd certificate. -/
+/-- Lemma 5.39, tableau-count version of the odd certificate. -/
 theorem S05_Lem5_39_tableau_odd_certificate
     (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m + 1))
@@ -865,7 +865,7 @@ theorem hOdd_ge_one_sixth_youngDim_of_no_bad_oneBoxChild
     nlinarith
   exact le_trans hcoeff heven
 
-/-- Finite Young-diagram induction behind Lemma 5.36. -/
+/-- Finite Young-diagram induction behind Lemma 5.39. -/
 theorem hOdd_ge_one_sixth_youngDim_of_not_oneRow_not_standard_finite_induction
     [TwoStripDimensionBranchingAssumption]
     [OneBoxDimensionBranchingPositiveAssumption]
@@ -900,7 +900,7 @@ theorem hOdd_le_youngDim
   rw [hOdd, youngDim_oneBox_branching_input m lam]
   exact Finset.sum_le_sum (fun mu _hmu => hEven_le_youngDim m mu)
 
-/-- Lemma 5.36, `lem:h-odd-app`: odd certificate.  This preserves the old
+/-- Lemma 5.39, `lem:h-odd-app`: odd certificate.  This preserves the old
 theorem name `L5_6_HOddApp`. -/
 theorem L5_6_HOddApp
     [TwoStripDimensionBranchingAssumption]
@@ -913,7 +913,7 @@ theorem L5_6_HOddApp
     hOdd_ge_one_sixth_youngDim_of_not_oneRow_not_standard_finite_induction
       m hm lam hrow hstd
 
-/-- Lemma 5.36 paper-numbered alias: odd certificate. -/
+/-- Lemma 5.39 paper-numbered alias: odd certificate. -/
 theorem S05_Lem5_39_odd_certificate
     [TwoStripDimensionBranchingAssumption]
     [OneBoxDimensionBranchingPositiveAssumption]

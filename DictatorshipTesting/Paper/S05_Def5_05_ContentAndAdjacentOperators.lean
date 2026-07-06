@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 Paper statement: Definition 5.5 (`def:content-adjacent-operators`)
 Title in paper: Contents and adjacent operators.
 
-Status: paper-facing wrapper for contents, adjacent Young operators, and
+Status: definition/interface. Paper-facing wrapper for contents, adjacent Young operators, and
 diagonal content operators.
 -/
 

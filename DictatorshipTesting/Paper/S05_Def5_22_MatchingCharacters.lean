@@ -7,7 +7,7 @@ import DictatorshipTesting.Paper.Aux_CubeCharXor
 Paper statement: Definition 5.22 (`def:matching-characters`)
 Title in paper: Matching characters.
 
-Status: re-exports the cube character model currently used for matching-cube
+Status: definition/interface. Re-exports the cube character model currently used for matching-cube
 Fourier calculations.
 -/
 

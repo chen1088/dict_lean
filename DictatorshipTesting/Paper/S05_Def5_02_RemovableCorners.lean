@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 Paper statement: Definition 5.2 (`def:removable-corners`)
 Title in paper: Removable corners and one-box removals.
 
-Status: paper-facing wrapper for subdiagrams, one-box children, and removable
+Status: definition/interface. Paper-facing wrapper for subdiagrams, one-box children, and removable
 row/corner vocabulary.
 -/
 

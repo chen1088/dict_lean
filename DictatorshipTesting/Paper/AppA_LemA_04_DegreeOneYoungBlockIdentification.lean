@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 Paper statement: Lemma A.4 (`lem:app-u1-young-blocks`)
 Title in paper: Degree-one Young-block identification.
 
-Status: Appendix A external representation-theoretic input.  The current Lean
+Status: external: Appendix A representation-theoretic input.  The current Lean
 scaffold records this identification as the interface
 `U1YoungBlockIdentificationInput` inside the spectral-block model.
 -/

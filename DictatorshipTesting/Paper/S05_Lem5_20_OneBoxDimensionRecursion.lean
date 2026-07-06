@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_TableauDimension
 Paper statement: Lemma 5.20 (`lem:dimension-one-box-recurrence`)
 Title in paper: One-box dimension recursion.
 
-Status: the paper-facing Section 5 route uses the assumption-free
+Status: proven. The paper-facing Section 5 route uses the assumption-free
 `tableauDim` one-box recursion proved below.  The older `youngDim` wrapper is
 kept only as an explicit external-alternative theorem requiring
 `[OneBoxDimensionBranchingPositiveAssumption]`; this file no longer provides a

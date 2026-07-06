@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 Paper statement: Definition 5.13 (`def:one-box-deletion-spaces`)
 Title in paper: One-box deletion spaces.
 
-Status: the set-level tableau deletion spaces are formalized below.  The
+Status: definition/interface. The set-level tableau deletion spaces are formalized below.  The
 Hilbert-space span version used later in the tableau proof is future work.
 -/
 

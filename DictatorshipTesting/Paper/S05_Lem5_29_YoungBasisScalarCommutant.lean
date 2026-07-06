@@ -5,9 +5,8 @@ import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 Paper statement: Lemma 5.29 (`lem:young-basis-scalar-commutant`)
 Title in paper: Young-basis scalar commutant.
 
-Status: paper-facing owner file for the rewritten Section 5 statement.  This
-is a tableau/Specht-module commutant statement and is not proved in the current
-finite scaffold.
+Status: external: scalar commutant input.  This file exposes the scalarity input
+consumed by the active spectral bridge.
 -/
 
 noncomputable section

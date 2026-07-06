@@ -33,7 +33,7 @@ theorem L5_3_CountingOneMoreMatchingEdge (m : ℕ) (hm : 1 ≤ m)
   | succ m =>
       simp [zEven, hEven]
 
-/-- Lemma 5.36 paper-numbered alias: counting one more matching edge. -/
+/-- Lemma 5.34 paper-numbered alias: counting one more matching edge. -/
 theorem S05_Lem5_34_counting_one_more_matching_edge (m : ℕ) (hm : 1 ≤ m)
     (lam : YoungDiagram (2 * m)) :
     zEven m lam =

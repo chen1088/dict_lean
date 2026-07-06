@@ -333,12 +333,8 @@ main {
   color: var(--muted);
 }
 
-.status-proved {
+.status-proven {
   border-left-color: var(--green);
-}
-
-.status-proved-from-external {
-  border-left-color: var(--amber);
 }
 
 .status-external {

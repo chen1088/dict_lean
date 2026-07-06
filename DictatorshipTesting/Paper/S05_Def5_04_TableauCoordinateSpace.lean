@@ -5,7 +5,7 @@ import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 Paper statement: Definition 5.4 (`def:tableau-coordinate-space`)
 Title in paper: Tableau coordinate space.
 
-Status: paper-facing wrapper for the tableau-count dimension and coordinate
+Status: definition/interface. Paper-facing wrapper for the tableau-count dimension and coordinate
 space used by the Young-basis operator model.
 -/
 

@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_CentralizationOverMatchings
 Paper statement: Lemma 5.30 (`lem:centralization-matchings`)
 Title in paper: Block scalar of the averaged rejection.
 
-Status: finite-dimensional trace-divided-by-dimension algebra is proved in the
+Status: external: trace/scalar model input. Finite-dimensional trace-divided-by-dimension algebra is proved in the
 helper imported here; the remaining Young-block scalarity belongs to the
 spectral bridge input.
 -/

@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
 Paper statement: Lemma 5.38 (`lem:exceptional-odd-children`)
 Title in paper: Odd exceptional children.
 
-Status: paper-facing wrapper around the existing odd exceptional-child
+Status: proven. Paper-facing wrapper around the existing odd exceptional-child
 classification theorem.
 -/
 
@@ -12,7 +12,7 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Lemma 5.35: all failures of the generic odd reduction are among the two
+/-- Lemma 5.38: all failures of the generic odd reduction are among the two
 explicit odd exceptional shapes. -/
 theorem S05_Lem5_38_odd_exceptional_children
     (m : Nat) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m + 1))

@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_TableauDimension
 Paper statement: Lemma 5.19 (`lem:dimension-two-strip-recurrence`)
 Title in paper: Two-box dimension recursion.
 
-Status: the paper-facing Section 5 route uses the assumption-free
+Status: proven. The paper-facing Section 5 route uses the assumption-free
 `tableauDim` two-strip recursion proved below.  The older `youngDim` wrapper is
 kept only as an explicit external-alternative theorem requiring
 `[TwoStripDimensionBranchingAssumption]`; this file no longer provides a

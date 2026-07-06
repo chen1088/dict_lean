@@ -5,7 +5,7 @@ import DictatorshipTesting.Paper.S05_Def5_26_MatchingIdempotents
 Paper statement: Lemma 5.27 (`lem:PM-convolution`)
 Title in paper: Local truncation as convolution.
 
-Status: paper-facing wrapper around the existing local-projection convolution
+Status: proven. Paper-facing wrapper around the existing local-projection convolution
 identity.
 -/
 

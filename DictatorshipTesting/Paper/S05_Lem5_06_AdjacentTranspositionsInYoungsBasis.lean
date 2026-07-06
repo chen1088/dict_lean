@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_YoungAdjacentAction
 Paper statement: Lemma 5.6 (`lem:young-adjacent-matrices`)
 Title in paper: Tableau Coxeter model for adjacent transpositions.
 
-Status: this file formalizes the concrete tableau-coordinate Young orthogonal
+Status: proven. This file formalizes the concrete tableau-coordinate Young orthogonal
 adjacent-transposition formula: the same-row and same-column diagonal cases,
 the swappable two-by-two block, its `+1` and `-1` eigenvectors, and the Coxeter
 relations for these adjacent operators.  It deliberately does not assert the

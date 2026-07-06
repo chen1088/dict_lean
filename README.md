@@ -164,7 +164,7 @@ Proven Lemma 5.21 tableau-count size components:
   one-box size recurrences from Lemmas 5.19 and 5.20.  The older `youngDim`
   wrappers assume the named dimension-branching inputs.
 
-Proven matching-cube components used near external Lemma 5.23:
+Proven matching-cube components for Lemma 5.23:
 
 - `Aux_YoungMatchingOperators.lean`: the now-exposed helper layer for
   canonical matching-edge operators, plus/minus projections, preservation of
@@ -176,8 +176,8 @@ Proven matching-cube components used near external Lemma 5.23:
   proves that one-edge plus/minus projections preserve all other edge
   eigenvalues, packages the support-selected one-edge projection choice, and
   proves that iterating those choices gives a simultaneous matching-edge
-  eigenvector.  The full Specht-module restriction theorem remains a
-  representation-layer input.
+  eigenvector.  The full Specht/Pieri restriction content is bundled into the
+  spectral-block model boundary.
 
 Proven Definition 5.26 matching-idempotent components:
 
@@ -204,7 +204,7 @@ Proven Lemma 5.31 trace-model-to-gap algebra:
   including wrappers that start from scalarity, a block trace identity,
   dimension positivity, and a finite certificate.
 
-Remaining Lemma 5.6 representation-theory boundary:
+Appendix A representation-theory boundary for Lemma 5.6:
 
 - The Lean development does not claim a classical Specht-module
   identification for the coordinate model, nor a full action of arbitrary

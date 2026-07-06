@@ -5,7 +5,7 @@ Paper statement: Lemma 5.7 (`lem:jucys-murphy-eigenbasis`), rewritten
 Section 5 form.
 Title in paper: Diagonal content eigenspaces.
 
-Status: proved internally for the explicit diagonal content operators.  The
+Status: proven. Proved internally for the explicit diagonal content operators.  The
 content sequence determines a standard tableau, distinct tableaux differ in a
 content coordinate, and the common eigenspaces are the tableau basis lines.
 Appendix A.2 remains the external group-algebra Jucys--Murphy identification.

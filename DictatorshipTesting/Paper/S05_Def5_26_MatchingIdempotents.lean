@@ -6,7 +6,7 @@ import DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters
 Paper statement: Definition 5.26 (`def:matching-idempotents`)
 Title in paper: Matching idempotents.
 
-Status: re-exports the low- and high-degree matching convolution operators
+Status: definition/interface. Re-exports the low- and high-degree matching convolution operators
 currently used by the local projection/convolution helper.
 -/
 

@@ -5,7 +5,7 @@ import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
 Paper statement: Lemma 5.31 (`lem:block-lower-bound-gap`)
 Title in paper: Block lower bound implies the gap.
 
-Status: paper-facing wrapper around the existing algebraic spectral-gap
+Status: proven. Paper-facing wrapper around the existing algebraic spectral-gap
 comparison.
 -/
 

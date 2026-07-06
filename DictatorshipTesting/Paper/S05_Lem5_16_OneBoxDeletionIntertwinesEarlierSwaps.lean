@@ -5,7 +5,7 @@ import DictatorshipTesting.Paper.S05_Lem5_07_DiagonalContentEigenspaces
 Paper statement: Lemma 5.16 (`lem:one-box-deletion-intertwines`)
 Title in paper: One-box deletion intertwines earlier swaps.
 
-Status: proved for the concrete deletion-fiber coordinate model.  This file
+Status: proven. Proved for the concrete deletion-fiber coordinate model.  This file
 proves basis-level content preservation, row/column and matrix-coefficient
 preservation for earlier adjacent pairs under one-box insertion, and the
 coordinate-level intertwining with both the explicit Young-adjacent operators

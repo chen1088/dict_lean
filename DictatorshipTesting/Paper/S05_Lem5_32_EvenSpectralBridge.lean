@@ -6,7 +6,7 @@ import DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate
 Paper statement: Lemma 5.32 (`lem:spectral-certificate-even`)
 Title in paper: Even spectral bridge.
 
-Status: the algebraic bridge is proved from an explicit spectral-block model
+Status: proven. The algebraic bridge is proved from an explicit spectral-block model
 hypothesis. Appendix A supplies that representation-theoretic model input for
 the paper application.
 -/

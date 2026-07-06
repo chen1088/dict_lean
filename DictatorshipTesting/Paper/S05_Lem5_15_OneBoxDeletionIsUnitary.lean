@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 Paper statement: Lemma 5.15 (`lem:one-box-deletion-unitary`)
 Title in paper: One-box deletion is unitary.
 
-Status: proved below for the concrete coordinate model: deletion gives a
+Status: proven. Proved below for the concrete coordinate model: deletion gives a
 set-level bijection on the deleted tableau basis, and the induced coordinate
 map preserves the finite coordinate inner product.
 -/

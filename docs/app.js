@@ -84,8 +84,7 @@ function sourceUrl(file) {
 
 function statusLabel(status) {
   const labels = {
-    proved: "Proved",
-    "proved-from-external": "Proved + input",
+    proven: "Proven",
     external: "External",
     interface: "Interface",
   };
@@ -281,8 +280,7 @@ function renderStats() {
   }, { total: 0 });
   stats.innerHTML = `
     <span><strong>${counts.total}</strong> nodes</span>
-    <span><strong>${counts.proved || 0}</strong> proved</span>
-    <span><strong>${counts["proved-from-external"] || 0}</strong> proved + input</span>
+    <span><strong>${counts.proven || 0}</strong> proven</span>
     <span><strong>${counts.external || 0}</strong> external</span>
     <span><strong>${counts.interface || 0}</strong> interfaces</span>
   `;

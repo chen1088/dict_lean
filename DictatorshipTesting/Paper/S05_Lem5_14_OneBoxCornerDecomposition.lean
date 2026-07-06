@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 Paper statement: Lemma 5.14 (`lem:one-box-corner-decomposition`)
 Title in paper: One-box corner decomposition.
 
-Status: main paper-facing file for the currently proved row-combinatorial
+Status: proven. Main paper-facing file for the currently proved row-combinatorial
 components of the one-box corner decomposition.
 -/
 

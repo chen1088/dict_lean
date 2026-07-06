@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.S05_Def5_17_EvenSignPatternMultiset
 Paper statement: Definition 5.18 (`def:odd-sign-patterns`)
 Title in paper: Odd sign-pattern multiset.
 
-Status: the current finite scaffold records the high-weight count extracted
+Status: definition/interface. The current finite scaffold records the high-weight count extracted
 from the odd sign-pattern multiset as `hOdd`.
 -/
 

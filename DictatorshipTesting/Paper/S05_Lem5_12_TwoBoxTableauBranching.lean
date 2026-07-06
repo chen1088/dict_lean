@@ -7,7 +7,7 @@ import DictatorshipTesting.Paper.S05_Lem5_16_OneBoxDeletionIntertwinesEarlierSwa
 Paper statement: Lemma 5.12 (`lem:two-box-tableau-branching`)
 Title in paper: Two-box tableau branching.
 
-Status: proved below as a concrete set-level tableau branching statement for a
+Status: proven. Proved below as a concrete set-level tableau branching statement for a
 fixed two-step deletion pattern, with content/row/column preservation wrappers.
 No Specht-module branching theorem is asserted here.
 -/

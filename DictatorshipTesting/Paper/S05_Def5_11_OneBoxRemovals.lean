@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 Paper statement: Definition 5.11 (`def:one-box-removals`)
 Title in paper: One-box removals.
 
-Status: re-exports the existing one-box child predicate and finite child sets.
+Status: definition/interface. Re-exports the existing one-box child predicate and finite child sets.
 -/
 
 noncomputable section
@@ -25,7 +25,7 @@ abbrev S05_oneBoxChildrenOdd (m : Nat)
     (lam : YoungDiagram (2 * m + 1)) :=
   oneBoxChildrenOdd m lam
 
-/-- Definition 5.12 row form: a one-box removal changes a unique row. -/
+/-- Definition 5.11 row form: a one-box removal changes a unique row. -/
 theorem S05_Def5_11_existsUnique_row_of_oneBoxRemoval
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : S05_IsOneBoxRemoval lam mu) :
@@ -34,7 +34,7 @@ theorem S05_Def5_11_existsUnique_row_of_oneBoxRemoval
       forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
   exact existsUnique_row_of_oneBoxChild h
 
-/-- Definition 5.12 row form: a one-box removal deletes from a removable row. -/
+/-- Definition 5.11 row form: a one-box removal deletes from a removable row. -/
 theorem S05_Def5_11_exists_removableRow_of_oneBoxRemoval
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : S05_IsOneBoxRemoval lam mu) :
@@ -44,14 +44,14 @@ theorem S05_Def5_11_exists_removableRow_of_oneBoxRemoval
       forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
   exact exists_removableRow_of_oneBoxChild h
 
-/-- Definition 5.12 row fact: a one-box removal has total row difference `1`. -/
+/-- Definition 5.11 row fact: a one-box removal has total row difference `1`. -/
 theorem S05_Def5_11_sum_row_diff_of_oneBoxRemoval
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : S05_IsOneBoxRemoval lam mu) :
     (Finset.range n).sum (fun i => youngRow lam i - youngRow mu i) = 1 := by
   exact sum_row_diff_of_oneBoxChild h
 
-/-- Definition 5.12 corner form: a one-box removal deletes a removable corner. -/
+/-- Definition 5.11 corner form: a one-box removal deletes a removable corner. -/
 theorem S05_Def5_11_exists_removableCornerBox_of_oneBoxRemoval
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : S05_IsOneBoxRemoval lam mu) :

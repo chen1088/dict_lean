@@ -4,10 +4,9 @@ import DictatorshipTesting.Paper.S05_Lem5_27_LocalTruncationAsConvolution
 Paper statement: Lemma 5.28 (`lem:averaged-rejection-central`)
 Title in paper: Central averaged rejection.
 
-Status: paper-facing owner file for the rewritten Section 5 statement.  The
-finite-average and high-idempotent norm identities are proved below.  The
-centrality proof requires the future group-algebra/Young-block operator API;
-the current Lean scaffold keeps the downstream scalar algebra separate.
+Status: external: Young-block centrality input.  The finite-average and
+high-idempotent norm identities are proved below; centrality on Young blocks is
+part of the spectral-block model boundary.
 -/
 
 noncomputable section

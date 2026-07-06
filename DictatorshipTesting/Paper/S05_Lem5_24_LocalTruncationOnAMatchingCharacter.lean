@@ -6,7 +6,7 @@ import DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters
 Paper statement: Lemma 5.24 (`lem:PM-character-projection`)
 Title in paper: Local truncation on a matching character.
 
-Status: proved below by elementary matching-cube Fourier calculations.
+Status: proven. Proved below by elementary matching-cube Fourier calculations.
 -/
 
 /-!

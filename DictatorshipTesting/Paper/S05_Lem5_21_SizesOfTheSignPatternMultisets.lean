@@ -6,7 +6,7 @@ import DictatorshipTesting.Paper.S05_Lem5_20_OneBoxDimensionRecursion
 Paper statement: Lemma 5.21 (`lem:X-size`)
 Title in paper: Sizes of the sign-pattern multisets.
 
-Status: paper-facing owner file for the rewritten Section 5 statement.  The
+Status: proven. Paper-facing owner file for the rewritten Section 5 statement.  The
 current finite scaffold uses the scalar counts `zEven`, `hEven`, and `hOdd`.
 The `youngDim` size wrappers assume the named dimension branching inputs,
 while the `tableauDim` size wrappers are assumption-free.

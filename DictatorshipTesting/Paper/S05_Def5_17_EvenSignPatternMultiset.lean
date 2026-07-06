@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Defs
 Paper statement: Definition 5.17 (`def:even-sign-patterns`)
 Title in paper: Even sign-pattern multiset.
 
-Status: the current finite scaffold records the two counts extracted from the
+Status: definition/interface. The current finite scaffold records the two counts extracted from the
 even sign-pattern multiset: zero-weight entries `zEven` and high-weight entries
 `hEven`.
 -/
