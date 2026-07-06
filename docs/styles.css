@@ -221,11 +221,11 @@ main {
   display: grid;
   gap: 7px;
   margin-top: 7px;
-  margin-left: clamp(22px, 4vw, 44px);
-  padding-left: clamp(16px, 3vw, 30px);
+  margin-left: 18px;
+  padding-left: 16px;
   padding-top: 0;
   width: 100%;
-  max-width: calc(100% - clamp(22px, 4vw, 44px));
+  max-width: calc(100% - 18px);
 }
 
 .dag-children::before {
@@ -241,8 +241,8 @@ main {
   content: "";
   position: absolute;
   top: 20px;
-  left: calc(-1 * clamp(16px, 3vw, 30px));
-  width: clamp(16px, 3vw, 30px);
+  left: -16px;
+  width: 16px;
   border-top: 2px solid var(--line);
 }
 

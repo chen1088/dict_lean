@@ -11,6 +11,27 @@ const section5Roots = [
   "S05_36", "S05_37", "S05_38", "S05_39",
 ];
 
+function collectTransitiveDeps(rootIds) {
+  const open = new Set();
+  const visiting = new Set();
+
+  function visit(id) {
+    if (visiting.has(id)) return;
+    const node = nodeById.get(id);
+    if (!node) return;
+    visiting.add(id);
+
+    const deps = node.deps || [];
+    if (deps.length > 0) open.add(id);
+    deps.forEach(visit);
+
+    visiting.delete(id);
+  }
+
+  rootIds.forEach(visit);
+  return Array.from(open);
+}
+
 const rootViews = {
   paper: {
     label: "Paper map",
@@ -30,7 +51,7 @@ const rootViews = {
   spectral: {
     label: "Spectral bridge",
     roots: ["Thm4_10"],
-    open: ["Thm4_10", "S05_32", "S05_33", "S05_31"],
+    open: collectTransitiveDeps(["Thm4_10"]),
   },
   section5: {
     label: "Section 5",
