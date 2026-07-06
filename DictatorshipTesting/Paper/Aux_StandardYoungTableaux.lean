@@ -3,9 +3,9 @@ import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 /-!
 # Standard Young tableaux
 
-This file contains the concrete tableau vocabulary needed by Definition 5.9:
-cells of a Young diagram, standard Young tableaux, and the set of tableaux whose
-maximum entry lies in a specified cell.  It does not introduce the later
+This file contains the concrete tableau vocabulary used by Definitions 5.3 and
+5.13: cells of a Young diagram, standard Young tableaux, and the set of tableaux
+whose maximum entry lies in a specified cell.  It does not introduce the later
 Hilbert-space/span version of the deletion spaces.
 
 -/

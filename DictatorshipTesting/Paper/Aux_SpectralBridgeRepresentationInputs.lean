@@ -3,9 +3,9 @@ import DictatorshipTesting.Paper.Defs
 /-!
 # Spectral bridge representation inputs
 
-This file contains only the interface objects needed by Lemma 5.8.  The
-numbered Lemma 5.8 file proves the finite weighted-sum bridge from these
-objects and records the named external Specht/Pieri/Schur inputs.
+This file contains compatibility interface objects for the original `youngDim`
+spectral bridge.  The current paper route uses the dimension-parametric
+`tableauDim` bridge in Lemmas 5.31--5.33.
 -/
 
 noncomputable section

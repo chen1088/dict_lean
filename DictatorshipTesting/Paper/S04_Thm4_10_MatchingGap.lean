@@ -1,6 +1,6 @@
 import DictatorshipTesting.Paper.Aux_DistanceNonneg
-import DictatorshipTesting.Paper.S05_Lem5_27_EvenSpectralBridge
-import DictatorshipTesting.Paper.S05_Lem5_28_OddSpectralBridge
+import DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge
+import DictatorshipTesting.Paper.S05_Lem5_33_OddSpectralBridge
 
 /-!
 # Theorem 4.10: Matching-cube spectral gap
@@ -22,7 +22,7 @@ theorem Thm4_10_MatchingGap
   · rcases (even_iff_exists_two_mul.mp heven) with ⟨m, rfl⟩
     have hm : 2 ≤ m := by omega
     have hgap15 : MatchingSpectralGapConstant (2 * m) (1 / 5 : ℝ) := by
-      exact S05_Lem5_27_tableauDim_evenSpectralGapFromCertificates
+      exact S05_Lem5_32_tableauDim_evenSpectralGapFromCertificates
         m hm (spectralBlockModelInputWithDim_even_from_appendixA m hm)
     constructor
     · have hscale :
@@ -36,7 +36,7 @@ theorem Thm4_10_MatchingGap
     rcases (odd_iff_exists_bit1.mp hodd) with ⟨m, rfl⟩
     have hm : 2 ≤ m := by omega
     have hgap16 : MatchingSpectralGapConstant (2 * m + 1) (1 / 6 : ℝ) := by
-      exact S05_Lem5_28_tableauDim_oddSpectralGapFromCertificates
+      exact S05_Lem5_33_tableauDim_oddSpectralGapFromCertificates
         m hm (spectralBlockModelInputWithDim_odd_from_appendixA m hm)
     constructor
     · exact hgap16 F

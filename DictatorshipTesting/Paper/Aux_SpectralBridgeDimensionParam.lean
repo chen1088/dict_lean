@@ -1,6 +1,6 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates
-import DictatorshipTesting.Paper.S05_Lem5_25_BlockScalarOfTheAveragedRejection
+import DictatorshipTesting.Paper.S05_Lem5_30_BlockScalarOfTheAveragedRejection
 import DictatorshipTesting.Paper.Aux_TableauDimension
 
 /-!

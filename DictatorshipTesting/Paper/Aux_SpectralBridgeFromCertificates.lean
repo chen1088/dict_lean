@@ -1,8 +1,8 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.S05_Lem5_25_BlockScalarOfTheAveragedRejection
+import DictatorshipTesting.Paper.S05_Lem5_30_BlockScalarOfTheAveragedRejection
 
 /-!
-Helper for paper statements: Lemmas 5.26--5.28 (`lem:block-lower-bound-gap`,
+Helper for paper statements: Lemmas 5.31--5.33 (`lem:block-lower-bound-gap`,
 `lem:spectral-certificate-even`, `lem:spectral-certificate-odd`)
 Title in paper: Spectral bridge from the finite certificate.
 
@@ -52,7 +52,7 @@ theorem blockScalar_lower_bound_of_traceScalarFormula {n : ℕ}
   exact (le_div_iff₀ hdim_pos).mpr (hcert lam hnot_row hnot_std)
 
 /-- Dimension positivity plus the block trace identity imply the trace/scalar
-value formula.  This is part of the algebraic helper for Lemmas 5.26--5.28. -/
+value formula.  This is part of the algebraic helper for Lemmas 5.31--5.33. -/
 theorem traceScalarValue_of_blockTraceIdentity {n : ℕ}
     {height theta : YoungDiagram n → ℝ}
     (hdim : YoungDimensionPositiveInput n)
@@ -96,7 +96,7 @@ theorem SpectralGapFromBlockScalars {n : ℕ} (c : ℝ)
 
 /-- Spectral gap from scalar lower bounds on every non-`U_1` Young block.
 
-This is the purely algebraic wrapper for Lemma 5.28: once the block energies,
+This is the purely algebraic wrapper for Lemma 5.33: once the block energies,
 `U_1` identification, matching-average scalarity, and scalar lower bounds are
 available, no representation theory remains. -/
 theorem SpectralGapFromBlockScalarLowerBounds {n : ℕ} (c : ℝ)

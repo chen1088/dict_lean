@@ -4,11 +4,12 @@ Source checked: `../dictatorship_testing_soda27_latest.tex`.
 
 ## Spine Status
 
-- Section 5 now has 34 theorem-like numbered statements when counting only
+- Section 5 now has 39 theorem-like numbered statements when counting only
   `definition`, `lemma`, `proposition`, `theorem`, and `corollary`
-  environments.
+  environments, including the five numbered tableau-preliminary definitions
+  5.1--5.5.
 - Appendix A has 5 numbered external-input statements.
-- The Section 5 paper-facing Lean file count is 34.
+- The Section 5 paper-facing Lean file count is 39.
 - The Appendix A Lean-facing file count is 5.
 - The old Section 5 regular Young-block file moved to
   `AppA_ThmA_03_RegularYoungBlockDecomposition.lean`.
@@ -22,90 +23,93 @@ Detailed maps:
 
 ## Latest Checkpoint
 
-- Lemma 5.11 coordinate-level deletion-fiber intertwining is proved:
-  `S05_Lem5_11_deletionCoordinateMap_youngAdjacentOperator_intertwines`.
-- Lemma 5.18 now has proved matching eigenvalue preservation under one-edge
+- Lemma 5.16 coordinate-level deletion-fiber intertwining is proved:
+  `S05_Lem5_16_deletionCoordinateMap_youngAdjacentOperator_intertwines`.
+- Lemma 5.23 now has proved matching eigenvalue preservation under one-edge
   projections, support-selected one-edge projections, and simultaneous
   matching sign projections.
-- Definition 5.21 now has proved low/high matching idempotent identities,
+- Definition 5.26 now has proved low/high matching idempotent identities,
   zero cross-compositions, and the low-plus-high decomposition identity.
 - The remaining main Section 5 frontier is the spectral-block model input.
 - The two remaining Section 5/Aux axioms are exactly
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.
 - The current Theorem 4.10 proof path uses the tableauDim bridge exposed by
-  Lemmas 5.26--5.28 and these dimension-parameterized Appendix A spectral
+  Lemmas 5.31--5.33 and these dimension-parameterized Appendix A spectral
   model inputs.
 
 ## Internal Progress
 
-- Lemma 5.1 exposes the concrete tableau-coordinate Coxeter model through
-  `S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel`.
-- Lemma 5.2 is proved internally for explicit diagonal content operators:
-  `S05_Lem5_02_tableauContentSequence_injective` proves content-sequence
-  injectivity, `S05_Lem5_02_diagonalContent_commonEigen_support` separates
+- Definitions 5.1--5.5 expose the numbered tableau-preliminary interfaces:
+  Young diagrams and boxes, removable corners and one-box removals, standard
+  tableaux, tableau coordinate spaces, and contents/adjacent operators.
+- Lemma 5.6 exposes the concrete tableau-coordinate Coxeter model through
+  `S05_Lem5_06_adjacentTranspositionsInYoungsBasis_coxeterModel`.
+- Lemma 5.7 is proved internally for explicit diagonal content operators:
+  `S05_Lem5_07_tableauContentSequence_injective` proves content-sequence
+  injectivity, `S05_Lem5_07_diagonalContent_commonEigen_support` separates
   distinct tableaux by a content coordinate, and
-  `S05_Lem5_02_diagonalContentEigenspaces` proves that the common eigenspaces
+  `S05_Lem5_07_diagonalContentEigenspaces` proves that the common eigenspaces
   are the tableau basis lines.
-- Lemma 5.7 now exposes the concrete fixed two-step tableau branching
-  equivalence `S05_Lem5_07_twoStepDeletionTableauxEquivChildTableaux`, together
+- Lemma 5.12 now exposes the concrete fixed two-step tableau branching
+  equivalence `S05_Lem5_12_twoStepDeletionTableauxEquivChildTableaux`, together
   with the iterated deletion content/row/column preservation wrappers.
-- Lemma 5.10 now proves the concrete coordinate form of one-box deletion
-  unitarity: `S05_Lem5_10_deletionCoordinateMap_inner` shows that the deletion
+- Lemma 5.15 now proves the concrete coordinate form of one-box deletion
+  unitarity: `S05_Lem5_15_deletionCoordinateMap_inner` shows that the deletion
   equivalence preserves the finite coordinate inner product.
-- Lemma 5.11 now proves the deletion/content compatibility needed by the
+- Lemma 5.16 now proves the deletion/content compatibility needed by the
   rewritten spine and the earlier-adjacent coefficient preservation needed for
-  the next operator step: `S05_Lem5_11_insertMax_youngAdjacentMatrixCoeff`
+  the next operator step: `S05_Lem5_16_insertMax_youngAdjacentMatrixCoeff`
   preserves the full concrete Young-adjacent matrix coefficient under one-box
   insertion for earlier adjacent pairs, and
-  `S05_Lem5_11_deletionCoordinateMap_youngAdjacentOperator_intertwines` proves
+  `S05_Lem5_16_deletionCoordinateMap_youngAdjacentOperator_intertwines` proves
   the corresponding coordinate-level intertwining for the deletion-fiber
   operator, while
-  `S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines` shows that
+  `S05_Lem5_16_deletionCoordinateMap_diagonalContent_intertwines` shows that
   the one-box deletion coordinate map intertwines the explicit diagonal content
   operators on surviving entries.
-- Lemma 5.16 now exposes the assumption-free `tableauDim` size components
-  `S05_Lem5_16_tableauDim_twoStrip_size` and
-  `S05_Lem5_16_tableauDim_oneBox_size`, while the older `youngDim`
+- Lemma 5.21 now exposes the assumption-free `tableauDim` size components
+  `S05_Lem5_21_tableauDim_twoStrip_size` and
+  `S05_Lem5_21_tableauDim_oneBox_size`, while the older `youngDim`
   wrappers state the named dimension-branching inputs they require.
-- Lemma 5.18 exposes more of the concrete matching-cube action:
-  `S05_Lem5_18_canonicalMatchingCubeOperatorEven_eq_indexedProduct` gives the
+- Lemma 5.23 exposes more of the concrete matching-cube action:
+  `S05_Lem5_23_canonicalMatchingCubeOperatorEven_eq_indexedProduct` gives the
   fixed ordered-product form, and
-  `S05_Lem5_18_matchingEdgeSign_finRange_product_eq_matchingCharacter` turns
+  `S05_Lem5_23_matchingEdgeSign_finRange_product_eq_matchingCharacter` turns
   the selected edge-sign product into the matching character.  The one-edge
   projection lemmas now also prove preservation of all other edge eigenvalues,
   for example
-  `S05_Lem5_18_matchingEdgePlusProjectionEven_preserves_otherEigen`; the
+  `S05_Lem5_23_matchingEdgePlusProjectionEven_preserves_otherEigen`; the
   support-selected one-edge projection wrappers such as
-  `S05_Lem5_18_matchingEdgeSignProjectionEven_isMatchingEigen` package the
+  `S05_Lem5_23_matchingEdgeSignProjectionEven_isMatchingEigen` package the
   plus/minus choice by character support, and
-  `S05_Lem5_18_matchingSignProjectionEven_isMatchingEigenvector` / odd prove
+  `S05_Lem5_23_matchingSignProjectionEven_isMatchingEigenvector` / odd prove
   that iterating those choices over `List.finRange m` yields a simultaneous
   matching-edge eigenvector.
-- Definition 5.21 now proves that the named low and high matching idempotents
+- Definition 5.26 now proves that the named low and high matching idempotents
   are genuinely idempotent through
   `S05_matchingLowIdempotent_idempotent` and
   `S05_matchingHighIdempotent_idempotent`; it also proves the complementary
   identities `S05_matchingLowIdempotent_high_eq_zero`,
   `S05_matchingHighIdempotent_low_eq_zero`, and
   `S05_matchingLow_add_matchingHigh`.
-- Lemma 5.23 now proves the finite-average/high-idempotent part of central
-  averaged rejection: `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average`
+- Lemma 5.28 now proves the finite-average/high-idempotent part of central
+  averaged rejection: `S05_Lem5_28_matchingMeanProjectionError_eq_high_idempotent_average`
   rewrites the mean local rejection as the average of squared high-idempotent
   norms.  Operator centrality on Young blocks remains a representation-layer
   target.
-- Lemma 5.26 now exposes trace-model-to-gap algebra:
-  `S05_Lem5_26_spectralGapFromBlockTraceModel` and
-  `S05_Lem5_26_spectralGapFromBlockTraceModelWithDim` derive the spectral-gap
+- Lemma 5.31 now exposes trace-model-to-gap algebra:
+  `S05_Lem5_31_spectralGapFromBlockTraceModel` and
+  `S05_Lem5_31_spectralGapFromBlockTraceModelWithDim` derive the spectral-gap
   inequality directly from scalarity, a block trace identity, dimension
   positivity, and the finite certificate.
-- Lemma 5.30 has a tableau-count z-bound theorem
-  `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.
-- Lemma 5.32 has a tableau-count even certificate theorem
-  `S05_Lem5_32_tableau_even_certificate`.
-- Lemma 5.34 has a tableau-count odd certificate theorem
-  `S05_Lem5_34_tableau_odd_certificate`.
-- Lemmas 5.26--5.28 expose the algebraic spectral bridge from explicit
+- Lemma 5.35 has a tableau-count z-bound theorem
+  `S05_Lem5_35_tableau_weightZeroEntries_never_majority`.
+- Lemma 5.37 has a tableau-count even certificate theorem
+  `S05_Lem5_37_tableau_even_certificate`.
+- Lemma 5.39 has a tableau-count odd certificate theorem
+  `S05_Lem5_39_tableau_odd_certificate`.
+- Lemmas 5.31--5.33 expose the algebraic spectral bridge from explicit
   spectral-block-model inputs.
 
 ## Appendix A Boundary
