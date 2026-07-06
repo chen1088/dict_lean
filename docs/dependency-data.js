@@ -895,8 +895,8 @@ window.DICT_DEPENDENCY_DATA = {
       status: "external",
       file: "DictatorshipTesting/Paper/AppA_ThmA_01_YoungOrthogonalRealization.lean",
       wrappers: [],
-      deps: ["S05_01"],
-      summary: "External identification of the coordinate Coxeter model with the classical Specht model."
+      deps: [],
+      summary: "External classical Young orthogonal/Specht realization boundary. Section 5 separately proves its coordinate Coxeter model."
     },
     {
       id: "AppA_02",
@@ -909,7 +909,7 @@ window.DICT_DEPENDENCY_DATA = {
       file: "DictatorshipTesting/Paper/AppA_ThmA_02_JucysMurphyContentSpectrum.lean",
       wrappers: [],
       deps: [],
-      summary: "External identification of diagonal content operators with group-algebra Jucys-Murphy elements; it imports Lemma 5.2 only for shared content-operator vocabulary."
+      summary: "External group-algebra Jucys-Murphy content-spectrum boundary. Section 5 separately proves diagonal content eigenspaces."
     },
     {
       id: "AppA_03",

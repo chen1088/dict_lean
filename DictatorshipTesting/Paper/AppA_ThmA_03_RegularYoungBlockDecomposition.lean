@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Def5_03_YoungBlock
+import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 
 /-!
 Paper statement: Theorem A.3 (`thm:app-regular-young-decomposition`)
@@ -28,7 +28,7 @@ abbrev AppA_ThmA_03_U1YoungBlockIdentificationInput {n : Nat}
 /-- Theorem A.3 model projection: each Young-block energy is nonnegative. -/
 theorem AppA_ThmA_03_blockEnergy_nonnegative {n : Nat}
     {F : Perm (Fin n) → ℝ}
-    (energy : S05_Def5_03_YoungBlockEnergyModel F)
+    (energy : YoungBlockEnergyModel F)
     (lam : YoungDiagram n) :
     0 ≤ energy.blockEnergy lam :=
   energy.nonneg lam
@@ -37,7 +37,7 @@ theorem AppA_ThmA_03_blockEnergy_nonnegative {n : Nat}
 non-`U_1` Young-block energies. -/
 theorem AppA_ThmA_03_u1_identification {n : Nat}
     {F : Perm (Fin n) → ℝ}
-    (energy : S05_Def5_03_YoungBlockEnergyModel F) :
+    (energy : YoungBlockEnergyModel F) :
     l2DistSqToU1 F =
       (nonU1YoungBlocks n).sum energy.blockEnergy :=
   energy.u1_identification
