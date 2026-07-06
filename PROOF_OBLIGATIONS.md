@@ -53,9 +53,6 @@ Unproven internal/current-route boundary:
 - The standalone paper-level Lemmas 5.27 and 5.28 remain unproven until that
   spectral-block model is supplied; the Lean files currently prove algebraic
   implications whose model assumptions are explicit hypotheses.
-- The full Lemma 5.11 Young-adjacent-operator intertwining is still missing;
-  the diagonal-content deletion component and the earlier-adjacent
-  matrix-coefficient preservation components are proved.
 - The concrete Lemma 5.18 matching-cube operator/character components are
   proved, but the full Specht-module matching-restriction theorem is an
   external representation-theoretic input.
@@ -399,10 +396,11 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
 - `S05_Lem5_11_OneBoxDeletionIntertwinesEarlierSwaps.lean`: basis-level
   content preservation under maximum-entry deletion, earlier-adjacent
   matrix-coefficient preservation under one-box insertion through
-  `S05_Lem5_11_insertMax_youngAdjacentMatrixCoeff`, and coordinate-level
-  diagonal-content intertwining through
-  `S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines`.  The full
-  Young-adjacent-operator intertwining statement remains open.
+  `S05_Lem5_11_insertMax_youngAdjacentMatrixCoeff`, coordinate-level
+  Young-adjacent deletion-fiber intertwining through
+  `S05_Lem5_11_deletionCoordinateMap_youngAdjacentOperator_intertwines`, and
+  coordinate-level diagonal-content intertwining through
+  `S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines`.
 - `S05_Lem5_16_SizesOfTheSignPatternMultisets.lean`: scalar sign-pattern count
   recurrences and assumption-free `tableauDim` two-strip/one-box size wrappers
   through `S05_Lem5_16_tableauDim_twoStrip_size` and

@@ -103,15 +103,14 @@ Proven Lemma 5.10 coordinate one-box deletion package:
   equivalence and that the induced coordinate map preserves the finite
   coordinate inner product.
 
-Proven component inside unproven Lemma 5.11:
+Proven Lemma 5.11 deletion-fiber intertwining:
 
 - `S05_Lem5_11_OneBoxDeletionIntertwinesEarlierSwaps.lean` -- Lemma 5.11
   (`lem:one-box-deletion-intertwines`): proves that deleting the maximum entry
   preserves the surviving content sequence, that one-box insertion preserves
-  earlier-adjacent row/column data and the concrete Young-adjacent coefficients,
-  and that the one-box deletion coordinate map intertwines the explicit
-  diagonal content operators.  The full coordinate-level Young-adjacent-operator
-  intertwining remains future work.
+  earlier-adjacent concrete Young-adjacent matrix coefficients, and that the
+  one-box deletion coordinate map intertwines both the deletion-fiber
+  Young-adjacent operator and the explicit diagonal content operators.
 
 Proven Lemma 5.16 tableau-count size components:
 

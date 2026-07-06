@@ -5,11 +5,11 @@ import DictatorshipTesting.Paper.S05_Lem5_02_DiagonalContentEigenspaces
 Paper statement: Lemma 5.11 (`lem:one-box-deletion-intertwines`)
 Title in paper: One-box deletion intertwines earlier swaps.
 
-Status: the full coordinate-level Young-adjacent-operator intertwining
-statement is future work.  This file proves basis-level content preservation,
-the row/column and coefficient preservation for earlier adjacent pairs under
-one-box insertion, and the coordinate-level intertwining with the explicit
-diagonal content operators.
+Status: proved for the concrete deletion-fiber coordinate model.  This file
+proves basis-level content preservation, row/column and matrix-coefficient
+preservation for earlier adjacent pairs under one-box insertion, and the
+coordinate-level intertwining with both the explicit Young-adjacent operators
+on the deletion fiber and the diagonal content operators.
 -/
 
 noncomputable section
@@ -645,6 +645,70 @@ theorem S05_Lem5_11_insertMax_youngAdjacentMatrixCoeff
               (a := Fin.castSucc a) hrowP hcolP hPST hPswap,
             youngAdjacentMatrixCoeff_swappable_other
               (a := a) hrowT hcolT hST hSswap]
+
+/-- The parent-shape earlier adjacent operator restricted to the one-box
+deletion fiber. -/
+def S05_Lem5_11_deletionFiberYoungAdjacentOperator
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (a : Fin n)
+    (f : S05_Lem5_10_OneBoxDeletionCoordinateSpace h hr) :
+    S05_Lem5_10_OneBoxDeletionCoordinateSpace h hr :=
+  fun S =>
+    ∑ T : {T : StandardYoungTableau lam //
+        TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)},
+      youngAdjacentMatrixCoeff (Fin.castSucc a) S.1 T.1 * f T
+
+/-- Lemma 5.11 coordinate component: deleting the maximum entry intertwines
+the child adjacent operator with the parent earlier-adjacent operator restricted
+to the one-box deletion fiber. -/
+theorem S05_Lem5_11_deletionCoordinateMap_youngAdjacentOperator_intertwines
+    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
+    {mu : YoungDiagram (n + 1)}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      forall t : Nat, t ≠ r -> youngRow lam t = youngRow mu t)
+    (a : Fin n)
+    (f : S05_Lem5_10_OneBoxDeletionCoordinateSpace h hr) :
+    youngAdjacentOperator a
+        (S05_Lem5_10_deletionCoordinateMap h hr f)
+      =
+    S05_Lem5_10_deletionCoordinateMap h hr
+      (S05_Lem5_11_deletionFiberYoungAdjacentOperator h hr a f) := by
+  classical
+  funext S
+  let e :=
+    S05_Lem5_10_oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow h hr
+  change
+    (∑ T : StandardYoungTableau mu,
+      youngAdjacentMatrixCoeff a S T * f (e.symm T)) =
+    ∑ T : {T : StandardYoungTableau lam //
+        TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)},
+      youngAdjacentMatrixCoeff (Fin.castSucc a) (e.symm S).1 T.1 * f T
+  exact Fintype.sum_equiv e.symm
+    (fun T : StandardYoungTableau mu =>
+      youngAdjacentMatrixCoeff a S T * f (e.symm T))
+    (fun T : {T : StandardYoungTableau lam //
+        TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)} =>
+      youngAdjacentMatrixCoeff (Fin.castSucc a) (e.symm S).1 T.1 * f T)
+    (fun T => by
+      have hcoeff :
+          youngAdjacentMatrixCoeff a S T =
+            youngAdjacentMatrixCoeff (Fin.castSucc a)
+              (e.symm S).1 (e.symm T).1 := by
+        change
+          youngAdjacentMatrixCoeff a S T =
+            youngAdjacentMatrixCoeff (Fin.castSucc a)
+              (insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr S)
+              (insertMaxAsStandardYoungTableauOfOneBoxChildRow h hr T)
+        simpa [S05_Lem5_10_insertMaxAsStandardYoungTableauOfOneBoxChildRow] using
+          (S05_Lem5_11_insertMax_youngAdjacentMatrixCoeff h hr S T a).symm
+      rw [hcoeff])
 
 /-- Lemma 5.11 coordinate component: one-box deletion intertwines the diagonal
 content operator for every entry that survives the deletion. -/

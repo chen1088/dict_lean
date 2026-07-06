@@ -41,10 +41,12 @@ Detailed maps:
   the next operator step: `S05_Lem5_11_insertMax_youngAdjacentMatrixCoeff`
   preserves the full concrete Young-adjacent matrix coefficient under one-box
   insertion for earlier adjacent pairs, and
+  `S05_Lem5_11_deletionCoordinateMap_youngAdjacentOperator_intertwines` proves
+  the corresponding coordinate-level intertwining for the deletion-fiber
+  operator, while
   `S05_Lem5_11_deletionCoordinateMap_diagonalContent_intertwines` shows that
   the one-box deletion coordinate map intertwines the explicit diagonal content
-  operators on surviving entries.  The full coordinate-level Young-adjacent
-  operator intertwining remains future work.
+  operators on surviving entries.
 - Lemma 5.16 now exposes the assumption-free `tableauDim` size components
   `S05_Lem5_16_tableauDim_twoStrip_size` and
   `S05_Lem5_16_tableauDim_oneBox_size`, while the older `youngDim`
