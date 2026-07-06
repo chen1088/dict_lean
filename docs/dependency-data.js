@@ -114,9 +114,61 @@ window.DICT_DEPENDENCY_DATA = {
       importance: "normal",
       status: "proved",
       file: "DictatorshipTesting/Paper/S02_Lem2_03_CubeParseval.lean",
-      wrappers: ["L2_3_CubeParseval", "L2_3_CubeCharOrthonormality"],
-      deps: [],
+      wrappers: ["L2_3_CubeParseval"],
+      deps: ["L2_3_Orthonormality", "L2_3_FourierExpansion", "L2_3_ParsevalIdentity"],
       summary: "Orthonormality and Parseval for Boolean cube characters."
+    },
+    {
+      id: "L2_3_Orthonormality",
+      label: "Lem 2.3a",
+      title: "Cube-character orthonormality",
+      section: "Section 2",
+      kind: "paper",
+      importance: "minor",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/S02_Lem2_03_CubeCharOrthonormality.lean",
+      wrappers: ["L2_3_cubeChar_orthonormality"],
+      deps: [],
+      summary: "First component of Lemma 2.3: cube characters are orthonormal."
+    },
+    {
+      id: "L2_3_FourierExpansion",
+      label: "Lem 2.3b",
+      title: "Cube Fourier expansion",
+      section: "Section 2",
+      kind: "paper",
+      importance: "minor",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/S02_Lem2_03_CubeFourierExpansion.lean",
+      wrappers: ["L2_3_cubeFourier_expansion"],
+      deps: ["L2_3_Orthonormality"],
+      summary: "Second component of Lemma 2.3: Fourier expansion in the cube-character basis."
+    },
+    {
+      id: "L2_3_ParsevalIdentity",
+      label: "Lem 2.3c",
+      title: "Cube Parseval identity",
+      section: "Section 2",
+      kind: "paper",
+      importance: "minor",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/S02_Lem2_03_CubeParsevalIdentity.lean",
+      wrappers: ["L2_3_cubeParseval_identity"],
+      deps: ["L2_3_FourierExpansion"],
+      summary: "Third component of Lemma 2.3: the Parseval identity."
+    },
+    {
+      id: "Def2_4",
+      label: "Def 2.4",
+      title: "Low-degree cube truncation",
+      section: "Section 2",
+      kind: "paper",
+      importance: "normal",
+      status: "interface",
+      file: "DictatorshipTesting/Paper/Defs.lean",
+      wrappers: ["cubeLowDegreeOnePart", "cubeHighDegreeEnergy"],
+      deps: ["L2_3"],
+      summary: "Low-degree-one Boolean-cube truncation and high-degree energy vocabulary, currently housed in the shared definition file."
     },
     {
       id: "AuxOrderedMatching",
@@ -132,6 +184,136 @@ window.DICT_DEPENDENCY_DATA = {
       summary: "Bookkeeping for ordered matching products and unmatched-point coordinates."
     },
     {
+      id: "S03_01",
+      label: "Lem 3.1",
+      title: "Completeness on matching cubes",
+      section: "Section 3",
+      kind: "paper",
+      importance: "normal",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/S03_Lem3_01_DictatorToJunta.lean",
+      wrappers: ["L3_1_ImageDictatorToJunta", "L3_1_DictatorToJunta"],
+      deps: ["AuxOrderedMatching"],
+      summary: "A dictator restricts to a one-junta on every matching cube."
+    },
+    {
+      id: "S03_02",
+      label: "Lem 3.2",
+      title: "Perfect completeness",
+      section: "Section 3",
+      kind: "paper",
+      importance: "normal",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/S03_Lem3_02_PerfectCompleteness.lean",
+      wrappers: ["cubeOneJunta_square_zero", "L3_2_PerfectCompleteness"],
+      deps: ["S03_01"],
+      summary: "One-juntas have zero sampled square difference, giving perfect completeness."
+    },
+    {
+      id: "Def4_02",
+      label: "Def 4.2",
+      title: "Local degree-one space",
+      section: "Section 4",
+      kind: "paper",
+      importance: "normal",
+      status: "interface",
+      file: "DictatorshipTesting/Paper/Defs.lean",
+      wrappers: ["IsMatchingLocalDegreeOne", "matchingLocalHighDegreeEnergy"],
+      deps: ["Def2_4"],
+      summary: "Matching-local degree-one and high-degree-energy definitions, currently housed in the shared definition file."
+    },
+    {
+      id: "Def4_03",
+      label: "Def 4.3",
+      title: "Matching-local truncation",
+      section: "Section 4",
+      kind: "paper",
+      importance: "normal",
+      status: "interface",
+      file: "DictatorshipTesting/Paper/Defs.lean",
+      wrappers: ["matchingLocalProjection", "matchingLocalProjectionError"],
+      deps: ["Def4_02"],
+      summary: "The matching-local projection P_M and its projection-error functional."
+    },
+    {
+      id: "S04_04",
+      label: "Lem 4.4",
+      title: "P_M independent of representatives",
+      section: "Section 4",
+      kind: "paper",
+      importance: "normal",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/S04_Lem4_04_PMIndependentOfRepresentatives.lean",
+      wrappers: ["L4_4_PMIndependentOfRepresentatives"],
+      deps: ["Def2_4"],
+      summary: "Cube low-degree truncation is invariant under the coset representative change used in P_M."
+    },
+    {
+      id: "S04_05",
+      label: "Lem 4.5",
+      title: "P_M fixes local degree one",
+      section: "Section 4",
+      kind: "paper",
+      importance: "normal",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/S04_Lem4_05_PMFixesLocal.lean",
+      wrappers: ["L4_5_PMFixesLocal"],
+      deps: ["Def4_03", "S04_04"],
+      summary: "The local projection keeps exactly the matching-local degree-one functions."
+    },
+    {
+      id: "S04_06",
+      label: "Lem 4.6",
+      title: "Local high-degree error formula",
+      section: "Section 4",
+      kind: "paper",
+      importance: "normal",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/S04_Lem4_06_LocalHighDegreeErrorFormula.lean",
+      wrappers: ["L4_6_LocalHighDegreeErrorFormula"],
+      deps: ["Def4_03"],
+      summary: "Identifies matching-local projection error with averaged cube high-degree energy."
+    },
+    {
+      id: "S04_07",
+      label: "Lem 4.7",
+      title: "P_M perpendicularity",
+      section: "Section 4",
+      kind: "paper",
+      importance: "normal",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/S04_Lem4_07_PMPerpendicular.lean",
+      wrappers: ["L4_7_PMPerpendicular"],
+      deps: ["S04_05", "S04_06"],
+      summary: "The high-degree residual is orthogonal to the local degree-one space."
+    },
+    {
+      id: "S04_08",
+      label: "Lem 4.8",
+      title: "Basic indicators are local degree one",
+      section: "Section 4",
+      kind: "paper",
+      importance: "normal",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/S04_Lem4_08_TijLocalDegree.lean",
+      wrappers: ["L4_8_TijLocalDegree"],
+      deps: ["S03_01", "Def4_02"],
+      summary: "Each basic indicator restricts to a cube one-junta, hence has matching-local degree at most one."
+    },
+    {
+      id: "S04_09",
+      label: "Cor 4.9",
+      title: "U1 is local",
+      section: "Section 4",
+      kind: "paper",
+      importance: "normal",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/S04_Cor4_09_U1Local.lean",
+      wrappers: ["Cor4_9_U1Local"],
+      deps: ["S04_05", "S04_08"],
+      summary: "The global U1 space is contained in every matching-local degree-one space."
+    },
+    {
       id: "Thm4_10",
       label: "Thm 4.10",
       title: "Matching-cube spectral gap",
@@ -141,7 +323,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proved-from-external",
       file: "DictatorshipTesting/Paper/S04_Thm4_10_MatchingGap.lean",
       wrappers: ["Thm4_10_MatchingGap"],
-      deps: ["S05_27", "S05_28"],
+      deps: ["S04_09", "S05_27", "S05_28"],
       summary: "Current route uses the tableauDim bridge and Appendix A spectral model inputs."
     },
     {
@@ -180,7 +362,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proved",
       file: "DictatorshipTesting/Paper/Aux_YoungAdjacentEntries.lean",
       wrappers: [],
-      deps: ["Defs"],
+      deps: ["S05_Prelim_Tableaux", "S05_Prelim_ContentOperators"],
       summary: "Row, column, content, and swap facts for adjacent entries."
     },
     {
@@ -232,7 +414,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proved",
       file: "DictatorshipTesting/Paper/S05_Lem5_09_OneBoxCornerDecomposition.lean",
       wrappers: ["S05_Lem5_09_row_form", "S05_Lem5_09_removable_corner"],
-      deps: ["AuxYoungDiagramCorners"],
+      deps: ["S05_06", "AuxYoungDiagramCorners"],
       summary: "One-box children differ in a unique removable row/corner."
     },
     {
@@ -245,7 +427,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proved",
       file: "DictatorshipTesting/Paper/S05_Lem5_10_OneBoxDeletionIsUnitary.lean",
       wrappers: ["S05_Lem5_10_deletionCoordinateMap_inner"],
-      deps: ["S05_09"],
+      deps: ["S05_08", "S05_09"],
       summary: "Coordinate inner-product preservation for one-box deletion fibers."
     },
     {
@@ -271,7 +453,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proved",
       file: "DictatorshipTesting/Paper/Aux_YoungDiagramCorners.lean",
       wrappers: ["existsUnique_row_of_oneBoxChild", "exists_removableRow_of_oneBoxChild"],
-      deps: ["Defs"],
+      deps: ["S05_Prelim_OneBoxCorners"],
       summary: "Elementary row combinatorics for one-box removals."
     },
     {
@@ -284,7 +466,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proved",
       file: "DictatorshipTesting/Paper/Aux_TableauDimension.lean",
       wrappers: ["tableauDim"],
-      deps: ["Defs"],
+      deps: ["S05_Prelim_TableauSpace"],
       summary: "Tableau-count dimension function used by the active finite-certificate route."
     },
     {
@@ -312,6 +494,19 @@ window.DICT_DEPENDENCY_DATA = {
       wrappers: ["S05_Lem5_15_tableauDim_oneBoxChildrenOdd_branching"],
       deps: ["AuxTableauDimension", "S05_09"],
       summary: "Assumption-free one-box dimension recursion for tableauDim."
+    },
+    {
+      id: "S05_16",
+      label: "Lem 5.16",
+      title: "Sizes of the sign-pattern multisets",
+      section: "Finite certificates",
+      kind: "paper",
+      importance: "major",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/S05_Lem5_16_SizesOfTheSignPatternMultisets.lean",
+      wrappers: ["S05_Lem5_16_tableauDim_twoStrip_size", "S05_Lem5_16_tableauDim_oneBox_size"],
+      deps: ["S05_13", "S05_14", "S05_15"],
+      summary: "Tableau-count size identities for the even two-strip and odd one-box sign-pattern multisets."
     },
     {
       id: "S05_29",
@@ -392,6 +587,19 @@ window.DICT_DEPENDENCY_DATA = {
       summary: "The tableau-count odd h-bound certificate consumed by Lemma 5.28."
     },
     {
+      id: "S05_03",
+      label: "Def 5.3",
+      title: "Young block",
+      section: "Definitions",
+      kind: "paper",
+      importance: "normal",
+      status: "interface",
+      file: "DictatorshipTesting/Paper/S05_Def5_03_YoungBlock.lean",
+      wrappers: ["S05_YoungBlock", "S05_Def5_03_SpectralBlockModelInput"],
+      deps: ["S05_Prelim_TableauSpace", "AuxSpectralBridgeDimensionParam"],
+      summary: "Young-block vocabulary and the spectral-block model interface used by the bridge."
+    },
+    {
       id: "S05_04",
       label: "Def 5.4",
       title: "Two-box removals",
@@ -401,7 +609,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "interface",
       file: "DictatorshipTesting/Paper/S05_Def5_04_TwoBoxRemovals.lean",
       wrappers: ["S05_IsHorizontalTwoBoxRemoval", "S05_IsVerticalTwoBoxRemoval"],
-      deps: ["Defs"],
+      deps: ["S05_Prelim_OneBoxCorners"],
       summary: "Horizontal and vertical two-box removal predicates."
     },
     {
@@ -416,6 +624,32 @@ window.DICT_DEPENDENCY_DATA = {
       wrappers: ["S05_PositiveSignedTwoBoxRemoval", "S05_NegativeSignedTwoBoxRemoval"],
       deps: ["S05_04"],
       summary: "Signed horizontal/vertical two-box removal vocabulary."
+    },
+    {
+      id: "S05_06",
+      label: "Def 5.6",
+      title: "One-box removals",
+      section: "Definitions",
+      kind: "paper",
+      importance: "normal",
+      status: "interface",
+      file: "DictatorshipTesting/Paper/S05_Def5_06_OneBoxRemovals.lean",
+      wrappers: ["S05_IsOneBoxRemoval", "S05_oneBoxChildren", "S05_oneBoxChildrenOdd"],
+      deps: ["AuxYoungDiagramCorners"],
+      summary: "One-box removal vocabulary and the row/corner facts re-exported for paper statements."
+    },
+    {
+      id: "S05_08",
+      label: "Def 5.8",
+      title: "One-box deletion spaces",
+      section: "Definitions",
+      kind: "paper",
+      importance: "normal",
+      status: "interface",
+      file: "DictatorshipTesting/Paper/S05_Def5_08_OneBoxDeletionSpaces.lean",
+      wrappers: ["S05_Def5_08_OneBoxDeletionTableaux", "S05_Def5_08_existsUnique_tableauMaxAt"],
+      deps: ["S05_06", "S05_Prelim_Tableaux"],
+      summary: "Deletion-fiber coordinate-space vocabulary for tableaux whose maximum entry lies in a fixed removable corner."
     },
     {
       id: "S05_12",
@@ -440,7 +674,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "interface",
       file: "DictatorshipTesting/Paper/S05_Def5_13_OddSignPatternMultiset.lean",
       wrappers: ["S05_oddHighSignPatternCount"],
-      deps: ["S05_12", "S05_15"],
+      deps: ["S05_06", "S05_12"],
       summary: "Odd sign-pattern counter hOddTableau."
     },
     {
@@ -583,7 +817,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proved-from-external",
       file: "DictatorshipTesting/Paper/S05_Lem5_27_EvenSpectralBridge.lean",
       wrappers: ["S05_Lem5_27_tableauDim_evenSpectralGapFromCertificates"],
-      deps: ["S05_26", "S05_32", "AppA_EvenSpectralModel"],
+      deps: ["S05_03", "S05_26", "S05_32", "AppA_EvenSpectralModel"],
       summary: "Algebraic even bridge from the explicit spectral model hypothesis and the tableau even certificate."
     },
     {
@@ -596,7 +830,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proved-from-external",
       file: "DictatorshipTesting/Paper/S05_Lem5_28_OddSpectralBridge.lean",
       wrappers: ["S05_Lem5_28_tableauDim_oddSpectralGapFromCertificates"],
-      deps: ["S05_26", "S05_34", "AppA_OddSpectralModel"],
+      deps: ["S05_03", "S05_26", "S05_34", "AppA_OddSpectralModel"],
       summary: "Algebraic odd bridge from the explicit spectral model hypothesis and the tableau odd certificate."
     },
     {
@@ -674,8 +908,8 @@ window.DICT_DEPENDENCY_DATA = {
       status: "external",
       file: "DictatorshipTesting/Paper/AppA_ThmA_02_JucysMurphyContentSpectrum.lean",
       wrappers: [],
-      deps: ["S05_02"],
-      summary: "External identification of diagonal content operators with group-algebra Jucys-Murphy elements."
+      deps: [],
+      summary: "External identification of diagonal content operators with group-algebra Jucys-Murphy elements; it imports Lemma 5.2 only for shared content-operator vocabulary."
     },
     {
       id: "AppA_03",
@@ -717,17 +951,69 @@ window.DICT_DEPENDENCY_DATA = {
       summary: "External connectedness fact for standard tableaux under adjacent swaps."
     },
     {
-      id: "Defs",
-      label: "Defs",
-      title: "Core definitions",
-      section: "Definitions",
+      id: "S05_Prelim_YoungDiagrams",
+      label: "5.1 def A",
+      title: "Young diagrams and boxes",
+      section: "Section 5 prelim definitions",
       kind: "aux",
       importance: "minor",
       status: "interface",
       file: "DictatorshipTesting/Paper/Defs.lean",
-      wrappers: ["YoungDiagram", "youngRow", "youngCells", "IsOneBoxChild"],
+      wrappers: ["YoungDiagram", "youngRow", "youngCells"],
       deps: [],
-      summary: "Shared elementary definitions for diagrams, rows, cells, and matching-cube interfaces."
+      summary: "Currently part of the unnumbered Section 5.1 prelude: Young diagrams, row lengths, and cells."
+    },
+    {
+      id: "S05_Prelim_OneBoxCorners",
+      label: "5.1 def B",
+      title: "Removable corners and subdiagrams",
+      section: "Section 5 prelim definitions",
+      kind: "aux",
+      importance: "minor",
+      status: "interface",
+      file: "DictatorshipTesting/Paper/Defs.lean",
+      wrappers: ["IsYoungSubdiagram", "IsOneBoxChild", "oneBoxChildren"],
+      deps: ["S05_Prelim_YoungDiagrams"],
+      summary: "Currently part of the unnumbered Section 5.1 prelude: subdiagrams, one-box children, and finite one-box child sets."
+    },
+    {
+      id: "S05_Prelim_Tableaux",
+      label: "5.1 def C",
+      title: "Standard tableaux and occupation",
+      section: "Section 5 prelim definitions",
+      kind: "aux",
+      importance: "minor",
+      status: "interface",
+      file: "DictatorshipTesting/Paper/Aux_StandardYoungTableaux.lean",
+      wrappers: ["StandardYoungTableau", "cellOfEntry", "TableauMaxAt"],
+      deps: ["S05_Prelim_YoungDiagrams"],
+      summary: "Currently part of the unnumbered Section 5.1 prelude: standard tableaux and the box occupied by an entry."
+    },
+    {
+      id: "S05_Prelim_TableauSpace",
+      label: "5.1 def D",
+      title: "Tableau coordinate space",
+      section: "Section 5 prelim definitions",
+      kind: "aux",
+      importance: "minor",
+      status: "interface",
+      file: "DictatorshipTesting/Paper/Aux_YoungOrthogonal.lean",
+      wrappers: ["TableauSpace", "tableauBasisVec"],
+      deps: ["S05_Prelim_Tableaux"],
+      summary: "Currently part of the unnumbered Section 5.1 prelude: coordinate space and Young basis vectors."
+    },
+    {
+      id: "S05_Prelim_ContentOperators",
+      label: "5.1 def E",
+      title: "Contents and adjacent operators",
+      section: "Section 5 prelim definitions",
+      kind: "aux",
+      importance: "minor",
+      status: "interface",
+      file: "DictatorshipTesting/Paper/Aux_YoungOrthogonal.lean",
+      wrappers: ["YoungCell.content", "entryContent", "youngAdjacentOperator", "jucysMurphyDiagonalOperator"],
+      deps: ["S05_Prelim_TableauSpace"],
+      summary: "Currently part of the unnumbered Section 5.1 prelude: contents, adjacent transposition operators, and diagonal content operators."
     }
   ]
 };

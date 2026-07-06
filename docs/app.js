@@ -2,6 +2,16 @@ const graphData = window.DICT_DEPENDENCY_DATA;
 const nodeById = new Map(graphData.nodes.map((node) => [node.id, node]));
 
 const rootViews = {
+  paper: {
+    label: "Paper map",
+    roots: [
+      "Thm1_1", "Thm2_1", "Thm2_2", "L2_3", "Def2_4",
+      "S03_01", "S03_02", "L4_1", "S04_04", "S04_05", "S04_06",
+      "S04_07", "S04_08", "S04_09", "Thm4_10",
+      "S05_27", "S05_28", "S05_18", "S05_01",
+    ],
+    open: ["Thm1_1", "Thm4_10", "S05_27", "S05_28"],
+  },
   main: {
     label: "Main theorem",
     roots: ["Thm1_1"],
@@ -14,13 +24,13 @@ const rootViews = {
   },
   section5: {
     label: "Section 5",
-    roots: ["S05_27", "S05_28", "S05_18", "S05_01"],
-    open: ["S05_27", "S05_28", "S05_32", "S05_34", "S05_18", "S05_01"],
+    roots: ["S05_27", "S05_28", "S05_18", "S05_01", "S05_03"],
+    open: ["S05_27", "S05_28", "S05_32", "S05_34", "S05_18", "S05_01", "S05_03"],
   },
   certificates: {
     label: "Finite certificates",
-    roots: ["S05_32", "S05_34", "S05_30"],
-    open: ["S05_32", "S05_34", "S05_30"],
+    roots: ["S05_32", "S05_34", "S05_30", "S05_16"],
+    open: ["S05_32", "S05_34", "S05_30", "S05_16"],
   },
   appendix: {
     label: "Appendix A boundary",

@@ -7,6 +7,18 @@ Counting rule: theorem-like numbered environments only (`definition`, `lemma`,
 and Appendix A statements are not represented as Section 5 paper-facing Lean
 files.
 
+The currently unnumbered Section 5.1 tableau-preliminaries block is split in
+the dependency graph into five compact interface nodes:
+
+- `5.1 def A`: Young diagrams and boxes;
+- `5.1 def B`: subdiagrams and one-box children;
+- `5.1 def C`: standard tableaux and occupation notation;
+- `5.1 def D`: tableau coordinate space and Young basis vectors;
+- `5.1 def E`: contents, adjacent operators, and diagonal content operators.
+
+These are presentation/interface nodes; the numbered Section 5 count below is
+unchanged until the paper source is renumbered.
+
 Section 5 statement count: 34.
 Section 5 paper-facing Lean file count: 34.
 

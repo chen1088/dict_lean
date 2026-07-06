@@ -32,7 +32,10 @@ The current full target builds successfully.
 A first static dependency browser lives in [`docs/`](docs/).  It is designed
 for GitHub Pages and separates large paper-facing theorem nodes from smaller
 `Aux_*` helper nodes.  Open [`docs/index.html`](docs/index.html), or enable
-GitHub Pages from the repository `docs/` folder to publish the same view.
+GitHub Pages from the repository `docs/` folder to publish the same view.  The
+browser includes a compact paper-map tab and splits the currently unnumbered
+Section 5.1 tableau-preliminaries block into smaller interface nodes so broad
+`Defs.lean` dependencies do not obscure the proof structure.
 
 ## Current Status
 
