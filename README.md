@@ -50,6 +50,16 @@ excluded, and the Lean Section 5 paper-facing file count is also 34.  Appendix A
 external representation-theoretic inputs are mapped separately in
 `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
+For the earlier paper spine, see
+`DictatorshipTesting/Paper/SECTION1_FILE_MAP.md` through
+`DictatorshipTesting/Paper/SECTION4_FILE_MAP.md`.  These maps record the current
+paper source `../dictatorship_testing_soda27_latest.tex`, the statement counts,
+the matching Lean files, and whether each statement is internal,
+definition/interface, or uses an external input.  Current Section 1--4 counts
+are 1, 4, 2, and 13 respectively.  No paper revisions are currently proposed
+for Sections 1--4; this is recorded in
+`DictatorshipTesting/Paper/PAPER_REVISION_CANDIDATES.md`.
+
 Proven finite certificates:
 
 - `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority.lean` -- Lemma 5.30:

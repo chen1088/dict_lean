@@ -22,6 +22,34 @@ Current classification:
   wrappers remain only as theorems with explicit typeclass hypotheses, and no
   instance is registered for those hypotheses.
 
+## Sections 1--4 Status Maps
+
+The current paper source checked for the early sections is
+`../dictatorship_testing_soda27_latest.tex`.
+
+Statement-to-file maps are maintained here:
+
+- `DictatorshipTesting/Paper/SECTION1_FILE_MAP.md`
+- `DictatorshipTesting/Paper/SECTION2_FILE_MAP.md`
+- `DictatorshipTesting/Paper/SECTION3_FILE_MAP.md`
+- `DictatorshipTesting/Paper/SECTION4_FILE_MAP.md`
+
+Early-section statement counts:
+
+| Section | Count | Main status |
+| --- | ---: | --- |
+| 1 | 1 | Main theorem wrapper is proved from Lemma 4.13 and its documented inputs. |
+| 2 | 4 | Theorem 2.1 and Theorem 2.2 are external Filmus inputs; Lemma 2.3 and Definition 2.4 are internal. |
+| 3 | 2 | Both matching-cube completeness lemmas are internal. |
+| 4 | 13 | The local Fourier and soundness reductions are internal except Theorem 4.10, which uses Appendix A spectral model input and explicit dimension-branching typeclass hypotheses. |
+
+Theorem 4.10 status: the theorem is usable in Lean through the Appendix A
+even/odd spectral model inputs
+`evenSpectralBlockModelFamily_from_specht_pieri_schur` and
+`oddSpectralBlockModelFamily_from_specht_pieri_schur`.  The active theorem
+still carries the explicit `youngDim` dimension-branching typeclass hypotheses;
+no registered instances are provided for those hypotheses.
+
 ## Current Section 5 Route Summary
 
 Proven current Section 5 components:
