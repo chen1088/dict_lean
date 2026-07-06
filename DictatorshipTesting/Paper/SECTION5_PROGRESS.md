@@ -65,6 +65,10 @@ Detailed maps:
   `S05_Lem5_18_matchingSignProjectionEven_isMatchingEigenvector` / odd prove
   that iterating those choices over `List.finRange m` yields a simultaneous
   matching-edge eigenvector.
+- Definition 5.21 now proves that the named low and high matching idempotents
+  are genuinely idempotent through
+  `S05_matchingLowIdempotent_idempotent` and
+  `S05_matchingHighIdempotent_idempotent`.
 - Lemma 5.23 now proves the finite-average/high-idempotent part of central
   averaged rejection: `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average`
   rewrites the mean local rejection as the average of squared high-idempotent

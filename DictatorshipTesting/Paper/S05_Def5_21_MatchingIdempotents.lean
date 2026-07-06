@@ -1,3 +1,5 @@
+import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
+import DictatorshipTesting.Paper.Aux_PMConvolution
 import DictatorshipTesting.Paper.S05_Def5_17_MatchingCharacters
 
 /-!
@@ -69,5 +71,103 @@ theorem S05_matchingHighIdempotent_apply
         cubeFourierCoeff (fun x : Cube M.edgeCount => F (π * M.tau x)) S *
           S05_matchingCharacter S (cubeZero M.edgeCount) := by
   rfl
+
+/-- The matching-local projection is idempotent. -/
+theorem matchingLocalProjection_idempotent
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (M : OrderedMatching α) (F : Perm α -> ℝ) :
+    matchingLocalProjection M (matchingLocalProjection M F) =
+      matchingLocalProjection M F := by
+  funext π
+  let g : Cube M.edgeCount -> ℝ := fun x => F (π * M.tau x)
+  have hrestrict :
+      (fun y : Cube M.edgeCount =>
+        matchingLocalProjection M F (π * M.tau y)) =
+        cubeLowDegreeOnePart g := by
+    funext y
+    exact matchingLocalProjection_apply_mul_tau M F π y
+  calc
+    matchingLocalProjection M (matchingLocalProjection M F) π =
+        cubeLowDegreeOnePart
+          (fun y : Cube M.edgeCount =>
+            matchingLocalProjection M F (π * M.tau y))
+          (cubeZero M.edgeCount) := rfl
+    _ = cubeLowDegreeOnePart (cubeLowDegreeOnePart g)
+          (cubeZero M.edgeCount) := by
+        rw [hrestrict]
+    _ = cubeLowDegreeOnePart g (cubeZero M.edgeCount) := by
+        rw [cubeLowDegreeOnePart_idempotent g]
+    _ = matchingLocalProjection M F π := rfl
+
+/-- The high matching convolution is killed by the matching-local projection. -/
+theorem matchingLocalProjection_highConvolution_eq_zero
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (M : OrderedMatching α) (F : Perm α -> ℝ) :
+    matchingLocalProjection M (matchingHighConvolution M F) = fun _ => 0 := by
+  funext π
+  let g : Cube M.edgeCount -> ℝ := fun x => F (π * M.tau x)
+  calc
+    matchingLocalProjection M (matchingHighConvolution M F) π =
+        matchingLocalProjection M
+          (fun ρ => F ρ - matchingLocalProjection M F ρ) π := by
+        rw [(L5_1_PMConvolution M F).2]
+    _ =
+        cubeLowDegreeOnePart
+          (fun y : Cube M.edgeCount =>
+            (fun ρ => F ρ - matchingLocalProjection M F ρ)
+              (π * M.tau y))
+          (cubeZero M.edgeCount) := rfl
+    _ =
+        cubeLowDegreeOnePart
+          (fun y : Cube M.edgeCount => g y - cubeLowDegreeOnePart g y)
+          (cubeZero M.edgeCount) := by
+        congr
+        funext y
+        dsimp [g]
+        rw [matchingLocalProjection_apply_mul_tau M F π y]
+    _ = 0 := by
+        rw [cubeLowDegreeOnePart_lowDegreeResidual_eq_zero g]
+
+/-- The low matching idempotent is genuinely idempotent. -/
+theorem S05_matchingLowIdempotent_idempotent
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (M : OrderedMatching α) (F : Perm α -> ℝ) :
+    S05_matchingLowIdempotent M (S05_matchingLowIdempotent M F) =
+      S05_matchingLowIdempotent M F := by
+  calc
+    S05_matchingLowIdempotent M (S05_matchingLowIdempotent M F) =
+        matchingLocalProjection M (S05_matchingLowIdempotent M F) := by
+        change
+          matchingLowConvolution M (S05_matchingLowIdempotent M F) =
+            matchingLocalProjection M (S05_matchingLowIdempotent M F)
+        exact ((L5_1_PMConvolution M
+          (S05_matchingLowIdempotent M F)).1).symm
+    _ = matchingLocalProjection M (matchingLocalProjection M F) := by
+        exact congrArg (fun G => matchingLocalProjection M G)
+          (by
+            change matchingLowConvolution M F = matchingLocalProjection M F
+            exact ((L5_1_PMConvolution M F).1).symm)
+    _ = matchingLocalProjection M F := by
+        rw [matchingLocalProjection_idempotent M F]
+    _ = S05_matchingLowIdempotent M F := by
+        exact (L5_1_PMConvolution M F).1
+
+/-- The high matching idempotent is genuinely idempotent. -/
+theorem S05_matchingHighIdempotent_idempotent
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (M : OrderedMatching α) (F : Perm α -> ℝ) :
+    S05_matchingHighIdempotent M (S05_matchingHighIdempotent M F) =
+      S05_matchingHighIdempotent M F := by
+  change
+    matchingHighConvolution M (S05_matchingHighIdempotent M F) =
+      S05_matchingHighIdempotent M F
+  rw [← (L5_1_PMConvolution M (S05_matchingHighIdempotent M F)).2]
+  change
+    (fun π => S05_matchingHighIdempotent M F π -
+      matchingLocalProjection M (matchingHighConvolution M F) π) =
+      S05_matchingHighIdempotent M F
+  rw [matchingLocalProjection_highConvolution_eq_zero M F]
+  funext π
+  simp
 
 end DictatorshipTesting

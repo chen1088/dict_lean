@@ -88,4 +88,10 @@ theorem cubeLowDegreeOnePart_eq_self_of_cubeHighDegreeEnergy_eq_zero {m : ℕ}
     _ = g x := by
           exact (L2_3_cubeFourier_expansion m g x).symm
 
+/-- The degree-at-most-one truncation is idempotent. -/
+theorem cubeLowDegreeOnePart_idempotent {m : ℕ} (g : Cube m → ℝ) :
+    cubeLowDegreeOnePart (cubeLowDegreeOnePart g) = cubeLowDegreeOnePart g := by
+  exact cubeLowDegreeOnePart_eq_self_of_cubeHighDegreeEnergy_eq_zero
+    (cubeHighDegreeEnergy_cubeLowDegreeOnePart_eq_zero g)
+
 end DictatorshipTesting

@@ -95,6 +95,29 @@ theorem cubeFourierCoeff_lowDegreeResidual {m : ℕ}
   · have hhigh : 2 ≤ S.card := by omega
     simp [hlow, hhigh]
 
+/-- The degree-at-most-one truncation kills its own residual. -/
+theorem cubeLowDegreeOnePart_lowDegreeResidual_eq_zero {m : ℕ}
+    (g : Cube m → ℝ) :
+    cubeLowDegreeOnePart (fun x => g x - cubeLowDegreeOnePart g x) =
+      fun _ => 0 := by
+  classical
+  funext x
+  unfold cubeLowDegreeOnePart
+  apply Finset.sum_eq_zero
+  intro S hS
+  have hlow : S.card ≤ 1 := (Finset.mem_filter.mp hS).2
+  have hnotHigh : ¬ 2 ≤ S.card := by omega
+  have hcoeff :
+      cubeFourierCoeff (fun x => g x - cubeLowDegreeOnePart g x) S = 0 := by
+    simpa [hnotHigh] using cubeFourierCoeff_lowDegreeResidual g S
+  have hcoeff' :
+      cubeFourierCoeff
+          (fun x => g x -
+            ∑ S with S.card ≤ 1, cubeFourierCoeff g S * cubeChar S x) S = 0 := by
+    simpa [cubeLowDegreeOnePart] using hcoeff
+  rw [hcoeff']
+  ring
+
 /-- Parseval for the residual of the degree-at-most-one cube truncation. -/
 theorem cubeExpectation_sq_sub_cubeLowDegreeOnePart_eq_highDegreeEnergy
     {m : ℕ} (g : Cube m → ℝ) :

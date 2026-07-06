@@ -131,6 +131,13 @@ Proven matching-cube components used near external Lemma 5.18:
   eigenvector.  The full Specht-module restriction theorem remains a
   representation-layer input.
 
+Proven Definition 5.21 matching-idempotent components:
+
+- `S05_Def5_21_MatchingIdempotents.lean` -- Definition 5.21
+  (`def:matching-idempotents`): names the low and high matching idempotents and
+  proves `S05_matchingLowIdempotent_idempotent` and
+  `S05_matchingHighIdempotent_idempotent`.
+
 Proven finite-average components used near external Lemma 5.23:
 
 - `S05_Lem5_23_CentralAveragedRejection.lean` -- Lemma 5.23
