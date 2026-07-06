@@ -49,6 +49,28 @@ Section 5 bridge, using the Appendix A spectral model inputs
 `spectralBlockModelInputWithDim_odd_from_appendixA`.  It no longer carries the
 older `youngDim` dimension-branching typeclass hypotheses.
 
+Active Theorem 1.1 dependency chain:
+
+```text
+Thm1_1_MainIntro
+  -> exists_dimensionFreeTester_of_oneTrialSoundness
+  -> L4_13_OneTrialSoundness
+  -> Thm2_2_FKNInput
+  -> Prop4_12_SquareEnergyControlsGlobalDegree
+  -> Thm4_10_MatchingGap
+  -> S05_Lem5_27_tableauDim_evenSpectralGapFromCertificates
+     / S05_Lem5_28_tableauDim_oddSpectralGapFromCertificates
+  -> spectralBlockModelInputWithDim_even_from_appendixA
+     / spectralBlockModelInputWithDim_odd_from_appendixA
+```
+
+The Boolean `U_1` classification theorem is not a direct dependency of this
+active Lean chain.  This is not currently a paper/Lean mismatch: the FKN input
+used by Lemma 4.13 is already stated in the distance-to-dictators form needed
+for soundness.  The Section 3 completeness lemmas are proved separately; the
+current Theorem 1.1 wrapper goes through the abstract tester-amplification
+interface rather than reusing those lemmas directly.
+
 ## Current Section 5 Route Summary
 
 Proven current Section 5 components:

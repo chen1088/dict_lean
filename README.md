@@ -60,6 +60,23 @@ are 1, 4, 2, and 13 respectively.  No paper revisions are currently proposed
 for Sections 1--4; this is recorded in
 `DictatorshipTesting/Paper/PAPER_REVISION_CANDIDATES.md`.
 
+The active main-theorem spine is:
+
+```text
+Thm1_1_MainIntro
+  -> exists_dimensionFreeTester_of_oneTrialSoundness
+  -> L4_13_OneTrialSoundness
+  -> Thm2_2_FKNInput + Prop4_12_SquareEnergyControlsGlobalDegree
+  -> Thm4_10_MatchingGap
+  -> tableauDim even/odd spectral bridges
+  -> Appendix A tableauDim spectral model inputs
+```
+
+The Boolean `U1` classification theorem remains a Section 2 external structural
+input, but it is not a direct dependency of this active Lean chain because the
+FKN input is already stated in the distance-to-dictators form used by Lemma
+4.13.
+
 Proven finite certificates:
 
 - `S05_Lem5_30_WeightZeroEntriesAreNeverAMajority.lean` -- Lemma 5.30:
