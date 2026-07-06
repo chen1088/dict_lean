@@ -170,4 +170,58 @@ theorem S05_matchingHighIdempotent_idempotent
   funext π
   simp
 
+/-- The low matching idempotent kills the high matching idempotent. -/
+theorem S05_matchingLowIdempotent_high_eq_zero
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (M : OrderedMatching α) (F : Perm α -> ℝ) :
+    S05_matchingLowIdempotent M (S05_matchingHighIdempotent M F) =
+      fun _ => 0 := by
+  calc
+    S05_matchingLowIdempotent M (S05_matchingHighIdempotent M F) =
+        matchingLocalProjection M (S05_matchingHighIdempotent M F) := by
+        change
+          matchingLowConvolution M (S05_matchingHighIdempotent M F) =
+            matchingLocalProjection M (S05_matchingHighIdempotent M F)
+        exact ((L5_1_PMConvolution M
+          (S05_matchingHighIdempotent M F)).1).symm
+    _ = fun _ => 0 := by
+        change matchingLocalProjection M (matchingHighConvolution M F) = fun _ => 0
+        exact matchingLocalProjection_highConvolution_eq_zero M F
+
+/-- The high matching idempotent kills the low matching idempotent. -/
+theorem S05_matchingHighIdempotent_low_eq_zero
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (M : OrderedMatching α) (F : Perm α -> ℝ) :
+    S05_matchingHighIdempotent M (S05_matchingLowIdempotent M F) =
+      fun _ => 0 := by
+  have hproj :
+      matchingLocalProjection M (S05_matchingLowIdempotent M F) =
+        S05_matchingLowIdempotent M F := by
+    calc
+      matchingLocalProjection M (S05_matchingLowIdempotent M F) =
+          S05_matchingLowIdempotent M (S05_matchingLowIdempotent M F) := by
+          exact (L5_1_PMConvolution M (S05_matchingLowIdempotent M F)).1
+      _ = S05_matchingLowIdempotent M F := by
+          exact S05_matchingLowIdempotent_idempotent M F
+  change
+    matchingHighConvolution M (S05_matchingLowIdempotent M F) =
+      fun _ => 0
+  rw [← (L5_1_PMConvolution M (S05_matchingLowIdempotent M F)).2]
+  funext π
+  rw [hproj]
+  simp
+
+/-- The low and high matching idempotents decompose the identity. -/
+theorem S05_matchingLow_add_matchingHigh
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (M : OrderedMatching α) (F : Perm α -> ℝ) :
+    (fun π => S05_matchingLowIdempotent M F π +
+      S05_matchingHighIdempotent M F π) = F := by
+  have hlow := (L5_1_PMConvolution M F).1
+  have hhigh := (L5_1_PMConvolution M F).2
+  funext π
+  change matchingLowConvolution M F π + matchingHighConvolution M F π = F π
+  rw [← hlow, ← hhigh]
+  ring
+
 end DictatorshipTesting

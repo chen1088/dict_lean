@@ -136,7 +136,10 @@ Proven Definition 5.21 matching-idempotent components:
 - `S05_Def5_21_MatchingIdempotents.lean` -- Definition 5.21
   (`def:matching-idempotents`): names the low and high matching idempotents and
   proves `S05_matchingLowIdempotent_idempotent` and
-  `S05_matchingHighIdempotent_idempotent`.
+  `S05_matchingHighIdempotent_idempotent`, plus the complementary identities
+  `S05_matchingLowIdempotent_high_eq_zero`,
+  `S05_matchingHighIdempotent_low_eq_zero`, and
+  `S05_matchingLow_add_matchingHigh`.
 
 Proven finite-average components used near external Lemma 5.23:
 

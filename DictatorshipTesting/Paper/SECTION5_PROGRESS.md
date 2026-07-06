@@ -68,7 +68,10 @@ Detailed maps:
 - Definition 5.21 now proves that the named low and high matching idempotents
   are genuinely idempotent through
   `S05_matchingLowIdempotent_idempotent` and
-  `S05_matchingHighIdempotent_idempotent`.
+  `S05_matchingHighIdempotent_idempotent`; it also proves the complementary
+  identities `S05_matchingLowIdempotent_high_eq_zero`,
+  `S05_matchingHighIdempotent_low_eq_zero`, and
+  `S05_matchingLow_add_matchingHigh`.
 - Lemma 5.23 now proves the finite-average/high-idempotent part of central
   averaged rejection: `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average`
   rewrites the mean local rejection as the average of squared high-idempotent

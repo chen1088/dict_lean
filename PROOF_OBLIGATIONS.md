@@ -419,7 +419,10 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   Specht-module restriction theorem remains a representation-layer input.
 - `S05_Def5_21_MatchingIdempotents.lean`: low/high matching idempotent
   vocabulary, including `S05_matchingLowIdempotent_idempotent` and
-  `S05_matchingHighIdempotent_idempotent`.
+  `S05_matchingHighIdempotent_idempotent`, plus the complementary projection
+  identities `S05_matchingLowIdempotent_high_eq_zero`,
+  `S05_matchingHighIdempotent_low_eq_zero`, and
+  `S05_matchingLow_add_matchingHigh`.
 - `S05_Lem5_23_CentralAveragedRejection.lean`: finite-average local rejection
   identities, including the high-idempotent norm formula
   `S05_Lem5_23_matchingMeanProjectionError_eq_high_idempotent_average`.  The
