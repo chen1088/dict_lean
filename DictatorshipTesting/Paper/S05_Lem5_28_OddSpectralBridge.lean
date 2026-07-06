@@ -6,8 +6,9 @@ import DictatorshipTesting.Paper.S05_Lem5_34_OddCertificate
 Paper statement: Lemma 5.28 (`lem:spectral-certificate-odd`)
 Title in paper: Odd spectral bridge.
 
-Status: unproven as a standalone spectral bridge until the external
-spectral-block model input is supplied.
+Status: the algebraic bridge is proved from an explicit spectral-block model
+hypothesis. Appendix A supplies that representation-theoretic model input for
+the paper application.
 -/
 
 noncomputable section

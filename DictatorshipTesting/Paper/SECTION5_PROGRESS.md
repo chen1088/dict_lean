@@ -33,8 +33,8 @@ Detailed maps:
 - The two remaining Section 5/Aux axioms are exactly
   `spectralBlockModelInput_even_from_specht_pieri_schur` and
   `spectralBlockModelInput_odd_from_specht_pieri_schur`.
-- The current Theorem 4.10 proof path still consumes the even/odd
-  spectral-block model axiom families through
+- The current Theorem 4.10 proof path uses the Appendix A even/odd spectral
+  model inputs through
   `evenSpectralBlockModelFamily_from_specht_pieri_schur` and
   `oddSpectralBlockModelFamily_from_specht_pieri_schur`; the
   dimension-parameterized `tableauDim` bridge is exposed by Lemmas 5.26--5.28

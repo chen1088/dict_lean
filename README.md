@@ -217,8 +217,9 @@ Internal bridge components proven:
   `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and the
   dimension-parameterized `SpectralGapFromBlockModelWithDim` route are proved.
 - `S05_Lem5_27_EvenSpectralBridge.lean` and
-  `S05_Lem5_28_OddSpectralBridge.lean`: the standalone paper-level spectral
-  bridges are unproven until the external spectral-block model is supplied.
+  `S05_Lem5_28_OddSpectralBridge.lean`: the tableau-count spectral bridges are
+  proved from explicit `SpectralBlockModelInputWithDim` hypotheses; Appendix A
+  supplies those spectral model inputs for the paper application.
 - `Aux_SpectralBridgeDimensionParam.lean`: dimension-parameterized algebraic
   bridge.  It proves `blockScalar_lower_bound_of_traceScalarFormula_withDim`,
   `traceScalarValue_of_blockTraceIdentity_withDim`,
@@ -236,9 +237,9 @@ Remaining bridge boundary:
   proved trace-divided-by-dimension algebra from explicit scalarity and trace
   identity inputs.
 - `S05_Lem5_27_EvenSpectralBridge.lean` and
-  `S05_Lem5_28_OddSpectralBridge.lean`: unproven as standalone paper-level
-  spectral bridges until `SpectralBlockModelInputWithDim` / spectral block
-  model input is supplied.
+  `S05_Lem5_28_OddSpectralBridge.lean`: proven algebraic bridges from explicit
+  `SpectralBlockModelInputWithDim` / spectral block model input; Appendix A
+  supplies that input for the paper application.
 
 Remaining spectral-bridge representation-theory boundary:
 
@@ -255,7 +256,7 @@ as named axioms:
   now use these named external inputs directly rather than taking anonymous
   model-family arguments.
 - The active Theorem 4.10 path still uses the original `youngDim` spectral
-  model and consumes the old even/odd spectral-block input axiom families.
+  model and uses the Appendix A even/odd spectral model inputs.
   Theorem 4.10 and the downstream wrappers also carry
   `[TwoStripDimensionBranchingAssumption]` and
   `[OneBoxDimensionBranchingPositiveAssumption]` explicitly.  No instance is

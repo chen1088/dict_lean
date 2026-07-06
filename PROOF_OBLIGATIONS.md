@@ -55,12 +55,11 @@ External Appendix A inputs:
 
 Remaining Section 5/AppA bridge boundary:
 
-- `SpectralBlockModelInputWithDim` for the `tableauDim` model with
-  `hEvenTableau` and `hOddTableau` heights is still needed for the fully
-  tableau-count spectral bridge.
-- The standalone paper-level Lemmas 5.27 and 5.28 remain unproven until that
-  spectral-block model is supplied; the Lean files currently prove algebraic
-  implications whose model assumptions are explicit hypotheses.
+- Lemmas 5.27 and 5.28 prove the tableau-count algebraic bridge from an
+  explicit `SpectralBlockModelInputWithDim` hypothesis for the `tableauDim`
+  model with `hEvenTableau` and `hOddTableau` heights.
+- Appendix A supplies the `SpectralBlockModelInputWithDim` / spectral-block
+  model input for the paper application.
 - Appendix A representation theory supplies the intended bridge: regular
   Specht-block decomposition, `U_1` identification, matching-average scalarity,
   trace/scalar value, and the matching-restriction data needed to instantiate
@@ -142,9 +141,9 @@ The bridge algebra is no longer hard-coded to `youngDim`: the file
 spectral-gap wrappers for an arbitrary dimension function.  Lemmas 5.26--5.28
 expose these wrappers for the paper-facing interface.
 
-Precise active-path blocker: Theorem 4.10 still uses the old `youngDim`
+Active path note: Theorem 4.10 still uses the old `youngDim`
 spectral model and has not yet been rewired through the new dimension-parametric
-interface.  Theorem 4.10 consumes the even/odd spectral-block axiom families
+interface.  Theorem 4.10 uses the Appendix A even/odd spectral model inputs
 `evenSpectralBlockModelFamily_from_specht_pieri_schur` and
 `oddSpectralBlockModelFamily_from_specht_pieri_schur`.  It also carries
 `[TwoStripDimensionBranchingAssumption]` and
@@ -386,8 +385,10 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   `EvenSpectralGapFromCertificates`,
   `OddSpectralGapFromCertificates`,
   and `SpectralGapFromBlockModelWithDim` are proved algebraic implications.
-  The standalone paper-level Lemmas 5.27 and 5.28 are tracked above as
-  unproven until the spectral-block model input is supplied.
+- `S05_Lem5_27_EvenSpectralBridge.lean` and
+  `S05_Lem5_28_OddSpectralBridge.lean`: tableau-count spectral bridges proved
+  from explicit `SpectralBlockModelInputWithDim` hypotheses; Appendix A
+  supplies those hypotheses for the paper application.
 - `Aux_SpectralBridgeRepresentationInputs.lean`: compact interface definitions
   for the spectral-block model used by the Section 5 spectral bridge.
 - `Aux_YoungOrthogonal.lean`: coordinate space on standard tableaux, basis
