@@ -124,12 +124,8 @@ function renderNode(node, path = []) {
   button.className = nodeClasses(node, path, repeated);
   button.setAttribute("aria-expanded", String(isExpanded));
   button.innerHTML = `
-    <span class="node-topline">
-      <span class="node-label">${node.label}</span>
-      <span class="node-status">${statusLabel(node.status)}</span>
-    </span>
+    <span class="node-label">${node.label}</span>
     <span class="node-title">${node.title}</span>
-    <span class="node-section">${node.section}</span>
   `;
   button.addEventListener("click", () => {
     state.selectedId = node.id;

@@ -203,7 +203,7 @@ main {
 
 .dag-root-list {
   display: grid;
-  gap: 18px;
+  gap: 10px;
   justify-items: stretch;
   max-width: 780px;
   width: 100%;
@@ -219,8 +219,8 @@ main {
 .dag-children {
   position: relative;
   display: grid;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 7px;
+  margin-top: 7px;
   margin-left: clamp(22px, 4vw, 44px);
   padding-left: clamp(16px, 3vw, 30px);
   padding-top: 0;
@@ -232,7 +232,7 @@ main {
   content: "";
   position: absolute;
   top: 0;
-  bottom: 18px;
+  bottom: 13px;
   left: 0;
   border-left: 2px solid var(--line);
 }
@@ -240,7 +240,7 @@ main {
 .dag-children > .dag-item::before {
   content: "";
   position: absolute;
-  top: 48px;
+  top: 20px;
   left: calc(-1 * clamp(16px, 3vw, 30px));
   width: clamp(16px, 3vw, 30px);
   border-top: 2px solid var(--line);
@@ -249,94 +249,88 @@ main {
 .dag-node {
   position: relative;
   z-index: 1;
-  display: grid;
-  gap: 5px;
-  width: min(100%, 430px);
-  min-height: 104px;
-  padding: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: min(100%, 620px);
+  min-height: 40px;
+  padding: 7px 10px;
   border: 1px solid var(--line);
-  border-left-width: 6px;
-  border-radius: 8px;
+  border-left-width: 5px;
+  border-radius: 6px;
   background: var(--soft);
   color: var(--ink);
   text-align: left;
   cursor: pointer;
   font: inherit;
-  box-shadow: 0 6px 18px rgba(23, 32, 42, 0.08);
+  box-shadow: none;
   transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
 }
 
 .dag-node:hover,
 .dag-node.selected {
-  transform: translateY(-1px);
+  transform: none;
   border-color: var(--blue);
-  box-shadow: 0 10px 26px rgba(47, 111, 179, 0.18);
+  box-shadow: 0 3px 10px rgba(47, 111, 179, 0.14);
 }
 
 .dag-node.expanded {
   background: #fbfdff;
 }
 
-.node-topline {
-  display: flex;
-  gap: 8px;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
 .node-label {
+  flex: 0 0 auto;
   font-weight: 850;
-  font-size: 1.05rem;
-}
-
-.node-status {
-  color: var(--muted);
-  font-size: 0.68rem;
-  font-weight: 850;
-  text-transform: uppercase;
+  font-size: 0.96rem;
+  min-width: 82px;
 }
 
 .node-title {
+  min-width: 0;
   color: var(--ink);
-  font-size: 0.88rem;
-}
-
-.node-section {
-  margin-top: auto;
-  color: var(--muted);
-  font-size: 0.74rem;
-  font-weight: 750;
+  font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .importance-hero {
-  width: min(100%, 520px);
-  min-height: 132px;
+  width: min(100%, 720px);
+  min-height: 48px;
+  padding: 9px 12px;
 }
 
 .importance-hero .node-label {
-  font-size: 1.48rem;
+  font-size: 1.15rem;
+  min-width: 104px;
+}
+
+.importance-hero .node-title {
+  font-weight: 750;
+  font-size: 1rem;
 }
 
 .importance-major {
-  width: min(100%, 470px);
-  min-height: 116px;
+  width: min(100%, 660px);
+  min-height: 44px;
 }
 
 .importance-minor {
-  width: min(100%, 330px);
-  min-height: 86px;
-  padding: 10px;
+  width: min(100%, 520px);
+  min-height: 32px;
+  padding: 5px 8px;
   border-style: dashed;
   background: var(--soft-2);
 }
 
 .importance-minor .node-label {
-  font-size: 0.88rem;
+  font-size: 0.8rem;
+  min-width: 96px;
 }
 
-.importance-minor .node-title,
-.importance-minor .node-section {
-  font-size: 0.74rem;
+.importance-minor .node-title {
+  font-size: 0.78rem;
+  color: var(--muted);
 }
 
 .status-proved {
@@ -360,7 +354,7 @@ main {
 }
 
 .root-node {
-  outline: 2px solid rgba(103, 80, 164, 0.16);
+  outline: 1px solid rgba(103, 80, 164, 0.16);
 }
 
 .inline-details {
