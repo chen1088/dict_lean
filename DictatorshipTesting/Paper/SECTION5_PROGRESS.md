@@ -43,6 +43,10 @@ Detailed maps:
 - Definitions 5.1--5.5 expose the numbered tableau-preliminary interfaces:
   Young diagrams and boxes, removable corners and one-box removals, standard
   tableaux, tableau coordinate spaces, and contents/adjacent operators.
+- The dependency graph now exposes the substantial helper layer
+  `Aux_StandardYoungTableaux.lean`, which contains the concrete max-entry
+  deletion, one-box insertion, and deletion/child equivalence API used by
+  Lemmas 5.12 and 5.14--5.16.
 - Lemma 5.6 exposes the concrete tableau-coordinate Coxeter model through
   `S05_Lem5_06_adjacentTranspositionsInYoungsBasis_coxeterModel`.
 - Lemma 5.7 is proved internally for explicit diagonal content operators:
@@ -85,7 +89,8 @@ Detailed maps:
   plus/minus choice by character support, and
   `S05_Lem5_23_matchingSignProjectionEven_isMatchingEigenvector` / odd prove
   that iterating those choices over `List.finRange m` yields a simultaneous
-  matching-edge eigenvector.
+  matching-edge eigenvector.  The dependency graph now exposes this support as
+  the helper layer `Aux_YoungMatchingOperators.lean`.
 - Definition 5.26 now proves that the named low and high matching idempotents
   are genuinely idempotent through
   `S05_matchingLowIdempotent_idempotent` and
@@ -98,6 +103,10 @@ Detailed maps:
   rewrites the mean local rejection as the average of squared high-idempotent
   norms.  Operator centrality on Young blocks remains a representation-layer
   target.
+- Lemmas 5.25, 5.28, 5.29, and 5.30 are documented as interface/algebraic
+  layers around the spectral-block model boundary rather than as standalone
+  internal formalizations of the Young-block trace, centrality, or scalar
+  commutant representation theory.
 - Lemma 5.31 now exposes trace-model-to-gap algebra:
   `S05_Lem5_31_spectralGapFromBlockTraceModel` and
   `S05_Lem5_31_spectralGapFromBlockTraceModelWithDim` derive the spectral-gap

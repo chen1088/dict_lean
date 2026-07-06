@@ -131,6 +131,9 @@ Proven Lemma 5.7 diagonal content package:
 
 Proven Lemma 5.12 fixed two-step tableau branching package:
 
+- `Aux_StandardYoungTableaux.lean`: the now-exposed helper layer for standard
+  tableaux, entry locations, max-entry deletion, one-box insertion, and the
+  deletion/child equivalence.
 - `S05_Lem5_12_TwoBoxTableauBranching.lean` -- Lemma 5.12
   (`lem:two-box-tableau-branching`): exposes the concrete bijection between
   parent tableaux following a fixed two-step removable-row deletion pattern and
@@ -162,6 +165,9 @@ Proven Lemma 5.21 tableau-count size components:
 
 Proven matching-cube components used near external Lemma 5.23:
 
+- `Aux_YoungMatchingOperators.lean`: the now-exposed helper layer for
+  canonical matching-edge operators, plus/minus projections, preservation of
+  other edge eigenvalues, and simultaneous matching-sign projections.
 - `S05_Lem5_23_MatchingSubgroupEigenbasis.lean` -- Lemma 5.23
   (`lem:matching-restriction-X`): exposes the concrete canonical matching-cube
   action as a fixed ordered product of commuting matching-edge operators and
@@ -182,7 +188,7 @@ Proven Definition 5.26 matching-idempotent components:
   `S05_matchingHighIdempotent_low_eq_zero`, and
   `S05_matchingLow_add_matchingHigh`.
 
-Proven finite-average components used near external Lemma 5.28:
+Finite-average components used near external Lemma 5.28:
 
 - `S05_Lem5_28_CentralAveragedRejection.lean` -- Lemma 5.28
   (`lem:averaged-rejection-central`): proves that the local rejection error is
@@ -273,10 +279,11 @@ Internal bridge components proven:
 Remaining bridge boundary:
 
 - `S05_Lem5_25_TraceOfOneLocalTruncationOnOneYoungBlock.lean` -- Lemma 5.25:
-  proved as an explicit-input interface for the trace formula.
+  matching-character/local-truncation calculation plus an explicit Young-block
+  trace-model interface.
 - `S05_Lem5_30_BlockScalarOfTheAveragedRejection.lean` -- Lemma 5.30:
-  proved trace-divided-by-dimension algebra from explicit scalarity and trace
-  identity inputs.
+  trace-divided-by-dimension algebra from explicit scalarity and trace identity
+  inputs; those inputs are bundled into the spectral-block model boundary.
 - `S05_Lem5_32_EvenSpectralBridge.lean` and
   `S05_Lem5_33_OddSpectralBridge.lean`: proven algebraic bridges from explicit
   `SpectralBlockModelInputWithDim` / spectral block model input; Appendix A

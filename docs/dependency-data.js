@@ -320,7 +320,7 @@ window.DICT_DEPENDENCY_DATA = {
       section: "Main spine",
       kind: "paper",
       importance: "hero",
-      status: "proved-from-external",
+      status: "proved",
       file: "DictatorshipTesting/Paper/S04_Thm4_10_MatchingGap.lean",
       wrappers: ["Thm4_10_MatchingGap"],
       deps: ["S04_09", "S05_32", "S05_33"],
@@ -333,7 +333,7 @@ window.DICT_DEPENDENCY_DATA = {
       section: "Section 5 tableau layer",
       kind: "paper",
       importance: "hero",
-      status: "proved",
+      status: "proved-from-external",
       file: "DictatorshipTesting/Paper/S05_Lem5_06_AdjacentTranspositionsInYoungsBasis.lean",
       wrappers: ["S05_Lem5_06_adjacentTranspositionsInYoungsBasis_coxeterModel"],
       deps: ["AuxYoungOrthogonal", "AuxYoungAdjacentAction"],
@@ -346,11 +346,24 @@ window.DICT_DEPENDENCY_DATA = {
       section: "Section 5 tableau layer",
       kind: "aux",
       importance: "minor",
-      status: "proved",
+      status: "proved-from-external",
       file: "DictatorshipTesting/Paper/Aux_YoungOrthogonal.lean",
       wrappers: ["youngAdjacentOperator_sq", "youngAdjacentOperator_comm_of_disjoint_indices", "youngAdjacentOperator_braid_of_succ"],
-      deps: ["AuxYoungAdjacentEntries"],
+      deps: ["AuxYoungAdjacentEntries", "AuxTableauDimension"],
       summary: "Defines tableau coordinate spaces, adjacent matrix coefficients, operators, and Coxeter relations."
+    },
+    {
+      id: "AuxStandardYoungTableaux",
+      label: "tableaux aux",
+      title: "Standard tableau deletion/insertion API",
+      section: "Section 5 tableau layer",
+      kind: "aux",
+      importance: "minor",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/Aux_StandardYoungTableaux.lean",
+      wrappers: ["StandardYoungTableau", "existsUnique_tableauMaxAt", "oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow"],
+      deps: ["S05_01", "S05_02"],
+      summary: "Defines standard tableaux, entry locations, max-entry deletion, one-box insertion, and the deletion/child equivalence used by Lemmas 5.14-5.16."
     },
     {
       id: "AuxYoungAdjacentEntries",
@@ -362,7 +375,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proved",
       file: "DictatorshipTesting/Paper/Aux_YoungAdjacentEntries.lean",
       wrappers: [],
-      deps: ["S05_03", "S05_05"],
+      deps: ["AuxStandardYoungTableaux"],
       summary: "Row, column, content, and swap facts for adjacent entries."
     },
     {
@@ -466,7 +479,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proved",
       file: "DictatorshipTesting/Paper/Aux_TableauDimension.lean",
       wrappers: ["tableauDim"],
-      deps: ["S05_04"],
+      deps: ["AuxStandardYoungTableaux"],
       summary: "Tableau-count dimension function used by the active finite-certificate route."
     },
     {
@@ -648,7 +661,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "interface",
       file: "DictatorshipTesting/Paper/S05_Def5_13_OneBoxDeletionSpaces.lean",
       wrappers: ["S05_Def5_13_OneBoxDeletionTableaux", "S05_Def5_13_existsUnique_tableauMaxAt"],
-      deps: ["S05_11", "S05_03"],
+      deps: ["S05_11", "AuxStandardYoungTableaux"],
       summary: "Deletion-fiber coordinate-space vocabulary for tableaux whose maximum entry lies in a fixed removable corner."
     },
     {
@@ -700,8 +713,21 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proved-from-external",
       file: "DictatorshipTesting/Paper/S05_Lem5_23_MatchingSubgroupEigenbasis.lean",
       wrappers: ["S05_Lem5_23_matchingSignProjectionEven_isMatchingEigenvector"],
-      deps: ["S05_06", "S05_12", "S05_16", "S05_17", "S05_18"],
+      deps: ["S05_06", "S05_12", "S05_16", "S05_17", "S05_18", "AuxYoungMatchingOperators"],
       summary: "Concrete matching-operator algebra is proved; full Specht/Pieri restriction content is in the spectral model boundary."
+    },
+    {
+      id: "AuxYoungMatchingOperators",
+      label: "matching operators",
+      title: "Canonical matching-edge operators",
+      section: "Matching algebra",
+      kind: "aux",
+      importance: "minor",
+      status: "proved",
+      file: "DictatorshipTesting/Paper/Aux_YoungMatchingOperators.lean",
+      wrappers: ["canonicalMatchingCubeOperatorEven_eq_indexedProduct", "matchingEdgeSignProjectionEven_isMatchingEigen", "matchingSignProjectionEven_isMatchingEigenvector"],
+      deps: ["AuxYoungOrthogonal", "S05_22"],
+      summary: "Proves the canonical matching-edge operator algebra, plus/minus projections, preservation of other edge eigenvalues, and simultaneous sign projections used by Lemma 5.23."
     },
     {
       id: "S05_24",
@@ -727,7 +753,7 @@ window.DICT_DEPENDENCY_DATA = {
       file: "DictatorshipTesting/Paper/S05_Lem5_25_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
       wrappers: ["traceLocalTruncation_even_from_restriction", "traceLocalTruncation_odd_from_restriction"],
       deps: ["S05_23", "S05_24"],
-      summary: "Trace formula from matching-restriction data and local character truncation."
+      summary: "Interface wrapper for the Young-block trace formula; the matching-character calculation is proved, while the block trace model belongs to the spectral-model boundary."
     },
     {
       id: "S05_26",
@@ -775,11 +801,11 @@ window.DICT_DEPENDENCY_DATA = {
       section: "Matching algebra",
       kind: "paper",
       importance: "major",
-      status: "proved",
+      status: "proved-from-external",
       file: "DictatorshipTesting/Paper/S05_Lem5_29_YoungBasisScalarCommutant.lean",
       wrappers: ["S05_Lem5_29_YoungBasisScalarCommutantInput", "S05_Lem5_29_matchingAverageScalarity_eq_sum"],
       deps: ["S05_06", "S05_07", "AppA_05"],
-      summary: "Scalar commutant interface and weighted-sum consequence."
+      summary: "Interface wrapper for scalarity on Young blocks; the paper proof uses tableau diagonalization plus Appendix A connectedness, while the active Lean bridge consumes this as part of the spectral-model boundary."
     },
     {
       id: "S05_30",
@@ -788,11 +814,11 @@ window.DICT_DEPENDENCY_DATA = {
       section: "Spectral bridge",
       kind: "paper",
       importance: "major",
-      status: "proved",
+      status: "proved-from-external",
       file: "DictatorshipTesting/Paper/S05_Lem5_30_BlockScalarOfTheAveragedRejection.lean",
       wrappers: ["S05_Lem5_30_scalar_eq_trace_div_dimension", "S05_Lem5_30_even_scalar_eq_hEven_div_dim"],
       deps: ["S05_25", "S05_28", "S05_29"],
-      summary: "Trace-divided-by-dimension algebra for the averaged rejection scalar."
+      summary: "Trace-divided-by-dimension algebra is proved from explicit scalarity and trace identities; those representation inputs are in the spectral-model boundary."
     },
     {
       id: "S05_31",
@@ -986,7 +1012,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "interface",
       file: "DictatorshipTesting/Paper/S05_Def5_03_StandardTableaux.lean",
       wrappers: ["S05_Def5_03_StandardYoungTableau", "S05_Def5_03_cellOfEntry", "S05_Def5_03_TableauMaxAt"],
-      deps: ["S05_01"],
+      deps: ["AuxStandardYoungTableaux"],
       summary: "Standard Young tableaux and the box occupied by an entry."
     },
     {
@@ -999,7 +1025,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "interface",
       file: "DictatorshipTesting/Paper/S05_Def5_04_TableauCoordinateSpace.lean",
       wrappers: ["S05_Def5_04_tableauDim", "S05_Def5_04_TableauSpace", "S05_Def5_04_tableauBasisVec"],
-      deps: ["S05_03"],
+      deps: ["S05_03", "AuxTableauDimension", "AuxYoungOrthogonal"],
       summary: "Tableau-count dimension, coordinate space, and Young basis vectors."
     },
     {
@@ -1012,7 +1038,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "interface",
       file: "DictatorshipTesting/Paper/S05_Def5_05_ContentAndAdjacentOperators.lean",
       wrappers: ["S05_Def5_05_cellContent", "S05_Def5_05_entryContent", "S05_Def5_05_youngAdjacentOperator", "S05_Def5_05_diagonalContentOperator"],
-      deps: ["S05_04"],
+      deps: ["S05_04", "AuxYoungOrthogonal"],
       summary: "Contents, adjacent transposition operators, and diagonal content operators."
     }
   ]

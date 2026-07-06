@@ -104,7 +104,7 @@ External Appendix A inputs:
 
 Remaining Section 5/AppA bridge boundary:
 
-- Lemmas 5.27 and 5.28 prove the tableau-count algebraic bridge from an
+- Lemmas 5.32 and 5.33 prove the tableau-count algebraic bridge from an
   explicit `SpectralBlockModelInputWithDim` hypothesis for the `tableauDim`
   model with `hEvenTableau` and `hOddTableau` heights.
 - Appendix A supplies the `SpectralBlockModelInputWithDim` / spectral-block
@@ -117,6 +117,11 @@ Remaining Section 5/AppA bridge boundary:
   is proved; the representation-theoretic Specht/Pieri content it shadows is
   accounted for inside the spectral-block model boundary rather than as a
   separate Lean axiom.
+- Two substantial helper layers are exposed in the dependency graph for
+  readability, but are not numbered separately in the paper:
+  `Aux_StandardYoungTableaux.lean` for deletion/insertion tableau mechanics and
+  `Aux_YoungMatchingOperators.lean` for canonical matching-edge operator
+  algebra.
 
 Obsolete old routes:
 
@@ -191,7 +196,7 @@ spectral-gap wrappers for an arbitrary dimension function.  Lemmas 5.31--5.33
 expose these wrappers for the paper-facing interface.
 
 Active path note: Theorem 4.10 now uses the dimension-parametric `tableauDim`
-interface through Lemmas 5.27 and 5.28.  The remaining Section 5 mathematical
+interface through Lemmas 5.32 and 5.33.  The remaining Section 5 mathematical
 input for this active route is the tableauDim spectral block model itself:
 Young-block decomposition, `U_1` identification, matching-average scalarity,
 and trace/scalar value with block dimension `tableauDim`.
