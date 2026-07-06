@@ -35,8 +35,8 @@ number of hard results are intentionally isolated behind named declarations or
 named external axioms.  The only remaining `sorry` declarations are the two
 Section 2 literature inputs.  The only remaining Section 5/Aux axiom
 declarations are
-`spectralBlockModelInput_even_from_specht_pieri_schur` and
-`spectralBlockModelInput_odd_from_specht_pieri_schur`.
+`spectralBlockModelInputWithDim_even_from_appendixA` and
+`spectralBlockModelInputWithDim_odd_from_appendixA`.
 
 Current proof-status by mathematical obligation:
 
@@ -211,10 +211,11 @@ External standard inputs:
 - Lemmas 5.26--5.28, especially `S05_Lem5_27_EvenSpectralBridge.lean` and
   `S05_Lem5_28_OddSpectralBridge.lean`: the external Specht/Pieri/Schur
   spectral bridge is exposed as the named axioms
-  `spectralBlockModelInput_even_from_specht_pieri_schur` and
-  `spectralBlockModelInput_odd_from_specht_pieri_schur`.  These axioms cite the
+  `spectralBlockModelInputWithDim_even_from_appendixA` and
+  `spectralBlockModelInputWithDim_odd_from_appendixA`.  These axioms cite the
   regular Specht decomposition, Littlewood-Richardson restriction to Young
-  subgroups, Pieri two-strip specializations, and Schur's lemma.
+  subgroups, Pieri two-strip specializations, and Schur's lemma, packaged for
+  the tableauDim spectral model.
 
 Internal bridge components proven:
 
@@ -256,25 +257,16 @@ Remaining spectral-bridge representation-theory boundary:
 There are no longer `sorry` declarations for the spectral bridge.  Instead, the
 Section 5 spectral-bridge files make the missing representation theory explicit
 as named axioms:
-`spectralBlockModelInput_even_from_specht_pieri_schur` and
-`spectralBlockModelInput_odd_from_specht_pieri_schur`, bundled downstream as
-`EvenSpectralBlockModelFamily` and `OddSpectralBlockModelFamily`.
+`spectralBlockModelInputWithDim_even_from_appendixA` and
+`spectralBlockModelInputWithDim_odd_from_appendixA`.
 
 - The explicit spectral-block-model axioms supply the actual Young-block
   energies of `F`, the `U_1` energy identification, and the matching-average
   scalar model.  Theorem 4.10, Proposition 4.12, Lemma 4.13, and Theorem 1.1
-  now use these named external inputs directly rather than taking anonymous
-  model-family arguments.
-- The active Theorem 4.10 path still uses the original `youngDim` spectral
-  model and uses the Appendix A even/odd spectral model inputs.
-  Theorem 4.10 and the downstream wrappers also carry
-  `[TwoStripDimensionBranchingAssumption]` and
-  `[OneBoxDimensionBranchingPositiveAssumption]` explicitly.  No instance is
-  registered for those dimension assumptions, so the old `youngDim` dimension
-  axioms are gone.
-- The tableau-count bridge is ready at the algebraic level, but consuming it
-  requires a `SpectralBlockModelInputWithDim` instance for `tableauDim` and the
-  tableau-count heights `hEvenTableau`/`hOddTableau`.
+  now use these named external inputs through the tableauDim spectral bridge.
+- The active Theorem 4.10 path uses the tableauDim bridge from Lemmas
+  5.26--5.28 and no longer carries the older `youngDim` dimension-branching
+  typeclass hypotheses.
 
 Older theorem names such as `Thm2_1_BooleanU1`, `L5_4_ZBoundApp`,
 `L5_5_HEvenApp`, and `L5_6_HOddApp` are preserved inside the corresponding

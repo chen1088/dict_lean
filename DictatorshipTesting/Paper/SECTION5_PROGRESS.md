@@ -31,14 +31,11 @@ Detailed maps:
   zero cross-compositions, and the low-plus-high decomposition identity.
 - The remaining main Section 5 frontier is the spectral-block model input.
 - The two remaining Section 5/Aux axioms are exactly
-  `spectralBlockModelInput_even_from_specht_pieri_schur` and
-  `spectralBlockModelInput_odd_from_specht_pieri_schur`.
-- The current Theorem 4.10 proof path uses the Appendix A even/odd spectral
-  model inputs through
-  `evenSpectralBlockModelFamily_from_specht_pieri_schur` and
-  `oddSpectralBlockModelFamily_from_specht_pieri_schur`; the
-  dimension-parameterized `tableauDim` bridge is exposed by Lemmas 5.26--5.28
-  but is not yet the active Theorem 4.10 route.
+  `spectralBlockModelInputWithDim_even_from_appendixA` and
+  `spectralBlockModelInputWithDim_odd_from_appendixA`.
+- The current Theorem 4.10 proof path uses the tableauDim bridge exposed by
+  Lemmas 5.26--5.28 and these dimension-parameterized Appendix A spectral
+  model inputs.
 
 ## Internal Progress
 
@@ -125,4 +122,5 @@ theorems:
 The Appendix A files do not add axioms.  The current Section 5 tableau-count
 dimension route also no longer registers the older `youngDim`
 dimension-branching instances.  The remaining named axioms are the
-spectral-block-model inputs tracked in `PROOF_OBLIGATIONS.md`.
+dimension-parameterized spectral-block-model inputs tracked in
+`PROOF_OBLIGATIONS.md`.

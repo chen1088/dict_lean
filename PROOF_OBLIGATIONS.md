@@ -16,8 +16,8 @@ Current classification:
 - Section 5/AppA bridge boundary: the remaining representation-theoretic
   obligation is the spectral-block model input.  The current axiom declarations
   for this boundary are exactly
-  `spectralBlockModelInput_even_from_specht_pieri_schur` and
-  `spectralBlockModelInput_odd_from_specht_pieri_schur`.
+  `spectralBlockModelInputWithDim_even_from_appendixA` and
+  `spectralBlockModelInputWithDim_odd_from_appendixA`.
 - Old `youngDim` dimension axiom instances are gone.  The older `youngDim`
   wrappers remain only as theorems with explicit typeclass hypotheses, and no
   instance is registered for those hypotheses.
@@ -41,14 +41,13 @@ Early-section statement counts:
 | 1 | 1 | Main theorem wrapper is proved from Lemma 4.13 and its documented inputs. |
 | 2 | 4 | Theorem 2.1 and Theorem 2.2 are external Filmus inputs; Lemma 2.3 and Definition 2.4 are internal. |
 | 3 | 2 | Both matching-cube completeness lemmas are internal. |
-| 4 | 13 | The local Fourier and soundness reductions are internal except Theorem 4.10, which uses Appendix A spectral model input and explicit dimension-branching typeclass hypotheses. |
+| 4 | 13 | The local Fourier and soundness reductions are internal except Theorem 4.10, which uses Appendix A spectral model input. |
 
-Theorem 4.10 status: the theorem is usable in Lean through the Appendix A
-even/odd spectral model inputs
-`evenSpectralBlockModelFamily_from_specht_pieri_schur` and
-`oddSpectralBlockModelFamily_from_specht_pieri_schur`.  The active theorem
-still carries the explicit `youngDim` dimension-branching typeclass hypotheses;
-no registered instances are provided for those hypotheses.
+Theorem 4.10 status: the active theorem is wired through the tableau-count
+Section 5 bridge, using the Appendix A spectral model inputs
+`spectralBlockModelInputWithDim_even_from_appendixA` and
+`spectralBlockModelInputWithDim_odd_from_appendixA`.  It no longer carries the
+older `youngDim` dimension-branching typeclass hypotheses.
 
 ## Current Section 5 Route Summary
 
@@ -169,18 +168,11 @@ The bridge algebra is no longer hard-coded to `youngDim`: the file
 spectral-gap wrappers for an arbitrary dimension function.  Lemmas 5.26--5.28
 expose these wrappers for the paper-facing interface.
 
-Active path note: Theorem 4.10 still uses the old `youngDim`
-spectral model and has not yet been rewired through the new dimension-parametric
-interface.  Theorem 4.10 uses the Appendix A even/odd spectral model inputs
-`evenSpectralBlockModelFamily_from_specht_pieri_schur` and
-`oddSpectralBlockModelFamily_from_specht_pieri_schur`.  It also carries
-`[TwoStripDimensionBranchingAssumption]` and
-`[OneBoxDimensionBranchingPositiveAssumption]` explicitly; no instance is
-registered for those dimension hypotheses, so they are not remaining axioms.
-The remaining Section 5 mathematical input for the tableau-count route is the
-tableauDim spectral block model itself: Young-block decomposition, `U_1`
-identification, matching-average scalarity, and trace/scalar value with block
-dimension `tableauDim`.
+Active path note: Theorem 4.10 now uses the dimension-parametric `tableauDim`
+interface through Lemmas 5.27 and 5.28.  The remaining Section 5 mathematical
+input for this active route is the tableauDim spectral block model itself:
+Young-block decomposition, `U_1` identification, matching-average scalarity,
+and trace/scalar value with block dimension `tableauDim`.
 
 The newest internal representation-layer objects are still coordinate-level:
 they give a concrete Young adjacent Coxeter model, not a formal Specht-module
@@ -338,10 +330,9 @@ Lean files: `DictatorshipTesting/Paper/S05_Lem5_26_BlockLowerBoundImpliesTheGap.
 `DictatorshipTesting/Paper/Aux_SpectralBridgeFromCertificates.lean`,
 and `DictatorshipTesting/Paper/Aux_SpectralBridgeDimensionParam.lean`.
 
-Lean names: `spectralBlockModelInput_even_from_specht_pieri_schur`,
-`spectralBlockModelInput_odd_from_specht_pieri_schur`,
-`SpectralBlockModelInput`, `EvenSpectralBlockModelFamily`,
-`OddSpectralBlockModelFamily`.
+Lean names: `spectralBlockModelInputWithDim_even_from_appendixA`,
+`spectralBlockModelInputWithDim_odd_from_appendixA`,
+and `SpectralBlockModelInputWithDim`.
 
 Current status: named external axioms, not `sorry` declarations.  These are
 the only remaining Section 5/Aux axiom declarations.
@@ -349,13 +340,14 @@ the only remaining Section 5/Aux axiom declarations.
 Mathematical content: the regular representation decomposes `F` into
 nonnegative Young-block energies whose non-`U_1` sum is `l2DistSqToU1 F`;
 Schur's lemma gives matching-average scalars on those blocks; and the scalar
-trace formula identifies those scalars as `hEven m lambda / d_lambda` in the
-even case and `hOdd m lambda / d_lambda` in the odd case.
+trace formula identifies those scalars as
+`hEvenTableau m lambda / tableauDim lambda` in the even case and
+`hOddTableau m lambda / tableauDim lambda` in the odd case.
 
 Why it is external or why it should be proven: the finite weighted-sum
 comparison and trace-divided-by-dimension algebra are formalized, but the
 actual Young-block decomposition of `L^2(S_n)`, compatibility of those energies
-with `U_1`, scalarity of the matching-average operator, Young-dimension
+with `U_1`, scalarity of the matching-average operator, tableau-count dimension
 positivity inside the spectral model, and the trace/scalar identification
 require the unformalized Specht-block model, conjugation-invariance argument,
 Schur's lemma, and matching-restriction theorem.
@@ -367,11 +359,10 @@ subgroups from James--Kerber, Section 2.8.13, as quoted in
 Bowman--De Visscher--Orellana, arXiv:1210.5579, Theorem 1.1 and the paragraph
 following it; Pieri special cases for the two-strip matching-subgroup chain.
 
-Downstream dependencies: `L5_2_SpectralCertificate`,
-`Thm4_10_MatchingGap`, `Prop4_12_SquareEnergyControlsGlobalDegree`,
-`L4_13_OneTrialSoundness`, and `Thm1_1_MainIntro`, which use the named
-external spectral block model axioms directly and carry the older dimension
-typeclass hypotheses explicitly until the tableauDim spectral model is supplied.
+Downstream dependencies: `Thm4_10_MatchingGap`,
+`Prop4_12_SquareEnergyControlsGlobalDegree`, `L4_13_OneTrialSoundness`, and
+`Thm1_1_MainIntro`, which use the named dimension-parameterized Appendix A
+spectral block model axioms through the tableauDim bridge.
 
 ### Lemma 5.18 Full Matching-Restriction/Pieri Statement
 
