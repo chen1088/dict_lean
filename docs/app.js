@@ -1,47 +1,40 @@
 const graphData = window.DICT_DEPENDENCY_DATA;
 const nodeById = new Map(graphData.nodes.map((node) => [node.id, node]));
 
-const state = {
-  query: "",
-  status: "all",
-  view: "main",
-  selectedId: "Thm1_1",
-  focusMode: false,
-};
-
-const views = {
+const rootViews = {
   main: {
-    label: "Main Spine",
-    sections: ["Main spine", "Spectral bridge", "Finite certificates", "External inputs"],
-    seed: ["Thm1_1", "L4_13", "Prop4_12", "Thm4_10", "S05_27", "S05_28"],
+    label: "Main theorem",
+    roots: ["Thm1_1"],
+    open: ["Thm1_1", "L4_13", "Prop4_12", "Thm4_10", "S05_27", "S05_28"],
+  },
+  spectral: {
+    label: "Spectral bridge",
+    roots: ["Thm4_10"],
+    open: ["Thm4_10", "S05_27", "S05_28", "S05_26"],
   },
   section5: {
     label: "Section 5",
-    sections: [
-      "Section 5 tableau layer",
-      "Tableau branching",
-      "Matching algebra",
-      "Spectral bridge",
-      "Finite certificates",
-      "Definitions",
-      "Appendix A",
-      "External inputs",
-    ],
+    roots: ["S05_27", "S05_28", "S05_18", "S05_01"],
+    open: ["S05_27", "S05_28", "S05_32", "S05_34", "S05_18", "S05_01"],
   },
   certificates: {
-    label: "Finite Certificates",
-    sections: ["Finite certificates", "Tableau branching", "Definitions"],
-    seed: ["S05_30", "S05_32", "S05_34"],
+    label: "Finite certificates",
+    roots: ["S05_32", "S05_34", "S05_30"],
+    open: ["S05_32", "S05_34", "S05_30"],
   },
-  aux: {
-    label: "Aux Helpers",
-    sections: ["Section 5 tableau layer", "Tableau branching", "Finite certificates", "Spectral bridge", "Section 4", "Definitions"],
-    auxOnly: true,
+  appendix: {
+    label: "Appendix A boundary",
+    roots: ["AppA_EvenSpectralModel", "AppA_OddSpectralModel"],
+    open: ["AppA_EvenSpectralModel", "AppA_OddSpectralModel"],
   },
-  all: {
-    label: "All Nodes",
-    sections: null,
-  },
+};
+
+const state = {
+  view: "main",
+  query: "",
+  status: "all",
+  selectedId: "Thm1_1",
+  expanded: new Set(rootViews.main.open),
 };
 
 function sourceUrl(file) {
@@ -51,174 +44,194 @@ function sourceUrl(file) {
 function statusLabel(status) {
   const labels = {
     proved: "Proved",
-    "proved-from-external": "Proved + External Input",
+    "proved-from-external": "Proved + input",
     external: "External",
-    interface: "Definition / Interface",
+    interface: "Interface",
   };
   return labels[status] || status;
 }
 
-function relationSets(selected) {
-  const deps = new Set(selected?.deps || []);
-  const dependents = new Set(
-    graphData.nodes
-      .filter((node) => node.deps?.includes(selected?.id))
-      .map((node) => node.id)
-  );
-  return { deps, dependents };
+function nodeWeight(node) {
+  return { hero: 0, major: 1, normal: 2, minor: 3 }[node.importance] ?? 4;
 }
 
-function shouldShowByView(node) {
-  const view = views[state.view];
-  if (view.auxOnly && node.kind !== "aux") return false;
-  if (view.sections && !view.sections.includes(node.section)) return false;
-  if (view.seed && !view.seed.includes(node.id)) {
-    const seedSet = new Set(view.seed);
-    const supportsSeed = graphData.nodes.some((candidate) =>
-      seedSet.has(candidate.id) && candidate.deps?.includes(node.id)
-    );
-    const usesSeed = node.deps?.some((dep) => seedSet.has(dep));
-    return supportsSeed || usesSeed || node.importance === "hero";
-  }
-  return true;
+function getDeps(node) {
+  return (node.deps || [])
+    .map((id) => nodeById.get(id))
+    .filter(Boolean)
+    .sort((a, b) => nodeWeight(a) - nodeWeight(b) || a.label.localeCompare(b.label));
 }
 
-function matchesFilters(node) {
+function nodeMatches(node) {
   if (state.status !== "all" && node.status !== state.status) return false;
-  if (state.query) {
-    const haystack = [
-      node.id,
-      node.label,
-      node.title,
-      node.file,
-      node.section,
-      node.status,
-      node.summary,
-      ...(node.wrappers || []),
-    ].join(" ").toLowerCase();
-    if (!haystack.includes(state.query.toLowerCase())) return false;
-  }
-  if (state.focusMode && state.selectedId) {
-    const selected = nodeById.get(state.selectedId);
-    const { deps, dependents } = relationSets(selected);
-    return node.id === selected.id || deps.has(node.id) || dependents.has(node.id);
-  }
-  return shouldShowByView(node);
+  if (!state.query) return true;
+  const haystack = [
+    node.id,
+    node.label,
+    node.title,
+    node.file,
+    node.section,
+    node.status,
+    node.summary,
+    ...(node.wrappers || []),
+  ].join(" ").toLowerCase();
+  return haystack.includes(state.query.toLowerCase());
 }
 
-function nodeClass(node) {
+function subtreeHasMatch(node, seen = new Set()) {
+  if (seen.has(node.id)) return false;
+  seen.add(node.id);
+  if (nodeMatches(node)) return true;
+  return getDeps(node).some((dep) => subtreeHasMatch(dep, seen));
+}
+
+function shouldRenderNode(node) {
+  if (!state.query && state.status === "all") return true;
+  return subtreeHasMatch(node);
+}
+
+function dependentsOf(id) {
+  return graphData.nodes
+    .filter((node) => node.deps?.includes(id))
+    .sort((a, b) => nodeWeight(a) - nodeWeight(b) || a.label.localeCompare(b.label));
+}
+
+function nodeClasses(node, path, repeated) {
   return [
-    "node-button",
+    "dag-node",
     `importance-${node.importance || "normal"}`,
     `status-${node.status}`,
     `kind-${node.kind}`,
-    node.id === state.selectedId ? "selected" : "",
+    state.selectedId === node.id ? "selected" : "",
+    state.expanded.has(node.id) ? "expanded" : "",
+    repeated ? "repeated" : "",
+    path.length === 0 ? "root-node" : "",
   ].join(" ");
 }
 
-function renderNodeButton(node) {
+function renderNode(node, path = []) {
+  const repeated = path.includes(node.id);
+  if (!shouldRenderNode(node)) return null;
+
+  const deps = getDeps(node).filter(shouldRenderNode);
+  const isExpanded = state.expanded.has(node.id) && deps.length > 0 && !repeated;
+  const item = document.createElement("li");
+  item.className = "dag-item";
+  item.dataset.id = node.id;
+
   const button = document.createElement("button");
-  button.className = nodeClass(node);
   button.type = "button";
-  button.dataset.id = node.id;
+  button.className = nodeClasses(node, path, repeated);
+  button.setAttribute("aria-expanded", String(isExpanded));
   button.innerHTML = `
-    <span class="node-label">${node.label}</span>
+    <span class="node-topline">
+      <span class="node-label">${node.label}</span>
+      <span class="node-status">${statusLabel(node.status)}</span>
+    </span>
     <span class="node-title">${node.title}</span>
-    <span class="node-meta">${statusLabel(node.status)}</span>
+    <span class="node-section">${node.section}</span>
   `;
   button.addEventListener("click", () => {
     state.selectedId = node.id;
+    if (!repeated && deps.length > 0) {
+      if (state.expanded.has(node.id)) {
+        state.expanded.delete(node.id);
+      } else {
+        state.expanded.add(node.id);
+      }
+    }
     render();
   });
-  return button;
+  item.appendChild(button);
+
+  if (state.selectedId === node.id || isExpanded) {
+    item.appendChild(renderInlineDetails(node, deps.length));
+  }
+
+  if (isExpanded) {
+    const children = document.createElement("ol");
+    children.className = "dag-children";
+    deps.forEach((dep) => {
+      const child = renderNode(dep, [...path, node.id]);
+      if (child) children.appendChild(child);
+    });
+    item.appendChild(children);
+  }
+
+  return item;
 }
 
-function renderGraph() {
-  const graph = document.querySelector("#graph");
-  graph.textContent = "";
+function renderInlineDetails(node, depCount) {
+  const details = document.createElement("div");
+  details.className = "inline-details";
+  const wrappers = node.wrappers?.length
+    ? node.wrappers.map((wrapper) => `<code>${wrapper}</code>`).join(" ")
+    : "<span class=\"muted\">No wrapper listed.</span>";
+  const usedBy = dependentsOf(node.id)
+    .map((dep) => `<button type="button" class="tiny-link" data-jump="${dep.id}">${dep.label}</button>`)
+    .join("");
+  details.innerHTML = `
+    <p>${node.summary}</p>
+    <dl>
+      <dt>Lean file</dt>
+      <dd><a href="${sourceUrl(node.file)}" target="_blank" rel="noreferrer">${node.file}</a></dd>
+      <dt>Wrappers</dt>
+      <dd>${wrappers}</dd>
+    </dl>
+    <div class="node-foot">
+      <span>${depCount} dependencies</span>
+      <span>${usedBy ? "Used by " + usedBy : "No dependents listed in this graph"}</span>
+    </div>
+  `;
+  details.querySelectorAll("[data-jump]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      state.selectedId = button.dataset.jump;
+      state.expanded.add(button.dataset.jump);
+      render();
+    });
+  });
+  return details;
+}
 
-  const nodes = graphData.nodes.filter(matchesFilters);
-  const sections = [...new Set(nodes.map((node) => node.section))];
+function renderTree() {
+  const tree = document.querySelector("#dag");
+  tree.textContent = "";
+  const rootList = document.createElement("ol");
+  rootList.className = "dag-root-list";
+  rootViews[state.view].roots
+    .map((id) => nodeById.get(id))
+    .filter(Boolean)
+    .forEach((root) => {
+      const rootNode = renderNode(root, []);
+      if (rootNode) rootList.appendChild(rootNode);
+    });
 
-  if (!nodes.length) {
+  if (!rootList.children.length) {
     const empty = document.createElement("div");
     empty.className = "empty-state";
     empty.textContent = "No nodes match the current filters.";
-    graph.appendChild(empty);
-    return;
+    tree.appendChild(empty);
+  } else {
+    tree.appendChild(rootList);
   }
-
-  sections.forEach((section) => {
-    const group = document.createElement("section");
-    group.className = "graph-section";
-    const groupNodes = nodes.filter((node) => node.section === section);
-    group.innerHTML = `
-      <div class="section-heading">
-        <h2>${section}</h2>
-        <span>${groupNodes.length} nodes</span>
-      </div>
-      <div class="node-grid"></div>
-    `;
-    const grid = group.querySelector(".node-grid");
-    groupNodes
-      .sort((a, b) => {
-        const weights = { hero: 0, major: 1, normal: 2, minor: 3 };
-        return (weights[a.importance] ?? 4) - (weights[b.importance] ?? 4) || a.label.localeCompare(b.label);
-      })
-      .forEach((node) => grid.appendChild(renderNodeButton(node)));
-    graph.appendChild(group);
-  });
 }
 
-function renderRelationList(title, ids, className) {
-  const items = ids
-    .map((id) => nodeById.get(id))
-    .filter(Boolean)
-    .map((node) => `
-      <button class="relation-pill ${className}" data-id="${node.id}">
-        <strong>${node.label}</strong>
-        <span>${node.title}</span>
-      </button>
-    `)
-    .join("");
-  return `
-    <div class="relation-block">
-      <h3>${title}</h3>
-      <div class="relation-list">${items || "<span class=\"muted\">None recorded.</span>"}</div>
-    </div>
-  `;
-}
-
-function renderDetails() {
-  const selected = nodeById.get(state.selectedId) || graphData.nodes[0];
-  state.selectedId = selected.id;
-  const { deps, dependents } = relationSets(selected);
-  const panel = document.querySelector("#details");
-  panel.innerHTML = `
-    <div class="detail-card status-${selected.status}">
-      <div class="detail-kicker">${selected.section} / ${selected.kind}</div>
-      <h2>${selected.label}: ${selected.title}</h2>
-      <p>${selected.summary}</p>
-      <div class="detail-badges">
-        <span>${statusLabel(selected.status)}</span>
-        <span>${selected.importance || "normal"}</span>
-      </div>
-      <dl>
-        <dt>Lean file</dt>
-        <dd><a href="${sourceUrl(selected.file)}" target="_blank" rel="noreferrer">${selected.file}</a></dd>
-        <dt>Main wrappers</dt>
-        <dd>${selected.wrappers?.length ? selected.wrappers.map((w) => `<code>${w}</code>`).join(" ") : "<span class=\"muted\">None listed.</span>"}</dd>
-      </dl>
-      ${renderRelationList("Depends on", [...deps], "dep")}
-      ${renderRelationList("Used by", [...dependents], "dependent")}
-    </div>
-  `;
-
-  panel.querySelectorAll(".relation-pill").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.selectedId = button.dataset.id;
+function renderTabs() {
+  const tabs = document.querySelector("#tabs");
+  tabs.textContent = "";
+  Object.entries(rootViews).forEach(([key, view]) => {
+    const tab = document.createElement("button");
+    tab.type = "button";
+    tab.className = key === state.view ? "tab active" : "tab";
+    tab.textContent = view.label;
+    tab.addEventListener("click", () => {
+      state.view = key;
+      state.expanded = new Set(view.open);
+      state.selectedId = view.roots[0];
       render();
     });
+    tabs.appendChild(tab);
   });
 }
 
@@ -238,29 +251,28 @@ function renderStats() {
   `;
 }
 
-function renderTabs() {
-  const tabs = document.querySelector("#tabs");
-  tabs.textContent = "";
-  Object.entries(views).forEach(([key, view]) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = key === state.view ? "tab active" : "tab";
-    button.textContent = view.label;
-    button.addEventListener("click", () => {
-      state.view = key;
-      state.focusMode = false;
-      document.querySelector("#focus-toggle").classList.remove("active");
-      render();
-    });
-    tabs.appendChild(button);
-  });
+function expandVisible() {
+  const visible = new Set();
+  function walk(node, seen = new Set()) {
+    if (!node || seen.has(node.id) || !shouldRenderNode(node)) return;
+    seen.add(node.id);
+    visible.add(node.id);
+    getDeps(node).forEach((dep) => walk(dep, seen));
+  }
+  rootViews[state.view].roots.forEach((id) => walk(nodeById.get(id)));
+  state.expanded = visible;
+  render();
+}
+
+function collapseVisible() {
+  state.expanded = new Set();
+  render();
 }
 
 function render() {
   renderTabs();
   renderStats();
-  renderGraph();
-  renderDetails();
+  renderTree();
 }
 
 document.querySelector("#search").addEventListener("input", (event) => {
@@ -273,10 +285,7 @@ document.querySelector("#status-filter").addEventListener("change", (event) => {
   render();
 });
 
-document.querySelector("#focus-toggle").addEventListener("click", () => {
-  state.focusMode = !state.focusMode;
-  document.querySelector("#focus-toggle").classList.toggle("active", state.focusMode);
-  render();
-});
+document.querySelector("#expand-all").addEventListener("click", expandVisible);
+document.querySelector("#collapse-all").addEventListener("click", collapseVisible);
 
 render();

@@ -12,7 +12,7 @@
         <p class="eyebrow">Lean 4 formalization map</p>
         <h1>DictatorshipTesting dependency graph</h1>
         <p class="lede">
-          Click a theorem, lemma, definition, or auxiliary helper to inspect how it fits into the current proof spine.
+          Click a theorem, lemma, definition, or auxiliary helper to unfold or fold its dependencies.
           Big bold nodes are paper-facing milestones; compact nodes are supporting interfaces and helpers.
         </p>
       </div>
@@ -37,15 +37,18 @@
               <option value="interface">Definition / interface</option>
             </select>
           </label>
-          <button id="focus-toggle" type="button">Focus selected neighborhood</button>
+          <button id="expand-all" type="button">Expand visible</button>
+          <button id="collapse-all" type="button">Fold visible</button>
         </div>
         <div id="stats" class="stats"></div>
       </section>
 
-      <div class="layout">
-        <section id="graph" class="graph" aria-label="Dependency graph nodes"></section>
-        <aside id="details" class="details" aria-label="Selected node details"></aside>
-      </div>
+      <section class="dag-shell" aria-label="Expandable dependency DAG">
+        <div class="dag-instructions">
+          The node itself is the control: click a theorem to expand its prerequisites, and click it again to fold that branch.
+        </div>
+        <div id="dag" class="dag"></div>
+      </section>
     </main>
 
     <footer class="site-footer">
