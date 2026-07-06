@@ -4,14 +4,16 @@ import DictatorshipTesting.Paper.Defs
 Paper statement: Theorem 2.1 (`thm:boolean-u1`)
 Title in paper: Structural input: Boolean degree-one functions on S_n.
 
-Status: external structural input.
+Status: external: Filmus Boolean degree-one classification on `S_n`.
 -/
 
 /-!
 # Structural input for Theorem 2.1
 
-This file isolates the external classification theorem used by the paper:
-Boolean functions in the first permutation module are dictators.
+This file separates the elementary direction from the external one.  Dictators
+are proved to lie in `U₁`, and the `n = 1, 2` cases are proved directly.  The
+only external input is the nontrivial `3 <= n` direction: a Boolean function in
+`U₁` is a dictator.
 -/
 
 namespace DictatorshipTesting

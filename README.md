@@ -185,10 +185,12 @@ External standard inputs:
   (`thm:boolean-u1`): external classification direction
   `boolFnToReal f ∈ U1 (Fin n) -> IsDictator f` for `3 <= n`.  The `n = 1`
   and `n = 2` cases, and the converse direction that dictators lie in `U1`,
-  are proved directly.
+  are proved directly.  No active downstream Lean proof currently invokes this
+  wrapper directly; it records the paper's structural classification input.
 - `S02_Thm2_02_FKNStability.lean` -- Theorem 2.2 (`thm:fkn-input`):
   external FKN/stability theorem on `S_n`, stated only for the `4 <= n`
-  range used by the one-trial soundness proof.
+  range used by the one-trial soundness proof.  It is consumed by
+  `L4_13_OneTrialSoundness`, and then by the main theorem wrapper.
 - `S05_Lem5_14_TwoBoxDimensionRecursion.lean` -- Lemma 5.14
   (`lem:dimension-two-strip-recurrence`): the current paper route uses the
   proved `tableauDim` wrapper

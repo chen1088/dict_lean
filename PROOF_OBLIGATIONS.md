@@ -220,8 +220,10 @@ Lean.
 Citation target if external: Filmus, *Boolean functions on `S_n` which are
 nearly linear*, Discrete Analysis 2021:25, Theorem 2.8.
 
-Downstream dependencies: `Thm2_1_BooleanU1`, perfect completeness and final
-dictatorship-testing theorem statements.
+Downstream dependencies: `Thm2_1_BooleanU1` is the paper-facing wrapper.  No
+active downstream Lean proof currently invokes this theorem directly; it
+records the paper's structural classification input and is also part of the
+citation context for the FKN/stability input.
 
 ### Theorem 2.2 FKN Stability
 
@@ -245,7 +247,8 @@ nearly linear*, Discrete Analysis 2021:25, Theorem 1.5, together with the
 Boolean linear classification in Theorem 2.8 and the standard balanced-case
 reduction recorded in the paper.
 
-Downstream dependencies: one-trial soundness and the main theorem.
+Downstream dependencies: `L4_13_OneTrialSoundness` consumes
+`Thm2_2_FKNInput`, and `Thm1_1_MainIntro` consumes Lemma 4.13.
 
 ## Paper-Level Obligations Without a Current `sorry`
 

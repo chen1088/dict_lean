@@ -4,13 +4,14 @@ import DictatorshipTesting.Paper.Defs
 Paper statement: Theorem 2.2 (`thm:fkn-input`)
 Title in paper: FKN/stability input on S_n.
 
-Status: external structural input from Filmus's FKN/stability theorem.
+Status: external: Filmus FKN/stability theorem.
 -/
 
 /-!
 # Stability input for Theorem 2.2
 
-This file isolates the imported FKN/stability theorem used by the paper.
+This file isolates the imported FKN/stability theorem used by the active
+soundness proof.  Lemma 4.13 consumes exactly the wrapper `Thm2_2_FKNInput`.
 -/
 
 namespace DictatorshipTesting
