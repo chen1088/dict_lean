@@ -1,8 +1,8 @@
 # Proof Obligation Ledger
 
-This ledger tracks mathematical obligations, not just the raw number of
-`sorry`s.  A `sorry` is acceptable here only when the named declaration states a
-precise external theorem or a precise internal theorem still intended for Lean.
+This ledger tracks mathematical obligations, not just raw Lean declarations.
+External literature inputs are represented as named axiom declarations, not as
+`sorry` proofs.
 
 Current classification:
 
@@ -13,11 +13,12 @@ Current classification:
   require explicit dimension-branching typeclass hypotheses and are not the
   current tableau-count proof route.
 - Internal open finite certificates: none currently listed.
-- Section 5/AppA bridge boundary: the remaining representation-theoretic
-  obligation is the spectral-block model input.  The current axiom declarations
-  for this boundary are exactly
-  `spectralBlockModelInputWithDim_even_from_appendixA` and
+- Current external axiom declarations are exactly
+  `booleanU1_dictator_classification_input`, `fknStability_input`,
+  `spectralBlockModelInputWithDim_even_from_appendixA`, and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.
+- Section 5/AppA bridge boundary: the remaining representation-theoretic
+  obligation is the spectral-block model input.
 - Old `youngDim` dimension axiom instances are gone.  The older `youngDim`
   wrappers remain only as theorems with explicit typeclass hypotheses, and no
   instance is registered for those hypotheses.
@@ -41,9 +42,9 @@ Early-section statement counts:
 | 1 | 1 | Main theorem wrapper is proved from Lemma 4.13 and its documented inputs. |
 | 2 | 4 | Theorem 2.1 and Theorem 2.2 are external Filmus inputs; Lemma 2.3 and Definition 2.4 are internal. |
 | 3 | 2 | Both matching-cube completeness lemmas are internal. |
-| 4 | 13 | The local Fourier and soundness reductions are internal except Theorem 4.10, which uses Appendix A spectral model input. |
+| 4 | 13 | The local Fourier and soundness reductions are internal. Theorem 4.10 is proved through the Section 5 tableau-count bridge and uses the Appendix A spectral model input. |
 
-Theorem 4.10 status: the active theorem is wired through the tableau-count
+Theorem 4.10 status: the active theorem is proved through the tableau-count
 Section 5 bridge, using the Appendix A spectral model inputs
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.  It no longer carries the
@@ -228,7 +229,7 @@ The most important numbering corrections after the Lemma 5.6 rewrite are:
 - The spectral bridge is split across Lemmas 5.31--5.33, with the remaining
   representation-layer input exposed by named spectral-block model axioms.
 
-## Remaining `sorry` Declarations
+## External Axiom Declarations
 
 ### Theorem 2.1 Boolean `U_1` Classification
 
@@ -238,7 +239,7 @@ Lean file: `DictatorshipTesting/Paper/S02_Thm2_01_BooleanU1Classification.lean`
 
 Lean theorem name: `booleanU1_dictator_classification_input`
 
-Current status: external input.
+Current status: named external axiom.
 
 Mathematical content: for `3 <= n`, every Boolean function on `S_n` whose real
 indicator lies in the degree-one space `U_1` is a dictator.
@@ -264,7 +265,7 @@ Lean file: `DictatorshipTesting/Paper/S02_Thm2_02_FKNStability.lean`
 
 Lean theorem name: `fknStability_input`
 
-Current status: external input.
+Current status: named external axiom.
 
 Mathematical content: an FKN-type stability theorem on `S_n`, giving a positive
 constant `cFKN` such that distance to dictators is controlled by distance to
@@ -281,7 +282,7 @@ reduction recorded in the paper.
 Downstream dependencies: `L4_13_OneTrialSoundness` consumes
 `Thm2_2_FKNInput`, and `Thm1_1_MainIntro` consumes Lemma 4.13.
 
-## Paper-Level Obligations Without a Current `sorry`
+## Additional Paper-Level Obligations Without Registered Axioms
 
 ### Older `youngDim` Two-Box Dimension Branching Alternative
 
@@ -368,8 +369,9 @@ Lean names: `spectralBlockModelInputWithDim_even_from_appendixA`,
 `spectralBlockModelInputWithDim_odd_from_appendixA`,
 and `SpectralBlockModelInputWithDim`.
 
-Current status: named external axioms, not `sorry` declarations.  These are
-the only remaining Section 5/Aux axiom declarations.
+Current status: named external axioms, not `sorry` declarations.  Together with
+the two Section 2 Filmus inputs, these are the only remaining axiom
+declarations.
 
 Mathematical content: the regular representation decomposes `F` into
 nonnegative Young-block energies whose non-`U_1` sum is `l2DistSqToU1 F`;

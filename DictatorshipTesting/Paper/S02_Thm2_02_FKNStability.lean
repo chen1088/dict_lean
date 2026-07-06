@@ -22,12 +22,11 @@ Reference: Filmus, *Boolean functions on `S_n` which are nearly linear*,
 Discrete Analysis 2021:25, Theorem 1.5, combined with the Boolean `U₁`
 classification in Theorem 2.8 and the standard reduction recorded in the paper
 around `thm:fkn-input`. -/
-theorem fknStability_input :
+axiom fknStability_input :
     ∃ cFKN : ℝ, 0 < cFKN ∧
       ∀ n : ℕ, 4 ≤ n → ∀ f : BoolFn (Fin n),
         cFKN * (distToDictators f) ^ (2 : ℕ) ≤
-          l2DistSqToU1 (boolFnToReal f) := by
-  sorry
+          l2DistSqToU1 (boolFnToReal f)
 
 /-- Theorem 2.2, `thm:fkn-input`: imported FKN/stability input.  This preserves
 the old theorem name while keeping the assumption in the paper-numbered file. -/

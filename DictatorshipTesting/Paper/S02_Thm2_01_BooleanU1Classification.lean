@@ -147,10 +147,9 @@ Discrete Analysis 2021:25, Theorem 2.8: if `f : S_n → {0,1}` is linear, then
 linear/degree-one condition.  The statement is restricted to `3 ≤ n`: `n = 1`
 and `n = 2` are proved directly, while for `n = 0` the zero Boolean function
 lies in `U₁` but is not a dictator. -/
-theorem booleanU1_dictator_classification_input (n : ℕ) (hn : 3 ≤ n)
+axiom booleanU1_dictator_classification_input (n : ℕ) (hn : 3 ≤ n)
     (f : BoolFn (Fin n)) :
-    boolFnToReal f ∈ U1 (Fin n) → IsDictator f := by
-  sorry
+    boolFnToReal f ∈ U1 (Fin n) → IsDictator f
 
 /-- Theorem 2.1, `thm:boolean-u1`: Boolean functions in `U₁` are exactly
 dictators.  This preserves the old theorem name while keeping the proof

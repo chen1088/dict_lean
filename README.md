@@ -42,16 +42,17 @@ shared-definition dependencies do not obscure the proof structure.
 The scaffold contains real Lean proofs for the elementary Boolean-cube,
 matching-cube, and averaging steps that have been formalized so far.  A small
 number of hard results are intentionally isolated behind named declarations or
-named external axioms.  The only remaining `sorry` declarations are the two
-Section 2 literature inputs.  The only remaining Section 5/Aux axiom
-declarations are
-`spectralBlockModelInputWithDim_even_from_appendixA` and
+named external axioms.  There are no remaining `sorry` declarations.  The named
+external axioms are the two Section 2 Filmus inputs and the two Section 5/AppA
+spectral-model inputs:
+`booleanU1_dictator_classification_input`, `fknStability_input`,
+`spectralBlockModelInputWithDim_even_from_appendixA`, and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.
 
 Current proof-status by mathematical obligation:
 
-For a declaration-by-declaration ledger of every remaining `sorry` and
-paper-level input, see `PROOF_OBLIGATIONS.md`.
+For a declaration-by-declaration ledger of every external axiom and paper-level
+input, see `PROOF_OBLIGATIONS.md`.
 
 For the current rewritten Section 5 statement-to-file map, see
 `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`.  The checked paper source has
@@ -217,14 +218,16 @@ External standard inputs:
 
 - `S02_Thm2_01_BooleanU1Classification.lean` -- Theorem 2.1
   (`thm:boolean-u1`): external classification direction
-  `boolFnToReal f ∈ U1 (Fin n) -> IsDictator f` for `3 <= n`.  The `n = 1`
-  and `n = 2` cases, and the converse direction that dictators lie in `U1`,
-  are proved directly.  No active downstream Lean proof currently invokes this
+  `boolFnToReal f ∈ U1 (Fin n) -> IsDictator f` for `3 <= n`, exposed as the
+  named axiom `booleanU1_dictator_classification_input`.  The `n = 1` and
+  `n = 2` cases, and the converse direction that dictators lie in `U1`, are
+  proved directly.  No active downstream Lean proof currently invokes this
   wrapper directly; it records the paper's structural classification input.
 - `S02_Thm2_02_FKNStability.lean` -- Theorem 2.2 (`thm:fkn-input`):
   external FKN/stability theorem on `S_n`, stated only for the `4 <= n`
-  range used by the one-trial soundness proof.  It is consumed by
-  `L4_13_OneTrialSoundness`, and then by the main theorem wrapper.
+  range used by the one-trial soundness proof, exposed as the named axiom
+  `fknStability_input`.  It is consumed by `L4_13_OneTrialSoundness`, and then
+  by the main theorem wrapper.
 - `S05_Lem5_19_TwoBoxDimensionRecursion.lean` -- Lemma 5.19
   (`lem:dimension-two-strip-recurrence`): the current paper route uses the
   proved `tableauDim` wrapper
@@ -382,14 +385,13 @@ lake build DictatorshipTesting
 lake build DictatorshipTesting.Paper.S05_Lem5_35_WeightZeroEntriesAreNeverAMajority
 lake build DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate
 lake build DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
-rg "sorry" DictatorshipTesting
+rg "sorry|axiom|opaque|unsafe" DictatorshipTesting
 ```
 
-The project uses `sorry` only for deliberately isolated hard inputs.  When a
-new `sorry` is needed, prefer making it a named theorem in an `Aux_...` file and
-then proving the paper-numbered result by applying that named theorem.  This
-keeps the dependency graph readable and makes the remaining mathematical
-obligations easy to find.
+The project should have no `sorry` declarations.  Deliberately isolated hard
+inputs are represented as named external axioms in the relevant paper-facing or
+Appendix A files, with citations and downstream dependencies recorded in
+`PROOF_OBLIGATIONS.md`.
 
 Do not attempt to hide representation theory inside elementary files.  The
 current boundary is:

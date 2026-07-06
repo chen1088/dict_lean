@@ -34,9 +34,9 @@ Detailed maps:
 - The two remaining Section 5/Aux axioms are exactly
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.
-- The current Theorem 4.10 proof path uses the tableauDim bridge exposed by
-  Lemmas 5.31--5.33 and these dimension-parameterized Appendix A spectral
-  model inputs.
+- Theorem 4.10 is a proved Section 4 theorem whose active proof path uses the
+  tableauDim bridge exposed by Lemmas 5.31--5.33 and these
+  dimension-parameterized Appendix A spectral model inputs.
 
 ## Internal Progress
 
