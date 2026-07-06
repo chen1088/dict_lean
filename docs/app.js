@@ -144,7 +144,7 @@ function renderNode(node, path = []) {
   });
   item.appendChild(button);
 
-  if (state.selectedId === node.id || isExpanded) {
+  if (state.selectedId === node.id) {
     item.appendChild(renderInlineDetails(node, deps.length));
   }
 
