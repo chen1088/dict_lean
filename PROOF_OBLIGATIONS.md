@@ -13,6 +13,14 @@ Current classification:
   require explicit dimension-branching typeclass hypotheses and are not the
   current tableau-count proof route.
 - Internal open finite certificates: none currently listed.
+- Section 5/AppA bridge boundary: the remaining representation-theoretic
+  obligation is the spectral-block model input.  The current axiom declarations
+  for this boundary are exactly
+  `spectralBlockModelInput_even_from_specht_pieri_schur` and
+  `spectralBlockModelInput_odd_from_specht_pieri_schur`.
+- Old `youngDim` dimension axiom instances are gone.  The older `youngDim`
+  wrappers remain only as theorems with explicit typeclass hypotheses, and no
+  instance is registered for those hypotheses.
 
 ## Current Section 5 Route Summary
 
@@ -45,7 +53,7 @@ External Appendix A inputs:
 - A.4 degree-one Young-block identification.
 - A.5 standard-tableau swap connectedness.
 
-Unproven internal/current-route boundary:
+Remaining Section 5/AppA bridge boundary:
 
 - `SpectralBlockModelInputWithDim` for the `tableauDim` model with
   `hEvenTableau` and `hOddTableau` heights is still needed for the fully
@@ -53,9 +61,14 @@ Unproven internal/current-route boundary:
 - The standalone paper-level Lemmas 5.27 and 5.28 remain unproven until that
   spectral-block model is supplied; the Lean files currently prove algebraic
   implications whose model assumptions are explicit hypotheses.
+- Appendix A representation theory supplies the intended bridge: regular
+  Specht-block decomposition, `U_1` identification, matching-average scalarity,
+  trace/scalar value, and the matching-restriction data needed to instantiate
+  the spectral-block model.
 - The concrete Lemma 5.18 matching-cube operator/character/projection algebra
-  is proved, but the full Specht-module matching-restriction theorem is an
-  external representation-theoretic input.
+  is proved; the representation-theoretic Specht/Pieri content it shadows is
+  accounted for inside the spectral-block model boundary rather than as a
+  separate Lean axiom.
 
 Obsolete old routes:
 
@@ -131,13 +144,16 @@ expose these wrappers for the paper-facing interface.
 
 Precise active-path blocker: Theorem 4.10 still uses the old `youngDim`
 spectral model and has not yet been rewired through the new dimension-parametric
-interface.  Theorem 4.10 and downstream wrappers therefore carry
+interface.  Theorem 4.10 consumes the even/odd spectral-block axiom families
+`evenSpectralBlockModelFamily_from_specht_pieri_schur` and
+`oddSpectralBlockModelFamily_from_specht_pieri_schur`.  It also carries
 `[TwoStripDimensionBranchingAssumption]` and
 `[OneBoxDimensionBranchingPositiveAssumption]` explicitly; no instance is
-registered for those assumptions.  The remaining Section 5 mathematical input
-for the tableau-count route is the tableauDim spectral block model itself:
-Young-block decomposition, `U_1` identification, matching-average scalarity,
-and trace/scalar value with block dimension `tableauDim`.
+registered for those dimension hypotheses, so they are not remaining axioms.
+The remaining Section 5 mathematical input for the tableau-count route is the
+tableauDim spectral block model itself: Young-block decomposition, `U_1`
+identification, matching-average scalarity, and trace/scalar value with block
+dimension `tableauDim`.
 
 The newest internal representation-layer objects are still coordinate-level:
 they give a concrete Young adjacent Coxeter model, not a formal Specht-module
@@ -300,7 +316,8 @@ Lean names: `spectralBlockModelInput_even_from_specht_pieri_schur`,
 `SpectralBlockModelInput`, `EvenSpectralBlockModelFamily`,
 `OddSpectralBlockModelFamily`.
 
-Current status: named external axioms, not `sorry` declarations.
+Current status: named external axioms, not `sorry` declarations.  These are
+the only remaining Section 5/Aux axiom declarations.
 
 Mathematical content: the regular representation decomposes `F` into
 nonnegative Young-block energies whose non-`U_1` sum is `l2DistSqToU1 F`;

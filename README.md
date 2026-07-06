@@ -33,7 +33,10 @@ The scaffold contains real Lean proofs for the elementary Boolean-cube,
 matching-cube, and averaging steps that have been formalized so far.  A small
 number of hard results are intentionally isolated behind named declarations or
 named external axioms.  The only remaining `sorry` declarations are the two
-Section 2 literature inputs.
+Section 2 literature inputs.  The only remaining Section 5/Aux axiom
+declarations are
+`spectralBlockModelInput_even_from_specht_pieri_schur` and
+`spectralBlockModelInput_odd_from_specht_pieri_schur`.
 
 Current proof-status by mathematical obligation:
 
@@ -191,9 +194,10 @@ External standard inputs:
   registered.
 - `S05_Lem5_18_MatchingSubgroupEigenbasis.lean` -- Lemma 5.18
   (`lem:matching-restriction-X`): the paper-level statement is the full
-  Specht/Pieri restriction theorem.  The current Lean file formalizes only the
-  concrete matching-operator and scalar-bound interfaces needed downstream.
-  The full Specht/Pieri restriction theorem is external.
+  Specht/Pieri restriction theorem.  The current Lean file proves the concrete
+  matching-operator, sign-projection, and scalar-bound interfaces needed
+  downstream.  The Specht/Pieri representation-theoretic content is accounted
+  for inside the spectral-block model boundary.
 - Lemmas 5.26--5.28, especially `S05_Lem5_27_EvenSpectralBridge.lean` and
   `S05_Lem5_28_OddSpectralBridge.lean`: the external Specht/Pieri/Schur
   spectral bridge is exposed as the named axioms
@@ -224,15 +228,17 @@ Internal bridge components proven:
   spectral-block model used by the spectral bridge.  It contains only the Young-block
   energy, `U_1` identification, scalarity, and trace/scalar-value predicates.
 
-External or unproven bridge statements:
+Remaining bridge boundary:
 
 - `S05_Lem5_20_TraceOfOneLocalTruncationOnOneYoungBlock.lean` -- Lemma 5.20:
-  external until the matching-character restriction data is supplied.
+  proved as an explicit-input interface for the trace formula.
 - `S05_Lem5_25_BlockScalarOfTheAveragedRejection.lean` -- Lemma 5.25:
-  external until scalarity and trace identity inputs are supplied.
+  proved trace-divided-by-dimension algebra from explicit scalarity and trace
+  identity inputs.
 - `S05_Lem5_27_EvenSpectralBridge.lean` and
   `S05_Lem5_28_OddSpectralBridge.lean`: unproven as standalone paper-level
-  spectral bridges until the spectral-block model is supplied.
+  spectral bridges until `SpectralBlockModelInputWithDim` / spectral block
+  model input is supplied.
 
 Remaining spectral-bridge representation-theory boundary:
 
@@ -249,10 +255,12 @@ as named axioms:
   now use these named external inputs directly rather than taking anonymous
   model-family arguments.
 - The active Theorem 4.10 path still uses the original `youngDim` spectral
-  model, so Theorem 4.10 and the downstream wrappers carry
+  model and consumes the old even/odd spectral-block input axiom families.
+  Theorem 4.10 and the downstream wrappers also carry
   `[TwoStripDimensionBranchingAssumption]` and
   `[OneBoxDimensionBranchingPositiveAssumption]` explicitly.  No instance is
-  registered for those assumptions.
+  registered for those dimension assumptions, so the old `youngDim` dimension
+  axioms are gone.
 - The tableau-count bridge is ready at the algebraic level, but consuming it
   requires a `SpectralBlockModelInputWithDim` instance for `tableauDim` and the
   tableau-count heights `hEvenTableau`/`hOddTableau`.

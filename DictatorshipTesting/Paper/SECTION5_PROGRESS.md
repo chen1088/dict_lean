@@ -20,6 +20,26 @@ Detailed maps:
 - `SECTION5_FILE_MAP.md`
 - `APPENDIX_A_FILE_MAP.md`
 
+## Latest Checkpoint
+
+- Lemma 5.11 coordinate-level deletion-fiber intertwining is proved:
+  `S05_Lem5_11_deletionCoordinateMap_youngAdjacentOperator_intertwines`.
+- Lemma 5.18 now has proved matching eigenvalue preservation under one-edge
+  projections, support-selected one-edge projections, and simultaneous
+  matching sign projections.
+- Definition 5.21 now has proved low/high matching idempotent identities,
+  zero cross-compositions, and the low-plus-high decomposition identity.
+- The remaining main Section 5 frontier is the spectral-block model input.
+- The two remaining Section 5/Aux axioms are exactly
+  `spectralBlockModelInput_even_from_specht_pieri_schur` and
+  `spectralBlockModelInput_odd_from_specht_pieri_schur`.
+- The current Theorem 4.10 proof path still consumes the even/odd
+  spectral-block model axiom families through
+  `evenSpectralBlockModelFamily_from_specht_pieri_schur` and
+  `oddSpectralBlockModelFamily_from_specht_pieri_schur`; the
+  dimension-parameterized `tableauDim` bridge is exposed by Lemmas 5.26--5.28
+  but is not yet the active Theorem 4.10 route.
+
 ## Internal Progress
 
 - Lemma 5.1 exposes the concrete tableau-coordinate Coxeter model through
@@ -82,8 +102,6 @@ Detailed maps:
   `S05_Lem5_26_spectralGapFromBlockTraceModelWithDim` derive the spectral-gap
   inequality directly from scalarity, a block trace identity, dimension
   positivity, and the finite certificate.
-- Lemma 5.18 still does not claim the full Specht-module matching-restriction
-  theorem; that remains a representation-layer input.
 - Lemma 5.30 has a tableau-count z-bound theorem
   `S05_Lem5_30_tableau_weightZeroEntries_never_majority`.
 - Lemma 5.32 has a tableau-count even certificate theorem
