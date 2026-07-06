@@ -27,6 +27,13 @@ lake build DictatorshipTesting
 
 The current full target builds successfully.
 
+## Dependency Graph
+
+A first static dependency browser lives in [`docs/`](docs/).  It is designed
+for GitHub Pages and separates large paper-facing theorem nodes from smaller
+`Aux_*` helper nodes.  Open [`docs/index.html`](docs/index.html), or enable
+GitHub Pages from the repository `docs/` folder to publish the same view.
+
 ## Current Status
 
 The scaffold contains real Lean proofs for the elementary Boolean-cube,

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DictatorshipTesting Dependency Graph</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">Lean 4 formalization map</p>
+        <h1>DictatorshipTesting dependency graph</h1>
+        <p class="lede">
+          Click a theorem, lemma, definition, or auxiliary helper to inspect how it fits into the current proof spine.
+          Big bold nodes are paper-facing milestones; compact nodes are supporting interfaces and helpers.
+        </p>
+      </div>
+      <a class="repo-link" href="https://github.com/chen1088/dict_lean" target="_blank" rel="noreferrer">GitHub repo</a>
+    </header>
+
+    <main>
+      <section class="toolbar" aria-label="Graph controls">
+        <div id="tabs" class="tabs"></div>
+        <div class="filters">
+          <label>
+            <span>Search</span>
+            <input id="search" type="search" placeholder="Lemma, file, wrapper, status...">
+          </label>
+          <label>
+            <span>Status</span>
+            <select id="status-filter">
+              <option value="all">All statuses</option>
+              <option value="proved">Proved</option>
+              <option value="proved-from-external">Proved + external input</option>
+              <option value="external">External</option>
+              <option value="interface">Definition / interface</option>
+            </select>
+          </label>
+          <button id="focus-toggle" type="button">Focus selected neighborhood</button>
+        </div>
+        <div id="stats" class="stats"></div>
+      </section>
+
+      <div class="layout">
+        <section id="graph" class="graph" aria-label="Dependency graph nodes"></section>
+        <aside id="details" class="details" aria-label="Selected node details"></aside>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>Static GitHub Pages view. The working paper TeX is intentionally not included here.</span>
+      <span>Source metadata is curated from the repository status maps and proof-obligation ledger.</span>
+    </footer>
+
+    <script src="dependency-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
