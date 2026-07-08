@@ -2,8 +2,7 @@ import DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
+- `DictatorshipTesting`
 -/
 
 /-!

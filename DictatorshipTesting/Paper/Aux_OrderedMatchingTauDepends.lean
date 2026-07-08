@@ -4,7 +4,6 @@ import DictatorshipTesting.Paper.Defs
 Direct reverse imports (generated):
 - `DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul`
 - `DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta`
-- `DictatorshipTesting.PaperAux`
 -/
 
 /-!

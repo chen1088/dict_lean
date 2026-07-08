@@ -4,8 +4,8 @@ import DictatorshipTesting.Paper.S02_Thm2_02_FKNStability
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.S04_Lem4_08_TijLocalDegree
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.PaperPlaceholders`
+- `DictatorshipTesting`
 -/
 
 /-!

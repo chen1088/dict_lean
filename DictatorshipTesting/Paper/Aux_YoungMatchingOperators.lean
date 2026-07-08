@@ -3,7 +3,6 @@ import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 /-
 Direct reverse imports (generated):
 - `DictatorshipTesting.Paper.S05_Lem5_23_MatchingSubgroupEigenbasis`
-- `DictatorshipTesting.PaperAux`
 -/
 
 /-!

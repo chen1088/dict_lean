@@ -318,20 +318,15 @@ Older theorem names such as `Thm2_1_BooleanU1`, `L5_4_ZBoundApp`,
 
 ## Layout
 
-Root import indexes:
+Root import files:
 
-- `DictatorshipTesting.lean`: imports the whole project.
+- `DictatorshipTesting.lean`: imports the whole project directly, including the
+  represented paper-numbered files and Appendix A external-input files.
 - `DictatorshipTesting/BasicFacts.lean`: imports elementary permutation facts.
 - `DictatorshipTesting/SetFacts.lean`: finite set operations used in early
   algebraic identities.
 - `DictatorshipTesting/AlgebraicProperty.lean`: imports the elementary
   row-dictator algebraic property files.
-- `DictatorshipTesting/Paper.lean`: imports paper-numbered theorem files and
-  their helper index.
-- `DictatorshipTesting/PaperAux.lean`: imports helper-only paper modules so the
-  full library build checks them.
-- `DictatorshipTesting/PaperPlaceholders.lean`: imports the numbered paper
-  files that are currently represented in the scaffold.
 
 Core paper definitions:
 

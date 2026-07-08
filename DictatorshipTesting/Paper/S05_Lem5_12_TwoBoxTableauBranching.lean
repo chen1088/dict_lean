@@ -5,8 +5,7 @@ import DictatorshipTesting.Paper.S05_Lem5_16_OneBoxDeletionIntertwinesEarlierSwa
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
+- `DictatorshipTesting`
 -/
 
 /-!

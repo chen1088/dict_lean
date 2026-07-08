@@ -2,8 +2,7 @@ import DictatorshipTesting.Paper.Defs
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
+- `DictatorshipTesting`
 -/
 
 /-!

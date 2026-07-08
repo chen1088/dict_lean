@@ -8,7 +8,6 @@ Direct reverse imports (generated):
 - `DictatorshipTesting.Paper.S05_Lem5_31_BlockLowerBoundImpliesTheGap`
 - `DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge`
 - `DictatorshipTesting.Paper.S05_Lem5_33_OddSpectralBridge`
-- `DictatorshipTesting.PaperAux`
 -/
 
 /-!

@@ -2,9 +2,8 @@ import DictatorshipTesting.Paper.Defs
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Def5_18_OddSignPatternMultiset`
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

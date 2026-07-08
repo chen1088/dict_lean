@@ -10,7 +10,6 @@ Direct reverse imports (generated):
 - `DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula`
 - `DictatorshipTesting.Paper.S04_Lem4_07_PMPerpendicular`
 - `DictatorshipTesting.Paper.S05_Lem5_24_LocalTruncationOnAMatchingCharacter`
-- `DictatorshipTesting.PaperAux`
 -/
 
 /-!

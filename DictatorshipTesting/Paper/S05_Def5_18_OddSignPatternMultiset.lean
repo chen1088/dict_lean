@@ -2,9 +2,8 @@ import DictatorshipTesting.Paper.S05_Def5_17_EvenSignPatternMultiset
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_21_SizesOfTheSignPatternMultisets`
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

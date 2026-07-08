@@ -3,7 +3,6 @@ import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 /-
 Direct reverse imports (generated):
 - `DictatorshipTesting.Paper.S05_Lem5_06_AdjacentTranspositionsInYoungsBasis`
-- `DictatorshipTesting.PaperAux`
 -/
 
 /-!

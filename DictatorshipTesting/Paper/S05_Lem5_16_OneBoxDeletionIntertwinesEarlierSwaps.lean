@@ -3,9 +3,8 @@ import DictatorshipTesting.Paper.S05_Lem5_07_DiagonalContentEigenspaces
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_12_TwoBoxTableauBranching`
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

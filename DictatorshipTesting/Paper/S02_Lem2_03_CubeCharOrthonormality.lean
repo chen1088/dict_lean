@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_CubeFlipInvolutive
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.Paper`
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Aux_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval`
 -/

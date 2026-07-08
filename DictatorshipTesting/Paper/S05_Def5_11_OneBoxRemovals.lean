@@ -2,8 +2,7 @@ import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
+- `DictatorshipTesting`
 -/
 
 /-!

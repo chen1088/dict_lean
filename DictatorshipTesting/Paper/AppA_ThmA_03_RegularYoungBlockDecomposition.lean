@@ -9,10 +9,9 @@ import DictatorshipTesting.Paper.AppA_LemA_05_StandardTableauxSwapConnectedness
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge`
 - `DictatorshipTesting.Paper.S05_Lem5_33_OddSpectralBridge`
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

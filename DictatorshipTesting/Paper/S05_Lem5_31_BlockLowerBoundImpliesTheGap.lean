@@ -3,8 +3,7 @@ import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
+- `DictatorshipTesting`
 -/
 
 /-!

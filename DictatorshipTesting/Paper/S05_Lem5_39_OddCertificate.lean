@@ -3,12 +3,11 @@ import DictatorshipTesting.Paper.S05_Lem5_20_OneBoxDimensionRecursion
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.S05_Lem5_23_MatchingSubgroupEigenbasis`
 - `DictatorshipTesting.Paper.S05_Lem5_33_OddSpectralBridge`
 - `DictatorshipTesting.Paper.S05_Lem5_38_OddExceptionalChildren`
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

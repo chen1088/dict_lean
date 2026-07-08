@@ -8,7 +8,6 @@ Direct reverse imports (generated):
 - `DictatorshipTesting.Paper.S05_Def5_04_TableauCoordinateSpace`
 - `DictatorshipTesting.Paper.S05_Def5_05_ContentAndAdjacentOperators`
 - `DictatorshipTesting.Paper.S05_Lem5_15_OneBoxDeletionIsUnitary`
-- `DictatorshipTesting.PaperAux`
 -/
 
 /-!

@@ -2,9 +2,8 @@ import DictatorshipTesting.Paper.S05_Lem5_23_MatchingSubgroupEigenbasis
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_30_BlockScalarOfTheAveragedRejection`
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

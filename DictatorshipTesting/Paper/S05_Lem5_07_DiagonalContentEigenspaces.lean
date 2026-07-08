@@ -2,9 +2,8 @@ import DictatorshipTesting.Paper.S05_Lem5_06_AdjacentTranspositionsInYoungsBasis
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_16_OneBoxDeletionIntertwinesEarlierSwaps`
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

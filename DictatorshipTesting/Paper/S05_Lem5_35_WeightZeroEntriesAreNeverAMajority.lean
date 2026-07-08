@@ -2,9 +2,8 @@ import DictatorshipTesting.Paper.S05_Lem5_19_TwoBoxDimensionRecursion
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate`
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

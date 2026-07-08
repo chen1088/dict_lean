@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_CubeCharMulSelf
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.Paper`
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Aux_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity`

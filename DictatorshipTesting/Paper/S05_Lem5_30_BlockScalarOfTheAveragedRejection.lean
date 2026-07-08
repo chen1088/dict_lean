@@ -2,10 +2,9 @@ import DictatorshipTesting.Paper.S05_Lem5_25_TraceOfOneLocalTruncationOnOneYoung
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam`
 - `DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates`
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

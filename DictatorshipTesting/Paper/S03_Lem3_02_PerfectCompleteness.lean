@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.PaperPlaceholders`
+- `DictatorshipTesting`
 -/
 
 /-!

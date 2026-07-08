@@ -2,8 +2,8 @@ import DictatorshipTesting.Paper.Aux_CubeFourierTranslate
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Aux_MatchingLocalProjection`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

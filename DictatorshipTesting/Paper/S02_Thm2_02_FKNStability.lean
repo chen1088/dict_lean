@@ -2,9 +2,8 @@ import DictatorshipTesting.Paper.Defs
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.Paper`
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S04_Lem4_13_OneTrialSoundness`
-- `DictatorshipTesting.PaperAux`
 -/
 
 /-!

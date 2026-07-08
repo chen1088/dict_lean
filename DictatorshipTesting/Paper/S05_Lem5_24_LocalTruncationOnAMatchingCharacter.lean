@@ -4,8 +4,7 @@ import DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
+- `DictatorshipTesting`
 -/
 
 /-!

@@ -4,8 +4,8 @@ import DictatorshipTesting.Paper.Aux_PermCubeAverage
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

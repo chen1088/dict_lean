@@ -3,8 +3,7 @@ import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
+- `DictatorshipTesting`
 -/
 
 /-!

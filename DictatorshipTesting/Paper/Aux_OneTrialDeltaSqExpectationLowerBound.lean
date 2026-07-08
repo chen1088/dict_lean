@@ -6,7 +6,6 @@ import DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula
 /-
 Direct reverse imports (generated):
 - `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
-- `DictatorshipTesting.PaperAux`
 -/
 
 /-!

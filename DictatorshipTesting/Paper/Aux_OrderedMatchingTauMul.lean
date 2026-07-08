@@ -8,7 +8,6 @@ Direct reverse imports (generated):
 - `DictatorshipTesting.Paper.Aux_PermCubeAverage`
 - `DictatorshipTesting.Paper.Aux_PMConvolution`
 - `DictatorshipTesting.Paper.S04_Lem4_11_TrialCubeCoordinates`
-- `DictatorshipTesting.PaperAux`
 -/
 
 /-!

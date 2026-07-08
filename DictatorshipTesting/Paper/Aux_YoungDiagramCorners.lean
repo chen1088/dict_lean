@@ -6,7 +6,6 @@ Direct reverse imports (generated):
 - `DictatorshipTesting.Paper.S05_Def5_02_RemovableCorners`
 - `DictatorshipTesting.Paper.S05_Def5_09_TwoBoxRemovals`
 - `DictatorshipTesting.Paper.S05_Def5_11_OneBoxRemovals`
-- `DictatorshipTesting.PaperAux`
 -/
 
 /-!

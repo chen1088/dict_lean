@@ -2,9 +2,9 @@ import DictatorshipTesting.Paper.Aux_OrderedMatchingTauDepends
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S03_Lem3_02_PerfectCompleteness`
 - `DictatorshipTesting.Paper.S04_Lem4_08_TijLocalDegree`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

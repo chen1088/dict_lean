@@ -3,7 +3,6 @@ import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 /-
 Direct reverse imports (generated):
 - `DictatorshipTesting.Paper.Aux_YoungOrthogonal`
-- `DictatorshipTesting.PaperAux`
 -/
 
 noncomputable section

@@ -5,9 +5,8 @@ import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S04_Thm4_10_MatchingGap`
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

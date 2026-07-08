@@ -5,7 +5,7 @@ import DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.PaperPlaceholders`
+- `DictatorshipTesting`
 -/
 
 /-!

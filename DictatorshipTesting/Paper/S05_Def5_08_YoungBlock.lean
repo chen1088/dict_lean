@@ -2,8 +2,7 @@ import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 
 /-
 Direct reverse imports (generated):
-- `DictatorshipTesting.PaperAux`
-- `DictatorshipTesting.PaperPlaceholders`
+- `DictatorshipTesting`
 -/
 
 /-!

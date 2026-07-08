@@ -2,9 +2,9 @@ import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S04_Cor4_09_U1Local`
 - `DictatorshipTesting.Paper.S04_Lem4_07_PMPerpendicular`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!

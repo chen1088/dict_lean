@@ -2,8 +2,8 @@ import DictatorshipTesting.Paper.Aux_CubeColorCounting
 
 /-
 Direct reverse imports (generated):
+- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
-- `DictatorshipTesting.PaperPlaceholders`
 -/
 
 /-!
