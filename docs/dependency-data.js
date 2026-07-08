@@ -843,8 +843,8 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proven",
       file: "DictatorshipTesting/Paper/S05_Lem5_33_EvenSpectralBridge.lean",
       wrappers: ["S05_Lem5_33_tableauDim_evenSpectralGapFromCertificates"],
-      deps: ["S05_08", "S05_31", "S05_38", "AppA_EvenSpectralModel"],
-      summary: "Algebraic even bridge from the explicit spectral model hypothesis and the tableau even certificate."
+      deps: ["S05_08", "S05_31", "S05_32", "S05_38", "AppA_EvenSpectralModel"],
+      summary: "Algebraic even bridge from the explicit spectral model hypothesis, Lemma 5.32's Appendix-A-derived model wrapper, and the tableau even certificate."
     },
     {
       id: "S05_34",
@@ -856,8 +856,8 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proven",
       file: "DictatorshipTesting/Paper/S05_Lem5_34_OddSpectralBridge.lean",
       wrappers: ["S05_Lem5_34_tableauDim_oddSpectralGapFromCertificates"],
-      deps: ["S05_08", "S05_31", "S05_40", "AppA_OddSpectralModel"],
-      summary: "Algebraic odd bridge from the explicit spectral model hypothesis and the tableau odd certificate."
+      deps: ["S05_08", "S05_31", "S05_32", "S05_40", "AppA_OddSpectralModel"],
+      summary: "Algebraic odd bridge from the explicit spectral model hypothesis, Lemma 5.32's Appendix-A-derived model wrapper, and the tableau odd certificate."
     },
     {
       id: "AuxSpectralBridgeDimensionParam",

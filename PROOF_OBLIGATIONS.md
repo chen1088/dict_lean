@@ -134,6 +134,14 @@ Remaining Section 5/AppA bridge boundary:
   is proved; the representation-theoretic Specht/Pieri content it shadows is
   accounted for inside the spectral-block model boundary rather than as a
   separate Lean axiom.
+
+Implementation hygiene note: `AppA_ThmA_02_JucysMurphyContentSpectrum.lean`
+currently imports the even and odd certificate files only to reuse the neutral
+height functions `hEvenTableau` and `hOddTableau`.  This is not a mathematical
+dependency of the Appendix A external input on the finite certificate proofs;
+it is a Lean organization dependency that can be removed later by moving those
+height definitions into a definition-only file.
+
 - Two substantial helper layers are exposed in the dependency graph for
   readability, but are not numbered separately in the paper:
   `Aux_StandardYoungTableaux.lean` for deletion/insertion tableau mechanics and
