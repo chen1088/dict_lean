@@ -17,7 +17,7 @@ Title in paper: Jucys--Murphy content spectrum.
 Status: external: ingredient bundled into Lemma 5.32.  This file is kept
 separate from the internal Section 5 diagonal-content eigenspace proof: the
 classical group-algebra Jucys--Murphy content-spectrum theorem is consumed in
-Lean through the A.3 spectral-block assembly theorem in
+Lean through the Lemma 5.32 spectral-block assembly theorem in
 `S05_Lem5_32_RegularYoungBlockDecomposition`.
 -/
 

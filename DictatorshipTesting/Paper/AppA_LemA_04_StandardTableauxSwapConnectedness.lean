@@ -14,7 +14,7 @@ Title in paper: Connectedness of standard tableaux.
 
 Status: external: ingredient bundled into Lemma 5.32.  The current Lean
 development contains local adjacent-swap constructions for standard tableaux,
-but it consumes the global connectedness theorem only through the A.3
+but it consumes the global connectedness theorem only through the Lemma 5.32
 spectral-block assembly theorem in
 `S05_Lem5_32_RegularYoungBlockDecomposition`.
 -/

@@ -225,11 +225,10 @@ Lemma 5.6 and are tracked separately below.
 
 ## Section 5 Paper/Lean Status Table
 
-The current Section 5 source has 39 theorem-like numbered statements when
-remarks and Appendix A inputs are excluded, including the five numbered
-tableau-preliminary definitions 5.1--5.5.  The paper-facing Lean files also
-number 39.  The full statement-to-file map is maintained in
-`DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`; the five Appendix A external
+The current Section 5 source has 40 numbered paper-facing statements when
+remarks and Appendix A inputs are excluded.  The paper-facing Lean files also
+number 40.  The full statement-to-file map is maintained in
+`DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`; the four Appendix A external
 inputs are mapped in `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
 The most important numbering corrections after the Lemma 5.6 rewrite are:

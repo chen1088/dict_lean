@@ -14,7 +14,7 @@ Title in paper: Young orthogonal realization.
 
 Status: external: ingredient bundled into Lemma 5.32.  This file is kept
 separate from the internal Section 5 coordinate Coxeter proof: the classical
-Young orthogonal/Specht realization is consumed in Lean through the A.3
+Young orthogonal/Specht realization is consumed in Lean through the Lemma 5.32
 spectral-block assembly theorem in
 `S05_Lem5_32_RegularYoungBlockDecomposition`.
 -/

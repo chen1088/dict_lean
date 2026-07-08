@@ -16,7 +16,7 @@ Direct reverse imports:
 
 This file contains compatibility interface objects for the original `youngDim`
 spectral bridge.  The current paper route uses the dimension-parametric
-`tableauDim` bridge in Lemmas 5.31--5.33.
+`tableauDim` bridge in Lemmas 5.31--5.34.
 -/
 
 noncomputable section

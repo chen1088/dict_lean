@@ -11,7 +11,7 @@ Direct reverse imports:
 
 
 /-!
-Helper for paper statements: Lemmas 5.31--5.33 (`lem:block-lower-bound-gap`,
+Helper for paper statements: Lemmas 5.31--5.34 (`lem:block-lower-bound-gap`,
 `lem:spectral-certificate-even`, `lem:spectral-certificate-odd`)
 Title in paper: Spectral bridge from the finite certificate.
 
@@ -61,7 +61,7 @@ theorem blockScalar_lower_bound_of_traceScalarFormula {n : ℕ}
   exact (le_div_iff₀ hdim_pos).mpr (hcert lam hnot_row hnot_std)
 
 /-- Dimension positivity plus the block trace identity imply the trace/scalar
-value formula.  This is part of the algebraic helper for Lemmas 5.31--5.33. -/
+value formula.  This is part of the algebraic helper for Lemmas 5.31--5.34. -/
 theorem traceScalarValue_of_blockTraceIdentity {n : ℕ}
     {height theta : YoungDiagram n → ℝ}
     (hdim : YoungDimensionPositiveInput n)

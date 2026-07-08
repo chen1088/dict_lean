@@ -67,8 +67,8 @@ assembles the precise A.1/A.2/A.3/A.4 component inputs into the compact
 theorem spectralBlockModelInputWithDim_even_from_appA_inputs
     (hA1 : AppA_ThmA_01_YoungOrthogonalRealizationStatement)
     (hA2 : AppA_ThmA_02_JucysMurphyContentSpectrumStatement)
-    (hA4 : AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement)
-    (hA5 : AppA_LemA_04_StandardTableauxSwapConnectednessStatement)
+    (hA3 : AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement)
+    (hA4 : AppA_LemA_04_StandardTableauxSwapConnectednessStatement)
     (m : Nat) (hm : 2 <= m) :
     SpectralBlockModelInputWithDim
       (fun lam : YoungDiagram (2 * m) => tableauDim lam)
@@ -79,14 +79,14 @@ theorem spectralBlockModelInputWithDim_even_from_appA_inputs
   let energy : YoungBlockEnergyModel F :=
     { blockEnergy := energyData.blockEnergy
       nonneg := energyData.nonneg
-      u1_identification := hA4 energyData }
+      u1_identification := hA3 energyData }
   let scalar :
       MatchingAverageScalarModelWithDim
         (fun lam : YoungDiagram (2 * m) => tableauDim lam)
         (fun lam : YoungDiagram (2 * m) => hEvenTableau m lam)
         F energy.blockEnergy :=
     { theta := traceData.theta
-      scalarity := hA5 traceData
+      scalarity := hA4 traceData
       trace_value := traceData.trace_value }
   exact ⟨energy, ⟨scalar⟩⟩
 
@@ -112,8 +112,8 @@ This is the odd analogue of
 theorem spectralBlockModelInputWithDim_odd_from_appA_inputs
     (hA1 : AppA_ThmA_01_YoungOrthogonalRealizationStatement)
     (hA2 : AppA_ThmA_02_JucysMurphyContentSpectrumStatement)
-    (hA4 : AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement)
-    (hA5 : AppA_LemA_04_StandardTableauxSwapConnectednessStatement)
+    (hA3 : AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement)
+    (hA4 : AppA_LemA_04_StandardTableauxSwapConnectednessStatement)
     (m : Nat) (hm : 2 <= m) :
     SpectralBlockModelInputWithDim
       (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)
@@ -124,14 +124,14 @@ theorem spectralBlockModelInputWithDim_odd_from_appA_inputs
   let energy : YoungBlockEnergyModel F :=
     { blockEnergy := energyData.blockEnergy
       nonneg := energyData.nonneg
-      u1_identification := hA4 energyData }
+      u1_identification := hA3 energyData }
   let scalar :
       MatchingAverageScalarModelWithDim
         (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)
         (fun lam : YoungDiagram (2 * m + 1) => hOddTableau m lam)
         F energy.blockEnergy :=
     { theta := traceData.theta
-      scalarity := hA5 traceData
+      scalarity := hA4 traceData
       trace_value := traceData.trace_value }
   exact ⟨energy, ⟨scalar⟩⟩
 
