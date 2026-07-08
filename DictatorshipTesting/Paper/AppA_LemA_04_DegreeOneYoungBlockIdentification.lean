@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
 -/

@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Defs
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Def5_18_OddSignPatternMultiset`
 -/

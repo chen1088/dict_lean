@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Aux_OrderedMatchingTauDepends
 import DictatorshipTesting.Paper.Aux_CubeCharXor
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_MatchingLocalProjection`
 - `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
 - `DictatorshipTesting.Paper.Aux_PermCubeAverage`

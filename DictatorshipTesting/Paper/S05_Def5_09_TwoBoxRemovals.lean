@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Def5_10_SignedTwoBoxRemovals`
 -/

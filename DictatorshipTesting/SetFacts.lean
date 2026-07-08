@@ -1,7 +1,7 @@
 import Mathlib
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.SetFacts.Fact_sub_sd_SetMinusSymmDiff`
 -/

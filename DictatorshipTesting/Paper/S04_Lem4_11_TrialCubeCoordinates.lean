@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 -/
 

@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.S05_Def5_09_TwoBoxRemovals
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_12_TwoBoxTableauBranching`
 -/

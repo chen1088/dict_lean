@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 -/
 

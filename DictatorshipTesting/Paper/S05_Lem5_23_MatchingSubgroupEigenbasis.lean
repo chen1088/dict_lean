@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters
 import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_25_TraceOfOneLocalTruncationOnOneYoungBlock`
 -/

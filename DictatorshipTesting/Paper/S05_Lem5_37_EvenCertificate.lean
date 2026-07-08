@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.S05_Lem5_35_WeightZeroEntriesAreNeverAMajority
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge`

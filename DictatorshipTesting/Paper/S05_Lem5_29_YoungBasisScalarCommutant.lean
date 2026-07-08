@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.S05_Lem5_28_CentralAveragedRejection
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 -/
 

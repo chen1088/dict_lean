@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_12_TwoBoxTableauBranching`
 - `DictatorshipTesting.Paper.S05_Lem5_16_OneBoxDeletionIntertwinesEarlierSwaps`

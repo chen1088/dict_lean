@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_CubeCharMulSelf
 import DictatorshipTesting.Paper.Aux_CubeCharXor
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Def5_26_MatchingIdempotents`
 - `DictatorshipTesting.Paper.S05_Lem5_23_MatchingSubgroupEigenbasis`

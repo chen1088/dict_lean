@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_YoungAdjacentAction
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_07_DiagonalContentEigenspaces`
 -/

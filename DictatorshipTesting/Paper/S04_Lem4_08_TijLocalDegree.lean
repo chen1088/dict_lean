@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_CubeFlipInvolutive
 import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S04_Cor4_09_U1Local`
 -/

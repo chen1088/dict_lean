@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_CubeSquareSpectralFormula
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare`
 -/
 

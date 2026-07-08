@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.S05_Lem5_19_TwoBoxDimensionRecursion
 import DictatorshipTesting.Paper.S05_Lem5_20_OneBoxDimensionRecursion
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 -/
 

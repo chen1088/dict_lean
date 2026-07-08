@@ -9,7 +9,7 @@ spectral-block model axioms in `AppA_ThmA_03_RegularYoungBlockDecomposition`.
 -/
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
 -/

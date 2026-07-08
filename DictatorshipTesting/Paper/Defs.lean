@@ -1,7 +1,7 @@
 import DictatorshipTesting.Basic
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_CubeCharFlip`
 - `DictatorshipTesting.Paper.Aux_CubeCharMulSelf`
 - `DictatorshipTesting.Paper.Aux_CubeCharXor`

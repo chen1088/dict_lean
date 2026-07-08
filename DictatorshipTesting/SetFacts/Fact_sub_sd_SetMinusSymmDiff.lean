@@ -1,7 +1,7 @@
 import DictatorshipTesting.SetFacts
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 -/
 

@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
 import DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 -/
 

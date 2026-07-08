@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
 import DictatorshipTesting.Paper.S04_Lem4_04_PMIndependentOfRepresentatives
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal`
 - `DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula`
 - `DictatorshipTesting.Paper.S04_Lem4_07_PMPerpendicular`

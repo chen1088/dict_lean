@@ -2,7 +2,7 @@ import DictatorshipTesting.AlgebraicProperty.Aux_SumIfMemPerm
 import DictatorshipTesting.Basic.Aux_PcompApply
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.AlgebraicProperty`
 - `DictatorshipTesting.AlgebraicProperty.Eq_algebraic_property_RowDictWithIStar`
 -/

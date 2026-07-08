@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition
 import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S04_Thm4_10_MatchingGap`
 -/

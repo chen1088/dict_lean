@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Defs
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Lem4_13_OneTrialSoundness`
 -/
 

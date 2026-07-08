@@ -1,7 +1,7 @@
 import Mathlib
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.AlgebraicProperty.Aux_SumIfMemPerm`
 - `DictatorshipTesting.Basic.Aux_NatIndicatorMul`

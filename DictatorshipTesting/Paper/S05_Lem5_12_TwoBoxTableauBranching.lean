@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.S05_Lem5_15_OneBoxDeletionIsUnitary
 import DictatorshipTesting.Paper.S05_Lem5_16_OneBoxDeletionIntertwinesEarlierSwaps
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 -/
 

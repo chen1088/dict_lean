@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal
 import DictatorshipTesting.Paper.S04_Lem4_08_TijLocalDegree
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 -/
 

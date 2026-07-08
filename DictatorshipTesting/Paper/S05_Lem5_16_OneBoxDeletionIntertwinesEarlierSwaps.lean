@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.S05_Lem5_15_OneBoxDeletionIsUnitary
 import DictatorshipTesting.Paper.S05_Lem5_07_DiagonalContentEigenspaces
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_12_TwoBoxTableauBranching`
 -/

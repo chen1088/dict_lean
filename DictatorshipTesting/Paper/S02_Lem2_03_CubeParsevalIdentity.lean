@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Aux_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.Aux_CubeSquareSpectralFormula`

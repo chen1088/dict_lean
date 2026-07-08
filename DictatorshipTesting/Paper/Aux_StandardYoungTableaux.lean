@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.AppA_LemA_05_StandardTableauxSwapConnectedness`
 - `DictatorshipTesting.Paper.Aux_TableauDimension`
 - `DictatorshipTesting.Paper.Aux_YoungAdjacentEntries`

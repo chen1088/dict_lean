@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree
 import DictatorshipTesting.Paper.S02_Thm2_02_FKNStability
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
 -/

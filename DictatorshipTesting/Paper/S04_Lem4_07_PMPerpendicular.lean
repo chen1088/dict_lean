@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_PermCubeAverage
 import DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 -/
 

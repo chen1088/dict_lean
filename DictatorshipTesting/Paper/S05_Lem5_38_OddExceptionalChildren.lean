@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 -/
 

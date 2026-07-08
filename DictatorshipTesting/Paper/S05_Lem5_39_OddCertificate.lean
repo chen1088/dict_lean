@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate
 import DictatorshipTesting.Paper.S05_Lem5_20_OneBoxDimensionRecursion
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.S05_Lem5_23_MatchingSubgroupEigenbasis`

@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Defs
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_CubeFourierTranslate`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion`

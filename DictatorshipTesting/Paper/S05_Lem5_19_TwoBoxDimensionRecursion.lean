@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_TableauDimension
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_21_SizesOfTheSignPatternMultisets`
 - `DictatorshipTesting.Paper.S05_Lem5_35_WeightZeroEntriesAreNeverAMajority`

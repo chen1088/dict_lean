@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Aux_YoungAdjacentEntries
 import DictatorshipTesting.Paper.Aux_TableauDimension
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_YoungAdjacentAction`
 - `DictatorshipTesting.Paper.Aux_YoungMatchingOperators`
 - `DictatorshipTesting.Paper.S05_Def5_04_TableauCoordinateSpace`

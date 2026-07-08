@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_YoungOrthogonal`
 -/
 

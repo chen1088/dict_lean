@@ -13,7 +13,7 @@ import DictatorshipTesting.SetFacts.Fact_sub_sd_SetMinusSymmDiff
 import DictatorshipTesting.AlgebraicProperty
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - none
 -/
 

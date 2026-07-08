@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_MatchingLocalProjection`
 - `DictatorshipTesting.Paper.Aux_PMConvolution`
 - `DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula`

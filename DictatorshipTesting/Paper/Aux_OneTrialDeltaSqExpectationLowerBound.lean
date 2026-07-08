@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare
 import DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
 -/
 

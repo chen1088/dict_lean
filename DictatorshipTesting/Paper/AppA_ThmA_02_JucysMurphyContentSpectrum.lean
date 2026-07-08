@@ -10,7 +10,7 @@ Lean through the packaged spectral-block model axioms in
 -/
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
 -/

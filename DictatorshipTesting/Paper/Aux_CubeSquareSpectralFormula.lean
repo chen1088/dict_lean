@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_CubeHighDegreeLinear
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_CubeColorCounting`
 -/
 

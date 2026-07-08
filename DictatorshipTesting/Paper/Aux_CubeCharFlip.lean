@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Defs
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality`
 - `DictatorshipTesting.Paper.S04_Lem4_08_TijLocalDegree`
 -/

@@ -1,7 +1,7 @@
 import DictatorshipTesting.AlgebraicProperty.Eq_algebraic_property_RowDict
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.AlgebraicProperty`
 -/
 

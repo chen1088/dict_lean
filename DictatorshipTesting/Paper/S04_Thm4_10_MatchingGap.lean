@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge
 import DictatorshipTesting.Paper.S05_Lem5_33_OddSpectralBridge
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
 -/

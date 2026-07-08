@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Defs
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul`
 - `DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta`
 -/

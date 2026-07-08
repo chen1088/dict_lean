@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Defs
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting.Paper.AppA_LemA_04_DegreeOneYoungBlockIdentification`
 - `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam`

@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
 import DictatorshipTesting.Paper.Aux_PermCubeAverage
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
 -/

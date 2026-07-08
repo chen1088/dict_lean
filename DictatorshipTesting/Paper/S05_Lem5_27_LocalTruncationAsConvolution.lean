@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Aux_PMConvolution
 import DictatorshipTesting.Paper.S05_Def5_26_MatchingIdempotents
 
 /-
-Direct reverse imports (generated):
+Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_28_CentralAveragedRejection`
 -/
