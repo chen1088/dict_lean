@@ -6,6 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_07_DiagonalContentEigenspaces`
 -/
 
+
 /-!
 Paper statement: Lemma 5.6 (`lem:young-adjacent-matrices`)
 Title in paper: Tableau Coxeter model for adjacent transpositions.

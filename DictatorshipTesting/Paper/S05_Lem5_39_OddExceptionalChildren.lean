@@ -1,9 +1,10 @@
-import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
+import DictatorshipTesting.Paper.S05_Lem5_40_OddCertificate
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 -/
+
 
 /-!
 Paper statement: Lemma 5.38 (`lem:exceptional-odd-children`)
@@ -19,7 +20,7 @@ namespace DictatorshipTesting
 
 /-- Lemma 5.38: all failures of the generic odd reduction are among the two
 explicit odd exceptional shapes. -/
-theorem S05_Lem5_38_odd_exceptional_children
+theorem S05_Lem5_39_odd_exceptional_children
     (m : Nat) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m + 1))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam)
     (hbad : HasOneRowOneBoxChild m lam ∨ HasStandardOneBoxChild m lam) :

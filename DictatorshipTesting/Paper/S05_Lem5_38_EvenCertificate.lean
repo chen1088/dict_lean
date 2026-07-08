@@ -1,13 +1,15 @@
-import DictatorshipTesting.Paper.S05_Lem5_35_WeightZeroEntriesAreNeverAMajority
+import DictatorshipTesting.Paper.S05_Lem5_36_WeightZeroEntriesAreNeverAMajority
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
-- `DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Lem5_36_WhereTheInductionCanFail`
-- `DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate`
+- `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
+- `DictatorshipTesting.Paper.S05_Lem5_32_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_33_EvenSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_37_WhereTheInductionCanFail`
+- `DictatorshipTesting.Paper.S05_Lem5_40_OddCertificate`
 -/
+
 
 /-!
 Paper statement: Lemma 5.37 (`lem:h-even-app`)
@@ -4717,7 +4719,7 @@ theorem hEvenTableau_ge_one_fifth_tableauDim_of_not_oneRow_not_standard_finite_i
               hbad (Or.inr (Or.inl ⟨mu, hmu, hone⟩)))
 
 /-- Lemma 5.37, tableau-count version of the even certificate. -/
-theorem S05_Lem5_37_tableau_even_certificate
+theorem S05_Lem5_38_tableau_even_certificate
     (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
@@ -5359,7 +5361,7 @@ theorem L5_5_HEvenApp [TwoStripDimensionBranchingAssumption]
       m hm lam hrow hstd
 
 /-- Lemma 5.37 paper-numbered alias: even certificate. -/
-theorem S05_Lem5_37_even_certificate
+theorem S05_Lem5_38_even_certificate
     [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m))

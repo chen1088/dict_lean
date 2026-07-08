@@ -6,6 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_21_SizesOfTheSignPatternMultisets`
 -/
 
+
 /-!
 Paper statement: Definition 5.18 (`def:odd-sign-patterns`)
 Title in paper: Odd sign-pattern multiset.

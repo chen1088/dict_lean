@@ -19,8 +19,9 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Def5_01_YoungDiagramsAndBoxes`
 - `DictatorshipTesting.Paper.S05_Def5_17_EvenSignPatternMultiset`
 - `DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters`
-- `DictatorshipTesting.Paper.S05_Lem5_34_CountingOneMoreMatchingEdge`
+- `DictatorshipTesting.Paper.S05_Lem5_35_CountingOneMoreMatchingEdge`
 -/
+
 
 /-!
 # Paper-level definitions

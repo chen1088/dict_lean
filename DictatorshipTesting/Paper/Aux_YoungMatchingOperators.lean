@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_23_MatchingSubgroupEigenbasis`
 -/
 
+
 /-!
 # Canonical matching operators in Young coordinates
 

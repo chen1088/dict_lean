@@ -6,6 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Def5_18_OddSignPatternMultiset`
 -/
 
+
 /-!
 Paper statement: Definition 5.17 (`def:even-sign-patterns`)
 Title in paper: Even sign-pattern multiset.

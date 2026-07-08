@@ -6,6 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_29_YoungBasisScalarCommutant`
 -/
 
+
 /-!
 Paper statement: Lemma 5.28 (`lem:averaged-rejection-central`)
 Title in paper: Central averaged rejection.

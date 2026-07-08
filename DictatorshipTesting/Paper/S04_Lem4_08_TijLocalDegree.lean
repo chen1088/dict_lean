@@ -8,6 +8,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Cor4_09_U1Local`
 -/
 
+
 /-!
 # Lemma 4.8: A basic indicator has local degree at most one
 

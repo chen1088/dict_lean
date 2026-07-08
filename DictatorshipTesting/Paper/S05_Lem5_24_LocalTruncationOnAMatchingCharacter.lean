@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Lemma 5.24 (`lem:PM-character-projection`)
 Title in paper: Local truncation on a matching character.

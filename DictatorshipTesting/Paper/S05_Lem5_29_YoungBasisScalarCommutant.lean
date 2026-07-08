@@ -6,6 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Lemma 5.29 (`lem:young-basis-scalar-commutant`)
 Title in paper: Young-basis scalar commutant.

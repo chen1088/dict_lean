@@ -10,6 +10,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_15_OneBoxDeletionIsUnitary`
 -/
 
+
 /-!
 Elementary coordinate-space objects for the tableau-basis side of the rewritten
 Section 5 proof.  This file deliberately stops before any Specht-module or

@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 # Corollary 4.9: `U_1` is contained in every local degree-one space
 

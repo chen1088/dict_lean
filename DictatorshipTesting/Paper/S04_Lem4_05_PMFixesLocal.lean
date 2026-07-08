@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Lem4_07_PMPerpendicular`
 -/
 
+
 /-!
 # Lemma 4.5: `P_M` keeps exactly the local degree-one functions
 

@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates
 import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
-import DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition
-import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
+import DictatorshipTesting.Paper.S05_Lem5_32_RegularYoungBlockDecomposition
+import DictatorshipTesting.Paper.S05_Lem5_40_OddCertificate
 
 /-
 Direct reverse imports:
@@ -9,22 +9,23 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Thm4_10_MatchingGap`
 -/
 
+
 /-!
-Paper statement: Lemma 5.33 (`lem:spectral-certificate-odd`)
+Paper statement: Lemma 5.34 (`lem:spectral-certificate-odd`)
 Title in paper: Odd spectral bridge.
 
-Status: proven. The algebraic bridge is proved from an explicit spectral-block model
-hypothesis. Appendix A supplies that representation-theoretic model input for
-the paper application.
+Status: proven. The algebraic bridge is proved from an explicit
+spectral-block model hypothesis. Lemma 5.32 supplies that model input from the
+Appendix A representation-theoretic ingredients for the paper application.
 -/
 
 noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Lemma 5.33: odd finite Young-diagram inequalities imply the matching
+/-- Lemma 5.34: odd finite Young-diagram inequalities imply the matching
 spectral gap, assuming the stated spectral-block model. -/
-theorem S05_Lem5_33_odd_spectral_bridge
+theorem S05_Lem5_34_odd_spectral_bridge
     (m : Nat) (hm : 2 ≤ m) (c : ℝ)
     (hmodel : SpectralBlockModelInput
       (fun lam : YoungDiagram (2 * m + 1) => hOdd m lam))
@@ -35,9 +36,9 @@ theorem S05_Lem5_33_odd_spectral_bridge
     MatchingSpectralGapConstant (2 * m + 1) c := by
   exact matchingSpectralGap_of_odd_young_certificate m hm c hmodel hc hcert
 
-/-- Lemma 5.33 paper-numbered alias for the odd spectral bridge before the
+/-- Lemma 5.34 paper-numbered alias for the odd spectral bridge before the
 extra nonnegativity argument is threaded through. -/
-theorem S05_Lem5_33_oddSpectralGapFromCertificates
+theorem S05_Lem5_34_oddSpectralGapFromCertificates
     (m : Nat) (hm : 2 ≤ m) (c : ℝ)
     (hmodel : SpectralBlockModelInput
       (fun lam : YoungDiagram (2 * m + 1) => hOdd m lam))
@@ -47,9 +48,9 @@ theorem S05_Lem5_33_oddSpectralGapFromCertificates
     MatchingSpectralGapConstant (2 * m + 1) c := by
   exact OddSpectralGapFromCertificates m hm c hmodel hcert
 
-/-- Lemma 5.33, tableau-count version: the tableauDim finite certificate feeds
+/-- Lemma 5.34, tableau-count version: the tableauDim finite certificate feeds
 any dimension-parameterized odd spectral-block model. -/
-theorem S05_Lem5_33_tableauDim_oddSpectralGapFromCertificates
+theorem S05_Lem5_34_tableauDim_oddSpectralGapFromCertificates
     (m : Nat) (hm : 2 <= m)
     (hmodel :
       SpectralBlockModelInputWithDim
@@ -63,6 +64,6 @@ theorem S05_Lem5_33_tableauDim_oddSpectralGapFromCertificates
       (fun lam : YoungDiagram (2 * m + 1) => hOddTableau m lam)
       hmodel
       (fun lam hrow hstd =>
-        S05_Lem5_39_tableau_odd_certificate m hm lam hrow hstd)
+        S05_Lem5_40_tableau_odd_certificate m hm lam hrow hstd)
 
 end DictatorshipTesting

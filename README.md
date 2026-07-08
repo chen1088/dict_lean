@@ -44,7 +44,7 @@ matching-cube, and averaging steps that have been formalized so far.  A small
 number of hard results are intentionally isolated behind named declarations or
 named external axioms.  There are no remaining `sorry` declarations.  The named
 external axioms are the two Section 2 Filmus inputs and the four Appendix A
-representation-theory ingredient markers A.1, A.2, A.4, and A.5.  Appendix A.3
+representation-theory ingredient markers A.1, A.2, A.3, and A.4.  Lemma 5.32
 is a proved assembly theorem from those ingredients.  The theorem wrappers
 consumed by the active Theorem 4.10 path are
 `spectralBlockModelInputWithDim_even_from_appendixA` and
@@ -57,9 +57,9 @@ input, see `PROOF_OBLIGATIONS.md`.
 
 For the current rewritten Section 5 statement-to-file map, see
 `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`.  The checked paper source has
-39 theorem-like Section 5 statements when remarks and Appendix A inputs are
+40 theorem-like Section 5 statements when remarks and Appendix A inputs are
 excluded, including the five numbered tableau-preliminary definitions 5.1--5.5.
-The Lean Section 5 paper-facing file count is also 39.  Appendix A external
+The Lean Section 5 paper-facing file count is also 40.  Appendix A external
 representation-theoretic inputs are mapped separately in
 `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
@@ -92,19 +92,19 @@ FKN input is already stated in the distance-to-dictators form used by Lemma
 
 Proven finite certificates:
 
-- `S05_Lem5_35_WeightZeroEntriesAreNeverAMajority.lean` -- Lemma 5.35:
+- `S05_Lem5_36_WeightZeroEntriesAreNeverAMajority.lean` -- Lemma 5.36:
   finite `zEven` certificate.  The current tableau-count theorem
-  `S05_Lem5_35_tableau_weightZeroEntries_never_majority` is proved against
+  `S05_Lem5_36_tableau_weightZeroEntries_never_majority` is proved against
   `tableauDim`; the older `youngDim` variant remains as an external
   Specht-dimension route.
-- `S05_Lem5_37_EvenCertificate.lean` -- Lemma 5.37 (`lem:h-even-app`):
+- `S05_Lem5_38_EvenCertificate.lean` -- Lemma 5.38 (`lem:h-even-app`):
   finite even certificate.  The current tableau-count theorem
-  `S05_Lem5_37_tableau_even_certificate` is proved using `hEvenTableau`; the
+  `S05_Lem5_38_tableau_even_certificate` is proved using `hEvenTableau`; the
   older `hEven`/`youngDim` variant remains as an external Specht-dimension
   route.
-- `S05_Lem5_39_OddCertificate.lean` -- Lemma 5.39 (`lem:h-odd-app`):
+- `S05_Lem5_40_OddCertificate.lean` -- Lemma 5.40 (`lem:h-odd-app`):
   finite odd certificate.  The current tableau-count theorem
-  `S05_Lem5_39_tableau_odd_certificate` is proved using `hOddTableau`; the
+  `S05_Lem5_40_tableau_odd_certificate` is proved using `hOddTableau`; the
   older `hOdd`/`youngDim` variant remains as an external Specht-dimension
   route.
 
@@ -248,12 +248,14 @@ External standard inputs:
   matching-operator, sign-projection, and scalar-bound interfaces needed
   downstream.  The Specht/Pieri representation-theoretic content is accounted
   for inside the spectral-block model boundary.
-- Lemmas 5.31--5.33, especially `S05_Lem5_32_EvenSpectralBridge.lean` and
-  `S05_Lem5_33_OddSpectralBridge.lean`: the external Specht/Pieri/Schur
-  spectral bridge is consumed from Appendix A theorem wrappers
+- Lemmas 5.31--5.34, especially
+  `S05_Lem5_32_RegularYoungBlockDecomposition.lean`,
+  `S05_Lem5_33_EvenSpectralBridge.lean`, and
+  `S05_Lem5_34_OddSpectralBridge.lean`: the external Specht/Pieri/Schur
+  spectral bridge is consumed through Lemma 5.32 theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.  Those wrappers are
-  proved by the A.3 assembly theorem from the explicit A.1/A.2/A.4/A.5 marker
+  proved by Lemma 5.32 from the explicit A.1/A.2/A.3/A.4 marker
   axioms, citing the regular Specht decomposition, Littlewood-Richardson
   restriction to Young subgroups, Pieri two-strip specializations, and Schur's
   lemma for the tableauDim spectral model.
@@ -268,9 +270,12 @@ Internal bridge components proven:
   `SpectralGapFromBlockScalars`, `SpectralGapFromBlockScalarLowerBounds`,
   `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and the
   dimension-parameterized `SpectralGapFromBlockModelWithDim` route are proved.
-- `S05_Lem5_32_EvenSpectralBridge.lean` and
-  `S05_Lem5_33_OddSpectralBridge.lean`: the tableau-count spectral bridges are
-  proved from explicit `SpectralBlockModelInputWithDim` hypotheses; Appendix A
+- `S05_Lem5_32_RegularYoungBlockDecomposition.lean`: the main-text assembly
+  lemma turning Appendix A.1/A.2/A.3/A.4 external inputs into the even and odd
+  `SpectralBlockModelInputWithDim` theorem wrappers consumed by Theorem 4.10.
+- `S05_Lem5_33_EvenSpectralBridge.lean` and
+  `S05_Lem5_34_OddSpectralBridge.lean`: the tableau-count spectral bridges are
+  proved from explicit `SpectralBlockModelInputWithDim` hypotheses; Lemma 5.32
   supplies those spectral model inputs for the paper application.
 - `Aux_SpectralBridgeDimensionParam.lean`: dimension-parameterized algebraic
   bridge.  It proves `blockScalar_lower_bound_of_traceScalarFormula_withDim`,
@@ -289,22 +294,22 @@ Remaining bridge boundary:
 - `S05_Lem5_30_BlockScalarOfTheAveragedRejection.lean` -- Lemma 5.30:
   trace-divided-by-dimension algebra from explicit scalarity and trace identity
   inputs; those inputs are bundled into the spectral-block model boundary.
-- `S05_Lem5_32_EvenSpectralBridge.lean` and
-  `S05_Lem5_33_OddSpectralBridge.lean`: proven algebraic bridges from explicit
-  `SpectralBlockModelInputWithDim` / spectral block model input; Appendix A
+- `S05_Lem5_33_EvenSpectralBridge.lean` and
+  `S05_Lem5_34_OddSpectralBridge.lean`: proven algebraic bridges from explicit
+  `SpectralBlockModelInputWithDim` / spectral block model input; Lemma 5.32
   supplies that input for the paper application.
 
 Remaining spectral-bridge representation-theory boundary:
 
 There are no longer `sorry` declarations for the spectral bridge.  Instead, the
 Section 5 spectral-bridge files make the missing representation theory explicit
-through Appendix A theorem wrappers:
+through Lemma 5.32 theorem wrappers:
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.  The Appendix A axiom
-declarations are the A.1/A.2/A.4/A.5 marker inputs; A.3 consumes them through
-proved assembly theorems.
+declarations are the A.1/A.2/A.3/A.4 marker inputs; Lemma 5.32 consumes them
+through proved assembly theorems.
 
-- The explicit spectral-block-model axioms supply the actual Young-block
+- The explicit spectral-block-model theorem wrappers supply the actual Young-block
   energies of `F`, the `U_1` energy identification, and the matching-average
   scalar model.  Theorem 4.10, Proposition 4.12, Lemma 4.13, and Theorem 1.1
   now use these named external inputs through the tableauDim spectral bridge.
@@ -356,7 +361,7 @@ Paper-numbered highlights:
 - `S04_Lem4_01` through `S04_Lem4_13`, plus `S04_Cor4_09`,
   `S04_Thm4_10`, and `S04_Prop4_12`: matching-cube soundness reductions up to
   the one-trial soundness bound.
-- `S05_Def5_01` through `S05_Lem5_39`: current Section 5 spectral bridge and
+- `S05_Def5_01` through `S05_Lem5_40`: current Section 5 spectral bridge and
   finite certificate files.  Older Section 5 theorem names such as
   `L5_4_ZBoundApp` are declarations inside these numbered files, not separate
   wrapper modules.
@@ -381,9 +386,9 @@ Useful commands:
 
 ```bash
 lake build DictatorshipTesting
-lake build DictatorshipTesting.Paper.S05_Lem5_35_WeightZeroEntriesAreNeverAMajority
-lake build DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate
-lake build DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
+lake build DictatorshipTesting.Paper.S05_Lem5_36_WeightZeroEntriesAreNeverAMajority
+lake build DictatorshipTesting.Paper.S05_Lem5_38_EvenCertificate
+lake build DictatorshipTesting.Paper.S05_Lem5_40_OddCertificate
 rg "sorry|axiom|opaque|unsafe" DictatorshipTesting
 ```
 

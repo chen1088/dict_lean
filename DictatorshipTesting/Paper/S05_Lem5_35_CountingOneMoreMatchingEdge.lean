@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Lemma 5.34 (`lem:counting-one-more-matching-edge`)
 Title in paper: Counting one more matching edge: the `z_m` and `h_m`
@@ -39,7 +40,7 @@ theorem L5_3_CountingOneMoreMatchingEdge (m : ℕ) (hm : 1 ≤ m)
       simp [zEven, hEven]
 
 /-- Lemma 5.34 paper-numbered alias: counting one more matching edge. -/
-theorem S05_Lem5_34_counting_one_more_matching_edge (m : ℕ) (hm : 1 ≤ m)
+theorem S05_Lem5_35_counting_one_more_matching_edge (m : ℕ) (hm : 1 ≤ m)
     (lam : YoungDiagram (2 * m)) :
     zEven m lam =
         (horizontalTwoStripChildrenEven m lam).sum

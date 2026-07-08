@@ -8,6 +8,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 # Lemma 4.7: High local degrees have zero inner product with local degree one
 

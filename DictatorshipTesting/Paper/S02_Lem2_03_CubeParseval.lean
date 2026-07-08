@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 # Lemma 2.3: Orthonormality and Parseval on the cube
 

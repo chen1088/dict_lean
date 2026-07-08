@@ -4,17 +4,17 @@ Source checked: `../dictatorship_testing_soda27_latest.tex`.
 
 ## Spine Status
 
-- Section 5 now has 39 theorem-like numbered statements when counting only
+- Section 5 now has 40 theorem-like numbered statements when counting only
   `definition`, `lemma`, `proposition`, `theorem`, and `corollary`
   environments, including the five numbered tableau-preliminary definitions
   5.1--5.5.
-- Appendix A has 5 numbered external-input statements.
-- The Section 5 paper-facing Lean file count is 39.
-- The Appendix A Lean-facing file count is 5.
-- The old Section 5 regular Young-block file moved to
-  `AppA_ThmA_03_RegularYoungBlockDecomposition.lean`.
-- The old Section 5 degree-one Young-block file moved to
-  `AppA_LemA_04_DegreeOneYoungBlockIdentification.lean`.
+- Appendix A has 4 numbered external-input statements.
+- The Section 5 paper-facing Lean file count is 40.
+- The Appendix A Lean-facing file count is 4.
+- The regular Young-block decomposition assembly lemma is now in Section 5:
+  `S05_Lem5_32_RegularYoungBlockDecomposition.lean`.
+- The degree-one Young-block input is in Appendix A:
+  `AppA_LemA_03_DegreeOneYoungBlockIdentification.lean`.
 
 Detailed maps:
 
@@ -30,15 +30,16 @@ Detailed maps:
   matching sign projections.
 - Definition 5.26 now has proved low/high matching idempotent identities,
   zero cross-compositions, and the low-plus-high decomposition identity.
-- The remaining main Section 5 frontier is the spectral-block model input.
-- Appendix A now exposes explicit marker axioms for A.1, A.2, A.4, and A.5.
-  The A.3 assembly theorem consumes those markers to produce the even/odd
+- The remaining main representation-theoretic frontier is the spectral-block
+  model input supplied by Appendix A.
+- Appendix A now exposes explicit marker axioms for A.1, A.2, A.3, and A.4.
+  Lemma 5.32 consumes those markers to produce the even/odd
   spectral-model theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.
 - Theorem 4.10 is a proved Section 4 theorem whose active proof path uses the
-  tableauDim bridge exposed by Lemmas 5.31--5.33 and these
-  dimension-parameterized Appendix A spectral model inputs.
+  tableauDim bridge exposed by Lemmas 5.31--5.34 and these
+  dimension-parameterized Lemma 5.32 spectral model wrappers.
 
 ## Internal Progress
 
@@ -114,13 +115,13 @@ Detailed maps:
   `S05_Lem5_31_spectralGapFromBlockTraceModelWithDim` derive the spectral-gap
   inequality directly from scalarity, a block trace identity, dimension
   positivity, and the finite certificate.
-- Lemma 5.35 has a tableau-count z-bound theorem
-  `S05_Lem5_35_tableau_weightZeroEntries_never_majority`.
-- Lemma 5.37 has a tableau-count even certificate theorem
-  `S05_Lem5_37_tableau_even_certificate`.
-- Lemma 5.39 has a tableau-count odd certificate theorem
-  `S05_Lem5_39_tableau_odd_certificate`.
-- Lemmas 5.31--5.33 expose the algebraic spectral bridge from explicit
+- Lemma 5.36 has a tableau-count z-bound theorem
+  `S05_Lem5_36_tableau_weightZeroEntries_never_majority`.
+- Lemma 5.38 has a tableau-count even certificate theorem
+  `S05_Lem5_38_tableau_even_certificate`.
+- Lemma 5.40 has a tableau-count odd certificate theorem
+  `S05_Lem5_40_tableau_odd_certificate`.
+- Lemmas 5.31--5.34 expose the algebraic spectral bridge from explicit
   spectral-block-model inputs.
 
 ## Appendix A Boundary
@@ -130,12 +131,11 @@ theorems:
 
 - A.1 Young orthogonal realization.
 - A.2 Jucys--Murphy content spectrum.
-- A.3 Regular Young-block decomposition is an internal assembly theorem from
-  the A.1/A.2/A.4/A.5 external inputs.
-- A.4 Degree-one Young-block identification.
-- A.5 Connectedness of standard tableaux.
+- A.3 Degree-one Young-block identification.
+- A.4 Connectedness of standard tableaux.
 
-The Appendix A files add only the A.1/A.2/A.4/A.5 external marker axioms.
-A.3 itself has no standalone external input; it is proved by assembling those
-markers.  The current Section 5 tableau-count dimension route also no longer
-registers the older `youngDim` dimension-branching instances.
+The Appendix A files add only the A.1/A.2/A.3/A.4 external marker axioms.
+Lemma 5.32 has no standalone external input; it is proved by assembling those
+markers into the spectral model wrappers.  The current Section 5 tableau-count
+dimension route also no longer registers the older `youngDim`
+dimension-branching instances.

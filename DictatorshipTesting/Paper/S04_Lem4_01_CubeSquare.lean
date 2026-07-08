@@ -6,6 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
 -/
 
+
 /-!
 # Lemma 4.1: Square test detects Fourier weight at least two
 

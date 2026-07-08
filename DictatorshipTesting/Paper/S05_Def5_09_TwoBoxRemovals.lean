@@ -6,6 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Def5_10_SignedTwoBoxRemovals`
 -/
 
+
 /-!
 Paper statement: Definition 5.9 (`def:two-box-removals`)
 Title in paper: Two-box removals.

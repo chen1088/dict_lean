@@ -1,9 +1,10 @@
-import DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate
+import DictatorshipTesting.Paper.S05_Lem5_38_EvenCertificate
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 -/
+
 
 /-!
 Paper statement: Lemma 5.36 (`lem:exceptional-even-children`)
@@ -19,7 +20,7 @@ namespace DictatorshipTesting
 
 /-- Lemma 5.36: all failures of the generic even induction are among the four
 explicit exceptional shapes. -/
-theorem S05_Lem5_36_where_the_induction_can_fail
+theorem S05_Lem5_37_where_the_induction_can_fail
     (m : Nat) (hm : 3 ≤ m) (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam)
     (hbad :

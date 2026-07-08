@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting.AlgebraicProperty`
 -/
 
+
 open scoped BigOperators
 
 namespace DictatorshipTesting

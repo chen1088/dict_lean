@@ -6,6 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting.AlgebraicProperty.Eq_algebraic_property_RowDict`
 -/
 
+
 /-!
 # Reindexing lemma for row dictators
 

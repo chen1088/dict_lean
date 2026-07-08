@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Lem4_08_TijLocalDegree`
 -/
 
+
 /-!
 # Lemma 3.1: Completeness on matching cubes
 

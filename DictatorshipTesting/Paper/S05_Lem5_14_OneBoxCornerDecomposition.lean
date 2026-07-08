@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Lemma 5.14 (`lem:one-box-corner-decomposition`)
 Title in paper: One-box corner decomposition.

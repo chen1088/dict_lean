@@ -8,6 +8,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Lemma 5.12 (`lem:two-box-tableau-branching`)
 Title in paper: Two-box tableau branching.

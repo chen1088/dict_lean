@@ -11,6 +11,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_24_LocalTruncationOnAMatchingCharacter`
 -/
 
+
 /-!
 # Auxiliary facts for the matching-local projection
 

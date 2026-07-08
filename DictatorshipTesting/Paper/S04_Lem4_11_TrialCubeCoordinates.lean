@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 # Lemma 4.11: One trial in cube coordinates
 

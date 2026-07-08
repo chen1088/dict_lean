@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_28_CentralAveragedRejection`
 -/
 
+
 /-!
 Paper statement: Lemma 5.27 (`lem:PM-convolution`)
 Title in paper: Local truncation as convolution.

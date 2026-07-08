@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Lem4_13_OneTrialSoundness`
 -/
 
+
 /-!
 # Proposition 4.12: Square energy controls global degree
 

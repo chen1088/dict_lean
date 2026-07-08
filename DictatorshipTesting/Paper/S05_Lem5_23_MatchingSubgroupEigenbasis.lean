@@ -1,12 +1,13 @@
 import DictatorshipTesting.Paper.Aux_YoungMatchingOperators
 import DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters
-import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
+import DictatorshipTesting.Paper.S05_Lem5_40_OddCertificate
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_25_TraceOfOneLocalTruncationOnOneYoungBlock`
 -/
+
 
 /-!
 Paper statement: Lemma 5.23 (`lem:matching-restriction-X`)

@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare`
 -/
 
+
 /-!
 # Color-counting for the cube square test
 

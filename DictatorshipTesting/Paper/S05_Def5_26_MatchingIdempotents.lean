@@ -8,6 +8,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_27_LocalTruncationAsConvolution`
 -/
 
+
 /-!
 Paper statement: Definition 5.26 (`def:matching-idempotents`)
 Title in paper: Matching idempotents.

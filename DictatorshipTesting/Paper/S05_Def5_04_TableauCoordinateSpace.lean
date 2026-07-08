@@ -6,6 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Definition 5.4 (`def:tableau-coordinate-space`)
 Title in paper: Tableau coordinate space.

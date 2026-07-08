@@ -12,6 +12,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_24_LocalTruncationOnAMatchingCharacter`
 -/
 
+
 /-!
 # Error of the degree-at-most-one cube projection
 

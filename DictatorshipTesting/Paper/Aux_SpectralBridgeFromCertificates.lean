@@ -5,9 +5,10 @@ import DictatorshipTesting.Paper.S05_Lem5_30_BlockScalarOfTheAveragedRejection
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam`
 - `DictatorshipTesting.Paper.S05_Lem5_31_BlockLowerBoundImpliesTheGap`
-- `DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Lem5_33_OddSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_33_EvenSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_34_OddSpectralBridge`
 -/
+
 
 /-!
 Helper for paper statements: Lemmas 5.31--5.33 (`lem:block-lower-bound-gap`,

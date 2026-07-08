@@ -8,6 +8,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
 -/
 
+
 /-!
 # Global one-trial square-energy bridge
 

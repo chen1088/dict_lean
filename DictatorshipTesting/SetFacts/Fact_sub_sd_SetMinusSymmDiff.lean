@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 namespace DictatorshipTesting
 
 variable {α : Type*}

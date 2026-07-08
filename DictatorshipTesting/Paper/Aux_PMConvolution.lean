@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_27_LocalTruncationAsConvolution`
 -/
 
+
 /-!
 # Helper: local projection as convolution
 

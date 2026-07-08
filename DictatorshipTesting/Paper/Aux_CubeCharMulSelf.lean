@@ -8,6 +8,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters`
 -/
 
+
 namespace DictatorshipTesting
 
 /-- A Boolean-cube character squares to `1`. -/

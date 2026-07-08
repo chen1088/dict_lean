@@ -8,6 +8,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
 -/
 
+
 /-!
 # Lemma 4.6: Local high-degree error formula
 

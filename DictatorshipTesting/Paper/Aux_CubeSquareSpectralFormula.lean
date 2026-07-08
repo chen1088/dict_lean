@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_CubeColorCounting`
 -/
 
+
 /-!
 # Spectral formula for the cube square-test energy
 -/

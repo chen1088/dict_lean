@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Definition 5.11 (`def:one-box-removals`)
 Title in paper: One-box removals.

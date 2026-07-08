@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Theorem 2.1 (`thm:boolean-u1`)
 Title in paper: Structural input: Boolean degree-one functions on S_n.

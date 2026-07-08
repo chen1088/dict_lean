@@ -3,8 +3,9 @@ import DictatorshipTesting.Paper.S05_Lem5_19_TwoBoxDimensionRecursion
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_38_EvenCertificate`
 -/
+
 
 /-!
 Paper statement: Lemma 5.35 (`lem:z-bound-app`)
@@ -2011,7 +2012,7 @@ theorem zEven_le_youngDim [TwoStripDimensionBranchingAssumption]
 
 /-- Lemma 5.37 paper-numbered alias: weight-zero entries are never a majority
 outside the one-row block. -/
-theorem S05_Lem5_35_weightZeroEntries_never_majority
+theorem S05_Lem5_36_weightZeroEntries_never_majority
     [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) :
@@ -2020,7 +2021,7 @@ theorem S05_Lem5_35_weightZeroEntries_never_majority
 
 /-- Lemma 5.37 paper-numbered corollary: the zero-weight count is bounded by
 the whole Young dimension. -/
-theorem S05_Lem5_35_zEven_le_youngDim
+theorem S05_Lem5_36_zEven_le_youngDim
     [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (lam : YoungDiagram (2 * m)) :
     zEven m lam ≤ youngDim lam := by
@@ -2683,7 +2684,7 @@ theorem zEven_le_half_tableauDim_of_not_oneRow_finite_induction
 
 /-- Lemma 5.37, tableau-dimension version: weight-zero entries are never a
 majority outside the one-row block. -/
-theorem S05_Lem5_35_tableau_weightZeroEntries_never_majority
+theorem S05_Lem5_36_tableau_weightZeroEntries_never_majority
     (m : ℕ) (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) :
     zEven m lam ≤ (1 / 2 : ℝ) * tableauDim lam := by

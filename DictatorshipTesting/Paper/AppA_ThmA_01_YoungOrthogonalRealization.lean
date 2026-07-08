@@ -1,21 +1,24 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 
+/-
+Direct reverse imports:
+- `DictatorshipTesting`
+- `DictatorshipTesting.Paper.AppA_LemA_03_DegreeOneYoungBlockIdentification`
+- `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
+- `DictatorshipTesting.Paper.S05_Lem5_32_RegularYoungBlockDecomposition`
+-/
+
 /-!
 Paper statement: Theorem A.1 (`thm:app-young-orthogonal`)
 Title in paper: Young orthogonal realization.
 
-Status: external: ingredient bundled into Theorem A.3.  This file is kept
+Status: external: ingredient bundled into Lemma 5.32.  This file is kept
 separate from the internal Section 5 coordinate Coxeter proof: the classical
 Young orthogonal/Specht realization is consumed in Lean through the A.3
 spectral-block assembly theorem in
-`AppA_ThmA_03_RegularYoungBlockDecomposition`.
+`S05_Lem5_32_RegularYoungBlockDecomposition`.
 -/
 
-/-
-Direct reverse imports:
-- `DictatorshipTesting`
-- `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
--/
 
 noncomputable section
 

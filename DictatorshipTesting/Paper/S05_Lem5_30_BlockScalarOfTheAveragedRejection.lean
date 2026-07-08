@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates`
 -/
 
+
 /-!
 Paper statement: Lemma 5.30 (`lem:centralization-matchings`)
 Title in paper: Block scalar of the averaged rejection.

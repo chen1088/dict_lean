@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Definition 5.2 (`def:removable-corners`)
 Title in paper: Removable corners and one-box removals.

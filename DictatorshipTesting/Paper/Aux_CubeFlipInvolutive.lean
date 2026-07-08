@@ -6,6 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Lem4_08_TijLocalDegree`
 -/
 
+
 namespace DictatorshipTesting
 
 /-- Flipping the same Boolean-cube coordinate twice is the identity. -/

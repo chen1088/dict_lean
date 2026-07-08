@@ -6,6 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting.BasicFacts`
 -/
 
+
 namespace DictatorshipTesting
 
 variable {α : Type*}

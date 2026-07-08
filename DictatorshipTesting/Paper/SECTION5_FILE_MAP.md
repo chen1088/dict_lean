@@ -11,14 +11,15 @@ The former unnumbered tableau-preliminaries block is now split into five
 numbered definitions, so Section 5 starts with Definitions 5.1--5.5 and the
 first lemma is Lemma 5.6.
 
-Section 5 statement count: 39.
-Section 5 paper-facing Lean file count: 39.
+Section 5 statement count: 40.
+Section 5 paper-facing Lean file count: 40.
 
-The former Section 5 files for regular Young blocks and degree-one Young-block
-identification were moved to Appendix A-facing files:
+The regular Young-block decomposition assembly lemma is now a main-text
+Section 5 statement.  The external degree-one Young-block identification input
+is kept in Appendix A:
 
-- `AppA_ThmA_03_RegularYoungBlockDecomposition.lean`
-- `AppA_LemA_04_DegreeOneYoungBlockIdentification.lean`
+- `S05_Lem5_32_RegularYoungBlockDecomposition.lean`
+- `AppA_LemA_03_DegreeOneYoungBlockIdentification.lean`
 
 | Status | Paper stmt | Environment | Paper title | Lean file | Main wrappers | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -53,14 +54,15 @@ identification were moved to Appendix A-facing files:
 | external: scalar commutant input | 5.29 | lemma | Young-basis scalar commutant | `S05_Lem5_29_YoungBasisScalarCommutant.lean` | `S05_Lem5_29_YoungBasisScalarCommutantInput`, `S05_Lem5_29_matchingAverageScalarity_eq_sum` | The Lean file exposes the scalarity input consumed downstream; a full internal proof would formalize the matrix commutant argument against the tableau basis. |
 | external: trace/scalar model input | 5.30 | lemma | Block scalar of the averaged rejection | `S05_Lem5_30_BlockScalarOfTheAveragedRejection.lean` | `S05_Lem5_30_scalar_eq_trace_div_dimension`, `S05_Lem5_30_even_scalar_eq_hEven_div_dim` | Trace-divided-by-dimension algebra is proved from explicit scalarity and trace identities; those representation inputs are bundled into the spectral-block model boundary. |
 | proven | 5.31 | lemma | Block lower bound implies the gap | `S05_Lem5_31_BlockLowerBoundImpliesTheGap.lean` | `S05_Lem5_31_spectralGapFromBlockScalars`, `S05_Lem5_31_spectralGapFromBlockTraceModel`, `S05_Lem5_31_spectralGapFromBlockModelWithDim` | Weighted-sum spectral-gap algebra. |
-| proven | 5.32 | lemma | Even spectral bridge | `S05_Lem5_32_EvenSpectralBridge.lean` | `S05_Lem5_32_tableauDim_evenSpectralGapFromCertificates` | Algebraic bridge proved from explicit `SpectralBlockModelInputWithDim` hypothesis; Appendix A supplies `spectralBlockModelInputWithDim_even_from_appendixA` for the paper application. |
-| proven | 5.33 | lemma | Odd spectral bridge | `S05_Lem5_33_OddSpectralBridge.lean` | `S05_Lem5_33_tableauDim_oddSpectralGapFromCertificates` | Algebraic bridge proved from explicit `SpectralBlockModelInputWithDim` hypothesis; Appendix A supplies `spectralBlockModelInputWithDim_odd_from_appendixA` for the paper application. |
-| proven | 5.34 | lemma | Counting one more matching edge | `S05_Lem5_34_CountingOneMoreMatchingEdge.lean` | `S05_Lem5_34_counting_one_more_matching_edge`, `L5_3_CountingOneMoreMatchingEdge` | Finite counting lemma. |
-| proven | 5.35 | lemma | Weight-zero entries are never a majority | `S05_Lem5_35_WeightZeroEntriesAreNeverAMajority.lean` | `S05_Lem5_35_tableau_weightZeroEntries_never_majority` | Tableau-count z-bound certificate. |
-| proven | 5.36 | lemma | Where the induction can fail | `S05_Lem5_36_WhereTheInductionCanFail.lean` | `S05_Lem5_36_where_the_induction_can_fail` | Exceptional-shape localization. |
-| proven | 5.37 | lemma | Even certificate | `S05_Lem5_37_EvenCertificate.lean` | `S05_Lem5_37_tableau_even_certificate` | Tableau-count even certificate. |
-| proven | 5.38 | lemma | Odd exceptional children | `S05_Lem5_38_OddExceptionalChildren.lean` | `S05_Lem5_38_odd_exceptional_children` | Odd exceptional child analysis. |
-| proven | 5.39 | lemma | Odd certificate | `S05_Lem5_39_OddCertificate.lean` | `S05_Lem5_39_tableau_odd_certificate` | Tableau-count odd certificate. |
+| proven | 5.32 | lemma | Regular Young-block decomposition | `S05_Lem5_32_RegularYoungBlockDecomposition.lean` | `spectralBlockModelInputWithDim_even_from_appA_inputs`, `spectralBlockModelInputWithDim_odd_from_appA_inputs`, `spectralBlockModelInputWithDim_even_from_appendixA`, `spectralBlockModelInputWithDim_odd_from_appendixA` | Internal assembly theorem from the external Appendix A.1/A.2/A.3/A.4 ingredients into the `SpectralBlockModelInputWithDim` interface. |
+| proven | 5.33 | lemma | Even spectral bridge | `S05_Lem5_33_EvenSpectralBridge.lean` | `S05_Lem5_33_tableauDim_evenSpectralGapFromCertificates` | Algebraic bridge proved from explicit `SpectralBlockModelInputWithDim` hypothesis; Lemma 5.32 supplies `spectralBlockModelInputWithDim_even_from_appendixA` for the paper application. |
+| proven | 5.34 | lemma | Odd spectral bridge | `S05_Lem5_34_OddSpectralBridge.lean` | `S05_Lem5_34_tableauDim_oddSpectralGapFromCertificates` | Algebraic bridge proved from explicit `SpectralBlockModelInputWithDim` hypothesis; Lemma 5.32 supplies `spectralBlockModelInputWithDim_odd_from_appendixA` for the paper application. |
+| proven | 5.35 | lemma | Counting one more matching edge | `S05_Lem5_35_CountingOneMoreMatchingEdge.lean` | `S05_Lem5_35_counting_one_more_matching_edge`, `L5_3_CountingOneMoreMatchingEdge` | Finite counting lemma. |
+| proven | 5.36 | lemma | Weight-zero entries are never a majority | `S05_Lem5_36_WeightZeroEntriesAreNeverAMajority.lean` | `S05_Lem5_36_tableau_weightZeroEntries_never_majority` | Tableau-count z-bound certificate. |
+| proven | 5.37 | lemma | Where the induction can fail | `S05_Lem5_37_WhereTheInductionCanFail.lean` | `S05_Lem5_37_where_the_induction_can_fail` | Exceptional-shape localization. |
+| proven | 5.38 | lemma | Even certificate | `S05_Lem5_38_EvenCertificate.lean` | `S05_Lem5_38_tableau_even_certificate` | Tableau-count even certificate. |
+| proven | 5.39 | lemma | Odd exceptional children | `S05_Lem5_39_OddExceptionalChildren.lean` | `S05_Lem5_39_odd_exceptional_children` | Odd exceptional child analysis. |
+| proven | 5.40 | lemma | Odd certificate | `S05_Lem5_40_OddCertificate.lean` | `S05_Lem5_40_tableau_odd_certificate` | Tableau-count odd certificate. |
 
 Notes:
 

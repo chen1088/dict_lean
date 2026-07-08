@@ -9,6 +9,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval`
 -/
 
+
 /-!
 # Lemma 2.3: cube-character orthonormality
 

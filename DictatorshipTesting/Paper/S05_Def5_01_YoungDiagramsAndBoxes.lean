@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Definition 5.1 (`def:young-diagrams-boxes`)
 Title in paper: Young diagrams and boxes.

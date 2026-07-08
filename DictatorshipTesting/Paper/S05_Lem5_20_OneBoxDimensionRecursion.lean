@@ -4,8 +4,9 @@ import DictatorshipTesting.Paper.Aux_TableauDimension
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_21_SizesOfTheSignPatternMultisets`
-- `DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_40_OddCertificate`
 -/
+
 
 /-!
 Paper statement: Lemma 5.20 (`lem:dimension-one-box-recurrence`)

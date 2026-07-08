@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Definition 5.5 (`def:content-adjacent-operators`)
 Title in paper: Contents and adjacent operators.

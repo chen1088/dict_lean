@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Definition 5.13 (`def:one-box-deletion-spaces`)
 Title in paper: One-box deletion spaces.

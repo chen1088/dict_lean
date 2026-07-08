@@ -12,6 +12,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs`
 -/
 
+
 /-!
 # Basic objects for dictatorship testing over `S_n`
 

@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Lemma 5.21 (`lem:X-size`)
 Title in paper: Sizes of the sign-pattern multisets.

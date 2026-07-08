@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting.AlgebraicProperty.Eq_algebraic_property_RowDictWithIStar`
 -/
 
+
 /-!
 # Algebraic property for row dictators
 

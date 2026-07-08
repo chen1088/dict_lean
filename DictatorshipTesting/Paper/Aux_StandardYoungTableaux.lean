@@ -2,13 +2,14 @@ import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.AppA_LemA_05_StandardTableauxSwapConnectedness`
+- `DictatorshipTesting.Paper.AppA_LemA_04_StandardTableauxSwapConnectedness`
 - `DictatorshipTesting.Paper.Aux_TableauDimension`
 - `DictatorshipTesting.Paper.Aux_YoungAdjacentEntries`
 - `DictatorshipTesting.Paper.S05_Def5_03_StandardTableaux`
 - `DictatorshipTesting.Paper.S05_Def5_13_OneBoxDeletionSpaces`
 - `DictatorshipTesting.Paper.S05_Lem5_14_OneBoxCornerDecomposition`
 -/
+
 
 /-!
 # Standard Young tableaux

@@ -6,6 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
+
 /-!
 Paper statement: Lemma 5.31 (`lem:block-lower-bound-gap`)
 Title in paper: Block lower bound implies the gap.

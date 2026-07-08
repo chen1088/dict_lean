@@ -6,9 +6,10 @@ import DictatorshipTesting.Paper.Aux_TableauDimension
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_31_BlockLowerBoundImpliesTheGap`
-- `DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Lem5_33_OddSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_33_EvenSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_34_OddSpectralBridge`
 -/
+
 
 /-!
 # Dimension-parameterized spectral bridge interfaces

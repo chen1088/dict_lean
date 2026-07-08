@@ -1,14 +1,16 @@
-import DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate
+import DictatorshipTesting.Paper.S05_Lem5_38_EvenCertificate
 import DictatorshipTesting.Paper.S05_Lem5_20_OneBoxDimensionRecursion
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
 - `DictatorshipTesting.Paper.S05_Lem5_23_MatchingSubgroupEigenbasis`
-- `DictatorshipTesting.Paper.S05_Lem5_33_OddSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Lem5_38_OddExceptionalChildren`
+- `DictatorshipTesting.Paper.S05_Lem5_32_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_34_OddSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_39_OddExceptionalChildren`
 -/
+
 
 /-!
 Paper statement: Lemma 5.39 (`lem:h-odd-app`)
@@ -816,7 +818,7 @@ theorem hOddTableau_ge_one_sixth_tableauDim_of_no_bad_oneBoxChild
   apply Finset.sum_le_sum
   intro mu hmu
   have heven :=
-    S05_Lem5_37_tableau_even_certificate
+    S05_Lem5_38_tableau_even_certificate
       m hm mu (hchild_row mu hmu) (hchild_std mu hmu)
   have hcoeff :
       (1 / 6 : ℝ) * tableauDim mu ≤ (1 / 5 : ℝ) * tableauDim mu := by
@@ -843,7 +845,7 @@ theorem hOddTableau_ge_one_sixth_tableauDim_of_not_oneRow_not_standard_finite_in
       exact hbad (Or.inr ⟨mu, hmu, hstandard⟩)
 
 /-- Lemma 5.39, tableau-count version of the odd certificate. -/
-theorem S05_Lem5_39_tableau_odd_certificate
+theorem S05_Lem5_40_tableau_odd_certificate
     (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m + 1))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
@@ -923,7 +925,7 @@ theorem L5_6_HOddApp
       m hm lam hrow hstd
 
 /-- Lemma 5.39 paper-numbered alias: odd certificate. -/
-theorem S05_Lem5_39_odd_certificate
+theorem S05_Lem5_40_odd_certificate
     [TwoStripDimensionBranchingAssumption]
     [OneBoxDimensionBranchingPositiveAssumption]
     (m : ℕ) (hm : 2 ≤ m)

@@ -7,6 +7,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_12_TwoBoxTableauBranching`
 -/
 
+
 /-!
 Paper statement: Lemma 5.16 (`lem:one-box-deletion-intertwines`)
 Title in paper: One-box deletion intertwines earlier swaps.

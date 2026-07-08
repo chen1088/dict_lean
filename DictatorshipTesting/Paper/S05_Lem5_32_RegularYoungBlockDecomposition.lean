@@ -1,25 +1,26 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 import DictatorshipTesting.Paper.Aux_TableauDimension
-import DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate
-import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
+import DictatorshipTesting.Paper.S05_Lem5_38_EvenCertificate
+import DictatorshipTesting.Paper.S05_Lem5_40_OddCertificate
 import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
 import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum
-import DictatorshipTesting.Paper.AppA_LemA_04_DegreeOneYoungBlockIdentification
-import DictatorshipTesting.Paper.AppA_LemA_05_StandardTableauxSwapConnectedness
+import DictatorshipTesting.Paper.AppA_LemA_03_DegreeOneYoungBlockIdentification
+import DictatorshipTesting.Paper.AppA_LemA_04_StandardTableauxSwapConnectedness
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Lem5_33_OddSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_33_EvenSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_34_OddSpectralBridge`
 -/
 
+
 /-!
-Paper statement: Theorem A.3 (`thm:app-regular-young-decomposition`)
+Paper statement: Lemma 5.32 (`lem:regular-young-block-decomposition`)
 Title in paper: Regular Young-block decomposition.
 
 Status: internal assembly from external Appendix A ingredients.  A.1, A.2,
-A.4, and A.5 are the named representation-theoretic inputs; this file contains
+A.3, and A.4 are the named representation-theoretic inputs; this file contains
 the theorem that assembles them into the dimension-parameterized
 spectral-block model consumed by the active Theorem 4.10 path.
 -/
@@ -28,46 +29,46 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Theorem A.3 interface: nonnegative block-energy decomposition.  This aliases
+/-- Lemma 5.32 interface: nonnegative block-energy decomposition.  This aliases
 the existing numerical input, rather than proving the representation theorem. -/
-abbrev AppA_ThmA_03_YoungBlockDecompositionInput {n : Nat}
+abbrev S05_Lem5_32_YoungBlockDecompositionInput {n : Nat}
     (blockEnergy : YoungDiagram n → ℝ) : Prop :=
   YoungBlockDecompositionInput blockEnergy
 
-/-- Theorem A.3 interface: `U_1` is represented by the one-row and standard Young
+/-- Lemma 5.32 interface: `U_1` is represented by the one-row and standard Young
 blocks in the numerical model. -/
-abbrev AppA_ThmA_03_U1YoungBlockIdentificationInput {n : Nat}
+abbrev S05_Lem5_32_U1YoungBlockIdentificationInput {n : Nat}
     (F : Perm (Fin n) → ℝ) (blockEnergy : YoungDiagram n → ℝ) : Prop :=
   U1YoungBlockIdentificationInput F blockEnergy
 
-/-- Theorem A.3 model projection: each Young-block energy is nonnegative. -/
-theorem AppA_ThmA_03_blockEnergy_nonnegative {n : Nat}
+/-- Lemma 5.32 model projection: each Young-block energy is nonnegative. -/
+theorem S05_Lem5_32_blockEnergy_nonnegative {n : Nat}
     {F : Perm (Fin n) → ℝ}
     (energy : YoungBlockEnergyModel F)
     (lam : YoungDiagram n) :
     0 ≤ energy.blockEnergy lam :=
   energy.nonneg lam
 
-/-- Theorem A.3 model projection: the distance to `U_1` is the sum of all
+/-- Lemma 5.32 model projection: the distance to `U_1` is the sum of all
 non-`U_1` Young-block energies. -/
-theorem AppA_ThmA_03_u1_identification {n : Nat}
+theorem S05_Lem5_32_u1_identification {n : Nat}
     {F : Perm (Fin n) → ℝ}
     (energy : YoungBlockEnergyModel F) :
     l2DistSqToU1 F =
       (nonU1YoungBlocks n).sum energy.blockEnergy :=
   energy.u1_identification
 
-/-- Appendix A.3 assembly theorem for the tableau-count even route, from the
+/-- Lemma 5.32 assembly theorem for the tableau-count even route, from the
 explicit classical Appendix A ingredients.
 
 This theorem contains no representation-theoretic axiom of its own; it only
-assembles the precise A.1/A.2/A.4/A.5 component inputs into the compact
+assembles the precise A.1/A.2/A.3/A.4 component inputs into the compact
 `SpectralBlockModelInputWithDim` interface consumed by Section 5. -/
 theorem spectralBlockModelInputWithDim_even_from_appA_inputs
     (hA1 : AppA_ThmA_01_YoungOrthogonalRealizationStatement)
     (hA2 : AppA_ThmA_02_JucysMurphyContentSpectrumStatement)
-    (hA4 : AppA_LemA_04_DegreeOneYoungBlockIdentificationStatement)
-    (hA5 : AppA_LemA_05_StandardTableauxSwapConnectednessStatement)
+    (hA4 : AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement)
+    (hA5 : AppA_LemA_04_StandardTableauxSwapConnectednessStatement)
     (m : Nat) (hm : 2 <= m) :
     SpectralBlockModelInputWithDim
       (fun lam : YoungDiagram (2 * m) => tableauDim lam)
@@ -98,11 +99,11 @@ theorem spectralBlockModelInputWithDim_even_from_appendixA
   spectralBlockModelInputWithDim_even_from_appA_inputs
     AppA_ThmA_01_youngOrthogonalRealization
     AppA_ThmA_02_jucysMurphyContentSpectrum
-    AppA_LemA_04_degreeOneYoungBlockIdentification
-    AppA_LemA_05_standardTableauxSwapConnectedness
+    AppA_LemA_03_degreeOneYoungBlockIdentification
+    AppA_LemA_04_standardTableauxSwapConnectedness
     m hm
 
-/-- Appendix A.3 assembly theorem for the tableau-count odd route, from the
+/-- Lemma 5.32 assembly theorem for the tableau-count odd route, from the
 explicit classical Appendix A ingredients.
 
 This is the odd analogue of
@@ -111,8 +112,8 @@ This is the odd analogue of
 theorem spectralBlockModelInputWithDim_odd_from_appA_inputs
     (hA1 : AppA_ThmA_01_YoungOrthogonalRealizationStatement)
     (hA2 : AppA_ThmA_02_JucysMurphyContentSpectrumStatement)
-    (hA4 : AppA_LemA_04_DegreeOneYoungBlockIdentificationStatement)
-    (hA5 : AppA_LemA_05_StandardTableauxSwapConnectednessStatement)
+    (hA4 : AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement)
+    (hA5 : AppA_LemA_04_StandardTableauxSwapConnectednessStatement)
     (m : Nat) (hm : 2 <= m) :
     SpectralBlockModelInputWithDim
       (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)
@@ -143,8 +144,8 @@ theorem spectralBlockModelInputWithDim_odd_from_appendixA
   spectralBlockModelInputWithDim_odd_from_appA_inputs
     AppA_ThmA_01_youngOrthogonalRealization
     AppA_ThmA_02_jucysMurphyContentSpectrum
-    AppA_LemA_04_degreeOneYoungBlockIdentification
-    AppA_LemA_05_standardTableauxSwapConnectedness
+    AppA_LemA_03_degreeOneYoungBlockIdentification
+    AppA_LemA_04_standardTableauxSwapConnectedness
     m hm
 
 end DictatorshipTesting

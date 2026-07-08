@@ -10,6 +10,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_24_LocalTruncationOnAMatchingCharacter`
 -/
 
+
 /-!
 Paper statement: Definition 5.22 (`def:matching-characters`)
 Title in paper: Matching characters.

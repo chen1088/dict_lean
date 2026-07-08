@@ -4,8 +4,9 @@ import DictatorshipTesting.Paper.Aux_TableauDimension
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_21_SizesOfTheSignPatternMultisets`
-- `DictatorshipTesting.Paper.S05_Lem5_35_WeightZeroEntriesAreNeverAMajority`
+- `DictatorshipTesting.Paper.S05_Lem5_36_WeightZeroEntriesAreNeverAMajority`
 -/
+
 
 /-!
 Paper statement: Lemma 5.19 (`lem:dimension-two-strip-recurrence`)
