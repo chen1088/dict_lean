@@ -32,7 +32,7 @@ Detailed maps:
   zero cross-compositions, and the low-plus-high decomposition identity.
 - The remaining main Section 5 frontier is the spectral-block model input.
 - Appendix A now exposes explicit marker axioms for A.1, A.2, A.4, and A.5.
-  The A.3 package axioms consume those markers to produce the even/odd
+  The A.3 assembly theorem consumes those markers to produce the even/odd
   spectral-model theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.
@@ -130,12 +130,12 @@ theorems:
 
 - A.1 Young orthogonal realization.
 - A.2 Jucys--Murphy content spectrum.
-- A.3 Regular Young-block decomposition.
+- A.3 Regular Young-block decomposition is an internal assembly theorem from
+  the A.1/A.2/A.4/A.5 external inputs.
 - A.4 Degree-one Young-block identification.
 - A.5 Connectedness of standard tableaux.
 
-The Appendix A files do not add axioms.  The current Section 5 tableau-count
-dimension route also no longer registers the older `youngDim`
-dimension-branching instances.  The remaining named axioms are the
-dimension-parameterized spectral-block-model inputs tracked in
-`PROOF_OBLIGATIONS.md`.
+The Appendix A files add only the A.1/A.2/A.4/A.5 external marker axioms.
+A.3 itself has no standalone external input; it is proved by assembling those
+markers.  The current Section 5 tableau-count dimension route also no longer
+registers the older `youngDim` dimension-branching instances.

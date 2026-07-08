@@ -43,10 +43,10 @@ The scaffold contains real Lean proofs for the elementary Boolean-cube,
 matching-cube, and averaging steps that have been formalized so far.  A small
 number of hard results are intentionally isolated behind named declarations or
 named external axioms.  There are no remaining `sorry` declarations.  The named
-external axioms are the two Section 2 Filmus inputs, the four Appendix A
-representation-theory ingredient markers A.1, A.2, A.4, and A.5, and the two
-Appendix A.3 spectral-model package axioms.  The theorem wrappers consumed by
-the active Theorem 4.10 path are
+external axioms are the two Section 2 Filmus inputs and the four Appendix A
+representation-theory ingredient markers A.1, A.2, A.4, and A.5.  Appendix A.3
+is a proved assembly theorem from those ingredients.  The theorem wrappers
+consumed by the active Theorem 4.10 path are
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.
 
@@ -253,7 +253,7 @@ External standard inputs:
   spectral bridge is consumed from Appendix A theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.  Those wrappers are
-  built from the explicit A.1/A.2/A.4/A.5 marker axioms and the A.3 package
+  proved by the A.3 assembly theorem from the explicit A.1/A.2/A.4/A.5 marker
   axioms, citing the regular Specht decomposition, Littlewood-Richardson
   restriction to Young subgroups, Pieri two-strip specializations, and Schur's
   lemma for the tableauDim spectral model.
@@ -300,9 +300,9 @@ There are no longer `sorry` declarations for the spectral bridge.  Instead, the
 Section 5 spectral-bridge files make the missing representation theory explicit
 through Appendix A theorem wrappers:
 `spectralBlockModelInputWithDim_even_from_appendixA` and
-`spectralBlockModelInputWithDim_odd_from_appendixA`.  The raw Appendix A axiom
-declarations are the A.1/A.2/A.4/A.5 marker inputs and the two A.3 package
-axioms that consume them.
+`spectralBlockModelInputWithDim_odd_from_appendixA`.  The Appendix A axiom
+declarations are the A.1/A.2/A.4/A.5 marker inputs; A.3 consumes them through
+proved assembly theorems.
 
 - The explicit spectral-block-model axioms supply the actual Young-block
   energies of `F`, the `U_1` energy identification, and the matching-average

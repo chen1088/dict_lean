@@ -19,9 +19,8 @@ Current classification:
   `AppA_ThmA_01_youngOrthogonalRealization`,
   `AppA_ThmA_02_jucysMurphyContentSpectrum`,
   `AppA_LemA_04_degreeOneYoungBlockIdentification`, and
-  `AppA_LemA_05_standardTableauxSwapConnectedness`; and the two A.3 package
-  axioms `spectralBlockModelInputWithDim_even_from_appA_inputs` and
-  `spectralBlockModelInputWithDim_odd_from_appA_inputs`.
+  `AppA_LemA_05_standardTableauxSwapConnectedness`.  A.3 has no standalone
+  axiom; it is a proved assembly theorem from these Appendix A ingredients.
 - Appendix A bridge boundary: the remaining representation-theoretic obligation
   is the spectral-block model input consumed by Section 5.
 - Old `youngDim` dimension axiom instances are gone.  The older `youngDim`
@@ -107,13 +106,17 @@ External Appendix A inputs:
   `AppA_ThmA_01_youngOrthogonalRealization`.
 - A.2 Jucys--Murphy content spectrum:
   `AppA_ThmA_02_jucysMurphyContentSpectrum`.
-- A.3 regular Young-block decomposition:
-  `spectralBlockModelInputWithDim_even_from_appA_inputs` and
-  `spectralBlockModelInputWithDim_odd_from_appA_inputs`.
 - A.4 degree-one Young-block identification:
   `AppA_LemA_04_degreeOneYoungBlockIdentification`.
 - A.5 standard-tableau swap connectedness:
   `AppA_LemA_05_standardTableauxSwapConnectedness`.
+
+Internal Appendix A assembly:
+
+- A.3 regular Young-block decomposition:
+  `spectralBlockModelInputWithDim_even_from_appA_inputs` and
+  `spectralBlockModelInputWithDim_odd_from_appA_inputs` are proved from the
+  A.1/A.2/A.4/A.5 external ingredients.
 
 Remaining Section 5/AppA bridge boundary:
 
@@ -239,7 +242,8 @@ The most important numbering corrections after the Lemma 5.6 rewrite are:
   represented by `S05_Lem5_19_TwoBoxDimensionRecursion.lean` and
   `S05_Lem5_20_OneBoxDimensionRecursion.lean`.
 - The spectral bridge is split across Lemmas 5.31--5.33, with the remaining
-  representation-layer input exposed by named spectral-block model axioms.
+  representation-layer input exposed by the named Appendix A ingredient
+  axioms and the A.3 assembly theorem.
 
 ## External Axiom Declarations
 
@@ -386,9 +390,7 @@ Raw Appendix A axiom declarations:
 `AppA_ThmA_01_youngOrthogonalRealization`,
 `AppA_ThmA_02_jucysMurphyContentSpectrum`,
 `AppA_LemA_04_degreeOneYoungBlockIdentification`,
-`AppA_LemA_05_standardTableauxSwapConnectedness`,
-`spectralBlockModelInputWithDim_even_from_appA_inputs`, and
-`spectralBlockModelInputWithDim_odd_from_appA_inputs`.
+and `AppA_LemA_05_standardTableauxSwapConnectedness`.
 
 Current status: named external axioms, not `sorry` declarations.  Together with
 the two Section 2 Filmus inputs, these are the only remaining axiom

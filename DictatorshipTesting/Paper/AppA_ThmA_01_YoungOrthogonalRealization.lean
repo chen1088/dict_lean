@@ -1,11 +1,14 @@
+import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
+
 /-!
 Paper statement: Theorem A.1 (`thm:app-young-orthogonal`)
 Title in paper: Young orthogonal realization.
 
 Status: external: ingredient bundled into Theorem A.3.  This file is kept
 separate from the internal Section 5 coordinate Coxeter proof: the classical
-Young orthogonal/Specht realization is consumed in Lean through the packaged
-spectral-block model axioms in `AppA_ThmA_03_RegularYoungBlockDecomposition`.
+Young orthogonal/Specht realization is consumed in Lean through the A.3
+spectral-block assembly theorem in
+`AppA_ThmA_03_RegularYoungBlockDecomposition`.
 -/
 
 /-
@@ -18,10 +21,18 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Marker proposition for the not-yet-formalized Theorem A.1.  It stands for
-the classical Young orthogonal/Specht realization used by the packaged
-spectral-block model input in Theorem A.3. -/
-inductive AppA_ThmA_01_YoungOrthogonalRealizationStatement : Prop
+/-- The block-energy data supplied by the Young orthogonal realization.  This
+is the Lean-facing numerical shadow of decomposing a function into Young
+blocks: each block receives a nonnegative squared energy. -/
+structure AppA_YoungBlockEnergyData {n : Nat}
+    (F : Perm (Fin n) -> ℝ) where
+  blockEnergy : YoungDiagram n -> ℝ
+  nonneg : YoungBlockDecompositionInput blockEnergy
+
+/-- Theorem A.1 interface: every function has Young-block energy data. -/
+def AppA_ThmA_01_YoungOrthogonalRealizationStatement : Prop :=
+  ∀ {n : Nat} (F : Perm (Fin n) -> ℝ),
+    Nonempty (AppA_YoungBlockEnergyData F)
 
 /-- External input Theorem A.1: Young orthogonal realization. -/
 axiom AppA_ThmA_01_youngOrthogonalRealization :

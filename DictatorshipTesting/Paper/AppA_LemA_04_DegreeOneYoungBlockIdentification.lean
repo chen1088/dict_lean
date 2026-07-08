@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
+import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
 
 /-
 Direct reverse imports:
@@ -19,10 +19,12 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Marker proposition for the not-yet-formalized Lemma A.4.  It stands for
-the representation-theoretic identification of `U_1` with the degree-one Young
-blocks, used by the packaged spectral-block model input in Theorem A.3. -/
-inductive AppA_LemA_04_DegreeOneYoungBlockIdentificationStatement : Prop
+/-- Lemma A.4 interface: the Young-block energy data from Theorem A.1 identifies
+the distance to `U_1` as the sum of all non-`U_1` block energies. -/
+def AppA_LemA_04_DegreeOneYoungBlockIdentificationStatement : Prop :=
+  ∀ {n : Nat} {F : Perm (Fin n) -> ℝ}
+    (energy : AppA_YoungBlockEnergyData F),
+    U1YoungBlockIdentificationInput F energy.blockEnergy
 
 /-- External input Lemma A.4: degree-one Young-block identification. -/
 axiom AppA_LemA_04_degreeOneYoungBlockIdentification :

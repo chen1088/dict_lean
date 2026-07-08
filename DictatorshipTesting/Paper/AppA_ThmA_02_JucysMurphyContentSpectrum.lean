@@ -1,3 +1,8 @@
+import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
+import DictatorshipTesting.Paper.Aux_TableauDimension
+import DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate
+import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
+
 /-!
 Paper statement: Theorem A.2 (`thm:app-jucys-murphy-content`)
 Title in paper: Jucys--Murphy content spectrum.
@@ -5,7 +10,7 @@ Title in paper: Jucys--Murphy content spectrum.
 Status: external: ingredient bundled into Theorem A.3.  This file is kept
 separate from the internal Section 5 diagonal-content eigenspace proof: the
 classical group-algebra Jucys--Murphy content-spectrum theorem is consumed in
-Lean through the packaged spectral-block model axioms in
+Lean through the A.3 spectral-block assembly theorem in
 `AppA_ThmA_03_RegularYoungBlockDecomposition`.
 -/
 
@@ -19,10 +24,34 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Marker proposition for the not-yet-formalized Theorem A.2.  It stands for
-the classical Jucys--Murphy content-spectrum theorem used by the packaged
-spectral-block model input in Theorem A.3. -/
-inductive AppA_ThmA_02_JucysMurphyContentSpectrumStatement : Prop
+/-- Trace/scalar data supplied by the Jucys--Murphy content-spectrum
+calculation, parameterized by the block dimension and height functions. -/
+structure AppA_TraceScalarDataWithDim {n : Nat}
+    (dim height : YoungDiagram n -> ℝ)
+    {F : Perm (Fin n) -> ℝ}
+    (energy : AppA_YoungBlockEnergyData F) where
+  theta : YoungDiagram n -> ℝ
+  trace_value : TraceScalarValueInputWithDim dim height theta
+
+/-- Theorem A.2 interface: the content-spectrum calculation supplies the
+trace/scalar values needed by the even and odd tableau-count spectral models. -/
+def AppA_ThmA_02_JucysMurphyContentSpectrumStatement : Prop :=
+  (∀ (m : Nat) (_hm : 2 <= m)
+      {F : Perm (Fin (2 * m)) -> ℝ}
+      (energy : AppA_YoungBlockEnergyData F),
+      Nonempty
+        (AppA_TraceScalarDataWithDim
+          (fun lam : YoungDiagram (2 * m) => tableauDim lam)
+          (fun lam : YoungDiagram (2 * m) => hEvenTableau m lam)
+          energy)) ∧
+    (∀ (m : Nat) (_hm : 2 <= m)
+      {F : Perm (Fin (2 * m + 1)) -> ℝ}
+      (energy : AppA_YoungBlockEnergyData F),
+      Nonempty
+        (AppA_TraceScalarDataWithDim
+          (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)
+          (fun lam : YoungDiagram (2 * m + 1) => hOddTableau m lam)
+          energy))
 
 /-- External input Theorem A.2: Jucys--Murphy content spectrum. -/
 axiom AppA_ThmA_02_jucysMurphyContentSpectrum :

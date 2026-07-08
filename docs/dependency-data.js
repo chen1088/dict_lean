@@ -929,13 +929,13 @@ window.DICT_DEPENDENCY_DATA = {
       label: "App A.3",
       title: "Regular Young-block decomposition",
       section: "Appendix A",
-      kind: "external",
+      kind: "paper",
       importance: "normal",
-      status: "external",
+      status: "proven",
       file: "DictatorshipTesting/Paper/AppA_ThmA_03_RegularYoungBlockDecomposition.lean",
       wrappers: ["spectralBlockModelInputWithDim_even_from_appA_inputs", "spectralBlockModelInputWithDim_odd_from_appA_inputs", "spectralBlockModelInputWithDim_even_from_appendixA", "spectralBlockModelInputWithDim_odd_from_appendixA"],
       deps: ["AppA_01", "AppA_02", "AppA_04", "AppA_05"],
-      summary: "Packaged Appendix A boundary: A.3 axioms consume the A.1/A.2/A.4/A.5 markers and expose even/odd theorem wrappers."
+      summary: "Internal Appendix A assembly theorem: A.3 consumes the A.1/A.2/A.4/A.5 external markers and exposes even/odd theorem wrappers."
     },
     {
       id: "AppA_04",
