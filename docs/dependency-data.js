@@ -11,21 +11,8 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proven",
       file: "DictatorshipTesting/Paper/S01_Thm1_01_MainIntro.lean",
       wrappers: ["Thm1_1_MainIntro"],
-      deps: ["TesterAmplification", "L4_13"],
-      summary: "Main theorem wrapper, proved from one-trial soundness and tester amplification."
-    },
-    {
-      id: "TesterAmplification",
-      label: "amplification",
-      title: "Tester amplification",
-      section: "Main spine",
-      kind: "aux",
-      importance: "minor",
-      status: "proven",
-      file: "DictatorshipTesting/Paper/Aux_TesterAmplification.lean",
-      wrappers: ["exists_dimensionFreeTester_of_oneTrialSoundness"],
-      deps: [],
-      summary: "Turns one-trial soundness into the repeated tester bound."
+      deps: ["L4_13"],
+      summary: "Main theorem wrapper, proved from one-trial soundness and the in-file tester amplification helper."
     },
     {
       id: "L4_13",
@@ -178,10 +165,10 @@ window.DICT_DEPENDENCY_DATA = {
       kind: "aux",
       importance: "minor",
       status: "proven",
-      file: "DictatorshipTesting/Paper/Aux_OrderedMatchingTauUnmatched.lean",
-      wrappers: [],
+      file: "DictatorshipTesting/Paper/Aux_OrderedMatchingTauDepends.lean",
+      wrappers: ["orderedMatching_tau_apply_of_unmatched"],
       deps: [],
-      summary: "Bookkeeping for ordered matching products and unmatched-point coordinates."
+      summary: "Bookkeeping for ordered matching products, unmatched-point coordinates, and edge-coordinate dependence."
     },
     {
       id: "S03_01",
@@ -896,7 +883,7 @@ window.DICT_DEPENDENCY_DATA = {
       file: "DictatorshipTesting/Paper/S05_Lem5_32_EvenSpectralBridge.lean",
       wrappers: ["spectralBlockModelInputWithDim_even_from_appendixA"],
       deps: ["AppA_01", "AppA_02", "AppA_03", "AppA_04", "AppA_05"],
-      summary: "Appendix A boundary axiom supplying the even spectral block model."
+      summary: "Appendix A theorem wrapper supplying the even spectral block model."
     },
     {
       id: "AppA_OddSpectralModel",
@@ -909,7 +896,7 @@ window.DICT_DEPENDENCY_DATA = {
       file: "DictatorshipTesting/Paper/S05_Lem5_33_OddSpectralBridge.lean",
       wrappers: ["spectralBlockModelInputWithDim_odd_from_appendixA"],
       deps: ["AppA_01", "AppA_02", "AppA_03", "AppA_04", "AppA_05"],
-      summary: "Appendix A boundary axiom supplying the odd spectral block model."
+      summary: "Appendix A theorem wrapper supplying the odd spectral block model."
     },
     {
       id: "AppA_01",
@@ -920,9 +907,9 @@ window.DICT_DEPENDENCY_DATA = {
       importance: "normal",
       status: "external",
       file: "DictatorshipTesting/Paper/AppA_ThmA_01_YoungOrthogonalRealization.lean",
-      wrappers: [],
+      wrappers: ["AppA_ThmA_01_youngOrthogonalRealization"],
       deps: [],
-      summary: "External classical Young orthogonal/Specht realization boundary. Section 5 separately proves its coordinate Coxeter model."
+      summary: "Named external marker for the classical Young orthogonal/Specht realization ingredient."
     },
     {
       id: "AppA_02",
@@ -933,9 +920,9 @@ window.DICT_DEPENDENCY_DATA = {
       importance: "normal",
       status: "external",
       file: "DictatorshipTesting/Paper/AppA_ThmA_02_JucysMurphyContentSpectrum.lean",
-      wrappers: [],
+      wrappers: ["AppA_ThmA_02_jucysMurphyContentSpectrum"],
       deps: [],
-      summary: "External group-algebra Jucys-Murphy content-spectrum boundary. Section 5 separately proves diagonal content eigenspaces."
+      summary: "Named external marker for the classical group-algebra Jucys-Murphy content-spectrum ingredient."
     },
     {
       id: "AppA_03",
@@ -946,9 +933,9 @@ window.DICT_DEPENDENCY_DATA = {
       importance: "normal",
       status: "external",
       file: "DictatorshipTesting/Paper/AppA_ThmA_03_RegularYoungBlockDecomposition.lean",
-      wrappers: ["AppA_ThmA_03_YoungBlockDecompositionInput"],
-      deps: [],
-      summary: "External regular representation decomposition into Young blocks."
+      wrappers: ["spectralBlockModelInputWithDim_even_from_appA_inputs", "spectralBlockModelInputWithDim_odd_from_appA_inputs", "spectralBlockModelInputWithDim_even_from_appendixA", "spectralBlockModelInputWithDim_odd_from_appendixA"],
+      deps: ["AppA_01", "AppA_02", "AppA_04", "AppA_05"],
+      summary: "Packaged Appendix A boundary: A.3 axioms consume the A.1/A.2/A.4/A.5 markers and expose even/odd theorem wrappers."
     },
     {
       id: "AppA_04",
@@ -959,9 +946,9 @@ window.DICT_DEPENDENCY_DATA = {
       importance: "normal",
       status: "external",
       file: "DictatorshipTesting/Paper/AppA_LemA_04_DegreeOneYoungBlockIdentification.lean",
-      wrappers: [],
-      deps: ["AppA_03"],
-      summary: "External identification of U1 with the trivial and standard Young blocks."
+      wrappers: ["AppA_LemA_04_degreeOneYoungBlockIdentification", "AppA_LemA_04_l2DistSqToU1_eq_nonU1_sum"],
+      deps: [],
+      summary: "Named external marker and Lean interface for identifying U1 with the trivial and standard Young blocks."
     },
     {
       id: "AppA_05",
@@ -972,9 +959,9 @@ window.DICT_DEPENDENCY_DATA = {
       importance: "normal",
       status: "external",
       file: "DictatorshipTesting/Paper/AppA_LemA_05_StandardTableauxSwapConnectedness.lean",
-      wrappers: [],
+      wrappers: ["AppA_LemA_05_standardTableauxSwapConnectedness"],
       deps: [],
-      summary: "External connectedness fact for standard tableaux under adjacent swaps."
+      summary: "Named external marker for connectedness of standard tableaux under adjacent swaps."
     },
     {
       id: "S05_01",

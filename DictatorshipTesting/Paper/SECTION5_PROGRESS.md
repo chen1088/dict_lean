@@ -31,7 +31,9 @@ Detailed maps:
 - Definition 5.26 now has proved low/high matching idempotent identities,
   zero cross-compositions, and the low-plus-high decomposition identity.
 - The remaining main Section 5 frontier is the spectral-block model input.
-- The two remaining Section 5/Aux axioms are exactly
+- Appendix A now exposes explicit marker axioms for A.1, A.2, A.4, and A.5.
+  The A.3 package axioms consume those markers to produce the even/odd
+  spectral-model theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.
 - Theorem 4.10 is a proved Section 4 theorem whose active proof path uses the

@@ -13,12 +13,17 @@ Current classification:
   require explicit dimension-branching typeclass hypotheses and are not the
   current tableau-count proof route.
 - Internal open finite certificates: none currently listed.
-- Current external axiom declarations are exactly
-  `booleanU1_dictator_classification_input`, `fknStability_input`,
-  `spectralBlockModelInputWithDim_even_from_appendixA`, and
-  `spectralBlockModelInputWithDim_odd_from_appendixA`.
-- Section 5/AppA bridge boundary: the remaining representation-theoretic
-  obligation is the spectral-block model input.
+- Current external axiom declarations are exactly the two Section 2 inputs
+  `booleanU1_dictator_classification_input` and `fknStability_input`; the
+  Appendix A ingredient markers
+  `AppA_ThmA_01_youngOrthogonalRealization`,
+  `AppA_ThmA_02_jucysMurphyContentSpectrum`,
+  `AppA_LemA_04_degreeOneYoungBlockIdentification`, and
+  `AppA_LemA_05_standardTableauxSwapConnectedness`; and the two A.3 package
+  axioms `spectralBlockModelInputWithDim_even_from_appA_inputs` and
+  `spectralBlockModelInputWithDim_odd_from_appA_inputs`.
+- Appendix A bridge boundary: the remaining representation-theoretic obligation
+  is the spectral-block model input consumed by Section 5.
 - Old `youngDim` dimension axiom instances are gone.  The older `youngDim`
   wrappers remain only as theorems with explicit typeclass hypotheses, and no
   instance is registered for those hypotheses.
@@ -45,7 +50,7 @@ Early-section statement counts:
 | 4 | 13 | The local Fourier and soundness reductions are internal. Theorem 4.10 is proved through the Section 5 tableau-count bridge and uses the Appendix A spectral model input. |
 
 Theorem 4.10 status: the active theorem is proved through the tableau-count
-Section 5 bridge, using the Appendix A spectral model inputs
+Section 5 bridge, using the Appendix A spectral model theorem wrappers
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.  It no longer carries the
 older `youngDim` dimension-branching typeclass hypotheses.
@@ -61,8 +66,9 @@ Thm1_1_MainIntro
   -> Thm4_10_MatchingGap
   -> S05_Lem5_32_tableauDim_evenSpectralGapFromCertificates
      / S05_Lem5_33_tableauDim_oddSpectralGapFromCertificates
-  -> spectralBlockModelInputWithDim_even_from_appendixA
-     / spectralBlockModelInputWithDim_odd_from_appendixA
+  -> Appendix A spectral-block model input
+     (`spectralBlockModelInputWithDim_even_from_appendixA`
+      / `spectralBlockModelInputWithDim_odd_from_appendixA`)
 ```
 
 The Boolean `U_1` classification theorem is not a direct dependency of this
@@ -97,11 +103,17 @@ Proven current Section 5 components:
 
 External Appendix A inputs:
 
-- A.1 Young orthogonal realization.
-- A.2 Jucys--Murphy content spectrum.
-- A.3 regular Young-block decomposition.
-- A.4 degree-one Young-block identification.
-- A.5 standard-tableau swap connectedness.
+- A.1 Young orthogonal realization:
+  `AppA_ThmA_01_youngOrthogonalRealization`.
+- A.2 Jucys--Murphy content spectrum:
+  `AppA_ThmA_02_jucysMurphyContentSpectrum`.
+- A.3 regular Young-block decomposition:
+  `spectralBlockModelInputWithDim_even_from_appA_inputs` and
+  `spectralBlockModelInputWithDim_odd_from_appA_inputs`.
+- A.4 degree-one Young-block identification:
+  `AppA_LemA_04_degreeOneYoungBlockIdentification`.
+- A.5 standard-tableau swap connectedness:
+  `AppA_LemA_05_standardTableauxSwapConnectedness`.
 
 Remaining Section 5/AppA bridge boundary:
 
@@ -365,9 +377,18 @@ Lean files: `DictatorshipTesting/Paper/S05_Lem5_31_BlockLowerBoundImpliesTheGap.
 `DictatorshipTesting/Paper/Aux_SpectralBridgeFromCertificates.lean`,
 and `DictatorshipTesting/Paper/Aux_SpectralBridgeDimensionParam.lean`.
 
-Lean names: `spectralBlockModelInputWithDim_even_from_appendixA`,
+Lean names consumed downstream:
+`spectralBlockModelInputWithDim_even_from_appendixA`,
 `spectralBlockModelInputWithDim_odd_from_appendixA`,
 and `SpectralBlockModelInputWithDim`.
+
+Raw Appendix A axiom declarations:
+`AppA_ThmA_01_youngOrthogonalRealization`,
+`AppA_ThmA_02_jucysMurphyContentSpectrum`,
+`AppA_LemA_04_degreeOneYoungBlockIdentification`,
+`AppA_LemA_05_standardTableauxSwapConnectedness`,
+`spectralBlockModelInputWithDim_even_from_appA_inputs`, and
+`spectralBlockModelInputWithDim_odd_from_appA_inputs`.
 
 Current status: named external axioms, not `sorry` declarations.  Together with
 the two Section 2 Filmus inputs, these are the only remaining axiom
@@ -398,7 +419,7 @@ following it; Pieri special cases for the two-strip matching-subgroup chain.
 Downstream dependencies: `Thm4_10_MatchingGap`,
 `Prop4_12_SquareEnergyControlsGlobalDegree`, `L4_13_OneTrialSoundness`, and
 `Thm1_1_MainIntro`, which use the named dimension-parameterized Appendix A
-spectral block model axioms through the tableauDim bridge.
+spectral block model theorem wrappers through the tableauDim bridge.
 
 ### Lemma 5.23 Full Matching-Restriction/Pieri Statement
 

@@ -7,13 +7,16 @@ Appendix A Lean-facing file count: 5.
 
 | Status | Paper stmt | Environment | Paper title | Lean file | Main wrappers | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| external: Young orthogonal/Specht module theory | A.1 | theorem | Young orthogonal realization | `AppA_ThmA_01_YoungOrthogonalRealization.lean` | Documentation boundary file | Classical Specht/Young orthogonal realization; Section 5 separately proves the coordinate Coxeter model. |
-| external: Jucys--Murphy content-spectrum theorem | A.2 | theorem | Jucys--Murphy content spectrum | `AppA_ThmA_02_JucysMurphyContentSpectrum.lean` | Documentation boundary file | Classical group-algebra Jucys--Murphy content spectrum; Section 5 separately proves diagonal content eigenspaces. |
-| external: regular representation/Specht decomposition and Schur orthogonality | A.3 | theorem | Regular Young-block decomposition | `AppA_ThmA_03_RegularYoungBlockDecomposition.lean` | `AppA_ThmA_03_YoungBlockDecompositionInput`, `AppA_ThmA_03_U1YoungBlockIdentificationInput` | Supplies the Young-block energy decomposition and the `U_1` block identification interface. |
-| external: degree-one permutation representation decomposition | A.4 | lemma | Degree-one Young-block identification | `AppA_LemA_04_DegreeOneYoungBlockIdentification.lean` | `AppA_LemA_04_U1YoungBlockIdentification`, `AppA_LemA_04_l2DistSqToU1_eq_nonU1_sum` | Identifies the non-`U_1` block set used by the spectral model. |
-| external: standard tableaux swap connectedness | A.5 | lemma | Connectedness of standard tableaux | `AppA_LemA_05_StandardTableauxSwapConnectedness.lean` | Documentation boundary file | External connectedness fact for adjacent swaps of standard tableaux of a fixed shape. |
+| external: ingredient bundled into A.3 spectral model | A.1 | theorem | Young orthogonal realization | `AppA_ThmA_01_YoungOrthogonalRealization.lean` | `AppA_ThmA_01_youngOrthogonalRealization` | Classical Specht/Young orthogonal realization; Section 5 separately proves the coordinate Coxeter model. |
+| external: ingredient bundled into A.3 spectral model | A.2 | theorem | Jucys--Murphy content spectrum | `AppA_ThmA_02_JucysMurphyContentSpectrum.lean` | `AppA_ThmA_02_jucysMurphyContentSpectrum` | Classical group-algebra Jucys--Murphy content spectrum; Section 5 separately proves diagonal content eigenspaces. |
+| external: packaged spectral-block model input | A.3 | theorem | Regular Young-block decomposition | `AppA_ThmA_03_RegularYoungBlockDecomposition.lean` | `spectralBlockModelInputWithDim_even_from_appendixA`, `spectralBlockModelInputWithDim_odd_from_appendixA` | The consumed names are theorem wrappers built from the A.1/A.2/A.4/A.5 markers and the internal package axioms `spectralBlockModelInputWithDim_even_from_appA_inputs` and `spectralBlockModelInputWithDim_odd_from_appA_inputs`. |
+| external: degree-one permutation representation decomposition | A.4 | lemma | Degree-one Young-block identification | `AppA_LemA_04_DegreeOneYoungBlockIdentification.lean` | `AppA_LemA_04_degreeOneYoungBlockIdentification`, `AppA_LemA_04_l2DistSqToU1_eq_nonU1_sum` | The marker axiom records the external representation input; the remaining wrappers expose the Lean `U_1` block-identification interface used by the spectral model. |
+| external: ingredient bundled into A.3 spectral model | A.5 | lemma | Connectedness of standard tableaux | `AppA_LemA_05_StandardTableauxSwapConnectedness.lean` | `AppA_LemA_05_standardTableauxSwapConnectedness` | External connectedness fact for adjacent swaps of standard tableaux of a fixed shape. |
 
-The Appendix A files intentionally do not introduce new axioms.  They either
-document an external input boundary or expose neutral auxiliary interface
-definitions already used by the Section 5 scaffold.  Appendix A files should
-not import internal `S05_*` theorem files.
+Appendix A now has explicit Lean axiom declarations for each external paper
+ingredient A.1, A.2, A.4, and A.5.  Theorem A.3 has two package axioms,
+`spectralBlockModelInputWithDim_even_from_appA_inputs` and
+`spectralBlockModelInputWithDim_odd_from_appA_inputs`, which consume those
+ingredient markers.  The names used downstream by Theorem 4.10 are theorem
+wrappers `spectralBlockModelInputWithDim_even_from_appendixA` and
+`spectralBlockModelInputWithDim_odd_from_appendixA`.

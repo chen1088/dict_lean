@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_DistanceNonneg
+import DictatorshipTesting.Paper.Defs
 import DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge
 import DictatorshipTesting.Paper.S05_Lem5_33_OddSpectralBridge
 
@@ -9,6 +9,23 @@ This is `thm:matching-gap` from `dictatorship_testing_soda27_latest.tex`.
 -/
 
 namespace DictatorshipTesting
+
+/-- Squared `L^2` distance is nonnegative. -/
+theorem l2DistSq_nonneg {α : Type*} [Fintype α] [DecidableEq α]
+    (F G : Perm α → ℝ) :
+    0 ≤ l2DistSq F G := by
+  unfold l2DistSq
+  positivity
+
+/-- Squared distance to `U_1` is nonnegative. -/
+theorem l2DistSqToU1_nonneg {α : Type*} [Fintype α] [DecidableEq α]
+    (F : Perm α → ℝ) :
+    0 ≤ l2DistSqToU1 F := by
+  unfold l2DistSqToU1
+  apply Real.sInf_nonneg
+  intro d hd
+  rcases hd with ⟨G, _hG, rfl⟩
+  exact l2DistSq_nonneg F G
 
 /-- Theorem 4.10, `thm:matching-gap`: matching-cube spectral gap.  The active
 theorem path uses the tableau-count Section 5 bridge, with Appendix A supplying

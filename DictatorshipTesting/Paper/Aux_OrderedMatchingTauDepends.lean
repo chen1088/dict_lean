@@ -1,10 +1,49 @@
-import DictatorshipTesting.Paper.Aux_OrderedMatchingTauUnmatched
+import DictatorshipTesting.Paper.Defs
 
 /-!
 # Coordinate-dependence of matching cube elements
 -/
 
 namespace DictatorshipTesting
+
+/-- If every permutation in a list fixes `a`, then the list product fixes `a`. -/
+theorem list_perm_prod_apply_eq_of_forall_mem_eq {α : Type*}
+    (l : List (Perm α)) (a : α)
+    (h : ∀ σ ∈ l, σ a = a) :
+    l.prod a = a := by
+  induction l with
+  | nil =>
+      simp
+  | cons σ l ih =>
+      have htail : l.prod a = a := by
+        apply ih
+        intro τ hτ
+        exact h τ (by simp [hτ])
+      have hhead : σ a = a := h σ (by simp)
+      simp [List.prod_cons, Equiv.Perm.mul_apply, htail, hhead]
+
+/-- A matching edge-swap fixes a point not appearing in that edge. -/
+theorem orderedMatching_edgeSwap_apply_of_ne {α : Type*} [DecidableEq α]
+    (M : OrderedMatching α) (r : Fin M.edgeCount) {a : α}
+    (hl : a ≠ M.left r) (hr : a ≠ M.right r) :
+    M.edgeSwap r a = a := by
+  simpa [OrderedMatching.edgeSwap, pswap] using
+    (Equiv.swap_apply_of_ne_of_ne hl hr)
+
+/-- If `a` is unmatched by `M`, then every cube element fixes `a`. -/
+theorem orderedMatching_tau_apply_of_unmatched {α : Type*} [DecidableEq α]
+    (M : OrderedMatching α) (x : Cube M.edgeCount) {a : α}
+    (hleft : ∀ r : Fin M.edgeCount, a ≠ M.left r)
+    (hright : ∀ r : Fin M.edgeCount, a ≠ M.right r) :
+    M.tau x a = a := by
+  unfold OrderedMatching.tau
+  apply list_perm_prod_apply_eq_of_forall_mem_eq
+  intro σ hσ
+  rcases (List.mem_ofFn.mp hσ) with ⟨r, rfl⟩
+  by_cases hx : x r
+  · simp [OrderedMatching.edgePerm, hx,
+      orderedMatching_edgeSwap_apply_of_ne M r (hleft r) (hright r)]
+  · simp [OrderedMatching.edgePerm, hx]
 
 /-- Membership in the two endpoints of one ordered matching edge. -/
 def OrderedMatching.InEdge {α : Type*} [DecidableEq α]

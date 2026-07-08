@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_CubeLowDegreeOnePart
+import DictatorshipTesting.Paper.Aux_CubeLowDegreeError
 import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
 import DictatorshipTesting.Paper.S04_Lem4_04_PMIndependentOfRepresentatives
 

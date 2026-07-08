@@ -13,6 +13,15 @@ noncomputable section
 
 namespace DictatorshipTesting
 
+/-- Marker proposition for the not-yet-formalized Lemma A.4.  It stands for
+the representation-theoretic identification of `U_1` with the degree-one Young
+blocks, used by the packaged spectral-block model input in Theorem A.3. -/
+inductive AppA_LemA_04_DegreeOneYoungBlockIdentificationStatement : Prop
+
+/-- External input Lemma A.4: degree-one Young-block identification. -/
+axiom AppA_LemA_04_degreeOneYoungBlockIdentification :
+    AppA_LemA_04_DegreeOneYoungBlockIdentificationStatement
+
 /-- Current Lean interface for the `U_1` Young-block identification. -/
 abbrev AppA_LemA_04_U1YoungBlockIdentification {n : Nat}
     (F : Perm (Fin n) -> ℝ) (blockEnergy : YoungDiagram n -> ℝ) : Prop :=
