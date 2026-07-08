@@ -2,6 +2,12 @@ import DictatorshipTesting.Paper.Aux_CubeFourierTranslate
 import DictatorshipTesting.Paper.Aux_CubeHighDegreeLinear
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.Aux_CubeColorCounting`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 # Spectral formula for the cube square-test energy
 -/

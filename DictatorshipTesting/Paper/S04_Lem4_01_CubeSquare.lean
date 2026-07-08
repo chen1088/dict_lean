@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Aux_CubeColorCounting
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 # Lemma 4.1: Square test detects Fourier weight at least two
 

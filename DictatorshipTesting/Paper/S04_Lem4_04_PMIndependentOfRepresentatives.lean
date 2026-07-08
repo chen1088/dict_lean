@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Aux_CubeFourierTranslate
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.Aux_MatchingLocalProjection`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 # Lemma 4.4: The definition of `P_M` is independent of representatives
 

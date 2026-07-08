@@ -1,6 +1,12 @@
 import DictatorshipTesting.Paper.Aux_TableauDimension
 import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Definition 5.4 (`def:tableau-coordinate-space`)
 Title in paper: Tableau coordinate space.

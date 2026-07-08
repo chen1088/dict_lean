@@ -1,5 +1,11 @@
 import Mathlib
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting`
+- `DictatorshipTesting.SetFacts.Fact_sub_sd_SetMinusSymmDiff`
+-/
+
 /-!
 # Set identities used in `dict.tex`
 

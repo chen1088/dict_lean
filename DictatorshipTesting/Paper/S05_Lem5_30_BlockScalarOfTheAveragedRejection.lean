@@ -1,5 +1,13 @@
 import DictatorshipTesting.Paper.S05_Lem5_25_TraceOfOneLocalTruncationOnOneYoungBlock
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam`
+- `DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.30 (`lem:centralization-matchings`)
 Title in paper: Block scalar of the averaged rejection.

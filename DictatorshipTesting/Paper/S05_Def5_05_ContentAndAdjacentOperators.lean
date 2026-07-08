@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Definition 5.5 (`def:content-adjacent-operators`)
 Title in paper: Contents and adjacent operators.

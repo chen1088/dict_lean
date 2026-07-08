@@ -1,5 +1,13 @@
 import DictatorshipTesting.Paper.Aux_TableauDimension
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_21_SizesOfTheSignPatternMultisets`
+- `DictatorshipTesting.Paper.S05_Lem5_35_WeightZeroEntriesAreNeverAMajority`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.19 (`lem:dimension-two-strip-recurrence`)
 Title in paper: Two-box dimension recursion.

@@ -2,6 +2,12 @@ import DictatorshipTesting.Paper.Aux_CubeCharFlip
 import DictatorshipTesting.Paper.Aux_CubeFlipInvolutive
 import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S04_Cor4_09_U1Local`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 # Lemma 4.8: A basic indicator has local degree at most one
 

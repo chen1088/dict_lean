@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.S05_Def5_17_EvenSignPatternMultiset
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_21_SizesOfTheSignPatternMultisets`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Definition 5.18 (`def:odd-sign-patterns`)
 Title in paper: Odd sign-pattern multiset.

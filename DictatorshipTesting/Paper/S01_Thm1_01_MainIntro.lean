@@ -1,6 +1,11 @@
 import DictatorshipTesting.Paper.Defs
 import DictatorshipTesting.Paper.S04_Lem4_13_OneTrialSoundness
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper`
+-/
+
 /-!
 # Theorem 1.1: Main theorem
 

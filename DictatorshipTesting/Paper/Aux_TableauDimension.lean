@@ -1,5 +1,17 @@
 import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam`
+- `DictatorshipTesting.Paper.Aux_YoungOrthogonal`
+- `DictatorshipTesting.Paper.S05_Def5_04_TableauCoordinateSpace`
+- `DictatorshipTesting.Paper.S05_Lem5_12_TwoBoxTableauBranching`
+- `DictatorshipTesting.Paper.S05_Lem5_19_TwoBoxDimensionRecursion`
+- `DictatorshipTesting.Paper.S05_Lem5_20_OneBoxDimensionRecursion`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 # Tableau-count dimension
 

@@ -3,6 +3,16 @@ import DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.Aux_MatchingLocalProjection`
+- `DictatorshipTesting.Paper.Aux_PMConvolution`
+- `DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula`
+- `DictatorshipTesting.Paper.S04_Lem4_07_PMPerpendicular`
+- `DictatorshipTesting.Paper.S05_Lem5_24_LocalTruncationOnAMatchingCharacter`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 # Error of the degree-at-most-one cube projection
 

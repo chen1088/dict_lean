@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma A.5 (`lem:app-tableau-swap-connected`)
 Title in paper: Connectedness of standard tableaux.

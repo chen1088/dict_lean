@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Definition 5.11 (`def:one-box-removals`)
 Title in paper: One-box removals.

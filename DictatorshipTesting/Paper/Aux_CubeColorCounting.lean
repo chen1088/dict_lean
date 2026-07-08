@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Aux_CubeSquareSpectralFormula
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 # Color-counting for the cube square test
 

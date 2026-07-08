@@ -2,6 +2,12 @@ import DictatorshipTesting.Paper.Aux_CubeLowDegreeError
 import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
 import DictatorshipTesting.Paper.Aux_PermCubeAverage
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 # Lemma 4.6: Local high-degree error formula
 

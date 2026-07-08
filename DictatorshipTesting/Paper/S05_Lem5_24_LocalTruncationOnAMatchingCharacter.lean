@@ -2,6 +2,12 @@ import DictatorshipTesting.Paper.Aux_CubeLowDegreeError
 import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
 import DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.24 (`lem:PM-character-projection`)
 Title in paper: Local truncation on a matching character.

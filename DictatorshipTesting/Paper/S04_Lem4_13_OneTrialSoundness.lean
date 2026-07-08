@@ -2,6 +2,12 @@ import DictatorshipTesting.Paper.Aux_OneTrialRejectProbabilityLowerBound
 import DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree
 import DictatorshipTesting.Paper.S02_Thm2_02_FKNStability
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 # Lemma 4.13: One-trial soundness
 

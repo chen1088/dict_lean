@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.Aux_YoungAdjacentAction
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_07_DiagonalContentEigenspaces`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.6 (`lem:young-adjacent-matrices`)
 Title in paper: Tableau Coxeter model for adjacent transpositions.

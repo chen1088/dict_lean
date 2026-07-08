@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.Defs
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality`
+- `DictatorshipTesting.Paper.S04_Lem4_08_TijLocalDegree`
+- `DictatorshipTesting.PaperAux`
+-/
+
 namespace DictatorshipTesting
 
 /-- Flipping a coordinate in the character support negates that character. -/

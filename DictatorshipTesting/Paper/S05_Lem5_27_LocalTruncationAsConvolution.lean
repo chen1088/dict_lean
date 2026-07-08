@@ -1,6 +1,13 @@
 import DictatorshipTesting.Paper.Aux_PMConvolution
 import DictatorshipTesting.Paper.S05_Def5_26_MatchingIdempotents
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_28_CentralAveragedRejection`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.27 (`lem:PM-convolution`)
 Title in paper: Local truncation as convolution.

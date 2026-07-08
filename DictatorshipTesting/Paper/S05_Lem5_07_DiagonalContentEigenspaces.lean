@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.S05_Lem5_06_AdjacentTranspositionsInYoungsBasis
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_16_OneBoxDeletionIntertwinesEarlierSwaps`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.7 (`lem:jucys-murphy-eigenbasis`), rewritten
 Section 5 form.

@@ -1,6 +1,12 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates
 import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.31 (`lem:block-lower-bound-gap`)
 Title in paper: Block lower bound implies the gap.

@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.S05_Lem5_27_LocalTruncationAsConvolution
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_29_YoungBasisScalarCommutant`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.28 (`lem:averaged-rejection-central`)
 Title in paper: Central averaged rejection.

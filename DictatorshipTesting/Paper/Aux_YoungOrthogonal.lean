@@ -1,6 +1,16 @@
 import DictatorshipTesting.Paper.Aux_YoungAdjacentEntries
 import DictatorshipTesting.Paper.Aux_TableauDimension
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.Aux_YoungAdjacentAction`
+- `DictatorshipTesting.Paper.Aux_YoungMatchingOperators`
+- `DictatorshipTesting.Paper.S05_Def5_04_TableauCoordinateSpace`
+- `DictatorshipTesting.Paper.S05_Def5_05_ContentAndAdjacentOperators`
+- `DictatorshipTesting.Paper.S05_Lem5_15_OneBoxDeletionIsUnitary`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 Elementary coordinate-space objects for the tableau-basis side of the rewritten
 Section 5 proof.  This file deliberately stops before any Specht-module or

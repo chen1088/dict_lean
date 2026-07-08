@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Definition 5.2 (`def:removable-corners`)
 Title in paper: Removable corners and one-box removals.

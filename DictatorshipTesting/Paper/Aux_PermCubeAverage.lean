@@ -1,5 +1,13 @@
 import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
+- `DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula`
+- `DictatorshipTesting.Paper.S04_Lem4_07_PMPerpendicular`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 # Averaging over matching-cube translates
 

@@ -1,5 +1,14 @@
 import DictatorshipTesting.Paper.Defs
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.Aux_CubeFourierTranslate`
+- `DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality`
+- `DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion`
+- `DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters`
+- `DictatorshipTesting.PaperAux`
+-/
+
 namespace DictatorshipTesting
 
 /-- A Boolean-cube character squares to `1`. -/

@@ -2,6 +2,16 @@ import DictatorshipTesting.Paper.Aux_CubeLowDegreeError
 import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
 import DictatorshipTesting.Paper.S04_Lem4_04_PMIndependentOfRepresentatives
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal`
+- `DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula`
+- `DictatorshipTesting.Paper.S04_Lem4_07_PMPerpendicular`
+- `DictatorshipTesting.Paper.S05_Def5_26_MatchingIdempotents`
+- `DictatorshipTesting.Paper.S05_Lem5_24_LocalTruncationOnAMatchingCharacter`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 # Auxiliary facts for the matching-local projection
 

@@ -3,6 +3,11 @@ import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
 import DictatorshipTesting.Paper.Aux_PermCubeAverage
 import DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 # Lemma 4.7: High local degrees have zero inner product with local degree one
 

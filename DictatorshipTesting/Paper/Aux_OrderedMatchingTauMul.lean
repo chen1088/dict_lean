@@ -1,6 +1,16 @@
 import DictatorshipTesting.Paper.Aux_OrderedMatchingTauDepends
 import DictatorshipTesting.Paper.Aux_CubeCharXor
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.Aux_MatchingLocalProjection`
+- `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
+- `DictatorshipTesting.Paper.Aux_PermCubeAverage`
+- `DictatorshipTesting.Paper.Aux_PMConvolution`
+- `DictatorshipTesting.Paper.S04_Lem4_11_TrialCubeCoordinates`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 # Multiplicativity of matching-cube elements
 

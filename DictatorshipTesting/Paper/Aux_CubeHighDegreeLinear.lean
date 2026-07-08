@@ -1,5 +1,13 @@
 import DictatorshipTesting.Paper.Defs
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.Aux_CubeLowDegreeError`
+- `DictatorshipTesting.Paper.Aux_CubeSquareSpectralFormula`
+- `DictatorshipTesting.Paper.S04_Cor4_09_U1Local`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 # Linearity of high-degree cube Fourier support
 -/

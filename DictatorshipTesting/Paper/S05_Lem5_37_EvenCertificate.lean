@@ -1,5 +1,15 @@
 import DictatorshipTesting.Paper.S05_Lem5_35_WeightZeroEntriesAreNeverAMajority
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_36_WhereTheInductionCanFail`
+- `DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.37 (`lem:h-even-app`)
 Title in paper: Even certificate.

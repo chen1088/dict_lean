@@ -1,5 +1,10 @@
 import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 # Lemma 4.11: One trial in cube coordinates
 

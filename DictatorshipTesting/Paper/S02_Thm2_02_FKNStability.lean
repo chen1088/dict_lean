@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.Defs
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper`
+- `DictatorshipTesting.Paper.S04_Lem4_13_OneTrialSoundness`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 Paper statement: Theorem 2.2 (`thm:fkn-input`)
 Title in paper: FKN/stability input on S_n.

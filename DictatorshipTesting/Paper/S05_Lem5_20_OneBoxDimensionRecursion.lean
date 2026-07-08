@@ -1,5 +1,13 @@
 import DictatorshipTesting.Paper.Aux_TableauDimension
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_21_SizesOfTheSignPatternMultisets`
+- `DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.20 (`lem:dimension-one-box-recurrence`)
 Title in paper: One-box dimension recursion.

@@ -1,5 +1,10 @@
 import DictatorshipTesting.SetFacts
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting`
+-/
+
 namespace DictatorshipTesting
 
 variable {α : Type*}

@@ -2,6 +2,12 @@ import DictatorshipTesting.Paper.S05_Def5_18_OddSignPatternMultiset
 import DictatorshipTesting.Paper.S05_Lem5_19_TwoBoxDimensionRecursion
 import DictatorshipTesting.Paper.S05_Lem5_20_OneBoxDimensionRecursion
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.21 (`lem:X-size`)
 Title in paper: Sizes of the sign-pattern multisets.

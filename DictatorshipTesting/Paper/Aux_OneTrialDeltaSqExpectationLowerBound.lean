@@ -3,6 +3,12 @@ import DictatorshipTesting.Paper.Aux_PermCubeAverage
 import DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare
 import DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 # Global one-trial square-energy bridge
 

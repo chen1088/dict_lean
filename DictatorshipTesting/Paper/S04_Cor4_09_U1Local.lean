@@ -2,6 +2,11 @@ import DictatorshipTesting.Paper.Aux_CubeHighDegreeLinear
 import DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal
 import DictatorshipTesting.Paper.S04_Lem4_08_TijLocalDegree
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 # Corollary 4.9: `U_1` is contained in every local degree-one space
 

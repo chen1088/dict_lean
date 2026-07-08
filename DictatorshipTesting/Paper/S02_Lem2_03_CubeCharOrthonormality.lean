@@ -2,6 +2,13 @@ import DictatorshipTesting.Paper.Aux_CubeCharFlip
 import DictatorshipTesting.Paper.Aux_CubeCharMulSelf
 import DictatorshipTesting.Paper.Aux_CubeFlipInvolutive
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper`
+- `DictatorshipTesting.Paper.Aux_CubeLowDegreeError`
+- `DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval`
+-/
+
 /-!
 # Lemma 2.3: cube-character orthonormality
 

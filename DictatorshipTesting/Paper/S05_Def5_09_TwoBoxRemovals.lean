@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Def5_10_SignedTwoBoxRemovals`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Definition 5.9 (`def:two-box-removals`)
 Title in paper: Two-box removals.

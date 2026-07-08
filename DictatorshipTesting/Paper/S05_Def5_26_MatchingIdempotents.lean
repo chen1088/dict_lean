@@ -2,6 +2,13 @@ import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
 import DictatorshipTesting.Paper.Aux_PMConvolution
 import DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_27_LocalTruncationAsConvolution`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Definition 5.26 (`def:matching-idempotents`)
 Title in paper: Matching idempotents.

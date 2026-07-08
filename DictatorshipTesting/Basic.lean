@@ -1,5 +1,17 @@
 import Mathlib
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting`
+- `DictatorshipTesting.AlgebraicProperty.Aux_SumIfMemPerm`
+- `DictatorshipTesting.Basic.Aux_NatIndicatorMul`
+- `DictatorshipTesting.Basic.Aux_PcompApply`
+- `DictatorshipTesting.Basic.Aux_PswapSelfLeft`
+- `DictatorshipTesting.Basic.Aux_PswapSelfRight`
+- `DictatorshipTesting.Basic.Aux_RowDictAsCosetSumEqRowDict`
+- `DictatorshipTesting.Paper.Defs`
+-/
+
 /-!
 # Basic objects for dictatorship testing over `S_n`
 

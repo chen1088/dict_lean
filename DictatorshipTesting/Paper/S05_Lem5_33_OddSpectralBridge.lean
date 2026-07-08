@@ -3,6 +3,13 @@ import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
 import DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition
 import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S04_Thm4_10_MatchingGap`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.33 (`lem:spectral-certificate-odd`)
 Title in paper: Odd spectral bridge.

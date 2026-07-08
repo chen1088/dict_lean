@@ -3,6 +3,13 @@ import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
 import DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition
 import DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S04_Thm4_10_MatchingGap`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.32 (`lem:spectral-certificate-even`)
 Title in paper: Even spectral bridge.

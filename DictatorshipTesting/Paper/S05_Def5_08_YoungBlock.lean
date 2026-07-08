@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Definition 5.8 (`def:young-block`)
 Title in paper: Young block.

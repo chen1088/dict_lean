@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.14 (`lem:one-box-corner-decomposition`)
 Title in paper: One-box corner decomposition.

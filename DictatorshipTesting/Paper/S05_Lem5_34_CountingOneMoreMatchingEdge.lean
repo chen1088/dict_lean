@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Defs
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.34 (`lem:counting-one-more-matching-edge`)
 Title in paper: Counting one more matching edge: the `z_m` and `h_m`

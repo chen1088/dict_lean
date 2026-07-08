@@ -1,6 +1,12 @@
 import DictatorshipTesting.Paper.Aux_CubeLowDegreeError
 import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Def5_26_MatchingIdempotents`
+- `DictatorshipTesting.Paper.S05_Lem5_27_LocalTruncationAsConvolution`
+-/
+
 /-!
 # Helper: local projection as convolution
 

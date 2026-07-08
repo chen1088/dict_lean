@@ -2,6 +2,13 @@ import DictatorshipTesting.Paper.Aux_YoungMatchingOperators
 import DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters
 import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_25_TraceOfOneLocalTruncationOnOneYoungBlock`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.23 (`lem:matching-restriction-X`)
 Title in paper: Matching subgroup eigenbasis.

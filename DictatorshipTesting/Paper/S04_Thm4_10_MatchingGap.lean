@@ -2,6 +2,12 @@ import DictatorshipTesting.Paper.Defs
 import DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge
 import DictatorshipTesting.Paper.S05_Lem5_33_OddSpectralBridge
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 # Theorem 4.10: Matching-cube spectral gap
 

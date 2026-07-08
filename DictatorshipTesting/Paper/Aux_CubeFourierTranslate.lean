@@ -1,6 +1,13 @@
 import DictatorshipTesting.Paper.Aux_CubeCharMulSelf
 import DictatorshipTesting.Paper.Aux_CubeCharXor
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.Aux_CubeSquareSpectralFormula`
+- `DictatorshipTesting.Paper.S04_Lem4_04_PMIndependentOfRepresentatives`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 # Fourier coefficients under cube translations
 -/

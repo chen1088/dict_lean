@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Defs
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Definition 5.1 (`def:young-diagrams-boxes`)
 Title in paper: Young diagrams and boxes.

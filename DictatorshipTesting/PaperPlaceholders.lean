@@ -60,6 +60,11 @@ import DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate
 import DictatorshipTesting.Paper.S05_Lem5_38_OddExceptionalChildren
 import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper`
+-/
+
 /- Appendix A external representation inputs. -/
 import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
 import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum

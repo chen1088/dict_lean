@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.S05_Lem5_23_MatchingSubgroupEigenbasis
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_30_BlockScalarOfTheAveragedRejection`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.25 (`lem:PM-trace-young-block`)
 Title in paper: Trace of one local truncation on one Young block.

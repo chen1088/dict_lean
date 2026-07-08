@@ -7,6 +7,14 @@ import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum
 import DictatorshipTesting.Paper.AppA_LemA_04_DegreeOneYoungBlockIdentification
 import DictatorshipTesting.Paper.AppA_LemA_05_StandardTableauxSwapConnectedness
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_32_EvenSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_33_OddSpectralBridge`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Theorem A.3 (`thm:app-regular-young-decomposition`)
 Title in paper: Regular Young-block decomposition.

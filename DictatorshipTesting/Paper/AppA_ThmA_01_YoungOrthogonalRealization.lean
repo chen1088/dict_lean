@@ -8,6 +8,13 @@ Young orthogonal/Specht realization is consumed in Lean through the packaged
 spectral-block model axioms in `AppA_ThmA_03_RegularYoungBlockDecomposition`.
 -/
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 noncomputable section
 
 namespace DictatorshipTesting

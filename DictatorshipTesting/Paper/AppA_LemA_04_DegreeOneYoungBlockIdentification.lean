@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma A.4 (`lem:app-u1-young-blocks`)
 Title in paper: Degree-one Young-block identification.

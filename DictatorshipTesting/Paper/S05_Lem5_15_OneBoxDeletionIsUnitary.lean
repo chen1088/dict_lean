@@ -1,5 +1,13 @@
 import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_12_TwoBoxTableauBranching`
+- `DictatorshipTesting.Paper.S05_Lem5_16_OneBoxDeletionIntertwinesEarlierSwaps`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.15 (`lem:one-box-deletion-unitary`)
 Title in paper: One-box deletion is unitary.

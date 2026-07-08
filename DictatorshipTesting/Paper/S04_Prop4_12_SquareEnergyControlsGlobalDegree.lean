@@ -1,6 +1,12 @@
 import DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound
 import DictatorshipTesting.Paper.S04_Thm4_10_MatchingGap
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S04_Lem4_13_OneTrialSoundness`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 # Proposition 4.12: Square energy controls global degree
 

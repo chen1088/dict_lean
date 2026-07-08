@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.S05_Lem5_39_OddCertificate
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.38 (`lem:exceptional-odd-children`)
 Title in paper: Odd exceptional children.

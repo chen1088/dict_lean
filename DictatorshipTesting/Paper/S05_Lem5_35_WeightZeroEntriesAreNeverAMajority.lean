@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.S05_Lem5_19_TwoBoxDimensionRecursion
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.35 (`lem:z-bound-app`)
 Title in paper: Weight-zero entries are never a majority.

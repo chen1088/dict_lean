@@ -1,6 +1,14 @@
 import DictatorshipTesting.Paper.Defs
 import DictatorshipTesting.Paper.Aux_CubeCharMulSelf
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper`
+- `DictatorshipTesting.Paper.Aux_CubeLowDegreeError`
+- `DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval`
+- `DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity`
+-/
+
 /-!
 # Lemma 2.3: cube Fourier expansion
 

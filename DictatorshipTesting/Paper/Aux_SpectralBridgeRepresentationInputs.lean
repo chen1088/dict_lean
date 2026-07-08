@@ -1,5 +1,16 @@
 import DictatorshipTesting.Paper.Defs
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.AppA_LemA_04_DegreeOneYoungBlockIdentification`
+- `DictatorshipTesting.Paper.AppA_ThmA_03_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam`
+- `DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates`
+- `DictatorshipTesting.Paper.S05_Def5_08_YoungBlock`
+- `DictatorshipTesting.Paper.S05_Lem5_29_YoungBasisScalarCommutant`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 # Spectral bridge representation inputs
 

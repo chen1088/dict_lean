@@ -16,3 +16,7 @@ import DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval
 import DictatorshipTesting.PaperPlaceholders
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting`
+-/

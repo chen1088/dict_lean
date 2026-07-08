@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Defs
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S04_Lem4_13_OneTrialSoundness`
+- `DictatorshipTesting.PaperAux`
+-/
+
 /-!
 # Boolean rejection-probability bridge
 

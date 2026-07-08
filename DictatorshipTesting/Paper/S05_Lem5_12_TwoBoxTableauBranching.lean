@@ -3,6 +3,12 @@ import DictatorshipTesting.Paper.Aux_TableauDimension
 import DictatorshipTesting.Paper.S05_Lem5_15_OneBoxDeletionIsUnitary
 import DictatorshipTesting.Paper.S05_Lem5_16_OneBoxDeletionIntertwinesEarlierSwaps
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.12 (`lem:two-box-tableau-branching`)
 Title in paper: Two-box tableau branching.

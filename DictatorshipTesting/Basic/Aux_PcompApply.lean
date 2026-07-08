@@ -1,5 +1,11 @@
 import DictatorshipTesting.Basic
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.AlgebraicProperty.Eq_algebraic_property_RowDict`
+- `DictatorshipTesting.BasicFacts`
+-/
+
 namespace DictatorshipTesting
 
 variable {α : Type*}

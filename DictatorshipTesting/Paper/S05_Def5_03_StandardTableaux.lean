@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Definition 5.3 (`def:standard-tableaux`)
 Title in paper: Standard Young tableaux and occupation notation.

@@ -1,5 +1,10 @@
 import DictatorshipTesting.Basic
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.BasicFacts`
+-/
+
 namespace DictatorshipTesting
 
 variable {α : Type*} [DecidableEq α]

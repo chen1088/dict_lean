@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Definition 5.13 (`def:one-box-deletion-spaces`)
 Title in paper: One-box deletion spaces.

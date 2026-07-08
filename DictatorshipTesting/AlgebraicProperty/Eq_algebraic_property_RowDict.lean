@@ -1,6 +1,12 @@
 import DictatorshipTesting.AlgebraicProperty.Aux_SumIfMemPerm
 import DictatorshipTesting.Basic.Aux_PcompApply
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.AlgebraicProperty`
+- `DictatorshipTesting.AlgebraicProperty.Eq_algebraic_property_RowDictWithIStar`
+-/
+
 /-!
 # Algebraic property for row dictators
 

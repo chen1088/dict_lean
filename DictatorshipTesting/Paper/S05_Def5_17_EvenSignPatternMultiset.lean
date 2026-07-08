@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.Defs
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S05_Def5_18_OddSignPatternMultiset`
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Definition 5.17 (`def:even-sign-patterns`)
 Title in paper: Even sign-pattern multiset.

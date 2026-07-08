@@ -1,5 +1,12 @@
 import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.Paper.S04_Cor4_09_U1Local`
+- `DictatorshipTesting.Paper.S04_Lem4_07_PMPerpendicular`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 # Lemma 4.5: `P_M` keeps exactly the local degree-one functions
 

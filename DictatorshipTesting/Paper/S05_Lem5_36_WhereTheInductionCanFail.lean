@@ -1,5 +1,11 @@
 import DictatorshipTesting.Paper.S05_Lem5_37_EvenCertificate
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.36 (`lem:exceptional-even-children`)
 Title in paper: Where the induction can fail.

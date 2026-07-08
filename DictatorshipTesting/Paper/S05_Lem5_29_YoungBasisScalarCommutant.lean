@@ -1,6 +1,12 @@
 import DictatorshipTesting.Paper.S05_Lem5_28_CentralAveragedRejection
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 
+/-
+Direct reverse imports (generated):
+- `DictatorshipTesting.PaperAux`
+- `DictatorshipTesting.PaperPlaceholders`
+-/
+
 /-!
 Paper statement: Lemma 5.29 (`lem:young-basis-scalar-commutant`)
 Title in paper: Young-basis scalar commutant.
