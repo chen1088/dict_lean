@@ -2,9 +2,9 @@ import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula`
-- `DictatorshipTesting.Paper.S04_Lem4_07_PMPerpendicular`
-- `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
+- `DictatorshipTesting.Paper.S04_Lem4_04_LocalHighDegreeErrorFormula`
+- `DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular`
+- `DictatorshipTesting.Paper.S04_Prop4_10_SquareEnergyControlsGlobalDegree`
 -/
 
 

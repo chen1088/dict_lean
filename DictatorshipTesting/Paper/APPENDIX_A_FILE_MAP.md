@@ -17,4 +17,4 @@ ingredient A.1, A.2, A.3, and A.4.  The regular Young-block decomposition has
 moved to Section 5 as Lemma 5.18.  Its theorem wrappers
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA` are the names used
-downstream by Theorem 4.10.
+downstream by Theorem 4.8.

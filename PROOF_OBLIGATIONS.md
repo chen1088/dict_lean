@@ -44,12 +44,12 @@ Early-section statement counts:
 
 | Section | Count | Main status |
 | --- | ---: | --- |
-| 1 | 1 | Main theorem wrapper is proved from Lemma 4.13 and its documented inputs. |
+| 1 | 1 | Main theorem wrapper is proved from Lemma 4.11 and its documented inputs. |
 | 2 | 4 | Theorem 2.1 and Theorem 2.2 are external Filmus inputs; Lemma 2.3 and Definition 2.4 are internal. |
 | 3 | 2 | Both matching-cube completeness lemmas are internal. |
-| 4 | 13 | The local Fourier and soundness reductions are internal. Theorem 4.10 is proved through the Section 5 tableau-count bridge and uses Lemma 5.18, which assembles the Appendix A inputs into the spectral model. |
+| 4 | 11 results + 2 definitions | The local Fourier and soundness reductions are internal. Theorem 4.8 is proved through the Section 5 tableau-count bridge and uses Lemma 5.18, which assembles the Appendix A inputs into the spectral model. |
 
-Theorem 4.10 status: the active theorem is proved through the tableau-count
+Theorem 4.8 status: the active theorem is proved through the tableau-count
 Section 5 bridge, using the Lemma 5.18 spectral model theorem wrappers
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.  It no longer carries the
@@ -73,7 +73,7 @@ Thm1_1_MainIntro
 
 The Boolean `U_1` classification theorem is not a direct dependency of this
 active Lean chain.  This is not currently a paper/Lean mismatch: the FKN input
-used by Lemma 4.13 is already stated in the distance-to-dictators form needed
+used by Lemma 4.11 is already stated in the distance-to-dictators form needed
 for soundness.  The Section 3 completeness lemmas are proved separately; the
 current Theorem 1.1 wrapper goes through the abstract tester-amplification
 interface rather than reusing those lemmas directly.
@@ -223,7 +223,7 @@ The bridge algebra is no longer hard-coded to `youngDim`: the file
 spectral-gap wrappers for an arbitrary dimension function.  Lemmas 5.17--5.20
 expose these wrappers for the paper-facing interface.
 
-Active path note: Theorem 4.10 now uses the dimension-parametric `tableauDim`
+Active path note: Theorem 4.8 now uses the dimension-parametric `tableauDim`
 interface through Lemmas 5.18--5.20.  The remaining Section 5 mathematical
 input for this active route is the tableauDim spectral block model itself:
 Young-block decomposition, `U_1` identification, matching-average scalarity,
@@ -307,7 +307,7 @@ Boolean linear classification in Theorem 2.8 and the standard balanced-case
 reduction recorded in the paper.
 
 Downstream dependencies: `L4_13_OneTrialSoundness` consumes
-`Thm2_2_FKNInput`, and `Thm1_1_MainIntro` consumes Lemma 4.13.
+`Thm2_2_FKNInput`, and `Thm1_1_MainIntro` consumes Lemma 4.11.
 
 ## Additional Paper-Level Obligations Without Registered Axioms
 

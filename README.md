@@ -5,8 +5,8 @@ parts of a dictatorship-testing paper for Boolean functions on `S_n`.
 
 The project is intentionally organized around the paper.  Numbered theorem,
 lemma, proposition, and corollary files use the paper number in the filename,
-for example `S01_Thm1_01_MainIntro.lean`, `S04_Lem4_13_OneTrialSoundness.lean`, and
-`S04_Prop4_12_SquareEnergyControlsGlobalDegree.lean`.  Shared internal paper
+for example `S01_Thm1_01_MainIntro.lean`, `S04_Lem4_11_OneTrialSoundness.lean`, and
+`S04_Prop4_10_SquareEnergyControlsGlobalDegree.lean`.  Shared internal paper
 infrastructure uses `S##_Int...` or `S##_IntDef...` filenames, so the paper
 dependency graph does not expose `Aux_` nodes.
 
@@ -49,7 +49,7 @@ named external axioms.  There are no remaining `sorry` declarations.  The named
 external axioms are the two Section 2 Filmus inputs and the four Appendix A
 representation-theory ingredient markers A.1, A.2, A.3, and A.4.  Lemma 5.18
 is a proved assembly theorem from those ingredients.  The theorem wrappers
-consumed by the active Theorem 4.10 path are
+consumed by the active Theorem 4.8 path are
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.
 
@@ -71,8 +71,9 @@ For the earlier paper spine, see
 paper source `../dictatorship_testing_soda27_latest.tex`, the statement counts,
 the matching Lean files, and whether each statement is internal,
 definition/interface, or uses an external input.  Current Section 1--4 counts
-are 1, 4, 2, and 13 respectively.  No paper revisions are currently proposed
-for Sections 1--4; this is recorded in
+are 1 result; 3 results plus 1 definition; 2 results; and 11 results plus 2
+definitions respectively.  No paper revisions are currently proposed for
+Sections 1--4; this is recorded in
 `DictatorshipTesting/Paper/PAPER_REVISION_CANDIDATES.md`.
 
 The active main-theorem spine is:
@@ -273,7 +274,7 @@ Internal bridge components proven:
   dimension-parameterized `SpectralGapFromBlockModelWithDim` route are proved.
 - `S05_Lem5_18_RegularYoungBlockDecomposition.lean`: the main-text assembly
   lemma turning Appendix A.1/A.2/A.3/A.4 external inputs into the even and odd
-  `SpectralBlockModelInputWithDim` theorem wrappers consumed by Theorem 4.10.
+  `SpectralBlockModelInputWithDim` theorem wrappers consumed by Theorem 4.8.
 - `S05_Lem5_19_EvenSpectralBridge.lean` and
   `S05_Lem5_20_OddSpectralBridge.lean`: the tableau-count spectral bridges are
   proved from explicit `SpectralBlockModelInputWithDim` hypotheses; Lemma 5.18
@@ -312,9 +313,9 @@ through proved assembly theorems.
 
 - The explicit spectral-block-model theorem wrappers supply the actual Young-block
   energies of `F`, the `U_1` energy identification, and the matching-average
-  scalar model.  Theorem 4.10, Proposition 4.12, Lemma 4.13, and Theorem 1.1
+  scalar model.  Theorem 4.8, Proposition 4.10, Lemma 4.11, and Theorem 1.1
   now use these named external inputs through the tableauDim spectral bridge.
-- The active Theorem 4.10 path uses the tableauDim bridge from Lemmas
+- The active Theorem 4.8 path uses the tableauDim bridge from Lemmas
   5.26--5.28 and no longer carries the older `youngDim` dimension-branching
   typeclass hypotheses.
 
@@ -367,9 +368,9 @@ Paper-numbered highlights:
   Parseval.
 - `S03_Lem3_01_DictatorToJunta.lean` and `S03_Lem3_02_PerfectCompleteness.lean`: matching
   cube completeness side.
-- `S04_Lem4_01` through `S04_Lem4_13`, plus `S04_Cor4_09`,
-  `S04_Thm4_10`, and `S04_Prop4_12`: matching-cube soundness reductions up to
-  the one-trial soundness bound.
+- `S04_Lem4_01` through `S04_Lem4_11`, plus `S04_Cor4_07`,
+  `S04_Thm4_08`, and `S04_Prop4_10`: matching-cube soundness reductions up to
+  the one-trial soundness bound, using the separate result counter for Section 4.
 - `S05_Def5_01` through `S05_Lem5_17`: current Section 5 spectral bridge and
   finite certificate files.  Older Section 5 theorem names such as
   `L5_4_ZBoundApp` are declarations inside these numbered files, not separate

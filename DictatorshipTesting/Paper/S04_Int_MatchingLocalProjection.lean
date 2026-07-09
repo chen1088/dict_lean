@@ -1,13 +1,13 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_17_MatchingLocalProjection
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
 import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
-import DictatorshipTesting.Paper.S04_Lem4_04_PMIndependentOfRepresentatives
+import DictatorshipTesting.Paper.S04_Lem4_02_PMIndependentOfRepresentatives
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal`
-- `DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula`
-- `DictatorshipTesting.Paper.S04_Lem4_07_PMPerpendicular`
+- `DictatorshipTesting.Paper.S04_Lem4_03_PMFixesLocal`
+- `DictatorshipTesting.Paper.S04_Lem4_04_LocalHighDegreeErrorFormula`
+- `DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_22_MatchingIdempotents`
 - `DictatorshipTesting.Paper.S05_Lem5_11_LocalTruncationOnAMatchingCharacter`
 -/
@@ -17,7 +17,7 @@ Direct reverse imports:
 # Auxiliary facts for the matching-local projection
 
 These lemmas connect the concrete `matchingLocalProjection` definition with the
-cube-low-degree truncation used in Lemma 4.5.
+cube-low-degree truncation used in Lemma 4.3.
 -/
 
 noncomputable section

@@ -24,7 +24,7 @@ Title in paper: Regular Young-block decomposition.
 Status: internal assembly from external Appendix A ingredients.  A.1, A.2,
 A.3, and A.4 are the named representation-theoretic inputs; this file contains
 the theorem that assembles them into the dimension-parameterized
-spectral-block model consumed by the active Theorem 4.10 path.
+spectral-block model consumed by the active Theorem 4.8 path.
 -/
 
 noncomputable section

@@ -78,7 +78,7 @@ This file records the definition-file refactor inventory. Definition modules now
 | `zEven` | def | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S05_IntDef_ZEven.lean` | Component of Def 5.13 | Import the split file directly. | moved |
 | `hEven` | def | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S05_IntDef_HEven.lean` | Component of Def 5.13 | Import the split file directly. | moved |
 | `hOdd` | def | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S05_IntDef_HOdd.lean` | Component of Def 5.14 | Import the split file directly. | moved |
-| `MatchingSpectralGapConstant` | def | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S05_IntDef_MatchingSpectralGapConstant.lean` | internal implementation; see Theorem 4.10 / Lemma 5.17 bridge | Import the split file directly. | moved |
+| `MatchingSpectralGapConstant` | def | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S05_IntDef_MatchingSpectralGapConstant.lean` | internal implementation; see Theorem 4.8 / Lemma 5.17 bridge | Import the split file directly. | moved |
 
 ## Reusable declarations moved out of lemma files in this phase
 

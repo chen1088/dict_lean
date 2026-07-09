@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree
+import DictatorshipTesting.Paper.S04_Prop4_10_SquareEnergyControlsGlobalDegree
 import DictatorshipTesting.Paper.S02_Thm2_02_FKNStability
 
 /-
@@ -9,7 +9,7 @@ Direct reverse imports:
 
 
 /-!
-# Lemma 4.13: One-trial soundness
+# Lemma 4.11: One-trial soundness
 
 This is `lem:one-trial-soundness` from `dictatorship_testing_soda27_latest.tex`.
 The Boolean rejection-probability bridge is included here because this lemma is
@@ -151,7 +151,7 @@ theorem oneTrialRejectProbability_ge_deltaSqExpectation
                             [matchingTrialDelta_sq_le_four_rejectIndicator
                               f M.toOrdered π c]
 
-/-- Lemma 4.13, `lem:one-trial-soundness`: one-trial soundness. -/
+/-- Lemma 4.11, `lem:one-trial-soundness`: one-trial soundness. -/
 theorem L4_13_OneTrialSoundness :
     ∃ c0 : ℝ, 0 < c0 ∧
       ∀ n : ℕ, 4 ≤ n → ∀ f : BoolFn (Fin n),

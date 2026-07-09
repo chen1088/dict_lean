@@ -244,14 +244,14 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
-      "id": "S04_04",
-      "label": "Lem 4.4",
+      "id": "S04_02",
+      "label": "Lem 4.2",
       "title": "P_M independent of representatives",
       "section": "Section 4",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Lem4_04_PMIndependentOfRepresentatives.lean",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_02_PMIndependentOfRepresentatives.lean",
       "wrappers": [
         "L4_4_PMIndependentOfRepresentatives"
       ],
@@ -259,7 +259,7 @@ window.DICT_DEPENDENCY_DATA = {
         "L2_3"
       ],
       "summary": "Representative-change invariance of the matching-local truncation.",
-      "statement": "Lemma 4.4 proves that the definition of P_M is independent of representatives.",
+      "statement": "Lemma 4.2 proves that the definition of P_M is independent of representatives.",
       "terms": [
         {
           "text": "Cube Fourier facts",
@@ -277,26 +277,26 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
-      "id": "S04_05",
-      "label": "Lem 4.5",
+      "id": "S04_03",
+      "label": "Lem 4.3",
       "title": "P_M fixes local degree one",
       "section": "Section 4",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Lem4_05_PMFixesLocal.lean",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_03_PMFixesLocal.lean",
       "wrappers": [
         "L4_5_PMFixesLocal"
       ],
       "deps": [
-        "S04_04"
+        "S04_02"
       ],
       "summary": "The matching-local projection fixes exactly the local degree-one functions.",
-      "statement": "Lemma 4.5 characterizes the fixed points of P_M.",
+      "statement": "Lemma 4.3 characterizes the fixed points of P_M.",
       "terms": [
         {
           "text": "P_M independent of representatives",
-          "target": "S04_04"
+          "target": "S04_02"
         }
       ],
       "paperLabel": "lem:PM-fixes-local",
@@ -310,27 +310,27 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
-      "id": "S04_06",
-      "label": "Lem 4.6",
+      "id": "S04_04",
+      "label": "Lem 4.4",
       "title": "Local high-degree error formula",
       "section": "Section 4",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Lem4_06_LocalHighDegreeErrorFormula.lean",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_04_LocalHighDegreeErrorFormula.lean",
       "wrappers": [
         "L4_6_LocalHighDegreeErrorFormula"
       ],
       "deps": [
-        "S04_04",
+        "S04_02",
         "L2_3"
       ],
       "summary": "Identifies local projection error with average high-degree cube energy.",
-      "statement": "Lemma 4.6 proves the local high-degree error formula.",
+      "statement": "Lemma 4.4 proves the local high-degree error formula.",
       "terms": [
         {
           "text": "P_M independent of representatives",
-          "target": "S04_04"
+          "target": "S04_02"
         },
         {
           "text": "Cube Fourier facts",
@@ -348,27 +348,27 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
-      "id": "S04_07",
-      "label": "Lem 4.7",
+      "id": "S04_05",
+      "label": "Lem 4.5",
       "title": "P_M perpendicular",
       "section": "Section 4",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Lem4_07_PMPerpendicular.lean",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_05_PMPerpendicular.lean",
       "wrappers": [
         "L4_7_PMPerpendicular"
       ],
       "deps": [
-        "S04_05",
+        "S04_03",
         "L2_3"
       ],
       "summary": "The local high-degree residual is orthogonal to the local degree-one space.",
-      "statement": "Lemma 4.7 proves perpendicularity of the P_M residual to local degree one.",
+      "statement": "Lemma 4.5 proves perpendicularity of the P_M residual to local degree one.",
       "terms": [
         {
           "text": "P_M fixes local degree one",
-          "target": "S04_05"
+          "target": "S04_03"
         },
         {
           "text": "Cube Fourier facts",
@@ -386,14 +386,14 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
-      "id": "S04_08",
-      "label": "Lem 4.8",
+      "id": "S04_06",
+      "label": "Lem 4.6",
       "title": "Basic indicators have local degree at most one",
       "section": "Section 4",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Lem4_08_TijLocalDegree.lean",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_06_TijLocalDegree.lean",
       "wrappers": [
         "L4_8_TijLocalDegree"
       ],
@@ -402,7 +402,7 @@ window.DICT_DEPENDENCY_DATA = {
         "L2_3"
       ],
       "summary": "Each one-coset indicator restricts to local degree at most one.",
-      "statement": "Lemma 4.8 proves that a basic indicator has local degree at most one.",
+      "statement": "Lemma 4.6 proves that a basic indicator has local degree at most one.",
       "terms": [
         {
           "text": "Completeness on matching cubes",
@@ -424,31 +424,31 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
-      "id": "S04_09",
-      "label": "Cor 4.9",
+      "id": "S04_07",
+      "label": "Cor 4.7",
       "title": "U_1 is local",
       "section": "Section 4",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Cor4_09_U1Local.lean",
+      "file": "DictatorshipTesting/Paper/S04_Cor4_07_U1Local.lean",
       "wrappers": [
         "Cor4_9_U1Local"
       ],
       "deps": [
-        "S04_05",
-        "S04_08"
+        "S04_03",
+        "S04_06"
       ],
       "summary": "U_1 is contained in every matching-local degree-one space.",
-      "statement": "Corollary 4.9 proves that U_1 is local for every matching.",
+      "statement": "Corollary 4.7 proves that U_1 is local for every matching.",
       "terms": [
         {
           "text": "P_M fixes local degree one",
-          "target": "S04_05"
+          "target": "S04_03"
         },
         {
           "text": "Basic indicators have local degree at most one",
-          "target": "S04_08"
+          "target": "S04_06"
         }
       ],
       "paperLabel": "cor:U1-local",
@@ -462,14 +462,14 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
-      "id": "L4_11",
-      "label": "Lem 4.11",
+      "id": "L4_9",
+      "label": "Lem 4.9",
       "title": "Trial cube coordinates",
       "section": "Section 4",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Lem4_11_TrialCubeCoordinates.lean",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_09_TrialCubeCoordinates.lean",
       "wrappers": [
         "L4_11_TrialCubeCoordinates"
       ],
@@ -477,7 +477,7 @@ window.DICT_DEPENDENCY_DATA = {
         "L4_1"
       ],
       "summary": "Identifies a group trial with a Boolean-cube square test on a matching coset.",
-      "statement": "Lem 4.11: Identifies a group trial with a Boolean-cube square test on a matching coset.",
+      "statement": "Lem 4.9: Identifies a group trial with a Boolean-cube square test on a matching coset.",
       "terms": [
         {
           "text": "Cube square test",
@@ -495,23 +495,23 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
-      "id": "L4_13",
-      "label": "Lem 4.13",
+      "id": "L4_11",
+      "label": "Lem 4.11",
       "title": "One-trial soundness",
       "section": "Main spine",
       "kind": "paper",
       "importance": "major",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Lem4_13_OneTrialSoundness.lean",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_11_OneTrialSoundness.lean",
       "wrappers": [
         "L4_13_OneTrialSoundness"
       ],
       "deps": [
         "Thm2_2",
-        "Prop4_12"
+        "Prop4_10"
       ],
       "summary": "Combines square-energy control with the FKN input.",
-      "statement": "Lem 4.13: Combines square-energy control with the FKN input.",
+      "statement": "Lem 4.11: Combines square-energy control with the FKN input.",
       "terms": [
         {
           "text": "FKN/stability input",
@@ -519,7 +519,7 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "Square energy controls global degree",
-          "target": "Prop4_12"
+          "target": "Prop4_10"
         }
       ],
       "paperLabel": "lem:one-trial-soundness",
@@ -533,25 +533,25 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
-      "id": "Prop4_12",
-      "label": "Prop 4.12",
+      "id": "Prop4_10",
+      "label": "Prop 4.10",
       "title": "Square energy controls global degree",
       "section": "Main spine",
       "kind": "paper",
       "importance": "major",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Prop4_12_SquareEnergyControlsGlobalDegree.lean",
+      "file": "DictatorshipTesting/Paper/S04_Prop4_10_SquareEnergyControlsGlobalDegree.lean",
       "wrappers": [
         "Prop4_12_SquareEnergyControlsGlobalDegree"
       ],
       "deps": [
         "L4_1",
-        "S04_06",
-        "L4_11",
-        "Thm4_10"
+        "S04_04",
+        "L4_9",
+        "Thm4_8"
       ],
       "summary": "Uses the matching spectral gap to control distance from U1.",
-      "statement": "Prop 4.12: Uses the matching spectral gap to control distance from U1.",
+      "statement": "Prop 4.10: Uses the matching spectral gap to control distance from U1.",
       "terms": [
         {
           "text": "Cube square test",
@@ -559,15 +559,15 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "Local high-degree error formula",
-          "target": "S04_06"
+          "target": "S04_04"
         },
         {
           "text": "Trial cube coordinates",
-          "target": "L4_11"
+          "target": "L4_9"
         },
         {
           "text": "Matching-cube spectral gap",
-          "target": "Thm4_10"
+          "target": "Thm4_8"
         },
         {
           "text": "U1",
@@ -2862,14 +2862,14 @@ window.DICT_DEPENDENCY_DATA = {
         "Thm1_1_MainIntro"
       ],
       "deps": [
-        "L4_13"
+        "L4_11"
       ],
       "summary": "Main theorem wrapper, proved from one-trial soundness.",
       "statement": "Thm 1.1: Main theorem wrapper, proved from one-trial soundness.",
       "terms": [
         {
           "text": "One-trial soundness",
-          "target": "L4_13"
+          "target": "L4_11"
         }
       ],
       "paperLabel": "thm:main-intro",
@@ -2950,14 +2950,14 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
-      "id": "Thm4_10",
-      "label": "Thm 4.10",
+      "id": "Thm4_8",
+      "label": "Thm 4.8",
       "title": "Matching-cube spectral gap",
       "section": "Main spine",
       "kind": "paper",
       "importance": "hero",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Thm4_10_MatchingGap.lean",
+      "file": "DictatorshipTesting/Paper/S04_Thm4_08_MatchingGap.lean",
       "wrappers": [
         "Thm4_10_MatchingGap"
       ],
@@ -2966,7 +2966,7 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_L20"
       ],
       "summary": "The active proof uses the tableauDim spectral bridges and Appendix A spectral-model inputs.",
-      "statement": "Thm 4.10: The active proof uses the tableauDim spectral bridges and Appendix A spectral-model inputs.",
+      "statement": "Thm 4.8: The active proof uses the tableauDim spectral bridges and Appendix A spectral-model inputs.",
       "terms": [
         {
           "text": "Even spectral bridge",

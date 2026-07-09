@@ -46,7 +46,7 @@ Detailed maps:
 - Lemma 5.14 proves the finite-average/high-idempotent part of central averaged
   rejection.
 - Lemmas 5.17--5.20 expose the active tableauDim spectral-bridge route used by
-  Theorem 4.10.
+  Theorem 4.8.
 - The remaining representation-theoretic frontier is the spectral-block model
   input supplied by Appendix A.
 - Appendix A exposes explicit marker axioms for A.1, A.2, A.3, and A.4. Lemma

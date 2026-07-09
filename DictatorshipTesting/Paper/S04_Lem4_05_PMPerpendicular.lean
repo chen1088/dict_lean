@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Defs.S03_Def3_18_MatchingLocalProjectionError
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
 import DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection
 import DictatorshipTesting.Paper.S04_Int_PermCubeAverage
-import DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal
+import DictatorshipTesting.Paper.S04_Lem4_03_PMFixesLocal
 
 /-
 Direct reverse imports:
@@ -11,7 +11,7 @@ Direct reverse imports:
 
 
 /-!
-# Lemma 4.7: High local degrees have zero inner product with local degree one
+# Lemma 4.5: High local degrees have zero inner product with local degree one
 
 This is `lem:PM-perpendicular` from `dictatorship_testing_soda27_latest.tex`.
 -/
@@ -107,7 +107,7 @@ theorem cubeExpectation_lowDegreeResidual_mul_of_highDegreeEnergy_eq_zero
     simp [cubeFourierCoeff_lowDegreeResidual, hhigh, hcoeff]
   · simp [cubeFourierCoeff_lowDegreeResidual, hhigh]
 
-/-- Lemma 4.7, `lem:PM-perpendicular`: high local degrees are perpendicular to local degree one. -/
+/-- Lemma 4.5, `lem:PM-perpendicular`: high local degrees are perpendicular to local degree one. -/
 theorem L4_7_PMPerpendicular {α : Type*} [Fintype α] [DecidableEq α]
     (F H : Perm α → ℝ) (M : OrderedMatching α)
     (hH : IsMatchingLocalDegreeOne H M) :

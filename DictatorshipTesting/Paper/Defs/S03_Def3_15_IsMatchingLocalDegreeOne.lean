@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Defs.S03_Def3_14_PermInner
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S03_Def3_16_MatchingLocalHighDegreeEnergy`
-- `DictatorshipTesting.Paper.S04_Lem4_08_TijLocalDegree`
+- `DictatorshipTesting.Paper.S04_Lem4_06_TijLocalDegree`
 -/
 
 

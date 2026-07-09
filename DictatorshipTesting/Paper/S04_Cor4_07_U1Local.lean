@@ -1,6 +1,6 @@
 import DictatorshipTesting.Paper.S04_Int_CubeHighDegreeLinear
-import DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal
-import DictatorshipTesting.Paper.S04_Lem4_08_TijLocalDegree
+import DictatorshipTesting.Paper.S04_Lem4_03_PMFixesLocal
+import DictatorshipTesting.Paper.S04_Lem4_06_TijLocalDegree
 
 /-
 Direct reverse imports:
@@ -9,7 +9,7 @@ Direct reverse imports:
 
 
 /-!
-# Corollary 4.9: `U_1` is contained in every local degree-one space
+# Corollary 4.7: `U_1` is contained in every local degree-one space
 
 This is `cor:U1-local` from `dictatorship_testing_soda27_latest.tex`.
 -/
@@ -49,7 +49,7 @@ theorem IsMatchingLocalDegreeOne_smul {α : Type*} [Fintype α] [DecidableEq α]
   simpa [Pi.smul_apply, smul_eq_mul] using
     cubeHighDegreeEnergy_smul_eq_zero a (hF π)
 
-/-- Corollary 4.9, `cor:U1-local`: `U_1` is contained in each local degree-one space. -/
+/-- Corollary 4.7, `cor:U1-local`: `U_1` is contained in each local degree-one space. -/
 theorem Cor4_9_U1Local {α : Type*} [Fintype α] [DecidableEq α]
     (M : OrderedMatching α) (F : Perm α → ℝ) (hF : F ∈ U1 α) :
     IsMatchingLocalDegreeOne F M ∧ matchingLocalProjection M F = F := by

@@ -6,8 +6,8 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection`
 - `DictatorshipTesting.Paper.S04_Int_PermCubeAverage`
 - `DictatorshipTesting.Paper.S05_Int_PMConvolution`
-- `DictatorshipTesting.Paper.S04_Lem4_11_TrialCubeCoordinates`
-- `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
+- `DictatorshipTesting.Paper.S04_Lem4_09_TrialCubeCoordinates`
+- `DictatorshipTesting.Paper.S04_Prop4_10_SquareEnergyControlsGlobalDegree`
 -/
 
 

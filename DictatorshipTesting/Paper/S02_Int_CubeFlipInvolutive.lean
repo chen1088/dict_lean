@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Defs.S02_Def2_15_CubeFlip
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality`
-- `DictatorshipTesting.Paper.S04_Lem4_08_TijLocalDegree`
+- `DictatorshipTesting.Paper.S04_Lem4_06_TijLocalDegree`
 -/
 
 

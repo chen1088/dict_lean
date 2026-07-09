@@ -3,20 +3,20 @@ import DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Cor4_09_U1Local`
-- `DictatorshipTesting.Paper.S04_Lem4_07_PMPerpendicular`
+- `DictatorshipTesting.Paper.S04_Cor4_07_U1Local`
+- `DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular`
 -/
 
 
 /-!
-# Lemma 4.5: `P_M` keeps exactly the local degree-one functions
+# Lemma 4.3: `P_M` keeps exactly the local degree-one functions
 
 This is `lem:PM-fixes-local` from `dictatorship_testing_soda27_latest.tex`.
 -/
 
 namespace DictatorshipTesting
 
-/-- Lemma 4.5, `lem:PM-fixes-local`: `P_M` keeps exactly local degree-one functions. -/
+/-- Lemma 4.3, `lem:PM-fixes-local`: `P_M` keeps exactly local degree-one functions. -/
 theorem L4_5_PMFixesLocal {α : Type*} [Fintype α] [DecidableEq α]
     (F : Perm α → ℝ) (M : OrderedMatching α) :
     IsMatchingLocalDegreeOne (matchingLocalProjection M F) M ∧

@@ -6,7 +6,7 @@ import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
+- `DictatorshipTesting.Paper.S04_Prop4_10_SquareEnergyControlsGlobalDegree`
 -/
 
 

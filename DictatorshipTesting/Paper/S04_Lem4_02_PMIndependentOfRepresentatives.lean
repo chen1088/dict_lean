@@ -9,16 +9,14 @@ Direct reverse imports:
 
 
 /-!
-# Lemma 4.4: The definition of `P_M` is independent of representatives
-
-The paper counter skips Lemmas 4.2 and 4.3 because those numbers are definitions.
+# Lemma 4.2: The definition of `P_M` is independent of representatives
 -/
 
 noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Lemma 4.4: the definition of `P_M` is independent of representatives. -/
+/-- Lemma 4.2: the definition of `P_M` is independent of representatives. -/
 theorem L4_4_PMIndependentOfRepresentatives {m : ℕ}
     (g : Cube m → ℝ) (z x : Cube m) :
     cubeLowDegreeOnePart (fun y => g (cubeXor z y)) x =

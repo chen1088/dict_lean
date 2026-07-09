@@ -37,7 +37,7 @@ const rootViews = {
   paper: {
     label: "Paper map",
     roots: paperResultRoots,
-    open: ["Thm1_1", "Thm4_10", "S05_L19", "S05_L20", "S05_L18"],
+    open: ["Thm1_1", "Thm4_8", "S05_L19", "S05_L20", "S05_L18"],
   },
   main: {
     label: "Main theorem",
@@ -46,8 +46,8 @@ const rootViews = {
   },
   spectral: {
     label: "Spectral bridge",
-    roots: ["Thm4_10"],
-    open: collectTransitiveDeps(["Thm4_10"]),
+    roots: ["Thm4_8"],
+    open: collectTransitiveDeps(["Thm4_8"]),
   },
   section5: {
     label: "Section 5",

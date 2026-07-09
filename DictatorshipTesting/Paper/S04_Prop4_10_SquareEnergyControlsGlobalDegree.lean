@@ -1,18 +1,18 @@
 import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
 import DictatorshipTesting.Paper.S04_Int_PermCubeAverage
 import DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare
-import DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula
-import DictatorshipTesting.Paper.S04_Thm4_10_MatchingGap
+import DictatorshipTesting.Paper.S04_Lem4_04_LocalHighDegreeErrorFormula
+import DictatorshipTesting.Paper.S04_Thm4_08_MatchingGap
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Lem4_13_OneTrialSoundness`
+- `DictatorshipTesting.Paper.S04_Lem4_11_OneTrialSoundness`
 -/
 
 
 /-!
-# Proposition 4.12: Square energy controls global degree
+# Proposition 4.10: Square energy controls global degree
 
 This is the proposition containing equation `eq:square-energy-global-bound`.
 The sampling bridge from local cube-square energy to the global one-trial
@@ -152,7 +152,7 @@ theorem oneTrialDeltaSqExpectation_ge_matchingMeanProjectionError
                   (Fintype.card (Perm (Fin n)) : ℝ) := by
                   rw [sum_perm_cubeSquareEnergy_eq_sum_perm_trialDelta]
 
-/-- Proposition 4.12: square energy controls global degree. -/
+/-- Proposition 4.10: square energy controls global degree. -/
 theorem Prop4_12_SquareEnergyControlsGlobalDegree
     (n : ℕ) (hn : 4 ≤ n)
     (F : Perm (Fin n) → ℝ) :

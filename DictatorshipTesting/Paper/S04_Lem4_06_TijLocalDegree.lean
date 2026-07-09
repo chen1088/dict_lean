@@ -6,12 +6,12 @@ import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Cor4_09_U1Local`
+- `DictatorshipTesting.Paper.S04_Cor4_07_U1Local`
 -/
 
 
 /-!
-# Lemma 4.8: A basic indicator has local degree at most one
+# Lemma 4.6: A basic indicator has local degree at most one
 
 This is `lem:tij-local-degree` from `dictatorship_testing_soda27_latest.tex`.
 -/
@@ -96,7 +96,7 @@ theorem cubeHighDegreeEnergy_boolToReal_eq_zero_of_oneJunta {m : ℕ}
   · rcases hjunta with ⟨r, hr⟩
     simp [cubeFourierCoeff_bool_juntaAt_eq_zero_of_two_le_card g hr hcard]
 
-/-- Lemma 4.8, `lem:tij-local-degree`: basic indicators have local degree at most one. -/
+/-- Lemma 4.6, `lem:tij-local-degree`: basic indicators have local degree at most one. -/
 theorem L4_8_TijLocalDegree {α : Type*} [Fintype α] [DecidableEq α]
     (M : OrderedMatching α) (i j : α) :
     IsMatchingLocalDegreeOne (oneCosetReal i j) M := by

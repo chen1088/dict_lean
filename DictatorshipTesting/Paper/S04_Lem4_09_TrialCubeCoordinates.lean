@@ -8,14 +8,14 @@ Direct reverse imports:
 
 
 /-!
-# Lemma 4.11: One trial in cube coordinates
+# Lemma 4.9: One trial in cube coordinates
 
 This is `lem:trial-cube-coordinates` from `dictatorship_testing_soda27_latest.tex`.
 -/
 
 namespace DictatorshipTesting
 
-/-- Lemma 4.11, `lem:trial-cube-coordinates`: one trial in cube coordinates. -/
+/-- Lemma 4.9, `lem:trial-cube-coordinates`: one trial in cube coordinates. -/
 theorem L4_11_TrialCubeCoordinates {α : Type*} [Fintype α] [DecidableEq α]
     (f : BoolFn α) (M : OrderedMatching α) (π : Perm α)
     (x : Cube M.edgeCount) (c : CubeDirectionColor M.edgeCount) :

@@ -5,12 +5,12 @@ import DictatorshipTesting.Paper.S05_Lem5_20_OddSpectralBridge
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
+- `DictatorshipTesting.Paper.S04_Prop4_10_SquareEnergyControlsGlobalDegree`
 -/
 
 
 /-!
-# Theorem 4.10: Matching-cube spectral gap
+# Theorem 4.8: Matching-cube spectral gap
 
 This is `thm:matching-gap` from `dictatorship_testing_soda27_latest.tex`.
 -/
@@ -34,7 +34,7 @@ theorem l2DistSqToU1_nonneg {α : Type*} [Fintype α] [DecidableEq α]
   rcases hd with ⟨G, _hG, rfl⟩
   exact l2DistSq_nonneg F G
 
-/-- Theorem 4.10, `thm:matching-gap`: matching-cube spectral gap.  The active
+/-- Theorem 4.8, `thm:matching-gap`: matching-cube spectral gap.  The active
 theorem path uses the tableau-count Section 5 bridge, with Appendix A supplying
 the dimension-parameterized spectral-block model input. -/
 theorem Thm4_10_MatchingGap

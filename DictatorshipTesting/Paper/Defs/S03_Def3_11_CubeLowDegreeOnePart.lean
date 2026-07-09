@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Defs.S03_Def3_10_MatchingTrialDeltaReal
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S03_Def3_12_CubeHighDegreeEnergy`
-- `DictatorshipTesting.Paper.S04_Lem4_04_PMIndependentOfRepresentatives`
+- `DictatorshipTesting.Paper.S04_Lem4_02_PMIndependentOfRepresentatives`
 -/
 
 
