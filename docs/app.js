@@ -1,17 +1,13 @@
 const graphData = window.DICT_DEPENDENCY_DATA;
 const nodeById = new Map(graphData.nodes.map((node) => [node.id, node]));
 
-const section5Roots = [
-  "S05_01", "S05_02", "S05_03", "S05_04", "S05_05",
-  "S05_06", "S05_07", "S05_08", "S05_09", "S05_10", "S05_11",
-  "S05_12", "S05_13", "S05_14", "S05_15", "S05_16", "S05_17",
-  "S05_18", "S05_19", "S05_20", "S05_21", "S05_22", "S05_23",
-  "S05_24", "S05_25", "S05_26", "S05_27", "S05_28", "S05_29",
-  "S05_30", "S05_31", "S05_32", "S05_33", "S05_34", "S05_35",
-  "S05_36", "S05_37", "S05_38", "S05_39", "S05_40", "S05_41",
-  "S05_42", "S05_43", "S05_44", "S05_45", "S05_46", "S05_47",
-  "S05_48", "S05_49",
-];
+const section5DefinitionRoots = Array.from({ length: 23 }, (_, index) =>
+  `S05_D${String(index + 1).padStart(2, "0")}`
+);
+const section5LemmaRoots = Array.from({ length: 26 }, (_, index) =>
+  `S05_L${String(index + 1).padStart(2, "0")}`
+);
+const section5Roots = [...section5DefinitionRoots, ...section5LemmaRoots];
 
 function collectTransitiveDeps(rootIds) {
   const open = new Set();
@@ -41,29 +37,34 @@ const rootViews = {
       "Thm1_1", "Thm2_1", "Thm2_2", "L2_3", "Def2_4",
       "S03_01", "S03_02", "L4_1", "S04_04", "S04_05", "S04_06",
       "S04_07", "S04_08", "S04_09", "Thm4_10",
-      "S05_41", "S05_42", "S05_43", "S05_29", "S05_06", "S05_01",
+      "S05_L18", "S05_L19", "S05_L20", "S05_L10", "S05_L01", "S05_D01",
     ],
-    open: ["Thm1_1", "Thm4_10", "S05_42", "S05_43", "S05_41"],
+    open: ["Thm1_1", "Thm4_10", "S05_L19", "S05_L20", "S05_L18"],
   },
   main: {
     label: "Main theorem",
     roots: ["Thm1_1"],
-    open: ["Thm1_1", "L4_13", "Prop4_12", "Thm4_10", "S05_42", "S05_43", "S05_40", "S05_41"],
+    open: ["Thm1_1", "L4_13", "Prop4_12", "Thm4_10", "S05_L19", "S05_L20", "S05_L17", "S05_L18"],
   },
   spectral: {
     label: "Spectral bridge",
     roots: ["Thm4_10"],
     open: collectTransitiveDeps(["Thm4_10"]),
   },
+  definitions: {
+    label: "Definitions",
+    roots: section5DefinitionRoots,
+    open: ["S05_D01", "S05_D02", "S05_D03", "S05_D04", "S05_D05"],
+  },
   section5: {
     label: "Section 5",
     roots: section5Roots,
-    open: ["S05_42", "S05_43", "S05_41", "S05_40", "S05_29", "S05_06"],
+    open: ["S05_L19", "S05_L20", "S05_L18", "S05_L17", "S05_L10", "S05_L01"],
   },
   certificates: {
     label: "Finite certificates",
-    roots: ["S05_47", "S05_49", "S05_45", "S05_44"],
-    open: ["S05_47", "S05_49", "S05_45", "S05_44"],
+    roots: ["S05_L24", "S05_L26", "S05_L22", "S05_L21"],
+    open: ["S05_L24", "S05_L26", "S05_L22", "S05_L21"],
   },
   appendix: {
     label: "Appendix A boundary",
@@ -91,6 +92,60 @@ function statusLabel(status) {
     interface: "Interface",
   };
   return labels[status] || status;
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function termRefs(node) {
+  return (node.terms || [])
+    .filter((term) => term?.text && nodeById.has(term.target))
+    .slice(0, 10);
+}
+
+function renderStatementMarkup(node) {
+  let html = escapeHtml(node.statement || node.summary || "");
+  const terms = termRefs(node).sort((a, b) => b.text.length - a.text.length);
+  const used = new Set();
+  terms.forEach((term, index) => {
+    const escaped = escapeHtml(term.text);
+    if (!escaped || used.has(term.text.toLowerCase())) return;
+    const pattern = new RegExp(`\\b${escaped.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i");
+    if (!pattern.test(html)) return;
+    used.add(term.text.toLowerCase());
+    html = html.replace(
+      pattern,
+      `<button type="button" class="term-link" data-term-target="${term.target}" data-term-index="${index}">${escaped}</button>`
+    );
+  });
+  return html;
+}
+
+function renderTermChips(node) {
+  const terms = termRefs(node);
+  if (!terms.length) return "";
+  return `
+    <div class="term-list" aria-label="Referenced definitions">
+      ${terms
+        .map((term) => `<button type="button" class="term-chip" data-term-target="${term.target}">${escapeHtml(term.text)}</button>`)
+        .join("")}
+    </div>
+  `;
+}
+
+function attachTermHandlers(root) {
+  root.querySelectorAll("[data-term-target]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      openOverlay(button.dataset.termTarget);
+    });
+  });
 }
 
 function nodeWeight(node) {
@@ -209,7 +264,8 @@ function renderInlineDetails(node, depCount) {
     .map((dep) => `<button type="button" class="tiny-link" data-jump="${dep.id}">${dep.label}</button>`)
     .join("");
   details.innerHTML = `
-    <p>${node.summary}</p>
+    <p class="statement">${renderStatementMarkup(node)}</p>
+    ${renderTermChips(node)}
     <dl>
       <dt>Lean file</dt>
       <dd><a href="${sourceUrl(node.file)}" target="_blank" rel="noreferrer">${node.file}</a></dd>
@@ -221,6 +277,7 @@ function renderInlineDetails(node, depCount) {
       <span>${usedBy ? "Used by " + usedBy : "No dependents listed in this graph"}</span>
     </div>
   `;
+  attachTermHandlers(details);
   details.querySelectorAll("[data-jump]").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -230,6 +287,39 @@ function renderInlineDetails(node, depCount) {
     });
   });
   return details;
+}
+
+function openOverlay(id) {
+  const node = nodeById.get(id);
+  const root = document.querySelector("#overlay-root");
+  if (!node || !root) return;
+
+  root.innerHTML = `
+    <div class="overlay-backdrop" role="presentation"></div>
+    <section class="term-overlay" role="dialog" aria-modal="true" aria-label="${escapeHtml(node.label)} ${escapeHtml(node.title)}">
+      <button type="button" class="overlay-close" aria-label="Close definition overlay">x</button>
+      <div class="overlay-kicker">${escapeHtml(statusLabel(node.status))}</div>
+      <h2>${escapeHtml(node.label)} <span>${escapeHtml(node.title)}</span></h2>
+      <p class="statement">${renderStatementMarkup(node)}</p>
+      ${renderTermChips(node)}
+      <dl>
+        <dt>Lean file</dt>
+        <dd><a href="${sourceUrl(node.file)}" target="_blank" rel="noreferrer">${escapeHtml(node.file)}</a></dd>
+        <dt>Wrappers</dt>
+        <dd>${node.wrappers?.length ? node.wrappers.map((wrapper) => `<code>${escapeHtml(wrapper)}</code>`).join(" ") : "No wrapper listed."}</dd>
+      </dl>
+    </section>
+  `;
+  root.classList.add("active");
+  attachTermHandlers(root);
+
+  const close = () => {
+    root.classList.remove("active");
+    root.textContent = "";
+  };
+  root.querySelector(".overlay-backdrop").addEventListener("click", close);
+  root.querySelector(".overlay-close").addEventListener("click", close);
+  root.querySelector(".overlay-close").focus();
 }
 
 function renderTree() {

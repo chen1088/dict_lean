@@ -369,6 +369,38 @@ main {
   margin: 0 0 10px;
 }
 
+.statement {
+  color: var(--ink);
+}
+
+.term-link,
+.term-chip {
+  border: 1px solid #b9cce2;
+  border-radius: 6px;
+  background: var(--blue-soft);
+  color: #184f86;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.term-link {
+  display: inline;
+  padding: 1px 5px;
+  vertical-align: baseline;
+}
+
+.term-chip {
+  padding: 5px 8px;
+}
+
+.term-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 10px;
+}
+
 dl {
   display: grid;
   gap: 4px;
@@ -439,6 +471,92 @@ code {
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.88rem;
+}
+
+.overlay-root {
+  display: none;
+}
+
+.overlay-root.active {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 24, 36, 0.42);
+}
+
+.term-overlay {
+  position: relative;
+  z-index: 1;
+  width: min(680px, 100%);
+  max-height: min(760px, 86vh);
+  overflow: auto;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.overlay-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--soft);
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+}
+
+.overlay-kicker {
+  margin-right: 44px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.term-overlay h2 {
+  margin: 4px 44px 12px 0;
+  font-size: 1.25rem;
+  letter-spacing: 0;
+}
+
+.term-overlay h2 span {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.98rem;
+  font-weight: 650;
+}
+
+.term-overlay dl {
+  display: grid;
+  grid-template-columns: minmax(90px, auto) 1fr;
+  gap: 7px 14px;
+  margin: 14px 0 0;
+}
+
+.term-overlay dt {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.term-overlay dd {
+  margin: 0;
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 980px) {

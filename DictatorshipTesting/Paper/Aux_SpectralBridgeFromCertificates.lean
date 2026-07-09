@@ -1,12 +1,12 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.S05_Lem5_39_BlockScalarOfTheAveragedRejection
+import DictatorshipTesting.Paper.S05_Lem5_16_BlockScalarOfTheAveragedRejection
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam`
-- `DictatorshipTesting.Paper.S05_Lem5_40_BlockLowerBoundImpliesTheGap`
-- `DictatorshipTesting.Paper.S05_Lem5_42_EvenSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Lem5_43_OddSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_17_BlockLowerBoundImpliesTheGap`
+- `DictatorshipTesting.Paper.S05_Lem5_19_EvenSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_20_OddSpectralBridge`
 -/
 
 
@@ -105,7 +105,7 @@ theorem SpectralGapFromBlockScalars {n : ℕ} (c : ℝ)
 
 /-- Spectral gap from scalar lower bounds on every non-`U_1` Young block.
 
-This is the purely algebraic wrapper for Lemma 5.33: once the block energies,
+This is the purely algebraic wrapper for Lemma 5.12: once the block energies,
 `U_1` identification, matching-average scalarity, and scalar lower bounds are
 available, no representation theory remains. -/
 theorem SpectralGapFromBlockScalarLowerBounds {n : ℕ} (c : ℝ)

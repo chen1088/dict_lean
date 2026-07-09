@@ -5,18 +5,18 @@ Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.AppA_LemA_03_DegreeOneYoungBlockIdentification`
 - `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
-- `DictatorshipTesting.Paper.S05_Lem5_41_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_18_RegularYoungBlockDecomposition`
 -/
 
 /-!
 Paper statement: Theorem A.1 (`thm:app-young-orthogonal`)
 Title in paper: Young orthogonal realization.
 
-Status: external: ingredient bundled into Lemma 5.41.  This file is kept
+Status: external: ingredient bundled into Lemma 5.18.  This file is kept
 separate from the internal Section 5 coordinate Coxeter proof: the classical
-Young orthogonal/Specht realization is consumed in Lean through the Lemma 5.41
+Young orthogonal/Specht realization is consumed in Lean through the Lemma 5.18
 spectral-block assembly theorem in
-`S05_Lem5_41_RegularYoungBlockDecomposition`.
+`S05_Lem5_18_RegularYoungBlockDecomposition`.
 -/
 
 

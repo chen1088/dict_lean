@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_06_AdjacentTranspositionsInYoungsBasis`
+- `DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis`
 -/
 
 

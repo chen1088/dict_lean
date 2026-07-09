@@ -6,10 +6,10 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam`
 - `DictatorshipTesting.Paper.Aux_YoungOrthogonal`
 - `DictatorshipTesting.Paper.S05_Def5_04_TableauCoordinateSpace`
-- `DictatorshipTesting.Paper.S05_Lem5_14_TwoBoxTableauBranching`
-- `DictatorshipTesting.Paper.S05_Lem5_21_TwoBoxDimensionRecursion`
-- `DictatorshipTesting.Paper.S05_Lem5_22_OneBoxDimensionRecursion`
-- `DictatorshipTesting.Paper.S05_Lem5_41_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_03_TwoBoxTableauBranching`
+- `DictatorshipTesting.Paper.S05_Lem5_07_TwoBoxDimensionRecursion`
+- `DictatorshipTesting.Paper.S05_Lem5_08_OneBoxDimensionRecursion`
+- `DictatorshipTesting.Paper.S05_Lem5_18_RegularYoungBlockDecomposition`
 -/
 
 

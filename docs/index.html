@@ -46,11 +46,14 @@
       <section class="dag-shell" aria-label="Expandable dependency DAG">
         <div class="dag-instructions">
           The node itself is the control: click a theorem to expand its prerequisites, and click it again to fold that branch.
-          The Section 5 tab lists every numbered Section 5 statement as a top-level node.
+          The Section 5 tab lists every numbered Section 5 definition and result as top-level nodes.
+          Highlighted terms open definition popovers.
         </div>
         <div id="dag" class="dag"></div>
       </section>
     </main>
+
+    <div id="overlay-root" class="overlay-root" aria-live="polite"></div>
 
     <footer class="site-footer">
       <span>Static GitHub Pages view. The working paper TeX is intentionally not included here.</span>

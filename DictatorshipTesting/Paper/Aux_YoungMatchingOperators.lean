@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Aux_YoungOrthogonal
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_29_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_10_MatchingSubgroupEigenbasis`
 -/
 
 
