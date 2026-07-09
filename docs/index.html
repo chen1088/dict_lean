@@ -8,9 +8,27 @@
     <script>
       window.MathJax = {
         tex: {
+          packages: {"[+]": ["ams"]},
           inlineMath: [["$", "$"], ["\\(", "\\)"]],
           displayMath: [["$$", "$$"], ["\\[", "\\]"]],
-          processEscapes: true
+          processEscapes: true,
+          macros: {
+            E: "\\mathbb{E}",
+            R: "\\mathbb{R}",
+            C: "\\mathbb{C}",
+            D: "\\mathcal{D}",
+            cA: "\\mathcal{A}",
+            cC: "\\mathcal{C}",
+            SYT: "\\operatorname{SYT}",
+            Rem: "\\operatorname{Rem}",
+            End: "\\operatorname{End}",
+            spanop: "\\operatorname{span}",
+            row: "\\operatorname{row}",
+            col: "\\operatorname{col}",
+            dist: "\\operatorname{dist}",
+            norm: ["\\lVert #1\\rVert", 1],
+            ip: ["\\langle #1,#2\\rangle", 2]
+          }
         },
         options: {
           skipHtmlTags: ["script", "noscript", "style", "textarea", "pre"]

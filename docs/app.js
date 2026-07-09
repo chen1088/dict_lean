@@ -112,22 +112,74 @@ function displayStatement(node) {
   return node.paperStatementLatex || node.statement || node.summary || "";
 }
 
-function renderStatementMarkup(node) {
-  let html = escapeHtml(displayStatement(node));
-  const terms = termRefs(node).sort((a, b) => b.text.length - a.text.length);
-  const used = new Set();
+function normalizePaperLatex(value) {
+  return String(value || "")
+    .replace(/\\label\{[^}]*\}/g, "")
+    .replace(/\\tag\{[^}]*\}/g, "")
+    .replace(/\\begin\{equation\*?\}/g, "\\[")
+    .replace(/\\end\{equation\*?\}/g, "\\]")
+    .replace(/\\begin\{align\*?\}/g, "\\[\\begin{aligned}")
+    .replace(/\\end\{align\*?\}/g, "\\end{aligned}\\]")
+    .replace(/\\begin\{enumerate\}/g, "\n")
+    .replace(/\\end\{enumerate\}/g, "\n")
+    .replace(/\\item\s+/g, "\n- ")
+    .replace(/\\[Cc]ref\{[^}]*\}/g, "the referenced statement")
+    .replace(/\\eqref\{[^}]*\}/g, "the displayed equation");
+}
+
+function splitLatexSegments(value) {
+  const pattern = /(\$\$[\s\S]*?\$\$|\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$[^$\n]*\$)/g;
+  const segments = [];
+  let lastIndex = 0;
+  let match;
+  while ((match = pattern.exec(value)) !== null) {
+    if (match.index > lastIndex) {
+      segments.push({ kind: "text", value: value.slice(lastIndex, match.index) });
+    }
+    segments.push({ kind: "math", value: match[0] });
+    lastIndex = pattern.lastIndex;
+  }
+  if (lastIndex < value.length) {
+    segments.push({ kind: "text", value: value.slice(lastIndex) });
+  }
+  return segments;
+}
+
+function escapedTermPattern(escapedTerm) {
+  return new RegExp(
+    `(^|[^A-Za-z0-9_])(${escapedTerm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})(?=$|[^A-Za-z0-9_])`,
+    "i"
+  );
+}
+
+function highlightStatementTerms(text, terms, used) {
+  let html = escapeHtml(text);
   terms.forEach((term, index) => {
+    const key = term.text.toLowerCase();
     const escaped = escapeHtml(term.text);
-    if (!escaped || used.has(term.text.toLowerCase())) return;
-    const pattern = new RegExp(`\\b${escaped.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i");
+    if (!escaped || used.has(key)) return;
+    const pattern = escapedTermPattern(escaped);
     if (!pattern.test(html)) return;
-    used.add(term.text.toLowerCase());
+    used.add(key);
     html = html.replace(
       pattern,
-      `<button type="button" class="term-link" data-term-target="${term.target}" data-term-index="${index}">${escaped}</button>`
+      (_match, prefix, label) =>
+        `${prefix}<a href="#" class="term-link" data-term-target="${escapeHtml(term.target)}" data-term-index="${index}">${label}</a>`
     );
   });
   return html;
+}
+
+function renderStatementMarkup(node) {
+  const terms = termRefs(node).sort((a, b) => b.text.length - a.text.length);
+  const used = new Set();
+  return splitLatexSegments(normalizePaperLatex(displayStatement(node)))
+    .map((segment) =>
+      segment.kind === "math"
+        ? escapeHtml(segment.value)
+        : highlightStatementTerms(segment.value, terms, used)
+    )
+    .join("");
 }
 
 function typesetMath(root = document) {
@@ -141,18 +193,20 @@ function renderTermChips(node) {
   if (!terms.length) return "";
   return `
     <div class="term-list" aria-label="Referenced definitions">
+      <span>Definitions:</span>
       ${terms
-        .map((term) => `<button type="button" class="term-chip" data-term-target="${term.target}">${escapeHtml(term.text)}</button>`)
+        .map((term) => `<a href="#" class="term-chip" data-term-target="${escapeHtml(term.target)}">${escapeHtml(term.text)}</a>`)
         .join("")}
     </div>
   `;
 }
 
 function attachTermHandlers(root) {
-  root.querySelectorAll("[data-term-target]").forEach((button) => {
-    button.addEventListener("click", (event) => {
+  root.querySelectorAll("[data-term-target]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
       event.stopPropagation();
-      openOverlay(button.dataset.termTarget);
+      openOverlay(link.dataset.termTarget);
     });
   });
 }
