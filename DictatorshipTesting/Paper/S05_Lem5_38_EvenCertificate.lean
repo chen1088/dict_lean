@@ -1,10 +1,9 @@
+import DictatorshipTesting.Paper.S05_Def_TableauEvenHeight
 import DictatorshipTesting.Paper.S05_Lem5_36_WeightZeroEntriesAreNeverAMajority
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
-- `DictatorshipTesting.Paper.S05_Lem5_32_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.S05_Lem5_33_EvenSpectralBridge`
 - `DictatorshipTesting.Paper.S05_Lem5_37_WhereTheInductionCanFail`
 - `DictatorshipTesting.Paper.S05_Lem5_40_OddCertificate`
@@ -12,7 +11,7 @@ Direct reverse imports:
 
 
 /-!
-Paper statement: Lemma 5.37 (`lem:h-even-app`)
+Paper statement: Lemma 5.38 (`lem:h-even-app`)
 Title in paper: Even certificate.
 
 Status: proven. The tableau-count even certificate is proved below.  The older
@@ -21,7 +20,7 @@ route.
 -/
 
 /-!
-# Finite induction input for Lemma 5.37
+# Finite induction input for Lemma 5.38
 
 The intended proof uses Lemma 5.35, the `hEven` recurrence, the dimension
 recursion, and the exceptional level-two Young diagrams from Section 5.
@@ -2214,14 +2213,6 @@ The original `hEven` recurrence in `Defs.lean` is tied to the hook-length proxy
 `youngDim`.  The tableau-count migration therefore uses a parallel recurrence
 where the vertical contribution is `tableauDim μ - zEven μ`.
 -/
-
-noncomputable def hEvenTableau : (m : ℕ) → YoungDiagram (2 * m) → ℝ
-  | 0, _ => 0
-  | m + 1, lam =>
-      (horizontalTwoStripChildrenEven (m + 1) lam).sum
-          (fun mu => hEvenTableau m mu) +
-        (verticalTwoStripChildrenEven (m + 1) lam).sum
-          (fun mu => tableauDim mu - zEven m mu)
 
 theorem hEvenTableau_recurrence_succ
     (m : ℕ) (lam : YoungDiagram (2 * (m + 1))) :

@@ -60,9 +60,9 @@ is kept in Appendix A:
 | proven | 5.35 | lemma | Counting one more matching edge | `S05_Lem5_35_CountingOneMoreMatchingEdge.lean` | `S05_Lem5_35_counting_one_more_matching_edge`, `L5_3_CountingOneMoreMatchingEdge` | Finite counting lemma. |
 | proven | 5.36 | lemma | Weight-zero entries are never a majority | `S05_Lem5_36_WeightZeroEntriesAreNeverAMajority.lean` | `S05_Lem5_36_tableau_weightZeroEntries_never_majority` | Tableau-count z-bound certificate. |
 | proven | 5.37 | lemma | Where the induction can fail | `S05_Lem5_37_WhereTheInductionCanFail.lean` | `S05_Lem5_37_where_the_induction_can_fail` | Exceptional-shape localization. |
-| proven | 5.38 | lemma | Even certificate | `S05_Lem5_38_EvenCertificate.lean` | `S05_Lem5_38_tableau_even_certificate` | Tableau-count even certificate. |
+| proven | 5.38 | lemma | Even certificate | `S05_Lem5_38_EvenCertificate.lean` | `S05_Lem5_38_tableau_even_certificate` | Tableau-count even certificate; the reusable height definition is in `S05_Def_TableauEvenHeight.lean`. |
 | proven | 5.39 | lemma | Odd exceptional children | `S05_Lem5_39_OddExceptionalChildren.lean` | `S05_Lem5_39_odd_exceptional_children` | Odd exceptional child analysis. |
-| proven | 5.40 | lemma | Odd certificate | `S05_Lem5_40_OddCertificate.lean` | `S05_Lem5_40_tableau_odd_certificate` | Tableau-count odd certificate. |
+| proven | 5.40 | lemma | Odd certificate | `S05_Lem5_40_OddCertificate.lean` | `S05_Lem5_40_tableau_odd_certificate` | Tableau-count odd certificate; the reusable height definition is in `S05_Def_TableauOddHeight.lean`. |
 
 Notes:
 
@@ -72,6 +72,10 @@ Notes:
 - `external: ...` rows name the representation-theoretic input being used.
 - `unproven` rows name the precise missing internal or representation-layer
   component.
+- Neutral height definitions used by both Appendix A.2 and the finite
+  certificate proofs are split into `S05_Def_TableauEvenHeight.lean` and
+  `S05_Def_TableauOddHeight.lean`; they are not separate numbered paper
+  theorem statements.
 
 Reader-facing auxiliary nodes that are important enough to show in the
 dependency graph but not numbered separately in the paper include:

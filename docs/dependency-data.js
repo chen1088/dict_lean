@@ -557,7 +557,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proven",
       file: "DictatorshipTesting/Paper/S05_Lem5_38_EvenCertificate.lean",
       wrappers: ["S05_Lem5_38_tableau_even_certificate"],
-      deps: ["S05_36", "S05_37", "S05_19"],
+      deps: ["DefTableauEvenHeight", "S05_36", "S05_37", "S05_19"],
       summary: "The tableau-count even h-bound certificate consumed by Lemma 5.33."
     },
     {
@@ -583,7 +583,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proven",
       file: "DictatorshipTesting/Paper/S05_Lem5_40_OddCertificate.lean",
       wrappers: ["S05_Lem5_40_tableau_odd_certificate"],
-      deps: ["S05_38", "S05_39", "S05_20"],
+      deps: ["DefTableauOddHeight", "S05_38", "S05_39", "S05_20"],
       summary: "The tableau-count odd h-bound certificate consumed by Lemma 5.34."
     },
     {
@@ -662,7 +662,7 @@ window.DICT_DEPENDENCY_DATA = {
       file: "DictatorshipTesting/Paper/S05_Def5_17_EvenSignPatternMultiset.lean",
       wrappers: ["S05_evenZeroSignPatternCount", "S05_evenHighSignPatternCount"],
       deps: ["S05_09", "S05_10"],
-      summary: "Even sign-pattern counters zEven and hEvenTableau."
+      summary: "Even sign-pattern multiset counters."
     },
     {
       id: "S05_18",
@@ -675,7 +675,33 @@ window.DICT_DEPENDENCY_DATA = {
       file: "DictatorshipTesting/Paper/S05_Def5_18_OddSignPatternMultiset.lean",
       wrappers: ["S05_oddHighSignPatternCount"],
       deps: ["S05_11", "S05_17"],
-      summary: "Odd sign-pattern counter hOddTableau."
+      summary: "Odd sign-pattern multiset counter."
+    },
+    {
+      id: "DefTableauEvenHeight",
+      label: "hEvenTableau",
+      title: "Even tableau height",
+      section: "Definitions",
+      kind: "aux",
+      importance: "minor",
+      status: "definition",
+      file: "DictatorshipTesting/Paper/S05_Def_TableauEvenHeight.lean",
+      wrappers: ["hEvenTableau"],
+      deps: ["AuxTableauDimension", "S05_17"],
+      summary: "Neutral even tableau-count height definition shared by Appendix A.2, Lemma 5.32, and the even certificate."
+    },
+    {
+      id: "DefTableauOddHeight",
+      label: "hOddTableau",
+      title: "Odd tableau height",
+      section: "Definitions",
+      kind: "aux",
+      importance: "minor",
+      status: "definition",
+      file: "DictatorshipTesting/Paper/S05_Def_TableauOddHeight.lean",
+      wrappers: ["hOddTableau"],
+      deps: ["DefTableauEvenHeight", "S05_18"],
+      summary: "Neutral odd tableau-count height definition shared by Appendix A.2, Lemma 5.32, and the odd certificate."
     },
     {
       id: "S05_22",
@@ -843,7 +869,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proven",
       file: "DictatorshipTesting/Paper/S05_Lem5_33_EvenSpectralBridge.lean",
       wrappers: ["S05_Lem5_33_tableauDim_evenSpectralGapFromCertificates"],
-      deps: ["S05_08", "S05_31", "S05_32", "S05_38", "AppA_EvenSpectralModel"],
+      deps: ["S05_08", "S05_31", "S05_32", "S05_38", "DefTableauEvenHeight", "AppA_EvenSpectralModel"],
       summary: "Algebraic even bridge from the explicit spectral model hypothesis, Lemma 5.32's Appendix-A-derived model wrapper, and the tableau even certificate."
     },
     {
@@ -856,7 +882,7 @@ window.DICT_DEPENDENCY_DATA = {
       status: "proven",
       file: "DictatorshipTesting/Paper/S05_Lem5_34_OddSpectralBridge.lean",
       wrappers: ["S05_Lem5_34_tableauDim_oddSpectralGapFromCertificates"],
-      deps: ["S05_08", "S05_31", "S05_32", "S05_40", "AppA_OddSpectralModel"],
+      deps: ["S05_08", "S05_31", "S05_32", "S05_40", "DefTableauOddHeight", "AppA_OddSpectralModel"],
       summary: "Algebraic odd bridge from the explicit spectral model hypothesis, Lemma 5.32's Appendix-A-derived model wrapper, and the tableau odd certificate."
     },
     {
@@ -935,7 +961,7 @@ window.DICT_DEPENDENCY_DATA = {
       file: "DictatorshipTesting/Paper/AppA_ThmA_02_JucysMurphyContentSpectrum.lean",
       wrappers: ["AppA_ThmA_02_jucysMurphyContentSpectrum"],
       deps: [],
-      summary: "Named external marker for the classical group-algebra Jucys-Murphy content-spectrum ingredient."
+      summary: "Named external marker for the classical group-algebra Jucys-Murphy content-spectrum ingredient; it mentions only neutral height definitions, not certificate proof files."
     },
     {
       id: "AppA_03",

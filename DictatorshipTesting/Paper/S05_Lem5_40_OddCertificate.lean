@@ -1,19 +1,18 @@
 import DictatorshipTesting.Paper.S05_Lem5_38_EvenCertificate
+import DictatorshipTesting.Paper.S05_Def_TableauOddHeight
 import DictatorshipTesting.Paper.S05_Lem5_20_OneBoxDimensionRecursion
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
 - `DictatorshipTesting.Paper.S05_Lem5_23_MatchingSubgroupEigenbasis`
-- `DictatorshipTesting.Paper.S05_Lem5_32_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.S05_Lem5_34_OddSpectralBridge`
 - `DictatorshipTesting.Paper.S05_Lem5_39_OddExceptionalChildren`
 -/
 
 
 /-!
-Paper statement: Lemma 5.39 (`lem:h-odd-app`)
+Paper statement: Lemma 5.40 (`lem:h-odd-app`)
 Title in paper: Odd certificate.
 
 Status: proven. The tableau-count odd certificate is proved below.  The older
@@ -22,9 +21,9 @@ route.
 -/
 
 /-!
-# Finite induction input for Lemma 5.39
+# Finite induction input for Lemma 5.40
 
-The intended proof branches once to even diagrams, applies Lemma 5.37 to the
+The intended proof branches once to even diagrams, applies Lemma 5.38 to the
 non-exceptional children, and handles the two level-two odd shapes explicitly.
 
 The statement is phrased only in terms of the concrete finite model in
@@ -668,11 +667,6 @@ theorem odd_bad_oneBoxChild_classification
             omega
           · omega
         exact Or.inr ⟨h0, h1, h2⟩
-
-/-- Odd high-weight count using actual tableau dimensions in the even
-children. -/
-noncomputable def hOddTableau (m : ℕ) (lam : YoungDiagram (2 * m + 1)) : ℝ :=
-  (oneBoxChildrenOdd m lam).sum (fun mu => hEvenTableau m mu)
 
 /-- Formula for `hOddTableau` on the canonical odd exception `(2m-1,2)`. -/
 theorem hOddTableau_twoRowTwoDiagramOdd_formula

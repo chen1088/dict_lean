@@ -135,12 +135,11 @@ Remaining Section 5/AppA bridge boundary:
   accounted for inside the spectral-block model boundary rather than as a
   separate Lean axiom.
 
-Implementation hygiene note: `AppA_ThmA_02_JucysMurphyContentSpectrum.lean`
-currently imports the even and odd certificate files only to reuse the neutral
-height functions `hEvenTableau` and `hOddTableau`.  This is not a mathematical
-dependency of the Appendix A external input on the finite certificate proofs;
-it is a Lean organization dependency that can be removed later by moving those
-height definitions into a definition-only file.
+Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
+definition-only files `S05_Def_TableauEvenHeight.lean` and
+`S05_Def_TableauOddHeight.lean`.  Thus
+`AppA_ThmA_02_JucysMurphyContentSpectrum.lean` imports neutral definitions
+rather than the even/odd certificate proof files.
 
 - Two substantial helper layers are exposed in the dependency graph for
   readability, but are not numbered separately in the paper:
