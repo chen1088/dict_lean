@@ -1632,7 +1632,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Lem5_08_tableauDim_oneBoxChildrenOdd_branching"
       ],
       "deps": [
-        "S05_L05"
+        "S05_L05",
+        "S05_L06"
       ],
       "summary": "Tableau-count dimension recursion for one-box removals.",
       "statement": "Lemma 5.8 proves the one-box tableauDim dimension recursion.",
@@ -1648,6 +1649,10 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "one-box removals",
           "target": "S05_D11"
+        },
+        {
+          "text": "One-box deletion intertwining",
+          "target": "S05_L06"
         }
       ],
       "paperLabel": "lem:dimension-one-box-recurrence",
@@ -2111,7 +2116,8 @@ window.DICT_DEPENDENCY_DATA = {
         "AppA_01",
         "AppA_02",
         "AppA_03",
-        "AppA_04"
+        "AppA_04",
+        "S05_L02"
       ],
       "summary": "Assembles Appendix A markers into the dimension-parameterized spectral-block model.",
       "statement": "Lemma 5.18 assembles Appendix A ingredients into the regular Young-block spectral model.",
@@ -2139,6 +2145,10 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Standard tableaux connectedness",
           "target": "AppA_04"
+        },
+        {
+          "text": "Diagonal content eigenspaces",
+          "target": "S05_L02"
         }
       ],
       "paperLabel": "lem:regular-young-block-decomposition",
@@ -2392,7 +2402,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_L07",
         "S05_L21",
         "S05_L22",
-        "S05_L23"
+        "S05_L23",
+        "S05_L09"
       ],
       "summary": "Finite even h-bound certificate.",
       "statement": "Lemma 5.24 proves the even finite certificate.",
@@ -2424,6 +2435,10 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Where the induction can fail",
           "target": "S05_L23"
+        },
+        {
+          "text": "Sign-pattern multiset sizes",
+          "target": "S05_L09"
         }
       ],
       "paperLabel": "lem:h-even-app",
@@ -2492,7 +2507,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D27",
         "S05_L08",
         "S05_L24",
-        "S05_L25"
+        "S05_L25",
+        "S05_L09"
       ],
       "summary": "Finite odd h-bound certificate.",
       "statement": "Lemma 5.26 proves the odd finite certificate.",
@@ -2520,6 +2536,10 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Odd exceptional children",
           "target": "S05_L25"
+        },
+        {
+          "text": "Sign-pattern multiset sizes",
+          "target": "S05_L09"
         }
       ],
       "paperLabel": "lem:h-odd-app",

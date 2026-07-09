@@ -42,7 +42,7 @@ const rootViews = {
   main: {
     label: "Main theorem",
     roots: ["Thm1_1"],
-    open: ["Thm1_1", "L4_13", "Prop4_12", "Thm4_10", "S05_L19", "S05_L20", "S05_L17", "S05_L18"],
+    open: collectTransitiveDeps(["Thm1_1"]),
   },
   spectral: {
     label: "Spectral bridge",
