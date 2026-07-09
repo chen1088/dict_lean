@@ -1,5 +1,7 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 import DictatorshipTesting.Paper.Aux_TableauDimension
+import DictatorshipTesting.Paper.S05_Def5_08_YoungBlockDecompositionInput
+import DictatorshipTesting.Paper.S05_Def5_08_U1YoungBlockIdentificationInput
 import DictatorshipTesting.Paper.S05_Def_TableauEvenHeight
 import DictatorshipTesting.Paper.S05_Def_TableauOddHeight
 import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
@@ -28,18 +30,6 @@ spectral-block model consumed by the active Theorem 4.10 path.
 noncomputable section
 
 namespace DictatorshipTesting
-
-/-- Lemma 5.32 interface: nonnegative block-energy decomposition.  This aliases
-the existing numerical input, rather than proving the representation theorem. -/
-abbrev S05_Lem5_32_YoungBlockDecompositionInput {n : Nat}
-    (blockEnergy : YoungDiagram n → ℝ) : Prop :=
-  YoungBlockDecompositionInput blockEnergy
-
-/-- Lemma 5.32 interface: `U_1` is represented by the one-row and standard Young
-blocks in the numerical model. -/
-abbrev S05_Lem5_32_U1YoungBlockIdentificationInput {n : Nat}
-    (F : Perm (Fin n) → ℝ) (blockEnergy : YoungDiagram n → ℝ) : Prop :=
-  U1YoungBlockIdentificationInput F blockEnergy
 
 /-- Lemma 5.32 model projection: each Young-block energy is nonnegative. -/
 theorem S05_Lem5_32_blockEnergy_nonnegative {n : Nat}

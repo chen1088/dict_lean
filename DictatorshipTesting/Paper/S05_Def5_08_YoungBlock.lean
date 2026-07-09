@@ -1,4 +1,6 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
+import DictatorshipTesting.Paper.S05_Def5_08_YoungBlockDecompositionInput
+import DictatorshipTesting.Paper.S05_Def5_08_U1YoungBlockIdentificationInput
 
 /-
 Direct reverse imports:

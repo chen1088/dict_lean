@@ -595,9 +595,35 @@ window.DICT_DEPENDENCY_DATA = {
       importance: "normal",
       status: "interface",
       file: "DictatorshipTesting/Paper/S05_Def5_08_YoungBlock.lean",
-      wrappers: ["S05_YoungBlock", "S05_Def5_08_SpectralBlockModelInput"],
-      deps: ["S05_04", "AuxSpectralBridgeDimensionParam"],
-      summary: "Young-block vocabulary and the spectral-block model interface used by the bridge."
+      wrappers: ["S05_YoungBlock", "S05_Def5_08_YoungBlockDecompositionInput", "S05_Def5_08_U1YoungBlockIdentificationInput", "S05_Def5_08_SpectralBlockModelInput"],
+      deps: ["S05_04", "Def5_08_YoungBlockDecompositionInput", "Def5_08_U1YoungBlockIdentificationInput", "AuxSpectralBridgeDimensionParam"],
+      summary: "Young-block vocabulary, numerical energy-profile interfaces, and the spectral-block model interface used by the bridge."
+    },
+    {
+      id: "Def5_08_YoungBlockDecompositionInput",
+      label: "Def 5.8 energy",
+      title: "Young-block energy profile",
+      section: "Definitions",
+      kind: "aux",
+      importance: "minor",
+      status: "definition",
+      file: "DictatorshipTesting/Paper/S05_Def5_08_YoungBlockDecompositionInput.lean",
+      wrappers: ["S05_Def5_08_YoungBlockDecompositionInput"],
+      deps: [],
+      summary: "Definition 5.8 component: nonnegative Young-block energy profile."
+    },
+    {
+      id: "Def5_08_U1YoungBlockIdentificationInput",
+      label: "Def 5.8 U1",
+      title: "U1-compatible Young-block profile",
+      section: "Definitions",
+      kind: "aux",
+      importance: "minor",
+      status: "definition",
+      file: "DictatorshipTesting/Paper/S05_Def5_08_U1YoungBlockIdentificationInput.lean",
+      wrappers: ["S05_Def5_08_U1YoungBlockIdentificationInput"],
+      deps: ["Def5_08_YoungBlockDecompositionInput"],
+      summary: "Definition 5.8 component: the non-U1 Young blocks sum to the squared distance from U1."
     },
     {
       id: "S05_09",
