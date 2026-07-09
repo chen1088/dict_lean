@@ -136,10 +136,14 @@ Remaining Section 5/AppA bridge boundary:
   separate Lean axiom.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
-definition-only files `S05_IntDef_TableauEvenHeight.lean` and
-`S05_IntDef_TableauOddHeight.lean`.  Thus
+definition-only files `S05_Def5_24_TableauEvenHeight.lean` and
+`S05_Def5_25_TableauOddHeight.lean`.  The finite-certificate special diagrams
+and exceptional predicates live in
+`S05_Def5_26_CertificateSpecialDiagrams.lean` and
+`S05_Def5_27_CertificateExceptionalPredicates.lean`.  Thus
 `AppA_ThmA_02_JucysMurphyContentSpectrum.lean` imports neutral definitions
-rather than the even/odd certificate proof files.
+rather than the even/odd certificate proof files, and Lemmas 5.22--5.26 import
+the shared certificate vocabulary explicitly.
 
 - Two substantial internal layers are exposed in the dependency graph for
   readability, but are not numbered separately in the paper:

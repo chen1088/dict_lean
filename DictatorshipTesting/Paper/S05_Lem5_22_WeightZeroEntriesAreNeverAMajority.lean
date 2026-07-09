@@ -1,4 +1,6 @@
 import DictatorshipTesting.Paper.S05_Lem5_07_TwoBoxDimensionRecursion
+import DictatorshipTesting.Paper.S05_Def5_26_CertificateSpecialDiagrams
+import DictatorshipTesting.Paper.S05_Def5_27_CertificateExceptionalPredicates
 
 /-
 Direct reverse imports:
@@ -28,16 +30,6 @@ does not need a separate wrapper module.
 
 namespace DictatorshipTesting
 
-/-- A diagram has a horizontal two-strip child that is the one-row diagram.  This
-is the exact obstruction to applying the induction hypothesis uniformly to all
-horizontal children in the proof of the `zEven` bound. -/
-def HasOneRowHorizontalChild (m : ℕ) (lam : YoungDiagram (2 * m)) : Prop :=
-  ∃ mu ∈ horizontalTwoStripChildrenEven m lam, IsOneRow mu
-
-/-- Row predicate for the exceptional two-row shape `(2m-2, 2)`. -/
-def IsTwoRowTwoException (m : ℕ) (lam : YoungDiagram (2 * m)) : Prop :=
-  youngRow lam 0 = 2 * m - 2 ∧ youngRow lam 1 = 2
-
 /-- Specht dimensions are nonnegative in the concrete hook-length model. -/
 theorem youngDim_nonneg {n : ℕ} (lam : YoungDiagram n) :
     0 ≤ youngDim lam := by
@@ -54,34 +46,6 @@ theorem zEven_nonneg (m : ℕ) (lam : YoungDiagram (2 * m)) :
   | succ m ih =>
       simp [zEven, Finset.sum_nonneg, ih]
 
-/-- The canonical one-row Young diagram. -/
-def oneRowDiagram (n : ℕ) : YoungDiagram n where
-  row := fun i =>
-    if (i : ℕ) = 0 then ⟨n, Nat.lt_succ_self n⟩ else ⟨0, Nat.succ_pos n⟩
-  nonincreasing := by
-    intro i j hij
-    by_cases hj : (j : ℕ) = 0
-    · have hi : (i : ℕ) = 0 := by omega
-      simp [hi, hj]
-    · simp [hj]
-  sum_rows := by
-    classical
-    by_cases hn : n = 0
-    · subst n
-      simp
-    · let i0 : Fin n := ⟨0, Nat.pos_of_ne_zero hn⟩
-      rw [Finset.sum_eq_single i0]
-      · simp [i0]
-      · intro b _hb hba
-        have hb0 : (b : ℕ) ≠ 0 := by
-          intro hb0
-          apply hba
-          ext
-          simp [i0, hb0]
-        simp [hb0]
-      · intro hnot
-        exact False.elim (hnot (Finset.mem_univ i0))
-
 /-- The canonical one-row diagram satisfies the one-row predicate. -/
 theorem isOneRow_oneRowDiagram (n : ℕ) :
     IsOneRow (oneRowDiagram n) := by
@@ -91,110 +55,6 @@ theorem isOneRow_oneRowDiagram (n : ℕ) :
   · have hzero : n = 0 := by omega
     subst n
     simp
-
-/-- The canonical two-row Young diagram with row lengths `(a,b)`.  The
-hypotheses say this is a partition of `n` with two represented rows. -/
-def twoRowDiagram (n a b : ℕ) (hn : 2 ≤ n)
-    (hab : a + b = n) (hge : b ≤ a) : YoungDiagram n where
-  row := fun i =>
-    if (i : ℕ) = 0 then ⟨a, by omega⟩
-    else if (i : ℕ) = 1 then ⟨b, by omega⟩
-    else ⟨0, Nat.succ_pos n⟩
-  nonincreasing := by
-    intro i j hij
-    by_cases hj0 : (j : ℕ) = 0
-    · have hi0 : (i : ℕ) = 0 := by omega
-      simp [hi0, hj0]
-    · by_cases hj1 : (j : ℕ) = 1
-      · by_cases hi0 : (i : ℕ) = 0
-        · simp [hi0, hj1, hge]
-        · have hi1 : (i : ℕ) = 1 := by omega
-          simp [hi1, hj1]
-      · simp [hj0, hj1]
-  sum_rows := by
-    classical
-    let i0 : Fin n := ⟨0, by omega⟩
-    let i1 : Fin n := ⟨1, by omega⟩
-    let tail0 : Finset (Fin n) :=
-      Finset.erase (Finset.univ : Finset (Fin n)) i0
-    let tail1 : Finset (Fin n) := Finset.erase tail0 i1
-    have hne10 : Not (i1 = i0) := by
-      intro h
-      have hv : (i1 : ℕ) = (i0 : ℕ) := by
-        simpa using congrArg Fin.val h
-      simp [i0, i1] at hv
-    have hi1_tail0 : i1 ∈ tail0 := by
-      dsimp [tail0]
-      exact Finset.mem_erase.mpr ⟨hne10, Finset.mem_univ i1⟩
-    have htail1_zero :
-        tail1.sum
-            (fun x : Fin n =>
-              ((if (x : ℕ) = 0 then ⟨a, by omega⟩
-                else if (x : ℕ) = 1 then ⟨b, by omega⟩
-                else ⟨0, Nat.succ_pos n⟩ : Fin (n + 1)) : ℕ)) = 0 := by
-      apply Finset.sum_eq_zero
-      intro x hx
-      have hx_erase1 := Finset.mem_erase.mp hx
-      have hxne1 : Not (x = i1) := hx_erase1.1
-      have hx_tail0 := hx_erase1.2
-      have hx_erase0 := Finset.mem_erase.mp hx_tail0
-      have hxne0 : Not (x = i0) := hx_erase0.1
-      have hx0 : (x : ℕ) ≠ 0 := by
-        intro h
-        apply hxne0
-        ext
-        simp [i0, h]
-      have hx1 : (x : ℕ) ≠ 1 := by
-        intro h
-        apply hxne1
-        ext
-        simp [i1, h]
-      simp [hx0, hx1]
-    have hsum0 :
-        ((if (i0 : ℕ) = 0 then ⟨a, by omega⟩
-          else if (i0 : ℕ) = 1 then ⟨b, by omega⟩
-          else ⟨0, Nat.succ_pos n⟩ : Fin (n + 1)) : ℕ) +
-            tail0.sum
-              (fun x : Fin n =>
-                ((if (x : ℕ) = 0 then ⟨a, by omega⟩
-                  else if (x : ℕ) = 1 then ⟨b, by omega⟩
-                  else ⟨0, Nat.succ_pos n⟩ : Fin (n + 1)) : ℕ)) =
-          Finset.univ.sum
-            (fun x : Fin n =>
-              ((if (x : ℕ) = 0 then ⟨a, by omega⟩
-                else if (x : ℕ) = 1 then ⟨b, by omega⟩
-                else ⟨0, Nat.succ_pos n⟩ : Fin (n + 1)) : ℕ)) := by
-      simpa [tail0] using
-        Finset.add_sum_erase
-          (Finset.univ : Finset (Fin n))
-          (fun x : Fin n =>
-            ((if (x : ℕ) = 0 then ⟨a, by omega⟩
-              else if (x : ℕ) = 1 then ⟨b, by omega⟩
-              else ⟨0, Nat.succ_pos n⟩ : Fin (n + 1)) : ℕ))
-          (Finset.mem_univ i0)
-    have hsum1 :
-        ((if (i1 : ℕ) = 0 then ⟨a, by omega⟩
-          else if (i1 : ℕ) = 1 then ⟨b, by omega⟩
-          else ⟨0, Nat.succ_pos n⟩ : Fin (n + 1)) : ℕ) +
-            tail1.sum
-              (fun x : Fin n =>
-                ((if (x : ℕ) = 0 then ⟨a, by omega⟩
-                  else if (x : ℕ) = 1 then ⟨b, by omega⟩
-                  else ⟨0, Nat.succ_pos n⟩ : Fin (n + 1)) : ℕ)) =
-          tail0.sum
-            (fun x : Fin n =>
-              ((if (x : ℕ) = 0 then ⟨a, by omega⟩
-                else if (x : ℕ) = 1 then ⟨b, by omega⟩
-                else ⟨0, Nat.succ_pos n⟩ : Fin (n + 1)) : ℕ)) := by
-      simpa [tail1] using
-        Finset.add_sum_erase tail0
-          (fun x : Fin n =>
-            ((if (x : ℕ) = 0 then ⟨a, by omega⟩
-              else if (x : ℕ) = 1 then ⟨b, by omega⟩
-              else ⟨0, Nat.succ_pos n⟩ : Fin (n + 1)) : ℕ))
-          hi1_tail0
-    rw [← hsum0, ← hsum1, htail1_zero]
-    simp [i0, i1, hab]
 
 /-- Row formula for the canonical two-row diagram. -/
 theorem youngRow_twoRowDiagram (n a b : ℕ) (hn : 2 ≤ n)
@@ -215,14 +75,6 @@ theorem youngRow_twoRowDiagram (n a b : ℕ) (hn : 2 ≤ n)
     · by_cases h1 : i = 1
       · omega
       · simp [hi, h0, h1]
-
-/-- The standard shape `(2m-1, 1)` as a canonical two-row diagram. -/
-def standardDiagramEven (m : ℕ) (hm : 1 ≤ m) : YoungDiagram (2 * m) :=
-  twoRowDiagram (2 * m) (2 * m - 1) 1 (by omega) (by omega) (by omega)
-
-/-- The two-row exception `(2m-2, 2)` as a canonical two-row diagram. -/
-def twoRowTwoDiagramEven (m : ℕ) (hm : 2 ≤ m) : YoungDiagram (2 * m) :=
-  twoRowDiagram (2 * m) (2 * m - 2) 2 (by omega) (by omega) (by omega)
 
 /-- The canonical standard diagram satisfies the standard predicate. -/
 theorem isStandard_standardDiagramEven (m : ℕ) (hm : 1 ≤ m) :

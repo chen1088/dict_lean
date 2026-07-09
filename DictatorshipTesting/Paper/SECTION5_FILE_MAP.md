@@ -7,9 +7,9 @@ lemmas/theorems/propositions/corollaries have their own result counter.  Remarks
 examples, equations, proofs, and Appendix A statements are not represented as
 Section 5 paper-facing Lean files.
 
-Section 5 definition count: 23.
+Section 5 definition count: 27.
 Section 5 result count: 26.
-Section 5 paper-facing Lean file count: 49.
+Section 5 paper-facing Lean file count: 53.
 
 The former unnumbered tableau-preliminaries block is split into numbered
 Definitions 5.1--5.5.  Interface definitions that were formerly bundled into
@@ -55,6 +55,10 @@ again at Lemma 5.1, so the table always displays the prefix `Def` or `Lem`.
 | proven | Lem 5.13 | lemma | Local truncation as convolution | `S05_Lem5_13_LocalTruncationAsConvolution.lean` | `S05_Lem5_13_local_truncation_as_convolution` | Local projection as low convolution and residual as high convolution. |
 | external: Young-block centrality input | Lem 5.14 | lemma | Central averaged rejection | `S05_Lem5_14_CentralAveragedRejection.lean` | `S05_Lem5_14_matchingMeanProjectionError_eq_average`, `S05_Lem5_14_matchingMeanProjectionError_eq_high_idempotent_average` | Finite-average and high-idempotent norm identities are proved; centrality on Young blocks is part of the spectral-block model boundary. |
 | definition/interface | Def 5.23 | definition | Young-basis scalar commutant input | `S05_Def5_23_YoungBasisScalarCommutantInput.lean` | `S05_Def5_23_YoungBasisScalarCommutantInput` | Scalarity interface consumed by the spectral bridge. |
+| definition/interface | Def 5.24 | definition | Tableau even height | `S05_Def5_24_TableauEvenHeight.lean` | `hEvenTableau` | Tableau-count even height used by the finite certificate and Appendix A spectral interface. |
+| definition/interface | Def 5.25 | definition | Tableau odd height | `S05_Def5_25_TableauOddHeight.lean` | `hOddTableau` | Tableau-count odd height obtained by summing even heights over one-box children. |
+| definition/interface | Def 5.26 | definition | Certificate special diagrams | `S05_Def5_26_CertificateSpecialDiagrams.lean` | `oneRowDiagram`, `twoRowDiagram`, `threeRowDiagram`, `standardDiagramEven`, `twoRowTwoDiagramEven`, `twoRowTwoDiagramOdd` | Canonical diagrams used by the finite certificate case checks. |
+| definition/interface | Def 5.27 | definition | Certificate exceptional predicates | `S05_Def5_27_CertificateExceptionalPredicates.lean` | `HasOneRowHorizontalChild`, `HasOneRowVerticalChild`, `HasStandardHorizontalChild`, `IsEvenHExceptional`, `HasOneRowOneBoxChild`, `HasStandardOneBoxChild`, `IsOddHExceptional` | Child-obstruction and exceptional-shape predicates used by Lemmas 5.22--5.26. |
 | external: scalar commutant input | Lem 5.15 | lemma | Young-basis scalar commutant | `S05_Lem5_15_YoungBasisScalarCommutant.lean` | `S05_Lem5_15_matchingAverageScalarity_eq_sum` | Projection from the explicit scalarity input to the weighted-sum identity. |
 | external: trace/scalar model input | Lem 5.16 | lemma | Block scalar of the averaged rejection | `S05_Lem5_16_BlockScalarOfTheAveragedRejection.lean` | `S05_Lem5_16_scalar_eq_trace_div_dimension`, `S05_Lem5_16_even_scalar_eq_hEven_div_dim` | Trace-divided-by-dimension algebra from explicit scalarity and trace identities. |
 | proven | Lem 5.17 | lemma | Block lower bound implies the gap | `S05_Lem5_17_BlockLowerBoundImpliesTheGap.lean` | `S05_Lem5_17_spectralGapFromBlockScalars`, `S05_Lem5_17_spectralGapFromBlockModelWithDim` | Weighted-sum spectral-gap algebra. |
@@ -64,13 +68,13 @@ again at Lemma 5.1, so the table always displays the prefix `Def` or `Lem`.
 | proven | Lem 5.21 | lemma | Counting one more matching edge | `S05_Lem5_21_CountingOneMoreMatchingEdge.lean` | `S05_Lem5_21_counting_one_more_matching_edge` | Finite counting lemma. |
 | proven | Lem 5.22 | lemma | Weight-zero entries are never a majority | `S05_Lem5_22_WeightZeroEntriesAreNeverAMajority.lean` | `S05_Lem5_22_tableau_weightZeroEntries_never_majority` | Tableau-count z-bound certificate. |
 | proven | Lem 5.23 | lemma | Where the induction can fail | `S05_Lem5_23_WhereTheInductionCanFail.lean` | `S05_Lem5_23_where_the_induction_can_fail` | Exceptional-shape localization. |
-| proven | Lem 5.24 | lemma | Even certificate | `S05_Lem5_24_EvenCertificate.lean` | `S05_Lem5_24_tableau_even_certificate` | Tableau-count even certificate; reusable height definition is in `S05_IntDef_TableauEvenHeight.lean`. |
+| proven | Lem 5.24 | lemma | Even certificate | `S05_Lem5_24_EvenCertificate.lean` | `S05_Lem5_24_tableau_even_certificate` | Tableau-count even certificate using Defs 5.24, 5.26, and 5.27. |
 | proven | Lem 5.25 | lemma | Odd exceptional children | `S05_Lem5_25_OddExceptionalChildren.lean` | `S05_Lem5_25_odd_exceptional_children` | Odd exceptional child analysis. |
-| proven | Lem 5.26 | lemma | Odd certificate | `S05_Lem5_26_OddCertificate.lean` | `S05_Lem5_26_tableau_odd_certificate` | Tableau-count odd certificate; reusable height definition is in `S05_IntDef_TableauOddHeight.lean`. |
+| proven | Lem 5.26 | lemma | Odd certificate | `S05_Lem5_26_OddCertificate.lean` | `S05_Lem5_26_tableau_odd_certificate` | Tableau-count odd certificate using Defs 5.25, 5.26, and 5.27. |
 
 Notes:
 
 - `proven` means the Lean file proves the stated coordinate/combinatorial wrapper without new external assumptions.
 - `definition/interface` means the file introduces vocabulary used later.
 - `external: ...` rows name the representation-theoretic input being used.
-- Neutral height definitions used by both Appendix A.2 and the finite certificate proofs are split into `S05_IntDef_TableauEvenHeight.lean` and `S05_IntDef_TableauOddHeight.lean`; they are not separate numbered paper theorem statements.
+- Tableau-height definitions and certificate exceptional-shape vocabulary are exposed as Definitions 5.24--5.27.

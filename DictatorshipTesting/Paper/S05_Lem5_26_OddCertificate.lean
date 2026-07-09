@@ -1,5 +1,7 @@
 import DictatorshipTesting.Paper.S05_Lem5_24_EvenCertificate
-import DictatorshipTesting.Paper.S05_IntDef_TableauOddHeight
+import DictatorshipTesting.Paper.S05_Def5_25_TableauOddHeight
+import DictatorshipTesting.Paper.S05_Def5_26_CertificateSpecialDiagrams
+import DictatorshipTesting.Paper.S05_Def5_27_CertificateExceptionalPredicates
 import DictatorshipTesting.Paper.S05_Lem5_08_OneBoxDimensionRecursion
 
 /-
@@ -31,27 +33,6 @@ The statement is phrased only in terms of the concrete finite model in
 -/
 
 namespace DictatorshipTesting
-
-/-- A diagram has a one-box child that is one-row. -/
-def HasOneRowOneBoxChild (m : ℕ) (lam : YoungDiagram (2 * m + 1)) : Prop :=
-  ∃ mu ∈ oneBoxChildrenOdd m lam, IsOneRow mu
-
-/-- A diagram has a one-box child that is standard. -/
-def HasStandardOneBoxChild (m : ℕ) (lam : YoungDiagram (2 * m + 1)) : Prop :=
-  ∃ mu ∈ oneBoxChildrenOdd m lam, IsStandard mu
-
-/-- Row predicate for the odd exceptional shape `(2m-1,2)`. -/
-def IsOddTwoRowTwoException (m : ℕ) (lam : YoungDiagram (2 * m + 1)) : Prop :=
-  youngRow lam 0 = 2 * m - 1 ∧ youngRow lam 1 = 2
-
-/-- Row predicate for the odd exceptional shape `(2m-1,1,1)`. -/
-def IsOddTwoRowOneOneException (m : ℕ) (lam : YoungDiagram (2 * m + 1)) : Prop :=
-  youngRow lam 0 = 2 * m - 1 ∧ youngRow lam 1 = 1 ∧ youngRow lam 2 = 1
-
-/-- The two exceptional odd shapes from the paper: `(2m-1,2)` and
-`(2m-1,1,1)`. -/
-def IsOddHExceptional (m : ℕ) (lam : YoungDiagram (2 * m + 1)) : Prop :=
-  IsOddTwoRowTwoException m lam ∨ IsOddTwoRowOneOneException m lam
 
 /-- The first three rows of a Young diagram contain at most all boxes. -/
 theorem youngRow_zero_add_one_add_two_le_size {n : ℕ}
@@ -136,17 +117,6 @@ theorem youngRow_two_le_one {n : ℕ} (hn : 3 ≤ n) (lam : YoungDiagram n) :
   unfold youngRow
   simp [h1lt, h2lt]
   exact hle
-
-/-- The canonical odd exceptional shape `(2m-1,2)`. -/
-def twoRowTwoDiagramOdd (m : ℕ) (hm : 2 ≤ m) : YoungDiagram (2 * m + 1) :=
-  twoRowDiagram (2 * m + 1) (2 * m - 1) 2
-    (by omega) (by omega) (by omega)
-
-/-- The canonical odd exceptional shape `(2m-1,1,1)`. -/
-def twoRowOneOneDiagramOdd (m : ℕ) (hm : 2 ≤ m) :
-    YoungDiagram (2 * m + 1) :=
-  threeRowDiagram (2 * m + 1) (2 * m - 1) 1 1
-    (by omega) (by omega) (by omega) (by omega)
 
 theorem twoRowTwoDiagramOdd_proof_irrel (m : ℕ)
     (hm₁ hm₂ : 2 ≤ m) :

@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
 import DictatorshipTesting.Paper.S05_Int_TableauDimension
-import DictatorshipTesting.Paper.S05_IntDef_TableauEvenHeight
-import DictatorshipTesting.Paper.S05_IntDef_TableauOddHeight
+import DictatorshipTesting.Paper.S05_Def5_24_TableauEvenHeight
+import DictatorshipTesting.Paper.S05_Def5_25_TableauOddHeight
 
 /-
 Direct reverse imports:

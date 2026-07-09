@@ -1,7 +1,7 @@
 const graphData = window.DICT_DEPENDENCY_DATA;
 const nodeById = new Map(graphData.nodes.map((node) => [node.id, node]));
 
-const section5DefinitionRoots = Array.from({ length: 23 }, (_, index) =>
+const section5DefinitionRoots = Array.from({ length: 27 }, (_, index) =>
   `S05_D${String(index + 1).padStart(2, "0")}`
 );
 const section5LemmaRoots = Array.from({ length: 26 }, (_, index) =>
@@ -135,6 +135,14 @@ const definitionTextLinks = [
   { text: "odd local-truncation trace input", target: "S05_D21" },
   { text: "right convolution", target: "S05_D22" },
   { text: "Young-basis scalar commutant input", target: "S05_D23" },
+  { text: "tableau-count even height", target: "S05_D24" },
+  { text: "h_m^{\\mathrm{tab}}", target: "S05_D24" },
+  { text: "tableau-count odd height", target: "S05_D25" },
+  { text: "h_m^{\\mathrm{odd,tab}}", target: "S05_D25" },
+  { text: "special diagrams", target: "S05_D26" },
+  { text: "canonical special diagrams", target: "S05_D26" },
+  { text: "exceptional shapes", target: "S05_D27" },
+  { text: "exceptional predicates", target: "S05_D27" },
 ];
 
 function termRefs(node) {

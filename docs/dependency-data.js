@@ -1398,6 +1398,176 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
+      "id": "S05_D24",
+      "label": "Def 5.24",
+      "title": "Tableau even height",
+      "section": "Finite certificates",
+      "kind": "paper",
+      "importance": "normal",
+      "status": "interface",
+      "file": "DictatorshipTesting/Paper/S05_Def5_24_TableauEvenHeight.lean",
+      "wrappers": [
+        "hEvenTableau"
+      ],
+      "deps": [
+        "S05_D04",
+        "S05_D13"
+      ],
+      "summary": "Tableau-count even high-weight height used by the finite certificate and spectral bridge.",
+      "statement": "Definition 5.24 introduces the tableau-count even height hEvenTableau.",
+      "terms": [
+        {
+          "text": "tableauDim",
+          "target": "S05_D04"
+        },
+        {
+          "text": "Even sign-pattern multiset",
+          "target": "S05_D13"
+        }
+      ],
+      "paperLabel": "def:tableau-even-height",
+      "paperEnv": "definition",
+      "paperStatementLatex": "Define the tableau-count even height $h_m^{\\mathrm{tab}}(\\lambda)$ by\n$h_0^{\\mathrm{tab}}=0$ and\n\\[\n  h_m^{\\mathrm{tab}}(\\lambda)=\n  \\sum_{\\mu\\in\\mathsf H_2(\\lambda)}h_{m-1}^{\\mathrm{tab}}(\\mu)+\n  \\sum_{\\mu\\in\\mathsf V_2(\\lambda)}(d_\\mu-z_{m-1}(\\mu)).\n\\]",
+      "leanLinks": [
+        {
+          "name": "hEvenTableau",
+          "line": 24
+        }
+      ]
+    },
+    {
+      "id": "S05_D25",
+      "label": "Def 5.25",
+      "title": "Tableau odd height",
+      "section": "Finite certificates",
+      "kind": "paper",
+      "importance": "normal",
+      "status": "interface",
+      "file": "DictatorshipTesting/Paper/S05_Def5_25_TableauOddHeight.lean",
+      "wrappers": [
+        "hOddTableau"
+      ],
+      "deps": [
+        "S05_D24",
+        "S05_D14"
+      ],
+      "summary": "Tableau-count odd high-weight height obtained by one-box deletion to even shapes.",
+      "statement": "Definition 5.25 introduces the tableau-count odd height hOddTableau.",
+      "terms": [
+        {
+          "text": "Tableau even height",
+          "target": "S05_D24"
+        },
+        {
+          "text": "Odd sign-pattern multiset",
+          "target": "S05_D14"
+        }
+      ],
+      "paperLabel": "def:tableau-odd-height",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For $\\lambda\\vdash2m+1$, define\n\\[\n  h_m^{\\mathrm{odd,tab}}(\\lambda)=\n  \\sum_{\\mu\\in\\mathsf O_1(\\lambda)} h_m^{\\mathrm{tab}}(\\mu),\n\\]\nwhere $\\mathsf O_1(\\lambda)$ is the set of one-box children of $\\lambda$.",
+      "leanLinks": [
+        {
+          "name": "hOddTableau",
+          "line": 24
+        }
+      ]
+    },
+    {
+      "id": "S05_D26",
+      "label": "Def 5.26",
+      "title": "Certificate special diagrams",
+      "section": "Finite certificates",
+      "kind": "paper",
+      "importance": "minor",
+      "status": "interface",
+      "file": "DictatorshipTesting/Paper/S05_Def5_26_CertificateSpecialDiagrams.lean",
+      "wrappers": [
+        "oneRowDiagram",
+        "twoRowDiagram",
+        "threeRowDiagram",
+        "standardDiagramEven",
+        "twoRowTwoDiagramEven",
+        "twoRowTwoDiagramOdd"
+      ],
+      "deps": [
+        "S05_D01"
+      ],
+      "summary": "Canonical Young diagrams used in the finite certificate case checks.",
+      "statement": "Definition 5.26 introduces the canonical special diagrams used in the finite certificate checks.",
+      "terms": [
+        {
+          "text": "Young diagrams and boxes",
+          "target": "S05_D01"
+        }
+      ],
+      "paperLabel": "def:certificate-special-diagrams",
+      "paperEnv": "definition",
+      "paperStatementLatex": "We use canonical names for the special diagrams appearing in the finite checks:\n$(n)$, $(a,b)$, $(a,b,c)$, the standard even shape $(2m-1,1)$, the even\nexceptional shapes, the odd exceptional shapes, and the size-four column\n$(1,1,1,1)$.",
+      "leanLinks": [
+        {
+          "name": "oneRowDiagram",
+          "line": 16
+        },
+        {
+          "name": "twoRowDiagram",
+          "line": 45
+        },
+        {
+          "name": "threeRowDiagram",
+          "line": 156
+        }
+      ]
+    },
+    {
+      "id": "S05_D27",
+      "label": "Def 5.27",
+      "title": "Certificate exceptional predicates",
+      "section": "Finite certificates",
+      "kind": "paper",
+      "importance": "normal",
+      "status": "interface",
+      "file": "DictatorshipTesting/Paper/S05_Def5_27_CertificateExceptionalPredicates.lean",
+      "wrappers": [
+        "HasOneRowHorizontalChild",
+        "HasOneRowVerticalChild",
+        "HasStandardHorizontalChild",
+        "IsEvenHExceptional",
+        "HasOneRowOneBoxChild",
+        "HasStandardOneBoxChild",
+        "IsOddHExceptional"
+      ],
+      "deps": [
+        "S05_D09",
+        "S05_D11"
+      ],
+      "summary": "Predicates for finite-certificate bad children and exceptional shapes.",
+      "statement": "Definition 5.27 introduces the finite-certificate exceptional-child and exceptional-shape predicates.",
+      "terms": [
+        {
+          "text": "Two-box removals",
+          "target": "S05_D09"
+        },
+        {
+          "text": "One-box removals",
+          "target": "S05_D11"
+        }
+      ],
+      "paperLabel": "def:certificate-exceptional-predicates",
+      "paperEnv": "definition",
+      "paperStatementLatex": "We name the child obstructions used by the certificate inductions and the exceptional even\nshapes\n\\[(2m-2,2),(2m-2,1,1),(2m-3,3),(2m-3,2,1)\\]\nand odd shapes\n\\[(2m-1,2),(2m-1,1,1).\\]",
+      "leanLinks": [
+        {
+          "name": "IsEvenHExceptional",
+          "line": 47
+        },
+        {
+          "name": "IsOddHExceptional",
+          "line": 71
+        }
+      ]
+    },
+    {
       "id": "S05_L01",
       "label": "Lem 5.1",
       "title": "Tableau Coxeter model",
@@ -2366,7 +2536,9 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S05_L07",
-        "S05_L21"
+        "S05_L21",
+        "S05_D26",
+        "S05_D27"
       ],
       "summary": "Tableau-count z-bound certificate.",
       "statement": "Lemma 5.22 proves that weight-zero entries are never a majority.",
@@ -2378,6 +2550,14 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Counting one more matching edge",
           "target": "S05_L21"
+        },
+        {
+          "text": "Certificate special diagrams",
+          "target": "S05_D26"
+        },
+        {
+          "text": "Certificate exceptional predicates",
+          "target": "S05_D27"
         }
       ],
       "paperLabel": "lem:z-bound-app",
@@ -2403,7 +2583,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Lem5_23_where_the_induction_can_fail"
       ],
       "deps": [
-        "S05_L22"
+        "S05_L22",
+        "S05_D27"
       ],
       "summary": "Exceptional-shape localization for the even induction.",
       "statement": "Lemma 5.23 identifies where the even certificate induction can fail.",
@@ -2411,6 +2592,10 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Weight-zero entries are never a majority",
           "target": "S05_L22"
+        },
+        {
+          "text": "Certificate exceptional predicates",
+          "target": "S05_D27"
         }
       ],
       "paperLabel": "lem:exceptional-even-children",
@@ -2436,6 +2621,9 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Lem5_24_tableau_even_certificate"
       ],
       "deps": [
+        "S05_D24",
+        "S05_D26",
+        "S05_D27",
         "S05_L07",
         "S05_L21",
         "S05_L22",
@@ -2444,6 +2632,18 @@ window.DICT_DEPENDENCY_DATA = {
       "summary": "Finite even h-bound certificate.",
       "statement": "Lemma 5.24 proves the even finite certificate.",
       "terms": [
+        {
+          "text": "Tableau even height",
+          "target": "S05_D24"
+        },
+        {
+          "text": "Certificate special diagrams",
+          "target": "S05_D26"
+        },
+        {
+          "text": "Certificate exceptional predicates",
+          "target": "S05_D27"
+        },
         {
           "text": "Two-box dimension recursion",
           "target": "S05_L07"
@@ -2484,7 +2684,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Lem5_25_odd_exceptional_children"
       ],
       "deps": [
-        "S05_L24"
+        "S05_L24",
+        "S05_D27"
       ],
       "summary": "Odd exceptional child analysis.",
       "statement": "Lemma 5.25 proves the odd exceptional-children analysis.",
@@ -2492,6 +2693,10 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Even certificate",
           "target": "S05_L24"
+        },
+        {
+          "text": "Certificate exceptional predicates",
+          "target": "S05_D27"
         }
       ],
       "paperLabel": "lem:exceptional-odd-children",
@@ -2517,6 +2722,9 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Lem5_26_tableau_odd_certificate"
       ],
       "deps": [
+        "S05_D25",
+        "S05_D26",
+        "S05_D27",
         "S05_L08",
         "S05_L24",
         "S05_L25"
@@ -2524,6 +2732,18 @@ window.DICT_DEPENDENCY_DATA = {
       "summary": "Finite odd h-bound certificate.",
       "statement": "Lemma 5.26 proves the odd finite certificate.",
       "terms": [
+        {
+          "text": "Tableau odd height",
+          "target": "S05_D25"
+        },
+        {
+          "text": "Certificate special diagrams",
+          "target": "S05_D26"
+        },
+        {
+          "text": "Certificate exceptional predicates",
+          "target": "S05_D27"
+        },
         {
           "text": "One-box dimension recursion",
           "target": "S05_L08"
