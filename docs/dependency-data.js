@@ -116,225 +116,6 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
-      "id": "IntSpectralBridgeAlgebra",
-      "label": "Int 5.A",
-      "title": "Spectral bridge algebra",
-      "section": "Internal Section 5 layer",
-      "kind": "internal",
-      "importance": "minor",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Int_SpectralBridgeAlgebra.lean",
-      "wrappers": [
-        "SpectralGapFromBlockModelWithDim"
-      ],
-      "deps": [
-        "S05_L16",
-        "S05_L17"
-      ],
-      "summary": "Dimension-parameterized algebra behind the spectral bridge.",
-      "statement": "Internal Section 5 bridge algebra: dimension-parameterized algebra behind the spectral bridge.",
-      "terms": [
-        {
-          "text": "Block scalar of averaged rejection",
-          "target": "S05_L16"
-        },
-        {
-          "text": "Block lower bound implies the gap",
-          "target": "S05_L17"
-        },
-        {
-          "text": "block scalar",
-          "target": "S05_L16"
-        },
-        {
-          "text": "block lower bound",
-          "target": "S05_L17"
-        }
-      ],
-      "leanLinks": [
-        {
-          "name": "SpectralGapFromBlockModelWithDim",
-          "line": 95
-        }
-      ]
-    },
-    {
-      "id": "IntStandardYoungTableaux",
-      "label": "Int 5.B",
-      "title": "Standard-tableau deletion API",
-      "section": "Internal Section 5 layer",
-      "kind": "internal",
-      "importance": "minor",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Int_StandardYoungTableaux.lean",
-      "wrappers": [
-        "deleteMax",
-        "insertMax"
-      ],
-      "deps": [
-        "S05_D01",
-        "S05_D02"
-      ],
-      "summary": "Concrete standard-tableau deletion, insertion, and child equivalence API.",
-      "statement": "Internal Section 5 tableau API: concrete standard-tableau deletion, insertion, and child equivalence.",
-      "terms": [
-        {
-          "text": "Young diagrams and boxes",
-          "target": "S05_D01"
-        },
-        {
-          "text": "Removable corners and one-box removals",
-          "target": "S05_D02"
-        },
-        {
-          "text": "Young diagrams",
-          "target": "S05_D01"
-        },
-        {
-          "text": "removable corners",
-          "target": "S05_D02"
-        }
-      ],
-      "leanLinks": [
-        {
-          "name": "deleteMax",
-          "line": 333
-        },
-        {
-          "name": "insertMax",
-          "line": 811
-        }
-      ]
-    },
-    {
-      "id": "IntTableauDimension",
-      "label": "Int 5.C",
-      "title": "Tableau dimension counting",
-      "section": "Internal Section 5 layer",
-      "kind": "internal",
-      "importance": "minor",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Int_TableauDimension.lean",
-      "wrappers": [
-        "tableauDim"
-      ],
-      "deps": [
-        "S05_D03"
-      ],
-      "summary": "Finite tableau-count dimension helpers.",
-      "statement": "Internal Section 5 dimension layer: finite tableau-count dimension helpers.",
-      "terms": [
-        {
-          "text": "Standard tableaux and occupation",
-          "target": "S05_D03"
-        },
-        {
-          "text": "standard tableaux",
-          "target": "S05_D03"
-        },
-        {
-          "text": "tableauDim",
-          "target": "S05_D04"
-        }
-      ],
-      "leanLinks": [
-        {
-          "name": "tableauDim",
-          "line": 50
-        }
-      ]
-    },
-    {
-      "id": "IntYoungMatchingOperators",
-      "label": "Int 5.D",
-      "title": "Matching operators",
-      "section": "Internal Section 5 layer",
-      "kind": "internal",
-      "importance": "minor",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Int_YoungMatchingOperators.lean",
-      "wrappers": [
-        "canonicalMatchingYoungOperatorEven",
-        "matchingSignProjectionEven"
-      ],
-      "deps": [
-        "S05_L01"
-      ],
-      "summary": "Canonical matching-edge operators and simultaneous sign projections.",
-      "statement": "Internal Section 5 matching-operator layer: canonical matching-edge operators and simultaneous sign projections.",
-      "terms": [
-        {
-          "text": "Tableau Coxeter model",
-          "target": "S05_L01"
-        },
-        {
-          "text": "tableau Coxeter model",
-          "target": "S05_L01"
-        },
-        {
-          "text": "matching eigenvectors",
-          "target": "S05_D16"
-        }
-      ],
-      "leanLinks": [
-        {
-          "name": "canonicalMatchingYoungOperatorEven",
-          "line": 85
-        },
-        {
-          "name": "matchingSignProjectionEven",
-          "line": 969
-        }
-      ]
-    },
-    {
-      "id": "IntYoungOrthogonal",
-      "label": "Int 5.E",
-      "title": "Young adjacent operators",
-      "section": "Internal Section 5 layer",
-      "kind": "internal",
-      "importance": "minor",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Int_YoungOrthogonal.lean",
-      "wrappers": [
-        "youngAdjacentOperator"
-      ],
-      "deps": [
-        "S05_D03",
-        "S05_D04"
-      ],
-      "summary": "Concrete Young-basis adjacent operators and coefficients.",
-      "statement": "Internal Section 5 adjacent-operator layer: concrete Young-basis adjacent operators and coefficients.",
-      "terms": [
-        {
-          "text": "Standard tableaux and occupation",
-          "target": "S05_D03"
-        },
-        {
-          "text": "Tableau coordinate space",
-          "target": "S05_D04"
-        },
-        {
-          "text": "tableau coordinate space",
-          "target": "S05_D04"
-        },
-        {
-          "text": "adjacent operators",
-          "target": "S05_D05"
-        },
-        {
-          "text": "Young adjacent operators",
-          "target": "S05_D05"
-        }
-      ],
-      "leanLinks": [
-        {
-          "name": "youngAdjacentOperator",
-          "line": 1701
-        }
-      ]
-    },
-    {
       "id": "L2_3",
       "label": "Lem 2.3",
       "title": "Cube Fourier facts",
@@ -606,8 +387,7 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Def5_03_TableauMaxAt"
       ],
       "deps": [
-        "S05_D01",
-        "IntStandardYoungTableaux"
+        "S05_D01"
       ],
       "summary": "Standard Young tableaux and the cell occupied by an entry.",
       "statement": "Definition 5.3 introduces standard Young tableaux, the occupied cell of an entry, and the maximum-entry-at-a-cell predicate.",
@@ -615,10 +395,6 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Young diagrams and boxes",
           "target": "S05_D01"
-        },
-        {
-          "text": "Standard-tableau deletion API",
-          "target": "IntStandardYoungTableaux"
         }
       ],
       "paperLabel": "def:standard-tableaux",
@@ -654,9 +430,7 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Def5_04_tableauBasisVec"
       ],
       "deps": [
-        "S05_D03",
-        "IntTableauDimension",
-        "IntYoungOrthogonal"
+        "S05_D03"
       ],
       "summary": "Tableau-count dimension, coordinate space, and Young basis vectors.",
       "statement": "Definition 5.4 introduces tableauDim, the tableau coordinate space, and basis vectors indexed by standard tableaux.",
@@ -666,12 +440,8 @@ window.DICT_DEPENDENCY_DATA = {
           "target": "S05_D03"
         },
         {
-          "text": "Tableau dimension counting",
-          "target": "IntTableauDimension"
-        },
-        {
           "text": "Young adjacent operators",
-          "target": "IntYoungOrthogonal"
+          "target": "S05_D05"
         },
         {
           "text": "standard tableaux",
@@ -1128,14 +898,15 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_IsMatchingEigenvectorEven"
       ],
       "deps": [
-        "IntYoungMatchingOperators"
+        "S05_L01",
+        "S05_D15"
       ],
       "summary": "Even simultaneous matching-edge eigenvector predicate.",
       "statement": "Definition 5.16 introduces the even simultaneous matching-eigenvector predicate.",
       "terms": [
         {
           "text": "Matching operators",
-          "target": "IntYoungMatchingOperators"
+          "target": "S05_L01"
         }
       ],
       "paperLabel": "def:even-matching-eigenvector",
@@ -1161,14 +932,15 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_IsMatchingEigenvectorOdd"
       ],
       "deps": [
-        "IntYoungMatchingOperators"
+        "S05_L01",
+        "S05_D15"
       ],
       "summary": "Odd simultaneous matching-edge eigenvector predicate.",
       "statement": "Definition 5.17 introduces the odd simultaneous matching-eigenvector predicate.",
       "terms": [
         {
           "text": "Matching operators",
-          "target": "IntYoungMatchingOperators"
+          "target": "S05_L01"
         }
       ],
       "paperLabel": "def:odd-matching-eigenvector",
@@ -1580,8 +1352,7 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel"
       ],
       "deps": [
-        "S05_D05",
-        "IntYoungOrthogonal"
+        "S05_D05"
       ],
       "summary": "Concrete adjacent-transposition matrices on tableau coordinates.",
       "statement": "Lemma 5.1 proves the concrete tableau-coordinate Coxeter model for adjacent transpositions.",
@@ -1592,7 +1363,7 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "Young adjacent operators",
-          "target": "IntYoungOrthogonal"
+          "target": "S05_D05"
         }
       ],
       "paperLabel": "lem:young-adjacent-matrices",
@@ -1657,7 +1428,7 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S05_D09",
-        "IntStandardYoungTableaux"
+        "S05_D03"
       ],
       "summary": "Fixed two-step deletion equivalence for tableaux.",
       "statement": "Lemma 5.3 proves fixed two-box tableau branching by iterated maximum-entry deletion.",
@@ -1668,7 +1439,7 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "Standard-tableau deletion API",
-          "target": "IntStandardYoungTableaux"
+          "target": "S05_D03"
         }
       ],
       "paperLabel": "lem:two-box-tableau-branching",
@@ -1961,8 +1732,7 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D16",
         "S05_D17",
         "S05_D18",
-        "S05_D19",
-        "IntYoungMatchingOperators"
+        "S05_D19"
       ],
       "summary": "Concrete matching-operator and sign-projection wrappers.",
       "statement": "Lemma 5.10 proves the concrete matching-subgroup eigenbasis and sign-projection wrappers.",
@@ -1993,7 +1763,7 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "Matching operators",
-          "target": "IntYoungMatchingOperators"
+          "target": "S05_L01"
         }
       ],
       "paperLabel": "lem:matching-restriction-X",
@@ -2294,8 +2064,7 @@ window.DICT_DEPENDENCY_DATA = {
       "deps": [
         "S05_D07",
         "S05_D08",
-        "S05_L16",
-        "IntSpectralBridgeAlgebra"
+        "S05_L16"
       ],
       "summary": "Weighted-sum spectral-gap algebra from block scalar lower bounds.",
       "statement": "Lemma 5.17 proves that a block lower bound implies the global spectral gap.",
@@ -2311,10 +2080,6 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Block scalar of averaged rejection",
           "target": "S05_L16"
-        },
-        {
-          "text": "Spectral bridge algebra",
-          "target": "IntSpectralBridgeAlgebra"
         }
       ],
       "paperLabel": "lem:block-lower-bound-gap",

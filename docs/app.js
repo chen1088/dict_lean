@@ -708,7 +708,6 @@ function renderStats() {
     <span><strong>${counts.total}</strong> nodes</span>
     <span><strong>${counts.proven || 0}</strong> proven</span>
     <span><strong>${counts.external || 0}</strong> external</span>
-    <span><strong>${graphData.nodes.filter((node) => node.kind === "internal").length}</strong> internal</span>
     <span><strong>${section5DefinitionRoots.length}</strong> definition popovers</span>
   `;
 }
