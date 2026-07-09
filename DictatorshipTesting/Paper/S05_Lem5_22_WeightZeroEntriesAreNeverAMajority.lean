@@ -1,6 +1,6 @@
 import DictatorshipTesting.Paper.S05_Lem5_07_TwoBoxDimensionRecursion
-import DictatorshipTesting.Paper.S05_Def5_26_CertificateSpecialDiagrams
-import DictatorshipTesting.Paper.S05_Def5_27_CertificateExceptionalPredicates
+import DictatorshipTesting.Paper.Defs.S05_Def5_26_CertificateSpecialDiagrams
+import DictatorshipTesting.Paper.Defs.S05_Def5_27_CertificateExceptionalPredicates
 
 /-
 Direct reverse imports:

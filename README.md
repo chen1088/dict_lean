@@ -339,13 +339,13 @@ Core paper definitions:
 - `DictatorshipTesting/Paper/Defs.lean`: import-only aggregator for split
   definition files.  The individual `S01_Def*`, `S02_Def*`, `S03_Def*`, and
   `S05_Def*` files carry the reusable definitions.
-- `DictatorshipTesting/Paper/S05_Def5_24_TableauEvenHeight.lean` and
-  `DictatorshipTesting/Paper/S05_Def5_25_TableauOddHeight.lean`: neutral
+- `DictatorshipTesting/Paper/Defs/S05_Def5_24_TableauEvenHeight.lean` and
+  `DictatorshipTesting/Paper/Defs/S05_Def5_25_TableauOddHeight.lean`: neutral
   `hEvenTableau`/`hOddTableau` height definitions shared by Appendix A.2 and
   the finite certificate proofs, so Appendix A does not import certificate
   proof files just to mention those functions.
-- `DictatorshipTesting/Paper/S05_Def5_26_CertificateSpecialDiagrams.lean` and
-  `DictatorshipTesting/Paper/S05_Def5_27_CertificateExceptionalPredicates.lean`:
+- `DictatorshipTesting/Paper/Defs/S05_Def5_26_CertificateSpecialDiagrams.lean` and
+  `DictatorshipTesting/Paper/Defs/S05_Def5_27_CertificateExceptionalPredicates.lean`:
   canonical finite-certificate diagrams and exceptional-shape predicates used
   by Lemmas 5.22--5.26.
 

@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_IntDef_YoungDiagram
+import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungDiagram
 
 /-!
 Definition file for `youngDiagramFintype`.

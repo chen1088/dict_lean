@@ -5,7 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S02_Int_CubeFourierTranslate`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion`
-- `DictatorshipTesting.Paper.S05_Def5_15_MatchingCharacters`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_15_MatchingCharacters`
 -/
 
 

@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.S05_Lem5_24_EvenCertificate
-import DictatorshipTesting.Paper.S05_Def5_25_TableauOddHeight
-import DictatorshipTesting.Paper.S05_Def5_26_CertificateSpecialDiagrams
-import DictatorshipTesting.Paper.S05_Def5_27_CertificateExceptionalPredicates
+import DictatorshipTesting.Paper.Defs.S05_Def5_25_TableauOddHeight
+import DictatorshipTesting.Paper.Defs.S05_Def5_26_CertificateSpecialDiagrams
+import DictatorshipTesting.Paper.Defs.S05_Def5_27_CertificateExceptionalPredicates
 import DictatorshipTesting.Paper.S05_Lem5_08_OneBoxDimensionRecursion
 
 /-

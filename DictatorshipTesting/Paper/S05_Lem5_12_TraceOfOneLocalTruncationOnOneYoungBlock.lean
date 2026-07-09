@@ -1,6 +1,6 @@
 import DictatorshipTesting.Paper.S05_Lem5_10_MatchingSubgroupEigenbasis
-import DictatorshipTesting.Paper.S05_Def5_20_TraceLocalTruncationEvenInput
-import DictatorshipTesting.Paper.S05_Def5_21_TraceLocalTruncationOddInput
+import DictatorshipTesting.Paper.Defs.S05_Def5_20_TraceLocalTruncationEvenInput
+import DictatorshipTesting.Paper.Defs.S05_Def5_21_TraceLocalTruncationOddInput
 
 /-
 Direct reverse imports:

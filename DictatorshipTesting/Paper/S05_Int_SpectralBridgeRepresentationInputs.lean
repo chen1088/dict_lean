@@ -5,7 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization`
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeFromCertificates`
-- `DictatorshipTesting.Paper.S05_Def5_06_YoungBlock`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_06_YoungBlock`
 - `DictatorshipTesting.Paper.S05_Lem5_15_YoungBasisScalarCommutant`
 - `DictatorshipTesting.Paper.S05_Lem5_18_RegularYoungBlockDecomposition`
 -/

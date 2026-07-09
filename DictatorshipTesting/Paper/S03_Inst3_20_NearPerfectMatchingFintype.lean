@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S03_Def3_19_NearPerfectMatching
+import DictatorshipTesting.Paper.Defs.S03_Def3_19_NearPerfectMatching
 
 /-!
 Definition file for `nearPerfectMatchingFintype`.

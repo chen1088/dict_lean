@@ -292,7 +292,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_01_YoungDiagramsAndBoxes.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean",
       "wrappers": [
         "S05_Def5_01_YoungDiagram",
         "S05_Def5_01_youngRow",
@@ -328,7 +328,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_02_RemovableCorners.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
       "wrappers": [
         "S05_Def5_02_IsYoungSubdiagram",
         "S05_Def5_02_IsOneBoxChild",
@@ -380,7 +380,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_03_StandardTableaux.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_03_StandardTableaux.lean",
       "wrappers": [
         "S05_Def5_03_StandardYoungTableau",
         "S05_Def5_03_cellOfEntry",
@@ -423,7 +423,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_04_TableauCoordinateSpace.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_04_TableauCoordinateSpace.lean",
       "wrappers": [
         "S05_Def5_04_tableauDim",
         "S05_Def5_04_TableauSpace",
@@ -474,7 +474,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_05_ContentAndAdjacentOperators.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
       "wrappers": [
         "S05_Def5_05_cellContent",
         "S05_Def5_05_entryContent",
@@ -522,7 +522,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_06_YoungBlock.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_06_YoungBlock.lean",
       "wrappers": [
         "S05_YoungBlock"
       ],
@@ -555,7 +555,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_07_YoungBlockEnergyProfile.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_07_YoungBlockEnergyProfile.lean",
       "wrappers": [
         "S05_Def5_07_YoungBlockEnergyProfile"
       ],
@@ -588,7 +588,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_08_U1CompatibleYoungBlockProfile.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_08_U1CompatibleYoungBlockProfile.lean",
       "wrappers": [
         "S05_Def5_08_U1CompatibleYoungBlockProfile"
       ],
@@ -621,7 +621,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_09_TwoBoxRemovals.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_09_TwoBoxRemovals.lean",
       "wrappers": [
         "S05_IsHorizontalTwoBoxRemoval",
         "S05_IsVerticalTwoBoxRemoval"
@@ -659,7 +659,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_10_SignedTwoBoxRemovals.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_10_SignedTwoBoxRemovals.lean",
       "wrappers": [
         "S05_PositiveSignedTwoBoxRemoval",
         "S05_NegativeSignedTwoBoxRemoval"
@@ -701,7 +701,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_11_OneBoxRemovals.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_11_OneBoxRemovals.lean",
       "wrappers": [
         "S05_IsOneBoxRemoval",
         "S05_oneBoxChildrenOdd"
@@ -743,7 +743,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_12_OneBoxDeletionSpaces.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_12_OneBoxDeletionSpaces.lean",
       "wrappers": [
         "S05_Def5_12_OneBoxDeletionTableaux"
       ],
@@ -784,7 +784,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_13_EvenSignPatternMultiset.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_13_EvenSignPatternMultiset.lean",
       "wrappers": [
         "S05_evenZeroSignPatternCount",
         "S05_evenHighSignPatternCount"
@@ -822,7 +822,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_14_OddSignPatternMultiset.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_14_OddSignPatternMultiset.lean",
       "wrappers": [
         "S05_oddHighSignPatternCount"
       ],
@@ -855,7 +855,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_15_MatchingCharacters.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_15_MatchingCharacters.lean",
       "wrappers": [
         "S05_matchingCharacter",
         "S05_matchingCharacterWeight"
@@ -893,7 +893,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_16_IsMatchingEigenvectorEven.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_16_IsMatchingEigenvectorEven.lean",
       "wrappers": [
         "S05_IsMatchingEigenvectorEven"
       ],
@@ -927,7 +927,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_17_IsMatchingEigenvectorOdd.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_17_IsMatchingEigenvectorOdd.lean",
       "wrappers": [
         "S05_IsMatchingEigenvectorOdd"
       ],
@@ -961,7 +961,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_18_MatchingRestrictionEvenInput.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_18_MatchingRestrictionEvenInput.lean",
       "wrappers": [
         "MatchingRestrictionEvenInput"
       ],
@@ -994,7 +994,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_19_MatchingRestrictionOddInput.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_19_MatchingRestrictionOddInput.lean",
       "wrappers": [
         "MatchingRestrictionOddInput"
       ],
@@ -1031,7 +1031,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_20_TraceLocalTruncationEvenInput.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_20_TraceLocalTruncationEvenInput.lean",
       "wrappers": [
         "TraceLocalTruncationEvenInput"
       ],
@@ -1064,7 +1064,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_21_TraceLocalTruncationOddInput.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_21_TraceLocalTruncationOddInput.lean",
       "wrappers": [
         "TraceLocalTruncationOddInput"
       ],
@@ -1101,7 +1101,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Def5_22_MatchingIdempotents.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_22_MatchingIdempotents.lean",
       "wrappers": [
         "S05_matchingLowIdempotent",
         "S05_matchingHighIdempotent",
@@ -1144,7 +1144,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_23_YoungBasisScalarCommutantInput.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_23_YoungBasisScalarCommutantInput.lean",
       "wrappers": [
         "S05_Def5_23_YoungBasisScalarCommutantInput"
       ],
@@ -1177,7 +1177,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_24_TableauEvenHeight.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_24_TableauEvenHeight.lean",
       "wrappers": [
         "hEvenTableau"
       ],
@@ -1215,7 +1215,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_25_TableauOddHeight.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_25_TableauOddHeight.lean",
       "wrappers": [
         "hOddTableau"
       ],
@@ -1253,7 +1253,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "minor",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_26_CertificateSpecialDiagrams.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_26_CertificateSpecialDiagrams.lean",
       "wrappers": [
         "oneRowDiagram",
         "twoRowDiagram",
@@ -1299,7 +1299,7 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "paper",
       "importance": "normal",
       "status": "interface",
-      "file": "DictatorshipTesting/Paper/S05_Def5_27_CertificateExceptionalPredicates.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_27_CertificateExceptionalPredicates.lean",
       "wrappers": [
         "HasOneRowHorizontalChild",
         "HasOneRowVerticalChild",

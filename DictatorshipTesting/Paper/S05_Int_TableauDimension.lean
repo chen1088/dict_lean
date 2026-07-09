@@ -5,7 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
 - `DictatorshipTesting.Paper.S05_Int_YoungOrthogonal`
-- `DictatorshipTesting.Paper.S05_Def5_04_TableauCoordinateSpace`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_04_TableauCoordinateSpace`
 - `DictatorshipTesting.Paper.S05_Lem5_03_TwoBoxTableauBranching`
 - `DictatorshipTesting.Paper.S05_Lem5_07_TwoBoxDimensionRecursion`
 - `DictatorshipTesting.Paper.S05_Lem5_08_OneBoxDimensionRecursion`

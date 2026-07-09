@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Def5_14_OddSignPatternMultiset
+import DictatorshipTesting.Paper.Defs.S05_Def5_14_OddSignPatternMultiset
 import DictatorshipTesting.Paper.S05_Lem5_07_TwoBoxDimensionRecursion
 import DictatorshipTesting.Paper.S05_Lem5_08_OneBoxDimensionRecursion
 

@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Defs
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S02_Int_CubeFourierTranslate`
 - `DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul`
-- `DictatorshipTesting.Paper.S05_Def5_15_MatchingCharacters`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_15_MatchingCharacters`
 -/
 
 

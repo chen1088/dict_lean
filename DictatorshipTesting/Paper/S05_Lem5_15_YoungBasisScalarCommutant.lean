@@ -1,6 +1,6 @@
 import DictatorshipTesting.Paper.S05_Lem5_14_CentralAveragedRejection
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.S05_Def5_23_YoungBasisScalarCommutantInput
+import DictatorshipTesting.Paper.Defs.S05_Def5_23_YoungBasisScalarCommutantInput
 
 /-
 Direct reverse imports:

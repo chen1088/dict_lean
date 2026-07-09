@@ -1,6 +1,6 @@
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
 import DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection
-import DictatorshipTesting.Paper.S05_Def5_15_MatchingCharacters
+import DictatorshipTesting.Paper.Defs.S05_Def5_15_MatchingCharacters
 
 /-
 Direct reverse imports:
