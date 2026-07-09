@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_TableauDimension
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
-- `DictatorshipTesting.Paper.S05_Def_TableauOddHeight`
+- `DictatorshipTesting.Paper.Aux_Def_TableauOddHeight`
 - `DictatorshipTesting.Paper.S05_Lem5_41_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.S05_Lem5_47_EvenCertificate`
 -/

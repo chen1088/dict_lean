@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Def_TableauEvenHeight
+import DictatorshipTesting.Paper.Aux_Def_TableauEvenHeight
 
 /-
 Direct reverse imports:

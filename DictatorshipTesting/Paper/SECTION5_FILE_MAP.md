@@ -63,13 +63,13 @@ files share the same statement number.
 | proven | 5.44 | lemma | Counting one more matching edge | `S05_Lem5_44_CountingOneMoreMatchingEdge.lean` | `S05_Lem5_44_counting_one_more_matching_edge` | Finite counting lemma. |
 | proven | 5.45 | lemma | Weight-zero entries are never a majority | `S05_Lem5_45_WeightZeroEntriesAreNeverAMajority.lean` | `S05_Lem5_45_tableau_weightZeroEntries_never_majority` | Tableau-count z-bound certificate. |
 | proven | 5.46 | lemma | Where the induction can fail | `S05_Lem5_46_WhereTheInductionCanFail.lean` | `S05_Lem5_46_where_the_induction_can_fail` | Exceptional-shape localization. |
-| proven | 5.47 | lemma | Even certificate | `S05_Lem5_47_EvenCertificate.lean` | `S05_Lem5_47_tableau_even_certificate` | Tableau-count even certificate; reusable height definition is in `S05_Def_TableauEvenHeight.lean`. |
+| proven | 5.47 | lemma | Even certificate | `S05_Lem5_47_EvenCertificate.lean` | `S05_Lem5_47_tableau_even_certificate` | Tableau-count even certificate; reusable height definition is in `Aux_Def_TableauEvenHeight.lean`. |
 | proven | 5.48 | lemma | Odd exceptional children | `S05_Lem5_48_OddExceptionalChildren.lean` | `S05_Lem5_48_odd_exceptional_children` | Odd exceptional child analysis. |
-| proven | 5.49 | lemma | Odd certificate | `S05_Lem5_49_OddCertificate.lean` | `S05_Lem5_49_tableau_odd_certificate` | Tableau-count odd certificate; reusable height definition is in `S05_Def_TableauOddHeight.lean`. |
+| proven | 5.49 | lemma | Odd certificate | `S05_Lem5_49_OddCertificate.lean` | `S05_Lem5_49_tableau_odd_certificate` | Tableau-count odd certificate; reusable height definition is in `Aux_Def_TableauOddHeight.lean`. |
 
 Notes:
 
 - `proven` means the Lean file proves the stated coordinate/combinatorial wrapper without new external assumptions.
 - `definition/interface` means the file introduces vocabulary used later.
 - `external: ...` rows name the representation-theoretic input being used.
-- Neutral height definitions used by both Appendix A.2 and the finite certificate proofs are split into `S05_Def_TableauEvenHeight.lean` and `S05_Def_TableauOddHeight.lean`; they are not separate numbered paper theorem statements.
+- Neutral height definitions used by both Appendix A.2 and the finite certificate proofs are split into `Aux_Def_TableauEvenHeight.lean` and `Aux_Def_TableauOddHeight.lean`; they are not separate numbered paper theorem statements.

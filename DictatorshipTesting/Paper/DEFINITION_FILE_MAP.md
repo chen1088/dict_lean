@@ -84,8 +84,8 @@ This file records the definition-file refactor inventory.  The first table lists
 
 | Declaration name | Kind | Original file | New file | Paper definition number, if any | Direct users/imports | Status |
 |---|---|---|---|---|---|---|
-| `hEvenTableau` | noncomputable def | `DictatorshipTesting/Paper/S05_Lem5_47_EvenCertificate.lean` | `DictatorshipTesting/Paper/S05_Def_TableauEvenHeight.lean` | Neutral Section 5 height definition | `AppA_ThmA_02_JucysMurphyContentSpectrum`, `S05_Def_TableauOddHeight`, `S05_Lem5_41_RegularYoungBlockDecomposition`, `S05_Lem5_47_EvenCertificate` | moved |
-| `hOddTableau` | noncomputable def | `DictatorshipTesting/Paper/S05_Lem5_49_OddCertificate.lean` | `DictatorshipTesting/Paper/S05_Def_TableauOddHeight.lean` | Neutral Section 5 height definition | `AppA_ThmA_02_JucysMurphyContentSpectrum`, `S05_Lem5_41_RegularYoungBlockDecomposition`, `S05_Lem5_49_OddCertificate` | moved |
+| `hEvenTableau` | noncomputable def | `DictatorshipTesting/Paper/S05_Lem5_47_EvenCertificate.lean` | `DictatorshipTesting/Paper/Aux_Def_TableauEvenHeight.lean` | Neutral auxiliary height definition | `AppA_ThmA_02_JucysMurphyContentSpectrum`, `Aux_Def_TableauOddHeight`, `S05_Lem5_41_RegularYoungBlockDecomposition`, `S05_Lem5_47_EvenCertificate` | moved |
+| `hOddTableau` | noncomputable def | `DictatorshipTesting/Paper/S05_Lem5_49_OddCertificate.lean` | `DictatorshipTesting/Paper/Aux_Def_TableauOddHeight.lean` | Neutral auxiliary height definition | `AppA_ThmA_02_JucysMurphyContentSpectrum`, `S05_Lem5_41_RegularYoungBlockDecomposition`, `S05_Lem5_49_OddCertificate` | moved |
 
 ## Reusable declarations still outside the split `Defs.lean` layer
 

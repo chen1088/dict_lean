@@ -338,8 +338,8 @@ Core paper definitions:
 - `DictatorshipTesting/Paper/Defs.lean`: import-only aggregator for split
   definition files.  The individual `S01_Def*`, `S02_Def*`, `S03_Def*`, and
   `S05_Def*` files carry the reusable definitions.
-- `DictatorshipTesting/Paper/S05_Def_TableauEvenHeight.lean` and
-  `DictatorshipTesting/Paper/S05_Def_TableauOddHeight.lean`: neutral
+- `DictatorshipTesting/Paper/Aux_Def_TableauEvenHeight.lean` and
+  `DictatorshipTesting/Paper/Aux_Def_TableauOddHeight.lean`: neutral
   `hEvenTableau`/`hOddTableau` height definitions shared by Appendix A.2 and
   the finite certificate proofs, so Appendix A does not import certificate
   proof files just to mention those functions.

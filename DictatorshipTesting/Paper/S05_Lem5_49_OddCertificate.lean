@@ -1,5 +1,5 @@
 import DictatorshipTesting.Paper.S05_Lem5_47_EvenCertificate
-import DictatorshipTesting.Paper.S05_Def_TableauOddHeight
+import DictatorshipTesting.Paper.Aux_Def_TableauOddHeight
 import DictatorshipTesting.Paper.S05_Lem5_22_OneBoxDimensionRecursion
 
 /-
