@@ -145,6 +145,83 @@ function splitLatexSegments(value) {
   return segments;
 }
 
+const mathSymbolLinks = [
+  {
+    target: "S05_D01",
+    patterns: [/\\vdash/g],
+  },
+  {
+    target: "S05_D04",
+    patterns: [
+      /d_\{?\\lambda\}?/g,
+      /d_\{?\\mu\}?/g,
+    ],
+  },
+  {
+    target: "S05_D09",
+    patterns: [/\\mathsf\s+[HV]_2/g],
+  },
+  {
+    target: "S05_D10",
+    patterns: [
+      /\\mathsf\s+B_2/g,
+      /\\varepsilon_\+/g,
+      /\\varepsilon_-/g,
+    ],
+  },
+  {
+    target: "S05_D13",
+    patterns: [
+      /\\mathsf\s+X_(?:m|\{m-1\})(?!\^\{\\mathrm\{odd\}\})/g,
+      /z_(?:m|\{m-1\})/g,
+      /h_(?:m|\{m-1\})(?!\^\{\\mathrm\{odd\}\})/g,
+    ],
+  },
+  {
+    target: "S05_D14",
+    patterns: [
+      /\\mathsf\s+X_m\^\{\\mathrm\{odd\}\}/g,
+      /h_m\^\{\\mathrm\{odd\}\}/g,
+    ],
+  },
+  {
+    target: "S05_D15",
+    patterns: [
+      /\\chi_\{?[RST]\}?/g,
+      /A_M/g,
+      /\\tau_x/g,
+    ],
+  },
+  {
+    target: "S05_D22",
+    patterns: [
+      /e_R\^M/g,
+      /p_M/g,
+      /q_M/g,
+      /C_a/g,
+      /C_q/g,
+    ],
+  },
+  {
+    target: "S05_D23",
+    patterns: [/\\theta_\{?\\lambda\}?/g],
+  },
+];
+
+function latexHref(target, latex) {
+  return `\\href{#definition:${target}}{${latex}}`;
+}
+
+function linkLatexSymbols(math) {
+  let linked = math;
+  mathSymbolLinks.forEach(({ target, patterns }) => {
+    patterns.forEach((pattern) => {
+      linked = linked.replace(pattern, (match) => latexHref(target, match));
+    });
+  });
+  return linked;
+}
+
 function escapedTermPattern(escapedTerm) {
   return new RegExp(
     `(^|[^A-Za-z0-9_])(${escapedTerm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})(?=$|[^A-Za-z0-9_])`,
@@ -176,7 +253,7 @@ function renderStatementMarkup(node) {
   return splitLatexSegments(normalizePaperLatex(displayStatement(node)))
     .map((segment) =>
       segment.kind === "math"
-        ? escapeHtml(segment.value)
+        ? escapeHtml(linkLatexSymbols(segment.value))
         : highlightStatementTerms(segment.value, terms, used)
     )
     .join("");
@@ -186,19 +263,6 @@ function typesetMath(root = document) {
   if (window.MathJax?.typesetPromise) {
     window.MathJax.typesetPromise([root]).catch(() => {});
   }
-}
-
-function renderTermChips(node) {
-  const terms = termRefs(node);
-  if (!terms.length) return "";
-  return `
-    <div class="term-list" aria-label="Referenced definitions">
-      <span>Definitions:</span>
-      ${terms
-        .map((term) => `<a href="#" class="term-chip" data-term-target="${escapeHtml(term.target)}">${escapeHtml(term.text)}</a>`)
-        .join("")}
-    </div>
-  `;
 }
 
 function attachTermHandlers(root) {
@@ -337,7 +401,6 @@ function renderInlineDetails(node, depCount) {
       <div class="statement-kicker">${node.paperLabel ? `Paper ${escapeHtml(node.paperEnv || "statement")} <code>${escapeHtml(node.paperLabel)}</code>` : "Curated statement"}</div>
       <div class="statement latex-statement">${renderStatementMarkup(node)}</div>
     </div>
-    ${renderTermChips(node)}
     <dl>
       <dt>Lean file</dt>
       <dd><a href="${sourceUrl(node.file)}" target="_blank" rel="noreferrer">${node.file}</a></dd>
@@ -378,7 +441,6 @@ function openOverlay(id) {
         <div class="statement-kicker">${node.paperLabel ? `Paper ${escapeHtml(node.paperEnv || "statement")} <code>${escapeHtml(node.paperLabel)}</code>` : "Curated statement"}</div>
         <div class="statement latex-statement">${renderStatementMarkup(node)}</div>
       </div>
-      ${renderTermChips(node)}
       <dl>
         <dt>Lean file</dt>
         <dd><a href="${sourceUrl(node.file)}" target="_blank" rel="noreferrer">${escapeHtml(node.file)}</a></dd>
@@ -493,5 +555,15 @@ document.querySelector("#status-filter").addEventListener("change", (event) => {
 
 document.querySelector("#expand-all").addEventListener("click", expandVisible);
 document.querySelector("#collapse-all").addEventListener("click", collapseVisible);
+
+document.addEventListener("click", (event) => {
+  const link = event.target instanceof Element
+    ? event.target.closest('a[href^="#definition:"]')
+    : null;
+  if (!link) return;
+  event.preventDefault();
+  event.stopPropagation();
+  openOverlay(link.getAttribute("href").replace("#definition:", ""));
+});
 
 render();

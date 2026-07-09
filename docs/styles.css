@@ -402,7 +402,7 @@ main {
 }
 
 .term-link,
-.term-chip {
+.latex-statement a[href^="#definition:"] {
   color: #184f86;
   cursor: pointer;
   font: inherit;
@@ -422,22 +422,9 @@ main {
   vertical-align: baseline;
 }
 
-.term-chip {
-  display: inline;
-  padding: 0;
-}
-
-.term-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px 10px;
-  margin: 8px 0 10px;
-  color: var(--muted);
-  font-size: 0.86rem;
-}
-
-.term-list span {
-  font-weight: 750;
+.latex-statement a[href^="#definition:"] {
+  color: #184f86 !important;
+  text-decoration-color: #184f86;
 }
 
 dl {
