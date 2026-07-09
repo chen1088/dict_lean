@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_Def_ZEven
+import DictatorshipTesting.Paper.S05_IntDef_ZEven
 
 /-!
 Definition file for `hEven`.

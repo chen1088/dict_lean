@@ -136,8 +136,8 @@ Remaining Section 5/AppA bridge boundary:
   separate Lean axiom.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
-definition-only files `Aux_Def_TableauEvenHeight.lean` and
-`Aux_Def_TableauOddHeight.lean`.  Thus
+definition-only files `S05_IntDef_TableauEvenHeight.lean` and
+`S05_IntDef_TableauOddHeight.lean`.  Thus
 `AppA_ThmA_02_JucysMurphyContentSpectrum.lean` imports neutral definitions
 rather than the even/odd certificate proof files.
 

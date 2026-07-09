@@ -6,8 +6,9 @@ parts of a dictatorship-testing paper for Boolean functions on `S_n`.
 The project is intentionally organized around the paper.  Numbered theorem,
 lemma, proposition, and corollary files use the paper number in the filename,
 for example `S01_Thm1_01_MainIntro.lean`, `S04_Lem4_13_OneTrialSoundness.lean`, and
-`S04_Prop4_12_SquareEnergyControlsGlobalDegree.lean`.  Helper files that exist only
-to support the Lean development use the prefix `Aux_`.
+`S04_Prop4_12_SquareEnergyControlsGlobalDegree.lean`.  Shared internal paper
+infrastructure uses `S##_Int...` or `S##_IntDef...` filenames, so the paper
+dependency graph does not expose `Aux_` nodes.
 
 ## Build
 
@@ -338,8 +339,8 @@ Core paper definitions:
 - `DictatorshipTesting/Paper/Defs.lean`: import-only aggregator for split
   definition files.  The individual `S01_Def*`, `S02_Def*`, `S03_Def*`, and
   `S05_Def*` files carry the reusable definitions.
-- `DictatorshipTesting/Paper/Aux_Def_TableauEvenHeight.lean` and
-  `DictatorshipTesting/Paper/Aux_Def_TableauOddHeight.lean`: neutral
+- `DictatorshipTesting/Paper/S05_IntDef_TableauEvenHeight.lean` and
+  `DictatorshipTesting/Paper/S05_IntDef_TableauOddHeight.lean`: neutral
   `hEvenTableau`/`hOddTableau` height definitions shared by Appendix A.2 and
   the finite certificate proofs, so Appendix A does not import certificate
   proof files just to mention those functions.
@@ -377,8 +378,10 @@ Paper-numbered highlights:
   and paper statement number.
 - `ThmA_B_...`, `LA_B_...`, `PropA_B_...`, `CorA_B_...`: older
   paper-facing filenames still used by earlier sections of the scaffold.
-- `Aux_...`: Lean helper lemma, implementation detail, or isolated external
-  input that is not itself the paper-facing statement.
+- `S##_Int_...`, `S##_IntDef_...`, `S##_IntInst_...`: shared internal paper
+  infrastructure, definition fragments, and instances that are not themselves
+  paper-facing numbered statements.
+- `Aux_...`: older non-paper helper modules outside the paper-facing layer.
 
 Keep theorem names stable when possible.  If a theorem is paper-numbered, keep
 the declaration in the paper-numbered file even when the hard proof is factored

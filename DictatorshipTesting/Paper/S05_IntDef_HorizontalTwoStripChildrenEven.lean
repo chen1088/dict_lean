@@ -1,7 +1,7 @@
-import DictatorshipTesting.Paper.Aux_Def_HorizontalTwoStripChildrenEven
+import DictatorshipTesting.Paper.S05_IntDef_OneBoxChildren
 
 /-!
-Definition file for `verticalTwoStripChildrenEven`.
+Definition file for `horizontalTwoStripChildrenEven`.
 
 This file contains one primary reusable declaration split out of
 `DictatorshipTesting.Paper.Defs`.
@@ -13,11 +13,11 @@ open scoped BigOperators
 
 namespace DictatorshipTesting
 
-/-- Vertical two-strip children specialized to diagrams with `2*m` boxes. -/
-def verticalTwoStripChildrenEven (m : ℕ)
+/-- Horizontal two-strip children specialized to diagrams with `2*m` boxes. -/
+def horizontalTwoStripChildrenEven (m : ℕ)
     (lam : YoungDiagram (2 * m)) : Finset (YoungDiagram (2 * (m - 1))) := by
   classical
   exact Finset.univ.filter (fun mu : YoungDiagram (2 * (m - 1)) =>
-    IsVerticalTwoStripChild lam mu)
+    IsHorizontalTwoStripChild lam mu)
 
 end DictatorshipTesting

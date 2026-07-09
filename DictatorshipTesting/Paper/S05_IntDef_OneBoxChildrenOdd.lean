@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_Def_VerticalTwoStripChildrenEven
+import DictatorshipTesting.Paper.S05_IntDef_VerticalTwoStripChildrenEven
 
 /-!
 Definition file for `oneBoxChildrenOdd`.

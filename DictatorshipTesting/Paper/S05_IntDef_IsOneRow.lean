@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_Def_YoungDim
+import DictatorshipTesting.Paper.S05_IntDef_YoungDim
 
 /-!
 Definition file for `IsOneRow`.

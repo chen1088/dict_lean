@@ -1,4 +1,4 @@
-﻿# Section 5 File Map
+# Section 5 File Map
 
 Source checked: `../dictatorship_testing_soda27_latest.tex`.
 
@@ -64,13 +64,13 @@ again at Lemma 5.1, so the table always displays the prefix `Def` or `Lem`.
 | proven | Lem 5.21 | lemma | Counting one more matching edge | `S05_Lem5_21_CountingOneMoreMatchingEdge.lean` | `S05_Lem5_21_counting_one_more_matching_edge` | Finite counting lemma. |
 | proven | Lem 5.22 | lemma | Weight-zero entries are never a majority | `S05_Lem5_22_WeightZeroEntriesAreNeverAMajority.lean` | `S05_Lem5_22_tableau_weightZeroEntries_never_majority` | Tableau-count z-bound certificate. |
 | proven | Lem 5.23 | lemma | Where the induction can fail | `S05_Lem5_23_WhereTheInductionCanFail.lean` | `S05_Lem5_23_where_the_induction_can_fail` | Exceptional-shape localization. |
-| proven | Lem 5.24 | lemma | Even certificate | `S05_Lem5_24_EvenCertificate.lean` | `S05_Lem5_24_tableau_even_certificate` | Tableau-count even certificate; reusable height definition is in `Aux_Def_TableauEvenHeight.lean`. |
+| proven | Lem 5.24 | lemma | Even certificate | `S05_Lem5_24_EvenCertificate.lean` | `S05_Lem5_24_tableau_even_certificate` | Tableau-count even certificate; reusable height definition is in `S05_IntDef_TableauEvenHeight.lean`. |
 | proven | Lem 5.25 | lemma | Odd exceptional children | `S05_Lem5_25_OddExceptionalChildren.lean` | `S05_Lem5_25_odd_exceptional_children` | Odd exceptional child analysis. |
-| proven | Lem 5.26 | lemma | Odd certificate | `S05_Lem5_26_OddCertificate.lean` | `S05_Lem5_26_tableau_odd_certificate` | Tableau-count odd certificate; reusable height definition is in `Aux_Def_TableauOddHeight.lean`. |
+| proven | Lem 5.26 | lemma | Odd certificate | `S05_Lem5_26_OddCertificate.lean` | `S05_Lem5_26_tableau_odd_certificate` | Tableau-count odd certificate; reusable height definition is in `S05_IntDef_TableauOddHeight.lean`. |
 
 Notes:
 
 - `proven` means the Lean file proves the stated coordinate/combinatorial wrapper without new external assumptions.
 - `definition/interface` means the file introduces vocabulary used later.
 - `external: ...` rows name the representation-theoretic input being used.
-- Neutral height definitions used by both Appendix A.2 and the finite certificate proofs are split into `Aux_Def_TableauEvenHeight.lean` and `Aux_Def_TableauOddHeight.lean`; they are not separate numbered paper theorem statements.
+- Neutral height definitions used by both Appendix A.2 and the finite certificate proofs are split into `S05_IntDef_TableauEvenHeight.lean` and `S05_IntDef_TableauOddHeight.lean`; they are not separate numbered paper theorem statements.

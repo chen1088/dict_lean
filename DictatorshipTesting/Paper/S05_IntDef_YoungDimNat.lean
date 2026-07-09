@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_Def_YoungHookLength
+import DictatorshipTesting.Paper.S05_IntDef_YoungHookLength
 
 /-!
 Definition file for `youngDimNat`.

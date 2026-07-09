@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_Def_IsStandard
+import DictatorshipTesting.Paper.S05_IntDef_IsStandard
 
 /-!
 Definition file for `IsYoungSubdiagram`.

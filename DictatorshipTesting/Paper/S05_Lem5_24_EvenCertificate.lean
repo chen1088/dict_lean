@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_Def_TableauEvenHeight
+import DictatorshipTesting.Paper.S05_IntDef_TableauEvenHeight
 import DictatorshipTesting.Paper.S05_Lem5_22_WeightZeroEntriesAreNeverAMajority
 
 /-

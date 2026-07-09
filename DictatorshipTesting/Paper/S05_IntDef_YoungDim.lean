@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_Def_YoungDimNat
+import DictatorshipTesting.Paper.S05_IntDef_YoungDimNat
 
 /-!
 Definition file for `youngDim`.

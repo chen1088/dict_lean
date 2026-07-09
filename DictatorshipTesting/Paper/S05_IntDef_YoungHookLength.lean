@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_Def_YoungCells
+import DictatorshipTesting.Paper.S05_IntDef_YoungCells
 
 /-!
 Definition file for `youngHookLength`.

@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_Def_IsOneRow
+import DictatorshipTesting.Paper.S05_IntDef_IsOneRow
 
 /-!
 Definition file for `IsStandard`.

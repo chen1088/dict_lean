@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_Inst_YoungDiagramFintype
+import DictatorshipTesting.Paper.S05_IntInst_YoungDiagramFintype
 
 /-!
 Definition file for `youngRow`.
