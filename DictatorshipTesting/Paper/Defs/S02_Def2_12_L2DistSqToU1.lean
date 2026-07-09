@@ -8,9 +8,6 @@ Direct reverse imports:
 
 /-!
 Definition file for `l2DistSqToU1`.
-
-This file contains one primary reusable declaration split out of
-`DictatorshipTesting.Paper.Defs`.
 -/
 
 noncomputable section

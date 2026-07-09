@@ -9,9 +9,6 @@ Direct reverse imports:
 
 /-!
 Definition file for `cubeFlip`.
-
-This file contains one primary reusable declaration split out of
-`DictatorshipTesting.Paper.Defs`.
 -/
 
 noncomputable section

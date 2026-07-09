@@ -7,9 +7,6 @@ Direct reverse imports:
 
 /-!
 Definition file for `youngHookLength`.
-
-This file contains one primary reusable declaration split out of
-`DictatorshipTesting.Paper.Defs`.
 -/
 
 noncomputable section

@@ -8,9 +8,6 @@ Direct reverse imports:
 
 /-!
 Definition file for `OrderedMatching.tau`.
-
-This file contains one primary reusable declaration split out of
-`DictatorshipTesting.Paper.Defs`.
 -/
 
 noncomputable section
