@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Def5_12_IsVerticalTwoStripChild
+import DictatorshipTesting.Paper.Aux_Def_IsVerticalTwoStripChild
 
 /-!
 Definition file for `IsOneBoxChild`.

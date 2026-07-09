@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Def5_03_YoungRow
+import DictatorshipTesting.Paper.Aux_Def_YoungRow
 
 /-!
 Definition file for `youngCells`.

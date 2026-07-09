@@ -1,7 +1,7 @@
-import DictatorshipTesting.Paper.S05_Def5_10_IsYoungSubdiagram
+import DictatorshipTesting.Paper.Aux_Def_IsHorizontalTwoStripChild
 
 /-!
-Definition file for `IsHorizontalTwoStripChild`.
+Definition file for `IsVerticalTwoStripChild`.
 
 This file contains one primary reusable declaration split out of
 `DictatorshipTesting.Paper.Defs`.
@@ -13,11 +13,11 @@ open scoped BigOperators
 
 namespace DictatorshipTesting
 
-/-- `lam / mu` is a horizontal two-strip. -/
-def IsHorizontalTwoStripChild {n k : ℕ} (lam : YoungDiagram n)
+/-- `lam / mu` is a vertical two-strip. -/
+def IsVerticalTwoStripChild {n k : ℕ} (lam : YoungDiagram n)
     (mu : YoungDiagram k) : Prop :=
   k + 2 = n ∧
     IsYoungSubdiagram mu lam ∧
-      ∀ i : Fin n, youngRow lam ((i : ℕ) + 1) ≤ youngRow mu i
+      ∀ i : Fin n, youngRow lam i ≤ youngRow mu i + 1
 
 end DictatorshipTesting

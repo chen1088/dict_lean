@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Def5_14_HorizontalTwoStripChildren
+import DictatorshipTesting.Paper.Aux_Def_HorizontalTwoStripChildren
 
 /-!
 Definition file for `verticalTwoStripChildren`.

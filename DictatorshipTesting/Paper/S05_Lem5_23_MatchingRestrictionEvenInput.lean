@@ -1,5 +1,5 @@
-import DictatorshipTesting.Paper.S05_Def5_07_YoungDim
-import DictatorshipTesting.Paper.S05_Def5_21_HEven
+import DictatorshipTesting.Paper.Aux_Def_YoungDim
+import DictatorshipTesting.Paper.Aux_Def_HEven
 
 /-
 Direct reverse imports:

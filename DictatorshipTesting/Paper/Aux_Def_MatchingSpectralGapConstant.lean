@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Def5_22_HOdd
+import DictatorshipTesting.Paper.Aux_Def_HOdd
 
 /-!
 Definition file for `MatchingSpectralGapConstant`.

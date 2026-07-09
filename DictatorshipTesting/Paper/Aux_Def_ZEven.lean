@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Def5_19_OneBoxChildrenOdd
+import DictatorshipTesting.Paper.Aux_Def_OneBoxChildrenOdd
 
 /-!
 Definition file for `zEven`.

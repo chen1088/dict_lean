@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Def5_16_OneBoxChildren
+import DictatorshipTesting.Paper.Aux_Def_OneBoxChildren
 
 /-!
 Definition file for `horizontalTwoStripChildrenEven`.
