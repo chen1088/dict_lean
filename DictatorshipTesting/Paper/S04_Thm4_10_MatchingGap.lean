@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.Defs.S05_IntDef_MatchingSpectralGapConstant
 import DictatorshipTesting.Paper.S05_Lem5_19_EvenSpectralBridge
 import DictatorshipTesting.Paper.S05_Lem5_20_OddSpectralBridge
 

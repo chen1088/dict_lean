@@ -1,3 +1,4 @@
+import DictatorshipTesting.Paper.Defs.S02_Def2_16_CubeExpectation
 import DictatorshipTesting.Paper.S02_Int_CubeCharFlip
 import DictatorshipTesting.Paper.S02_Int_CubeCharMulSelf
 import DictatorshipTesting.Paper.S02_Int_CubeFlipInvolutive

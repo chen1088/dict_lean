@@ -1,3 +1,4 @@
+import DictatorshipTesting.Paper.Defs.S03_Def3_18_MatchingLocalProjectionError
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
 import DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection
 import DictatorshipTesting.Paper.S04_Int_PermCubeAverage

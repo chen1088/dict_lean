@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.Defs.S03_Def3_04_OrderedMatchingTau
 
 /-
 Direct reverse imports:

@@ -1,4 +1,5 @@
-import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.Defs.S02_Def2_06_IsDictator
+import DictatorshipTesting.Paper.Defs.S02_Def2_10_U1
 
 /-
 Direct reverse imports:

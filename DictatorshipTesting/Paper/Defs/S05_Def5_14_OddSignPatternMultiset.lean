@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.Defs.S05_Def5_13_EvenSignPatternMultiset
+import DictatorshipTesting.Paper.Defs.S05_IntDef_HOdd
 
 /-
 Direct reverse imports:

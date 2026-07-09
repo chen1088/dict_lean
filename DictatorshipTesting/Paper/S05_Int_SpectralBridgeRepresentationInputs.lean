@@ -1,4 +1,5 @@
-import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.Defs.S05_IntDef_MatchingSpectralGapConstant
+import DictatorshipTesting.Paper.Defs.S05_IntDef_IsStandard
 
 /-
 Direct reverse imports:

@@ -1,3 +1,4 @@
+import DictatorshipTesting.Paper.Defs.S03_Def3_09_MatchingTrialDelta
 import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
 
 /-

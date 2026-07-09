@@ -1,4 +1,7 @@
-import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.Defs.S01_Def1_01_OracleTester
+import DictatorshipTesting.Paper.Defs.S02_Def2_06_IsDictator
+import DictatorshipTesting.Paper.Defs.S02_Def2_08_DistToDictators
+import DictatorshipTesting.Paper.Defs.S03_Def3_25_OneTrialRejectProbability
 import DictatorshipTesting.Paper.S04_Lem4_13_OneTrialSoundness
 
 /-

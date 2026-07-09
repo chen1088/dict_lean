@@ -1,3 +1,4 @@
+import DictatorshipTesting.Paper.Defs.S03_Def3_11_CubeLowDegreeOnePart
 import DictatorshipTesting.Paper.S02_Int_CubeFourierTranslate
 
 /-

@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.Defs.S02_Def2_17_CubeFourierCoeff
 import DictatorshipTesting.Paper.S02_Int_CubeCharMulSelf
 
 /-

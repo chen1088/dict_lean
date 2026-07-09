@@ -1,3 +1,4 @@
+import DictatorshipTesting.Paper.Defs.S05_IntDef_OneBoxChildren
 import DictatorshipTesting.Paper.S05_Int_YoungDiagramCorners
 
 /-

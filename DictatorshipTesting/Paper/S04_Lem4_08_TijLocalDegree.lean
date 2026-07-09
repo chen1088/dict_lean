@@ -1,3 +1,4 @@
+import DictatorshipTesting.Paper.Defs.S03_Def3_15_IsMatchingLocalDegreeOne
 import DictatorshipTesting.Paper.S02_Int_CubeCharFlip
 import DictatorshipTesting.Paper.S02_Int_CubeFlipInvolutive
 import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta

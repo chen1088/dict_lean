@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs
+import DictatorshipTesting.Paper.Defs.S05_IntDef_IsOneBoxChild
 
 /-
 Direct reverse imports:

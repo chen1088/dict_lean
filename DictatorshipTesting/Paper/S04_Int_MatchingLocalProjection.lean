@@ -1,3 +1,4 @@
+import DictatorshipTesting.Paper.Defs.S03_Def3_17_MatchingLocalProjection
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
 import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
 import DictatorshipTesting.Paper.S04_Lem4_04_PMIndependentOfRepresentatives
