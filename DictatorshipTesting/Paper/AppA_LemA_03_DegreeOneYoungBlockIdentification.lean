@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_32_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_41_RegularYoungBlockDecomposition`
 -/
 
 

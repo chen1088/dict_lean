@@ -8,7 +8,9 @@ const section5Roots = [
   "S05_18", "S05_19", "S05_20", "S05_21", "S05_22", "S05_23",
   "S05_24", "S05_25", "S05_26", "S05_27", "S05_28", "S05_29",
   "S05_30", "S05_31", "S05_32", "S05_33", "S05_34", "S05_35",
-  "S05_36", "S05_37", "S05_38", "S05_39",
+  "S05_36", "S05_37", "S05_38", "S05_39", "S05_40", "S05_41",
+  "S05_42", "S05_43", "S05_44", "S05_45", "S05_46", "S05_47",
+  "S05_48", "S05_49",
 ];
 
 function collectTransitiveDeps(rootIds) {
@@ -39,14 +41,14 @@ const rootViews = {
       "Thm1_1", "Thm2_1", "Thm2_2", "L2_3", "Def2_4",
       "S03_01", "S03_02", "L4_1", "S04_04", "S04_05", "S04_06",
       "S04_07", "S04_08", "S04_09", "Thm4_10",
-      "S05_32", "S05_33", "S05_23", "S05_06", "S05_01",
+      "S05_41", "S05_42", "S05_43", "S05_29", "S05_06", "S05_01",
     ],
-    open: ["Thm1_1", "Thm4_10", "S05_32", "S05_33"],
+    open: ["Thm1_1", "Thm4_10", "S05_42", "S05_43", "S05_41"],
   },
   main: {
     label: "Main theorem",
     roots: ["Thm1_1"],
-    open: ["Thm1_1", "L4_13", "Prop4_12", "Thm4_10", "S05_32", "S05_33"],
+    open: ["Thm1_1", "L4_13", "Prop4_12", "Thm4_10", "S05_42", "S05_43", "S05_40", "S05_41"],
   },
   spectral: {
     label: "Spectral bridge",
@@ -56,17 +58,17 @@ const rootViews = {
   section5: {
     label: "Section 5",
     roots: section5Roots,
-    open: ["S05_32", "S05_33", "S05_31", "S05_30", "S05_23", "S05_06"],
+    open: ["S05_42", "S05_43", "S05_41", "S05_40", "S05_29", "S05_06"],
   },
   certificates: {
     label: "Finite certificates",
-    roots: ["S05_37", "S05_39", "S05_35", "S05_21"],
-    open: ["S05_37", "S05_39", "S05_35", "S05_21"],
+    roots: ["S05_47", "S05_49", "S05_45", "S05_44"],
+    open: ["S05_47", "S05_49", "S05_45", "S05_44"],
   },
   appendix: {
     label: "Appendix A boundary",
-    roots: ["AppA_EvenSpectralModel", "AppA_OddSpectralModel"],
-    open: ["AppA_EvenSpectralModel", "AppA_OddSpectralModel"],
+    roots: ["AppA_01", "AppA_02", "AppA_03", "AppA_04"],
+    open: ["AppA_01", "AppA_02", "AppA_03", "AppA_04"],
   },
 };
 

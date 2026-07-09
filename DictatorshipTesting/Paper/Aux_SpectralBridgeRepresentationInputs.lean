@@ -6,8 +6,8 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam`
 - `DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates`
 - `DictatorshipTesting.Paper.S05_Def5_08_YoungBlock`
-- `DictatorshipTesting.Paper.S05_Lem5_29_YoungBasisScalarCommutant`
-- `DictatorshipTesting.Paper.S05_Lem5_32_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_38_YoungBasisScalarCommutant`
+- `DictatorshipTesting.Paper.S05_Lem5_41_RegularYoungBlockDecomposition`
 -/
 
 

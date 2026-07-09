@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_32_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_41_RegularYoungBlockDecomposition`
 -/
 
 
@@ -12,11 +12,11 @@ Direct reverse imports:
 Paper statement: Lemma A.4 (`lem:app-tableau-swap-connected`)
 Title in paper: Connectedness of standard tableaux.
 
-Status: external: ingredient bundled into Lemma 5.32.  The current Lean
+Status: external: ingredient bundled into Lemma 5.41.  The current Lean
 development contains local adjacent-swap constructions for standard tableaux,
-but it consumes the global connectedness theorem only through the Lemma 5.32
+but it consumes the global connectedness theorem only through the Lemma 5.41
 spectral-block assembly theorem in
-`S05_Lem5_32_RegularYoungBlockDecomposition`.
+`S05_Lem5_41_RegularYoungBlockDecomposition`.
 -/
 
 noncomputable section

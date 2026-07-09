@@ -7,19 +7,13 @@ Counting rule: theorem-like numbered environments only (`definition`, `lemma`,
 and Appendix A statements are not represented as Section 5 paper-facing Lean
 files.
 
-The former unnumbered tableau-preliminaries block is now split into five
-numbered definitions, so Section 5 starts with Definitions 5.1--5.5 and the
-first lemma is Lemma 5.6.
+Section 5 statement count: 49.
+Section 5 paper-facing Lean file count: 49.
 
-Section 5 statement count: 40.
-Section 5 paper-facing Lean file count: 40.
-
-The regular Young-block decomposition assembly lemma is now a main-text
-Section 5 statement.  The external degree-one Young-block identification input
-is kept in Appendix A:
-
-- `S05_Lem5_32_RegularYoungBlockDecomposition.lean`
-- `AppA_LemA_03_DegreeOneYoungBlockIdentification.lean`
+The former unnumbered tableau-preliminaries block is split into numbered
+Definitions 5.1--5.5.  Interface definitions that were formerly bundled into
+larger lemmas now have their own numbers, so no two Section 5 paper-facing Lean
+files share the same statement number.
 
 | Status | Paper stmt | Environment | Paper title | Lean file | Main wrappers | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -30,57 +24,52 @@ is kept in Appendix A:
 | definition/interface | 5.5 | definition | Contents and adjacent operators | `S05_Def5_05_ContentAndAdjacentOperators.lean` | `S05_Def5_05_cellContent`, `S05_Def5_05_entryContent`, `S05_Def5_05_youngAdjacentOperator`, `S05_Def5_05_diagonalContentOperator` | Contents, adjacent swap operators, and diagonal content operators. |
 | proven | 5.6 | lemma | Tableau Coxeter model for adjacent transpositions | `S05_Lem5_06_AdjacentTranspositionsInYoungsBasis.lean` | `S05_Lem5_06_adjacentTranspositionsInYoungsBasis_coxeterModel` | Concrete tableau-coordinate Coxeter model. |
 | proven | 5.7 | lemma | Diagonal content eigenspaces | `S05_Lem5_07_DiagonalContentEigenspaces.lean` | `S05_Lem5_07_tableauContentSequence_injective`, `S05_Lem5_07_diagonalContentEigenspaces` | Explicit diagonal content operators; Appendix A supplies the group-algebra identification. |
-| definition/interface | 5.8 | definition | Young block | `S05_Def5_08_YoungBlock.lean` | `S05_YoungBlock`, `S05_Def5_08_YoungBlockDecompositionInput`, `S05_Def5_08_U1YoungBlockIdentificationInput`, `S05_Def5_08_SpectralBlockModelInput` | Young-block vocabulary, numerical energy-profile interfaces, and spectral-block interface. |
-| definition/interface | 5.9 | definition | Two-box removals | `S05_Def5_09_TwoBoxRemovals.lean` | `S05_IsHorizontalTwoBoxRemoval`, `S05_IsVerticalTwoBoxRemoval` | Removal predicates. |
-| definition/interface | 5.10 | definition | Signed two-box removals | `S05_Def5_10_SignedTwoBoxRemovals.lean` | `S05_PositiveSignedTwoBoxRemoval`, `S05_NegativeSignedTwoBoxRemoval` | Signed removal predicates. |
-| definition/interface | 5.11 | definition | One-box removals | `S05_Def5_11_OneBoxRemovals.lean` | `S05_IsOneBoxRemoval`, `S05_oneBoxChildrenOdd` | One-box removal vocabulary. |
-| proven | 5.12 | lemma | Two-box tableau branching | `S05_Lem5_12_TwoBoxTableauBranching.lean` | `S05_Lem5_12_iterated_deletion_tableauContentSequence`, `S05_Lem5_12_twoStepDeletionTableauxEquivChildTableaux` | Fixed two-step tableau deletion equivalence. |
-| definition/interface | 5.13 | definition | One-box deletion spaces | `S05_Def5_13_OneBoxDeletionSpaces.lean` | `S05_Def5_13_OneBoxDeletionTableaux`, `S05_Def5_13_existsUnique_tableauMaxAt` | Deletion-fiber coordinate space vocabulary. |
-| proven | 5.14 | lemma | One-box corner decomposition | `S05_Lem5_14_OneBoxCornerDecomposition.lean` | `S05_Lem5_14_row_form`, `S05_Lem5_14_removable_corner`, `S05_Lem5_14_tableau_unique_removable_corner` | Row form and removable-corner facts. |
-| proven | 5.15 | lemma | One-box deletion is unitary | `S05_Lem5_15_OneBoxDeletionIsUnitary.lean` | `S05_Lem5_15_oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow`, `S05_Lem5_15_deletionCoordinateMap_inner` | Coordinate inner-product preservation. |
-| proven | 5.16 | lemma | One-box deletion intertwines earlier swaps | `S05_Lem5_16_OneBoxDeletionIntertwinesEarlierSwaps.lean` | `S05_Lem5_16_deleteMax_tableauContentSequence`, `S05_Lem5_16_insertMax_youngAdjacentMatrixCoeff`, `S05_Lem5_16_deletionCoordinateMap_youngAdjacentOperator_intertwines`, `S05_Lem5_16_deletionCoordinateMap_diagonalContent_intertwines` | Proved for the concrete deletion-fiber coordinate model. |
-| definition/interface | 5.17 | definition | Even sign-pattern multiset | `S05_Def5_17_EvenSignPatternMultiset.lean` | `S05_evenZeroSignPatternCount`, `S05_evenHighSignPatternCount` | Even sign-pattern counters. |
-| definition/interface | 5.18 | definition | Odd sign-pattern multiset | `S05_Def5_18_OddSignPatternMultiset.lean` | `S05_oddHighSignPatternCount` | Odd sign-pattern counter. |
-| proven | 5.19 | lemma | Two-box dimension recursion | `S05_Lem5_19_TwoBoxDimensionRecursion.lean` | `S05_Lem5_19_tableauDim_twoStrip_branching_sized` | Tableau-count two-strip branching. |
-| proven | 5.20 | lemma | One-box dimension recursion | `S05_Lem5_20_OneBoxDimensionRecursion.lean` | `S05_Lem5_20_tableauDim_oneBoxChildrenOdd_branching` | Tableau-count one-box branching. |
-| proven | 5.21 | lemma | Sizes of the sign-pattern multisets | `S05_Lem5_21_SizesOfTheSignPatternMultisets.lean` | `S05_Lem5_21_tableauDim_twoStrip_size`, `S05_Lem5_21_tableauDim_oneBox_size` | Tableau-count size recurrences. |
-| definition/interface | 5.22 | definition | Matching characters | `S05_Def5_22_MatchingCharacters.lean` | `S05_matchingCharacter`, `S05_matchingCharacter_cubeXor` | Matching-cube character vocabulary. |
-| proven | 5.23 | lemma | Matching subgroup eigenbasis | `S05_Lem5_23_MatchingSubgroupEigenbasis.lean` | `S05_IsMatchingEigenvectorEven`, `S05_IsMatchingEigenvectorOdd`, `MatchingRestrictionEvenInput`, `MatchingRestrictionOddInput`, `S05_Lem5_23_canonicalMatchingCubeOperatorEven_eq_indexedProduct`, `S05_Lem5_23_matchingEdgeSign_finRange_product_eq_matchingCharacter`, `S05_Lem5_23_matchingCube_character_action_even`, `S05_Lem5_23_matchingEdgePlusProjectionEven_isPlusEigen`, `S05_Lem5_23_matchingEdgePlusProjectionEven_preserves_otherEigen`, `S05_Lem5_23_matchingSignProjectionEven_isMatchingEigenvector` | Listed concrete matching-operator and sign-projection wrappers are proved; matching-eigenvector aliases and scalar matching-restriction inputs are split into component files; the Specht/Pieri restriction content is bundled into the spectral-block model boundary. |
-| proven | 5.24 | lemma | Local truncation on a matching character | `S05_Lem5_24_LocalTruncationOnAMatchingCharacter.lean` | `S05_Lem5_24_matchingLocalProjection_preserves_low_matchingCharacter`, `S05_Lem5_24_matchingLocalProjection_kills_high_matchingCharacter` | Matching-cube Fourier calculation. |
-| external: block trace model input | 5.25 | lemma | Trace of one local truncation on one Young block | `S05_Lem5_25_TraceOfOneLocalTruncationOnOneYoungBlock.lean` | `TraceLocalTruncationEvenInput`, `TraceLocalTruncationOddInput`, `traceLocalTruncation_even_from_restriction`, `traceLocalTruncation_odd_from_restriction` | The matching-character/local-truncation calculation is proved; scalar trace inputs are split into component files; the Young-block trace-space model is part of the spectral-block model boundary. |
-| proven | 5.26 | definition | Matching idempotents | `S05_Def5_26_MatchingIdempotents.lean` | `S05_matchingLowIdempotent`, `S05_matchingHighIdempotent`, `S05_matchingLowIdempotent_idempotent`, `S05_matchingHighIdempotent_idempotent`, `S05_matchingLow_add_matchingHigh` | Low/high idempotent vocabulary plus complementary idempotence proofs. |
-| proven | 5.27 | lemma | Local truncation as convolution | `S05_Lem5_27_LocalTruncationAsConvolution.lean` | `S05_Lem5_27_local_truncation_as_convolution` | Local projection as low convolution and residual as high convolution. |
-| external: Young-block centrality input | 5.28 | lemma | Central averaged rejection | `S05_Lem5_28_CentralAveragedRejection.lean` | `S05_Lem5_28_matchingMeanProjectionError_eq_average`, `S05_Lem5_28_matchingMeanProjectionError_eq_high_idempotent_average` | Listed finite-average and high-idempotent norm identities are proved; centrality on Young blocks is part of the spectral-block model boundary. |
-| external: scalar commutant input | 5.29 | lemma | Young-basis scalar commutant | `S05_Lem5_29_YoungBasisScalarCommutant.lean` | `S05_Lem5_29_YoungBasisScalarCommutantInput`, `S05_Lem5_29_matchingAverageScalarity_eq_sum` | The Lean file exposes the scalarity input consumed downstream; a full internal proof would formalize the matrix commutant argument against the tableau basis. |
-| external: trace/scalar model input | 5.30 | lemma | Block scalar of the averaged rejection | `S05_Lem5_30_BlockScalarOfTheAveragedRejection.lean` | `S05_Lem5_30_scalar_eq_trace_div_dimension`, `S05_Lem5_30_even_scalar_eq_hEven_div_dim` | Trace-divided-by-dimension algebra is proved from explicit scalarity and trace identities; those representation inputs are bundled into the spectral-block model boundary. |
-| proven | 5.31 | lemma | Block lower bound implies the gap | `S05_Lem5_31_BlockLowerBoundImpliesTheGap.lean` | `S05_Lem5_31_spectralGapFromBlockScalars`, `S05_Lem5_31_spectralGapFromBlockTraceModel`, `S05_Lem5_31_spectralGapFromBlockModelWithDim` | Weighted-sum spectral-gap algebra. |
-| proven | 5.32 | lemma | Regular Young-block decomposition | `S05_Lem5_32_RegularYoungBlockDecomposition.lean` | `spectralBlockModelInputWithDim_even_from_appA_inputs`, `spectralBlockModelInputWithDim_odd_from_appA_inputs`, `spectralBlockModelInputWithDim_even_from_appendixA`, `spectralBlockModelInputWithDim_odd_from_appendixA` | Internal assembly theorem from the external Appendix A.1/A.2/A.3/A.4 ingredients into the `SpectralBlockModelInputWithDim` interface. |
-| proven | 5.33 | lemma | Even spectral bridge | `S05_Lem5_33_EvenSpectralBridge.lean` | `S05_Lem5_33_tableauDim_evenSpectralGapFromCertificates` | Algebraic bridge proved from explicit `SpectralBlockModelInputWithDim` hypothesis; Lemma 5.32 supplies `spectralBlockModelInputWithDim_even_from_appendixA` for the paper application. |
-| proven | 5.34 | lemma | Odd spectral bridge | `S05_Lem5_34_OddSpectralBridge.lean` | `S05_Lem5_34_tableauDim_oddSpectralGapFromCertificates` | Algebraic bridge proved from explicit `SpectralBlockModelInputWithDim` hypothesis; Lemma 5.32 supplies `spectralBlockModelInputWithDim_odd_from_appendixA` for the paper application. |
-| proven | 5.35 | lemma | Counting one more matching edge | `S05_Lem5_35_CountingOneMoreMatchingEdge.lean` | `S05_Lem5_35_counting_one_more_matching_edge`, `L5_3_CountingOneMoreMatchingEdge` | Finite counting lemma. |
-| proven | 5.36 | lemma | Weight-zero entries are never a majority | `S05_Lem5_36_WeightZeroEntriesAreNeverAMajority.lean` | `S05_Lem5_36_tableau_weightZeroEntries_never_majority` | Tableau-count z-bound certificate. |
-| proven | 5.37 | lemma | Where the induction can fail | `S05_Lem5_37_WhereTheInductionCanFail.lean` | `S05_Lem5_37_where_the_induction_can_fail` | Exceptional-shape localization. |
-| proven | 5.38 | lemma | Even certificate | `S05_Lem5_38_EvenCertificate.lean` | `S05_Lem5_38_tableau_even_certificate` | Tableau-count even certificate; the reusable height definition is in `S05_Def_TableauEvenHeight.lean`. |
-| proven | 5.39 | lemma | Odd exceptional children | `S05_Lem5_39_OddExceptionalChildren.lean` | `S05_Lem5_39_odd_exceptional_children` | Odd exceptional child analysis. |
-| proven | 5.40 | lemma | Odd certificate | `S05_Lem5_40_OddCertificate.lean` | `S05_Lem5_40_tableau_odd_certificate` | Tableau-count odd certificate; the reusable height definition is in `S05_Def_TableauOddHeight.lean`. |
+| definition/interface | 5.8 | definition | Young block | `S05_Def5_08_YoungBlock.lean` | `S05_YoungBlock` | Young-block index vocabulary. |
+| definition/interface | 5.9 | definition | Young-block energy profile | `S05_Def5_09_YoungBlockDecompositionInput.lean` | `S05_Def5_09_YoungBlockDecompositionInput` | Nonnegative numerical block-energy profile interface. |
+| definition/interface | 5.10 | definition | U1-compatible Young-block profile | `S05_Def5_10_U1YoungBlockIdentificationInput.lean` | `S05_Def5_10_U1YoungBlockIdentificationInput` | Numerical interface identifying the one-row and standard blocks with `U_1`. |
+| definition/interface | 5.11 | definition | Two-box removals | `S05_Def5_11_TwoBoxRemovals.lean` | `S05_IsHorizontalTwoBoxRemoval`, `S05_IsVerticalTwoBoxRemoval` | Horizontal and vertical two-box removal predicates. |
+| definition/interface | 5.12 | definition | Signed two-box removals | `S05_Def5_12_SignedTwoBoxRemovals.lean` | `S05_PositiveSignedTwoBoxRemoval`, `S05_NegativeSignedTwoBoxRemoval` | Signed removal predicates. |
+| definition/interface | 5.13 | definition | One-box removals | `S05_Def5_13_OneBoxRemovals.lean` | `S05_IsOneBoxRemoval`, `S05_oneBoxChildrenOdd` | One-box removal vocabulary. |
+| proven | 5.14 | lemma | Two-box tableau branching | `S05_Lem5_14_TwoBoxTableauBranching.lean` | `S05_Lem5_14_iterated_deletion_tableauContentSequence`, `S05_Lem5_14_twoStepDeletionTableauxEquivChildTableaux` | Fixed two-step tableau deletion equivalence. |
+| definition/interface | 5.15 | definition | One-box deletion spaces | `S05_Def5_15_OneBoxDeletionSpaces.lean` | `S05_Def5_15_OneBoxDeletionTableaux`, `S05_Def5_15_existsUnique_tableauMaxAt` | Deletion-fiber coordinate space vocabulary. |
+| proven | 5.16 | lemma | One-box corner decomposition | `S05_Lem5_16_OneBoxCornerDecomposition.lean` | `S05_Lem5_16_row_form`, `S05_Lem5_16_removable_corner`, `S05_Lem5_16_tableau_unique_removable_corner` | Row form and removable-corner facts. |
+| proven | 5.17 | lemma | One-box deletion is unitary | `S05_Lem5_17_OneBoxDeletionIsUnitary.lean` | `S05_Lem5_17_oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow`, `S05_Lem5_17_deletionCoordinateMap_inner` | Coordinate inner-product preservation. |
+| proven | 5.18 | lemma | One-box deletion intertwines earlier swaps | `S05_Lem5_18_OneBoxDeletionIntertwinesEarlierSwaps.lean` | `S05_Lem5_18_deletionCoordinateMap_youngAdjacentOperator_intertwines`, `S05_Lem5_18_deletionCoordinateMap_diagonalContent_intertwines` | Coordinate-level intertwining for deletion fibers. |
+| definition/interface | 5.19 | definition | Even sign-pattern multiset | `S05_Def5_19_EvenSignPatternMultiset.lean` | `S05_evenZeroSignPatternCount`, `S05_evenHighSignPatternCount` | Even sign-pattern counters. |
+| definition/interface | 5.20 | definition | Odd sign-pattern multiset | `S05_Def5_20_OddSignPatternMultiset.lean` | `S05_oddHighSignPatternCount` | Odd sign-pattern counter. |
+| proven | 5.21 | lemma | Two-box dimension recursion | `S05_Lem5_21_TwoBoxDimensionRecursion.lean` | `S05_Lem5_21_tableauDim_twoStrip_branching_sized` | Tableau-count two-strip branching. |
+| proven | 5.22 | lemma | One-box dimension recursion | `S05_Lem5_22_OneBoxDimensionRecursion.lean` | `S05_Lem5_22_tableauDim_oneBoxChildrenOdd_branching` | Tableau-count one-box branching. |
+| proven | 5.23 | lemma | Sizes of the sign-pattern multisets | `S05_Lem5_23_SizesOfTheSignPatternMultisets.lean` | `S05_Lem5_23_tableauDim_twoStrip_size`, `S05_Lem5_23_tableauDim_oneBox_size` | Tableau-count size recurrences. |
+| definition/interface | 5.24 | definition | Matching characters | `S05_Def5_24_MatchingCharacters.lean` | `S05_matchingCharacter`, `S05_matchingCharacter_cubeXor` | Matching-cube character vocabulary. |
+| definition/interface | 5.25 | definition | Even matching eigenvector predicate | `S05_Def5_25_IsMatchingEigenvectorEven.lean` | `S05_IsMatchingEigenvectorEven` | Simultaneous even matching-edge eigenvector predicate. |
+| definition/interface | 5.26 | definition | Odd matching eigenvector predicate | `S05_Def5_26_IsMatchingEigenvectorOdd.lean` | `S05_IsMatchingEigenvectorOdd` | Simultaneous odd matching-edge eigenvector predicate. |
+| definition/interface | 5.27 | definition | Even matching-restriction scalar input | `S05_Def5_27_MatchingRestrictionEvenInput.lean` | `MatchingRestrictionEvenInput` | Even scalar input extracted from matching restriction. |
+| definition/interface | 5.28 | definition | Odd matching-restriction scalar input | `S05_Def5_28_MatchingRestrictionOddInput.lean` | `MatchingRestrictionOddInput` | Odd scalar input extracted from matching restriction. |
+| proven | 5.29 | lemma | Matching subgroup eigenbasis | `S05_Lem5_29_MatchingSubgroupEigenbasis.lean` | `S05_Lem5_29_matchingSignProjectionEven_isMatchingEigenvector`, `S05_Lem5_29_matchingSignProjectionOdd_isMatchingEigenvector` | Concrete matching-operator and sign-projection wrappers are proved; Specht/Pieri restriction content is bundled into the spectral-block model boundary. |
+| proven | 5.30 | lemma | Local truncation on a matching character | `S05_Lem5_30_LocalTruncationOnAMatchingCharacter.lean` | `S05_Lem5_30_matchingLocalProjection_preserves_low_matchingCharacter`, `S05_Lem5_30_matchingLocalProjection_kills_high_matchingCharacter` | Matching-cube Fourier calculation. |
+| definition/interface | 5.31 | definition | Even local-truncation trace input | `S05_Def5_31_TraceLocalTruncationEvenInput.lean` | `TraceLocalTruncationEvenInput` | Scalar trace formula interface for one even Young block. |
+| definition/interface | 5.32 | definition | Odd local-truncation trace input | `S05_Def5_32_TraceLocalTruncationOddInput.lean` | `TraceLocalTruncationOddInput` | Scalar trace formula interface for one odd Young block. |
+| external: block trace model input | 5.33 | lemma | Trace of one local truncation on one Young block | `S05_Lem5_33_TraceOfOneLocalTruncationOnOneYoungBlock.lean` | `traceLocalTruncation_even_from_restriction`, `traceLocalTruncation_odd_from_restriction` | Trace formula wrappers from explicit scalar inputs. |
+| proven | 5.34 | definition | Matching idempotents | `S05_Def5_34_MatchingIdempotents.lean` | `S05_matchingLowIdempotent`, `S05_matchingHighIdempotent`, `S05_matchingLow_add_matchingHigh` | Low/high idempotent vocabulary plus complementary idempotence proofs. |
+| proven | 5.35 | lemma | Local truncation as convolution | `S05_Lem5_35_LocalTruncationAsConvolution.lean` | `S05_Lem5_35_local_truncation_as_convolution` | Local projection as low convolution and residual as high convolution. |
+| external: Young-block centrality input | 5.36 | lemma | Central averaged rejection | `S05_Lem5_36_CentralAveragedRejection.lean` | `S05_Lem5_36_matchingMeanProjectionError_eq_average`, `S05_Lem5_36_matchingMeanProjectionError_eq_high_idempotent_average` | Finite-average and high-idempotent norm identities are proved; centrality on Young blocks is part of the spectral-block model boundary. |
+| definition/interface | 5.37 | definition | Young-basis scalar commutant input | `S05_Def5_37_YoungBasisScalarCommutantInput.lean` | `S05_Def5_37_YoungBasisScalarCommutantInput` | Scalarity interface consumed by the spectral bridge. |
+| external: scalar commutant input | 5.38 | lemma | Young-basis scalar commutant | `S05_Lem5_38_YoungBasisScalarCommutant.lean` | `S05_Lem5_38_matchingAverageScalarity_eq_sum` | Projection from the explicit scalarity input to the weighted-sum identity. |
+| external: trace/scalar model input | 5.39 | lemma | Block scalar of the averaged rejection | `S05_Lem5_39_BlockScalarOfTheAveragedRejection.lean` | `S05_Lem5_39_scalar_eq_trace_div_dimension`, `S05_Lem5_39_even_scalar_eq_hEven_div_dim` | Trace-divided-by-dimension algebra from explicit scalarity and trace identities. |
+| proven | 5.40 | lemma | Block lower bound implies the gap | `S05_Lem5_40_BlockLowerBoundImpliesTheGap.lean` | `S05_Lem5_40_spectralGapFromBlockScalars`, `S05_Lem5_40_spectralGapFromBlockModelWithDim` | Weighted-sum spectral-gap algebra. |
+| proven | 5.41 | lemma | Regular Young-block decomposition | `S05_Lem5_41_RegularYoungBlockDecomposition.lean` | `spectralBlockModelInputWithDim_even_from_appendixA`, `spectralBlockModelInputWithDim_odd_from_appendixA` | Assembly from Appendix A inputs into the `SpectralBlockModelInputWithDim` interface. |
+| proven | 5.42 | lemma | Even spectral bridge | `S05_Lem5_42_EvenSpectralBridge.lean` | `S05_Lem5_42_tableauDim_evenSpectralGapFromCertificates` | Algebraic bridge from explicit `SpectralBlockModelInputWithDim` hypothesis and finite certificate. |
+| proven | 5.43 | lemma | Odd spectral bridge | `S05_Lem5_43_OddSpectralBridge.lean` | `S05_Lem5_43_tableauDim_oddSpectralGapFromCertificates` | Algebraic bridge from explicit `SpectralBlockModelInputWithDim` hypothesis and finite certificate. |
+| proven | 5.44 | lemma | Counting one more matching edge | `S05_Lem5_44_CountingOneMoreMatchingEdge.lean` | `S05_Lem5_44_counting_one_more_matching_edge` | Finite counting lemma. |
+| proven | 5.45 | lemma | Weight-zero entries are never a majority | `S05_Lem5_45_WeightZeroEntriesAreNeverAMajority.lean` | `S05_Lem5_45_tableau_weightZeroEntries_never_majority` | Tableau-count z-bound certificate. |
+| proven | 5.46 | lemma | Where the induction can fail | `S05_Lem5_46_WhereTheInductionCanFail.lean` | `S05_Lem5_46_where_the_induction_can_fail` | Exceptional-shape localization. |
+| proven | 5.47 | lemma | Even certificate | `S05_Lem5_47_EvenCertificate.lean` | `S05_Lem5_47_tableau_even_certificate` | Tableau-count even certificate; reusable height definition is in `S05_Def_TableauEvenHeight.lean`. |
+| proven | 5.48 | lemma | Odd exceptional children | `S05_Lem5_48_OddExceptionalChildren.lean` | `S05_Lem5_48_odd_exceptional_children` | Odd exceptional child analysis. |
+| proven | 5.49 | lemma | Odd certificate | `S05_Lem5_49_OddCertificate.lean` | `S05_Lem5_49_tableau_odd_certificate` | Tableau-count odd certificate; reusable height definition is in `S05_Def_TableauOddHeight.lean`. |
 
 Notes:
 
-- `proven` means the Lean file proves the stated coordinate/combinatorial
-  wrapper without new external assumptions.
+- `proven` means the Lean file proves the stated coordinate/combinatorial wrapper without new external assumptions.
 - `definition/interface` means the file introduces vocabulary used later.
 - `external: ...` rows name the representation-theoretic input being used.
-- `unproven` rows name the precise missing internal or representation-layer
-  component.
-- Neutral height definitions used by both Appendix A.2 and the finite
-  certificate proofs are split into `S05_Def_TableauEvenHeight.lean` and
-  `S05_Def_TableauOddHeight.lean`; they are not separate numbered paper
-  theorem statements.
-
-Reader-facing auxiliary nodes that are important enough to show in the
-dependency graph but not numbered separately in the paper include:
-
-- `Aux_StandardYoungTableaux.lean`: standard tableaux, max-entry deletion,
-  insertion, and one-box deletion/child equivalences.
-- `Aux_YoungMatchingOperators.lean`: canonical matching-edge operators,
-  plus/minus projections, and simultaneous matching-sign projections.
+- Neutral height definitions used by both Appendix A.2 and the finite certificate proofs are split into `S05_Def_TableauEvenHeight.lean` and `S05_Def_TableauOddHeight.lean`; they are not separate numbered paper theorem statements.

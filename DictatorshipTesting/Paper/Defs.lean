@@ -91,9 +91,9 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S02_Thm2_02_FKNStability`
 - `DictatorshipTesting.Paper.S04_Thm4_10_MatchingGap`
 - `DictatorshipTesting.Paper.Aux_Def_YoungDiagramsAndBoxes`
-- `DictatorshipTesting.Paper.S05_Def5_17_EvenSignPatternMultiset`
-- `DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters`
-- `DictatorshipTesting.Paper.S05_Lem5_35_CountingOneMoreMatchingEdge`
+- `DictatorshipTesting.Paper.S05_Def5_19_EvenSignPatternMultiset`
+- `DictatorshipTesting.Paper.S05_Def5_24_MatchingCharacters`
+- `DictatorshipTesting.Paper.S05_Lem5_44_CountingOneMoreMatchingEdge`
 -/
 
 /-!

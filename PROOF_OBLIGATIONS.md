@@ -19,7 +19,7 @@ Current classification:
   `AppA_ThmA_01_youngOrthogonalRealization`,
   `AppA_ThmA_02_jucysMurphyContentSpectrum`,
   `AppA_LemA_03_degreeOneYoungBlockIdentification`, and
-  `AppA_LemA_04_standardTableauxSwapConnectedness`.  Lemma 5.32 has no
+  `AppA_LemA_04_standardTableauxSwapConnectedness`.  Lemma 5.41 has no
   standalone axiom; it is a proved assembly theorem from these Appendix A
   ingredients.
 - Appendix A bridge boundary: the remaining representation-theoretic obligation
@@ -47,10 +47,10 @@ Early-section statement counts:
 | 1 | 1 | Main theorem wrapper is proved from Lemma 4.13 and its documented inputs. |
 | 2 | 4 | Theorem 2.1 and Theorem 2.2 are external Filmus inputs; Lemma 2.3 and Definition 2.4 are internal. |
 | 3 | 2 | Both matching-cube completeness lemmas are internal. |
-| 4 | 13 | The local Fourier and soundness reductions are internal. Theorem 4.10 is proved through the Section 5 tableau-count bridge and uses Lemma 5.32, which assembles the Appendix A inputs into the spectral model. |
+| 4 | 13 | The local Fourier and soundness reductions are internal. Theorem 4.10 is proved through the Section 5 tableau-count bridge and uses Lemma 5.41, which assembles the Appendix A inputs into the spectral model. |
 
 Theorem 4.10 status: the active theorem is proved through the tableau-count
-Section 5 bridge, using the Lemma 5.32 spectral model theorem wrappers
+Section 5 bridge, using the Lemma 5.41 spectral model theorem wrappers
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.  It no longer carries the
 older `youngDim` dimension-branching typeclass hypotheses.
@@ -64,9 +64,9 @@ Thm1_1_MainIntro
   -> Thm2_2_FKNInput
   -> Prop4_12_SquareEnergyControlsGlobalDegree
   -> Thm4_10_MatchingGap
-  -> S05_Lem5_33_tableauDim_evenSpectralGapFromCertificates
-     / S05_Lem5_34_tableauDim_oddSpectralGapFromCertificates
-  -> S05_Lem5_32_RegularYoungBlockDecomposition
+  -> S05_Lem5_42_tableauDim_evenSpectralGapFromCertificates
+     / S05_Lem5_43_tableauDim_oddSpectralGapFromCertificates
+  -> S05_Lem5_41_RegularYoungBlockDecomposition
      (`spectralBlockModelInputWithDim_even_from_appendixA`
       / `spectralBlockModelInputWithDim_odd_from_appendixA`)
 ```
@@ -87,16 +87,16 @@ Proven current Section 5 components:
 - Lemma 5.7 diagonal content eigenspaces:
   `S05_Lem5_07_tableauContentSequence_injective` and
   `S05_Lem5_07_diagonalContentEigenspaces`.
-- Lemma 5.36 tableauDim z-bound certificate:
-  `S05_Lem5_36_tableau_weightZeroEntries_never_majority`.
-- Lemma 5.38 tableauDim even certificate:
-  `S05_Lem5_38_tableau_even_certificate`.
-- Lemma 5.40 tableauDim odd certificate:
-  `S05_Lem5_40_tableau_odd_certificate`.
-- Lemma 5.19 tableauDim two-strip dimension recursion:
-  `S05_Lem5_19_tableauDim_twoStrip_branching_sized`.
-- Lemma 5.20 tableauDim one-box dimension recursion:
-  `S05_Lem5_20_tableauDim_oneBoxChildrenOdd_branching`.
+- Lemma 5.45 tableauDim z-bound certificate:
+  `S05_Lem5_45_tableau_weightZeroEntries_never_majority`.
+- Lemma 5.47 tableauDim even certificate:
+  `S05_Lem5_47_tableau_even_certificate`.
+- Lemma 5.49 tableauDim odd certificate:
+  `S05_Lem5_49_tableau_odd_certificate`.
+- Lemma 5.21 tableauDim two-strip dimension recursion:
+  `S05_Lem5_21_tableauDim_twoStrip_branching_sized`.
+- Lemma 5.22 tableauDim one-box dimension recursion:
+  `S05_Lem5_22_tableauDim_oneBoxChildrenOdd_branching`.
 - Dimension-parameterized spectral bridge algebra:
   `SpectralGapFromBlockScalarsWithDim` and
   `SpectralGapFromBlockModelWithDim`.
@@ -114,23 +114,23 @@ External Appendix A inputs:
 
 Internal Section 5 assembly:
 
-- Lemma 5.32 regular Young-block decomposition:
+- Lemma 5.41 regular Young-block decomposition:
   `spectralBlockModelInputWithDim_even_from_appA_inputs` and
   `spectralBlockModelInputWithDim_odd_from_appA_inputs` are proved from the
   A.1/A.2/A.3/A.4 external ingredients.
 
 Remaining Section 5/AppA bridge boundary:
 
-- Lemmas 5.33 and 5.34 prove the tableau-count algebraic bridge from an
+- Lemmas 5.42 and 5.43 prove the tableau-count algebraic bridge from an
   explicit `SpectralBlockModelInputWithDim` hypothesis for the `tableauDim`
   model with `hEvenTableau` and `hOddTableau` heights.
-- Lemma 5.32 supplies the `SpectralBlockModelInputWithDim` / spectral-block
+- Lemma 5.41 supplies the `SpectralBlockModelInputWithDim` / spectral-block
   model input for the paper application from Appendix A ingredients.
 - Appendix A representation theory supplies the intended bridge: regular
   Specht-block decomposition, `U_1` identification, matching-average scalarity,
   trace/scalar value, and the matching-restriction data needed to instantiate
   the spectral-block model.
-- The concrete Lemma 5.23 matching-cube operator/character/projection algebra
+- The concrete Lemma 5.29 matching-cube operator/character/projection algebra
   is proved; the representation-theoretic Specht/Pieri content it shadows is
   accounted for inside the spectral-block model boundary rather than as a
   separate Lean axiom.
@@ -209,9 +209,9 @@ Current tableau-count finite-certificate status:
 
 | Certificate layer | Tableau-count status | Active theorem path status |
 | --- | --- | --- |
-| Lemma 5.36, z-bound | Proved as `S05_Lem5_36_tableau_weightZeroEntries_never_majority` and `zEven_le_tableauDim` | Consumed by the dimension-parameterized bridge once a tableauDim spectral model is supplied |
-| Lemma 5.38, even certificate | Proved as `S05_Lem5_38_tableau_even_certificate` using `hEvenTableau` and all four exceptional families | Connected by `S05_Lem5_33_tableauDim_evenSpectralGapFromCertificates` |
-| Lemma 5.40, odd certificate | Proved as `S05_Lem5_40_tableau_odd_certificate` using `hOddTableau` and the tableau one-box branching theorem | Connected by `S05_Lem5_34_tableauDim_oddSpectralGapFromCertificates` |
+| Lemma 5.36, z-bound | Proved as `S05_Lem5_45_tableau_weightZeroEntries_never_majority` and `zEven_le_tableauDim` | Consumed by the dimension-parameterized bridge once a tableauDim spectral model is supplied |
+| Lemma 5.38, even certificate | Proved as `S05_Lem5_47_tableau_even_certificate` using `hEvenTableau` and all four exceptional families | Connected by `S05_Lem5_42_tableauDim_evenSpectralGapFromCertificates` |
+| Lemma 5.40, odd certificate | Proved as `S05_Lem5_49_tableau_odd_certificate` using `hOddTableau` and the tableau one-box branching theorem | Connected by `S05_Lem5_43_tableauDim_oddSpectralGapFromCertificates` |
 
 The bridge algebra is no longer hard-coded to `youngDim`: the file
 `Aux_SpectralBridgeDimensionParam.lean` defines
@@ -246,11 +246,11 @@ The most important numbering corrections after the Lemma 5.6 rewrite are:
 - Lemma 5.6 is the explicit tableau Coxeter model, represented by
   `S05_Lem5_06_AdjacentTranspositionsInYoungsBasis.lean`.
 - The two-box and one-box dimension recursions are Lemmas 5.19 and 5.20,
-  represented by `S05_Lem5_19_TwoBoxDimensionRecursion.lean` and
-  `S05_Lem5_20_OneBoxDimensionRecursion.lean`.
+  represented by `S05_Lem5_21_TwoBoxDimensionRecursion.lean` and
+  `S05_Lem5_22_OneBoxDimensionRecursion.lean`.
 - The spectral bridge is split across Lemmas 5.31--5.34, with the remaining
   representation-layer input exposed by the named Appendix A ingredient
-  axioms and the Lemma 5.32 assembly theorem.
+  axioms and the Lemma 5.41 assembly theorem.
 
 ## External Axiom Declarations
 
@@ -311,9 +311,9 @@ Downstream dependencies: `L4_13_OneTrialSoundness` consumes
 
 Current paper statement: Lemma 5.19 (`lem:dimension-two-strip-recurrence`) is
 represented by the proved `tableauDim` wrapper
-`S05_Lem5_19_tableauDim_twoStrip_branching_sized`.
+`S05_Lem5_21_tableauDim_twoStrip_branching_sized`.
 
-Lean file: `DictatorshipTesting/Paper/S05_Lem5_19_TwoBoxDimensionRecursion.lean`
+Lean file: `DictatorshipTesting/Paper/S05_Lem5_21_TwoBoxDimensionRecursion.lean`
 
 Older alternative Lean names: `TwoStripDimensionBranchingAssumption`,
 `youngDim_twoStrip_branching_input`.
@@ -346,9 +346,9 @@ Downstream dependencies: only older `youngDim` alternatives such as
 
 Current paper statement: Lemma 5.20 (`lem:dimension-one-box-recurrence`) is
 represented by the proved `tableauDim` wrapper
-`S05_Lem5_20_tableauDim_oneBoxChildrenOdd_branching`.
+`S05_Lem5_22_tableauDim_oneBoxChildrenOdd_branching`.
 
-Lean file: `DictatorshipTesting/Paper/S05_Lem5_20_OneBoxDimensionRecursion.lean`
+Lean file: `DictatorshipTesting/Paper/S05_Lem5_22_OneBoxDimensionRecursion.lean`
 
 Older alternative Lean names:
 `OneBoxDimensionBranchingPositiveAssumption`,
@@ -375,17 +375,17 @@ Downstream dependencies: only older `youngDim` alternatives such as
 `[OneBoxDimensionBranchingPositiveAssumption]`.  The promoted Lemmas 5.20 and
 5.40 use `tableauDim` and do not need it.
 
-### Lemmas 5.31--5.34 Spectral Block Model Families
+### Lemmas 5.40--5.43 Spectral Block Model Families
 
-Paper statements: Lemma 5.31 block lower bound, Lemma 5.32 regular Young-block
-decomposition assembly, Lemma 5.33 even spectral bridge, and Lemma 5.34 odd
+Paper statements: Lemma 5.40 block lower bound, Lemma 5.41 regular Young-block
+decomposition assembly, Lemma 5.42 even spectral bridge, and Lemma 5.34 odd
 spectral bridge, together with the Young-block decomposition,
 matching-average scalarity, and trace/scalar value inputs they use.
 
-Lean files: `DictatorshipTesting/Paper/S05_Lem5_31_BlockLowerBoundImpliesTheGap.lean`,
-`DictatorshipTesting/Paper/S05_Lem5_32_RegularYoungBlockDecomposition.lean`,
-`DictatorshipTesting/Paper/S05_Lem5_33_EvenSpectralBridge.lean`,
-`DictatorshipTesting/Paper/S05_Lem5_34_OddSpectralBridge.lean`,
+Lean files: `DictatorshipTesting/Paper/S05_Lem5_40_BlockLowerBoundImpliesTheGap.lean`,
+`DictatorshipTesting/Paper/S05_Lem5_41_RegularYoungBlockDecomposition.lean`,
+`DictatorshipTesting/Paper/S05_Lem5_42_EvenSpectralBridge.lean`,
+`DictatorshipTesting/Paper/S05_Lem5_43_OddSpectralBridge.lean`,
 `DictatorshipTesting/Paper/Aux_SpectralBridgeFromCertificates.lean`,
 and `DictatorshipTesting/Paper/Aux_SpectralBridgeDimensionParam.lean`.
 
@@ -431,11 +431,11 @@ Downstream dependencies: `Thm4_10_MatchingGap`,
 `Thm1_1_MainIntro`, which use the named dimension-parameterized Appendix A
 spectral block model theorem wrappers through the tableauDim bridge.
 
-### Lemma 5.23 Full Matching-Restriction/Pieri Statement
+### Lemma 5.29 Full Matching-Restriction/Pieri Statement
 
-Paper statement: Lemma 5.23 (`lem:matching-restriction-X`).
+Paper statement: Lemma 5.29 (`lem:matching-restriction-X`).
 
-Lean file: `DictatorshipTesting/Paper/S05_Lem5_23_MatchingSubgroupEigenbasis.lean`
+Lean file: `DictatorshipTesting/Paper/S05_Lem5_29_MatchingSubgroupEigenbasis.lean`
 
 Lean theorem names:
 `matchingRestriction_even_specht_pieri_input`,
@@ -461,9 +461,9 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
 
 ## Proven Internal Components
 
-- `S05_Lem5_24_LocalTruncationOnAMatchingCharacter.lean`: matching-cube
+- `S05_Lem5_30_LocalTruncationOnAMatchingCharacter.lean`: matching-cube
   character projection.
-- `S05_Lem5_31_BlockLowerBoundImpliesTheGap.lean`:
+- `S05_Lem5_40_BlockLowerBoundImpliesTheGap.lean`:
   `blockScalar_lower_bound_of_traceScalarFormula`,
   `traceScalarValue_of_blockTraceIdentity`,
   `SpectralGapFromBlockScalars`,
@@ -471,8 +471,8 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   `EvenSpectralGapFromCertificates`,
   `OddSpectralGapFromCertificates`,
   and `SpectralGapFromBlockModelWithDim` are proved algebraic implications.
-- `S05_Lem5_33_EvenSpectralBridge.lean` and
-  `S05_Lem5_34_OddSpectralBridge.lean`: tableau-count spectral bridges proved
+- `S05_Lem5_42_EvenSpectralBridge.lean` and
+  `S05_Lem5_43_OddSpectralBridge.lean`: tableau-count spectral bridges proved
   from explicit `SpectralBlockModelInputWithDim` hypotheses; Appendix A
   supplies those hypotheses for the paper application.
 - `Aux_SpectralBridgeRepresentationInputs.lean`: compact interface definitions
@@ -490,58 +490,58 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   coordinate, and the one-dimensional common eigenspaces of the explicit
   diagonal content operators.  The group-algebra Jucys--Murphy identification
   is the separate Appendix A.2 external input.
-- `S05_Lem5_12_TwoBoxTableauBranching.lean`: fixed two-step deletion tableau
-  branching through `S05_Lem5_12_twoStepDeletionTableauxEquivChildTableaux`,
+- `S05_Lem5_14_TwoBoxTableauBranching.lean`: fixed two-step deletion tableau
+  branching through `S05_Lem5_14_twoStepDeletionTableauxEquivChildTableaux`,
   plus iterated deletion preservation of content, row, and column coordinates.
   This is a concrete tableau statement, not a Specht-module branching theorem.
-- `S05_Lem5_15_OneBoxDeletionIsUnitary.lean`: set-level one-box
+- `S05_Lem5_17_OneBoxDeletionIsUnitary.lean`: set-level one-box
   deletion/insertion equivalence and coordinate inner-product preservation
-  through `S05_Lem5_15_deletionCoordinateMap_inner`.
-- `S05_Lem5_16_OneBoxDeletionIntertwinesEarlierSwaps.lean`: basis-level
+  through `S05_Lem5_17_deletionCoordinateMap_inner`.
+- `S05_Lem5_18_OneBoxDeletionIntertwinesEarlierSwaps.lean`: basis-level
   content preservation under maximum-entry deletion, earlier-adjacent
   matrix-coefficient preservation under one-box insertion through
-  `S05_Lem5_16_insertMax_youngAdjacentMatrixCoeff`, coordinate-level
+  `S05_Lem5_18_insertMax_youngAdjacentMatrixCoeff`, coordinate-level
   Young-adjacent deletion-fiber intertwining through
-  `S05_Lem5_16_deletionCoordinateMap_youngAdjacentOperator_intertwines`, and
+  `S05_Lem5_18_deletionCoordinateMap_youngAdjacentOperator_intertwines`, and
   coordinate-level diagonal-content intertwining through
-  `S05_Lem5_16_deletionCoordinateMap_diagonalContent_intertwines`.
-- `S05_Lem5_21_SizesOfTheSignPatternMultisets.lean`: scalar sign-pattern count
+  `S05_Lem5_18_deletionCoordinateMap_diagonalContent_intertwines`.
+- `S05_Lem5_23_SizesOfTheSignPatternMultisets.lean`: scalar sign-pattern count
   recurrences and assumption-free `tableauDim` two-strip/one-box size wrappers
-  through `S05_Lem5_21_tableauDim_twoStrip_size` and
-  `S05_Lem5_21_tableauDim_oneBox_size`.  The older `youngDim` wrappers assume
+  through `S05_Lem5_23_tableauDim_twoStrip_size` and
+  `S05_Lem5_23_tableauDim_oneBox_size`.  The older `youngDim` wrappers assume
   the named dimension-branching inputs.
-- `S05_Lem5_23_MatchingSubgroupEigenbasis.lean`: concrete canonical
+- `S05_Lem5_29_MatchingSubgroupEigenbasis.lean`: concrete canonical
   matching-cube operator algebra, including fixed ordered-product wrappers and
   edge-sign product-to-character wrappers, plus preservation of other edge
   eigenvalues by one-edge projections through
-  `S05_Lem5_23_matchingEdgePlusProjectionEven_preserves_otherEigen` and its
+  `S05_Lem5_29_matchingEdgePlusProjectionEven_preserves_otherEigen` and its
   even/odd plus/minus companions.  It also includes support-selected one-edge
   projection wrappers such as
-  `S05_Lem5_23_matchingEdgeSignProjectionEven_isMatchingEigen`, and iterated
+  `S05_Lem5_29_matchingEdgeSignProjectionEven_isMatchingEigen`, and iterated
   support-selected simultaneous eigenspace wrappers such as
-  `S05_Lem5_23_matchingSignProjectionEven_isMatchingEigenvector`.  The full
+  `S05_Lem5_29_matchingSignProjectionEven_isMatchingEigenvector`.  The full
   Specht-module restriction theorem remains a representation-layer input.
-- `S05_Def5_26_MatchingIdempotents.lean`: low/high matching idempotent
+- `S05_Def5_34_MatchingIdempotents.lean`: low/high matching idempotent
   vocabulary, including `S05_matchingLowIdempotent_idempotent` and
   `S05_matchingHighIdempotent_idempotent`, plus the complementary projection
   identities `S05_matchingLowIdempotent_high_eq_zero`,
   `S05_matchingHighIdempotent_low_eq_zero`, and
   `S05_matchingLow_add_matchingHigh`.
-- `S05_Lem5_28_CentralAveragedRejection.lean`: finite-average local rejection
+- `S05_Lem5_36_CentralAveragedRejection.lean`: finite-average local rejection
   identities, including the high-idempotent norm formula
-  `S05_Lem5_28_matchingMeanProjectionError_eq_high_idempotent_average`.  The
+  `S05_Lem5_36_matchingMeanProjectionError_eq_high_idempotent_average`.  The
   operator centrality refinement remains a representation-layer target.
-- `S05_Lem5_31_BlockLowerBoundImpliesTheGap.lean`: weighted-sum spectral-gap
+- `S05_Lem5_40_BlockLowerBoundImpliesTheGap.lean`: weighted-sum spectral-gap
   algebra, including trace-model-to-gap wrappers
-  `S05_Lem5_31_spectralGapFromBlockTraceModel` and
-  `S05_Lem5_31_spectralGapFromBlockTraceModelWithDim`.
-- `S05_Lem5_36_WeightZeroEntriesAreNeverAMajority.lean`: finite `zEven`
+  `S05_Lem5_40_spectralGapFromBlockTraceModel` and
+  `S05_Lem5_40_spectralGapFromBlockTraceModelWithDim`.
+- `S05_Lem5_45_WeightZeroEntriesAreNeverAMajority.lean`: finite `zEven`
   certificate, with current tableau-count theorem
-  `S05_Lem5_36_tableau_weightZeroEntries_never_majority`.  The older
+  `S05_Lem5_45_tableau_weightZeroEntries_never_majority`.  The older
   `youngDim` variant remains for the external Specht-dimension route.
-- `S05_Lem5_38_EvenCertificate.lean`: finite even certificate, with both the
-  current tableau-count theorem `S05_Lem5_38_tableau_even_certificate` and an
+- `S05_Lem5_47_EvenCertificate.lean`: finite even certificate, with both the
+  current tableau-count theorem `S05_Lem5_47_tableau_even_certificate` and an
   older `hEven`/`youngDim` variant for the external Specht-dimension route.
-- `S05_Lem5_40_OddCertificate.lean`: finite odd certificate, with both the
-  current tableau-count theorem `S05_Lem5_40_tableau_odd_certificate` and an
+- `S05_Lem5_49_OddCertificate.lean`: finite odd certificate, with both the
+  current tableau-count theorem `S05_Lem5_49_tableau_odd_certificate` and an
   older `hOdd`/`youngDim` variant for the external Specht-dimension route.

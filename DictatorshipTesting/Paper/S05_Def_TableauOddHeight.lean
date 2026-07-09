@@ -3,8 +3,8 @@ import DictatorshipTesting.Paper.S05_Def_TableauEvenHeight
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
-- `DictatorshipTesting.Paper.S05_Lem5_32_RegularYoungBlockDecomposition`
-- `DictatorshipTesting.Paper.S05_Lem5_40_OddCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_41_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_49_OddCertificate`
 -/
 
 /-!
