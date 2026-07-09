@@ -142,6 +142,75 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
+      "id": "S03_01",
+      "label": "Lem 3.1",
+      "title": "Completeness on matching cubes",
+      "section": "Section 3",
+      "kind": "paper",
+      "importance": "normal",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/S03_Lem3_01_DictatorToJunta.lean",
+      "wrappers": [
+        "L3_1_DictatorToJunta",
+        "L3_1_ImageDictatorToJunta"
+      ],
+      "deps": [],
+      "summary": "Dictators restrict to one-juntas on every matching cube.",
+      "statement": "Lemma 3.1 proves completeness on matching cubes.",
+      "terms": [],
+      "paperLabel": "lem:dictator-to-junta",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "If $f:S_n\\to\\{0,1\\}$ is a dictator, then for every ordered matching $M$ and base permutation $\\pi$, the restricted cube function $x\\mapsto f(\\pi\\tau_x)$ is a one-junta.",
+      "leanLinks": [
+        {
+          "name": "L3_1_DictatorToJunta",
+          "line": 53
+        },
+        {
+          "name": "L3_1_ImageDictatorToJunta",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "id": "S03_02",
+      "label": "Lem 3.2",
+      "title": "Perfect completeness",
+      "section": "Section 3",
+      "kind": "paper",
+      "importance": "normal",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/S03_Lem3_02_PerfectCompleteness.lean",
+      "wrappers": [
+        "L3_2_PerfectCompleteness",
+        "cubeOneJunta_square_zero"
+      ],
+      "deps": [
+        "S03_01"
+      ],
+      "summary": "Dictators are accepted by one matching-cube square trial.",
+      "statement": "Lemma 3.2 proves perfect completeness.",
+      "terms": [
+        {
+          "text": "Completeness on matching cubes",
+          "target": "S03_01"
+        }
+      ],
+      "paperLabel": "lem:perfect-completeness",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "If $f:S_n\\to\\{0,1\\}$ is a dictator, then every execution of the matching-cube square test accepts $f$.",
+      "leanLinks": [
+        {
+          "name": "L3_2_PerfectCompleteness",
+          "line": 72
+        },
+        {
+          "name": "cubeOneJunta_square_zero",
+          "line": 21
+        }
+      ]
+    },
+    {
       "id": "L4_1",
       "label": "Lem 4.1",
       "title": "Cube square test",
@@ -170,7 +239,225 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "L4_1_CubeSquare",
-          "line": 21
+          "line": 509
+        }
+      ]
+    },
+    {
+      "id": "S04_04",
+      "label": "Lem 4.4",
+      "title": "P_M independent of representatives",
+      "section": "Section 4",
+      "kind": "paper",
+      "importance": "normal",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_04_PMIndependentOfRepresentatives.lean",
+      "wrappers": [
+        "L4_4_PMIndependentOfRepresentatives"
+      ],
+      "deps": [
+        "L2_3"
+      ],
+      "summary": "Representative-change invariance of the matching-local truncation.",
+      "statement": "Lemma 4.4 proves that the definition of P_M is independent of representatives.",
+      "terms": [
+        {
+          "text": "Cube Fourier facts",
+          "target": "L2_3"
+        }
+      ],
+      "paperLabel": "lem:PM-independent-of-representatives",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "The matching-local projection $P_M$ is independent of the choice of representatives for the matching cube cosets.",
+      "leanLinks": [
+        {
+          "name": "L4_4_PMIndependentOfRepresentatives",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "id": "S04_05",
+      "label": "Lem 4.5",
+      "title": "P_M fixes local degree one",
+      "section": "Section 4",
+      "kind": "paper",
+      "importance": "normal",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_05_PMFixesLocal.lean",
+      "wrappers": [
+        "L4_5_PMFixesLocal"
+      ],
+      "deps": [
+        "S04_04"
+      ],
+      "summary": "The matching-local projection fixes exactly the local degree-one functions.",
+      "statement": "Lemma 4.5 characterizes the fixed points of P_M.",
+      "terms": [
+        {
+          "text": "P_M independent of representatives",
+          "target": "S04_04"
+        }
+      ],
+      "paperLabel": "lem:PM-fixes-local",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For every matching $M$, $P_MF$ is locally degree one on every matching cube, and if $H$ is locally degree one on every matching cube, then $P_MH=H$.",
+      "leanLinks": [
+        {
+          "name": "L4_5_PMFixesLocal",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "id": "S04_06",
+      "label": "Lem 4.6",
+      "title": "Local high-degree error formula",
+      "section": "Section 4",
+      "kind": "paper",
+      "importance": "normal",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_06_LocalHighDegreeErrorFormula.lean",
+      "wrappers": [
+        "L4_6_LocalHighDegreeErrorFormula"
+      ],
+      "deps": [
+        "S04_04",
+        "L2_3"
+      ],
+      "summary": "Identifies local projection error with average high-degree cube energy.",
+      "statement": "Lemma 4.6 proves the local high-degree error formula.",
+      "terms": [
+        {
+          "text": "P_M independent of representatives",
+          "target": "S04_04"
+        },
+        {
+          "text": "Cube Fourier facts",
+          "target": "L2_3"
+        }
+      ],
+      "paperLabel": "lem:PM-error-formula",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For every $F:S_n\\to\\mathbb R$ and matching $M$, the squared error $\\|F-P_MF\\|_2^2$ equals the average high-degree Fourier energy of the restrictions of $F$ to the matching cubes of $M$.",
+      "leanLinks": [
+        {
+          "name": "L4_6_LocalHighDegreeErrorFormula",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "id": "S04_07",
+      "label": "Lem 4.7",
+      "title": "P_M perpendicular",
+      "section": "Section 4",
+      "kind": "paper",
+      "importance": "normal",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_07_PMPerpendicular.lean",
+      "wrappers": [
+        "L4_7_PMPerpendicular"
+      ],
+      "deps": [
+        "S04_05",
+        "L2_3"
+      ],
+      "summary": "The local high-degree residual is orthogonal to the local degree-one space.",
+      "statement": "Lemma 4.7 proves perpendicularity of the P_M residual to local degree one.",
+      "terms": [
+        {
+          "text": "P_M fixes local degree one",
+          "target": "S04_05"
+        },
+        {
+          "text": "Cube Fourier facts",
+          "target": "L2_3"
+        }
+      ],
+      "paperLabel": "lem:PM-perpendicular",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For every matching $M$, the residual $F-P_MF$ is orthogonal to every matching-local degree-one function.",
+      "leanLinks": [
+        {
+          "name": "L4_7_PMPerpendicular",
+          "line": 111
+        }
+      ]
+    },
+    {
+      "id": "S04_08",
+      "label": "Lem 4.8",
+      "title": "Basic indicators have local degree at most one",
+      "section": "Section 4",
+      "kind": "paper",
+      "importance": "normal",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_08_TijLocalDegree.lean",
+      "wrappers": [
+        "L4_8_TijLocalDegree"
+      ],
+      "deps": [
+        "S03_01",
+        "L2_3"
+      ],
+      "summary": "Each one-coset indicator restricts to local degree at most one.",
+      "statement": "Lemma 4.8 proves that a basic indicator has local degree at most one.",
+      "terms": [
+        {
+          "text": "Completeness on matching cubes",
+          "target": "S03_01"
+        },
+        {
+          "text": "Cube Fourier facts",
+          "target": "L2_3"
+        }
+      ],
+      "paperLabel": "lem:tij-local-degree",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For every matching $M$ and every pair $i,j$, the basic indicator $1_{\\pi(i)=j}$ has matching-local degree at most one on the matching cubes of $M$.",
+      "leanLinks": [
+        {
+          "name": "L4_8_TijLocalDegree",
+          "line": 100
+        }
+      ]
+    },
+    {
+      "id": "S04_09",
+      "label": "Cor 4.9",
+      "title": "U_1 is local",
+      "section": "Section 4",
+      "kind": "paper",
+      "importance": "normal",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/S04_Cor4_09_U1Local.lean",
+      "wrappers": [
+        "Cor4_9_U1Local"
+      ],
+      "deps": [
+        "S04_05",
+        "S04_08"
+      ],
+      "summary": "U_1 is contained in every matching-local degree-one space.",
+      "statement": "Corollary 4.9 proves that U_1 is local for every matching.",
+      "terms": [
+        {
+          "text": "P_M fixes local degree one",
+          "target": "S04_05"
+        },
+        {
+          "text": "Basic indicators have local degree at most one",
+          "target": "S04_08"
+        }
+      ],
+      "paperLabel": "cor:U1-local",
+      "paperEnv": "corollary",
+      "paperStatementLatex": "For every matching $M$, every $F\\in U_1$ is matching-local degree one and satisfies $P_MF=F$.",
+      "leanLinks": [
+        {
+          "name": "Cor4_9_U1Local",
+          "line": 53
         }
       ]
     },
@@ -203,7 +490,7 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "L4_11_TrialCubeCoordinates",
-          "line": 18
+          "line": 19
         }
       ]
     },
@@ -241,7 +528,7 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "L4_13_OneTrialSoundness",
-          "line": 21
+          "line": 155
         }
       ]
     },
@@ -258,12 +545,22 @@ window.DICT_DEPENDENCY_DATA = {
         "Prop4_12_SquareEnergyControlsGlobalDegree"
       ],
       "deps": [
+        "L4_1",
+        "S04_06",
         "L4_11",
         "Thm4_10"
       ],
       "summary": "Uses the matching spectral gap to control distance from U1.",
       "statement": "Prop 4.12: Uses the matching spectral gap to control distance from U1.",
       "terms": [
+        {
+          "text": "Cube square test",
+          "target": "L4_1"
+        },
+        {
+          "text": "Local high-degree error formula",
+          "target": "S04_06"
+        },
         {
           "text": "Trial cube coordinates",
           "target": "L4_11"
@@ -280,7 +577,7 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "Prop4_12_SquareEnergyControlsGlobalDegree",
-          "line": 20
+          "line": 156
         }
       ]
     },
