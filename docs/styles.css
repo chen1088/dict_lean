@@ -369,8 +369,36 @@ main {
   margin: 0 0 10px;
 }
 
+.paper-statement {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.statement-kicker {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.statement-kicker code {
+  text-transform: none;
+}
+
 .statement {
   color: var(--ink);
+}
+
+.latex-statement {
+  max-height: 260px;
+  overflow: auto;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  font-size: 0.92rem;
+  white-space: pre-wrap;
 }
 
 .term-link,
@@ -451,6 +479,20 @@ code {
   font-weight: 800;
 }
 
+.decl-link {
+  display: inline-flex;
+  gap: 4px;
+  align-items: baseline;
+  margin: 2px 5px 2px 0;
+  text-decoration: none;
+}
+
+.decl-link span {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
 .muted {
   color: var(--muted);
 }
@@ -482,14 +524,16 @@ code {
   inset: 0;
   z-index: 30;
   display: grid;
-  place-items: center;
+  place-items: start center;
   padding: 20px;
+  pointer-events: none;
 }
 
 .overlay-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(16, 24, 36, 0.42);
+  background: transparent;
+  pointer-events: auto;
 }
 
 .term-overlay {
@@ -498,11 +542,13 @@ code {
   width: min(680px, 100%);
   max-height: min(760px, 86vh);
   overflow: auto;
+  margin-top: 7vh;
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--paper);
   box-shadow: var(--shadow);
+  pointer-events: auto;
 }
 
 .overlay-close {

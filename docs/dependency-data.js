@@ -16,7 +16,16 @@ window.DICT_DEPENDENCY_DATA = {
       "deps": [],
       "summary": "External marker for Young orthogonal realization.",
       "statement": "App A.1: External marker for Young orthogonal realization.",
-      "terms": []
+      "terms": [],
+      "paperLabel": "thm:app-young-orthogonal",
+      "paperEnv": "theorem",
+      "paperStatementLatex": "Let $\\lambda\\vdash N$.  Let $V_\\lambda$ be the complex vector space with basis\n$\\{e_T:T\\in\\SYT(\\lambda)\\}$.  For each adjacent transposition $s_i=(i,i+1)$,\ndefine $S_i^\\lambda$ on this basis by Young's orthogonal local rule: if $i$ and\n$i+1$ are in the same row of $T$, then $S_i^\\lambda e_T=e_T$; if they are in the\nsame column, then $S_i^\\lambda e_T=-e_T$; otherwise $s_iT$ is standard and\n$S_i^\\lambda$ acts on $\\spanop\\{e_T,e_{s_iT}\\}$ by the usual $2\\times2$\nseminormal block determined by the axial distance.  Then the operators\n$S_i^\\lambda$ give the Young orthogonal, or seminormal, realization of the\nSpecht representation $S^\\lambda$ of $S_N$.",
+      "leanLinks": [
+        {
+          "name": "AppA_ThmA_01_youngOrthogonalRealization",
+          "line": 41
+        }
+      ]
     },
     {
       "id": "AppA_02",
@@ -33,7 +42,16 @@ window.DICT_DEPENDENCY_DATA = {
       "deps": [],
       "summary": "External marker for the Jucys-Murphy content spectrum.",
       "statement": "App A.2: External marker for the Jucys-Murphy content spectrum.",
-      "terms": []
+      "terms": [],
+      "paperLabel": "thm:app-jucys-murphy-content",
+      "paperEnv": "theorem",
+      "paperStatementLatex": "Let\n\\begin{equation*}\n  J_k=\\sum_{i<k}(i,k)\\in\\mathbb C[S_N].\n\\end{equation*}\nIn the Young orthogonal basis of $S^\\lambda$, the operator $\\rho^\\lambda(J_k)$\nis diagonal and satisfies\n\\begin{equation*}\n  \\rho^\\lambda(J_k)e_T=c_T(k)e_T,\n\\end{equation*}\nwhere $c_T(k)=\\col_T(k)-\\row_T(k)$ is the content of the box containing $k$ in\n$T$.",
+      "leanLinks": [
+        {
+          "name": "AppA_ThmA_02_jucysMurphyContentSpectrum",
+          "line": 59
+        }
+      ]
     },
     {
       "id": "AppA_03",
@@ -54,6 +72,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Young block",
           "target": "S05_D06"
+        }
+      ],
+      "paperLabel": "lem:app-u1-young-blocks",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "After complexifying, the degree-one space is\n\\begin{equation*}\n  U_1\\otimes_{\\mathbb R}\\mathbb C\n  =\\mathcal H_{(n)}\\oplus\\mathcal H_{(n-1,1)}.\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "AppA_LemA_03_degreeOneYoungBlockIdentification",
+          "line": 31
         }
       ]
     },
@@ -76,6 +103,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "standard tableaux",
           "target": "S05_D03"
+        }
+      ],
+      "paperLabel": "lem:app-tableau-swap-connected",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For a fixed Young diagram $\\lambda$, the graph on $\\SYT(\\lambda)$ in which\n$T$ is adjacent to $s_iT$ whenever $s_iT$ is again standard is connected.",
+      "leanLinks": [
+        {
+          "name": "AppA_LemA_04_standardTableauxSwapConnectedness",
+          "line": 36
         }
       ]
     },
@@ -113,6 +149,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "block lower bound",
           "target": "S05_L17"
+        }
+      ],
+      "leanLinks": [
+        {
+          "name": "SpectralGapFromBlockModelWithDim",
+          "line": 95
         }
       ]
     },
@@ -152,6 +194,16 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "removable corners",
           "target": "S05_D02"
         }
+      ],
+      "leanLinks": [
+        {
+          "name": "deleteMax",
+          "line": 333
+        },
+        {
+          "name": "insertMax",
+          "line": 811
+        }
       ]
     },
     {
@@ -183,6 +235,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "tableauDim",
           "target": "S05_D04"
+        }
+      ],
+      "leanLinks": [
+        {
+          "name": "tableauDim",
+          "line": 50
         }
       ]
     },
@@ -216,6 +274,16 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "matching eigenvectors",
           "target": "S05_D16"
+        }
+      ],
+      "leanLinks": [
+        {
+          "name": "canonicalMatchingYoungOperatorEven",
+          "line": 85
+        },
+        {
+          "name": "matchingSignProjectionEven",
+          "line": 969
         }
       ]
     },
@@ -258,6 +326,12 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Young adjacent operators",
           "target": "S05_D05"
         }
+      ],
+      "leanLinks": [
+        {
+          "name": "youngAdjacentOperator",
+          "line": 1701
+        }
       ]
     },
     {
@@ -275,7 +349,16 @@ window.DICT_DEPENDENCY_DATA = {
       "deps": [],
       "summary": "Cube-character orthonormality, Fourier expansion, and Parseval wrappers.",
       "statement": "Lem 2.3: Cube-character orthonormality, Fourier expansion, and Parseval wrappers.",
-      "terms": []
+      "terms": [],
+      "paperLabel": "lem:cube-parseval",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For $S,T\\subseteq[m]$,\n\\begin{equation}\\label{eq:cube-character-orthonormality}\n  \\E_x\\chi_S(x)\\chi_T(x)\n  =\n  \\begin{cases}\n    1, & S=T,\\\\\n    0, & S\\ne T.\n  \\end{cases}\n\\end{equation}\nConsequently, every $g:\\{0,1\\}^m\\to\\mathbb R$ has the expansion\n\\begin{equation}\\label{eq:cube-fourier-expansion}\n  g(x)=\\sum_{S\\subseteq[m]}\\widehat g(S)\\chi_S(x),\n\\end{equation}\nand Parseval's identity holds:\n\\begin{equation}\\label{eq:cube-parseval-identity}\n  \\E_x[g(x)^2]=\\sum_{S\\subseteq[m]}\\widehat g(S)^2.\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "L2_3_CubeParseval",
+          "line": 25
+        }
+      ]
     },
     {
       "id": "L4_1",
@@ -298,6 +381,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Cube Fourier facts",
           "target": "L2_3"
+        }
+      ],
+      "paperLabel": "lem:cube-square",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Choose $u,v\\in\\{0,1\\}^m$ by the following coordinate-by-coordinate rule: independently for each $r\\in[m]$, the pair $(u_r,v_r)$ is uniformly distributed over $(0,0),(1,0),(0,1)$. Then, for\nevery $g:\\{0,1\\}^m\\to\\mathbb R$,\n\\[\n  \\E_{x,u,v}\\bigl[\\Delta_{u,v}g(x)^2\\bigr]\n  \\ge \\frac{32}{9}\\norm{g-P_{\\le1}g}^2.\n\\]",
+      "leanLinks": [
+        {
+          "name": "L4_1_CubeSquare",
+          "line": 21
         }
       ]
     },
@@ -322,6 +414,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Cube square test",
           "target": "L4_1"
+        }
+      ],
+      "paperLabel": "lem:trial-cube-coordinates",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "One execution of \\cref{alg:matching-trial} can be described equivalently as\nfollows.  First sample $M$ uniformly.  Then sample a coset $C\\in\\cC_M$ uniformly,\na cube point $x\\in\\{0,1\\}^m$ uniformly, and directions $u,v\\in\\{0,1\\}^m$ by the\ncoordinate-by-coordinate rule of \\Cref{lem:cube-square}.  If\n\\begin{equation*}\n  g_{C,M}(y)=f(\\rho_C\\tau_y),\n  \\qquad y\\in\\{0,1\\}^m,\n\\end{equation*}\nthen the four queried values are\n\\begin{equation}\\label{eq:trial-four-cube-values}\n  g_{C,M}(x),\\qquad g_{C,M}(x+u),\\qquad\n  g_{C,M}(x+v),\\qquad g_{C,M}(x+u+v),\n\\end{equation}\nand the algorithm rejects exactly when\n\\begin{equation}\\label{eq:trial-rejects-iff-delta-nonzero}\n  \\Delta_{u,v}g_{C,M}(x)\\neq0.\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "L4_11_TrialCubeCoordinates",
+          "line": 18
         }
       ]
     },
@@ -351,6 +452,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Square energy controls global degree",
           "target": "Prop4_12"
+        }
+      ],
+      "paperLabel": "lem:one-trial-soundness",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "There is an absolute constant $c_0>0$ such that one execution of\n\\cref{alg:matching-trial} rejects every Boolean $f:S_n\\to\\{0,1\\}$ with\nprobability at least\n\\begin{equation}\\label{eq:one-trial-soundness-bound}\n  c_0\\,\\dist(f,\\D)^2.\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "L4_13_OneTrialSoundness",
+          "line": 21
         }
       ]
     },
@@ -385,6 +495,12 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "U1",
           "target": "S05_D08"
         }
+      ],
+      "leanLinks": [
+        {
+          "name": "Prop4_12_SquareEnergyControlsGlobalDegree",
+          "line": 20
+        }
       ]
     },
     {
@@ -404,7 +520,24 @@ window.DICT_DEPENDENCY_DATA = {
       "deps": [],
       "summary": "Young diagrams, row lengths, boxes, and cells.",
       "statement": "Definition 5.1 introduces Young diagrams, row lengths, Young cells, and the finite set of boxes used throughout the tableau proof.",
-      "terms": []
+      "terms": [],
+      "paperLabel": "def:young-diagrams-boxes",
+      "paperEnv": "definition",
+      "paperStatementLatex": "Let $\\lambda=(\\lambda_1,\\ldots,\\lambda_\\ell)\\vdash N$.  We identify\n$\\lambda$ with its Young diagram\n\\begin{equation*}\n  [\\lambda]:=\\{(r,c):1\\le r\\le \\ell,\\ 1\\le c\\le \\lambda_r\\},\n\\end{equation*}\nwhere rows and columns are numbered from $1$.  A \\emph{box} of $\\lambda$ is an\nordered pair $u=(r,c)\\in[\\lambda]$; write $\\row(u)=r$ and $\\col(u)=c$.",
+      "leanLinks": [
+        {
+          "name": "S05_Def5_01_YoungDiagram",
+          "line": 22
+        },
+        {
+          "name": "S05_Def5_01_youngRow",
+          "line": 25
+        },
+        {
+          "name": "S05_Def5_01_youngCells",
+          "line": 29
+        }
+      ]
     },
     {
       "id": "S05_D02",
@@ -434,6 +567,27 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "one-box removals",
           "target": "S05_D11"
+        }
+      ],
+      "paperLabel": "def:removable-corners",
+      "paperEnv": "definition",
+      "paperStatementLatex": "A box $u$ of a Young diagram $\\lambda$ is a \\emph{removable corner} if\n$[\\lambda]\\setminus\\{u\\}$ is again the Young diagram of a partition.  In\ncoordinates this means $u=(r,\\lambda_r)$ and $\\lambda_r>\\lambda_{r+1}$, with\nthe convention $\\lambda_{\\ell+1}=0$.  We write $\\Rem(\\lambda)$ for the set of\nremovable corners.  If $[\\mu]\\subseteq[\\lambda]$, then $\\lambda\\setminus\\mu$\ndenotes the set of boxes $[\\lambda]\\setminus[\\mu]$.  If $u\\in\\Rem(\\lambda)$,\nthen $\\lambda\\setminus\\{u\\}$ denotes the partition whose Young diagram is\n$[\\lambda]\\setminus\\{u\\}$.",
+      "leanLinks": [
+        {
+          "name": "S05_Def5_02_IsYoungSubdiagram",
+          "line": 22
+        },
+        {
+          "name": "S05_Def5_02_IsOneBoxChild",
+          "line": 27
+        },
+        {
+          "name": "S05_Def5_02_oneBoxChildren",
+          "line": 32
+        },
+        {
+          "name": "S05_Def5_02_IsRemovableRow",
+          "line": 36
         }
       ]
     },
@@ -465,6 +619,23 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Standard-tableau deletion API",
           "target": "AuxStandardYoungTableaux"
+        }
+      ],
+      "paperLabel": "def:standard-tableaux",
+      "paperEnv": "definition",
+      "paperStatementLatex": "A \\emph{standard Young tableau} of shape $\\lambda$ is a bijection\n$T:[\\lambda]\\to[N]$ such that entries strictly increase along rows and columns:\n\\begin{equation*}\n  T(r,c)<T(r,c+1),\\qquad T(r,c)<T(r+1,c)\n\\end{equation*}\nwhenever the displayed boxes lie in $[\\lambda]$.  Let $\\SYT(\\lambda)$ denote the\nset of standard Young tableaux of shape $\\lambda$.  If $T(u)=a$, we say that\n$a$ occupies the box $u$ and write $u_T(a)=u$.",
+      "leanLinks": [
+        {
+          "name": "S05_Def5_03_StandardYoungTableau",
+          "line": 22
+        },
+        {
+          "name": "S05_Def5_03_cellOfEntry",
+          "line": 26
+        },
+        {
+          "name": "S05_Def5_03_TableauMaxAt",
+          "line": 31
         }
       ]
     },
@@ -506,6 +677,23 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "standard tableaux",
           "target": "S05_D03"
         }
+      ],
+      "paperLabel": "def:tableau-coordinate-space",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For $\\lambda\\vdash N$, set\n\\begin{equation*}\n  d_\\lambda:=|\\SYT(\\lambda)|.\n\\end{equation*}\nLet $V^\\lambda$ be the vector space with orthonormal basis\n$\\{e_T:T\\in\\SYT(\\lambda)\\}$.  We write\n\\begin{equation*}\n  s_k=(k,k+1),\\qquad 1\\le k<N.\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_Def5_04_tableauDim",
+          "line": 23
+        },
+        {
+          "name": "S05_Def5_04_TableauSpace",
+          "line": 27
+        },
+        {
+          "name": "S05_Def5_04_tableauBasisVec",
+          "line": 31
+        }
       ]
     },
     {
@@ -533,6 +721,27 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Tableau coordinate space",
           "target": "S05_D04"
         }
+      ],
+      "paperLabel": "def:content-adjacent-operators",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For a box $u$, set $c(u)=\\col(u)-\\row(u)$.  If $T\\in\\SYT(\\lambda)$ and\n$a\\in[N]$, set $c_T(a):=c(u_T(a))$.\n\nFor each adjacent index $k$, define a concrete operator\n$S_k^\\lambda\\in\\End(V^\\lambda)$ as follows.  If $k$ and $k+1$ lie in the same\nrow of $T$, set $S_k^\\lambda e_T=e_T$.  If they lie in the same column, set\n$S_k^\\lambda e_T=-e_T$.  Otherwise let $T'=s_kT$ be the tableau obtained by\nswapping the entries $k$ and $k+1$; in this case $T'$ is standard.  On the span\nof $e_T$ and $e_{T'}$, set\n\\begin{equation}\\label{eq:young-orthogonal-two-by-two}\n  S_k^\\lambda\\big|_{\\spanop\\{e_T,e_{T'}\\}}\n  =\n  \\begin{pmatrix}\n    a & b\\\\\n    b & -a\n  \\end{pmatrix},\n  \\qquad\n  a=\\frac{1}{c_T(k+1)-c_T(k)},\n  \\qquad\n  b=\\sqrt{1-a^2},\n\\end{equation}\nwith respect to the ordered basis $(e_T,e_{T'})$.  The formula is independent\nof the choice of representative of the unordered pair $\\{T,T'\\}$, since the\naxial distance changes sign after the swap.",
+      "leanLinks": [
+        {
+          "name": "S05_Def5_05_cellContent",
+          "line": 22
+        },
+        {
+          "name": "S05_Def5_05_entryContent",
+          "line": 27
+        },
+        {
+          "name": "S05_Def5_05_youngAdjacentOperator",
+          "line": 32
+        },
+        {
+          "name": "S05_Def5_05_diagonalContentOperator",
+          "line": 37
+        }
       ]
     },
     {
@@ -556,6 +765,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Young diagrams and boxes",
           "target": "S05_D01"
+        }
+      ],
+      "paperLabel": "def:young-block",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For $\\lambda\\vdash n$, define\n\\begin{equation}\\label{eq:regular-young-decomposition}\n  \\mathcal H_\\lambda\n  :=\\spanop\\{\\pi\\mapsto\\langle e_S,\\rho^\\lambda(\\pi)e_T\\rangle:\n      S,T\\in\\SYT(\\lambda)\\}\\subseteq L^2(S_n;\\mathbb C).\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_YoungBlock",
+          "line": 23
         }
       ]
     },
@@ -581,6 +799,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Young block",
           "target": "S05_D06"
         }
+      ],
+      "paperLabel": "def:young-block-energy-profile",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For a function $F:S_n\\to\\mathbb R$, a Young-block energy profile is a map\n$E$ from Young diagrams $\\lambda\\vdash n$ to nonnegative real numbers.  In the\nregular Young decomposition, the intended value is\n\\[\n  E(\\lambda)=\\|\\Pi_\\lambda F\\|_2^2,\n\\]\nwhere $\\Pi_\\lambda$ is orthogonal projection onto $\\mathcal H_\\lambda$.",
+      "leanLinks": [
+        {
+          "name": "S05_Def5_07_YoungBlockEnergyProfile",
+          "line": 24
+        }
       ]
     },
     {
@@ -604,6 +831,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Young-block energy profile",
           "target": "S05_D07"
+        }
+      ],
+      "paperLabel": "def:u1-compatible-young-block-profile",
+      "paperEnv": "definition",
+      "paperStatementLatex": "A Young-block energy profile $E$ for $F:S_n\\to\\mathbb R$ is\n$U_1$-compatible if\n\\begin{equation}\\label{eq:young-block-energy-u1-compatible}\n  \\norm{F-P_{U_1}F}^2\n  =\\sum_{\\lambda\\notin\\{(n),(n-1,1)\\}} E(\\lambda).\n\\end{equation}\nThese numerical interfaces record the nonnegativity and degree-one-block\nidentification consequences of the regular Young-block decomposition.",
+      "leanLinks": [
+        {
+          "name": "S05_Def5_08_U1CompatibleYoungBlockProfile",
+          "line": 23
         }
       ]
     },
@@ -629,6 +865,19 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Removable corners and one-box removals",
           "target": "S05_D02"
+        }
+      ],
+      "paperLabel": "def:two-box-removals",
+      "paperEnv": "definition",
+      "paperStatementLatex": "Let $\\lambda\\vdash N$ with $N\\ge2$.  Define\n\\begin{align*}\n  \\mathsf H_2(\\lambda)\n  &:=\\{\\mu\\vdash N-2:\\lambda\\setminus\\mu\n      \\text{ has two boxes and no two lie in the same column}\\},\\\\\n  \\mathsf V_2(\\lambda)\n  &:=\\{\\mu\\vdash N-2:\\lambda\\setminus\\mu\n      \\text{ has two boxes and no two lie in the same row}\\}.\n\\end{align*}\nA disconnected two-box removal belongs to both sets.",
+      "leanLinks": [
+        {
+          "name": "S05_IsHorizontalTwoBoxRemoval",
+          "line": 23
+        },
+        {
+          "name": "S05_IsVerticalTwoBoxRemoval",
+          "line": 28
         }
       ]
     },
@@ -659,6 +908,19 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "two-box removals",
           "target": "S05_D09"
         }
+      ],
+      "paperLabel": "def:signed-two-box-removals",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For $\\lambda\\vdash N$, set\n\\begin{equation*}\n  \\mathsf B_2(\\lambda)\n  :=\\{(\\mu,+):\\mu\\in\\mathsf H_2(\\lambda)\\}\n    \\cup\n    \\{(\\mu,-):\\mu\\in\\mathsf V_2(\\lambda)\\}.\n\\end{equation*}\nFor $\\sigma\\in\\{+,-\\}$, write\n\\begin{equation*}\n  \\varepsilon_+=1,\n  \\qquad\n  \\varepsilon_-=-1.\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_PositiveSignedTwoBoxRemoval",
+          "line": 25
+        },
+        {
+          "name": "S05_NegativeSignedTwoBoxRemoval",
+          "line": 30
+        }
       ]
     },
     {
@@ -687,6 +949,19 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "one-box children",
           "target": "S05_D02"
+        }
+      ],
+      "paperLabel": "def:one-box-removals",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For $\\mu\\vdash N-1$ and $\\lambda\\vdash N$, write $\\mu\\nearrow\\lambda$ if\n$[\\mu]=[\\lambda]\\setminus\\{u\\}$ for some $u\\in\\Rem(\\lambda)$.",
+      "leanLinks": [
+        {
+          "name": "S05_IsOneBoxRemoval",
+          "line": 21
+        },
+        {
+          "name": "S05_oneBoxChildrenOdd",
+          "line": 30
         }
       ]
     },
@@ -720,6 +995,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "one-box deletion",
           "target": "S05_L05"
         }
+      ],
+      "paperLabel": "def:one-box-deletion-spaces",
+      "paperEnv": "definition",
+      "paperStatementLatex": "Let $\\lambda\\vdash N$ and $u\\in\\Rem(\\lambda)$.  Put\n\\begin{equation*}\n  \\mu_u:=\\lambda\\setminus\\{u\\},\n  \\qquad\n  W_u:=\\spanop\\{e_T:T\\in\\SYT(\\lambda),\\ T(u)=N\\}\\subseteq V^\\lambda .\n\\end{equation*}\nDefine the deletion map $D_u:W_u\\rightarrow V^{\\mu_u}$ on basis vectors by\n\\begin{equation*}\n  D_u(e_T):=e_{T|_{[\\mu_u]}} .\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_Def5_12_OneBoxDeletionTableaux",
+          "line": 22
+        }
       ]
     },
     {
@@ -745,6 +1029,19 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Two-box removals",
           "target": "S05_D09"
         }
+      ],
+      "paperLabel": "def:even-sign-patterns",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For $\\lambda\\vdash2m$, define a multiset $\\mathsf X_m(\\lambda)$ of subsets of\n$[m]$ as follows.  For $m=1$,\n\\begin{equation*}\n  \\mathsf X_1((2))=\\{\\emptyset\\},\n  \\qquad\n  \\mathsf X_1((1,1))=\\{\\{1\\}\\}.\n\\end{equation*}\nFor $m\\ge2$,\n\\begin{equation}\\label{eq:X-recursion-even}\n\\begin{aligned}\n  \\mathsf X_m(\\lambda)\n  :=&\\biguplus_{\\mu\\in\\mathsf H_2(\\lambda)}\n      \\{R:R\\in\\mathsf X_{m-1}(\\mu)\\}  \\\\\n   &\\uplus\n     \\biguplus_{\\mu\\in\\mathsf V_2(\\lambda)}\n      \\{R\\cup\\{m\\}:R\\in\\mathsf X_{m-1}(\\mu)\\}.\n\\end{aligned}\n\\end{equation}\nHere $\\biguplus$ is multiset union.  Set\n\\begin{equation*}\n  z_m(\\lambda):=|\\{R\\in\\mathsf X_m(\\lambda):R=\\emptyset\\}|,\n  \\qquad\n  h_m(\\lambda):=|\\{R\\in\\mathsf X_m(\\lambda):|R|\\ge2\\}|.\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_evenZeroSignPatternCount",
+          "line": 24
+        },
+        {
+          "name": "S05_evenHighSignPatternCount",
+          "line": 29
+        }
       ]
     },
     {
@@ -768,6 +1065,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "One-box removals",
           "target": "S05_D11"
+        }
+      ],
+      "paperLabel": "def:odd-sign-patterns",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For $\\lambda\\vdash2m+1$, define\n\\begin{equation}\\label{eq:X-recursion-odd}\n  \\mathsf X_m^{\\mathrm{odd}}(\\lambda)\n  :=\\biguplus_{\\mu\\nearrow\\lambda}\\mathsf X_m(\\mu),\n\\end{equation}\nand set\n\\begin{equation*}\n  h_m^{\\mathrm{odd}}(\\lambda)\n  :=|\\{R\\in\\mathsf X_m^{\\mathrm{odd}}(\\lambda):|R|\\ge2\\}|.\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_oddHighSignPatternCount",
+          "line": 23
         }
       ]
     },
@@ -794,6 +1100,19 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Cube Fourier facts",
           "target": "L2_3"
         }
+      ],
+      "paperLabel": "def:matching-characters",
+      "paperEnv": "definition",
+      "paperStatementLatex": "Let $M=\\{\\tau_1,\\ldots,\\tau_m\\}$ be a matching, where $\\tau_r$ swaps the two\npoints in the $r$-th edge.  Define\n\\begin{equation*}\n  A_M:=\\{\\tau_x:x\\in\\{0,1\\}^m\\},\n  \\qquad\n  \\tau_x:=\\prod_{r:x_r=1}\\tau_r .\n\\end{equation*}\nThe product is order-independent because the transpositions in a matching are\ndisjoint and hence commute.  For $R\\subseteq[m]$, define\n\\begin{equation*}\n  \\chi_R(\\tau_x):=(-1)^{\\sum_{r\\in R}x_r}.\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_matchingCharacter",
+          "line": 35
+        },
+        {
+          "name": "S05_matchingCharacterWeight",
+          "line": 39
+        }
       ]
     },
     {
@@ -817,6 +1136,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Matching operators",
           "target": "AuxYoungMatchingOperators"
+        }
+      ],
+      "paperLabel": "def:even-matching-eigenvector",
+      "paperEnv": "definition",
+      "paperStatementLatex": "Let \\(M\\) be a perfect matching on \\([2m]\\).  A vector \\(v\\in V^\\lambda\\) is\nan even \\(M\\)-matching eigenvector with label \\(R\\subseteq[m]\\) if\n\\begin{equation}\\label{eq:matching-eigenbasis-definition}\n  \\rho^\\lambda(\\tau_x)v=\\chi_R(\\tau_x)v\n  \\qquad(x\\in\\{0,1\\}^m).\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_IsMatchingEigenvectorEven",
+          "line": 22
         }
       ]
     },
@@ -842,6 +1170,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Matching operators",
           "target": "AuxYoungMatchingOperators"
         }
+      ],
+      "paperLabel": "def:odd-matching-eigenvector",
+      "paperEnv": "definition",
+      "paperStatementLatex": "Let \\(M\\) be a near-perfect matching on \\([2m+1]\\) with \\(m\\) edges.  A vector\n\\(v\\in V^\\lambda\\) is an odd \\(M\\)-matching eigenvector with label\n\\(R\\subseteq[m]\\) if it satisfies \\eqref{eq:matching-eigenbasis-definition}\nfor every \\(\\tau_x\\in A_M\\).",
+      "leanLinks": [
+        {
+          "name": "S05_IsMatchingEigenvectorOdd",
+          "line": 22
+        }
       ]
     },
     {
@@ -865,6 +1202,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Even sign-pattern multiset",
           "target": "S05_D13"
+        }
+      ],
+      "paperLabel": "def:even-matching-restriction-input",
+      "paperEnv": "definition",
+      "paperStatementLatex": "Let \\(M\\) be a perfect matching on \\([2m]\\).  The even matching-restriction\ninput for \\(\\lambda\\vdash 2m\\) is the assertion that \\(V^\\lambda\\) has an\northonormal basis \\(v_1,\\ldots,v_{d_\\lambda}\\) and a listing\n\\(R_1,\\ldots,R_{d_\\lambda}\\) of \\(\\mathsf X_m(\\lambda)\\) such that each\n\\(v_a\\) is an even \\(M\\)-matching eigenvector with label \\(R_a\\).",
+      "leanLinks": [
+        {
+          "name": "MatchingRestrictionEvenInput",
+          "line": 24
         }
       ]
     },
@@ -894,6 +1240,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "matching-restriction scalar input",
           "target": "S05_D18"
         }
+      ],
+      "paperLabel": "def:odd-matching-restriction-input",
+      "paperEnv": "definition",
+      "paperStatementLatex": "Let \\(M\\) be a near-perfect matching on \\([2m+1]\\) with \\(m\\) edges.  The odd\nmatching-restriction input for \\(\\lambda\\vdash 2m+1\\) is the assertion that\n\\(V^\\lambda\\) has an orthonormal basis \\(v_1,\\ldots,v_{d_\\lambda}\\) and a\nlisting \\(R_1,\\ldots,R_{d_\\lambda}\\) of\n\\(\\mathsf X_m^{\\mathrm{odd}}(\\lambda)\\) such that each \\(v_a\\) is an odd\n\\(M\\)-matching eigenvector with label \\(R_a\\).",
+      "leanLinks": [
+        {
+          "name": "MatchingRestrictionOddInput",
+          "line": 24
+        }
       ]
     },
     {
@@ -917,6 +1272,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Even restriction scalar input",
           "target": "S05_D18"
+        }
+      ],
+      "paperLabel": "def:even-local-truncation-trace-input",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For \\(n=2m\\), the even local-truncation trace input is the blockwise scalar\nidentity\n\\begin{equation*}\n  \\operatorname{tr}\\bigl((I-P_M)|_{\\mathcal H_\\lambda}\\bigr)\n  =d_\\lambda h_m(\\lambda)\n  \\qquad(\\lambda\\vdash2m),\n\\end{equation*}\nfor a perfect matching \\(M\\) on \\([2m]\\).",
+      "leanLinks": [
+        {
+          "name": "TraceLocalTruncationEvenInput",
+          "line": 21
         }
       ]
     },
@@ -946,6 +1310,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "local-truncation trace input",
           "target": "S05_D20"
         }
+      ],
+      "paperLabel": "def:odd-local-truncation-trace-input",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For \\(n=2m+1\\), the odd local-truncation trace input is the blockwise scalar\nidentity\n\\begin{equation*}\n  \\operatorname{tr}\\bigl((I-P_M)|_{\\mathcal H_\\lambda}\\bigr)\n  =d_\\lambda h_m^{\\mathrm{odd}}(\\lambda)\n  \\qquad(\\lambda\\vdash2m+1),\n\\end{equation*}\nfor a near-perfect matching \\(M\\) on \\([2m+1]\\).",
+      "leanLinks": [
+        {
+          "name": "TraceLocalTruncationOddInput",
+          "line": 21
+        }
       ]
     },
     {
@@ -972,6 +1345,23 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Matching characters",
           "target": "S05_D15"
         }
+      ],
+      "paperLabel": "def:matching-idempotents",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For a matching $M$ with $m$ edges, define elements of $\\mathbb C[S_n]$ by\n\\begin{equation*}\n  e_R^M:=2^{-m}\\sum_{x\\in\\{0,1\\}^m}\\chi_R(\\tau_x)\\tau_x,\n  \\qquad\n  p_M:=\\sum_{|R|\\le1}e_R^M,\n  \\qquad\n  q_M:=1-p_M .\n\\end{equation*}\nIf $a\\in\\mathbb C[S_n]$, let $C_a$ denote right convolution by $a$.",
+      "leanLinks": [
+        {
+          "name": "S05_matchingLowIdempotent",
+          "line": 25
+        },
+        {
+          "name": "S05_matchingHighIdempotent",
+          "line": 30
+        },
+        {
+          "name": "S05_matchingLow_add_matchingHigh",
+          "line": 222
+        }
       ]
     },
     {
@@ -995,6 +1385,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Young block",
           "target": "S05_D06"
+        }
+      ],
+      "paperLabel": "def:young-basis-scalar-commutant-input",
+      "paperEnv": "definition",
+      "paperStatementLatex": "Let \\(E\\) be a Young-block energy profile for \\(F:S_n\\to\\mathbb R\\), and let\n\\(\\theta_\\lambda\\) be real scalars indexed by Young diagrams \\(\\lambda\\vdash n\\).\nThe Young-basis scalar commutant input for the averaged rejection\n\\(\\cA=\\E_M(I-P_M)\\) is the identity\n\\begin{equation*}\n  \\ip{F}{\\cA F}\n  =\n  \\sum_{\\lambda\\notin\\{(n),(n-1,1)\\}}\\theta_\\lambda E(\\lambda).\n\\end{equation*}\nIt records that \\(\\cA\\) acts by a scalar on each Young block.",
+      "leanLinks": [
+        {
+          "name": "S05_Def5_23_YoungBasisScalarCommutantInput",
+          "line": 23
         }
       ]
     },
@@ -1025,6 +1424,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Young adjacent operators",
           "target": "AuxYoungOrthogonal"
         }
+      ],
+      "paperLabel": "lem:young-adjacent-matrices",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "The operators $S_k^\\lambda$ have the displayed same-row, same-column, and\n$2\\times2$ Young-orthogonal local form.  Moreover they satisfy the type-$A$\nCoxeter relations\n\\begin{equation}\\label{eq:young-coxeter-relations}\n  (S_i^\\lambda)^2=I,\\qquad\n  S_i^\\lambda S_j^\\lambda=S_j^\\lambda S_i^\\lambda\\quad(|i-j|>1),\n  \\qquad\n  S_i^\\lambda S_{i+1}^\\lambda S_i^\\lambda\n  =S_{i+1}^\\lambda S_i^\\lambda S_{i+1}^\\lambda .\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel",
+          "line": 1279
+        }
       ]
     },
     {
@@ -1053,6 +1461,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Jucys-Murphy content spectrum",
           "target": "AppA_02"
+        }
+      ],
+      "paperLabel": "lem:jucys-murphy-eigenbasis",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For $1\\le k\\le N$, let $C_k^\\lambda\\in\\End(V^\\lambda)$ be the diagonal\ncontent operator\n\\begin{equation}\\label{eq:content-diagonal-operator}\n  C_k^\\lambda e_T=c_T(k)e_T\n  \\qquad (T\\in\\SYT(\\lambda)).\n\\end{equation}\nThen the common eigenspaces of $C_1^\\lambda,\\ldots,C_N^\\lambda$ are exactly\nthe lines $\\mathbb C e_T$, $T\\in\\SYT(\\lambda)$.",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_02_diagonalContentEigenspaces",
+          "line": 489
         }
       ]
     },
@@ -1083,6 +1500,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Standard-tableau deletion API",
           "target": "AuxStandardYoungTableaux"
         }
+      ],
+      "paperLabel": "lem:two-box-tableau-branching",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Let $\\lambda\\vdash N$ with $N\\ge2$.  For each\n$(\\mu,\\sigma)\\in\\mathsf B_2(\\lambda)$ there is a subspace\n$W_{\\mu,\\sigma}\\subseteq V^\\lambda$ and a unitary map\n\\begin{equation*}\n  D_{\\mu,\\sigma}:W_{\\mu,\\sigma}\\rightarrow V^\\mu .\n\\end{equation*}\nThe subspaces are mutually orthogonal and\n\\begin{equation}\\label{eq:two-box-orthogonal-sum}\n  V^\\lambda\n  =\\bigoplus_{(\\mu,\\sigma)\\in\\mathsf B_2(\\lambda)} W_{\\mu,\\sigma} .\n\\end{equation}\nFor every $w\\in W_{\\mu,\\sigma}$,\n\\begin{equation}\\label{eq:two-box-last-transposition}\n  S_{N-1}^\\lambda w=\\varepsilon_\\sigma w .\n\\end{equation}\nFor every $1\\le i\\le N-3$ and every $w\\in W_{\\mu,\\sigma}$,\n\\begin{equation}\\label{eq:two-box-intertwining}\n  D_{\\mu,\\sigma}\\bigl(S_i^\\lambda w\\bigr)\n  =S_i^\\mu D_{\\mu,\\sigma}(w).\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_03_twoStepDeletionTableauxEquivChildTableaux",
+          "line": 433
+        }
       ]
     },
     {
@@ -1111,6 +1537,19 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "one-box children",
           "target": "S05_D02"
+        }
+      ],
+      "paperLabel": "lem:one-box-corner-decomposition",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For every $\\lambda\\vdash N$,\n\\begin{equation}\\label{eq:one-box-corner-decomposition}\n  V^\\lambda=\\bigoplus_{u\\in\\Rem(\\lambda)} W_u .\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_04_row_form",
+          "line": 77
+        },
+        {
+          "name": "S05_Lem5_04_removable_corner",
+          "line": 105
         }
       ]
     },
@@ -1145,6 +1584,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "coordinate space",
           "target": "S05_D04"
         }
+      ],
+      "paperLabel": "lem:one-box-deletion-unitary",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Let $\\lambda\\vdash N$ and $u\\in\\Rem(\\lambda)$.  The map\n\\begin{equation*}\n  D_u:W_u\\rightarrow V^{\\mu_u}\n\\end{equation*}\nis unitary.",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_05_deletionCoordinateMap_inner",
+          "line": 353
+        }
       ]
     },
     {
@@ -1178,6 +1626,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "one-box deletion",
           "target": "S05_L05"
         }
+      ],
+      "paperLabel": "lem:one-box-deletion-intertwines",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Let $\\lambda\\vdash N$, let $u\\in\\Rem(\\lambda)$, and let $1\\le i\\le N-2$.\nFor every $w\\in W_u$,\n\\begin{equation}\\label{eq:one-box-intertwining}\n  D_u\\bigl(S_i^\\lambda w\\bigr)=S_i^{\\mu_u}D_u(w).\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_06_deletionCoordinateMap_youngAdjacentOperator_intertwines",
+          "line": 676
+        }
       ]
     },
     {
@@ -1210,6 +1667,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "two-box removals",
           "target": "S05_D09"
         }
+      ],
+      "paperLabel": "lem:dimension-two-strip-recurrence",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For every partition $\\lambda\\vdash 2m$ with $m\\ge2$,\n\\begin{equation}\\label{eq:dimension-two-strip-recurrence}\n  d_\\lambda\n  =\\sum_{\\mu\\in\\mathsf H_2(\\lambda)}d_\\mu\n   +\\sum_{\\mu\\in\\mathsf V_2(\\lambda)}d_\\mu .\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_07_tableauDim_twoStrip_branching_sized",
+          "line": 107
+        }
       ]
     },
     {
@@ -1241,6 +1707,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "one-box removals",
           "target": "S05_D11"
+        }
+      ],
+      "paperLabel": "lem:dimension-one-box-recurrence",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For every partition $\\lambda\\vdash N$ with $N\\ge2$,\n\\begin{equation}\\label{eq:dimension-one-box-recurrence}\n  d_\\lambda=\\sum_{\\mu\\nearrow\\lambda}d_\\mu .\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_08_tableauDim_oneBoxChildrenOdd_branching",
+          "line": 406
         }
       ]
     },
@@ -1281,6 +1756,19 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "One-box dimension recursion",
           "target": "S05_L08"
+        }
+      ],
+      "paperLabel": "lem:X-size",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For $\\lambda\\vdash2m$,\n\\begin{equation*}\n  |\\mathsf X_m(\\lambda)|=d_\\lambda .\n\\end{equation*}\nFor $\\lambda\\vdash2m+1$,\n\\begin{equation*}\n  |\\mathsf X_m^{\\mathrm{odd}}(\\lambda)|=d_\\lambda .\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_09_tableauDim_twoStrip_size",
+          "line": 89
+        },
+        {
+          "name": "S05_Lem5_09_tableauDim_oneBox_size",
+          "line": 109
         }
       ]
     },
@@ -1337,6 +1825,19 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Matching operators",
           "target": "AuxYoungMatchingOperators"
         }
+      ],
+      "paperLabel": "lem:matching-restriction-X",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Let \\(M\\) be a perfect matching on \\([2m]\\).  For every\n\\(\\lambda\\vdash2m\\), the even matching-restriction input holds for\n\\((M,\\lambda)\\).\n\nLet \\(M\\) be a near-perfect matching on \\([2m+1]\\) with \\(m\\) edges.  For\nevery \\(\\lambda\\vdash2m+1\\), the odd matching-restriction input holds for\n\\((M,\\lambda)\\).",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_10_matchingSignProjectionEven_isMatchingEigenvector",
+          "line": 362
+        },
+        {
+          "name": "S05_Lem5_10_matchingSignProjectionOdd_isMatchingEigenvector",
+          "line": 370
+        }
       ]
     },
     {
@@ -1361,6 +1862,19 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Matching characters",
           "target": "S05_D15"
+        }
+      ],
+      "paperLabel": "lem:PM-character-projection",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Fix a matching $M$ with $m$ edges.  On a right coset $C=\\rho_C A_M$, write\n\\begin{equation}\\label{eq:local-character-expansion-general}\n  F(\\rho_C\\tau_x)=\\sum_{R\\subseteq[m]} a_R(C)\\chi_R(\\tau_x).\n\\end{equation}\nThen\n\\begin{equation}\\label{eq:PM-keeps-small-characters}\n  (P_MF)(\\rho_C\\tau_x)=\\sum_{|R|\\le1}a_R(C)\\chi_R(\\tau_x).\n\\end{equation}\nIn particular, if $F(\\omega\\tau_x)=\\chi_T(\\tau_x)F(\\omega)$ for all $\\omega$ and\n$x$, then\n\\begin{equation*}\n  P_MF=\n  \\begin{cases}\n    F,& |T|\\le1,\\\\\n    0,& |T|\\ge2.\n  \\end{cases}\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_11_matchingLocalProjection_preserves_low_matchingCharacter",
+          "line": 121
+        },
+        {
+          "name": "S05_Lem5_11_matchingLocalProjection_kills_high_matchingCharacter",
+          "line": 133
         }
       ]
     },
@@ -1406,6 +1920,19 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Young block",
           "target": "S05_D06"
         }
+      ],
+      "paperLabel": "lem:PM-trace-young-block",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Let $M$ be a perfect matching on $[2m]$ and let $\\lambda\\vdash2m$.  Suppose\n$v_1,\\ldots,v_{d_\\lambda}$ is an orthonormal basis of $V^\\lambda$ and\n$R_1,\\ldots,R_{d_\\lambda}$ is a listing of $\\mathsf X_m(\\lambda)$ satisfying\n\\begin{equation*}\n  \\rho^\\lambda(\\tau_x)v_a=\\chi_{R_a}(\\tau_x)v_a\n  \\qquad(\\tau_x\\in A_M).\n\\end{equation*}\nThen\n\\begin{equation}\\label{eq:trace-one-PM-even}\n  \\operatorname{tr}\\bigl((I-P_M)|_{\\mathcal H_\\lambda}\\bigr)\n  =d_\\lambda h_m(\\lambda).\n\\end{equation}\nSimilarly, if $M$ is a near-perfect matching on $[2m+1]$, $\\lambda\\vdash2m+1$,\nand the corresponding basis is listed by\n$\\mathsf X_m^{\\mathrm{odd}}(\\lambda)$, then\n\\begin{equation}\\label{eq:trace-one-PM-odd}\n  \\operatorname{tr}\\bigl((I-P_M)|_{\\mathcal H_\\lambda}\\bigr)\n  =d_\\lambda h_m^{\\mathrm{odd}}(\\lambda).\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "traceLocalTruncation_even_from_restriction",
+          "line": 41
+        },
+        {
+          "name": "traceLocalTruncation_odd_from_restriction",
+          "line": 49
+        }
       ]
     },
     {
@@ -1434,6 +1961,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Matching idempotents",
           "target": "S05_D22"
+        }
+      ],
+      "paperLabel": "lem:PM-convolution",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For every matching $M$,\n\\begin{equation*}\n  P_M=C_{p_M},\n  \\qquad\n  I-P_M=C_{q_M}.\n\\end{equation*}\nMoreover $p_M$ and $q_M$ are complementary idempotents:\n\\begin{equation*}\n  p_M^2=p_M,\n  \\qquad q_M^2=q_M,\n  \\qquad p_Mq_M=q_Mp_M=0,\n  \\qquad p_M+q_M=1.\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_13_local_truncation_as_convolution",
+          "line": 25
         }
       ]
     },
@@ -1471,6 +2007,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "spectral model",
           "target": "S05_L18"
+        }
+      ],
+      "paperLabel": "lem:averaged-rejection-central",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Let $q:=\\E_M q_M$, with $M$ uniform over perfect matchings if $n$ is even and\nover near-perfect matchings if $n$ is odd.  Then $q$ is central in\n$\\mathbb C[S_n]$, and\n\\begin{equation*}\n  \\cA=C_q.\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_14_matchingMeanProjectionError_eq_high_idempotent_average",
+          "line": 60
         }
       ]
     },
@@ -1510,6 +2055,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "scalar commutant",
           "target": "S05_D23"
         }
+      ],
+      "paperLabel": "lem:young-basis-scalar-commutant",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Let $B\\in\\End(V^\\lambda)$.  Suppose that $B$ commutes with every diagonal\ncontent operator $C_k^\\lambda$ and with every adjacent tableau operator\n$S_i^\\lambda$.  Then\n\\begin{equation*}\n  B=\\frac{\\operatorname{tr}B}{d_\\lambda}I.\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_15_matchingAverageScalarity_eq_sum",
+          "line": 25
+        }
       ]
     },
     {
@@ -1539,6 +2093,19 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Young-basis scalar commutant",
           "target": "S05_L15"
+        }
+      ],
+      "paperLabel": "lem:centralization-matchings",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Let $\\cA=\\E_M(I-P_M)$.  On $\\mathcal H_\\lambda$, the operator $\\cA$ acts as the\nscalar\n\\begin{equation}\\label{eq:A-eigenvalue-even}\n  \\frac{h_m(\\lambda)}{d_\\lambda}\n  \\qquad(n=2m),\n\\end{equation}\nand as the scalar\n\\begin{equation}\\label{eq:A-eigenvalue-odd}\n  \\frac{h_m^{\\mathrm{odd}}(\\lambda)}{d_\\lambda}\n  \\qquad(n=2m+1).\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_16_scalar_eq_trace_div_dimension",
+          "line": 108
+        },
+        {
+          "name": "S05_Lem5_16_even_scalar_eq_hEven_div_dim",
+          "line": 115
         }
       ]
     },
@@ -1578,6 +2145,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Spectral bridge algebra",
           "target": "AuxSpectralBridge"
+        }
+      ],
+      "paperLabel": "lem:block-lower-bound-gap",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Assume that $\\cA$ acts on each $\\mathcal H_\\lambda$ by a scalar $\\theta_\\lambda$\nand that\n\\begin{equation*}\n  \\theta_\\lambda\\ge c\n  \\qquad\n  \\text{for all }\\lambda\\notin\\{(n),(n-1,1)\\}.\n\\end{equation*}\nThen\n\\begin{equation*}\n  \\ip{f}{\\cA f}\\ge c\\norm{f-P_{U_1}f}^2\n  \\qquad(f:S_n\\to\\mathbb R).\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_17_spectralGapFromBlockModelWithDim",
+          "line": 148
         }
       ]
     },
@@ -1629,6 +2205,19 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Standard tableaux connectedness",
           "target": "AppA_04"
         }
+      ],
+      "paperLabel": "lem:regular-young-block-decomposition",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Over $\\mathbb C$, the Specht modules $S^\\lambda$, $\\lambda\\vdash n$, form a\ncomplete set of irreducible representations of $S_n$.  For each $\\lambda$, let\n$d_\\lambda=\\dim S^\\lambda$ and define the matrix-coefficient space\n\\begin{equation*}\n  \\mathcal H_\\lambda\n  =\\spanop\\{\\pi\\mapsto\\langle e_S,\\rho^\\lambda(\\pi)e_T\\rangle:\n      S,T\\in\\SYT(\\lambda)\\}\\subseteq L^2(S_n;\\mathbb C).\n\\end{equation*}\nThen the spaces $\\mathcal H_\\lambda$ are mutually orthogonal, span\n$L^2(S_n;\\mathbb C)$, and have dimension $d_\\lambda^2$.",
+      "leanLinks": [
+        {
+          "name": "spectralBlockModelInputWithDim_even_from_appendixA",
+          "line": 84
+        },
+        {
+          "name": "spectralBlockModelInputWithDim_odd_from_appendixA",
+          "line": 129
+        }
       ]
     },
     {
@@ -1666,6 +2255,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "spectral model",
           "target": "S05_L18"
+        }
+      ],
+      "paperLabel": "lem:spectral-certificate-even",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Let $n=2m$.  Suppose that\n\\begin{equation}\\label{eq:even-certificate-condition}\n  h_m(\\lambda)\\ge c d_\\lambda\n\\end{equation}\nfor every $\\lambda\\vdash2m$ other than $(2m)$ and $(2m-1,1)$.  Then\n\\eqref{eq:desired-A-gap} holds with constant $c$.",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_19_tableauDim_evenSpectralGapFromCertificates",
+          "line": 53
         }
       ]
     },
@@ -1705,6 +2303,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "spectral model",
           "target": "S05_L18"
         }
+      ],
+      "paperLabel": "lem:spectral-certificate-odd",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Let $n=2m+1$.  Suppose that\n\\begin{equation}\\label{eq:odd-certificate-condition}\n  h_m^{\\mathrm{odd}}(\\lambda)\\ge c d_\\lambda\n\\end{equation}\nfor every $\\lambda\\vdash2m+1$ other than $(2m+1)$ and $(2m,1)$.  Then\n\\eqref{eq:desired-A-gap} holds with constant $c$.",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_20_tableauDim_oddSpectralGapFromCertificates",
+          "line": 53
+        }
       ]
     },
     {
@@ -1733,6 +2340,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Odd sign-pattern multiset",
           "target": "S05_D14"
+        }
+      ],
+      "paperLabel": "lem:counting-one-more-matching-edge",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For every $\\lambda\\vdash2m$,\n\\begin{equation}\\label{eq:z-recurrence}\n  z_m(\\lambda)\n  =\\sum_{\\mu\\in\\mathsf H_2(\\lambda)}z_{m-1}(\\mu),\n\\end{equation}\nand\n\\begin{equation}\\label{eq:h-recurrence}\n  h_m(\\lambda)\n  =\\sum_{\\mu\\in\\mathsf H_2(\\lambda)}h_{m-1}(\\mu)\n   +\\sum_{\\mu\\in\\mathsf V_2(\\lambda)}\n      \\bigl(d_\\mu-z_{m-1}(\\mu)\\bigr).\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_21_counting_one_more_matching_edge",
+          "line": 43
         }
       ]
     },
@@ -1763,6 +2379,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Counting one more matching edge",
           "target": "S05_L21"
         }
+      ],
+      "paperLabel": "lem:z-bound-app",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "If $\\lambda\\vdash2m$ and $\\lambda\\neq(2m)$, then\n\\begin{equation*}\n  z_m(\\lambda)\\le\\frac12d_\\lambda.\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_22_tableau_weightZeroEntries_never_majority",
+          "line": 2687
+        }
       ]
     },
     {
@@ -1786,6 +2411,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Weight-zero entries are never a majority",
           "target": "S05_L22"
+        }
+      ],
+      "paperLabel": "lem:exceptional-even-children",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Let $m\\ge3$, and let $\\lambda\\vdash 2m$ be neither $(2m)$ nor $(2m-1,1)$.\nSuppose that at least one of the following three events occurs:\n\\begin{enumerate}\n  \\item the one-row diagram $(2m-2)$ lies in $\\mathsf H_2(\\lambda)$;\n  \\item the one-row diagram $(2m-2)$ lies in $\\mathsf V_2(\\lambda)$;\n  \\item the standard diagram $(2m-3,1)$ lies in $\\mathsf H_2(\\lambda)$.\n\\end{enumerate}\nThen\n\\begin{equation}\\label{eq:exceptional-even-shapes}\n  \\lambda\\in\\{(2m-2,2),(2m-2,1,1),(2m-3,3),(2m-3,2,1)\\}.\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_23_where_the_induction_can_fail",
+          "line": 23
         }
       ]
     },
@@ -1826,6 +2460,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Where the induction can fail",
           "target": "S05_L23"
         }
+      ],
+      "paperLabel": "lem:h-even-app",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For every $m\\ge2$ and every partition $\\lambda\\vdash2m$ other than $(2m)$ and\n$(2m-1,1)$,\n\\begin{equation}\\label{eq:even-h-fifth}\n  h_m(\\lambda)\\ge\\frac15d_\\lambda.\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_24_tableau_even_certificate",
+          "line": 4713
+        }
       ]
     },
     {
@@ -1849,6 +2492,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Even certificate",
           "target": "S05_L24"
+        }
+      ],
+      "paperLabel": "lem:exceptional-odd-children",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "Let $m\\ge2$, and let $\\lambda\\vdash 2m+1$ be neither $(2m+1)$ nor $(2m,1)$.\nIf some one-box child $\\mu\\nearrow\\lambda$ is either the one-row diagram $(2m)$\nor the standard diagram $(2m-1,1)$, then\n\\begin{equation}\\label{eq:exceptional-odd-shapes}\n  \\lambda\\in\\{(2m-1,2),(2m-1,1,1)\\}.\n\\end{equation}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_25_odd_exceptional_children",
+          "line": 23
         }
       ]
     },
@@ -1884,6 +2536,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "Odd exceptional children",
           "target": "S05_L25"
         }
+      ],
+      "paperLabel": "lem:h-odd-app",
+      "paperEnv": "lemma",
+      "paperStatementLatex": "For every $m\\ge2$ and every partition $\\lambda\\vdash2m+1$ other than\n$(2m+1)$ and $(2m,1)$,\n\\begin{equation*}\n  h_m^{\\mathrm{odd}}(\\lambda)\\ge\\frac16d_\\lambda.\n\\end{equation*}",
+      "leanLinks": [
+        {
+          "name": "S05_Lem5_26_tableau_odd_certificate",
+          "line": 842
+        }
       ]
     },
     {
@@ -1908,6 +2569,15 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "One-trial soundness",
           "target": "L4_13"
         }
+      ],
+      "paperLabel": "thm:main-intro",
+      "paperEnv": "theorem",
+      "paperStatementLatex": "There is a nonadaptive one-sided oracle tester which, given\n$f:S_n\\to\\{0,1\\}$ and $0<\\epsilon<1$, accepts every $f\\in\\mathcal D$ and rejects\nevery $f$ with $\\dist(f,\\mathcal D)\\ge\\epsilon$ with probability at least $2/3$.\nThe tester uses $O(\\epsilon^{-2})$ queries.",
+      "leanLinks": [
+        {
+          "name": "Thm1_1_MainIntro",
+          "line": 56
+        }
       ]
     },
     {
@@ -1931,6 +2601,19 @@ window.DICT_DEPENDENCY_DATA = {
           "text": "U1",
           "target": "S05_D08"
         }
+      ],
+      "paperLabel": "thm:boolean-u1",
+      "paperEnv": "theorem",
+      "paperStatementLatex": "If $f:S_n\\to\\{0,1\\}$ lies in $U_1$, then $f\\in\\D$.  Conversely, every\n$f\\in\\D$ lies in $U_1$.",
+      "leanLinks": [
+        {
+          "name": "Thm2_1_BooleanU1",
+          "line": 163
+        },
+        {
+          "name": "booleanU1_dictator_classification_input",
+          "line": 156
+        }
       ]
     },
     {
@@ -1949,7 +2632,20 @@ window.DICT_DEPENDENCY_DATA = {
       "deps": [],
       "summary": "External Filmus stability theorem in the distance-to-dictators form.",
       "statement": "Thm 2.2: External Filmus stability theorem in the distance-to-dictators form.",
-      "terms": []
+      "terms": [],
+      "paperLabel": "thm:fkn-input",
+      "paperEnv": "theorem",
+      "paperStatementLatex": "There is an absolute constant $c_{\\mathrm{FKN}}>0$ such that every Boolean\n$f:S_n\\to\\{0,1\\}$ satisfies\n\\[\n  \\norm{f-P_{U_1}f}^2\n  \\ge c_{\\mathrm{FKN}}\\,\\dist(f,\\D)^2.\n\\]",
+      "leanLinks": [
+        {
+          "name": "Thm2_2_FKNInput",
+          "line": 40
+        },
+        {
+          "name": "fknStability_input",
+          "line": 32
+        }
+      ]
     },
     {
       "id": "Thm4_10",
@@ -1993,6 +2689,15 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "tableauDim",
           "target": "S05_D04"
+        }
+      ],
+      "paperLabel": "thm:matching-gap",
+      "paperEnv": "theorem",
+      "paperStatementLatex": "For every $n\\ge4$ and every $f:S_n\\to\\mathbb R$,\n\\begin{equation}\\label{eq:matching-gap-statement}\n  \\E_M\\norm{(I-P_M)f}^2\n  \\ge \\frac16\\norm{f-P_{U_1}f}^2,\n\\end{equation}\nwhere $M$ is a uniformly random near-perfect matching.  If $n$ is even, the\nconstant $1/6$ in \\eqref{eq:matching-gap-statement} can be replaced by $1/5$.",
+      "leanLinks": [
+        {
+          "name": "Thm4_10_MatchingGap",
+          "line": 40
         }
       ]
     }

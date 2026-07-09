@@ -34,8 +34,10 @@ for GitHub Pages and separates large paper-facing theorem nodes from smaller
 `Aux_*` helper nodes.  Open [`docs/index.html`](docs/index.html), or enable
 GitHub Pages from the repository `docs/` folder to publish the same view.  The
 browser includes a compact paper-map tab and gives the numbered Section 5
-definitions 5.1--5.23 their own interface nodes so broad shared-definition
-dependencies do not obscure the proof structure.
+definitions 5.1--5.23 clickable popovers, so broad shared-definition
+dependencies do not obscure the proof structure.  Selected nodes show the
+paper statement in LaTeX and link wrapper declarations to their Lean source
+lines when available.
 
 ## Current Status
 

@@ -7,7 +7,7 @@ const section5DefinitionRoots = Array.from({ length: 23 }, (_, index) =>
 const section5LemmaRoots = Array.from({ length: 26 }, (_, index) =>
   `S05_L${String(index + 1).padStart(2, "0")}`
 );
-const section5Roots = [...section5DefinitionRoots, ...section5LemmaRoots];
+const section5Roots = section5LemmaRoots;
 
 function collectTransitiveDeps(rootIds) {
   const open = new Set();
@@ -37,7 +37,7 @@ const rootViews = {
       "Thm1_1", "Thm2_1", "Thm2_2", "L2_3", "Def2_4",
       "S03_01", "S03_02", "L4_1", "S04_04", "S04_05", "S04_06",
       "S04_07", "S04_08", "S04_09", "Thm4_10",
-      "S05_L18", "S05_L19", "S05_L20", "S05_L10", "S05_L01", "S05_D01",
+      "S05_L18", "S05_L19", "S05_L20", "S05_L10", "S05_L01",
     ],
     open: ["Thm1_1", "Thm4_10", "S05_L19", "S05_L20", "S05_L18"],
   },
@@ -50,11 +50,6 @@ const rootViews = {
     label: "Spectral bridge",
     roots: ["Thm4_10"],
     open: collectTransitiveDeps(["Thm4_10"]),
-  },
-  definitions: {
-    label: "Definitions",
-    roots: section5DefinitionRoots,
-    open: ["S05_D01", "S05_D02", "S05_D03", "S05_D04", "S05_D05"],
   },
   section5: {
     label: "Section 5",
@@ -85,6 +80,10 @@ function sourceUrl(file) {
   return `${graphData.repoUrl}/blob/main/${file}`;
 }
 
+function sourceLineUrl(file, line) {
+  return `${sourceUrl(file)}${line ? `#L${line}` : ""}`;
+}
+
 function statusLabel(status) {
   const labels = {
     proven: "Proven",
@@ -109,8 +108,12 @@ function termRefs(node) {
     .slice(0, 10);
 }
 
+function displayStatement(node) {
+  return node.paperStatementLatex || node.statement || node.summary || "";
+}
+
 function renderStatementMarkup(node) {
-  let html = escapeHtml(node.statement || node.summary || "");
+  let html = escapeHtml(displayStatement(node));
   const terms = termRefs(node).sort((a, b) => b.text.length - a.text.length);
   const used = new Set();
   terms.forEach((term, index) => {
@@ -125,6 +128,12 @@ function renderStatementMarkup(node) {
     );
   });
   return html;
+}
+
+function typesetMath(root = document) {
+  if (window.MathJax?.typesetPromise) {
+    window.MathJax.typesetPromise([root]).catch(() => {});
+  }
 }
 
 function renderTermChips(node) {
@@ -156,6 +165,7 @@ function getDeps(node) {
   return (node.deps || [])
     .map((id) => nodeById.get(id))
     .filter(Boolean)
+    .filter((dep) => !section5DefinitionRoots.includes(dep.id))
     .sort((a, b) => nodeWeight(a) - nodeWeight(b) || a.label.localeCompare(b.label));
 }
 
@@ -257,14 +267,22 @@ function renderNode(node, path = []) {
 function renderInlineDetails(node, depCount) {
   const details = document.createElement("div");
   details.className = "inline-details";
-  const wrappers = node.wrappers?.length
-    ? node.wrappers.map((wrapper) => `<code>${wrapper}</code>`).join(" ")
+  const leanLinks = node.leanLinks?.length ? node.leanLinks : (node.wrappers || []).map((name) => ({ name }));
+  const wrappers = leanLinks.length
+    ? leanLinks
+        .map((link) =>
+          `<a class="decl-link" href="${sourceLineUrl(node.file, link.line)}" target="_blank" rel="noreferrer"><code>${escapeHtml(link.name)}</code>${link.line ? `<span>L${link.line}</span>` : ""}</a>`
+        )
+        .join(" ")
     : "<span class=\"muted\">No wrapper listed.</span>";
   const usedBy = dependentsOf(node.id)
     .map((dep) => `<button type="button" class="tiny-link" data-jump="${dep.id}">${dep.label}</button>`)
     .join("");
   details.innerHTML = `
-    <p class="statement">${renderStatementMarkup(node)}</p>
+    <div class="paper-statement">
+      <div class="statement-kicker">${node.paperLabel ? `Paper ${escapeHtml(node.paperEnv || "statement")} <code>${escapeHtml(node.paperLabel)}</code>` : "Curated statement"}</div>
+      <div class="statement latex-statement">${renderStatementMarkup(node)}</div>
+    </div>
     ${renderTermChips(node)}
     <dl>
       <dt>Lean file</dt>
@@ -278,6 +296,7 @@ function renderInlineDetails(node, depCount) {
     </div>
   `;
   attachTermHandlers(details);
+  typesetMath(details);
   details.querySelectorAll("[data-jump]").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -294,19 +313,23 @@ function openOverlay(id) {
   const root = document.querySelector("#overlay-root");
   if (!node || !root) return;
 
+  const leanLinks = node.leanLinks?.length ? node.leanLinks : (node.wrappers || []).map((name) => ({ name }));
   root.innerHTML = `
     <div class="overlay-backdrop" role="presentation"></div>
     <section class="term-overlay" role="dialog" aria-modal="true" aria-label="${escapeHtml(node.label)} ${escapeHtml(node.title)}">
       <button type="button" class="overlay-close" aria-label="Close definition overlay">x</button>
       <div class="overlay-kicker">${escapeHtml(statusLabel(node.status))}</div>
       <h2>${escapeHtml(node.label)} <span>${escapeHtml(node.title)}</span></h2>
-      <p class="statement">${renderStatementMarkup(node)}</p>
+      <div class="paper-statement">
+        <div class="statement-kicker">${node.paperLabel ? `Paper ${escapeHtml(node.paperEnv || "statement")} <code>${escapeHtml(node.paperLabel)}</code>` : "Curated statement"}</div>
+        <div class="statement latex-statement">${renderStatementMarkup(node)}</div>
+      </div>
       ${renderTermChips(node)}
       <dl>
         <dt>Lean file</dt>
         <dd><a href="${sourceUrl(node.file)}" target="_blank" rel="noreferrer">${escapeHtml(node.file)}</a></dd>
         <dt>Wrappers</dt>
-        <dd>${node.wrappers?.length ? node.wrappers.map((wrapper) => `<code>${escapeHtml(wrapper)}</code>`).join(" ") : "No wrapper listed."}</dd>
+        <dd>${leanLinks.length ? leanLinks.map((link) => `<a class="decl-link" href="${sourceLineUrl(node.file, link.line)}" target="_blank" rel="noreferrer"><code>${escapeHtml(link.name)}</code>${link.line ? `<span>L${link.line}</span>` : ""}</a>`).join(" ") : "No wrapper listed."}</dd>
       </dl>
     </section>
   `;
@@ -320,6 +343,7 @@ function openOverlay(id) {
   root.querySelector(".overlay-backdrop").addEventListener("click", close);
   root.querySelector(".overlay-close").addEventListener("click", close);
   root.querySelector(".overlay-close").focus();
+  typesetMath(root);
 }
 
 function renderTree() {
@@ -374,7 +398,7 @@ function renderStats() {
     <span><strong>${counts.total}</strong> nodes</span>
     <span><strong>${counts.proven || 0}</strong> proven</span>
     <span><strong>${counts.external || 0}</strong> external</span>
-    <span><strong>${counts.interface || 0}</strong> interfaces</span>
+    <span><strong>${section5DefinitionRoots.length}</strong> definition popovers</span>
   `;
 }
 
@@ -400,6 +424,7 @@ function render() {
   renderTabs();
   renderStats();
   renderTree();
+  typesetMath(document.querySelector("#dag"));
 }
 
 document.querySelector("#search").addEventListener("input", (event) => {
