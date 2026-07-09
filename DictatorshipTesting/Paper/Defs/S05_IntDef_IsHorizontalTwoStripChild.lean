@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_IsYoungSubdiagram
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_IsVerticalTwoStripChild`
+-/
+
 
 /-!
 Definition file for `IsHorizontalTwoStripChild`.

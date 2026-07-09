@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_10_U1
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_12_L2DistSqToU1`
+-/
+
 
 /-!
 Definition file for `l2DistSq`.

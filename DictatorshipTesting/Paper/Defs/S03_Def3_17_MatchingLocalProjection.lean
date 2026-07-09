@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_16_MatchingLocalHighDegreeEnergy
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_18_MatchingLocalProjectionError`
+- `DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection`
+-/
+
 
 /-!
 Definition file for `matchingLocalProjection`.

@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_03_OrderedMatchingEdgePerm
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_05_MatchingCubeRestriction`
+- `DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauDepends`
+-/
+
 
 /-!
 Definition file for `OrderedMatching.tau`.

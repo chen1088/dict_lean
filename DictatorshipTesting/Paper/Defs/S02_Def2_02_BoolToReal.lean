@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_01_BoolFn
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_03_BoolFnToReal`
+-/
+
 
 /-!
 Definition file for `boolToReal`.

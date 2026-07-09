@@ -4,7 +4,6 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_15_MatchingCharacters
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_13_LocalTruncationAsConvolution`
 -/
 

@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_23_MatchingMeanProjectionError
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_25_OneTrialRejectProbability`
+-/
+
 
 /-!
 Definition file for `oneTrialDeltaSqExpectation`.

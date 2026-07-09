@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungDim
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_IsStandard`
+-/
+
 
 /-!
 Definition file for `IsOneRow`.

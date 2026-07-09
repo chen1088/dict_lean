@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_25_OneTrialRejectProbability
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_27_MatchingHighConvolution`
+-/
+
 
 /-!
 Definition file for `matchingLowConvolution`.

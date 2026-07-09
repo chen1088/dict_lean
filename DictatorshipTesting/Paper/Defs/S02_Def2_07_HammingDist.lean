@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_06_IsDictator
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_08_DistToDictators`
+-/
+
 
 /-!
 Definition file for `hammingDist`.

@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_09_MatchingTrialDelta
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_11_CubeLowDegreeOnePart`
+-/
+
 
 /-!
 Definition file for `matchingTrialDeltaReal`.

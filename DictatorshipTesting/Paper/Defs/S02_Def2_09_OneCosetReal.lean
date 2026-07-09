@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S01_Def1_01_OracleTester
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_10_U1`
+-/
+
 
 /-!
 Definition file for `oneCosetReal`.

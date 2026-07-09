@@ -1,4 +1,11 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_13_Cube
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_15_CubeFlip`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_15_MatchingCharacters`
+- `DictatorshipTesting.Paper.S02_Int_CubeCharMulSelf`
+-/
+
 
 /-!
 Definition file for `cubeChar`.

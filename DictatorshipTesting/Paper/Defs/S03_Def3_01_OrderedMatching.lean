@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_24_IsCubeOneJunta
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_02_OrderedMatchingEdgeSwap`
+-/
+
 
 /-!
 Definition file for `OrderedMatching`.

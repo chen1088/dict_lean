@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_06_CubeDirectionColor
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_08_CubeColorV`
+-/
+
 
 /-!
 Definition file for `cubeColorU`.

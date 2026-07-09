@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_22_NearPerfectMatchingToOrdered
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_24_OneTrialDeltaSqExpectation`
+-/
+
 
 /-!
 Definition file for `matchingMeanProjectionError`.

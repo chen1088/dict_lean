@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_08_DistToDictators
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_09_OneCosetReal`
+- `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
+-/
+
 
 /-!
 Definition file for `OracleTester`.

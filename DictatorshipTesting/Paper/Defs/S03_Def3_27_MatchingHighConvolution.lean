@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_26_MatchingLowConvolution
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungDiagram`
+- `DictatorshipTesting.Paper.S05_Int_PMConvolution`
+-/
+
 
 /-!
 Definition file for `matchingHighConvolution`.

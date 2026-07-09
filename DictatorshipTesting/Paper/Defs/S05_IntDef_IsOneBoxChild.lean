@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_IsVerticalTwoStripChild
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_HorizontalTwoStripChildren`
+- `DictatorshipTesting.Paper.S05_Int_YoungDiagramCorners`
+-/
+
 
 /-!
 Definition file for `IsOneBoxChild`.

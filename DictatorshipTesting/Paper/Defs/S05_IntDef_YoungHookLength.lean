@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungCells
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungDimNat`
+-/
+
 
 /-!
 Definition file for `youngHookLength`.

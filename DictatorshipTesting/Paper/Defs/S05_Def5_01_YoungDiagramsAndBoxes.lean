@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungCells
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting`
+- none
 -/
 
 

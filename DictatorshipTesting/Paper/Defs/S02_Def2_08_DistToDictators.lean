@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_07_HammingDist
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S01_Def1_01_OracleTester`
+- `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
+-/
+
 
 /-!
 Definition file for `distToDictators`.

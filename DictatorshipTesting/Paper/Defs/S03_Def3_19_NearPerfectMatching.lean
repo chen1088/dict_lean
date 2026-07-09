@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_18_MatchingLocalProjectionError
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.S03_Inst3_20_NearPerfectMatchingFintype`
+-/
+
 
 /-!
 Definition file for `NearPerfectMatching`.

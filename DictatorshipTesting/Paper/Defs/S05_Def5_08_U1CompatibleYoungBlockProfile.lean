@@ -2,7 +2,6 @@ import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_Def5_06_YoungBlock`
 - `DictatorshipTesting.Paper.S05_Lem5_18_RegularYoungBlockDecomposition`
 -/
 

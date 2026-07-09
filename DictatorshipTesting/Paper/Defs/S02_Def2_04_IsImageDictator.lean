@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_03_BoolFnToReal
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_05_IsPreimageDictator`
+-/
+
 
 /-!
 Definition file for `IsImageDictator`.

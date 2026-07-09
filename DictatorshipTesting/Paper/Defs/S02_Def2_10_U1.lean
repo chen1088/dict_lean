@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_09_OneCosetReal
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_11_L2DistSq`
+- `DictatorshipTesting.Paper.S02_Thm2_01_BooleanU1Classification`
+-/
+
 
 /-!
 Definition file for `U1`.

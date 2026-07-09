@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_21_CubeDirectionsDisjoint
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_23_IsCubeJuntaAt`
+-/
+
 
 /-!
 Definition file for `IsCubeConstant`.

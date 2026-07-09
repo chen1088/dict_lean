@@ -1,4 +1,11 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_14_CubeChar
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_16_CubeExpectation`
+- `DictatorshipTesting.Paper.S02_Int_CubeCharFlip`
+- `DictatorshipTesting.Paper.S02_Int_CubeFlipInvolutive`
+-/
+
 
 /-!
 Definition file for `cubeFlip`.

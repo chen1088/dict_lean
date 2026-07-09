@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_13_CubeSquareEnergy
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_15_IsMatchingLocalDegreeOne`
+-/
+
 
 /-!
 Definition file for `permInner`.

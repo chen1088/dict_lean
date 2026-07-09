@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_HorizontalTwoStripChildrenEven
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_OneBoxChildrenOdd`
+-/
+
 
 /-!
 Definition file for `verticalTwoStripChildrenEven`.

@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_19_CubeZero
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_21_CubeDirectionsDisjoint`
+-/
+
 
 /-!
 Definition file for `cubeDelta`.

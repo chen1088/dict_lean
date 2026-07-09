@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_04_OrderedMatchingTau
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_06_CubeDirectionColor`
+- `DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta`
+-/
+
 
 /-!
 Definition file for `matchingCubeRestriction`.

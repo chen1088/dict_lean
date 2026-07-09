@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_HOdd
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.S04_Thm4_10_MatchingGap`
+- `DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs`
+-/
+
 
 /-!
 Definition file for `MatchingSpectralGapConstant`.

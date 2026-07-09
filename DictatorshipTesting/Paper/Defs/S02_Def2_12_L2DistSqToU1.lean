@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_11_L2DistSq
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_13_Cube`
+- `DictatorshipTesting.Paper.S02_Thm2_02_FKNStability`
+-/
+
 
 /-!
 Definition file for `l2DistSqToU1`.

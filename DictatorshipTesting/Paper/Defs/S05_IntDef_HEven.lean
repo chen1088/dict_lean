@@ -1,4 +1,13 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_ZEven
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_Def5_13_EvenSignPatternMultiset`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_18_MatchingRestrictionEvenInput`
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_HOdd`
+- `DictatorshipTesting.Paper.S05_Lem5_21_CountingOneMoreMatchingEdge`
+- `DictatorshipTesting.Paper.S05_Lem5_24_EvenCertificate`
+-/
+
 
 /-!
 Definition file for `hEven`.

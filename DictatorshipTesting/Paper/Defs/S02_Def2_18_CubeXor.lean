@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_17_CubeFourierCoeff
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_19_CubeZero`
+- `DictatorshipTesting.Paper.S02_Int_CubeCharXor`
+-/
+
 
 /-!
 Definition file for `cubeXor`.

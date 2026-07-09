@@ -1,4 +1,11 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_08_CubeColorV
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_10_MatchingTrialDeltaReal`
+- `DictatorshipTesting.Paper.S03_Lem3_02_PerfectCompleteness`
+- `DictatorshipTesting.Paper.S04_Lem4_11_TrialCubeCoordinates`
+-/
+
 
 /-!
 Definition file for `matchingTrialDelta`.

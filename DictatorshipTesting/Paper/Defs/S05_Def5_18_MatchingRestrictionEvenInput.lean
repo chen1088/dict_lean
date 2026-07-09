@@ -3,8 +3,8 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_HEven
 
 /-
 Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_Def5_20_TraceLocalTruncationEvenInput`
 - `DictatorshipTesting.Paper.S05_Lem5_10_MatchingSubgroupEigenbasis`
-- `DictatorshipTesting.Paper.S05_Lem5_12_TraceOfOneLocalTruncationOnOneYoungBlock`
 -/
 
 /-!

@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_15_IsMatchingLocalDegreeOne
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_17_MatchingLocalProjection`
+-/
+
 
 /-!
 Definition file for `matchingLocalHighDegreeEnergy`.

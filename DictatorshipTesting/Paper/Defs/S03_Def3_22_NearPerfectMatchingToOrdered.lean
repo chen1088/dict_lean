@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.S03_Inst3_21_NearPerfectMatchingNonempty
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_23_MatchingMeanProjectionError`
+-/
+
 
 /-!
 Definition file for `NearPerfectMatching.toOrdered`.

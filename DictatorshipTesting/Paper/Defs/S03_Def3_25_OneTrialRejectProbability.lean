@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_24_OneTrialDeltaSqExpectation
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_26_MatchingLowConvolution`
+- `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
+-/
+
 
 /-!
 Definition file for `oneTrialRejectProbability`.

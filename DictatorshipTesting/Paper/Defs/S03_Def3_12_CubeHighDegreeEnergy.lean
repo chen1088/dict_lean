@@ -1,4 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_11_CubeLowDegreeOnePart
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_13_CubeSquareEnergy`
+- `DictatorshipTesting.Paper.S04_Int_CubeHighDegreeLinear`
+-/
+
 
 /-!
 Definition file for `cubeHighDegreeEnergy`.

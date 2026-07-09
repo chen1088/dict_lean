@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting`
+- none
 -/
 
 

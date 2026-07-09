@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S03_Def3_01_OrderedMatching
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_Def3_03_OrderedMatchingEdgePerm`
+-/
+
 
 /-!
 Definition file for `OrderedMatching.edgeSwap`.

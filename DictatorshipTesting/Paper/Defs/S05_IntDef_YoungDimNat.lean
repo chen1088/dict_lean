@@ -1,4 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungHookLength
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungDim`
+-/
+
 
 /-!
 Definition file for `youngDimNat`.

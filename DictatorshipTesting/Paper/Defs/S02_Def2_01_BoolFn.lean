@@ -1,4 +1,9 @@
 import DictatorshipTesting.Basic
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_02_BoolToReal`
+-/
+
 
 /-!
 Definition file for `BoolFn`.
