@@ -8,6 +8,9 @@ const section5LemmaRoots = Array.from({ length: 26 }, (_, index) =>
   `S05_L${String(index + 1).padStart(2, "0")}`
 );
 const section5Roots = section5LemmaRoots;
+const paperResultRoots = graphData.nodes
+  .filter((node) => !section5DefinitionRoots.includes(node.id))
+  .map((node) => node.id);
 
 function collectTransitiveDeps(rootIds) {
   const open = new Set();
@@ -33,12 +36,7 @@ function collectTransitiveDeps(rootIds) {
 const rootViews = {
   paper: {
     label: "Paper map",
-    roots: [
-      "Thm1_1", "Thm2_1", "Thm2_2", "L2_3", "Def2_4",
-      "S03_01", "S03_02", "L4_1", "S04_04", "S04_05", "S04_06",
-      "S04_07", "S04_08", "S04_09", "Thm4_10",
-      "S05_L18", "S05_L19", "S05_L20", "S05_L10", "S05_L01",
-    ],
+    roots: paperResultRoots,
     open: ["Thm1_1", "Thm4_10", "S05_L19", "S05_L20", "S05_L18"],
   },
   main: {
