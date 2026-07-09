@@ -115,13 +115,12 @@ Proven Lemma 5.1 coordinate Coxeter package:
   (`lem:young-adjacent-matrices`): the concrete tableau-coordinate Young
   adjacent operators are defined and proved to have the same-row,
   same-column, and swappable two-by-two matrix behavior.  The swappable block
-  has nonzero `+1` and `-1` eigenvectors.
-- `Aux_YoungAdjacentAction.lean`: packages those adjacent operators as
-  `YoungAdjacentActionModel`, defines adjacent words and their operators,
-  proves invariance under cancellation, distant commutation, and braid
-  Coxeter moves, defines the adjacent-word permutation shadow
-  `adjacentWordPerm`, and descends both the operator and permutation shadow to
-  the formal quotient `AdjacentCoxeterClass`.
+  has nonzero `+1` and `-1` eigenvectors.  The same file now also packages
+  those adjacent operators as `YoungAdjacentActionModel`, defines adjacent
+  words and their operators, proves invariance under cancellation, distant
+  commutation, and braid Coxeter moves, defines the adjacent-word permutation
+  shadow `adjacentWordPerm`, and descends both the operator and permutation
+  shadow to the formal quotient `AdjacentCoxeterClass`.
 
 Proven Lemma 5.2 diagonal content package:
 

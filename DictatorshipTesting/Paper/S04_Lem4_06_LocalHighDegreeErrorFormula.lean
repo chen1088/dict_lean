@@ -5,7 +5,7 @@ import DictatorshipTesting.Paper.Aux_PermCubeAverage
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
+- `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
 -/
 
 

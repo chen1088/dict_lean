@@ -2,9 +2,9 @@ import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
 - `DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula`
 - `DictatorshipTesting.Paper.S04_Lem4_07_PMPerpendicular`
+- `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
 -/
 
 

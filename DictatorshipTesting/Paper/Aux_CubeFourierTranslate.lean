@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_CubeCharXor
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Aux_CubeSquareSpectralFormula`
+- `DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare`
 - `DictatorshipTesting.Paper.S04_Lem4_04_PMIndependentOfRepresentatives`
 -/
 

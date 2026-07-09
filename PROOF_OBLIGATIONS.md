@@ -179,8 +179,8 @@ Proved internally:
   `youngAdjacentOperator_sq`,
   `youngAdjacentOperator_comm_of_disjoint_indices`, and
   `youngAdjacentOperator_braid_of_succ`.
-- `Aux_YoungAdjacentAction.lean` packages these operators as
-  `YoungAdjacentActionModel`, defines adjacent words and
+- `S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean` packages these
+  operators as `YoungAdjacentActionModel`, defines adjacent words and
   `youngAdjacentWordOperator`, proves invariance under the elementary Coxeter
   word moves, defines the adjacent-word permutation shadow `adjacentWordPerm`,
   and descends both the operator and permutation shadow to the formal quotient

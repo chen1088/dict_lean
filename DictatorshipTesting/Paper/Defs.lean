@@ -81,7 +81,6 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_CubeCharXor`
 - `DictatorshipTesting.Paper.Aux_CubeFlipInvolutive`
 - `DictatorshipTesting.Paper.Aux_CubeHighDegreeLinear`
-- `DictatorshipTesting.Paper.Aux_OneTrialRejectProbabilityLowerBound`
 - `DictatorshipTesting.Paper.Aux_OrderedMatchingTauDepends`
 - `DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs`
 - `DictatorshipTesting.Paper.Aux_YoungDiagramCorners`
@@ -89,6 +88,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion`
 - `DictatorshipTesting.Paper.S02_Thm2_01_BooleanU1Classification`
 - `DictatorshipTesting.Paper.S02_Thm2_02_FKNStability`
+- `DictatorshipTesting.Paper.S04_Lem4_13_OneTrialSoundness`
 - `DictatorshipTesting.Paper.S04_Thm4_10_MatchingGap`
 - `DictatorshipTesting.Paper.Aux_Def_YoungDiagramsAndBoxes`
 - `DictatorshipTesting.Paper.S05_Def5_13_EvenSignPatternMultiset`

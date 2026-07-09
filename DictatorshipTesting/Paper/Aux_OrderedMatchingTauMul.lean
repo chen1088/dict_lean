@@ -4,10 +4,10 @@ import DictatorshipTesting.Paper.Aux_CubeCharXor
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Aux_MatchingLocalProjection`
-- `DictatorshipTesting.Paper.Aux_OneTrialDeltaSqExpectationLowerBound`
 - `DictatorshipTesting.Paper.Aux_PermCubeAverage`
 - `DictatorshipTesting.Paper.Aux_PMConvolution`
 - `DictatorshipTesting.Paper.S04_Lem4_11_TrialCubeCoordinates`
+- `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
 -/
 
 
