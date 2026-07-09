@@ -102,10 +102,51 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+const definitionTextLinks = [
+  { text: "Young diagram", target: "S05_D01" },
+  { text: "box", target: "S05_D01" },
+  { text: "removable corner", target: "S05_D02" },
+  { text: "removable corners", target: "S05_D02" },
+  { text: "standard Young tableau", target: "S05_D03" },
+  { text: "standard Young tableaux", target: "S05_D03" },
+  { text: "tableau coordinate space", target: "S05_D04" },
+  { text: "orthonormal basis", target: "S05_D04" },
+  { text: "content", target: "S05_D05" },
+  { text: "adjacent operators", target: "S05_D05" },
+  { text: "Young orthogonal", target: "S05_D05" },
+  { text: "Young block", target: "S05_D06" },
+  { text: "Young-block energy profile", target: "S05_D07" },
+  { text: "U_1-compatible", target: "S05_D08" },
+  { text: "two-box removal", target: "S05_D09" },
+  { text: "two-box removals", target: "S05_D09" },
+  { text: "signed two-box removals", target: "S05_D10" },
+  { text: "one-box child", target: "S05_D11" },
+  { text: "one-box removals", target: "S05_D11" },
+  { text: "deletion map", target: "S05_D12" },
+  { text: "one-box deletion", target: "S05_D12" },
+  { text: "even sign-pattern multiset", target: "S05_D13" },
+  { text: "odd sign-pattern multiset", target: "S05_D14" },
+  { text: "matching characters", target: "S05_D15" },
+  { text: "even matching eigenvector", target: "S05_D16" },
+  { text: "odd matching eigenvector", target: "S05_D17" },
+  { text: "even matching-restriction input", target: "S05_D18" },
+  { text: "odd matching-restriction input", target: "S05_D19" },
+  { text: "even local-truncation trace input", target: "S05_D20" },
+  { text: "odd local-truncation trace input", target: "S05_D21" },
+  { text: "right convolution", target: "S05_D22" },
+  { text: "Young-basis scalar commutant input", target: "S05_D23" },
+];
+
 function termRefs(node) {
-  return (node.terms || [])
+  const seen = new Set();
+  return [...(node.terms || []), ...definitionTextLinks]
     .filter((term) => term?.text && nodeById.has(term.target))
-    .slice(0, 10);
+    .filter((term) => {
+      const key = `${term.text.toLowerCase()}::${term.target}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
 }
 
 function displayStatement(node) {
@@ -147,14 +188,93 @@ function splitLatexSegments(value) {
 
 const mathSymbolLinks = [
   {
+    target: "S05_D20",
+    patterns: [
+      /\\operatorname\{tr\}\\bigl\(\(I-P_M\)\|_\{\\mathcal\s+H_\{?\\lambda\}?\}\\bigr\)\s*=\s*d_\{?\\lambda\}?\s*h_m\(\\lambda\)/g,
+    ],
+  },
+  {
+    target: "S05_D21",
+    patterns: [
+      /\\operatorname\{tr\}\\bigl\(\(I-P_M\)\|_\{\\mathcal\s+H_\{?\\lambda\}?\}\\bigr\)\s*=\s*d_\{?\\lambda\}?\s*h_m\^\{\\mathrm\{odd\}\}\(\\lambda\)/g,
+    ],
+  },
+  {
+    target: "S05_D16",
+    patterns: [
+      /\\rho\^\{?\\lambda\}?\(\\tau_x\)v\s*=\s*\\chi_R\(\\tau_x\)v/g,
+    ],
+  },
+  {
+    target: "S05_D17",
+    patterns: [
+      /\\tau_x\\in A_M/g,
+    ],
+  },
+  {
     target: "S05_D01",
-    patterns: [/\\vdash/g],
+    patterns: [
+      /\\vdash/g,
+      /\[(?:\\lambda|\\mu|\\mu_u)\]/g,
+      /\\row/g,
+      /\\col/g,
+    ],
+  },
+  {
+    target: "S05_D02",
+    patterns: [
+      /\\Rem\(\\lambda\)/g,
+      /\\lambda\\setminus\\mu/g,
+      /\\lambda\\setminus\\\{u\\\}/g,
+    ],
+  },
+  {
+    target: "S05_D03",
+    patterns: [
+      /\\SYT\(\\lambda\)/g,
+      /u_T\([^)]+\)/g,
+    ],
   },
   {
     target: "S05_D04",
     patterns: [
-      /d_\{?\\lambda\}?/g,
-      /d_\{?\\mu\}?/g,
+      /d_\{?(?:\\lambda|\\mu|\\nu)\}?/g,
+      /V\^\{?(?:\\mu_u|\\lambda|\\mu)\}?/g,
+      /e_[ST](?![A-Za-z0-9_'])/g,
+      /e_\{[ST]'?\}/g,
+      /e_\{s_iT\}/g,
+      /s_\{?[ik]\}?/g,
+    ],
+  },
+  {
+    target: "S05_D05",
+    patterns: [
+      /S_\{?[ik]\}?\^\{?(?:\\mu_u|\\lambda|\\mu)\}?/g,
+      /C_k\^\{?\\lambda\}?/g,
+      /c_T\([^)]+\)/g,
+      /c\(u\)/g,
+    ],
+  },
+  {
+    target: "S05_D06",
+    patterns: [
+      /\\mathcal\s+H_\{?\\lambda\}?/g,
+      /\\mathcal\s+H_\{[^}]+\}/g,
+      /\\rho\^\{?\\lambda\}?/g,
+    ],
+  },
+  {
+    target: "S05_D07",
+    patterns: [
+      /E\(\\lambda\)/g,
+      /\\Pi_\{?\\lambda\}?/g,
+    ],
+  },
+  {
+    target: "S05_D08",
+    patterns: [
+      /U_1/g,
+      /P_\{U_1\}/g,
     ],
   },
   {
@@ -172,7 +292,7 @@ const mathSymbolLinks = [
   {
     target: "S05_D13",
     patterns: [
-      /\\mathsf\s+X_(?:m|\{m-1\})(?!\^\{\\mathrm\{odd\}\})/g,
+      /\\mathsf\s+X_(?:1|m|\{m-1\})(?!\^\{\\mathrm\{odd\}\})/g,
       /z_(?:m|\{m-1\})/g,
       /h_(?:m|\{m-1\})(?!\^\{\\mathrm\{odd\}\})/g,
     ],
@@ -187,9 +307,23 @@ const mathSymbolLinks = [
   {
     target: "S05_D15",
     patterns: [
-      /\\chi_\{?[RST]\}?/g,
       /A_M/g,
+      /\\tau_r/g,
       /\\tau_x/g,
+      /\\chi_\{?R(?:_a)?\}?/g,
+      /\\chi_T/g,
+    ],
+  },
+  {
+    target: "S05_D18",
+    patterns: [
+      /R_1,\\ldots,R_\{d_\{?\\lambda\}?\}\s+of\s+\\mathsf\s+X_m\(\\lambda\)/g,
+    ],
+  },
+  {
+    target: "S05_D19",
+    patterns: [
+      /R_1,\\ldots,R_\{d_\{?\\lambda\}?\}\s+of\s+\\mathsf\s+X_m\^\{\\mathrm\{odd\}\}\(\\lambda\)/g,
     ],
   },
   {
@@ -200,11 +334,29 @@ const mathSymbolLinks = [
       /q_M/g,
       /C_a/g,
       /C_q/g,
+      /P_M/g,
     ],
   },
   {
+    target: "S05_D12",
+    patterns: [
+      /\\mu_u/g,
+      /W_u/g,
+      /D_u/g,
+      /T\|_\{\[\\mu_u\]\}/g,
+    ],
+  },
+  {
+    target: "S05_D11",
+    patterns: [/\\nearrow/g],
+  },
+  {
     target: "S05_D23",
-    patterns: [/\\theta_\{?\\lambda\}?/g],
+    patterns: [
+      /\\theta_\{?\\lambda\}?/g,
+      /\\cA/g,
+      /\\E_M/g,
+    ],
   },
 ];
 
@@ -213,12 +365,46 @@ function latexHref(target, latex) {
 }
 
 function linkLatexSymbols(math) {
-  let linked = math;
-  mathSymbolLinks.forEach(({ target, patterns }) => {
+  const matches = [];
+  mathSymbolLinks.forEach(({ target, patterns }, groupIndex) => {
     patterns.forEach((pattern) => {
-      linked = linked.replace(pattern, (match) => latexHref(target, match));
+      pattern.lastIndex = 0;
+      let match;
+      while ((match = pattern.exec(math)) !== null) {
+        matches.push({
+          start: match.index,
+          end: match.index + match[0].length,
+          text: match[0],
+          target,
+          groupIndex,
+        });
+        if (match[0].length === 0) pattern.lastIndex += 1;
+      }
     });
   });
+
+  matches.sort((a, b) =>
+    a.start - b.start ||
+    (b.end - b.start) - (a.end - a.start) ||
+    a.groupIndex - b.groupIndex
+  );
+
+  const selected = [];
+  let cursor = 0;
+  matches.forEach((match) => {
+    if (match.start < cursor) return;
+    selected.push(match);
+    cursor = match.end;
+  });
+
+  let linked = "";
+  cursor = 0;
+  selected.forEach((match) => {
+    linked += math.slice(cursor, match.start);
+    linked += latexHref(match.target, match.text);
+    cursor = match.end;
+  });
+  linked += math.slice(cursor);
   return linked;
 }
 
