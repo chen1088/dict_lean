@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_TableauDimension
+import DictatorshipTesting.Paper.S05_Int_TableauDimension
 
 /-
 Direct reverse imports:

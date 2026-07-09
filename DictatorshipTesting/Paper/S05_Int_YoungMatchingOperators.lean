@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_YoungOrthogonal
+import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
 
 /-
 Direct reverse imports:
@@ -9,7 +9,7 @@ Direct reverse imports:
 /-!
 # Canonical matching operators in Young coordinates
 
-This helper packages the elementary operator algebra for the canonical matching
+This internal Section 5 module packages the elementary operator algebra for the canonical matching
 whose edges pair adjacent labels `(0,1), (2,3), ...`.  It deliberately stays at
 the concrete tableau-coordinate level; it does not assert the Specht-module
 restriction/eigenbasis theorem.

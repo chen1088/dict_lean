@@ -1,9 +1,9 @@
 import DictatorshipTesting.Paper.Aux_YoungAdjacentEntries
-import DictatorshipTesting.Paper.Aux_TableauDimension
+import DictatorshipTesting.Paper.S05_Int_TableauDimension
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Aux_YoungMatchingOperators`
+- `DictatorshipTesting.Paper.S05_Int_YoungMatchingOperators`
 - `DictatorshipTesting.Paper.S05_Def5_04_TableauCoordinateSpace`
 - `DictatorshipTesting.Paper.S05_Def5_05_ContentAndAdjacentOperators`
 - `DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis`

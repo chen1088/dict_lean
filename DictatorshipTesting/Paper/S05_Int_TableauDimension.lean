@@ -1,10 +1,10 @@
-import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
+import DictatorshipTesting.Paper.S05_Int_StandardYoungTableaux
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
-- `DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam`
-- `DictatorshipTesting.Paper.Aux_YoungOrthogonal`
+- `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
+- `DictatorshipTesting.Paper.S05_Int_YoungOrthogonal`
 - `DictatorshipTesting.Paper.S05_Def5_04_TableauCoordinateSpace`
 - `DictatorshipTesting.Paper.S05_Lem5_03_TwoBoxTableauBranching`
 - `DictatorshipTesting.Paper.S05_Lem5_07_TwoBoxDimensionRecursion`
@@ -16,7 +16,7 @@ Direct reverse imports:
 /-!
 # Tableau-count dimension
 
-This helper file defines an assumption-free dimension proxy by counting standard
+This internal Section 5 module defines an assumption-free dimension proxy by counting standard
 Young tableaux.  It is parallel to the hook-length `youngDim` definition in
 `Defs.lean`; no Specht-module dimension theorem is asserted here.
 -/

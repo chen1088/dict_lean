@@ -31,7 +31,7 @@ The current full target builds successfully.
 
 A first static dependency browser lives in [`docs/`](docs/).  It is designed
 for GitHub Pages and separates large paper-facing theorem nodes from smaller
-`Aux_*` helper nodes.  Open [`docs/index.html`](docs/index.html), or enable
+internal support nodes.  Open [`docs/index.html`](docs/index.html), or enable
 GitHub Pages from the repository `docs/` folder to publish the same view.  The
 browser includes a compact paper-map tab and gives the numbered Section 5
 definitions 5.1--5.23 clickable popovers, so broad shared-definition
@@ -133,7 +133,7 @@ Proven Lemma 5.2 diagonal content package:
 
 Proven Lemma 5.3 fixed two-step tableau branching package:
 
-- `Aux_StandardYoungTableaux.lean`: the now-exposed helper layer for standard
+- `S05_Int_StandardYoungTableaux.lean`: the internal Section 5 layer for standard
   tableaux, entry locations, max-entry deletion, one-box insertion, and the
   deletion/child equivalence.
 - `S05_Lem5_03_TwoBoxTableauBranching.lean` -- Lemma 5.3
@@ -167,7 +167,7 @@ Proven Lemma 5.9 tableau-count size components:
 
 Proven matching-cube components for Lemma 5.10:
 
-- `Aux_YoungMatchingOperators.lean`: the now-exposed helper layer for
+- `S05_Int_YoungMatchingOperators.lean`: the internal Section 5 layer for
   canonical matching-edge operators, plus/minus projections, preservation of
   other edge eigenvalues, and simultaneous matching-sign projections.
 - `S05_Lem5_10_MatchingSubgroupEigenbasis.lean` -- Lemma 5.10
@@ -277,7 +277,7 @@ Internal bridge components proven:
   `S05_Lem5_20_OddSpectralBridge.lean`: the tableau-count spectral bridges are
   proved from explicit `SpectralBlockModelInputWithDim` hypotheses; Lemma 5.18
   supplies those spectral model inputs for the paper application.
-- `Aux_SpectralBridgeDimensionParam.lean`: dimension-parameterized algebraic
+- `S05_Int_SpectralBridgeAlgebra.lean`: dimension-parameterized algebraic
   bridge.  It proves `blockScalar_lower_bound_of_traceScalarFormula_withDim`,
   `traceScalarValue_of_blockTraceIdentity_withDim`,
   `SpectralGapFromBlockScalarsWithDim`, and `SpectralGapFromBlockModelWithDim`

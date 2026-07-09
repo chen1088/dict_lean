@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.AppA_LemA_04_StandardTableauxSwapConnectedness`
-- `DictatorshipTesting.Paper.Aux_TableauDimension`
+- `DictatorshipTesting.Paper.S05_Int_TableauDimension`
 - `DictatorshipTesting.Paper.Aux_YoungAdjacentEntries`
 - `DictatorshipTesting.Paper.S05_Def5_03_StandardTableaux`
 - `DictatorshipTesting.Paper.S05_Def5_12_OneBoxDeletionSpaces`

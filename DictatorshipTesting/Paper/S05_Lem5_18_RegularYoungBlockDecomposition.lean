@@ -1,5 +1,5 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.Aux_TableauDimension
+import DictatorshipTesting.Paper.S05_Int_TableauDimension
 import DictatorshipTesting.Paper.S05_Def5_07_YoungBlockEnergyProfile
 import DictatorshipTesting.Paper.S05_Def5_08_U1CompatibleYoungBlockProfile
 import DictatorshipTesting.Paper.Aux_Def_TableauEvenHeight

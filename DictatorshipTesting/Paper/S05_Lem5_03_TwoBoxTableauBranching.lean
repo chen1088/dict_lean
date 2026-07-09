@@ -1,5 +1,5 @@
 import DictatorshipTesting.Paper.S05_Def5_10_SignedTwoBoxRemovals
-import DictatorshipTesting.Paper.Aux_TableauDimension
+import DictatorshipTesting.Paper.S05_Int_TableauDimension
 import DictatorshipTesting.Paper.S05_Lem5_05_OneBoxDeletionIsUnitary
 import DictatorshipTesting.Paper.S05_Lem5_06_OneBoxDeletionIntertwinesEarlierSwaps
 

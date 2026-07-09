@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_YoungMatchingOperators
+import DictatorshipTesting.Paper.S05_Int_YoungMatchingOperators
 
 /-
 Direct reverse imports:

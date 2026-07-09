@@ -141,10 +141,10 @@ definition-only files `Aux_Def_TableauEvenHeight.lean` and
 `AppA_ThmA_02_JucysMurphyContentSpectrum.lean` imports neutral definitions
 rather than the even/odd certificate proof files.
 
-- Two substantial helper layers are exposed in the dependency graph for
+- Two substantial internal layers are exposed in the dependency graph for
   readability, but are not numbered separately in the paper:
-  `Aux_StandardYoungTableaux.lean` for deletion/insertion tableau mechanics and
-  `Aux_YoungMatchingOperators.lean` for canonical matching-edge operator
+  `S05_Int_StandardYoungTableaux.lean` for deletion/insertion tableau mechanics and
+  `S05_Int_YoungMatchingOperators.lean` for canonical matching-edge operator
   algebra.
 
 Obsolete old routes:
@@ -166,7 +166,7 @@ Lemma 5.1 now has an axiom-free coordinate Coxeter model in Lean.
 
 Proved internally:
 
-- `Aux_YoungOrthogonal.lean` defines the tableau coordinate space, basis
+- `S05_Int_YoungOrthogonal.lean` defines the tableau coordinate space, basis
   vectors, Young adjacent matrix coefficients, and `youngAdjacentOperator`.
 - The paper-facing file
   `S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean` exposes the
@@ -214,7 +214,7 @@ Current tableau-count finite-certificate status:
 | Lemma 5.26, odd certificate | Proved as `S05_Lem5_26_tableau_odd_certificate` using `hOddTableau` and the tableau one-box branching theorem | Connected by `S05_Lem5_20_tableauDim_oddSpectralGapFromCertificates` |
 
 The bridge algebra is no longer hard-coded to `youngDim`: the file
-`Aux_SpectralBridgeDimensionParam.lean` defines
+`S05_Int_SpectralBridgeAlgebra.lean` defines
 `SpectralBlockModelInputWithDim` and proves the scalar lower-bound and
 spectral-gap wrappers for an arbitrary dimension function.  Lemmas 5.17--5.20
 expose these wrappers for the paper-facing interface.
@@ -387,7 +387,7 @@ Lean files: `DictatorshipTesting/Paper/S05_Lem5_17_BlockLowerBoundImpliesTheGap.
 `DictatorshipTesting/Paper/S05_Lem5_19_EvenSpectralBridge.lean`,
 `DictatorshipTesting/Paper/S05_Lem5_20_OddSpectralBridge.lean`,
 `DictatorshipTesting/Paper/Aux_SpectralBridgeFromCertificates.lean`,
-and `DictatorshipTesting/Paper/Aux_SpectralBridgeDimensionParam.lean`.
+and `DictatorshipTesting/Paper/S05_Int_SpectralBridgeAlgebra.lean`.
 
 Lean names consumed downstream:
 `spectralBlockModelInputWithDim_even_from_appendixA`,
@@ -477,7 +477,7 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   supplies those hypotheses for the paper application.
 - `Aux_SpectralBridgeRepresentationInputs.lean`: compact interface definitions
   for the spectral-block model used by the Section 5 spectral bridge.
-- `Aux_YoungOrthogonal.lean`: coordinate space on standard tableaux, basis
+- `S05_Int_YoungOrthogonal.lean`: coordinate space on standard tableaux, basis
   vectors, basis inner product facts, concrete adjacent matrix coefficients,
   the adjacent operator on coordinates, the diagonal content operator,
   coefficient identities, self-adjointness on coordinate basis vectors, and the

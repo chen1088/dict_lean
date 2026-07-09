@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_YoungMatchingOperators
+import DictatorshipTesting.Paper.S05_Int_YoungMatchingOperators
 import DictatorshipTesting.Paper.S05_Def5_15_MatchingCharacters
 import DictatorshipTesting.Paper.S05_Def5_16_IsMatchingEigenvectorEven
 import DictatorshipTesting.Paper.S05_Def5_17_IsMatchingEigenvectorOdd

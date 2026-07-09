@@ -1,5 +1,5 @@
-import DictatorshipTesting.Paper.Aux_TableauDimension
-import DictatorshipTesting.Paper.Aux_YoungOrthogonal
+import DictatorshipTesting.Paper.S05_Int_TableauDimension
+import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
 
 /-
 Direct reverse imports:

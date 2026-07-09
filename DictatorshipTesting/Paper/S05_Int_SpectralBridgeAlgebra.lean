@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
 import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates
 import DictatorshipTesting.Paper.S05_Lem5_16_BlockScalarOfTheAveragedRejection
-import DictatorshipTesting.Paper.Aux_TableauDimension
+import DictatorshipTesting.Paper.S05_Int_TableauDimension
 
 /-
 Direct reverse imports:
@@ -15,7 +15,7 @@ Direct reverse imports:
 # Dimension-parameterized spectral bridge interfaces
 
 The original `youngDim` spectral bridge uses `youngDim` as the block-dimension
-function.  This helper keeps the same energy, `U_1`, and scalarity vocabulary,
+function.  This internal Section 5 module keeps the same energy, `U_1`, and scalarity vocabulary,
 but makes the trace/scalar formulas parametric in an arbitrary dimension
 function `dim`.
 

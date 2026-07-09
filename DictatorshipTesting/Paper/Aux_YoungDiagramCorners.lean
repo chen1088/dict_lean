@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Defs
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Aux_StandardYoungTableaux`
+- `DictatorshipTesting.Paper.S05_Int_StandardYoungTableaux`
 - `DictatorshipTesting.Paper.S05_Def5_02_RemovableCorners`
 - `DictatorshipTesting.Paper.S05_Def5_09_TwoBoxRemovals`
 - `DictatorshipTesting.Paper.S05_Def5_11_OneBoxRemovals`

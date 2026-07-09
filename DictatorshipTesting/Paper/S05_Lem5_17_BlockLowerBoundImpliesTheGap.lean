@@ -1,5 +1,5 @@
 import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates
-import DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam
+import DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra
 
 /-
 Direct reverse imports:

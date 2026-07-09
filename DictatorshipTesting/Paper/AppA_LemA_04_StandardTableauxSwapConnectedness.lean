@@ -1,5 +1,5 @@
 import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum
-import DictatorshipTesting.Paper.Aux_StandardYoungTableaux
+import DictatorshipTesting.Paper.S05_Int_StandardYoungTableaux
 
 /-
 Direct reverse imports:

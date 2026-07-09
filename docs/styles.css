@@ -349,6 +349,11 @@ main {
   border-style: dashed;
 }
 
+.kind-internal {
+  border-color: rgba(15, 98, 254, 0.28);
+  background: #f8fbff;
+}
+
 .root-node {
   outline: 1px solid rgba(103, 80, 164, 0.16);
 }

@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.S05_Lem5_16_BlockScalarOfTheAveragedRejection
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Aux_SpectralBridgeDimensionParam`
+- `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
 - `DictatorshipTesting.Paper.S05_Lem5_17_BlockLowerBoundImpliesTheGap`
 - `DictatorshipTesting.Paper.S05_Lem5_19_EvenSpectralBridge`
 - `DictatorshipTesting.Paper.S05_Lem5_20_OddSpectralBridge`
