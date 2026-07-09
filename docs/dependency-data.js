@@ -574,6 +574,9 @@ window.DICT_DEPENDENCY_DATA = {
           "target": "S05_D08"
         }
       ],
+      "paperLabel": "eq:square-energy-global-bound",
+      "paperEnv": "proposition",
+      "paperStatementLatex": "Let $\\Delta$ denote the alternating sum of the four queried values in one\nexecution of \\cref{alg:matching-trial}.  Then for every $f:S_n\\to\\mathbb R$,\n\\begin{equation}\\label{eq:square-energy-global-bound}\n  \\E[\\Delta^2]\n  \\ge\n  \\frac{16}{27}\\norm{f-P_{U_1}f}^2.\n\\end{equation}",
       "leanLinks": [
         {
           "name": "Prop4_12_SquareEnergyControlsGlobalDegree",
