@@ -1,11 +1,11 @@
-import DictatorshipTesting.Paper.Aux_CubeCharFlip
-import DictatorshipTesting.Paper.Aux_CubeCharMulSelf
-import DictatorshipTesting.Paper.Aux_CubeFlipInvolutive
+import DictatorshipTesting.Paper.S02_Int_CubeCharFlip
+import DictatorshipTesting.Paper.S02_Int_CubeCharMulSelf
+import DictatorshipTesting.Paper.S02_Int_CubeFlipInvolutive
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.Aux_CubeLowDegreeError`
+- `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval`
 -/
 

@@ -1,5 +1,5 @@
-import DictatorshipTesting.Paper.Aux_CubeLowDegreeError
-import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
+import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
+import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
 
 /-
 Direct reverse imports:
@@ -9,9 +9,9 @@ Direct reverse imports:
 
 
 /-!
-# Helper: local projection as convolution
+# Internal local projection as convolution
 
-This helper proves the local-projection convolution identity used by the
+This internal Section 5 module proves the local-projection convolution identity used by the
 paper-facing local-truncation and averaged-rejection files.
 -/
 

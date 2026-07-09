@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
+import DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection
 
 /-
 Direct reverse imports:

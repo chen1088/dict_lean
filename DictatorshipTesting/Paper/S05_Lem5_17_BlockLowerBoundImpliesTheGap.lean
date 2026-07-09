@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_SpectralBridgeFromCertificates
+import DictatorshipTesting.Paper.S05_Int_SpectralBridgeFromCertificates
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra
 
 /-

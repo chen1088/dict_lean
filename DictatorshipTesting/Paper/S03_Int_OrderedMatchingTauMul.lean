@@ -1,11 +1,11 @@
-import DictatorshipTesting.Paper.Aux_OrderedMatchingTauDepends
-import DictatorshipTesting.Paper.Aux_CubeCharXor
+import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauDepends
+import DictatorshipTesting.Paper.S02_Int_CubeCharXor
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Aux_MatchingLocalProjection`
-- `DictatorshipTesting.Paper.Aux_PermCubeAverage`
-- `DictatorshipTesting.Paper.Aux_PMConvolution`
+- `DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection`
+- `DictatorshipTesting.Paper.S04_Int_PermCubeAverage`
+- `DictatorshipTesting.Paper.S05_Int_PMConvolution`
 - `DictatorshipTesting.Paper.S04_Lem4_11_TrialCubeCoordinates`
 - `DictatorshipTesting.Paper.S04_Prop4_12_SquareEnergyControlsGlobalDegree`
 -/

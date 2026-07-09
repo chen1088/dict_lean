@@ -282,7 +282,7 @@ Internal bridge components proven:
   `traceScalarValue_of_blockTraceIdentity_withDim`,
   `SpectralGapFromBlockScalarsWithDim`, and `SpectralGapFromBlockModelWithDim`
   for an arbitrary dimension function.
-- `Aux_SpectralBridgeRepresentationInputs.lean`: the compact interface for the
+- `S05_Int_SpectralBridgeRepresentationInputs.lean`: the compact interface for the
   spectral-block model used by the spectral bridge.  It contains only the Young-block
   energy, `U_1` identification, scalarity, and trace/scalar-value predicates.
 

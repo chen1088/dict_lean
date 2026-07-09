@@ -1,6 +1,6 @@
 import DictatorshipTesting.Paper.Defs
-import DictatorshipTesting.Paper.Aux_CubeCharMulSelf
-import DictatorshipTesting.Paper.Aux_CubeCharXor
+import DictatorshipTesting.Paper.S02_Int_CubeCharMulSelf
+import DictatorshipTesting.Paper.S02_Int_CubeCharXor
 
 /-
 Direct reverse imports:

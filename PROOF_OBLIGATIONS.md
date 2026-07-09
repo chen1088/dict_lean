@@ -156,9 +156,9 @@ Obsolete old routes:
   `OneBoxDimensionBranchingPositiveAssumption` hypotheses; no axiom instance is
   registered for those assumptions.  The current proof-status tables promote
   the tableau-count statements.
-- The active helper files for local convolution and spectral certificate
-  algebra are `Aux_PMConvolution.lean` and
-  `Aux_SpectralBridgeFromCertificates.lean`.
+- The active internal files for local convolution and spectral certificate
+  algebra are `S05_Int_PMConvolution.lean` and
+  `S05_Int_SpectralBridgeFromCertificates.lean`.
 
 ## Lemma 5.1 Young Adjacent Action Status
 
@@ -386,7 +386,7 @@ Lean files: `DictatorshipTesting/Paper/S05_Lem5_17_BlockLowerBoundImpliesTheGap.
 `DictatorshipTesting/Paper/S05_Lem5_18_RegularYoungBlockDecomposition.lean`,
 `DictatorshipTesting/Paper/S05_Lem5_19_EvenSpectralBridge.lean`,
 `DictatorshipTesting/Paper/S05_Lem5_20_OddSpectralBridge.lean`,
-`DictatorshipTesting/Paper/Aux_SpectralBridgeFromCertificates.lean`,
+`DictatorshipTesting/Paper/S05_Int_SpectralBridgeFromCertificates.lean`,
 and `DictatorshipTesting/Paper/S05_Int_SpectralBridgeAlgebra.lean`.
 
 Lean names consumed downstream:
@@ -475,7 +475,7 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   `S05_Lem5_20_OddSpectralBridge.lean`: tableau-count spectral bridges proved
   from explicit `SpectralBlockModelInputWithDim` hypotheses; Appendix A
   supplies those hypotheses for the paper application.
-- `Aux_SpectralBridgeRepresentationInputs.lean`: compact interface definitions
+- `S05_Int_SpectralBridgeRepresentationInputs.lean`: compact interface definitions
   for the spectral-block model used by the Section 5 spectral bridge.
 - `S05_Int_YoungOrthogonal.lean`: coordinate space on standard tableaux, basis
   vectors, basis inner product facts, concrete adjacent matrix coefficients,

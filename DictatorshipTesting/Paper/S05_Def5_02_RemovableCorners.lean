@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_YoungDiagramCorners
+import DictatorshipTesting.Paper.S05_Int_YoungDiagramCorners
 
 /-
 Direct reverse imports:

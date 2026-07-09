@@ -1,5 +1,5 @@
-import DictatorshipTesting.Paper.Aux_CubeCharFlip
-import DictatorshipTesting.Paper.Aux_CubeFlipInvolutive
+import DictatorshipTesting.Paper.S02_Int_CubeCharFlip
+import DictatorshipTesting.Paper.S02_Int_CubeFlipInvolutive
 import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
 
 /-

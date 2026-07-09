@@ -1,5 +1,5 @@
-import DictatorshipTesting.Paper.Aux_CubeFourierTranslate
-import DictatorshipTesting.Paper.Aux_CubeHighDegreeLinear
+import DictatorshipTesting.Paper.S02_Int_CubeFourierTranslate
+import DictatorshipTesting.Paper.S04_Int_CubeHighDegreeLinear
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 
 /-

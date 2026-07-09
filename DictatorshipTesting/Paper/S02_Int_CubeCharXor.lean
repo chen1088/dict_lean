@@ -2,8 +2,8 @@ import DictatorshipTesting.Paper.Defs
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Aux_CubeFourierTranslate`
-- `DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul`
+- `DictatorshipTesting.Paper.S02_Int_CubeFourierTranslate`
+- `DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul`
 - `DictatorshipTesting.Paper.S05_Def5_15_MatchingCharacters`
 -/
 

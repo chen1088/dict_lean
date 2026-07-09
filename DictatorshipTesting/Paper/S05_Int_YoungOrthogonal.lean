@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_YoungAdjacentEntries
+import DictatorshipTesting.Paper.S05_Int_YoungAdjacentEntries
 import DictatorshipTesting.Paper.S05_Int_TableauDimension
 
 /-

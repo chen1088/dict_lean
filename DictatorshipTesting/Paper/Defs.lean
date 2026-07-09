@@ -76,14 +76,14 @@ import DictatorshipTesting.Paper.Aux_Def_MatchingSpectralGapConstant
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Aux_CubeCharFlip`
-- `DictatorshipTesting.Paper.Aux_CubeCharMulSelf`
-- `DictatorshipTesting.Paper.Aux_CubeCharXor`
-- `DictatorshipTesting.Paper.Aux_CubeFlipInvolutive`
-- `DictatorshipTesting.Paper.Aux_CubeHighDegreeLinear`
-- `DictatorshipTesting.Paper.Aux_OrderedMatchingTauDepends`
-- `DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs`
-- `DictatorshipTesting.Paper.Aux_YoungDiagramCorners`
+- `DictatorshipTesting.Paper.S02_Int_CubeCharFlip`
+- `DictatorshipTesting.Paper.S02_Int_CubeCharMulSelf`
+- `DictatorshipTesting.Paper.S02_Int_CubeCharXor`
+- `DictatorshipTesting.Paper.S02_Int_CubeFlipInvolutive`
+- `DictatorshipTesting.Paper.S04_Int_CubeHighDegreeLinear`
+- `DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauDepends`
+- `DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs`
+- `DictatorshipTesting.Paper.S05_Int_YoungDiagramCorners`
 - `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion`
 - `DictatorshipTesting.Paper.S02_Thm2_01_BooleanU1Classification`

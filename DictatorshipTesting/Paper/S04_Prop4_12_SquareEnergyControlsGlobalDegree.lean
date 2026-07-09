@@ -1,5 +1,5 @@
-import DictatorshipTesting.Paper.Aux_OrderedMatchingTauMul
-import DictatorshipTesting.Paper.Aux_PermCubeAverage
+import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
+import DictatorshipTesting.Paper.S04_Int_PermCubeAverage
 import DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare
 import DictatorshipTesting.Paper.S04_Lem4_06_LocalHighDegreeErrorFormula
 import DictatorshipTesting.Paper.S04_Thm4_10_MatchingGap

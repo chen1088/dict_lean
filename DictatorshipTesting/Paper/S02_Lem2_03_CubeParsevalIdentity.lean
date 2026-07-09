@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.Aux_CubeLowDegreeError`
+- `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval`
 - `DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare`
 -/

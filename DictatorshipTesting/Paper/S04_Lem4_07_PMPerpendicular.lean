@@ -1,6 +1,6 @@
-import DictatorshipTesting.Paper.Aux_CubeLowDegreeError
-import DictatorshipTesting.Paper.Aux_MatchingLocalProjection
-import DictatorshipTesting.Paper.Aux_PermCubeAverage
+import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
+import DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection
+import DictatorshipTesting.Paper.S04_Int_PermCubeAverage
 import DictatorshipTesting.Paper.S04_Lem4_05_PMFixesLocal
 
 /-

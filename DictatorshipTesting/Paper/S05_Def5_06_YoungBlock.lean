@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Aux_SpectralBridgeRepresentationInputs
+import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
 
 /-
 Direct reverse imports:

@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Defs
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Aux_CubeLowDegreeError`
+- `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.S04_Cor4_09_U1Local`
 - `DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare`
 -/
