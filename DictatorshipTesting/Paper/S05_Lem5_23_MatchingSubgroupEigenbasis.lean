@@ -1,5 +1,9 @@
 import DictatorshipTesting.Paper.Aux_YoungMatchingOperators
 import DictatorshipTesting.Paper.S05_Def5_22_MatchingCharacters
+import DictatorshipTesting.Paper.S05_Lem5_23_IsMatchingEigenvectorEven
+import DictatorshipTesting.Paper.S05_Lem5_23_IsMatchingEigenvectorOdd
+import DictatorshipTesting.Paper.S05_Lem5_23_MatchingRestrictionEvenInput
+import DictatorshipTesting.Paper.S05_Lem5_23_MatchingRestrictionOddInput
 import DictatorshipTesting.Paper.S05_Lem5_40_OddCertificate
 
 /-
@@ -173,20 +177,6 @@ theorem S05_Lem5_23_canonicalMatchingCubeOperatorOdd_eq_indexedProduct
         (fun r : Fin m => canonicalMatchingYoungOperatorOdd (lam := lam) r)
         x (List.finRange m) := by
   exact canonicalMatchingCubeOperatorOdd_eq_indexedProduct x
-
-/-- Lemma 5.23 matching-character component: simultaneous even matching-edge
-eigenvectors are indexed by a character support. -/
-abbrev S05_IsMatchingEigenvectorEven
-    {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
-    (f : TableauSpace lam) (R : Finset (Fin m)) : Prop :=
-  IsMatchingEigenvectorEven f R
-
-/-- Lemma 5.23 matching-character component: simultaneous odd matching-edge
-eigenvectors are indexed by a character support. -/
-abbrev S05_IsMatchingEigenvectorOdd
-    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
-    (f : TableauSpace lam) (R : Finset (Fin m)) : Prop :=
-  IsMatchingEigenvectorOdd f R
 
 /-- Lemma 5.23 matching-character component: the product of selected edge
 signs is the matching character. -/
@@ -514,18 +504,6 @@ theorem S05_Lem5_23_matchingEdge_basis_swappable_swap_value_odd
       youngAdjacentOffCoeff T (canonicalNearMatchingAdjacentIndex m r) := by
   exact canonicalMatchingYoungOperatorOdd_basis_swappable_swap_value
     T r hrow_ne hcol_ne
-
-/-- Even matching-restriction input, in the scalar vocabulary currently
-available in Lean. -/
-def MatchingRestrictionEvenInput (m : ℕ) : Prop :=
-  ∀ lam : YoungDiagram (2 * m),
-    0 ≤ hEven m lam ∧ hEven m lam ≤ youngDim lam
-
-/-- Odd matching-restriction input, in the scalar vocabulary currently
-available in Lean. -/
-def MatchingRestrictionOddInput (m : ℕ) : Prop :=
-  ∀ lam : YoungDiagram (2 * m + 1),
-    0 ≤ hOdd m lam ∧ hOdd m lam ≤ youngDim lam
 
 /-- Scalar consequence for even matching subgroups. -/
 theorem matchingRestriction_even_specht_pieri_input

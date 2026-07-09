@@ -1,4 +1,6 @@
 import DictatorshipTesting.Paper.S05_Lem5_23_MatchingSubgroupEigenbasis
+import DictatorshipTesting.Paper.S05_Lem5_25_TraceLocalTruncationEvenInput
+import DictatorshipTesting.Paper.S05_Lem5_25_TraceLocalTruncationOddInput
 
 /-
 Direct reverse imports:
@@ -33,18 +35,6 @@ scalar trace formula used by the later bridge.
 noncomputable section
 
 namespace DictatorshipTesting
-
-/-- Scalar trace formula for one even Young block. -/
-def TraceLocalTruncationEvenInput (m : ℕ) : Prop :=
-  ∀ lam : YoungDiagram (2 * m),
-    ∃ traceLocalHigh : ℝ,
-      traceLocalHigh = youngDim lam * hEven m lam
-
-/-- Scalar trace formula for one odd Young block. -/
-def TraceLocalTruncationOddInput (m : ℕ) : Prop :=
-  ∀ lam : YoungDiagram (2 * m + 1),
-    ∃ traceLocalHigh : ℝ,
-      traceLocalHigh = youngDim lam * hOdd m lam
 
 /-- Scalar trace formula as the current Lean consequence of the even
 matching-restriction input. -/
