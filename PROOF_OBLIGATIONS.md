@@ -210,10 +210,11 @@ Remaining Section 5/AppA bridge boundary:
   has exact label multiset `S05_evenSignPatternMultiset`, not merely the same
   cardinality. Transport from the canonical matching to every arbitrary
   perfect matching is also proved, including exact edge-label transport and
-  direct `M.toOrdered` character action. The remaining Lemma 5.11 obligation is
-  construction of the odd near-perfect matching eigenbasis with exact
-  `S05_oddSignPatternMultiset` labels; this is also the remaining fixed-trace
-  instantiation in Lemma 5.13.
+  direct `M.toOrdered` character action. The canonical odd family is also a
+  proved orthonormal spanning Mathlib basis with exact
+  `S05_oddSignPatternMultiset` labels and every canonical matching eigenvalue.
+  The remaining Lemma 5.11 obligation is transport to arbitrary near-perfect
+  matchings; this is also the remaining fixed-trace instantiation in Lemma 5.13.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
 definition-only files `S05_Def5_24_TableauEvenHeight.lean` and
@@ -533,6 +534,7 @@ Lean file: `DictatorshipTesting/Paper/S05_Lem5_11_MatchingSubgroupEigenbasis.lea
 Lean theorem names:
 `S05_Lem5_11_canonicalEvenMatchingEigenbasis`,
 `S05_Lem5_11_arbitraryEvenMatchingEigenbasis_toOrdered`,
+`S05_Lem5_11_canonicalOddMatchingEigenbasis`,
 `matchingRestriction_even_specht_pieri_input`,
 `matchingRestriction_odd_specht_pieri_input`.
 
@@ -541,17 +543,18 @@ cardinality/high-count semantics are proved. The signed-child orthogonal
 decomposition and the canonical even labeled eigenbasis are also proved,
 including exact multiset equality. The basis is transported to every arbitrary
 perfect matching by an explicit conjugating permutation and represented
-isometry. The full paper-level labeled eigenbasis statement remains open only
-for the odd near-perfect case.
+isometry. The canonical odd labeled eigenbasis is now proved by explicit
+one-box assembly. The full paper-level statement remains open only for its
+transport to arbitrary odd near-perfect matchings.
 
 Mathematical content: restricting `S^lambda` to the matching subgroup
 `A_M ~= (Z/2Z)^m` has the local character-weight multiset recursively counted
 by the Section 5 `X_m(lambda)` data.
 
-Exact internal blocker: carry out the one-box odd assembly, prove its
-orthonormal spanning decomposition and matching eigenvalues, and identify its
-labels with `S05_oddSignPatternMultiset`. Even matching transport is no longer
-a blocker.
+Exact internal blocker: construct the unique unmatched point and endpoint
+relabeling for an arbitrary odd near-perfect matching, prove the conjugation
+identity, and transport the now-proved canonical odd basis. Even matching
+transport and canonical odd assembly are no longer blockers.
 
 Citation target if external: repeated Pieri/Littlewood--Richardson branching
 for restriction to Young subgroups and then to the matching subgroup.
@@ -621,8 +624,10 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   projection wrappers such as
   `S05_Lem5_11_matchingEdgeSignProjectionEven_isMatchingEigen`, and iterated
   support-selected simultaneous eigenspace wrappers such as
-  `S05_Lem5_11_matchingSignProjectionEven_isMatchingEigenvector`.  The full
-  Specht-module restriction theorem remains a representation-layer input.
+  `S05_Lem5_11_matchingSignProjectionEven_isMatchingEigenvector`. It now also
+  contains the canonical-even, arbitrary-even, and canonical-odd labeled
+  orthonormal spanning bases with exact multiset identities. Arbitrary odd
+  transport remains.
 - `S05_Def5_22_MatchingIdempotents.lean`: low/high matching idempotent
   vocabulary, including `S05_matchingLowIdempotent_idempotent` and
   `S05_matchingHighIdempotent_idempotent`, plus the complementary projection

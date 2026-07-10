@@ -203,8 +203,11 @@ Proven matching-cube components for Lemma 5.11:
   `S05_evenSignPatternMultiset`. It now also constructs the endpoint
   equivalence and conjugating permutation for every even matching, proves that
   represented permutations are invertible isometries, and transports the
-  basis with exact labels to `M.toOrdered`. Remaining for the full Lemma 5.11
-  statement: construct the odd near-perfect matching eigenbasis.
+  basis with exact labels to `M.toOrdered`. The same file now assembles the
+  canonical odd basis from the one-box fibers, proving orthonormality, spanning,
+  all canonical matching eigenvalues, and literal equality with
+  `S05_oddSignPatternMultiset`. Remaining for the full Lemma 5.11 statement:
+  transport this basis to arbitrary near-perfect matchings.
 
 Proven Definition 5.22 matching-idempotent components:
 
@@ -284,8 +287,9 @@ regular Young-block energy decomposition.  Lemma 5.13 now identifies the trace
 of the concrete fixed-matching operator with `hEvenTableau` or `hOddTableau`
   from the labeled matching eigenbasis in its paper statement. The positive-size
   even trace and full Young-block trace are now instantiated unconditionally
-  from the arbitrary-perfect-matching basis. The remaining Lemma 5.11 and trace
-  obligation is construction of the odd near-perfect labeled eigenbasis. The
+  from the arbitrary-perfect-matching basis. The canonical odd labeled basis is
+  proved; the remaining Lemma 5.11 and trace obligation is its transport to
+  arbitrary near-perfect matchings. The
   final global weighted scalarity axiom therefore remains.
 
 Proven Lemma 5.18 trace-model-to-gap algebra:

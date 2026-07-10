@@ -6,6 +6,8 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_18_MatchingRestrictionEvenInput
 import DictatorshipTesting.Paper.Defs.S05_Def5_19_MatchingRestrictionOddInput
 import DictatorshipTesting.Paper.S05_Lem5_10_SizesOfTheSignPatternMultisets
 import DictatorshipTesting.Paper.S05_Lem5_04_TwoBoxTableauBranching
+import DictatorshipTesting.Paper.S05_Lem5_06_OneBoxDeletionIsUnitary
+import DictatorshipTesting.Paper.S05_Lem5_07_OneBoxDeletionIntertwinesEarlierSwaps
 import DictatorshipTesting.Paper.S05_Lem5_27_OddCertificate
 import DictatorshipTesting.Paper.Defs.AppA_DefA_01_YoungOrthogonalActionData
 import DictatorshipTesting.Paper.Defs.S05_Def5_29_AveragedHighMatchingElement
@@ -30,7 +32,10 @@ label multisets and prove their cardinality and high-label counts. The canonical
 even labeled matching eigenbasis is now recursively constructed below, with
 literal multiset equality of its labels. The explicit endpoint permutation and
 represented isometry now transport it to every arbitrary perfect matching.
-Remaining: construct the odd near-perfect matching eigenbasis.
+The canonical odd basis is also constructed explicitly from the one-box
+fibers, with orthonormality, spanning, matching eigenvalues, and literal odd
+label multiplicities. Remaining: transport it to arbitrary near-perfect
+matchings.
 -/
 
 /-!
@@ -3063,6 +3068,718 @@ theorem S05_canonicalEvenMatchingBasis_character_action
         S05_canonicalEvenMatchingBasis (m + 1) lam i := by
   exact canonicalMatchingCubeOperatorEven_apply_character_of_isMatchingEigenvector
     ((S05_Lem5_11_canonicalEvenMatchingEigenbasis m lam).2.1 i) x
+
+/-! ## Canonical odd eigenbasis from one-box fibers -/
+
+/-- Insert the maximum entry into the removable corner indexed by `r`. -/
+noncomputable def S05_oneBoxExtensionTableau
+    {n : Nat} (lam : YoungDiagram (n + 1)) (r : RemovableRow lam)
+    (U : StandardYoungTableau (removableRowToOneBoxChild lam r)) :
+    StandardYoungTableau lam :=
+  S05_Lem5_06_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+    (removableRowToOneBoxChild_isOneBoxChild lam r)
+    (row_form_deleteRemovableRowDiagram lam r.2) U
+
+/-- The inserted tableau lies in exactly the removable-row fiber used for the
+insertion. -/
+theorem S05_oneBoxExtensionTableau_maxRemovableRow
+    {n : Nat} (lam : YoungDiagram (n + 1)) (r : RemovableRow lam)
+    (U : StandardYoungTableau (removableRowToOneBoxChild lam r)) :
+    maxRemovableRow (S05_oneBoxExtensionTableau lam r U) = r := by
+  apply maxRemovableRow_eq_of_tableauMaxAt_deletedCorner r
+  exact S05_Lem5_06_insertMax_tableauMaxAt_deletedCorner
+    (removableRowToOneBoxChild_isOneBoxChild lam r)
+    (row_form_deleteRemovableRowDiagram lam r.2) U
+
+/-- Insertion at a fixed removable row is injective on child tableaux. -/
+theorem S05_oneBoxExtensionTableau_injective
+    {n : Nat} (lam : YoungDiagram (n + 1)) (r : RemovableRow lam) :
+    Function.Injective (S05_oneBoxExtensionTableau lam r) := by
+  intro U V hUV
+  exact S05_Lem5_07_insertMax_injective
+    (removableRowToOneBoxChild_isOneBoxChild lam r)
+    (row_form_deleteRemovableRowDiagram lam r.2) hUV
+
+/-- Extend child tableau coordinates by zero outside the removable-row fiber.
+The formula is explicit in the parent tableau basis. -/
+noncomputable def S05_oneBoxExtensionEmbedding
+    {n : Nat} (lam : YoungDiagram (n + 1)) (r : RemovableRow lam) :
+    TableauSpace (removableRowToOneBoxChild lam r) -> TableauSpace lam :=
+  fun f T =>
+    ∑ U : StandardYoungTableau (removableRowToOneBoxChild lam r),
+      f U * tableauBasisVec (S05_oneBoxExtensionTableau lam r U) T
+
+/-- A child basis vector extends to the corresponding inserted parent basis
+vector. -/
+theorem S05_oneBoxExtensionEmbedding_basis
+    {n : Nat} (lam : YoungDiagram (n + 1)) (r : RemovableRow lam)
+    (U : StandardYoungTableau (removableRowToOneBoxChild lam r)) :
+    S05_oneBoxExtensionEmbedding lam r (tableauBasisVec U) =
+      tableauBasisVec (S05_oneBoxExtensionTableau lam r U) := by
+  classical
+  funext T
+  rw [S05_oneBoxExtensionEmbedding]
+  rw [Fintype.sum_eq_single U]
+  · simp [tableauBasisVec]
+  · intro V hVU
+    simp [tableauBasisVec, hVU]
+
+/-- Reading an extended coordinate at its inserted tableau recovers the child
+coordinate. -/
+theorem S05_oneBoxExtensionEmbedding_apply_extension
+    {n : Nat} (lam : YoungDiagram (n + 1)) (r : RemovableRow lam)
+    (f : TableauSpace (removableRowToOneBoxChild lam r))
+    (U : StandardYoungTableau (removableRowToOneBoxChild lam r)) :
+    S05_oneBoxExtensionEmbedding lam r f
+        (S05_oneBoxExtensionTableau lam r U) = f U := by
+  classical
+  rw [S05_oneBoxExtensionEmbedding]
+  rw [Fintype.sum_eq_single U]
+  · simp [tableauBasisVec]
+  · intro V hVU
+    have hExt :
+        S05_oneBoxExtensionTableau lam r V ≠
+          S05_oneBoxExtensionTableau lam r U := by
+      intro h
+      exact hVU (S05_oneBoxExtensionTableau_injective lam r h)
+    rw [tableauBasisVec_ne (Ne.symm hExt)]
+    ring
+
+/-- The extension is zero on every other removable-row fiber. -/
+theorem S05_oneBoxExtensionEmbedding_apply_of_maxRemovableRow_ne
+    {n : Nat} (lam : YoungDiagram (n + 1)) (r : RemovableRow lam)
+    (f : TableauSpace (removableRowToOneBoxChild lam r))
+    (T : StandardYoungTableau lam) (hT : maxRemovableRow T ≠ r) :
+    S05_oneBoxExtensionEmbedding lam r f T = 0 := by
+  classical
+  rw [S05_oneBoxExtensionEmbedding]
+  apply Finset.sum_eq_zero
+  intro U _hU
+  have hne : T ≠ S05_oneBoxExtensionTableau lam r U := by
+    intro h
+    apply hT
+    rw [h, S05_oneBoxExtensionTableau_maxRemovableRow]
+  rw [tableauBasisVec_ne hne]
+  ring
+
+/-- One-box extension preserves the full coordinate inner product. -/
+theorem S05_oneBoxExtensionEmbedding_isometry
+    {n : Nat} (lam : YoungDiagram (n + 1)) (r : RemovableRow lam)
+    (f g : TableauSpace (removableRowToOneBoxChild lam r)) :
+    tableauInner (S05_oneBoxExtensionEmbedding lam r f)
+        (S05_oneBoxExtensionEmbedding lam r g) = tableauInner f g := by
+  classical
+  rw [tableauInner, tableauInner]
+  change
+    (∑ T : StandardYoungTableau lam,
+      S05_oneBoxExtensionEmbedding lam r f T *
+        (∑ U : StandardYoungTableau (removableRowToOneBoxChild lam r),
+          g U * tableauBasisVec (S05_oneBoxExtensionTableau lam r U) T)) =
+      ∑ U : StandardYoungTableau (removableRowToOneBoxChild lam r),
+        f U * g U
+  simp_rw [Finset.mul_sum]
+  rw [Finset.sum_comm]
+  apply Finset.sum_congr rfl
+  intro U _hU
+  have hright :
+      (∑ T : StandardYoungTableau lam,
+        S05_oneBoxExtensionEmbedding lam r f T *
+          tableauBasisVec (S05_oneBoxExtensionTableau lam r U) T) =
+        S05_oneBoxExtensionEmbedding lam r f
+          (S05_oneBoxExtensionTableau lam r U) := by
+    simpa [tableauInner] using tableauInner_right_basis
+      (S05_oneBoxExtensionEmbedding lam r f)
+      (S05_oneBoxExtensionTableau lam r U)
+  calc
+    (∑ T : StandardYoungTableau lam,
+        S05_oneBoxExtensionEmbedding lam r f T *
+          (g U * tableauBasisVec (S05_oneBoxExtensionTableau lam r U) T)) =
+        g U * ∑ T : StandardYoungTableau lam,
+          S05_oneBoxExtensionEmbedding lam r f T *
+            tableauBasisVec (S05_oneBoxExtensionTableau lam r U) T := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro T _hT
+      ring
+    _ = g U * S05_oneBoxExtensionEmbedding lam r f
+          (S05_oneBoxExtensionTableau lam r U) := by rw [hright]
+    _ = f U * g U := by
+      rw [S05_oneBoxExtensionEmbedding_apply_extension]
+      ring
+
+/-- Extensions from distinct removable-row fibers are orthogonal. -/
+theorem S05_oneBoxExtensionEmbedding_ranges_orthogonal
+    {n : Nat} (lam : YoungDiagram (n + 1))
+    {r s : RemovableRow lam} (hrs : r ≠ s)
+    (f : TableauSpace (removableRowToOneBoxChild lam r))
+    (g : TableauSpace (removableRowToOneBoxChild lam s)) :
+    tableauInner (S05_oneBoxExtensionEmbedding lam r f)
+        (S05_oneBoxExtensionEmbedding lam s g) = 0 := by
+  classical
+  unfold tableauInner
+  apply Finset.sum_eq_zero
+  intro T _hT
+  by_cases hTr : maxRemovableRow T = r
+  · have hTs : maxRemovableRow T ≠ s := by
+      intro h
+      exact hrs (hTr.symm.trans h)
+    rw [S05_oneBoxExtensionEmbedding_apply_of_maxRemovableRow_ne
+      lam s g T hTs]
+    ring
+  · rw [S05_oneBoxExtensionEmbedding_apply_of_maxRemovableRow_ne
+      lam r f T hTr]
+    ring
+
+/-- One-box extension is additive. -/
+theorem S05_oneBoxExtensionEmbedding_add
+    {n : Nat} (lam : YoungDiagram (n + 1)) (r : RemovableRow lam)
+    (f g : TableauSpace (removableRowToOneBoxChild lam r)) :
+    S05_oneBoxExtensionEmbedding lam r (f + g) =
+      S05_oneBoxExtensionEmbedding lam r f +
+        S05_oneBoxExtensionEmbedding lam r g := by
+  classical
+  funext T
+  simp only [S05_oneBoxExtensionEmbedding, Pi.add_apply, add_mul]
+  exact Finset.sum_add_distrib
+
+/-- One-box extension commutes with real scalar multiplication. -/
+theorem S05_oneBoxExtensionEmbedding_smul
+    {n : Nat} (lam : YoungDiagram (n + 1)) (r : RemovableRow lam)
+    (c : Real) (f : TableauSpace (removableRowToOneBoxChild lam r)) :
+    S05_oneBoxExtensionEmbedding lam r (c • f) =
+      c • S05_oneBoxExtensionEmbedding lam r f := by
+  classical
+  funext T
+  simp only [S05_oneBoxExtensionEmbedding, Pi.smul_apply, smul_eq_mul]
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro U _hU
+  ring
+
+/-- One-box extension commutes with finite coordinate sums. -/
+theorem S05_oneBoxExtensionEmbedding_sum
+    {n : Nat} {ι : Type} [Fintype ι]
+    (lam : YoungDiagram (n + 1)) (r : RemovableRow lam)
+    (f : ι -> TableauSpace (removableRowToOneBoxChild lam r)) :
+    S05_oneBoxExtensionEmbedding lam r (fun U => ∑ i : ι, f i U) =
+      fun T => ∑ i : ι, S05_oneBoxExtensionEmbedding lam r (f i) T := by
+  classical
+  funext T
+  simp only [S05_oneBoxExtensionEmbedding]
+  simp_rw [Finset.sum_mul]
+  rw [Finset.sum_comm]
+
+/-- Basis-level intertwining for every adjacent pair retained by one-box
+deletion. -/
+theorem S05_oneBoxExtensionEmbedding_intertwinesEarlierAdjacent_basis
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (r : RemovableRow lam)
+    (U : StandardYoungTableau (removableRowToOneBoxChild lam r))
+    (a : Fin n) :
+    youngAdjacentOperator (Fin.castSucc a)
+        (S05_oneBoxExtensionEmbedding lam r (tableauBasisVec U)) =
+      S05_oneBoxExtensionEmbedding lam r
+        (youngAdjacentOperator a (tableauBasisVec U)) := by
+  let TU := S05_oneBoxExtensionTableau lam r U
+  let h := removableRowToOneBoxChild_isOneBoxChild lam r
+  let hr := row_form_deleteRemovableRowDiagram lam r.2
+  rw [S05_oneBoxExtensionEmbedding_basis]
+  by_cases hrow : adjacentSameRow U a
+  · have hrowP : adjacentSameRow TU (Fin.castSucc a) := by
+      exact (S05_Lem5_07_insertMax_adjacentSameRow_iff h hr U a).2 hrow
+    rw [youngAdjacentOperator_basis_sameRow TU _ hrowP,
+      youngAdjacentOperator_basis_sameRow U a hrow,
+      S05_oneBoxExtensionEmbedding_basis]
+  · by_cases hcol : adjacentSameCol U a
+    · have hcolP : adjacentSameCol TU (Fin.castSucc a) := by
+        exact (S05_Lem5_07_insertMax_adjacentSameCol_iff h hr U a).2 hcol
+      rw [youngAdjacentOperator_basis_sameCol TU _ hcolP,
+        youngAdjacentOperator_basis_sameCol U a hcol]
+      have hnegP : (fun S => -tableauBasisVec TU S) =
+          (-1 : Real) • tableauBasisVec TU := by
+        funext S
+        simp
+      have hnegC : (fun S => -tableauBasisVec U S) =
+          (-1 : Real) • tableauBasisVec U := by
+        funext S
+        simp
+      rw [hnegP, hnegC, S05_oneBoxExtensionEmbedding_smul,
+        S05_oneBoxExtensionEmbedding_basis]
+    · have hrowP : ¬ adjacentSameRow TU (Fin.castSucc a) := by
+        intro hp
+        exact hrow ((S05_Lem5_07_insertMax_adjacentSameRow_iff h hr U a).1 hp)
+      have hcolP : ¬ adjacentSameCol TU (Fin.castSucc a) := by
+        intro hp
+        exact hcol ((S05_Lem5_07_insertMax_adjacentSameCol_iff h hr U a).1 hp)
+      let U' := adjacentSwapTableau U a hrow hcol
+      have hswap :
+          S05_oneBoxExtensionTableau lam r U' =
+            adjacentSwapTableau TU (Fin.castSucc a) hrowP hcolP := by
+        simpa [TU, U', h, hr, S05_oneBoxExtensionTableau] using
+          S05_Lem5_07_insertMax_adjacentSwapTableau h hr U a hrow hcol
+      rw [youngAdjacentOperator_basis_swappable_eq TU _ hrowP hcolP,
+        youngAdjacentOperator_basis_swappable_eq U a hrow hcol]
+      have hchild :
+          (fun S => youngAdjacentDiagCoeff U a * tableauBasisVec U S +
+            youngAdjacentOffCoeff U a * tableauBasisVec U' S) =
+          youngAdjacentDiagCoeff U a • tableauBasisVec U +
+            youngAdjacentOffCoeff U a • tableauBasisVec U' := by
+        rfl
+      rw [hchild, S05_oneBoxExtensionEmbedding_add,
+        S05_oneBoxExtensionEmbedding_smul,
+        S05_oneBoxExtensionEmbedding_smul,
+        S05_oneBoxExtensionEmbedding_basis,
+        S05_oneBoxExtensionEmbedding_basis]
+      funext S
+      simp only [Pi.add_apply, Pi.smul_apply, smul_eq_mul]
+      have hdiag :
+          youngAdjacentDiagCoeff TU (Fin.castSucc a) =
+            youngAdjacentDiagCoeff U a := by
+        simpa [TU, S05_oneBoxExtensionTableau] using
+          (S05_Lem5_07_insertMax_youngAdjacentDiagCoeff h hr U a).symm
+      have hoff :
+          youngAdjacentOffCoeff TU (Fin.castSucc a) =
+            youngAdjacentOffCoeff U a := by
+        simpa [TU, S05_oneBoxExtensionTableau] using
+          (S05_Lem5_07_insertMax_youngAdjacentOffCoeff h hr U a).symm
+      rw [hdiag, hoff, ← hswap]
+
+/-- One-box extension intertwines every adjacent operator that acts before the
+new maximum entry. -/
+theorem S05_oneBoxExtensionEmbedding_intertwinesEarlierAdjacent
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (r : RemovableRow lam) (a : Fin n)
+    (f : TableauSpace (removableRowToOneBoxChild lam r)) :
+    youngAdjacentOperator (Fin.castSucc a)
+        (S05_oneBoxExtensionEmbedding lam r f) =
+      S05_oneBoxExtensionEmbedding lam r (youngAdjacentOperator a f) := by
+  classical
+  have hf := tableauBasis_expansion f
+  calc
+    youngAdjacentOperator (Fin.castSucc a)
+        (S05_oneBoxExtensionEmbedding lam r f) =
+      youngAdjacentOperator (Fin.castSucc a)
+        (S05_oneBoxExtensionEmbedding lam r
+          (fun S =>
+            ∑ U : StandardYoungTableau (removableRowToOneBoxChild lam r),
+              f U * tableauBasisVec U S)) := by
+        exact congrArg
+          (fun g => youngAdjacentOperator (Fin.castSucc a)
+            (S05_oneBoxExtensionEmbedding lam r g)) hf
+    _ = youngAdjacentOperator (Fin.castSucc a)
+        (fun T =>
+          ∑ U : StandardYoungTableau (removableRowToOneBoxChild lam r),
+            S05_oneBoxExtensionEmbedding lam r
+              (fun S => f U * tableauBasisVec U S) T) := by
+        rw [S05_oneBoxExtensionEmbedding_sum]
+    _ = fun T =>
+        ∑ U : StandardYoungTableau (removableRowToOneBoxChild lam r),
+          youngAdjacentOperator (Fin.castSucc a)
+            (S05_oneBoxExtensionEmbedding lam r
+              (fun S => f U * tableauBasisVec U S)) T := by
+        rw [youngAdjacentOperator_sum]
+    _ = fun T =>
+        ∑ U : StandardYoungTableau (removableRowToOneBoxChild lam r),
+          S05_oneBoxExtensionEmbedding lam r
+            (youngAdjacentOperator a
+              (fun S => f U * tableauBasisVec U S)) T := by
+        funext T
+        apply Finset.sum_congr rfl
+        intro U _hU
+        have hembed :
+            S05_oneBoxExtensionEmbedding lam r
+                (fun S => f U * tableauBasisVec U S) =
+              fun T => f U * S05_oneBoxExtensionEmbedding lam r
+                (tableauBasisVec U) T := by
+          funext V
+          simp only [S05_oneBoxExtensionEmbedding]
+          rw [Finset.mul_sum]
+          apply Finset.sum_congr rfl
+          intro W _hW
+          ring
+        have hembedOp :
+            S05_oneBoxExtensionEmbedding lam r
+                (fun S => f U * youngAdjacentOperator a (tableauBasisVec U) S) =
+              fun T => f U * S05_oneBoxExtensionEmbedding lam r
+                (youngAdjacentOperator a (tableauBasisVec U)) T := by
+          funext V
+          simp only [S05_oneBoxExtensionEmbedding]
+          rw [Finset.mul_sum]
+          apply Finset.sum_congr rfl
+          intro W _hW
+          ring
+        have hparentSmul := youngAdjacentOperator_smul (Fin.castSucc a) (f U)
+          (S05_oneBoxExtensionEmbedding lam r (tableauBasisVec U))
+        have hchildSmul := youngAdjacentOperator_smul a (f U)
+          (tableauBasisVec U)
+        have hscaled :
+            youngAdjacentOperator (Fin.castSucc a)
+                (S05_oneBoxExtensionEmbedding lam r
+                  (fun S => f U * tableauBasisVec U S)) =
+              S05_oneBoxExtensionEmbedding lam r
+                (youngAdjacentOperator a
+                  (fun S => f U * tableauBasisVec U S)) := by
+          calc
+            youngAdjacentOperator (Fin.castSucc a)
+                (S05_oneBoxExtensionEmbedding lam r
+                  (fun S => f U * tableauBasisVec U S)) =
+              youngAdjacentOperator (Fin.castSucc a)
+                (fun T => f U * S05_oneBoxExtensionEmbedding lam r
+                  (tableauBasisVec U) T) := congrArg _ hembed
+            _ = fun T => f U * youngAdjacentOperator (Fin.castSucc a)
+                  (S05_oneBoxExtensionEmbedding lam r (tableauBasisVec U)) T :=
+              hparentSmul
+            _ = fun T => f U * S05_oneBoxExtensionEmbedding lam r
+                (youngAdjacentOperator a (tableauBasisVec U)) T := by
+              rw [S05_oneBoxExtensionEmbedding_intertwinesEarlierAdjacent_basis]
+            _ = S05_oneBoxExtensionEmbedding lam r
+                (fun S => f U * youngAdjacentOperator a (tableauBasisVec U) S) :=
+              hembedOp.symm
+            _ = S05_oneBoxExtensionEmbedding lam r
+                (youngAdjacentOperator a
+                  (fun S => f U * tableauBasisVec U S)) := by
+              exact congrArg (S05_oneBoxExtensionEmbedding lam r)
+                hchildSmul.symm
+        exact congrFun hscaled T
+    _ = S05_oneBoxExtensionEmbedding lam r
+        (fun S =>
+          ∑ U : StandardYoungTableau (removableRowToOneBoxChild lam r),
+            youngAdjacentOperator a
+              (fun R => f U * tableauBasisVec U R) S) := by
+        rw [S05_oneBoxExtensionEmbedding_sum]
+    _ = S05_oneBoxExtensionEmbedding lam r
+        (youngAdjacentOperator a
+          (fun S =>
+            ∑ U : StandardYoungTableau (removableRowToOneBoxChild lam r),
+              f U * tableauBasisVec U S)) := by
+        rw [youngAdjacentOperator_sum]
+    _ = S05_oneBoxExtensionEmbedding lam r
+        (youngAdjacentOperator a f) := by
+      exact congrArg (S05_oneBoxExtensionEmbedding lam r)
+        (congrArg (youngAdjacentOperator a) hf).symm
+
+/-- Sigma index for the canonical odd eigenbasis.  The outer coordinate is a
+removable-corner occurrence, so multiplicities are retained exactly. -/
+def S05_CanonicalOddEigenbasisIndex
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) : Type :=
+  Sigma fun r : RemovableRow lam =>
+    S05_CanonicalEvenEigenbasisIndex m
+      (removableRowToOneBoxChild lam r)
+
+noncomputable instance S05_canonicalOddEigenbasisIndexFintype
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
+    Fintype (S05_CanonicalOddEigenbasisIndex m lam) := by
+  unfold S05_CanonicalOddEigenbasisIndex
+  infer_instance
+
+noncomputable instance S05_canonicalOddEigenbasisIndexDecidableEq
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
+    DecidableEq (S05_CanonicalOddEigenbasisIndex m lam) :=
+  Classical.decEq _
+
+/-- Explicit odd vector obtained by extending a canonical even child vector
+into its parent removable-row fiber. -/
+noncomputable def S05_canonicalOddEigenbasisVector
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (i : S05_CanonicalOddEigenbasisIndex m lam) : TableauSpace lam :=
+  S05_oneBoxExtensionEmbedding lam i.1
+    (S05_canonicalEvenEigenbasisVector m
+      (removableRowToOneBoxChild lam i.1) i.2)
+
+/-- The odd label is exactly the canonical even label of the selected child;
+the unmatched maximum contributes no matching coordinate. -/
+def S05_canonicalOddEigenbasisLabel
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (i : S05_CanonicalOddEigenbasisIndex m lam) : Finset (Fin m) :=
+  S05_canonicalEvenEigenbasisLabel m
+    (removableRowToOneBoxChild lam i.1) i.2
+
+/-- Literal multiset of labels obtained by enumerating the odd sigma index. -/
+noncomputable def S05_canonicalOddEigenbasisLabelMultiset
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
+    Multiset (Finset (Fin m)) :=
+  (Finset.univ : Finset (S05_CanonicalOddEigenbasisIndex m lam)).1.map
+    (S05_canonicalOddEigenbasisLabel m lam)
+
+/-- Expanding the sigma index expresses the odd label multiset as the sum of
+the exact canonical-even child label multisets. -/
+theorem S05_canonicalOddEigenbasisLabelMultiset_eq_sum_removableRows
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
+    S05_canonicalOddEigenbasisLabelMultiset m lam =
+      ∑ r : RemovableRow lam,
+        S05_canonicalEvenEigenbasisLabelMultiset m
+          (removableRowToOneBoxChild lam r) := by
+  classical
+  change
+    ((Finset.univ : Finset (RemovableRow lam)).1.sigma
+      (fun r =>
+        (Finset.univ : Finset
+          (S05_CanonicalEvenEigenbasisIndex m
+            (removableRowToOneBoxChild lam r))).1)).map
+      (fun x => S05_canonicalEvenEigenbasisLabel m
+        (removableRowToOneBoxChild lam x.1) x.2) = _
+  rw [S05_multiset_map_sigma_eq_sum_map]
+  simp only [S05_canonicalEvenEigenbasisLabelMultiset]
+  apply congrArg Multiset.sum
+  apply Multiset.map_congr rfl
+  intro r _hr
+  rfl
+
+/-- Summing any child value over removable rows is the same as summing it over
+the paper's one-box-child finset. -/
+theorem S05_sum_removableRows_eq_oneBoxChildrenOdd
+    {α : Type*} [AddCommMonoid α]
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (f : YoungDiagram (2 * m) -> α) :
+    (∑ r : RemovableRow lam, f (removableRowToOneBoxChild lam r)) =
+      (oneBoxChildrenOdd m lam).sum f := by
+  classical
+  have hsum_subtype :
+      (∑ mu : {mu : YoungDiagram (2 * m) //
+          mu ∈ oneBoxChildrenSized lam}, f mu.1) =
+        (oneBoxChildrenSized lam).sum f := by
+    rw [Finset.univ_eq_attach]
+    exact Finset.sum_attach (oneBoxChildrenSized lam) f
+  calc
+    (∑ r : RemovableRow lam, f (removableRowToOneBoxChild lam r)) =
+        ∑ mu : {mu : YoungDiagram (2 * m) //
+          mu ∈ oneBoxChildrenSized lam}, f mu.1 := by
+      exact Fintype.sum_equiv
+        (removableRowsEquivOneBoxChildren lam)
+        (fun r : RemovableRow lam => f (removableRowToOneBoxChild lam r))
+        (fun mu : {mu : YoungDiagram (2 * m) //
+          mu ∈ oneBoxChildrenSized lam} => f mu.1)
+        (fun _ => rfl)
+    _ = (oneBoxChildrenSized lam).sum f := hsum_subtype
+    _ = (oneBoxChildrenOdd m lam).sum f := by
+      rw [oneBoxChildrenSized_eq_oneBoxChildrenOdd]
+
+/-- The explicit odd labels reproduce Definition 5.14 with literal multiset
+equality, including every removable-corner occurrence. -/
+theorem S05_canonicalOddEigenbasisLabelMultiset_eq
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
+    S05_canonicalOddEigenbasisLabelMultiset m lam =
+      S05_oddSignPatternMultiset m lam := by
+  rw [S05_canonicalOddEigenbasisLabelMultiset_eq_sum_removableRows]
+  simp_rw [S05_canonicalEvenEigenbasisLabelMultiset_eq]
+  exact S05_sum_removableRows_eq_oneBoxChildrenOdd m lam
+    (fun mu => S05_evenSignPatternMultiset m mu)
+
+/-- The recursively assembled canonical odd family is orthonormal. -/
+theorem S05_canonicalOddEigenbasisVector_inner
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (i j : S05_CanonicalOddEigenbasisIndex m lam) :
+    tableauInner (S05_canonicalOddEigenbasisVector m lam i)
+        (S05_canonicalOddEigenbasisVector m lam j) =
+      if i = j then 1 else 0 := by
+  classical
+  rcases i with ⟨r, i⟩
+  rcases j with ⟨s, j⟩
+  by_cases hrs : r = s
+  · subst s
+    rw [S05_canonicalOddEigenbasisVector,
+      S05_canonicalOddEigenbasisVector,
+      S05_oneBoxExtensionEmbedding_isometry,
+      S05_canonicalEvenEigenbasisVector_inner]
+    by_cases hij : i = j
+    · subst j
+      simp
+    · rw [if_neg hij, if_neg]
+      intro h
+      exact hij (eq_of_heq (Sigma.mk.inj_iff.mp h).2)
+  · rw [S05_canonicalOddEigenbasisVector,
+      S05_canonicalOddEigenbasisVector,
+      S05_oneBoxExtensionEmbedding_ranges_orthogonal lam hrs,
+      if_neg]
+    intro h
+    exact hrs (congrArg Sigma.fst h)
+
+/-- The odd recursive index has exactly the cardinality of the parent tableau
+coordinate basis. -/
+theorem S05_card_canonicalOddEigenbasisIndex
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
+    Fintype.card (S05_CanonicalOddEigenbasisIndex m lam) =
+      Fintype.card (StandardYoungTableau lam) := by
+  classical
+  change
+    Fintype.card (Sigma fun r : RemovableRow lam =>
+      S05_CanonicalEvenEigenbasisIndex m
+        (removableRowToOneBoxChild lam r)) = _
+  rw [Fintype.card_sigma,
+    card_standardYoungTableau_eq_sum_removableRow_children lam]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  exact S05_card_canonicalEvenEigenbasisIndex m
+    (removableRowToOneBoxChild lam r)
+
+/-- The canonical odd family is linearly independent. -/
+theorem S05_canonicalOddEigenbasisVector_linearIndependent
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
+    LinearIndependent Real (S05_canonicalOddEigenbasisVector m lam) := by
+  classical
+  rw [Fintype.linearIndependent_iff]
+  intro c hc x
+  have hinner := congrArg
+    (fun f => tableauInner f (S05_canonicalOddEigenbasisVector m lam x)) hc
+  have hcomb :
+      (∑ i : S05_CanonicalOddEigenbasisIndex m lam,
+          c i • S05_canonicalOddEigenbasisVector m lam i) =
+        fun T => ∑ i : S05_CanonicalOddEigenbasisIndex m lam,
+          c i * S05_canonicalOddEigenbasisVector m lam i T := by
+    funext T
+    simp
+  rw [hcomb] at hinner
+  rw [S05_tableauInner_sum_left] at hinner
+  simp_rw [S05_tableauInner_mul_left,
+    S05_canonicalOddEigenbasisVector_inner] at hinner
+  simpa [tableauInner] using hinner
+
+/-- The canonical odd family spans the full parent tableau space. -/
+theorem S05_canonicalOddEigenbasisVector_span
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
+    Submodule.span Real
+        (Set.range (S05_canonicalOddEigenbasisVector m lam)) = ⊤ := by
+  classical
+  apply
+    (S05_canonicalOddEigenbasisVector_linearIndependent m lam).span_eq_top_of_card_eq_finrank'
+  rw [S05_card_canonicalOddEigenbasisIndex]
+  exact (Module.finrank_pi Real :
+    Module.finrank Real (StandardYoungTableau lam -> Real) =
+      Fintype.card (StandardYoungTableau lam)).symm
+
+/-- Mathlib basis carried by the explicit one-box-assembled odd family. -/
+noncomputable def S05_canonicalOddMatchingBasis
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
+    Module.Basis (S05_CanonicalOddEigenbasisIndex m lam) Real
+      (TableauSpace lam) :=
+  Module.Basis.mk (S05_canonicalOddEigenbasisVector_linearIndependent m lam)
+    (S05_canonicalOddEigenbasisVector_span m lam).ge
+
+@[simp] theorem S05_canonicalOddMatchingBasis_apply
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (i : S05_CanonicalOddEigenbasisIndex m lam) :
+    S05_canonicalOddMatchingBasis m lam i =
+      S05_canonicalOddEigenbasisVector m lam i := by
+  exact Module.Basis.mk_apply _ _ _
+
+/-- For positive matching size, a canonical odd matching edge is the cast of
+the corresponding canonical even edge in every one-box child. -/
+theorem S05_oneBoxExtensionEmbedding_intertwinesCanonicalMatching
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1) + 1))
+    (r : RemovableRow lam) (a : Fin (m + 1))
+    (f : TableauSpace (removableRowToOneBoxChild lam r)) :
+    canonicalMatchingYoungOperatorOdd a
+        (S05_oneBoxExtensionEmbedding lam r f) =
+      S05_oneBoxExtensionEmbedding lam r
+        (canonicalMatchingYoungOperatorEven a f) := by
+  unfold canonicalMatchingYoungOperatorOdd canonicalMatchingYoungOperatorEven
+  have hindex :
+      canonicalNearMatchingAdjacentIndex (m + 1) a =
+        Fin.cast (by omega)
+          (Fin.castSucc (canonicalMatchingAdjacentIndex (m + 1) a)) := by
+    apply Fin.ext
+    simp [canonicalNearMatchingAdjacentIndex, canonicalMatchingAdjacentIndex]
+  rw [hindex]
+  exact S05_oneBoxExtensionEmbedding_intertwinesEarlierAdjacent lam r
+    (canonicalMatchingAdjacentIndex (m + 1) a) f
+
+/-- Every explicit canonical odd basis vector is a simultaneous eigenvector
+with the inherited even-child label. -/
+theorem S05_canonicalOddEigenbasisVector_isMatchingEigenvector :
+    ∀ (m : Nat) (lam : YoungDiagram (2 * m + 1))
+      (i : S05_CanonicalOddEigenbasisIndex m lam),
+      S05_IsMatchingEigenvectorOdd
+        (S05_canonicalOddEigenbasisVector m lam i)
+        (S05_canonicalOddEigenbasisLabel m lam i) := by
+  intro m
+  cases m with
+  | zero =>
+      intro lam i r
+      exact Fin.elim0 r
+  | succ m =>
+      intro lam i
+      rcases i with ⟨r, i⟩
+      intro a
+      change
+        canonicalMatchingYoungOperatorOdd a
+            (S05_oneBoxExtensionEmbedding lam r
+              (S05_canonicalEvenEigenbasisVector (m + 1)
+                (removableRowToOneBoxChild lam r) i)) =
+          matchingEdgeSign
+              (S05_canonicalEvenEigenbasisLabel (m + 1)
+                (removableRowToOneBoxChild lam r) i) a •
+            S05_oneBoxExtensionEmbedding lam r
+              (S05_canonicalEvenEigenbasisVector (m + 1)
+                (removableRowToOneBoxChild lam r) i)
+      calc
+        canonicalMatchingYoungOperatorOdd a
+            (S05_oneBoxExtensionEmbedding lam r
+              (S05_canonicalEvenEigenbasisVector (m + 1)
+                (removableRowToOneBoxChild lam r) i)) =
+          S05_oneBoxExtensionEmbedding lam r
+            (canonicalMatchingYoungOperatorEven a
+              (S05_canonicalEvenEigenbasisVector (m + 1)
+                (removableRowToOneBoxChild lam r) i)) := by
+            exact S05_oneBoxExtensionEmbedding_intertwinesCanonicalMatching
+              m lam r a _
+        _ = S05_oneBoxExtensionEmbedding lam r
+            (matchingEdgeSign
+                (S05_canonicalEvenEigenbasisLabel (m + 1)
+                  (removableRowToOneBoxChild lam r) i) a •
+              S05_canonicalEvenEigenbasisVector (m + 1)
+                (removableRowToOneBoxChild lam r) i) := by
+            exact congrArg (S05_oneBoxExtensionEmbedding lam r)
+              (S05_canonicalEvenEigenbasisVector_isMatchingEigenvector
+                m (removableRowToOneBoxChild lam r) i a)
+        _ = matchingEdgeSign
+              (S05_canonicalEvenEigenbasisLabel (m + 1)
+                (removableRowToOneBoxChild lam r) i) a •
+            S05_oneBoxExtensionEmbedding lam r
+              (S05_canonicalEvenEigenbasisVector (m + 1)
+                (removableRowToOneBoxChild lam r) i) := by
+            exact S05_oneBoxExtensionEmbedding_smul lam r _ _
+
+/-- Canonical odd labeled eigenbasis theorem: an actual orthonormal spanning
+basis, simultaneous matching-edge eigenvalues, and the literal Definition 5.14
+label multiset. -/
+theorem S05_Lem5_11_canonicalOddMatchingEigenbasis
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
+    (∀ i j : S05_CanonicalOddEigenbasisIndex m lam,
+      tableauInner
+          (S05_canonicalOddMatchingBasis m lam i)
+          (S05_canonicalOddMatchingBasis m lam j) =
+        if i = j then 1 else 0) ∧
+    (Submodule.span Real
+        (Set.range (S05_canonicalOddMatchingBasis m lam)) = ⊤) ∧
+    (∀ i : S05_CanonicalOddEigenbasisIndex m lam,
+      S05_IsMatchingEigenvectorOdd
+        (S05_canonicalOddMatchingBasis m lam i)
+        (S05_canonicalOddEigenbasisLabel m lam i)) ∧
+    (Finset.univ : Finset
+        (S05_CanonicalOddEigenbasisIndex m lam)).1.map
+          (S05_canonicalOddEigenbasisLabel m lam) =
+      S05_oddSignPatternMultiset m lam := by
+  refine ⟨?_, (S05_canonicalOddMatchingBasis m lam).span_eq, ?_, ?_⟩
+  · intro i j
+    rw [S05_canonicalOddMatchingBasis_apply,
+      S05_canonicalOddMatchingBasis_apply]
+    exact S05_canonicalOddEigenbasisVector_inner m lam i j
+  · intro i
+    rw [S05_canonicalOddMatchingBasis_apply]
+    exact S05_canonicalOddEigenbasisVector_isMatchingEigenvector m lam i
+  · exact S05_canonicalOddEigenbasisLabelMultiset_eq m lam
+
+/-- The canonical odd matching cube acts on each basis vector through the
+character attached to its exact recursive label. -/
+theorem S05_canonicalOddMatchingBasis_character_action
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (i : S05_CanonicalOddEigenbasisIndex m lam) (x : Cube m) :
+    canonicalMatchingCubeOperatorOdd x
+        (S05_canonicalOddMatchingBasis m lam i) =
+      S05_matchingCharacter (S05_canonicalOddEigenbasisLabel m lam i) x •
+        S05_canonicalOddMatchingBasis m lam i := by
+  exact canonicalMatchingCubeOperatorOdd_apply_character_of_isMatchingEigenvector
+    ((S05_Lem5_11_canonicalOddMatchingEigenbasis m lam).2.2.1 i) x
 
 /-! ## Transport from the canonical perfect matching -/
 

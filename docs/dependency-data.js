@@ -2338,7 +2338,7 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D19"
       ],
       "summary": "Canonical and arbitrary-perfect-matching even eigenbases are proved; the odd basis remains.",
-      "statement": "Lemma 5.11 constructs the canonical even matching basis recursively, with orthonormality, spanning, character action, and exact recursive label multiplicity. It then proves endpoint coverage for every even matching, constructs the conjugating permutation, proves represented permutations are invertible isometries, and transports the labeled basis directly to M.toOrdered. The full paper statement still requires the odd near-perfect matching basis.",
+      "statement": "Lemma 5.11 constructs the canonical even matching basis recursively, transports it to every perfect matching by an explicit conjugating permutation and represented isometry, and preserves exact recursive labels. It also assembles the canonical odd basis from one-box removable-row fibers, proving orthonormality, spanning, character action, and exact odd label multiplicity. The remaining paper-level step is transport to arbitrary near-perfect matchings.",
       "terms": [
         {
           "text": "Tableau Coxeter model",
@@ -2507,7 +2507,7 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D21"
       ],
       "summary": "The fixed-trace algebra is proved, and the positive-size even traces are instantiated unconditionally.",
-      "statement": "Lemma 5.13 proves the even and odd tableau/full-block formulas from labeled eigenbasis data. Lemma 5.11 now supplies the arbitrary-perfect-matching even basis, so the positive-size even tableau trace and its tableauDim full-block multiple are unconditional. Odd instantiation still awaits the odd near-perfect matching basis.",
+      "statement": "Lemma 5.13 proves the even and odd tableau/full-block formulas from labeled eigenbasis data. Lemma 5.11 supplies the arbitrary-perfect-matching even basis, so the positive-size even tableau trace and its tableauDim full-block multiple are unconditional. The canonical odd basis is proved; odd trace instantiation still awaits transport to arbitrary near-perfect matchings.",
       "terms": [
         {
           "text": "Matching subgroup eigenbasis",
