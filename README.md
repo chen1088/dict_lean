@@ -202,6 +202,24 @@ Finite-average components used near external Lemma 5.14:
   mean rejection is the average of those squared high-idempotent norms.  The
   operator centrality statement remains a representation-layer target.
 
+Generic commutant infrastructure for Lemma 5.15:
+
+- `S05_Lem5_15_YoungBasisScalarCommutant.lean` now defines the concrete
+  single-block interface `YoungModelOperatorCommutationData` and proves
+  `S05_Lem5_15_youngModelOperator_scalar_on_basis`: any linear operator on one
+  tableau-coordinate Young block that commutes with every explicit diagonal
+  content operator and every adjacent Young operator is scalar on the tableau
+  basis, assuming the A.4 connectedness statement.  The remaining gap is not
+  this generic commutant theorem; it is instantiating the averaged matching
+  rejection operator as such a block operator and proving the required
+  commutation data.
+- `S05_Lem5_16a_AveragedRejectionYoungOperator.lean` now names that
+  instantiation target as `AveragedRejectionYoungOperatorData`.  This is still
+  only an operator interface: it packages the one-block operator, linearity, and
+  adjacent/content commutation fields, and proves
+  `averagedRejectionYoungOperator_scalar_on_basis` by applying Lemma 5.15.  It
+  does not define the group-algebra operator `rho_lambda(q)`.
+
 Proven Lemma 5.17 trace-model-to-gap algebra:
 
 - `S05_Lem5_17_BlockLowerBoundImpliesTheGap.lean` -- Lemma 5.17

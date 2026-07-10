@@ -5,6 +5,7 @@ import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.AppA_LemA_04_StandardTableauxSwapConnectedness`
+- `DictatorshipTesting.Paper.S05_Lem5_15_YoungBasisScalarCommutant`
 -/
 
 /-!
@@ -17,7 +18,7 @@ The theorem below proves the elementary finite-list fact needed for the usual
 linear-extension argument: adjacent swaps of incomparable neighboring elements
 preserve the linear-extension condition.  The standard-tableau connectedness
 statement is also exposed below.  Its paper-facing wrapper remains an external
-axiom until the linear-extension argument is specialized to standard Young
+input until the linear-extension argument is specialized to standard Young
 tableaux.
 -/
 

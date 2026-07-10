@@ -140,6 +140,22 @@ Remaining Section 5/AppA bridge boundary:
   is proved; the representation-theoretic Specht/Pieri content it shadows is
   accounted for inside the spectral-block model boundary rather than as a
   separate Lean axiom.
+- Lemma 5.15 now has a proved generic commutant layer:
+  `YoungModelOperatorCommutationData` packages a linear operator on one
+  tableau-coordinate block together with commutation against the explicit
+  diagonal content and adjacent Young operators, and
+  `S05_Lem5_15_youngModelOperator_scalar_on_basis` proves scalarity on tableau
+  basis vectors from that data and A.4 connectedness.  The remaining scalarity
+  bridge is the narrower instantiation problem: construct the averaged
+  matching rejection operator on each Young block and prove it satisfies this
+  interface.
+- Lemma 5.16a records that instantiation target as
+  `AveragedRejectionYoungOperatorData`.  It includes only the one-block
+  operator, linearity, and adjacent/content commutation fields, then applies
+  Lemma 5.15 to prove scalarity on basis vectors.  The missing API is still the
+  construction of the actual Young-block operator `rho_lambda(q)` from the
+  averaged high matching idempotent and the proof that it satisfies these
+  fields.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
 definition-only files `S05_Def5_24_TableauEvenHeight.lean` and

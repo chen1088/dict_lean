@@ -2271,9 +2271,11 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Matching algebra",
       "kind": "paper",
       "importance": "major",
-      "status": "external",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_15_YoungBasisScalarCommutant.lean",
       "wrappers": [
+        "YoungModelOperatorCommutationData",
+        "S05_Lem5_15_youngModelOperator_scalar_on_basis",
         "S05_Lem5_15_matchingAverageScalarity_eq_sum"
       ],
       "deps": [
@@ -2281,8 +2283,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D23",
         "AppA_04"
       ],
-      "summary": "Projection from scalarity input to the weighted-sum identity.",
-      "statement": "Lemma 5.15 derives the Young-basis scalar commutant identity from the scalarity input.",
+      "summary": "Generic Young-model scalar commutant theorem, plus the old scalarity-input projection.",
+      "statement": "Lemma 5.15 proves that a linear operator on one tableau block commuting with all diagonal content operators and adjacent Young operators is scalar on the tableau basis, assuming A.4 connectedness. The averaged matching-rejection instantiation remains the scalarity bridge input.",
       "terms": [
         {
           "text": "Central averaged rejection",
@@ -2307,7 +2309,15 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "S05_Lem5_15_matchingAverageScalarity_eq_sum",
-          "line": 25
+          "line": 158
+        },
+        {
+          "name": "YoungModelOperatorCommutationData",
+          "line": 30
+        },
+        {
+          "name": "S05_Lem5_15_youngModelOperator_scalar_on_basis",
+          "line": 145
         }
       ]
     },
@@ -2366,6 +2376,62 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_16_even_scalar_eq_hEven_div_dim",
           "line": 133
+        }
+      ]
+    },
+    {
+      "id": "S05_L16A",
+      "label": "Lem 5.16a",
+      "title": "Averaged rejection Young operator",
+      "section": "Spectral bridge",
+      "kind": "internal",
+      "importance": "normal",
+      "status": "interface",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_16a_AveragedRejectionYoungOperator.lean",
+      "wrappers": [
+        "AveragedRejectionYoungOperatorData",
+        "averagedRejectionYoungOperator_commutes_adjacent",
+        "averagedRejectionYoungOperator_commutes_content",
+        "averagedRejectionYoungOperator_scalar_on_basis"
+      ],
+      "deps": [
+        "S05_L15"
+      ],
+      "summary": "One-block operator interface for the averaged rejection operator.",
+      "statement": "Lemma 5.16a names the operator data needed to instantiate the generic scalar commutant theorem: a one-block operator, linearity, and commutation with adjacent and diagonal content operators. It does not construct rho_lambda(q).",
+      "terms": [
+        {
+          "text": "Young-basis scalar commutant",
+          "target": "S05_L15"
+        },
+        {
+          "text": "adjacent Young operators",
+          "target": "S05_L15"
+        },
+        {
+          "text": "diagonal content operators",
+          "target": "S05_L15"
+        }
+      ],
+      "paperLabel": "lem:averaged-rejection-young-operator-interface",
+      "paperEnv": "interface",
+      "paperStatementLatex": "Let \\(B_\\lambda:V^\\lambda\\to V^\\lambda\\) be the operator that should represent\n\\(\\rho^\\lambda(q)\\), where \\(q=\\mathbb E_M q_M\\) is the averaged high matching\nidempotent.  The interface records linearity and the commutation relations\n\\(B_\\lambda S_i^\\lambda=S_i^\\lambda B_\\lambda\\) and\n\\(B_\\lambda C_k^\\lambda=C_k^\\lambda B_\\lambda\\).",
+      "leanLinks": [
+        {
+          "name": "AveragedRejectionYoungOperatorData",
+          "line": 29
+        },
+        {
+          "name": "averagedRejectionYoungOperator_commutes_adjacent",
+          "line": 61
+        },
+        {
+          "name": "averagedRejectionYoungOperator_commutes_content",
+          "line": 71
+        },
+        {
+          "name": "averagedRejectionYoungOperator_scalar_on_basis",
+          "line": 82
         }
       ]
     },

@@ -45,6 +45,15 @@ Detailed maps:
   cross-compositions, and the low-plus-high decomposition identity.
 - Lemma 5.14 proves the finite-average/high-idempotent part of central averaged
   rejection.
+- Lemma 5.15 now proves a generic Young-model scalar commutant theorem:
+  a linear operator on one tableau-coordinate block that commutes with all
+  diagonal content operators and all adjacent Young operators is scalar on the
+  tableau basis, using A.4 connectedness.  Instantiating the averaged matching
+  rejection operator into this interface remains the scalarity bridge input.
+- Lemma 5.16a introduces `AveragedRejectionYoungOperatorData`, the one-block
+  operator interface still needed for the averaged rejection operator.  It
+  extracts adjacent/content commutation and applies Lemma 5.15, but it does not
+  construct the group-algebra action `rho_lambda(q)`.
 - Lemmas 5.17--5.20 expose the active tableauDim spectral-bridge route used by
   Theorem 4.8.
 - The remaining representation-theoretic frontier is the spectral-block model
