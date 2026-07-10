@@ -46,11 +46,12 @@ The scaffold contains real Lean proofs for the elementary Boolean-cube,
 matching-cube, and averaging steps that have been formalized so far.  A small
 number of hard results are intentionally isolated behind named declarations or
 named external axioms.  There are no remaining `sorry` declarations.  The named
-external axioms are the two Section 2 Filmus inputs, the four Appendix A
-representation-theory ingredient markers A.1, A.2, A.3, and A.4, and the
-Section 5 matching-average scalarity bridge input
-`S05_matchingAverageScalarity_from_young_model_input`.  Lemma 5.18 is an
-assembly theorem from those ingredients.  The theorem wrappers
+external axioms are the two Section 2 Filmus inputs, the three Appendix A
+representation-theory ingredient markers A.1, A.2, and A.3, and the Section 5
+matching-average scalarity bridge input
+`S05_matchingAverageScalarity_from_young_model_input`.  Appendix A.4
+standard-tableaux swap connectedness is proved internally.  Lemma 5.18 is an
+assembly theorem from those ingredients and A.4.  The theorem wrappers
 consumed by the active Theorem 4.8 path are
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.
@@ -218,10 +219,10 @@ Generic commutant infrastructure for Lemma 5.15:
   `S05_Lem5_15_youngModelOperator_scalar_on_basis`: any linear operator on one
   tableau-coordinate Young block that commutes with every explicit diagonal
   content operator and every adjacent Young operator is scalar on the tableau
-  basis, assuming the A.4 connectedness statement.  The remaining gap is not
-  this generic commutant theorem; it is instantiating the averaged matching
-  rejection operator as such a block operator and proving the required
-  commutation data.
+  basis, using the internally proved A.4 connectedness statement.  The
+  remaining gap is not this generic commutant theorem; it is instantiating the
+  averaged matching rejection operator as such a block operator and proving the
+  required commutation data.
 - `S05_Lem5_16a_AveragedRejectionYoungOperator.lean` now names that
   instantiation target as `AveragedRejectionYoungOperatorData`.  This is still
   only an operator interface: it packages the one-block operator, linearity, and
@@ -330,7 +331,8 @@ External standard inputs:
   spectral bridge is consumed through Lemma 5.18 theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.  Those wrappers are
-  produced by Lemma 5.18 from the explicit A.1/A.2/A.3/A.4 marker axioms plus
+  produced by Lemma 5.18 from the explicit A.1/A.2/A.3 marker axioms, the
+  internally proved A.4 theorem, and
   `S05_matchingAverageScalarity_from_young_model_input`, citing the regular
   Specht decomposition, Littlewood-Richardson restriction to Young subgroups,
   Pieri two-strip specializations, and Schur's lemma for the tableauDim
@@ -347,9 +349,10 @@ Internal bridge components proven:
   `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and the
   dimension-parameterized `SpectralGapFromBlockModelWithDim` route are proved.
 - `S05_Lem5_18_RegularYoungBlockDecomposition.lean`: the main-text assembly
-  lemma turning Appendix A.1/A.2/A.3/A.4 external inputs plus
-  `S05_matchingAverageScalarity_from_young_model_input` into the even and odd
-  `SpectralBlockModelInputWithDim` theorem wrappers consumed by Theorem 4.8.
+  lemma turning the external Appendix A.1/A.2/A.3 inputs, the internally proved
+  A.4 theorem, and `S05_matchingAverageScalarity_from_young_model_input` into
+  the even and odd `SpectralBlockModelInputWithDim` theorem wrappers consumed
+  by Theorem 4.8.
 - `S05_Lem5_19_EvenSpectralBridge.lean` and
   `S05_Lem5_20_OddSpectralBridge.lean`: the tableau-count spectral bridges are
   proved from explicit `SpectralBlockModelInputWithDim` hypotheses; Lemma 5.18
@@ -382,10 +385,10 @@ There are no longer `sorry` declarations for the spectral bridge.  Instead, the
 Section 5 spectral-bridge files make the missing representation theory explicit
 through Lemma 5.18 theorem wrappers:
 `spectralBlockModelInputWithDim_even_from_appendixA` and
-`spectralBlockModelInputWithDim_odd_from_appendixA`.  The Appendix A axiom
-declarations are the A.1/A.2/A.3/A.4 marker inputs plus
+`spectralBlockModelInputWithDim_odd_from_appendixA`.  The remaining axiom
+declarations used by this bridge are the Appendix A.1/A.2/A.3 marker inputs and
 `S05_matchingAverageScalarity_from_young_model_input`; Lemma 5.18 consumes them
-through assembly theorems.
+together with the internally proved A.4 theorem through assembly theorems.
 
 - The explicit spectral-block-model theorem wrappers supply the actual Young-block
   energies of `F`, the `U_1` energy identification, and the matching-average

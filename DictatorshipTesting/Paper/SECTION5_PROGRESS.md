@@ -52,7 +52,7 @@ Detailed maps:
 - Lemma 5.15 now proves a generic Young-model scalar commutant theorem:
   a linear operator on one tableau-coordinate block that commutes with all
   diagonal content operators and all adjacent Young operators is scalar on the
-  tableau basis, using A.4 connectedness.
+  tableau basis, using the internally proved A.4 connectedness theorem.
 - Lemma 5.16a introduces `AveragedRejectionYoungOperatorData`, the one-block
   operator interface still needed for the averaged rejection operator.  It
   extracts adjacent/content commutation and applies Lemma 5.15.
@@ -104,9 +104,9 @@ Detailed maps:
   Young-block decomposition and global weighted energy identity are still
   required.  The old numerical A.1/A.2 axiom types and the final
   matching-average scalarity input therefore remain unchanged.
-- Appendix A exposes explicit marker axioms for A.1, A.2, A.3, and A.4, where
-  A.4 is now only standard-tableaux swap connectedness. Lemma 5.18 consumes
-  those markers together with
+- Appendix A exposes explicit marker axioms for A.1, A.2, and A.3.  A.4
+  standard-tableaux swap connectedness is proved internally. Lemma 5.18 consumes
+  those markers and A.4 together with
   `S05_matchingAverageScalarity_from_young_model_input` to produce the even/odd
   spectral-model theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
@@ -148,10 +148,11 @@ theorems:
 - A.1 Young orthogonal realization.
 - A.2 Jucys--Murphy content spectrum.
 - A.3 Degree-one Young-block identification.
-- A.4 Connectedness of standard tableaux.
 
-The Appendix A files add only the A.1/A.2/A.3/A.4 external marker axioms.
-The fourth Appendix A input is only standard-tableaux swap connectedness.
+A.4 connectedness of standard tableaux is proved internally in
+`External/AppendixA/A04_TableauxSwapConnectedness.lean`.
+
+The Appendix A files add only the A.1/A.2/A.3 external marker axioms.
 Matching-average scalarity is isolated separately as the Section 5 input
 `S05_matchingAverageScalarity_from_young_model_input`.  Lemma 5.18 assembles
 those ingredients into the spectral model wrappers.  The current Section 5

@@ -101,16 +101,16 @@ window.DICT_DEPENDENCY_DATA = {
       "label": "App A.4",
       "title": "Standard tableaux connectedness",
       "section": "Appendix A",
-      "kind": "external",
+      "kind": "paper",
       "importance": "normal",
-      "status": "external",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/AppA_LemA_04_StandardTableauxSwapConnectedness.lean",
       "wrappers": [
         "AppA_LemA_04_standardTableauxSwapConnectedness"
       ],
       "deps": [],
-      "summary": "External marker for connectedness under adjacent swaps.",
-      "statement": "App A.4: External marker for connectedness under adjacent swaps.",
+      "summary": "Proved by connecting linear extensions of the Young poset through adjacent incomparable swaps.",
+      "statement": "App A.4: Standard tableaux of a fixed shape are connected under valid adjacent swaps.",
       "terms": [
         {
           "text": "standard tableaux",
@@ -2600,7 +2600,7 @@ window.DICT_DEPENDENCY_DATA = {
         "AppA_04"
       ],
       "summary": "Generic Young-model scalar commutant theorem, plus the old scalarity-input projection.",
-      "statement": "Lemma 5.15 proves that a linear operator on one tableau block commuting with all diagonal content operators and adjacent Young operators is scalar on the tableau basis, assuming A.4 connectedness. The averaged matching-rejection instantiation remains the scalarity bridge input.",
+      "statement": "Lemma 5.15 proves that a linear operator on one tableau block commuting with all diagonal content operators and adjacent Young operators is scalar on the tableau basis, using the proved A.4 connectedness theorem. The averaged matching-rejection instantiation remains the scalarity bridge input.",
       "terms": [
         {
           "text": "Central averaged rejection",

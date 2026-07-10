@@ -17,16 +17,15 @@ Current classification:
   `booleanU1_dictator_classification_input` and `fknStability_input`; the
   Appendix A ingredient markers
   `AppA_ThmA_01_youngOrthogonalRealization`,
-  `AppA_ThmA_02_jucysMurphyContentSpectrum`,
-  `AppA_LemA_03_degreeOneYoungBlockIdentification`, and
-  `AppA_LemA_04_standardTableauxSwapConnectedness`; and the Section 5
-  scalarity bridge input
+  `AppA_ThmA_02_jucysMurphyContentSpectrum` and
+  `AppA_LemA_03_degreeOneYoungBlockIdentification`; and the Section 5 scalarity
+  bridge input
   `S05_matchingAverageScalarity_from_young_model_input`.  Lemma 5.18 is an
   assembly theorem from these named inputs.
 - Appendix A bridge boundary: the remaining representation-theoretic obligation
-  is the spectral-block model input consumed by Section 5.  A.4 is only
-  standard-tableaux swap connectedness; matching-average scalarity is tracked
-  separately as the Section 5 scalarity bridge input.
+  is the spectral-block model input consumed by Section 5.  A.4
+  standard-tableaux swap connectedness is proved internally; matching-average
+  scalarity is tracked separately as the Section 5 scalarity bridge input.
 - Old `youngDim` dimension axiom instances are gone.  The older `youngDim`
   wrappers remain only as theorems with explicit typeclass hypotheses, and no
   instance is registered for those hypotheses.
@@ -112,15 +111,19 @@ External Appendix A inputs:
   `AppA_ThmA_02_jucysMurphyContentSpectrum`.
 - A.3 degree-one Young-block identification:
   `AppA_LemA_03_degreeOneYoungBlockIdentification`.
+
+Internally proved Appendix A input:
+
 - A.4 standard-tableau swap connectedness:
-  `AppA_LemA_04_standardTableauxSwapConnectedness`.
+  `AppA_LemA_04_standardTableauxSwapConnectedness`, proved via
+  `External.AppendixA.standardTableauxSwapConnected`.
 
 Internal Section 5 assembly:
 
 - Lemma 5.18 regular Young-block decomposition:
   `spectralBlockModelInputWithDim_even_from_appA_inputs` and
   `spectralBlockModelInputWithDim_odd_from_appA_inputs` are proved from the
-  A.1/A.2/A.3/A.4 external ingredients, together with
+  the external A.1/A.2/A.3 ingredients, the internally proved A.4 theorem, and
   `S05_matchingAverageScalarity_from_young_model_input`.
 
 Remaining Section 5/AppA bridge boundary:
@@ -313,8 +316,9 @@ Lemma 5.1 and are tracked separately below.
 The current Section 5 source has 30 numbered definitions and 26 numbered result
 statements when remarks and Appendix A inputs are excluded.  The paper-facing
 Lean file count is 56.  The full statement-to-file map is maintained in
-`DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`; the four Appendix A external
-inputs are mapped in `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
+`DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`; the three remaining Appendix A
+external inputs and the internally proved A.4 theorem are mapped in
+`DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
 The most important numbering corrections after the Lemma 5.1 rewrite are:
 
@@ -475,8 +479,11 @@ and `SpectralBlockModelInputWithDim`.
 Raw Appendix A axiom declarations:
 `AppA_ThmA_01_youngOrthogonalRealization`,
 `AppA_ThmA_02_jucysMurphyContentSpectrum`,
-`AppA_LemA_03_degreeOneYoungBlockIdentification`,
-and `AppA_LemA_04_standardTableauxSwapConnectedness`.
+and `AppA_LemA_03_degreeOneYoungBlockIdentification`.
+
+Appendix A.4 is internally proved by
+`External.AppendixA.standardTableauxSwapConnected` and exposed through
+`AppA_LemA_04_standardTableauxSwapConnectedness`.
 
 Section 5 scalarity bridge axiom declaration:
 `S05_matchingAverageScalarity_from_young_model_input`.
