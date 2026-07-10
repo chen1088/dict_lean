@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_29_AveragedHighMatchingElement
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_12_TraceOfOneLocalTruncationOnOneYoungBlock`
+- `DictatorshipTesting.Paper.S05_Lem5_13_TraceOfOneLocalTruncationOnOneYoungBlock`
 -/
 
 /-!
@@ -61,7 +61,7 @@ theorem tableauOperatorTrace_eq_linearMapTrace
 
 /-- If a supplied basis diagonalizes the matching cube with labels `label`,
 then the trace of the actual represented high-matching element is the number
-of high labels.  This is the finite-dimensional trace step in Lemma 5.12; it
+of high labels.  This is the finite-dimensional trace step in Lemma 5.13; it
 does not assume the trace value itself. -/
 theorem fixedMatchingRejectionYoungOperator_trace_eq_highLabelCount_of_eigenbasis
     {n : Nat} {lam : YoungDiagram (n + 1)}
@@ -218,7 +218,6 @@ theorem scalar_eq_tableauOperatorTrace_div_tableauDim
 data has trace equal to its one-block scalar times the tableau dimension. -/
 theorem S05_averagedRejectionYoungOperator_trace_eq_tableauDim_mul_scalar
     {n : Nat} {lam : YoungDiagram (n + 1)}
-    (hconn : External.AppendixA.StandardTableauxSwapConnectedStatement)
     (action : YoungOrthogonalActionData lam)
     (content : JucysMurphyContentActionData action)
     (T0 : StandardYoungTableau lam) :
@@ -232,7 +231,7 @@ theorem S05_averagedRejectionYoungOperator_trace_eq_tableauDim_mul_scalar
   apply tableauOperatorTrace_eq_tableauDim_mul_of_scalar_on_basis
   intro T
   exact S05_averagedRejectionYoungOperator_scalar_from_appendixA
-    hconn action content T0 T
+    action content T0 T
 
 /-- The trace of the concrete averaged rejection operator is the finite
 average of the traces of the represented fixed-matching high idempotents. -/
@@ -289,7 +288,6 @@ theorem S05_averagedRejectionYoungOperator_trace_eq_average_fixed
 explicit tableau-coordinate trace divided by that dimension. -/
 theorem S05_averagedRejectionYoungOperator_scalar_eq_trace_div_tableauDim
     {n : Nat} {lam : YoungDiagram (n + 1)}
-    (hconn : External.AppendixA.StandardTableauxSwapConnectedStatement)
     (action : YoungOrthogonalActionData lam)
     (content : JucysMurphyContentActionData action)
     (T0 : StandardYoungTableau lam)
@@ -303,6 +301,6 @@ theorem S05_averagedRejectionYoungOperator_scalar_eq_trace_div_tableauDim
   apply scalar_eq_tableauOperatorTrace_div_tableauDim _ _ hdim
   intro T
   exact S05_averagedRejectionYoungOperator_scalar_from_appendixA
-    hconn action content T0 T
+    action content T0 T
 
 end DictatorshipTesting

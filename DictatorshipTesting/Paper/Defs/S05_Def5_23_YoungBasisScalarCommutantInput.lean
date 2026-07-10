@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_15_YoungBasisScalarCommutant`
+- `DictatorshipTesting.Paper.S05_Lem5_16_YoungBasisScalarCommutant`
 -/
 
 /-!

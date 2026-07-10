@@ -37,7 +37,7 @@ const rootViews = {
   paper: {
     label: "Paper map",
     roots: paperResultRoots,
-    open: ["Thm1_1", "Thm4_8", "S05_L19", "S05_L20", "S05_L18"],
+    open: ["Thm1_1", "Thm4_8", "S05_L20", "S05_L21", "S05_L19"],
   },
   main: {
     label: "Main theorem",
@@ -52,17 +52,17 @@ const rootViews = {
   section5: {
     label: "Section 5",
     roots: section5Roots,
-    open: ["S05_L19", "S05_L20", "S05_L18", "S05_L17", "S05_L10", "S05_L01"],
+    open: ["S05_L20", "S05_L21", "S05_L19", "S05_L18", "S05_L11", "S05_L01"],
   },
   certificates: {
     label: "Finite certificates",
-    roots: ["S05_L24", "S05_L26", "S05_L22", "S05_L21"],
-    open: ["S05_L24", "S05_L26", "S05_L22", "S05_L21"],
+    roots: ["S05_L25", "S05_L27", "S05_L23", "S05_L22"],
+    open: ["S05_L25", "S05_L27", "S05_L23", "S05_L22"],
   },
   appendix: {
     label: "Appendix A boundary",
-    roots: ["AppA_01", "AppA_02", "AppA_03", "AppA_04"],
-    open: ["AppA_01", "AppA_02", "AppA_03", "AppA_04"],
+    roots: ["AppA_01", "AppA_02", "AppA_03"],
+    open: ["AppA_01", "AppA_02", "AppA_03"],
   },
 };
 

@@ -664,7 +664,6 @@ theorem S05_averagedRejectionYoungOperator_commutes_content
 high-matching operator is scalar on the tableau basis. -/
 theorem S05_averagedRejectionYoungOperator_scalar_on_basis
     {n : Nat} {lam : YoungDiagram (n + 1)}
-    (hconn : External.AppendixA.StandardTableauxSwapConnectedStatement)
     (young : YoungRepresentationActionData lam)
     (T0 T : StandardYoungTableau lam) :
     S05_averagedRejectionYoungOperator young (tableauBasisVec T) =
@@ -672,15 +671,13 @@ theorem S05_averagedRejectionYoungOperator_scalar_on_basis
         (AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
             (S05_averagedRejectionYoungOperatorData_actual young)).basisScalar T0 *
           tableauBasisVec T U := by
-  exact averagedRejectionYoungOperator_scalar_on_basis hconn
+  exact averagedRejectionYoungOperator_scalar_on_basis
     (S05_averagedRejectionYoungOperatorData_actual young) T0 T
 
-/-- Concrete one-block scalarity derived from faithful A.1 action data,
-faithful A.2 content data, centrality of the actual averaged matching element,
-and A.4 connectedness. -/
+/-- Concrete one-block scalarity derived from faithful A.1/A.2 data, centrality
+of the actual averaged matching element, and the internally proved Lemma 5.3. -/
 theorem S05_averagedRejectionYoungOperator_scalar_from_appendixA
     {n : Nat} {lam : YoungDiagram (n + 1)}
-    (hconn : External.AppendixA.StandardTableauxSwapConnectedStatement)
     (action : YoungOrthogonalActionData lam)
     (content : JucysMurphyContentActionData action)
     (T0 T : StandardYoungTableau lam) :
@@ -690,7 +687,7 @@ theorem S05_averagedRejectionYoungOperator_scalar_from_appendixA
         (AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
             (S05_averagedRejectionYoungOperatorData_from_appendixA
               action content)).basisScalar T0 * tableauBasisVec T U := by
-  exact averagedRejectionYoungOperator_scalar_on_basis hconn
+  exact averagedRejectionYoungOperator_scalar_on_basis
     (S05_averagedRejectionYoungOperatorData_from_appendixA action content) T0 T
 
 end DictatorshipTesting

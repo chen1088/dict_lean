@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Lem5_16a_AveragedRejectionYoungOperator
+import DictatorshipTesting.Paper.S05_Lem5_17a_AveragedRejectionYoungOperator
 import DictatorshipTesting.Paper.Defs.AppA_DefA_02_JucysMurphyContentActionData
 
 /-

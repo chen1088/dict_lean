@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Lem5_24_EvenCertificate
+import DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate
 
 /-
 Direct reverse imports:
@@ -7,7 +7,7 @@ Direct reverse imports:
 
 
 /-!
-Paper statement: Lemma 5.23 (`lem:exceptional-even-children`)
+Paper statement: Lemma 5.24 (`lem:exceptional-even-children`)
 Title in paper: Where the induction can fail.
 
 Status: proven. Paper-facing wrapper around the existing even exceptional-child
@@ -18,9 +18,9 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Lemma 5.14: all failures of the generic even induction are among the four
+/-- Lemma 5.24: all failures of the generic even induction are among the four
 explicit exceptional shapes. -/
-theorem S05_Lem5_23_where_the_induction_can_fail
+theorem S05_Lem5_24_where_the_induction_can_fail
     (m : Nat) (hm : 3 ≤ m) (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam)
     (hbad :

@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate
+import DictatorshipTesting.Paper.S05_Lem5_27_OddCertificate
 
 /-
 Direct reverse imports:
@@ -7,7 +7,7 @@ Direct reverse imports:
 
 
 /-!
-Paper statement: Lemma 5.25 (`lem:exceptional-odd-children`)
+Paper statement: Lemma 5.26 (`lem:exceptional-odd-children`)
 Title in paper: Odd exceptional children.
 
 Status: proven. Paper-facing wrapper around the existing odd exceptional-child
@@ -18,9 +18,9 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Lemma 5.15: all failures of the generic odd reduction are among the two
+/-- Lemma 5.26: all failures of the generic odd reduction are among the two
 explicit odd exceptional shapes. -/
-theorem S05_Lem5_25_odd_exceptional_children
+theorem S05_Lem5_26_odd_exceptional_children
     (m : Nat) (hm : 2 ≤ m) (lam : YoungDiagram (2 * m + 1))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam)
     (hbad : HasOneRowOneBoxChild m lam ∨ HasStandardOneBoxChild m lam) :

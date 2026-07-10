@@ -1,18 +1,18 @@
 import DictatorshipTesting.Paper.Defs.S05_Def5_14_OddSignPatternMultiset
 import DictatorshipTesting.Paper.Defs.S05_Def5_15_MatchingCharacters
 import DictatorshipTesting.Paper.Defs.S05_Def5_25_TableauOddHeight
-import DictatorshipTesting.Paper.S05_Lem5_07_TwoBoxDimensionRecursion
-import DictatorshipTesting.Paper.S05_Lem5_08_OneBoxDimensionRecursion
+import DictatorshipTesting.Paper.S05_Lem5_08_TwoBoxDimensionRecursion
+import DictatorshipTesting.Paper.S05_Lem5_09_OneBoxDimensionRecursion
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_10_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_11_MatchingSubgroupEigenbasis`
 -/
 
 
 /-!
-Paper statement: Lemma 5.9 (`lem:X-size`)
+Paper statement: Lemma 5.10 (`lem:X-size`)
 Title in paper: Sizes of the sign-pattern multisets.
 
 Status: proven. The genuine recursive even and odd label multisets are defined
@@ -56,7 +56,7 @@ private theorem tableauDimNat_zero (lam : YoungDiagram 0) :
 
 /-- The genuine even sign-pattern multiset has one label for every standard
 tableau, with multiplicity. -/
-theorem S05_Lem5_09_evenSignPatternMultiset_card :
+theorem S05_Lem5_10_evenSignPatternMultiset_card :
     forall (m : Nat) (lam : YoungDiagram (2 * m)),
       ((S05_evenSignPatternMultiset m lam).card : Real) = tableauDim lam := by
   intro m
@@ -87,7 +87,7 @@ theorem S05_Lem5_09_evenSignPatternMultiset_card :
 
 /-- The genuine odd sign-pattern multiset has one label for every standard
 tableau, with multiplicity. -/
-theorem S05_Lem5_09_oddSignPatternMultiset_card
+theorem S05_Lem5_10_oddSignPatternMultiset_card
     (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
     ((S05_oddSignPatternMultiset m lam).card : Real) = tableauDim lam := by
   calc
@@ -97,17 +97,17 @@ theorem S05_Lem5_09_oddSignPatternMultiset_card
       simp [S05_oddSignPatternMultiset]
     _ = (oneBoxChildrenOdd m lam).sum (fun mu => tableauDim mu) := by
       exact Finset.sum_congr rfl
-        (fun mu _ => S05_Lem5_09_evenSignPatternMultiset_card m mu)
+        (fun mu _ => S05_Lem5_10_evenSignPatternMultiset_card m mu)
     _ = tableauDim lam := by
       symm
       exact tableauDim_oneBoxChildrenOdd_branching m lam
 
-@[simp] theorem S05_Lem5_09_liftEvenSignPattern_card
+@[simp] theorem S05_Lem5_10_liftEvenSignPattern_card
     {m : Nat} (R : Finset (Fin m)) :
     (S05_liftEvenSignPattern R).card = R.card := by
   simp [S05_liftEvenSignPattern]
 
-@[simp] theorem S05_Lem5_09_liftEvenSignPatternWithLast_card
+@[simp] theorem S05_Lem5_10_liftEvenSignPatternWithLast_card
     {m : Nat} (R : Finset (Fin m)) :
     (S05_liftEvenSignPatternWithLast R).card = R.card + 1 := by
   simp [S05_liftEvenSignPatternWithLast, S05_liftEvenSignPattern]
@@ -177,7 +177,7 @@ private theorem highMultiplicity_map_liftWithLast
   apply congrArg Multiset.card
   apply Multiset.filter_congr
   intro R _hR
-  rw [S05_Lem5_09_liftEvenSignPatternWithLast_card]
+  rw [S05_Lem5_10_liftEvenSignPatternWithLast_card]
   omega
 
 private theorem highMultiplicity_map_liftWithLast_add_zero
@@ -203,7 +203,7 @@ private theorem highMultiplicity_map_liftWithLast_cast
 
 /-- Empty labels in the genuine even sign-pattern multiset are counted by
 `zEven`. -/
-theorem S05_Lem5_09_evenSignPatternMultiset_zeroMultiplicity :
+theorem S05_Lem5_10_evenSignPatternMultiset_zeroMultiplicity :
     forall (m : Nat) (lam : YoungDiagram (2 * m)),
       ((S05_zeroSignPatternMultiplicity
           (S05_evenSignPatternMultiset m lam) : Nat) : Real) = zEven m lam := by
@@ -233,7 +233,7 @@ theorem S05_Lem5_09_evenSignPatternMultiset_zeroMultiplicity :
 
 /-- Weight-at-least-two labels in the genuine even sign-pattern multiset are
 counted by `hEvenTableau`. -/
-theorem S05_Lem5_09_evenSignPatternMultiset_highMultiplicity :
+theorem S05_Lem5_10_evenSignPatternMultiset_highMultiplicity :
     forall (m : Nat) (lam : YoungDiagram (2 * m)),
       ((S05_highSignPatternMultiplicity
           (S05_evenSignPatternMultiset m lam) : Nat) : Real) =
@@ -270,15 +270,15 @@ theorem S05_Lem5_09_evenSignPatternMultiset_highMultiplicity :
           · apply Finset.sum_congr rfl
             intro mu _
             rw [highMultiplicity_map_liftWithLast_cast,
-              S05_Lem5_09_evenSignPatternMultiset_card,
-              S05_Lem5_09_evenSignPatternMultiset_zeroMultiplicity]
+              S05_Lem5_10_evenSignPatternMultiset_card,
+              S05_Lem5_10_evenSignPatternMultiset_zeroMultiplicity]
             rfl
         _ = hEvenTableau (m + 1) lam := by
           rw [hEvenTableau]
 
 /-- Weight-at-least-two labels in the genuine odd sign-pattern multiset are
 counted by `hOddTableau`. -/
-theorem S05_Lem5_09_oddSignPatternMultiset_highMultiplicity
+theorem S05_Lem5_10_oddSignPatternMultiset_highMultiplicity
     (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
     ((S05_highSignPatternMultiplicity
         (S05_oddSignPatternMultiset m lam) : Nat) : Real) =
@@ -293,13 +293,13 @@ theorem S05_Lem5_09_oddSignPatternMultiset_highMultiplicity
       simp [S05_oddSignPatternMultiset, highMultiplicity_finset_sum]
     _ = (oneBoxChildrenOdd m lam).sum (fun mu => hEvenTableau m mu) := by
       exact Finset.sum_congr rfl
-        (fun mu _ => S05_Lem5_09_evenSignPatternMultiset_highMultiplicity m mu)
+        (fun mu _ => S05_Lem5_10_evenSignPatternMultiset_highMultiplicity m mu)
     _ = hOddTableau m lam := by
       rw [hOddTableau]
 
 /-- A finite label enumeration counts high labels by the corresponding
 multiset multiplicity. -/
-theorem S05_Lem5_09_highLabelSum_eq_multiplicity
+theorem S05_Lem5_10_highLabelSum_eq_multiplicity
     {m : Nat} {ι : Type*} [Fintype ι]
     (label : ι -> Finset (Fin m)) :
     (∑ i : ι,
@@ -334,7 +334,7 @@ theorem S05_Lem5_09_highLabelSum_eq_multiplicity
 
 /-- An enumeration whose label multiset is Definition 5.13 has exactly
 `hEvenTableau` high labels. -/
-theorem S05_Lem5_09_highLabelCount_of_evenSignPatternMultiset
+theorem S05_Lem5_10_highLabelCount_of_evenSignPatternMultiset
     {m : Nat} {lam : YoungDiagram (2 * m)}
     {ι : Type*} [Fintype ι]
     (label : ι -> Finset (Fin m))
@@ -342,12 +342,12 @@ theorem S05_Lem5_09_highLabelCount_of_evenSignPatternMultiset
     (∑ i : ι,
         if S05_matchingCharacterHigh (label i) then (1 : Real) else 0) =
       hEvenTableau m lam := by
-  rw [S05_Lem5_09_highLabelSum_eq_multiplicity, hlabels]
-  exact S05_Lem5_09_evenSignPatternMultiset_highMultiplicity m lam
+  rw [S05_Lem5_10_highLabelSum_eq_multiplicity, hlabels]
+  exact S05_Lem5_10_evenSignPatternMultiset_highMultiplicity m lam
 
 /-- An enumeration whose label multiset is Definition 5.14 has exactly
 `hOddTableau` high labels. -/
-theorem S05_Lem5_09_highLabelCount_of_oddSignPatternMultiset
+theorem S05_Lem5_10_highLabelCount_of_oddSignPatternMultiset
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
     {ι : Type*} [Fintype ι]
     (label : ι -> Finset (Fin m))
@@ -355,35 +355,35 @@ theorem S05_Lem5_09_highLabelCount_of_oddSignPatternMultiset
     (∑ i : ι,
         if S05_matchingCharacterHigh (label i) then (1 : Real) else 0) =
       hOddTableau m lam := by
-  rw [S05_Lem5_09_highLabelSum_eq_multiplicity, hlabels]
-  exact S05_Lem5_09_oddSignPatternMultiset_highMultiplicity m lam
+  rw [S05_Lem5_10_highLabelSum_eq_multiplicity, hlabels]
+  exact S05_Lem5_10_oddSignPatternMultiset_highMultiplicity m lam
 
-/-- Lemma 5.7 scalar-size base case: the empty even diagram has one
+/-- Lemma 5.10 scalar-size base case: the empty even diagram has one
 zero-weight entry. -/
-theorem S05_Lem5_09_evenZeroSignPatternCount_zero
+theorem S05_Lem5_10_evenZeroSignPatternCount_zero
     (lam : YoungDiagram (2 * 0)) :
     S05_evenZeroSignPatternCount 0 lam = 1 := by
   exact S05_evenZeroSignPatternCount_zero lam
 
-/-- Lemma 5.7 scalar-size component: the even zero-weight count has the
+/-- Lemma 5.10 scalar-size component: the even zero-weight count has the
 horizontal two-strip recursion. -/
-theorem S05_Lem5_09_evenZeroSignPatternCount_succ
+theorem S05_Lem5_10_evenZeroSignPatternCount_succ
     (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :
     S05_evenZeroSignPatternCount (m + 1) lam =
       (horizontalTwoStripChildrenEven (m + 1) lam).sum
         (fun mu => S05_evenZeroSignPatternCount m mu) := by
   exact S05_evenZeroSignPatternCount_succ m lam
 
-/-- Lemma 5.7 scalar-size base case: the empty even diagram has no high-weight
+/-- Lemma 5.10 scalar-size base case: the empty even diagram has no high-weight
 entries. -/
-theorem S05_Lem5_09_evenHighSignPatternCount_zero
+theorem S05_Lem5_10_evenHighSignPatternCount_zero
     (lam : YoungDiagram (2 * 0)) :
     S05_evenHighSignPatternCount 0 lam = 0 := by
   exact S05_evenHighSignPatternCount_zero lam
 
-/-- Lemma 5.7 scalar-size component: the even high-weight count has the
+/-- Lemma 5.10 scalar-size component: the even high-weight count has the
 horizontal-plus-vertical recursion. -/
-theorem S05_Lem5_09_evenHighSignPatternCount_succ
+theorem S05_Lem5_10_evenHighSignPatternCount_succ
     (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :
     S05_evenHighSignPatternCount (m + 1) lam =
       (horizontalTwoStripChildrenEven (m + 1) lam).sum
@@ -392,18 +392,18 @@ theorem S05_Lem5_09_evenHighSignPatternCount_succ
           (fun mu => youngDim mu - S05_evenZeroSignPatternCount m mu) := by
   exact S05_evenHighSignPatternCount_succ m lam
 
-/-- Lemma 5.7 scalar-size component: the odd high-weight count is the sum of
+/-- Lemma 5.10 scalar-size component: the odd high-weight count is the sum of
 even high-weight counts over one-box removals. -/
-theorem S05_Lem5_09_oddHighSignPatternCount_eq_evenHigh_sum
+theorem S05_Lem5_10_oddHighSignPatternCount_eq_evenHigh_sum
     (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
     S05_oddHighSignPatternCount m lam =
       (oneBoxChildrenOdd m lam).sum
         (fun mu => S05_evenHighSignPatternCount m mu) := by
   exact S05_oddHighSignPatternCount_eq_evenHigh_sum m lam
 
-/-- Lemma 5.7 dimension-size component: the even two-strip dimension size
+/-- Lemma 5.10 dimension-size component: the even two-strip dimension size
 recursion, supplied by the named branching input. -/
-theorem S05_Lem5_09_youngDim_twoStrip_size
+theorem S05_Lem5_10_youngDim_twoStrip_size
     [TwoStripDimensionBranchingAssumption] (m : Nat) (hm : 2 <= m)
     (lam : YoungDiagram (2 * m)) :
     youngDim lam =
@@ -411,49 +411,49 @@ theorem S05_Lem5_09_youngDim_twoStrip_size
         (verticalTwoStripChildrenEven m lam).sum (fun mu => youngDim mu) := by
   exact youngDim_twoStrip_branching_input m hm lam
 
-/-- Lemma 5.7 dimension-size component: the odd one-box dimension size
+/-- Lemma 5.10 dimension-size component: the odd one-box dimension size
 recursion, supplied by the named branching input except in the proved small
 cases. -/
-theorem S05_Lem5_09_youngDim_oneBox_size
+theorem S05_Lem5_10_youngDim_oneBox_size
     [OneBoxDimensionBranchingPositiveAssumption] (m : Nat)
     (lam : YoungDiagram (2 * m + 1)) :
     youngDim lam = (oneBoxChildrenOdd m lam).sum (fun mu => youngDim mu) := by
   exact youngDim_oneBox_branching_input m lam
 
-/-- Lemma 5.7 tableau-count component: the assumption-free two-strip size
+/-- Lemma 5.10 tableau-count component: the assumption-free two-strip size
 recursion for standard-tableau counts. -/
-theorem S05_Lem5_09_tableauDim_twoStrip_size
+theorem S05_Lem5_10_tableauDim_twoStrip_size
     {n : Nat} (lam : YoungDiagram ((n + 1) + 1)) :
     tableauDim lam =
       (horizontalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) +
         (verticalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) := by
-  exact S05_Lem5_07_tableauDim_twoStrip_branching_sized lam
+  exact S05_Lem5_08_tableauDim_twoStrip_branching_sized lam
 
-/-- Lemma 5.7 tableau-count component: the assumption-free even two-strip size
+/-- Lemma 5.10 tableau-count component: the assumption-free even two-strip size
 recursion in the indexed Section 5 notation. -/
-theorem S05_Lem5_09_tableauDim_twoStripChildrenEven_size_succ
+theorem S05_Lem5_10_tableauDim_twoStripChildrenEven_size_succ
     (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :
     tableauDim lam =
       (horizontalTwoStripChildrenEven (m + 1) lam).sum
           (fun mu => tableauDim mu) +
         (verticalTwoStripChildrenEven (m + 1) lam).sum
           (fun mu => tableauDim mu) := by
-  exact S05_Lem5_07_tableauDim_twoStripChildrenEven_branching_succ m lam
+  exact S05_Lem5_08_tableauDim_twoStripChildrenEven_branching_succ m lam
 
-/-- Lemma 5.7 tableau-count component: the assumption-free one-box size
+/-- Lemma 5.10 tableau-count component: the assumption-free one-box size
 recursion for standard-tableau counts. -/
-theorem S05_Lem5_09_tableauDim_oneBox_size
+theorem S05_Lem5_10_tableauDim_oneBox_size
     {n : Nat} (lam : YoungDiagram (n + 1)) :
     tableauDim lam =
       (oneBoxChildrenSized lam).sum (fun mu => tableauDim mu) := by
-  exact S05_Lem5_08_tableauDim_oneBox_branching lam
+  exact S05_Lem5_09_tableauDim_oneBox_branching lam
 
-/-- Lemma 5.7 tableau-count component: the assumption-free odd one-box size
+/-- Lemma 5.10 tableau-count component: the assumption-free odd one-box size
 recursion in the indexed Section 5 notation. -/
-theorem S05_Lem5_09_tableauDim_oneBoxChildrenOdd_size
+theorem S05_Lem5_10_tableauDim_oneBoxChildrenOdd_size
     (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
     tableauDim lam =
       (oneBoxChildrenOdd m lam).sum (fun mu => tableauDim mu) := by
-  exact S05_Lem5_08_tableauDim_oneBoxChildrenOdd_branching m lam
+  exact S05_Lem5_09_tableauDim_oneBoxChildrenOdd_branching m lam
 
 end DictatorshipTesting

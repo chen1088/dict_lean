@@ -2,19 +2,19 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_HEven
 import DictatorshipTesting.Paper.Defs.S05_Def5_24_TableauEvenHeight
 import DictatorshipTesting.Paper.Defs.S05_Def5_26_CertificateSpecialDiagrams
 import DictatorshipTesting.Paper.Defs.S05_Def5_27_CertificateExceptionalPredicates
-import DictatorshipTesting.Paper.S05_Lem5_22_WeightZeroEntriesAreNeverAMajority
+import DictatorshipTesting.Paper.S05_Lem5_23_WeightZeroEntriesAreNeverAMajority
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_19_EvenSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Lem5_23_WhereTheInductionCanFail`
-- `DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_20_EvenSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_24_WhereTheInductionCanFail`
+- `DictatorshipTesting.Paper.S05_Lem5_27_OddCertificate`
 -/
 
 
 /-!
-Paper statement: Lemma 5.24 (`lem:h-even-app`)
+Paper statement: Lemma 5.25 (`lem:h-even-app`)
 Title in paper: Even certificate.
 
 Status: proven. The tableau-count even certificate is proved below.  The older
@@ -23,9 +23,9 @@ route.
 -/
 
 /-!
-# Finite induction input for Lemma 5.15
+# Finite induction proof for Lemma 5.25
 
-The intended proof uses Lemma 5.13, the `hEven` recurrence, the dimension
+The intended proof uses the weight-zero bound from Lemma 5.23, the `hEven` recurrence, the dimension
 recursion, and the exceptional level-two Young diagrams from Section 5.
 
 This is deliberately not bundled into the representation-theoretic bridge:
@@ -2011,7 +2011,7 @@ theorem hEvenTableau_recurrence_succ
           (fun mu => tableauDim mu - zEven m mu) := by
   simp [hEvenTableau]
 
-/-- Generic tableau-dimension induction step for Lemma 5.37, away from the
+/-- Generic tableau-dimension induction step for Lemma 5.25, away from the
 exceptional children. -/
 theorem hEvenTableau_ge_one_fifth_tableauDim_generic_step_succ
     (m : ℕ) (_hm : 1 ≤ m) (lam : YoungDiagram (2 * (m + 1)))
@@ -3275,7 +3275,7 @@ theorem hEvenTableau_ge_one_fifth_tableauDim_threeRowTwoOneException
   rw [eq_threeRowTwoOneDiagramEven_of_isThreeRowTwoOneException m hm lam hshape]
   exact hEvenTableau_ge_one_fifth_tableauDim_threeRowTwoOneDiagramEven m hm
 
-/-- Generic induction step for Lemma 5.37, away from the exceptional children.
+/-- Generic induction step for Lemma 5.25, away from the exceptional children.
 
 Horizontal children are handled by the induction hypothesis.  Vertical children
 are handled by the proven `zEven ≤ d/2` bound, which gives the stronger
@@ -4454,7 +4454,7 @@ theorem hEvenTableau_ge_one_fifth_tableauDim_even_exceptional
   · exact hEvenTableau_ge_one_fifth_tableauDim_twoRowThreeException m hm lam h33
   · exact hEvenTableau_ge_one_fifth_tableauDim_threeRowTwoOneException m hm lam h321
 
-/-- Finite Young-diagram induction behind Lemma 5.37, using actual tableau
+/-- Finite Young-diagram induction behind Lemma 5.25, using actual tableau
 counts. -/
 theorem hEvenTableau_ge_one_fifth_tableauDim_of_not_oneRow_not_standard_finite_induction
     (m : ℕ) (hm : 2 ≤ m)
@@ -4488,8 +4488,8 @@ theorem hEvenTableau_ge_one_fifth_tableauDim_of_not_oneRow_not_standard_finite_i
             (fun mu hmu hone =>
               hbad (Or.inr (Or.inl ⟨mu, hmu, hone⟩)))
 
-/-- Lemma 5.37, tableau-count version of the even certificate. -/
-theorem S05_Lem5_24_tableau_even_certificate
+/-- Lemma 5.25, tableau-count version of the even certificate. -/
+theorem S05_Lem5_25_tableau_even_certificate
     (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
@@ -5085,7 +5085,7 @@ theorem hEven_ge_one_fifth_youngDim_even_exceptional
   · exact hEven_ge_one_fifth_youngDim_twoRowThreeException m hm lam h33
   · exact hEven_ge_one_fifth_youngDim_threeRowTwoOneException m hm lam h321
 
-/-- Finite Young-diagram induction behind Lemma 5.37. -/
+/-- Finite Young-diagram induction behind Lemma 5.25. -/
 theorem hEven_ge_one_fifth_youngDim_of_not_oneRow_not_standard_finite_induction
     [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m)
@@ -5119,7 +5119,7 @@ theorem hEven_ge_one_fifth_youngDim_of_not_oneRow_not_standard_finite_induction
             (fun mu hmu hone =>
               hbad (Or.inr (Or.inl ⟨mu, hmu, hone⟩)))
 
-/-- Lemma 5.37, `lem:h-even-app`: even certificate.  This preserves the old
+/-- Lemma 5.25, `lem:h-even-app`: even certificate.  This preserves the old
 theorem name `L5_5_HEvenApp`. -/
 theorem L5_5_HEvenApp [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m)
@@ -5130,8 +5130,8 @@ theorem L5_5_HEvenApp [TwoStripDimensionBranchingAssumption]
     hEven_ge_one_fifth_youngDim_of_not_oneRow_not_standard_finite_induction
       m hm lam hrow hstd
 
-/-- Lemma 5.37 paper-numbered alias: even certificate. -/
-theorem S05_Lem5_24_even_certificate
+/-- Lemma 5.25 paper-numbered alias: even certificate. -/
+theorem S05_Lem5_25_even_certificate
     [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m))

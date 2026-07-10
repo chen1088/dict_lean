@@ -3,13 +3,13 @@ import DictatorshipTesting.Paper.S05_Int_TableauDimension
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_09_SizesOfTheSignPatternMultisets`
-- `DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_10_SizesOfTheSignPatternMultisets`
+- `DictatorshipTesting.Paper.S05_Lem5_27_OddCertificate`
 -/
 
 
 /-!
-Paper statement: Lemma 5.8 (`lem:dimension-one-box-recurrence`)
+Paper statement: Lemma 5.9 (`lem:dimension-one-box-recurrence`)
 Title in paper: One-box dimension recursion.
 
 Status: proven. The paper-facing Section 5 route uses the assumption-free
@@ -384,7 +384,7 @@ cardinality of standard Young tableaux, rather than the hook-length proxy
 `youngDim`.
 -/
 
-theorem S05_Lem5_08_tableauDim_fixed_oneBoxChild
+theorem S05_Lem5_09_tableauDim_fixed_oneBoxChild
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
     (h : IsOneBoxChild lam mu) {r : Nat}
     (hr :
@@ -397,13 +397,13 @@ theorem S05_Lem5_08_tableauDim_fixed_oneBoxChild
     tableauDim mu := by
   exact tableauDim_fixed_oneBoxChild h hr
 
-theorem S05_Lem5_08_tableauDim_oneBox_branching
+theorem S05_Lem5_09_tableauDim_oneBox_branching
     {n : Nat} (lam : YoungDiagram (n + 1)) :
     tableauDim lam =
       (oneBoxChildrenSized lam).sum (fun mu => tableauDim mu) := by
   exact tableauDim_oneBox_branching_sized lam
 
-theorem S05_Lem5_08_tableauDim_oneBoxChildrenOdd_branching
+theorem S05_Lem5_09_tableauDim_oneBoxChildrenOdd_branching
     (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
     tableauDim lam =
       (oneBoxChildrenOdd m lam).sum (fun mu => tableauDim mu) := by

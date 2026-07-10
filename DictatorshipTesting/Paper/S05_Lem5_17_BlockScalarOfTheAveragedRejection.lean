@@ -1,6 +1,5 @@
-import DictatorshipTesting.Paper.S05_Lem5_12_TraceOfOneLocalTruncationOnOneYoungBlock
+import DictatorshipTesting.Paper.S05_Lem5_13_TraceOfOneLocalTruncationOnOneYoungBlock
 import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum
-import DictatorshipTesting.Paper.AppA_LemA_04_StandardTableauxSwapConnectedness
 
 /-
 Direct reverse imports:
@@ -11,7 +10,7 @@ Direct reverse imports:
 
 
 /-!
-Paper statement: Lemma 5.16 (`lem:centralization-matchings`)
+Paper statement: Lemma 5.17 (`lem:centralization-matchings`)
 Title in paper: Block scalar of the averaged rejection.
 
 Status: external: Section 5 scalarity bridge input.  Finite-dimensional
@@ -36,19 +35,18 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Section 5 scalarity bridge input.  Given the Appendix A.4 connectedness
-statement and the trace/scalar data from the Young model, the averaged matching
-rejection is scalar on each Young block with scalar `theta`. -/
+/-- Section 5 scalarity bridge input.  Given the trace/scalar data from the
+Young model, the averaged matching rejection is scalar on each Young block with
+scalar `theta`.  Tableau connectedness is already internal Lemma 5.3. -/
 def S05_MatchingAverageScalarityFromYoungModelStatement : Prop :=
-  AppA_LemA_04_StandardTableauxSwapConnectednessStatement ->
   ∀ {n : Nat} {dim height : YoungDiagram n -> ℝ}
     {F : Perm (Fin n) -> ℝ}
     {energy : AppA_YoungBlockEnergyData F}
     (traceData : AppA_TraceScalarDataWithDim dim height energy),
     MatchingAverageScalarityInput F energy.blockEnergy traceData.theta
 
-/-- Section 5 input isolating the still-external bridge from the Young-model
-connectedness and trace data to matching-average scalarity. -/
+/-- Section 5 input isolating the still-external bridge from Young-model trace
+data to matching-average scalarity. -/
 axiom S05_matchingAverageScalarity_from_young_model_input :
     S05_MatchingAverageScalarityFromYoungModelStatement
 
@@ -122,15 +120,15 @@ theorem centralizationBridge_odd_scalar_eq_hOdd_div_dim
     theta = hOdd m lam / youngDim lam := by
   exact odd_youngBlockScalar_eq_hOdd_div_dim m lam theta hdim htrace
 
-/-- Lemma 5.11 paper-numbered scalar algebra: trace divided by dimension. -/
-theorem S05_Lem5_16_scalar_eq_trace_div_dimension
+/-- Lemma 5.17 paper-numbered scalar algebra: trace divided by dimension. -/
+theorem S05_Lem5_17_scalar_eq_trace_div_dimension
     (d h theta : ℝ) (hd : d ≠ 0)
     (htrace : d ^ (2 : ℕ) * theta = d * h) :
     theta = h / d := by
   exact centralizationBridge_scalar_eq_trace_div_dimension d h theta hd htrace
 
-/-- Lemma 5.11 paper-numbered even scalar formula. -/
-theorem S05_Lem5_16_even_scalar_eq_hEven_div_dim
+/-- Lemma 5.17 paper-numbered even scalar formula. -/
+theorem S05_Lem5_17_even_scalar_eq_hEven_div_dim
     (m : ℕ) (lam : YoungDiagram (2 * m)) (theta : ℝ)
     (hdim : youngDim lam ≠ 0)
     (htrace :
@@ -139,8 +137,8 @@ theorem S05_Lem5_16_even_scalar_eq_hEven_div_dim
     theta = hEven m lam / youngDim lam := by
   exact centralizationBridge_even_scalar_eq_hEven_div_dim m lam theta hdim htrace
 
-/-- Lemma 5.11 paper-numbered odd scalar formula. -/
-theorem S05_Lem5_16_odd_scalar_eq_hOdd_div_dim
+/-- Lemma 5.17 paper-numbered odd scalar formula. -/
+theorem S05_Lem5_17_odd_scalar_eq_hOdd_div_dim
     (m : ℕ) (lam : YoungDiagram (2 * m + 1)) (theta : ℝ)
     (hdim : youngDim lam ≠ 0)
     (htrace :

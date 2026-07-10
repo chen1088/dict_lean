@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_19_MatchingRestrictionOddInput
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_12_TraceOfOneLocalTruncationOnOneYoungBlock`
+- `DictatorshipTesting.Paper.S05_Lem5_13_TraceOfOneLocalTruncationOnOneYoungBlock`
 -/
 
 /-!

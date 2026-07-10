@@ -2,12 +2,11 @@ import DictatorshipTesting.Paper.S05_Int_YoungDiagramCorners
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.AppA_LemA_04_StandardTableauxSwapConnectedness`
 - `DictatorshipTesting.Paper.S05_Int_TableauDimension`
 - `DictatorshipTesting.Paper.S05_Int_YoungAdjacentEntries`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_03_StandardTableaux`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_12_OneBoxDeletionSpaces`
-- `DictatorshipTesting.Paper.S05_Lem5_04_OneBoxCornerDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_05_OneBoxCornerDecomposition`
 -/
 
 

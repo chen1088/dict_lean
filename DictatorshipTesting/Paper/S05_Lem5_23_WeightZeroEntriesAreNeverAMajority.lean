@@ -1,17 +1,17 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_ZEven
-import DictatorshipTesting.Paper.S05_Lem5_07_TwoBoxDimensionRecursion
+import DictatorshipTesting.Paper.S05_Lem5_08_TwoBoxDimensionRecursion
 import DictatorshipTesting.Paper.Defs.S05_Def5_26_CertificateSpecialDiagrams
 import DictatorshipTesting.Paper.Defs.S05_Def5_27_CertificateExceptionalPredicates
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_24_EvenCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
 -/
 
 
 /-!
-Paper statement: Lemma 5.22 (`lem:z-bound-app`)
+Paper statement: Lemma 5.23 (`lem:z-bound-app`)
 Title in paper: Weight-zero entries are never a majority.
 
 Status: proven. The tableau-count certificate is proved below.  The older `youngDim`
@@ -19,7 +19,7 @@ wrapper in this file remains part of the external Specht-dimension route.
 -/
 
 /-!
-# Finite induction input for Lemma 5.37
+# Finite induction input for Lemma 5.23
 
 The paper proves this by induction on `m`, using the horizontal two-strip
 recurrence, the dimension recursion, and two special families of diagrams.
@@ -38,7 +38,7 @@ theorem youngDim_nonneg {n : ℕ} (lam : YoungDiagram n) :
   exact_mod_cast Nat.zero_le (youngDimNat lam)
 
 /-- The zero-weight count is nonnegative.  This is the easy positivity part of
-the finite induction for Lemma 5.37. -/
+the finite induction for Lemma 5.23. -/
 theorem zEven_nonneg (m : ℕ) (lam : YoungDiagram (2 * m)) :
     0 ≤ zEven m lam := by
   induction m with
@@ -1822,7 +1822,7 @@ theorem zEven_le_half_youngDim_of_noOneRowHorizontalChild
       (youngDim_horizontalChildren_sum_le m hm lam) (by norm_num)
   linarith
 
-/-- Finite Young-diagram induction behind Lemma 5.37. -/
+/-- Finite Young-diagram induction behind Lemma 5.23. -/
 theorem zEven_le_half_youngDim_of_not_oneRow_finite_induction
     [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (lam : YoungDiagram (2 * m)) (hrow : ¬ IsOneRow lam) :
@@ -1844,7 +1844,7 @@ theorem zEven_le_half_youngDim_of_not_oneRow_finite_induction
           · exact zEven_le_half_youngDim_of_noOneRowHorizontalChild
               (Nat.succ (Nat.succ m)) (by omega) lam ih hchild
 
-/-- Lemma 5.37, `lem:z-bound-app`: weight-zero entries are never a majority.
+/-- Lemma 5.23, `lem:z-bound-app`: weight-zero entries are never a majority.
 This preserves the old theorem name `L5_4_ZBoundApp`. -/
 theorem L5_4_ZBoundApp [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (lam : YoungDiagram (2 * m))
@@ -1863,18 +1863,18 @@ theorem zEven_le_youngDim [TwoStripDimensionBranchingAssumption]
     have hdim := youngDim_nonneg lam
     nlinarith
 
-/-- Lemma 5.37 paper-numbered alias: weight-zero entries are never a majority
+/-- Lemma 5.23 paper-numbered alias: weight-zero entries are never a majority
 outside the one-row block. -/
-theorem S05_Lem5_22_weightZeroEntries_never_majority
+theorem S05_Lem5_23_weightZeroEntries_never_majority
     [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) :
     zEven m lam ≤ (1 / 2 : ℝ) * youngDim lam := by
   exact L5_4_ZBoundApp m lam hrow
 
-/-- Lemma 5.37 paper-numbered corollary: the zero-weight count is bounded by
+/-- Lemma 5.23 paper-numbered corollary: the zero-weight count is bounded by
 the whole Young dimension. -/
-theorem S05_Lem5_22_zEven_le_youngDim
+theorem S05_Lem5_23_zEven_le_youngDim
     [TwoStripDimensionBranchingAssumption]
     (m : ℕ) (lam : YoungDiagram (2 * m)) :
     zEven m lam ≤ youngDim lam := by
@@ -1885,8 +1885,8 @@ theorem S05_Lem5_22_zEven_le_youngDim
 
 The next theorems are the assumption-free part of the migration from the hook-length
 proxy `youngDim` to `tableauDim`, the cardinality of standard Young tableaux.
-They prove Lemma 5.37 for `tableauDim` using the tableau-count two-strip
-recursion from Lemma 5.20 and explicit finite checks for the two exceptional
+They prove Lemma 5.23 for `tableauDim` using the tableau-count two-strip
+recursion from Lemma 5.22 and explicit finite checks for the two exceptional
 families in the `zEven` induction.
 -/
 
@@ -2535,9 +2535,9 @@ theorem zEven_le_half_tableauDim_of_not_oneRow_finite_induction
               zEven_le_half_tableauDim_of_noOneRowHorizontalChild_succ
                 (Nat.succ m) lam ih hchild
 
-/-- Lemma 5.37, tableau-dimension version: weight-zero entries are never a
+/-- Lemma 5.23, tableau-dimension version: weight-zero entries are never a
 majority outside the one-row block. -/
-theorem S05_Lem5_22_tableau_weightZeroEntries_never_majority
+theorem S05_Lem5_23_tableau_weightZeroEntries_never_majority
     (m : ℕ) (lam : YoungDiagram (2 * m))
     (hrow : ¬ IsOneRow lam) :
     zEven m lam ≤ (1 / 2 : ℝ) * tableauDim lam := by

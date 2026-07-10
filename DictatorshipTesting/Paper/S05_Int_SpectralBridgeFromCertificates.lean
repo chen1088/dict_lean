@@ -1,17 +1,17 @@
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.S05_Lem5_16_BlockScalarOfTheAveragedRejection
+import DictatorshipTesting.Paper.S05_Lem5_17_BlockScalarOfTheAveragedRejection
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
-- `DictatorshipTesting.Paper.S05_Lem5_17_BlockLowerBoundImpliesTheGap`
-- `DictatorshipTesting.Paper.S05_Lem5_19_EvenSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Lem5_20_OddSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_18_BlockLowerBoundImpliesTheGap`
+- `DictatorshipTesting.Paper.S05_Lem5_20_EvenSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_21_OddSpectralBridge`
 -/
 
 
 /-!
-Helper for paper statements: Lemmas 5.31--5.34 (`lem:block-lower-bound-gap`,
+Helper for paper statements: Lemmas 5.18--5.21 (`lem:block-lower-bound-gap`,
 `lem:spectral-certificate-even`, `lem:spectral-certificate-odd`)
 Title in paper: Spectral bridge from the finite certificate.
 
@@ -61,7 +61,7 @@ theorem blockScalar_lower_bound_of_traceScalarFormula {n : ℕ}
   exact (le_div_iff₀ hdim_pos).mpr (hcert lam hnot_row hnot_std)
 
 /-- Dimension positivity plus the block trace identity imply the trace/scalar
-value formula.  This is part of the algebraic helper for Lemmas 5.31--5.34. -/
+value formula.  This is part of the algebraic helper for Lemmas 5.18--5.21. -/
 theorem traceScalarValue_of_blockTraceIdentity {n : ℕ}
     {height theta : YoungDiagram n → ℝ}
     (hdim : YoungDimensionPositiveInput n)
@@ -105,7 +105,7 @@ theorem SpectralGapFromBlockScalars {n : ℕ} (c : ℝ)
 
 /-- Spectral gap from scalar lower bounds on every non-`U_1` Young block.
 
-This is the purely algebraic wrapper for Lemma 5.12: once the block energies,
+This is the purely algebraic wrapper for Lemma 5.13: once the block energies,
 `U_1` identification, matching-average scalarity, and scalar lower bounds are
 available, no representation theory remains. -/
 theorem SpectralGapFromBlockScalarLowerBounds {n : ℕ} (c : ℝ)

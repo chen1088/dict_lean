@@ -4,7 +4,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_14_OddSignPatternMultiset`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_19_MatchingRestrictionOddInput`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_MatchingSpectralGapConstant`
-- `DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_27_OddCertificate`
 -/
 
 

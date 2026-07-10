@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Lem5_10_MatchingSubgroupEigenbasis
+import DictatorshipTesting.Paper.S05_Lem5_11_MatchingSubgroupEigenbasis
 import DictatorshipTesting.Paper.Defs.S05_Def5_20_TraceLocalTruncationEvenInput
 import DictatorshipTesting.Paper.Defs.S05_Def5_21_TraceLocalTruncationOddInput
 import DictatorshipTesting.Paper.Defs.S05_Def5_30_TableauOperatorTrace
@@ -6,16 +6,16 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_30_TableauOperatorTrace
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_16_BlockScalarOfTheAveragedRejection`
+- `DictatorshipTesting.Paper.S05_Lem5_17_BlockScalarOfTheAveragedRejection`
 -/
 
 
 /-!
-Paper statement: Lemma 5.12 (`lem:PM-trace-young-block`)
+Paper statement: Lemma 5.13 (`lem:PM-trace-young-block`)
 Title in paper: Trace of one local truncation on one Young block.
 
 Status: proven with the explicit matching-eigenbasis and label-count hypotheses
-in the paper statement.  The application still awaits Lemma 5.10, which must
+in the paper statement.  The application still awaits Lemma 5.11, which must
 construct that labeled eigenbasis from two-box branching.
 -/
 
@@ -38,9 +38,9 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Concrete operator reduction for Lemma 5.12: the fixed high-matching trace
+/-- Concrete operator reduction for Lemma 5.13: the fixed high-matching trace
 is the sum of the traces of its high-character Fourier idempotents. -/
-theorem S05_Lem5_12_fixedMatching_trace_eq_sum_characterTraces
+theorem S05_Lem5_13_fixedMatching_trace_eq_sum_characterTraces
     {n : Nat} {lam : YoungDiagram (n + 1)}
     (action : YoungOrthogonalActionData lam)
     (M : NearPerfectMatching (n + 1)) :
@@ -52,10 +52,10 @@ theorem S05_Lem5_12_fixedMatching_trace_eq_sum_characterTraces
   exact S05_fixedMatchingRejectionYoungOperator_trace_eq_sum_characters
     action M
 
-/-- Concrete multiplicity reduction for Lemma 5.12: right action on the full
+/-- Concrete multiplicity reduction for Lemma 5.13: right action on the full
 matrix-coordinate Young block contributes one identical trace for each left
 tableau index. -/
-theorem S05_Lem5_12_youngBlockTrace_eq_tableauDim_mul_repTrace
+theorem S05_Lem5_13_youngBlockTrace_eq_tableauDim_mul_repTrace
     {n : Nat} {lam : YoungDiagram (n + 1)}
     (action : YoungOrthogonalActionData lam)
     (M : NearPerfectMatching (n + 1)) :
@@ -69,7 +69,7 @@ theorem S05_Lem5_12_youngBlockTrace_eq_tableauDim_mul_repTrace
 /-- Even tableau-space trace formula for the actual fixed-matching operator,
 from exactly the matching eigenbasis and high-label count asserted in Lemma
 5.10. -/
-theorem S05_Lem5_12_fixedMatching_tableauTrace_even_of_eigenbasis
+theorem S05_Lem5_13_fixedMatching_tableauTrace_even_of_eigenbasis
     {n m : Nat} (hsize : n + 1 = 2 * m)
     {lam : YoungDiagram (n + 1)}
     (action : YoungOrthogonalActionData lam)
@@ -94,7 +94,7 @@ theorem S05_Lem5_12_fixedMatching_tableauTrace_even_of_eigenbasis
 /-- Odd tableau-space trace formula for the actual fixed-matching operator,
 from exactly the matching eigenbasis and high-label count asserted in Lemma
 5.10. -/
-theorem S05_Lem5_12_fixedMatching_tableauTrace_odd_of_eigenbasis
+theorem S05_Lem5_13_fixedMatching_tableauTrace_odd_of_eigenbasis
     {n m : Nat} (hsize : n + 1 = 2 * m + 1)
     {lam : YoungDiagram (n + 1)}
     (action : YoungOrthogonalActionData lam)
@@ -118,7 +118,7 @@ theorem S05_Lem5_12_fixedMatching_tableauTrace_odd_of_eigenbasis
 
 /-- Even full Young-block trace formula.  The free left tableau index supplies
 the factor `tableauDim`. -/
-theorem S05_Lem5_12_fixedMatching_youngBlockTrace_even_of_eigenbasis
+theorem S05_Lem5_13_fixedMatching_youngBlockTrace_even_of_eigenbasis
     {n m : Nat} (hsize : n + 1 = 2 * m)
     {lam : YoungDiagram (n + 1)}
     (action : YoungOrthogonalActionData lam)
@@ -136,13 +136,13 @@ theorem S05_Lem5_12_fixedMatching_youngBlockTrace_even_of_eigenbasis
     youngBlockRightCoordinateTrace
         (S05_fixedMatchingRejectionYoungOperator action M) =
       tableauDim lam * hEvenTableau m (hsize ▸ lam) := by
-  rw [S05_Lem5_12_youngBlockTrace_eq_tableauDim_mul_repTrace action M]
-  rw [S05_Lem5_12_fixedMatching_tableauTrace_even_of_eigenbasis
+  rw [S05_Lem5_13_youngBlockTrace_eq_tableauDim_mul_repTrace action M]
+  rw [S05_Lem5_13_fixedMatching_tableauTrace_even_of_eigenbasis
     hsize action M b label heigen hcount]
 
 /-- Odd full Young-block trace formula.  The free left tableau index supplies
 the factor `tableauDim`. -/
-theorem S05_Lem5_12_fixedMatching_youngBlockTrace_odd_of_eigenbasis
+theorem S05_Lem5_13_fixedMatching_youngBlockTrace_odd_of_eigenbasis
     {n m : Nat} (hsize : n + 1 = 2 * m + 1)
     {lam : YoungDiagram (n + 1)}
     (action : YoungOrthogonalActionData lam)
@@ -160,8 +160,8 @@ theorem S05_Lem5_12_fixedMatching_youngBlockTrace_odd_of_eigenbasis
     youngBlockRightCoordinateTrace
         (S05_fixedMatchingRejectionYoungOperator action M) =
       tableauDim lam * hOddTableau m (hsize ▸ lam) := by
-  rw [S05_Lem5_12_youngBlockTrace_eq_tableauDim_mul_repTrace action M]
-  rw [S05_Lem5_12_fixedMatching_tableauTrace_odd_of_eigenbasis
+  rw [S05_Lem5_13_youngBlockTrace_eq_tableauDim_mul_repTrace action M]
+  rw [S05_Lem5_13_fixedMatching_tableauTrace_odd_of_eigenbasis
     hsize action M b label heigen hcount]
 
 /-- Scalar trace formula as the current Lean consequence of the even

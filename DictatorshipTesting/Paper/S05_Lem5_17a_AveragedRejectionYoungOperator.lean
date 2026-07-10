@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Lem5_15_YoungBasisScalarCommutant
+import DictatorshipTesting.Paper.S05_Lem5_16_YoungBasisScalarCommutant
 
 /-
 Direct reverse imports:
@@ -7,7 +7,7 @@ Direct reverse imports:
 -/
 
 /-!
-Preparatory interface below Lemma 5.16.
+Preparatory interface below Lemma 5.17.
 
 This file names the operator-level object needed to turn the generic
 Young-basis scalar commutant theorem into the matching-average scalarity
@@ -26,7 +26,7 @@ tableau-coordinate Young block.
 Mathematically, this is the data one would get from the operator
 `rho_lambda(q)`, where `q` is the averaged high matching idempotent.  The fields
 only assert linearity and commutation with the explicit operators already
-formalized in Lean; scalarity is proved from these fields by Lemma 5.15. -/
+formalized in Lean; scalarity is proved from these fields by Lemma 5.16. -/
 structure AveragedRejectionYoungOperatorData {n : Nat}
     (lam : YoungDiagram (n + 1)) where
   operator : TableauSpace lam -> TableauSpace lam
@@ -78,18 +78,17 @@ theorem averagedRejectionYoungOperator_commutes_content
   exact data.commutes_content a f
 
 /-- The averaged-rejection operator interface instantiates the generic
-commutant-to-scalar theorem from Lemma 5.15.  This is a one-block statement; it
+commutant-to-scalar theorem from Lemma 5.16.  This is a one-block statement; it
 does not yet produce the global `MatchingAverageScalarityInput`. -/
 theorem averagedRejectionYoungOperator_scalar_on_basis
     {n : Nat} {lam : YoungDiagram (n + 1)}
-    (hconn : External.AppendixA.StandardTableauxSwapConnectedStatement)
     (data : AveragedRejectionYoungOperatorData lam)
     (T0 T : StandardYoungTableau lam) :
     data.operator (tableauBasisVec T) =
       fun U =>
         data.toYoungModelOperatorCommutationData.basisScalar T0 *
           tableauBasisVec T U := by
-  exact S05_Lem5_15_youngModelOperator_scalar_on_basis
-    hconn data.toYoungModelOperatorCommutationData T0 T
+  exact S05_Lem5_16_youngModelOperator_scalar_on_basis
+    data.toYoungModelOperatorCommutationData T0 T
 
 end DictatorshipTesting

@@ -7,7 +7,7 @@ Direct reverse imports:
 
 
 /-!
-Paper statement: Lemma 5.21 (`lem:counting-one-more-matching-edge`)
+Paper statement: Lemma 5.22 (`lem:counting-one-more-matching-edge`)
 Title in paper: Counting one more matching edge: the `z_m` and `h_m`
 recurrences.
 
@@ -21,7 +21,7 @@ open scoped BigOperators
 
 namespace DictatorshipTesting
 
-/-- Lemma 5.34: counting one more matching edge.  The theorem name is kept from
+/-- Lemma 5.22: counting one more matching edge.  The theorem name is kept from
 the older scaffold for compatibility. -/
 theorem L5_3_CountingOneMoreMatchingEdge (m : ℕ) (hm : 1 ≤ m)
     (lam : YoungDiagram (2 * m)) :
@@ -39,8 +39,8 @@ theorem L5_3_CountingOneMoreMatchingEdge (m : ℕ) (hm : 1 ≤ m)
   | succ m =>
       simp [zEven, hEven]
 
-/-- Lemma 5.34 paper-numbered alias: counting one more matching edge. -/
-theorem S05_Lem5_21_counting_one_more_matching_edge (m : ℕ) (hm : 1 ≤ m)
+/-- Lemma 5.22 paper-numbered alias: counting one more matching edge. -/
+theorem S05_Lem5_22_counting_one_more_matching_edge (m : ℕ) (hm : 1 ≤ m)
     (lam : YoungDiagram (2 * m)) :
     zEven m lam =
         (horizontalTwoStripChildrenEven m lam).sum

@@ -7,7 +7,7 @@ Direct reverse imports:
 
 
 /-!
-Paper statement: Lemma 5.4 (`lem:one-box-corner-decomposition`)
+Paper statement: Lemma 5.5 (`lem:one-box-corner-decomposition`)
 Title in paper: One-box corner decomposition.
 
 Status: proven. Main paper-facing file for the currently proved row-combinatorial
@@ -18,7 +18,7 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Lemma 5.15 row-form component: a one-box child differs from its parent in
+/-- Lemma 5.5 row-form component: a one-box child differs from its parent in
 exactly one row. -/
 theorem S05_oneBox_row_form
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
@@ -28,7 +28,7 @@ theorem S05_oneBox_row_form
       forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
   exact exists_unique_row_of_oneBoxChild h
 
-/-- Lemma 5.15 unique-row component. -/
+/-- Lemma 5.5 unique-row component. -/
 theorem S05_oneBox_row_form_unique
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : IsOneBoxChild lam mu) :
@@ -37,7 +37,7 @@ theorem S05_oneBox_row_form_unique
       forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
   exact existsUnique_row_of_oneBoxChild h
 
-/-- Lemma 5.15 removable-row component. -/
+/-- Lemma 5.5 removable-row component. -/
 theorem S05_oneBox_removable_row
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : IsOneBoxChild lam mu) :
@@ -47,7 +47,7 @@ theorem S05_oneBox_removable_row
       forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
   exact exists_removableRow_of_oneBoxChild h
 
-/-- Lemma 5.15 removable-corner component. -/
+/-- Lemma 5.5 removable-corner component. -/
 theorem S05_oneBox_removable_corner
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : IsOneBoxChild lam mu) :
@@ -58,14 +58,14 @@ theorem S05_oneBox_removable_corner
       forall s : Nat, s ≠ u.1 -> youngRow lam s = youngRow mu s := by
   exact exists_removableCornerBox_of_oneBoxChild h
 
-/-- Lemma 5.15 tableau component: the maximum entry lies in a removable corner. -/
+/-- Lemma 5.5 tableau component: the maximum entry lies in a removable corner. -/
 theorem S05_oneBox_tableau_max_removable_corner {n : Nat}
     {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam)
     {u : YoungCell lam} (hu : TableauMaxAt T u) :
     IsRemovableCornerBox lam (YoungCell.toNatPair u) := by
   exact removableCornerBox_of_tableauMaxAt T hu
 
-/-- Lemma 5.15 tableau component: the maximum entry lies in a unique removable
+/-- Lemma 5.5 tableau component: the maximum entry lies in a unique removable
 corner. -/
 theorem S05_oneBox_tableau_unique_removable_corner {n : Nat}
     {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
@@ -73,8 +73,8 @@ theorem S05_oneBox_tableau_unique_removable_corner {n : Nat}
       TableauMaxAt T u ∧ IsRemovableCornerBox lam (YoungCell.toNatPair u) := by
   exact existsUnique_removableCornerBox_tableauMaxAt T
 
-/-- Lemma 5.15 row-form component, paper-numbered name. -/
-theorem S05_Lem5_04_row_form
+/-- Lemma 5.5 row-form component, paper-numbered name. -/
+theorem S05_Lem5_05_row_form
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : IsOneBoxChild lam mu) :
     exists r : Nat,
@@ -82,8 +82,8 @@ theorem S05_Lem5_04_row_form
       forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
   exact S05_oneBox_row_form h
 
-/-- Lemma 5.15 unique-row component, paper-numbered name. -/
-theorem S05_Lem5_04_row_form_unique
+/-- Lemma 5.5 unique-row component, paper-numbered name. -/
+theorem S05_Lem5_05_row_form_unique
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : IsOneBoxChild lam mu) :
     ∃! r : Nat,
@@ -91,8 +91,8 @@ theorem S05_Lem5_04_row_form_unique
       forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
   exact S05_oneBox_row_form_unique h
 
-/-- Lemma 5.15 removable-row component, paper-numbered name. -/
-theorem S05_Lem5_04_removable_row
+/-- Lemma 5.5 removable-row component, paper-numbered name. -/
+theorem S05_Lem5_05_removable_row
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : IsOneBoxChild lam mu) :
     exists r : Nat,
@@ -101,8 +101,8 @@ theorem S05_Lem5_04_removable_row
       forall s : Nat, s ≠ r -> youngRow lam s = youngRow mu s := by
   exact S05_oneBox_removable_row h
 
-/-- Lemma 5.15 removable-corner component, paper-numbered name. -/
-theorem S05_Lem5_04_removable_corner
+/-- Lemma 5.5 removable-corner component, paper-numbered name. -/
+theorem S05_Lem5_05_removable_corner
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : IsOneBoxChild lam mu) :
     exists u : Nat × Nat,
@@ -112,9 +112,9 @@ theorem S05_Lem5_04_removable_corner
       forall s : Nat, s ≠ u.1 -> youngRow lam s = youngRow mu s := by
   exact S05_oneBox_removable_corner h
 
-/-- Lemma 5.15 cell component, paper-numbered name: parent cells are child cells
+/-- Lemma 5.5 cell component, paper-numbered name: parent cells are child cells
 or the deleted cell. -/
-theorem S05_Lem5_04_parent_cell_iff_child_cell_or_deleted
+theorem S05_Lem5_05_parent_cell_iff_child_cell_or_deleted
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : IsOneBoxChild lam mu) {r s c : Nat}
     (hr :
@@ -124,9 +124,9 @@ theorem S05_Lem5_04_parent_cell_iff_child_cell_or_deleted
       c < youngRow mu s ∨ (s = r ∧ c = youngRow mu r) := by
   exact parent_cell_iff_child_cell_or_deleted_of_oneBoxChild_row h hr
 
-/-- Lemma 5.15 cell component, paper-numbered name: child cells are parent cells
+/-- Lemma 5.5 cell component, paper-numbered name: child cells are parent cells
 except the deleted cell. -/
-theorem S05_Lem5_04_child_cell_iff_parent_cell_not_deleted
+theorem S05_Lem5_05_child_cell_iff_parent_cell_not_deleted
     {n k : Nat} {lam : YoungDiagram n} {mu : YoungDiagram k}
     (h : IsOneBoxChild lam mu) {r s c : Nat}
     (hr :
@@ -136,15 +136,15 @@ theorem S05_Lem5_04_child_cell_iff_parent_cell_not_deleted
       c < youngRow lam s ∧ ¬ (s = r ∧ c = youngRow mu r) := by
   exact child_cell_iff_parent_cell_not_deleted_of_oneBoxChild_row h hr
 
-/-- Lemma 5.15 tableau component, paper-numbered name. -/
-theorem S05_Lem5_04_tableau_max_removable_corner {n : Nat}
+/-- Lemma 5.5 tableau component, paper-numbered name. -/
+theorem S05_Lem5_05_tableau_max_removable_corner {n : Nat}
     {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam)
     {u : YoungCell lam} (hu : TableauMaxAt T u) :
     IsRemovableCornerBox lam (YoungCell.toNatPair u) := by
   exact S05_oneBox_tableau_max_removable_corner T hu
 
-/-- Lemma 5.15 tableau component, paper-numbered unique-corner name. -/
-theorem S05_Lem5_04_tableau_unique_removable_corner {n : Nat}
+/-- Lemma 5.5 tableau component, paper-numbered unique-corner name. -/
+theorem S05_Lem5_05_tableau_unique_removable_corner {n : Nat}
     {lam : YoungDiagram (n + 1)} (T : StandardYoungTableau lam) :
     ∃! u : YoungCell lam,
       TableauMaxAt T u ∧ IsRemovableCornerBox lam (YoungCell.toNatPair u) := by

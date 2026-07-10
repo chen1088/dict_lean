@@ -8,10 +8,10 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
 - `DictatorshipTesting.Paper.S05_Int_YoungOrthogonal`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_04_TableauCoordinateSpace`
-- `DictatorshipTesting.Paper.S05_Lem5_03_TwoBoxTableauBranching`
-- `DictatorshipTesting.Paper.S05_Lem5_07_TwoBoxDimensionRecursion`
-- `DictatorshipTesting.Paper.S05_Lem5_08_OneBoxDimensionRecursion`
-- `DictatorshipTesting.Paper.S05_Lem5_18_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_04_TwoBoxTableauBranching`
+- `DictatorshipTesting.Paper.S05_Lem5_08_TwoBoxDimensionRecursion`
+- `DictatorshipTesting.Paper.S05_Lem5_09_OneBoxDimensionRecursion`
+- `DictatorshipTesting.Paper.S05_Lem5_19_RegularYoungBlockDecomposition`
 -/
 
 

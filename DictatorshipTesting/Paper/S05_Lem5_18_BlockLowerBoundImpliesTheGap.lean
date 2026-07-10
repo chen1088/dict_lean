@@ -8,7 +8,7 @@ Direct reverse imports:
 
 
 /-!
-Paper statement: Lemma 5.17 (`lem:block-lower-bound-gap`)
+Paper statement: Lemma 5.18 (`lem:block-lower-bound-gap`)
 Title in paper: Block lower bound implies the gap.
 
 Status: proven. Paper-facing wrapper around the existing algebraic spectral-gap
@@ -21,9 +21,9 @@ namespace DictatorshipTesting
 
 open scoped BigOperators
 
-/-- Lemma 5.31: scalar lower bounds on all non-`U_1` blocks imply the matching
+/-- Lemma 5.18: scalar lower bounds on all non-`U_1` blocks imply the matching
 spectral gap. -/
-theorem S05_Lem5_17_block_lower_bound_implies_gap {n : Nat} (c : ℝ)
+theorem S05_Lem5_18_block_lower_bound_implies_gap {n : Nat} (c : ℝ)
     (F : Perm (Fin n) -> ℝ)
     (blockEnergy theta : YoungDiagram n -> ℝ)
     (hdecomp : YoungBlockDecompositionInput blockEnergy)
@@ -34,8 +34,8 @@ theorem S05_Lem5_17_block_lower_bound_implies_gap {n : Nat} (c : ℝ)
   exact SpectralGapFromBlockScalarLowerBounds c F blockEnergy theta
     hdecomp hu1 hscalarity hscalar_lb
 
-/-- Lemma 5.31 paper-numbered alias for the direct weighted-sum comparison. -/
-theorem S05_Lem5_17_spectralGapFromBlockScalars {n : Nat} (c : ℝ)
+/-- Lemma 5.18 paper-numbered alias for the direct weighted-sum comparison. -/
+theorem S05_Lem5_18_spectralGapFromBlockScalars {n : Nat} (c : ℝ)
     (F : Perm (Fin n) -> ℝ)
     (blockEnergy theta : YoungDiagram n -> ℝ)
     (hdecomp : YoungBlockDecompositionInput blockEnergy)
@@ -46,9 +46,9 @@ theorem S05_Lem5_17_spectralGapFromBlockScalars {n : Nat} (c : ℝ)
   exact SpectralGapFromBlockScalars c F blockEnergy theta hdecomp hu1 hscalarity
     hscalar_lb
 
-/-- Lemma 5.31 paper-numbered alias: the trace/scalar formula plus the finite
+/-- Lemma 5.18 paper-numbered alias: the trace/scalar formula plus the finite
 certificate gives scalar lower bounds on non-`U_1` blocks. -/
-theorem S05_Lem5_17_blockScalar_lower_bound_of_traceScalarFormula {n : Nat}
+theorem S05_Lem5_18_blockScalar_lower_bound_of_traceScalarFormula {n : Nat}
     {height theta : YoungDiagram n -> ℝ} {c : ℝ}
     (htraceScalar : TraceScalarValueInput height theta)
     (hcert :
@@ -57,18 +57,18 @@ theorem S05_Lem5_17_blockScalar_lower_bound_of_traceScalarFormula {n : Nat}
     ∀ lam ∈ nonU1YoungBlocks n, c ≤ theta lam := by
   exact blockScalar_lower_bound_of_traceScalarFormula htraceScalar hcert
 
-/-- Lemma 5.31 paper-numbered alias: dimension positivity and block trace
+/-- Lemma 5.18 paper-numbered alias: dimension positivity and block trace
 identity imply the scalar value formula. -/
-theorem S05_Lem5_17_traceScalarValue_of_blockTraceIdentity {n : Nat}
+theorem S05_Lem5_18_traceScalarValue_of_blockTraceIdentity {n : Nat}
     {height theta : YoungDiagram n -> ℝ}
     (hdim : YoungDimensionPositiveInput n)
     (htrace : BlockTraceIdentityInput height theta) :
     TraceScalarValueInput height theta := by
   exact traceScalarValue_of_blockTraceIdentity hdim htrace
 
-/-- Lemma 5.31 paper-numbered alias: spectral gap from scalarity, block trace
+/-- Lemma 5.18 paper-numbered alias: spectral gap from scalarity, block trace
 identity, dimension positivity, and a finite certificate. -/
-theorem S05_Lem5_17_spectralGapFromBlockTraceModel {n : Nat} (c : ℝ)
+theorem S05_Lem5_18_spectralGapFromBlockTraceModel {n : Nat} (c : ℝ)
     (F : Perm (Fin n) -> ℝ)
     (height blockEnergy : YoungDiagram n -> ℝ)
     (hdecomp : YoungBlockDecompositionInput blockEnergy)
@@ -86,9 +86,9 @@ theorem S05_Lem5_17_spectralGapFromBlockTraceModel {n : Nat} (c : ℝ)
       hdecomp hu1 scalar.scalarity
       (blockScalar_lower_bound_of_traceScalarFormula scalar.trace_value hcert)
 
-/-- Lemma 5.31 dimension-parameterized alias: trace/scalar formula plus a
+/-- Lemma 5.18 dimension-parameterized alias: trace/scalar formula plus a
 finite certificate gives scalar lower bounds on non-`U_1` blocks. -/
-theorem S05_Lem5_17_blockScalar_lower_bound_withDim {n : Nat}
+theorem S05_Lem5_18_blockScalar_lower_bound_withDim {n : Nat}
     {dim height theta : YoungDiagram n -> ℝ} {c : ℝ}
     (htraceScalar : TraceScalarValueInputWithDim dim height theta)
     (hcert :
@@ -97,19 +97,19 @@ theorem S05_Lem5_17_blockScalar_lower_bound_withDim {n : Nat}
     ∀ lam ∈ nonU1YoungBlocks n, c <= theta lam := by
   exact blockScalar_lower_bound_of_traceScalarFormula_withDim htraceScalar hcert
 
-/-- Lemma 5.31 dimension-parameterized alias: positive dimension plus the block
+/-- Lemma 5.18 dimension-parameterized alias: positive dimension plus the block
 trace identity imply the scalar value formula. -/
-theorem S05_Lem5_17_traceScalarValue_of_blockTraceIdentity_withDim {n : Nat}
+theorem S05_Lem5_18_traceScalarValue_of_blockTraceIdentity_withDim {n : Nat}
     {dim height theta : YoungDiagram n -> ℝ}
     (hdim : YoungDimensionPositiveInputWithDim dim)
     (htrace : BlockTraceIdentityInputWithDim dim height theta) :
     TraceScalarValueInputWithDim dim height theta := by
   exact traceScalarValue_of_blockTraceIdentity_withDim hdim htrace
 
-/-- Lemma 5.31 dimension-parameterized alias: spectral gap from scalarity,
+/-- Lemma 5.18 dimension-parameterized alias: spectral gap from scalarity,
 trace/scalar formula, and a certificate with respect to an arbitrary dimension
 function. -/
-theorem S05_Lem5_17_spectralGapFromBlockScalarsWithDim {n : Nat} (c : ℝ)
+theorem S05_Lem5_18_spectralGapFromBlockScalarsWithDim {n : Nat} (c : ℝ)
     (F : Perm (Fin n) -> ℝ)
     (dim height blockEnergy theta : YoungDiagram n -> ℝ)
     (hdecomp : YoungBlockDecompositionInput blockEnergy)
@@ -123,10 +123,10 @@ theorem S05_Lem5_17_spectralGapFromBlockScalarsWithDim {n : Nat} (c : ℝ)
   exact SpectralGapFromBlockScalarsWithDim c F dim height blockEnergy theta
     hdecomp hu1 hscalarity htrace hcert
 
-/-- Lemma 5.31 dimension-parameterized alias: spectral gap from scalarity,
+/-- Lemma 5.18 dimension-parameterized alias: spectral gap from scalarity,
 block trace identity, dimension positivity, and a certificate with respect to
 an arbitrary dimension function. -/
-theorem S05_Lem5_17_spectralGapFromBlockTraceModelWithDim {n : Nat} (c : ℝ)
+theorem S05_Lem5_18_spectralGapFromBlockTraceModelWithDim {n : Nat} (c : ℝ)
     (F : Perm (Fin n) -> ℝ)
     (dim height blockEnergy : YoungDiagram n -> ℝ)
     (hdecomp : YoungBlockDecompositionInput blockEnergy)
@@ -143,9 +143,9 @@ theorem S05_Lem5_17_spectralGapFromBlockTraceModelWithDim {n : Nat} (c : ℝ)
     SpectralGapFromBlockScalarsWithDim c F dim height blockEnergy scalar.theta
       hdecomp hu1 scalar.scalarity scalar.trace_value hcert
 
-/-- Lemma 5.31 dimension-parameterized alias: a parameterized spectral-block
+/-- Lemma 5.18 dimension-parameterized alias: a parameterized spectral-block
 model plus a finite certificate imply the spectral gap. -/
-theorem S05_Lem5_17_spectralGapFromBlockModelWithDim {n : Nat}
+theorem S05_Lem5_18_spectralGapFromBlockModelWithDim {n : Nat}
     (c : ℝ) (dim height : YoungDiagram n -> ℝ)
     (hmodel : SpectralBlockModelInputWithDim dim height)
     (hcert :

@@ -5,14 +5,13 @@ import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.AppA_LemA_04_StandardTableauxSwapConnectedness`
-- `DictatorshipTesting.Paper.S05_Lem5_15_YoungBasisScalarCommutant`
+- `DictatorshipTesting.Paper.S05_Lem5_16_YoungBasisScalarCommutant`
 -/
 
 /-!
-# Appendix A.4: standard-tableau swap connectedness
-
-This file proves the Appendix A.4 connectedness theorem internally.
+Paper statement: Lemma 5.3
+Title: Connectedness of standard tableaux
+Status: proven internally
 
 The proof first establishes the finite-list linear-extension argument: adjacent
 swaps of incomparable neighboring elements preserve linear extensions, and any
@@ -24,9 +23,6 @@ and transports every list-level edge to a valid adjacent tableau swap.
 noncomputable section
 
 namespace DictatorshipTesting
-
-namespace External
-namespace AppendixA
 
 variable {α : Type*}
 
@@ -522,14 +518,14 @@ theorem standardTableauxPath_of_boxOrderPath
         ⟨V, hUV, hVorder⟩
       exact ⟨V, hTU.tail hUV, hVorder⟩
 
-/-- Appendix A.4 connectedness statement: any two standard tableaux of the same
+/-- Lemma 5.3 connectedness statement: any two standard tableaux of the same
 shape are connected by adjacent swaps that remain standard. -/
 def StandardTableauxSwapConnectedStatement : Prop :=
   ∀ {n : Nat} (lam : YoungDiagram (n + 1))
     (T U : StandardYoungTableau lam),
     Relation.ReflTransGen (StandardTableauxAdjacent (lam := lam)) T U
 
-/-- Appendix A.4: the adjacent-swap graph of standard tableaux of every fixed
+/-- The adjacent-swap graph of standard tableaux of every fixed
 Young shape is connected. -/
 theorem standardTableauxSwapConnected :
     StandardTableauxSwapConnectedStatement := by
@@ -548,7 +544,10 @@ theorem standardTableauxSwapConnected :
   subst V
   exact hTV
 
-end AppendixA
-end External
+/-- Paper Lemma 5.3: standard tableaux of a fixed shape are connected by valid
+adjacent swaps. -/
+theorem S05_Lem5_03_standardTableauxSwapConnectedness :
+    StandardTableauxSwapConnectedStatement :=
+  standardTableauxSwapConnected
 
 end DictatorshipTesting

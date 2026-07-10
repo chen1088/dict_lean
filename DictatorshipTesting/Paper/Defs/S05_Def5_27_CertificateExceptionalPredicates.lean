@@ -3,9 +3,9 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_OneBoxChildrenOdd
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_22_WeightZeroEntriesAreNeverAMajority`
-- `DictatorshipTesting.Paper.S05_Lem5_24_EvenCertificate`
-- `DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_23_WeightZeroEntriesAreNeverAMajority`
+- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_27_OddCertificate`
 -/
 
 /-!
@@ -13,7 +13,7 @@ Paper statement: Definition 5.27 (`def:certificate-exceptional-predicates`)
 Title in paper: Certificate exceptional predicates.
 
 Status: definition/interface. Predicates naming the finite-certificate child
-obstructions and exceptional shapes used in Lemmas 5.22--5.26.
+obstructions and exceptional shapes used in Lemmas 5.23--5.27.
 -/
 
 noncomputable section

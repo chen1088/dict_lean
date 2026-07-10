@@ -1,18 +1,18 @@
-import DictatorshipTesting.Paper.S05_Lem5_14_CentralAveragedRejection
+import DictatorshipTesting.Paper.S05_Lem5_15_CentralAveragedRejection
 import DictatorshipTesting.Paper.S05_Lem5_02_DiagonalContentEigenspaces
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
 import DictatorshipTesting.Paper.Defs.S05_Def5_23_YoungBasisScalarCommutantInput
-import DictatorshipTesting.External.AppendixA.A04_TableauxSwapConnectedness
+import DictatorshipTesting.Paper.S05_Lem5_03_ConnectednessOfStandardTableaux
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_16a_AveragedRejectionYoungOperator`
+- `DictatorshipTesting.Paper.S05_Lem5_17a_AveragedRejectionYoungOperator`
 -/
 
 
 /-!
-Paper statement: Lemma 5.15 (`lem:young-basis-scalar-commutant`)
+Paper statement: Lemma 5.16 (`lem:young-basis-scalar-commutant`)
 Title in paper: Young-basis scalar commutant.
 
 Status: proven.  The generic scalar commutant is proved here; Definition 5.29
@@ -75,8 +75,7 @@ theorem YoungModelOperatorCommutationData.basisScalar_eq_of_adjacent {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (data : YoungModelOperatorCommutationData lam)
     {T U : StandardYoungTableau lam}
-    (hstep :
-      External.AppendixA.StandardTableauxAdjacent (lam := lam) T U) :
+    (hstep : StandardTableauxAdjacent (lam := lam) T U) :
     data.basisScalar T = data.basisScalar U := by
   classical
   rcases hstep with ⟨a, hrow, hcol, rfl⟩
@@ -124,16 +123,15 @@ theorem YoungModelOperatorCommutationData.basisScalar_eq_of_adjacent {n : Nat}
   rw [hleft, hright] at hcomm
   exact (mul_left_cancel₀ ho hcomm).symm
 
-/-- If the standard-tableau adjacent-swap graph is connected, then a concrete
-block operator commuting with every adjacent Young operator and every diagonal
-content operator has a constant basis scalar on the whole block. -/
+/-- A concrete block operator commuting with every adjacent Young operator and
+every diagonal content operator has a constant basis scalar on the whole block.
+The path is supplied internally by Lemma 5.3. -/
 theorem YoungModelOperatorCommutationData.basisScalar_constant {n : Nat}
     {lam : YoungDiagram (n + 1)}
-    (hconn : External.AppendixA.StandardTableauxSwapConnectedStatement)
     (data : YoungModelOperatorCommutationData lam)
     (T U : StandardYoungTableau lam) :
     data.basisScalar T = data.basisScalar U := by
-  have hpath := hconn lam T U
+  have hpath := S05_Lem5_03_standardTableauxSwapConnectedness lam T U
   induction hpath with
   | refl =>
       rfl
@@ -142,22 +140,21 @@ theorem YoungModelOperatorCommutationData.basisScalar_constant {n : Nat}
 
 /-- A paper-facing generic scalar commutant wrapper: once a concrete operator
 on a Young block is known to commute with content and adjacent Young operators,
-the connectedness input makes it scalar on every tableau basis vector.  This
-does not instantiate the averaged matching rejection operator. -/
-theorem S05_Lem5_15_youngModelOperator_scalar_on_basis {n : Nat}
+the internally proved Lemma 5.3 makes it scalar on every tableau basis vector.
+This does not instantiate the averaged matching rejection operator. -/
+theorem S05_Lem5_16_youngModelOperator_scalar_on_basis {n : Nat}
     {lam : YoungDiagram (n + 1)}
-    (hconn : External.AppendixA.StandardTableauxSwapConnectedStatement)
     (data : YoungModelOperatorCommutationData lam)
     (T0 T : StandardYoungTableau lam) :
     data.op (tableauBasisVec T) =
       fun U => data.basisScalar T0 * tableauBasisVec T U := by
   rw [data.op_basis_eq_smul_basis T]
-  have hscalar := data.basisScalar_constant hconn T T0
+  have hscalar := data.basisScalar_constant T T0
   rw [hscalar]
 
-/-- Lemma 5.15 interface projection: if the scalar commutant input holds, then
+/-- Lemma 5.16 interface projection: if the scalar commutant input holds, then
 the averaged rejection is the weighted sum of block energies. -/
-theorem S05_Lem5_15_matchingAverageScalarity_eq_sum {n : Nat}
+theorem S05_Lem5_16_matchingAverageScalarity_eq_sum {n : Nat}
     {F : Perm (Fin n) → ℝ}
     {blockEnergy theta : YoungDiagram n → ℝ}
     (h : S05_Def5_23_YoungBasisScalarCommutantInput F blockEnergy theta) :

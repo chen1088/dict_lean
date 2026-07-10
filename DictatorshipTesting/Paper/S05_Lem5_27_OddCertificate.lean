@@ -1,21 +1,21 @@
-import DictatorshipTesting.Paper.S05_Lem5_24_EvenCertificate
+import DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate
 import DictatorshipTesting.Paper.Defs.S05_IntDef_HOdd
 import DictatorshipTesting.Paper.Defs.S05_Def5_25_TableauOddHeight
 import DictatorshipTesting.Paper.Defs.S05_Def5_26_CertificateSpecialDiagrams
 import DictatorshipTesting.Paper.Defs.S05_Def5_27_CertificateExceptionalPredicates
-import DictatorshipTesting.Paper.S05_Lem5_08_OneBoxDimensionRecursion
+import DictatorshipTesting.Paper.S05_Lem5_09_OneBoxDimensionRecursion
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_10_MatchingSubgroupEigenbasis`
-- `DictatorshipTesting.Paper.S05_Lem5_20_OddSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Lem5_25_OddExceptionalChildren`
+- `DictatorshipTesting.Paper.S05_Lem5_11_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_21_OddSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_26_OddExceptionalChildren`
 -/
 
 
 /-!
-Paper statement: Lemma 5.26 (`lem:h-odd-app`)
+Paper statement: Lemma 5.27 (`lem:h-odd-app`)
 Title in paper: Odd certificate.
 
 Status: proven. The tableau-count odd certificate is proved below.  The older
@@ -24,9 +24,9 @@ route.
 -/
 
 /-!
-# Finite induction input for Lemma 5.17
+# Finite induction proof for Lemma 5.27
 
-The intended proof branches once to even diagrams, applies Lemma 5.15 to the
+The intended proof branches once to even diagrams, applies Lemma 5.25 to the
 non-exceptional children, and handles the two level-two odd shapes explicitly.
 
 The statement is phrased only in terms of the concrete finite model in
@@ -783,7 +783,7 @@ theorem hOddTableau_ge_one_sixth_tableauDim_of_no_bad_oneBoxChild
   apply Finset.sum_le_sum
   intro mu hmu
   have heven :=
-    S05_Lem5_24_tableau_even_certificate
+    S05_Lem5_25_tableau_even_certificate
       m hm mu (hchild_row mu hmu) (hchild_std mu hmu)
   have hcoeff :
       (1 / 6 : ℝ) * tableauDim mu ≤ (1 / 5 : ℝ) * tableauDim mu := by
@@ -791,7 +791,7 @@ theorem hOddTableau_ge_one_sixth_tableauDim_of_no_bad_oneBoxChild
     nlinarith
   exact le_trans hcoeff heven
 
-/-- Finite Young-diagram induction behind Lemma 5.16, using actual tableau
+/-- Finite Young-diagram induction behind Lemma 5.27, using actual tableau
 counts. -/
 theorem hOddTableau_ge_one_sixth_tableauDim_of_not_oneRow_not_standard_finite_induction
     (m : ℕ) (hm : 2 ≤ m)
@@ -809,8 +809,8 @@ theorem hOddTableau_ge_one_sixth_tableauDim_of_not_oneRow_not_standard_finite_in
     · intro mu hmu hstandard
       exact hbad (Or.inr ⟨mu, hmu, hstandard⟩)
 
-/-- Lemma 5.16, tableau-count version of the odd certificate. -/
-theorem S05_Lem5_26_tableau_odd_certificate
+/-- Lemma 5.27, tableau-count version of the odd certificate. -/
+theorem S05_Lem5_27_tableau_odd_certificate
     (m : ℕ) (hm : 2 ≤ m)
     (lam : YoungDiagram (2 * m + 1))
     (hrow : ¬ IsOneRow lam) (hstd : ¬ IsStandard lam) :
@@ -841,7 +841,7 @@ theorem hOdd_ge_one_sixth_youngDim_of_no_bad_oneBoxChild
     nlinarith
   exact le_trans hcoeff heven
 
-/-- Finite Young-diagram induction behind Lemma 5.16. -/
+/-- Finite Young-diagram induction behind Lemma 5.27. -/
 theorem hOdd_ge_one_sixth_youngDim_of_not_oneRow_not_standard_finite_induction
     [TwoStripDimensionBranchingAssumption]
     [OneBoxDimensionBranchingPositiveAssumption]
@@ -876,7 +876,7 @@ theorem hOdd_le_youngDim
   rw [hOdd, youngDim_oneBox_branching_input m lam]
   exact Finset.sum_le_sum (fun mu _hmu => hEven_le_youngDim m mu)
 
-/-- Lemma 5.16, `lem:h-odd-app`: odd certificate.  This preserves the old
+/-- Lemma 5.27, `lem:h-odd-app`: odd certificate.  This preserves the old
 theorem name `L5_6_HOddApp`. -/
 theorem L5_6_HOddApp
     [TwoStripDimensionBranchingAssumption]
@@ -889,8 +889,8 @@ theorem L5_6_HOddApp
     hOdd_ge_one_sixth_youngDim_of_not_oneRow_not_standard_finite_induction
       m hm lam hrow hstd
 
-/-- Lemma 5.16 paper-numbered alias: odd certificate. -/
-theorem S05_Lem5_26_odd_certificate
+/-- Lemma 5.27 paper-numbered alias: odd certificate. -/
+theorem S05_Lem5_27_odd_certificate
     [TwoStripDimensionBranchingAssumption]
     [OneBoxDimensionBranchingPositiveAssumption]
     (m : ℕ) (hm : 2 ≤ m)

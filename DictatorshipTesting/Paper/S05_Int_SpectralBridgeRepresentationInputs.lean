@@ -7,8 +7,8 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeFromCertificates`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_06_YoungBlock`
-- `DictatorshipTesting.Paper.S05_Lem5_15_YoungBasisScalarCommutant`
-- `DictatorshipTesting.Paper.S05_Lem5_18_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_16_YoungBasisScalarCommutant`
+- `DictatorshipTesting.Paper.S05_Lem5_19_RegularYoungBlockDecomposition`
 -/
 
 
@@ -17,7 +17,7 @@ Direct reverse imports:
 
 This file contains compatibility interface objects for the original `youngDim`
 spectral bridge.  The current paper route uses the dimension-parametric
-`tableauDim` bridge in Lemmas 5.31--5.34.
+`tableauDim` bridge in Lemmas 5.18--5.21.
 -/
 
 noncomputable section

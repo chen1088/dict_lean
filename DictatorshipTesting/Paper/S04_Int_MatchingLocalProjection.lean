@@ -9,7 +9,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Lem4_04_LocalHighDegreeErrorFormula`
 - `DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_22_MatchingIdempotents`
-- `DictatorshipTesting.Paper.S05_Lem5_11_LocalTruncationOnAMatchingCharacter`
+- `DictatorshipTesting.Paper.S05_Lem5_12_LocalTruncationOnAMatchingCharacter`
 -/
 
 

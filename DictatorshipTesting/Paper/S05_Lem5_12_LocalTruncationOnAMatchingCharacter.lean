@@ -9,7 +9,7 @@ Direct reverse imports:
 
 
 /-!
-Paper statement: Lemma 5.11 (`lem:PM-character-projection`)
+Paper statement: Lemma 5.12 (`lem:PM-character-projection`)
 Title in paper: Local truncation on a matching character.
 
 Status: proven. Proved below by elementary matching-cube Fourier calculations.
@@ -88,37 +88,37 @@ theorem matchingLocalProjection_kills_high_local_char {α : Type*}
   rw [matchingLocalProjection_apply_mul_tau, hg,
     cubeLowDegreeOnePart_cubeChar_of_two_le_card hS]
 
-/-- Lemma 5.24, matching-character vocabulary: local truncation preserves low
+/-- Lemma 5.12, matching-character vocabulary: local truncation preserves low
 matching characters. -/
-theorem S05_Lem5_11_cubeLowDegreeOnePart_matchingCharacter_of_low {m : ℕ}
+theorem S05_Lem5_12_cubeLowDegreeOnePart_matchingCharacter_of_low {m : ℕ}
     {S : Finset (Fin m)} (hS : S05_matchingCharacterLow S) :
     cubeLowDegreeOnePart (fun x : Cube m => S05_matchingCharacter S x) =
       fun x : Cube m => S05_matchingCharacter S x := by
   exact cubeLowDegreeOnePart_cubeChar_of_card_le_one hS
 
-/-- Lemma 5.24, matching-character vocabulary: local truncation kills high
+/-- Lemma 5.12, matching-character vocabulary: local truncation kills high
 matching characters. -/
-theorem S05_Lem5_11_cubeLowDegreeOnePart_matchingCharacter_of_high {m : ℕ}
+theorem S05_Lem5_12_cubeLowDegreeOnePart_matchingCharacter_of_high {m : ℕ}
     {S : Finset (Fin m)} (hS : S05_matchingCharacterHigh S) :
     cubeLowDegreeOnePart (fun x : Cube m => S05_matchingCharacter S x) =
       fun _ : Cube m => 0 := by
   exact cubeLowDegreeOnePart_cubeChar_of_two_le_card hS
 
-/-- Lemma 5.24, matching-character vocabulary: every matching character is
+/-- Lemma 5.12, matching-character vocabulary: every matching character is
 either preserved by the local truncation or killed by it. -/
-theorem S05_Lem5_11_cubeLowDegreeOnePart_matchingCharacter_preserved_or_killed
+theorem S05_Lem5_12_cubeLowDegreeOnePart_matchingCharacter_preserved_or_killed
     {m : ℕ} (S : Finset (Fin m)) :
     (cubeLowDegreeOnePart (fun x : Cube m => S05_matchingCharacter S x) =
         fun x : Cube m => S05_matchingCharacter S x) ∨
       (cubeLowDegreeOnePart (fun x : Cube m => S05_matchingCharacter S x) =
         fun _ : Cube m => 0) := by
   rcases S05_matchingCharacter_low_or_high S with hlow | hhigh
-  · exact Or.inl (S05_Lem5_11_cubeLowDegreeOnePart_matchingCharacter_of_low hlow)
-  · exact Or.inr (S05_Lem5_11_cubeLowDegreeOnePart_matchingCharacter_of_high hhigh)
+  · exact Or.inl (S05_Lem5_12_cubeLowDegreeOnePart_matchingCharacter_of_low hlow)
+  · exact Or.inr (S05_Lem5_12_cubeLowDegreeOnePart_matchingCharacter_of_high hhigh)
 
-/-- Lemma 5.24, matching-character vocabulary: `P_M` preserves low local
+/-- Lemma 5.12, matching-character vocabulary: `P_M` preserves low local
 matching characters. -/
-theorem S05_Lem5_11_matchingLocalProjection_preserves_low_matchingCharacter
+theorem S05_Lem5_12_matchingLocalProjection_preserves_low_matchingCharacter
     {α : Type*} [Fintype α] [DecidableEq α] (M : OrderedMatching α)
     (F : Perm α → ℝ) (π : Perm α) {S : Finset (Fin M.edgeCount)}
     (hS : S05_matchingCharacterLow S)
@@ -128,9 +128,9 @@ theorem S05_Lem5_11_matchingLocalProjection_preserves_low_matchingCharacter
     matchingLocalProjection M F (π * M.tau x) = F (π * M.tau x) := by
   exact matchingLocalProjection_preserves_low_local_char M F π hS hlocal x
 
-/-- Lemma 5.24, matching-character vocabulary: `P_M` kills high local matching
+/-- Lemma 5.12, matching-character vocabulary: `P_M` kills high local matching
 characters. -/
-theorem S05_Lem5_11_matchingLocalProjection_kills_high_matchingCharacter
+theorem S05_Lem5_12_matchingLocalProjection_kills_high_matchingCharacter
     {α : Type*} [Fintype α] [DecidableEq α] (M : OrderedMatching α)
     (F : Perm α → ℝ) (π : Perm α) {S : Finset (Fin M.edgeCount)}
     (hS : S05_matchingCharacterHigh S)
