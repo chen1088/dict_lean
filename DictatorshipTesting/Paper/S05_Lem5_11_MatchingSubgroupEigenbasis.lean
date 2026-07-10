@@ -23,8 +23,9 @@ Direct reverse imports:
 Paper statement: Lemma 5.11 (`lem:matching-restriction-X`)
 Title in paper: Matching subgroup eigenbasis.
 
-Status: unproven as the paper's full labeled eigenbasis statement. The concrete
-matching-operator and sign-projection interfaces are proved below. The signed
+Status: proven for the paper's labeled eigenbasis statement (positive even
+matching size and every odd matching size). The concrete matching-operator and
+sign-projection interfaces are proved below. The signed
 two-box child embeddings are now explicit and are proved isometric, signed on
 the final edge, intertwining on earlier edges, pairwise orthogonal, and jointly
 spanning. Definitions 5.13--5.14 and Lemma 5.10 provide the genuine recursive
@@ -34,8 +35,8 @@ literal multiset equality of its labels. The explicit endpoint permutation and
 represented isometry now transport it to every arbitrary perfect matching.
 The canonical odd basis is also constructed explicitly from the one-box
 fibers, with orthonormality, spanning, matching eigenvalues, and literal odd
-label multiplicities. Remaining: transport it to arbitrary near-perfect
-matchings.
+label multiplicities, and an explicit unmatched-point permutation transports
+it to every arbitrary near-perfect matching.
 -/
 
 /-!
@@ -46,12 +47,11 @@ indexed by `lambda` to the matching subgroup `A_M ≃ (Z / 2Z)^m`, the local
 character-weight multiset is the recursively defined multiset counted by
 `zEven`, `hEven`, and `hOdd`.
 
-The signed two-box child spaces and their full orthogonal decomposition are now
-constructed internally below. The statements at the end of the file still do
-not claim the full restriction theorem because the recursive labeled-basis
-assembly has not yet been packaged. They also record concrete matching-operator
-and matching-cube character components and the exact combinatorial consequence
-of enumerating the recursive label multiset.
+The signed two-box child spaces, one-box fibers, and their orthogonal
+decompositions are constructed internally below. The recursive labeled bases
+are packaged as Mathlib bases and transported by explicit conjugating
+permutations in both parity cases. Their labels are identified with the exact
+recursive multisets, not only with their cardinalities.
 -/
 
 noncomputable section
@@ -4559,6 +4559,693 @@ theorem S05_Lem5_11_arbitraryEvenMatchingEigenbasis_toOrdered
   · exact S05_arbitraryEvenMatchingBasis_toOrdered_character_action
       m lam action M
   · exact S05_arbitraryEvenMatchingLabelMultiset_eq (m + 1) lam M
+
+/-! ## Transport to arbitrary odd near-perfect matchings -/
+
+/-- The edge count of an odd near-perfect matching is `m`. -/
+theorem S05_oddMatching_edgeCount_eq
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    m = M.toOrdered.edgeCount := by
+  simp [NearPerfectMatching.toOrdered]
+  omega
+
+/-- Reindex an odd near-perfect matching by the literal edge type `Fin m`. -/
+noncomputable def S05_oddOrderedMatching
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    OrderedMatching (Fin (2 * m + 1)) where
+  edgeCount := m
+  left r := M.toOrdered.left (Fin.cast (S05_oddMatching_edgeCount_eq m M) r)
+  right r := M.toOrdered.right (Fin.cast (S05_oddMatching_edgeCount_eq m M) r)
+  left_ne_right r := M.toOrdered.left_ne_right _
+  edges_disjoint := by
+    intro r s hrs
+    apply M.toOrdered.edges_disjoint
+    intro h
+    apply hrs
+    exact Fin.cast_injective (S05_oddMatching_edgeCount_eq m M) h
+
+/-- The reindexed odd matching is propositionally the original ordered
+matching. -/
+theorem S05_oddOrderedMatching_eq_toOrdered
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    S05_oddOrderedMatching m M = M.toOrdered := by
+  apply S05_orderedMatching_ext _ _ (S05_oddMatching_edgeCount_eq m M)
+  · intro r
+    rfl
+  · intro r
+    rfl
+
+/-- Endpoint map for an odd near-perfect matching, before adjoining its unique
+unmatched vertex. -/
+def S05_nearPerfectMatchingEndpointMap
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    Fin m × Fin 2 -> Fin (2 * m + 1)
+  | (r, b) => Fin.cases ((S05_oddOrderedMatching m M).left r)
+      (fun _ => (S05_oddOrderedMatching m M).right r) b
+
+@[simp] theorem S05_nearPerfectMatchingEndpointMap_zero
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) (r : Fin m) :
+    S05_nearPerfectMatchingEndpointMap m M (r, 0) =
+      (S05_oddOrderedMatching m M).left r := by
+  rfl
+
+@[simp] theorem S05_nearPerfectMatchingEndpointMap_one
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) (r : Fin m) :
+    S05_nearPerfectMatchingEndpointMap m M (r, 1) =
+      (S05_oddOrderedMatching m M).right r := by
+  rfl
+
+/-- Matching disjointness makes the odd endpoint map injective. -/
+theorem S05_nearPerfectMatchingEndpointMap_injective
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    Function.Injective (S05_nearPerfectMatchingEndpointMap m M) := by
+  intro x y h
+  rcases x with ⟨r, b⟩
+  rcases y with ⟨s, c⟩
+  fin_cases b <;> fin_cases c
+  · have hrs : r = s := by
+      by_contra hne
+      exact ((S05_oddOrderedMatching m M).edges_disjoint hne).1 h
+    subst s
+    rfl
+  · by_cases hrs : r = s
+    · subst s
+      exact False.elim ((S05_oddOrderedMatching m M).left_ne_right r h)
+    · exact False.elim
+        (((S05_oddOrderedMatching m M).edges_disjoint hrs).2.1 h)
+  · by_cases hrs : r = s
+    · subst s
+      exact False.elim ((S05_oddOrderedMatching m M).left_ne_right r h.symm)
+    · exact False.elim
+        (((S05_oddOrderedMatching m M).edges_disjoint hrs).2.2.1 h)
+  · have hrs : r = s := by
+      by_contra hne
+      exact ((S05_oddOrderedMatching m M).edges_disjoint hne).2.2.2 h
+    subst s
+    rfl
+
+/-- The finite set of all endpoints used by an odd near-perfect matching. -/
+def S05_nearPerfectMatchingEndpointSet
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    Finset (Fin (2 * m + 1)) :=
+  Finset.univ.image (S05_nearPerfectMatchingEndpointMap m M)
+
+/-- The endpoint set has cardinality exactly `2*m`. -/
+theorem S05_nearPerfectMatchingEndpointSet_card
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    (S05_nearPerfectMatchingEndpointSet m M).card = 2 * m := by
+  rw [S05_nearPerfectMatchingEndpointSet,
+    Finset.card_image_of_injective Finset.univ
+      (S05_nearPerfectMatchingEndpointMap_injective m M)]
+  simp [Nat.mul_comm]
+
+/-- Exactly one ambient vertex is absent from the endpoint set. -/
+theorem S05_nearPerfectMatchingEndpointSet_compl_card
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    (S05_nearPerfectMatchingEndpointSet m M)ᶜ.card = 1 := by
+  rw [Finset.card_compl, S05_nearPerfectMatchingEndpointSet_card]
+  simp
+
+/-- An odd near-perfect matching has a unique unmatched vertex. -/
+theorem S05_existsUnique_nearPerfectMatchingUnmatchedPoint
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    ∃! u : Fin (2 * m + 1),
+      u ∉ S05_nearPerfectMatchingEndpointSet m M := by
+  simpa using Finset.card_eq_one_iff_existsUnique.mp
+    (S05_nearPerfectMatchingEndpointSet_compl_card m M)
+
+/-- The unique unmatched vertex of an odd near-perfect matching. -/
+noncomputable def S05_nearPerfectMatchingUnmatchedPoint
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    Fin (2 * m + 1) :=
+  Classical.choose (S05_existsUnique_nearPerfectMatchingUnmatchedPoint m M)
+
+theorem S05_nearPerfectMatchingUnmatchedPoint_not_endpoint
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    S05_nearPerfectMatchingUnmatchedPoint m M ∉
+      S05_nearPerfectMatchingEndpointSet m M :=
+  (Classical.choose_spec
+    (S05_existsUnique_nearPerfectMatchingUnmatchedPoint m M)).1
+
+/-- Any unmatched vertex equals the chosen unmatched point. -/
+theorem S05_nearPerfectMatchingUnmatchedPoint_unique
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1))
+    {u : Fin (2 * m + 1)}
+    (hu : u ∉ S05_nearPerfectMatchingEndpointSet m M) :
+    u = S05_nearPerfectMatchingUnmatchedPoint m M :=
+  (Classical.choose_spec
+    (S05_existsUnique_nearPerfectMatchingUnmatchedPoint m M)).2 u hu
+
+theorem S05_nearPerfectMatchingUnmatchedPoint_ne_left
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) (r : Fin m) :
+    S05_nearPerfectMatchingUnmatchedPoint m M ≠
+      (S05_oddOrderedMatching m M).left r := by
+  intro h
+  apply S05_nearPerfectMatchingUnmatchedPoint_not_endpoint m M
+  rw [h]
+  exact Finset.mem_image.mpr ⟨(r, 0), Finset.mem_univ _, rfl⟩
+
+theorem S05_nearPerfectMatchingUnmatchedPoint_ne_right
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) (r : Fin m) :
+    S05_nearPerfectMatchingUnmatchedPoint m M ≠
+      (S05_oddOrderedMatching m M).right r := by
+  intro h
+  apply S05_nearPerfectMatchingUnmatchedPoint_not_endpoint m M
+  rw [h]
+  exact Finset.mem_image.mpr ⟨(r, 1), Finset.mem_univ _, rfl⟩
+
+/-- Every vertex other than the unique unmatched point is a matching
+endpoint. -/
+theorem S05_nearPerfectMatching_exists_endpoint_of_ne_unmatched
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1))
+    (u : Fin (2 * m + 1))
+    (hu : u ≠ S05_nearPerfectMatchingUnmatchedPoint m M) :
+    ∃ r : Fin m,
+      u = (S05_oddOrderedMatching m M).left r ∨
+        u = (S05_oddOrderedMatching m M).right r := by
+  have humem : u ∈ S05_nearPerfectMatchingEndpointSet m M := by
+    by_contra hnot
+    exact hu (S05_nearPerfectMatchingUnmatchedPoint_unique m M hnot)
+  rcases Finset.mem_image.mp humem with ⟨x, _hx, hxu⟩
+  rcases x with ⟨r, b⟩
+  refine ⟨r, ?_⟩
+  fin_cases b
+  · exact Or.inl hxu.symm
+  · exact Or.inr hxu.symm
+
+/-- Canonical endpoint-plus-unmatched encoding for the odd matching. -/
+def S05_canonicalNearMatchingEndpointEquiv (m : Nat) :
+    (Fin m × Fin 2) ⊕ Fin 1 ≃ Fin (2 * m + 1) :=
+  (Equiv.sumCongr (S05_canonicalMatchingEndpointEquiv m) (Equiv.refl (Fin 1))).trans
+    (finSumFinEquiv.trans (finCongr (by omega)))
+
+@[simp] theorem S05_canonicalNearMatchingEndpointEquiv_zero
+    (m : Nat) (r : Fin m) :
+    S05_canonicalNearMatchingEndpointEquiv m (Sum.inl (r, 0)) =
+      Fin.castSucc (S05_canonicalMatchingEndpointEquiv m (r, 0)) := by
+  apply Fin.ext
+  simp [S05_canonicalNearMatchingEndpointEquiv]
+
+@[simp] theorem S05_canonicalNearMatchingEndpointEquiv_one
+    (m : Nat) (r : Fin m) :
+    S05_canonicalNearMatchingEndpointEquiv m (Sum.inl (r, 1)) =
+      Fin.castSucc (S05_canonicalMatchingEndpointEquiv m (r, 1)) := by
+  apply Fin.ext
+  simp [S05_canonicalNearMatchingEndpointEquiv]
+
+@[simp] theorem S05_canonicalNearMatchingEndpointEquiv_unmatched
+    (m : Nat) (u : Fin 1) :
+    S05_canonicalNearMatchingEndpointEquiv m (Sum.inr u) =
+      Fin.last (2 * m) := by
+  apply Fin.ext
+  fin_cases u
+  simp [S05_canonicalNearMatchingEndpointEquiv]
+
+/-- The canonical ordered near-perfect matching, with final vertex unmatched.
+-/
+noncomputable def S05_canonicalOrderedNearPerfectMatching (m : Nat) :
+    OrderedMatching (Fin (2 * m + 1)) where
+  edgeCount := m
+  left r := S05_canonicalNearMatchingEndpointEquiv m (Sum.inl (r, 0))
+  right r := S05_canonicalNearMatchingEndpointEquiv m (Sum.inl (r, 1))
+  left_ne_right r := by
+    intro h
+    have hinj := (S05_canonicalNearMatchingEndpointEquiv m).injective h
+    simp at hinj
+  edges_disjoint := by
+    intro r s hrs
+    refine ⟨?_, ?_, ?_, ?_⟩ <;> intro h
+    · exact hrs (congrArg Prod.fst (Sum.inl.inj
+        ((S05_canonicalNearMatchingEndpointEquiv m).injective h)))
+    · have hb := congrArg Prod.snd (Sum.inl.inj
+        ((S05_canonicalNearMatchingEndpointEquiv m).injective h))
+      simp at hb
+    · have hb := congrArg Prod.snd (Sum.inl.inj
+        ((S05_canonicalNearMatchingEndpointEquiv m).injective h))
+      simp at hb
+    · exact hrs (congrArg Prod.fst (Sum.inl.inj
+        ((S05_canonicalNearMatchingEndpointEquiv m).injective h)))
+
+/-- Endpoint-plus-unmatched map for an arbitrary odd near-perfect matching. -/
+def S05_nearPerfectMatchingEndpointWithUnmatchedMap
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    (Fin m × Fin 2) ⊕ Fin 1 -> Fin (2 * m + 1)
+  | Sum.inl x => S05_nearPerfectMatchingEndpointMap m M x
+  | Sum.inr _ => S05_nearPerfectMatchingUnmatchedPoint m M
+
+theorem S05_nearPerfectMatchingEndpointWithUnmatchedMap_injective
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    Function.Injective (S05_nearPerfectMatchingEndpointWithUnmatchedMap m M) := by
+  intro x y h
+  rcases x with x | x <;> rcases y with y | y
+  · exact congrArg Sum.inl
+      (S05_nearPerfectMatchingEndpointMap_injective m M h)
+  · exfalso
+    apply S05_nearPerfectMatchingUnmatchedPoint_not_endpoint m M
+    change S05_nearPerfectMatchingEndpointMap m M x =
+      S05_nearPerfectMatchingUnmatchedPoint m M at h
+    rw [← h]
+    exact Finset.mem_image.mpr ⟨x, Finset.mem_univ _, rfl⟩
+  · exfalso
+    apply S05_nearPerfectMatchingUnmatchedPoint_not_endpoint m M
+    change S05_nearPerfectMatchingUnmatchedPoint m M =
+      S05_nearPerfectMatchingEndpointMap m M y at h
+    rw [h]
+    exact Finset.mem_image.mpr ⟨y, Finset.mem_univ _, rfl⟩
+  · exact congrArg Sum.inr (Subsingleton.elim x y)
+
+theorem S05_nearPerfectMatchingEndpointWithUnmatchedMap_surjective
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    Function.Surjective (S05_nearPerfectMatchingEndpointWithUnmatchedMap m M) := by
+  intro u
+  by_cases hu : u = S05_nearPerfectMatchingUnmatchedPoint m M
+  · exact ⟨Sum.inr 0, by simpa
+      [S05_nearPerfectMatchingEndpointWithUnmatchedMap] using hu.symm⟩
+  · rcases S05_nearPerfectMatching_exists_endpoint_of_ne_unmatched m M u hu with
+      ⟨r, hleft | hright⟩
+    · exact ⟨Sum.inl (r, 0), by simpa
+        [S05_nearPerfectMatchingEndpointWithUnmatchedMap] using hleft.symm⟩
+    · exact ⟨Sum.inl (r, 1), by simpa
+        [S05_nearPerfectMatchingEndpointWithUnmatchedMap] using hright.symm⟩
+
+/-- Endpoint-preserving equivalence including the unique unmatched vertex. -/
+noncomputable def S05_nearPerfectMatchingEndpointEquiv
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    (Fin m × Fin 2) ⊕ Fin 1 ≃ Fin (2 * m + 1) :=
+  Equiv.ofBijective (S05_nearPerfectMatchingEndpointWithUnmatchedMap m M)
+    ⟨S05_nearPerfectMatchingEndpointWithUnmatchedMap_injective m M,
+      S05_nearPerfectMatchingEndpointWithUnmatchedMap_surjective m M⟩
+
+/-- Explicit odd conjugating permutation, preserving every edge coordinate and
+sending the canonical final unmatched vertex to the unique unmatched point. -/
+noncomputable def S05_nearPerfectMatchingRelabeling
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    Perm (Fin (2 * m + 1)) :=
+  (S05_canonicalNearMatchingEndpointEquiv m).symm.trans
+    (S05_nearPerfectMatchingEndpointEquiv m M)
+
+@[simp] theorem S05_nearPerfectMatchingRelabeling_left
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) (r : Fin m) :
+    S05_nearPerfectMatchingRelabeling m M
+        ((S05_canonicalOrderedNearPerfectMatching m).left r) =
+      (S05_oddOrderedMatching m M).left r := by
+  change
+    S05_nearPerfectMatchingEndpointEquiv m M
+        ((S05_canonicalNearMatchingEndpointEquiv m).symm
+          (S05_canonicalNearMatchingEndpointEquiv m (Sum.inl (r, 0)))) = _
+  rw [Equiv.symm_apply_apply]
+  rfl
+
+@[simp] theorem S05_nearPerfectMatchingRelabeling_right
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) (r : Fin m) :
+    S05_nearPerfectMatchingRelabeling m M
+        ((S05_canonicalOrderedNearPerfectMatching m).right r) =
+      (S05_oddOrderedMatching m M).right r := by
+  change
+    S05_nearPerfectMatchingEndpointEquiv m M
+        ((S05_canonicalNearMatchingEndpointEquiv m).symm
+          (S05_canonicalNearMatchingEndpointEquiv m (Sum.inl (r, 1)))) = _
+  rw [Equiv.symm_apply_apply]
+  rfl
+
+@[simp] theorem S05_nearPerfectMatchingRelabeling_unmatched
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    S05_nearPerfectMatchingRelabeling m M (Fin.last (2 * m)) =
+      S05_nearPerfectMatchingUnmatchedPoint m M := by
+  change
+    S05_nearPerfectMatchingEndpointEquiv m M
+        ((S05_canonicalNearMatchingEndpointEquiv m).symm
+          (S05_canonicalNearMatchingEndpointEquiv m (Sum.inr 0))) = _
+  rw [Equiv.symm_apply_apply]
+  rfl
+
+/-- Relabeling the canonical odd matching gives the supplied matching. -/
+theorem S05_canonicalOrderedNearPerfectMatching_relabel
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) :
+    (S05_canonicalOrderedNearPerfectMatching m).relabel
+        (S05_nearPerfectMatchingRelabeling m M) = M.toOrdered := by
+  rw [← S05_oddOrderedMatching_eq_toOrdered m M]
+  refine S05_orderedMatching_ext _ _ rfl ?_ ?_
+  · intro r
+    exact S05_nearPerfectMatchingRelabeling_left m M r
+  · intro r
+    exact S05_nearPerfectMatchingRelabeling_right m M r
+
+/-- The arbitrary odd matching-cube element is the conjugate of the canonical
+odd matching-cube element. -/
+theorem S05_oddOrderedMatching_tau_conjugate
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) (x : Cube m) :
+    (S05_oddOrderedMatching m M).tau x =
+      S05_nearPerfectMatchingRelabeling m M *
+        (S05_canonicalOrderedNearPerfectMatching m).tau x *
+          (S05_nearPerfectMatchingRelabeling m M).symm := by
+  have htau :
+      (S05_oddOrderedMatching m M).tau x =
+        ((S05_canonicalOrderedNearPerfectMatching m).relabel
+          (S05_nearPerfectMatchingRelabeling m M)).tau x := by
+    unfold OrderedMatching.tau
+    change
+      (List.ofFn fun r : Fin m =>
+        (S05_oddOrderedMatching m M).edgePerm x r).prod =
+      (List.ofFn fun r : Fin m =>
+        ((S05_canonicalOrderedNearPerfectMatching m).relabel
+          (S05_nearPerfectMatchingRelabeling m M)).edgePerm x r).prod
+    apply congrArg List.prod
+    apply congrArg List.ofFn
+    funext r
+    unfold OrderedMatching.edgePerm
+    by_cases hx : x r
+    · simp only [hx, if_true]
+      unfold OrderedMatching.edgeSwap OrderedMatching.relabel
+      change
+        pswap ((S05_oddOrderedMatching m M).left r)
+            ((S05_oddOrderedMatching m M).right r) =
+          pswap
+            (S05_nearPerfectMatchingRelabeling m M
+              ((S05_canonicalOrderedNearPerfectMatching m).left r))
+            (S05_nearPerfectMatchingRelabeling m M
+              ((S05_canonicalOrderedNearPerfectMatching m).right r))
+      rw [S05_nearPerfectMatchingRelabeling_left,
+        S05_nearPerfectMatchingRelabeling_right]
+    · simp [hx]
+  rw [htau]
+  exact orderedMatching_tau_relabel
+    (S05_nearPerfectMatchingRelabeling m M)
+    (S05_canonicalOrderedNearPerfectMatching m) x
+
+/-- One canonical odd edge swap is the corresponding adjacent
+transposition. -/
+theorem S05_canonicalOrderedNearPerfectMatching_edgeSwap
+    (m : Nat) (r : Fin m) :
+    (S05_canonicalOrderedNearPerfectMatching m).edgeSwap r =
+      appA_adjacentTransposition (canonicalNearMatchingAdjacentIndex m r) := by
+  unfold OrderedMatching.edgeSwap appA_adjacentTransposition
+    S05_canonicalOrderedNearPerfectMatching
+  congr 1
+  · apply Fin.ext
+    simp [canonicalNearMatchingAdjacentIndex]
+  · apply Fin.ext
+    simp [canonicalNearMatchingAdjacentIndex]
+
+/-- The representation of one selected canonical odd edge is the corresponding
+concrete Young operator bit. -/
+theorem S05_rho_canonicalNearMatchingEdgePerm_eq
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (action : YoungOrthogonalActionData lam)
+    (x : Cube m) (r : Fin m) (f : TableauSpace lam) :
+    action.rep.rho
+        ((S05_canonicalOrderedNearPerfectMatching m).edgePerm x r) f =
+      canonicalMatchingYoungOperatorOddBit x r f := by
+  unfold OrderedMatching.edgePerm canonicalMatchingYoungOperatorOddBit
+  by_cases hx : x r
+  · simp only [hx, if_true]
+    rw [S05_canonicalOrderedNearPerfectMatching_edgeSwap]
+    rw [action.rho_adjacent]
+    rfl
+  · simp only [hx]
+    exact action.rep.map_one f
+
+/-- The represented canonical odd matching-cube element is exactly the
+concrete canonical odd cube operator. -/
+theorem S05_rho_canonicalNearMatchingTau_eq_canonicalMatchingCubeOperatorOdd
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (action : YoungOrthogonalActionData lam)
+    (x : Cube m) (f : TableauSpace lam) :
+    action.rep.rho
+        ((S05_canonicalOrderedNearPerfectMatching m).tau x) f =
+      canonicalMatchingCubeOperatorOdd x f := by
+  unfold OrderedMatching.tau
+  change action.rep.rho
+      ((List.ofFn fun r : Fin m =>
+        (S05_canonicalOrderedNearPerfectMatching m).edgePerm x r).prod) f = _
+  rw [action.rep.rho_list_prod]
+  have hlist :
+      (List.ofFn fun r : Fin m =>
+          (S05_canonicalOrderedNearPerfectMatching m).edgePerm x r).map
+            action.rep.rho =
+        List.ofFn (fun r : Fin m =>
+          canonicalMatchingYoungOperatorOddBit x r) := by
+    calc
+      _ = List.ofFn (fun r : Fin m =>
+          action.rep.rho
+            ((S05_canonicalOrderedNearPerfectMatching m).edgePerm x r)) :=
+        (List.ofFn_comp'
+          (fun r : Fin m =>
+            (S05_canonicalOrderedNearPerfectMatching m).edgePerm x r)
+          action.rep.rho).symm
+      _ = _ := by
+        apply congrArg List.ofFn
+        funext r
+        funext v
+        exact S05_rho_canonicalNearMatchingEdgePerm_eq m lam action x r v
+  rw [hlist]
+  rfl
+
+/-- The canonical odd basis transported by the explicit endpoint-plus-unmatched
+relabeling. -/
+noncomputable def S05_arbitraryOddMatchingBasis
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * m + 1)) :
+    Module.Basis (S05_CanonicalOddEigenbasisIndex m lam) Real
+      (TableauSpace lam) :=
+  (S05_canonicalOddMatchingBasis m lam).map
+    (action.rhoLinearEquiv (S05_nearPerfectMatchingRelabeling m M))
+
+@[simp] theorem S05_arbitraryOddMatchingBasis_apply
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * m + 1))
+    (i : S05_CanonicalOddEigenbasisIndex m lam) :
+    S05_arbitraryOddMatchingBasis m lam action M i =
+      action.rep.rho (S05_nearPerfectMatchingRelabeling m M)
+        (S05_canonicalOddMatchingBasis m lam i) := by
+  rw [S05_arbitraryOddMatchingBasis, Module.Basis.map_apply]
+  rfl
+
+/-- Odd transport preserves orthonormality. -/
+theorem S05_arbitraryOddMatchingBasis_inner
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * m + 1))
+    (i j : S05_CanonicalOddEigenbasisIndex m lam) :
+    tableauInner
+        (S05_arbitraryOddMatchingBasis m lam action M i)
+        (S05_arbitraryOddMatchingBasis m lam action M j) =
+      if i = j then 1 else 0 := by
+  rw [S05_arbitraryOddMatchingBasis_apply,
+    S05_arbitraryOddMatchingBasis_apply, action.rho_inner]
+  exact (S05_Lem5_11_canonicalOddMatchingEigenbasis m lam).1 i j
+
+/-- The transported odd family spans because it is the image of a basis under
+the represented permutation linear equivalence. -/
+theorem S05_arbitraryOddMatchingBasis_span
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * m + 1)) :
+    Submodule.span Real
+        (Set.range (S05_arbitraryOddMatchingBasis m lam action M)) = ⊤ :=
+  (S05_arbitraryOddMatchingBasis m lam action M).span_eq
+
+/-- Every transported odd vector has its unchanged canonical character label
+for the reindexed arbitrary matching. -/
+theorem S05_arbitraryOddMatchingBasis_character_action
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * m + 1))
+    (i : S05_CanonicalOddEigenbasisIndex m lam) (x : Cube m) :
+    action.rep.rho ((S05_oddOrderedMatching m M).tau x)
+        (S05_arbitraryOddMatchingBasis m lam action M i) =
+      S05_matchingCharacter (S05_canonicalOddEigenbasisLabel m lam i) x •
+        S05_arbitraryOddMatchingBasis m lam action M i := by
+  let σ := S05_nearPerfectMatchingRelabeling m M
+  let τ := (S05_canonicalOrderedNearPerfectMatching m).tau x
+  let v := S05_canonicalOddMatchingBasis m lam i
+  rw [S05_arbitraryOddMatchingBasis_apply]
+  rw [S05_oddOrderedMatching_tau_conjugate]
+  change action.rep.rho (σ * τ * σ.symm) (action.rep.rho σ v) = _
+  calc
+    action.rep.rho (σ * τ * σ.symm) (action.rep.rho σ v) =
+        action.rep.rho σ
+          (action.rep.rho τ
+            (action.rep.rho σ.symm (action.rep.rho σ v))) := by
+      rw [action.rep.map_mul (σ * τ), action.rep.map_mul σ τ]
+    _ = action.rep.rho σ (action.rep.rho τ v) := by
+      rw [action.rho_leftInverse]
+    _ = action.rep.rho σ (canonicalMatchingCubeOperatorOdd x v) := by
+      rw [S05_rho_canonicalNearMatchingTau_eq_canonicalMatchingCubeOperatorOdd]
+    _ = action.rep.rho σ
+          (S05_matchingCharacter
+            (S05_canonicalOddEigenbasisLabel m lam i) x • v) := by
+      rw [S05_canonicalOddMatchingBasis_character_action]
+    _ = S05_matchingCharacter
+          (S05_canonicalOddEigenbasisLabel m lam i) x •
+          action.rep.rho σ v := by
+      rw [action.rep.map_smul]
+
+/-- Complete arbitrary odd transport in normalized edge coordinates. -/
+theorem S05_Lem5_11_arbitraryOddMatchingEigenbasis
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * m + 1)) :
+    (∀ i j : S05_CanonicalOddEigenbasisIndex m lam,
+      tableauInner
+          (S05_arbitraryOddMatchingBasis m lam action M i)
+          (S05_arbitraryOddMatchingBasis m lam action M j) =
+        if i = j then 1 else 0) ∧
+    (Submodule.span Real
+        (Set.range (S05_arbitraryOddMatchingBasis m lam action M)) = ⊤) ∧
+    (∀ i : S05_CanonicalOddEigenbasisIndex m lam,
+      ∀ x : Cube m,
+        action.rep.rho ((S05_oddOrderedMatching m M).tau x)
+            (S05_arbitraryOddMatchingBasis m lam action M i) =
+          S05_matchingCharacter (S05_canonicalOddEigenbasisLabel m lam i) x •
+            S05_arbitraryOddMatchingBasis m lam action M i) ∧
+    (Finset.univ : Finset
+        (S05_CanonicalOddEigenbasisIndex m lam)).1.map
+          (S05_canonicalOddEigenbasisLabel m lam) =
+      S05_oddSignPatternMultiset m lam := by
+  refine ⟨S05_arbitraryOddMatchingBasis_inner m lam action M,
+    S05_arbitraryOddMatchingBasis_span m lam action M, ?_, ?_⟩
+  · exact S05_arbitraryOddMatchingBasis_character_action m lam action M
+  · exact S05_canonicalOddEigenbasisLabelMultiset_eq m lam
+
+/-- The canonical odd label viewed in the literal edge type of
+`M.toOrdered`. -/
+def S05_arbitraryOddMatchingLabel
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1))
+    (R : Finset (Fin m)) : Finset (Fin M.toOrdered.edgeCount) :=
+  S05_matchingLabelCast (S05_oddOrderedMatching_eq_toOrdered m M) R
+
+/-- Pull a literal odd `M.toOrdered` cube point back to normalized `Fin m`
+coordinates. -/
+def S05_arbitraryOddMatchingCubePullback
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1))
+    (x : Cube M.toOrdered.edgeCount) : Cube m :=
+  S05_matchingCubeCast (S05_oddOrderedMatching_eq_toOrdered m M).symm x
+
+theorem S05_arbitraryOddMatchingCharacter_eq_pullback
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1))
+    (R : Finset (Fin m)) (x : Cube M.toOrdered.edgeCount) :
+    S05_matchingCharacter (S05_arbitraryOddMatchingLabel m M R) x =
+      S05_matchingCharacter R
+        (S05_arbitraryOddMatchingCubePullback m M x) := by
+  exact S05_matchingCharacter_labelCast
+    (S05_oddOrderedMatching_eq_toOrdered m M) R x
+
+/-- Exact odd label multiset transported only through the edge-count equality.
+-/
+theorem S05_arbitraryOddMatchingLabelMultiset_eq
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (M : NearPerfectMatching (2 * m + 1)) :
+    (Finset.univ : Finset
+        (S05_CanonicalOddEigenbasisIndex m lam)).1.map
+          (fun i => S05_arbitraryOddMatchingLabel m M
+            (S05_canonicalOddEigenbasisLabel m lam i)) =
+      (S05_oddSignPatternMultiset m lam).map
+        (S05_matchingLabelCast (S05_oddOrderedMatching_eq_toOrdered m M)) := by
+  rw [← S05_canonicalOddEigenbasisLabelMultiset_eq m lam]
+  change
+    (Finset.univ : Finset
+      (S05_CanonicalOddEigenbasisIndex m lam)).1.map
+        (fun i => S05_matchingLabelCast
+          (S05_oddOrderedMatching_eq_toOrdered m M)
+          (S05_canonicalOddEigenbasisLabel m lam i)) =
+      ((Finset.univ : Finset
+        (S05_CanonicalOddEigenbasisIndex m lam)).1.map
+          (S05_canonicalOddEigenbasisLabel m lam)).map
+        (S05_matchingLabelCast (S05_oddOrderedMatching_eq_toOrdered m M))
+  exact (Multiset.map_map
+    (S05_matchingLabelCast (S05_oddOrderedMatching_eq_toOrdered m M))
+    (S05_canonicalOddEigenbasisLabel m lam) _).symm
+
+/-- The transported odd labels have the high-label count prescribed by
+Definition 5.14. -/
+theorem S05_arbitraryOddMatchingBasis_highLabelCount
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (M : NearPerfectMatching (2 * m + 1)) :
+    (∑ i : S05_CanonicalOddEigenbasisIndex m lam,
+        if S05_matchingCharacterHigh
+            (S05_arbitraryOddMatchingLabel m M
+              (S05_canonicalOddEigenbasisLabel m lam i))
+        then (1 : Real) else 0) =
+      hOddTableau m lam := by
+  change
+    (∑ i : S05_CanonicalOddEigenbasisIndex m lam,
+      if S05_matchingCharacterHigh
+          (S05_matchingLabelCast (S05_oddOrderedMatching_eq_toOrdered m M)
+            (S05_canonicalOddEigenbasisLabel m lam i))
+      then (1 : Real) else 0) = hOddTableau m lam
+  simp_rw [S05_matchingCharacterHigh_labelCast]
+  exact S05_Lem5_10_highLabelCount_of_oddSignPatternMultiset
+    (S05_canonicalOddEigenbasisLabel m lam)
+    (S05_canonicalOddEigenbasisLabelMultiset_eq m lam)
+
+/-- Odd character action stated directly for `M.toOrdered`. -/
+theorem S05_arbitraryOddMatchingBasis_toOrdered_character_action
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * m + 1))
+    (i : S05_CanonicalOddEigenbasisIndex m lam)
+    (x : Cube M.toOrdered.edgeCount) :
+    action.rep.rho (M.toOrdered.tau x)
+        (S05_arbitraryOddMatchingBasis m lam action M i) =
+      S05_matchingCharacter
+          (S05_arbitraryOddMatchingLabel m M
+            (S05_canonicalOddEigenbasisLabel m lam i)) x •
+        S05_arbitraryOddMatchingBasis m lam action M i := by
+  let x₀ := S05_arbitraryOddMatchingCubePullback m M x
+  calc
+    action.rep.rho (M.toOrdered.tau x)
+        (S05_arbitraryOddMatchingBasis m lam action M i) =
+        action.rep.rho ((S05_oddOrderedMatching m M).tau x₀)
+          (S05_arbitraryOddMatchingBasis m lam action M i) := by
+      rw [S05_orderedMatching_tau_cast
+        (S05_oddOrderedMatching_eq_toOrdered m M)]
+      rfl
+    _ = S05_matchingCharacter
+          (S05_canonicalOddEigenbasisLabel m lam i) x₀ •
+        S05_arbitraryOddMatchingBasis m lam action M i :=
+      S05_arbitraryOddMatchingBasis_character_action m lam action M i x₀
+    _ = S05_matchingCharacter
+          (S05_arbitraryOddMatchingLabel m M
+            (S05_canonicalOddEigenbasisLabel m lam i)) x •
+        S05_arbitraryOddMatchingBasis m lam action M i := by
+      rw [← S05_arbitraryOddMatchingCharacter_eq_pullback]
+
+/-- Full arbitrary-near-perfect-matching theorem stated directly for
+`M.toOrdered`, with exact transported odd labels. -/
+theorem S05_Lem5_11_arbitraryOddMatchingEigenbasis_toOrdered
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * m + 1)) :
+    (∀ i j : S05_CanonicalOddEigenbasisIndex m lam,
+      tableauInner
+          (S05_arbitraryOddMatchingBasis m lam action M i)
+          (S05_arbitraryOddMatchingBasis m lam action M j) =
+        if i = j then 1 else 0) ∧
+    (Submodule.span Real
+        (Set.range (S05_arbitraryOddMatchingBasis m lam action M)) = ⊤) ∧
+    (∀ i : S05_CanonicalOddEigenbasisIndex m lam,
+      ∀ x : Cube M.toOrdered.edgeCount,
+        action.rep.rho (M.toOrdered.tau x)
+            (S05_arbitraryOddMatchingBasis m lam action M i) =
+          S05_matchingCharacter
+              (S05_arbitraryOddMatchingLabel m M
+                (S05_canonicalOddEigenbasisLabel m lam i)) x •
+            S05_arbitraryOddMatchingBasis m lam action M i) ∧
+    (Finset.univ : Finset
+        (S05_CanonicalOddEigenbasisIndex m lam)).1.map
+          (fun i => S05_arbitraryOddMatchingLabel m M
+            (S05_canonicalOddEigenbasisLabel m lam i)) =
+      (S05_oddSignPatternMultiset m lam).map
+        (S05_matchingLabelCast
+          (S05_oddOrderedMatching_eq_toOrdered m M)) := by
+  refine ⟨S05_arbitraryOddMatchingBasis_inner m lam action M,
+    S05_arbitraryOddMatchingBasis_span m lam action M, ?_, ?_⟩
+  · exact S05_arbitraryOddMatchingBasis_toOrdered_character_action
+      m lam action M
+  · exact S05_arbitraryOddMatchingLabelMultiset_eq m lam M
 
 /-- Lemma 5.11 matching-operator component: a canonical even matching edge
 operator is an involution. -/

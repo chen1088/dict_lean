@@ -5,6 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_04_TwoBoxTableauBranching`
 - `DictatorshipTesting.Paper.S05_Lem5_07_OneBoxDeletionIntertwinesEarlierSwaps`
+- `DictatorshipTesting.Paper.S05_Lem5_11_MatchingSubgroupEigenbasis`
 -/
 
 

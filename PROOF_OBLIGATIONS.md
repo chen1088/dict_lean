@@ -198,9 +198,9 @@ Remaining Section 5/AppA bridge boundary:
   `young-block trace = tableauDim * tableau-space trace`.
 - Lemma 5.13 now proves the even and odd numerical tableau traces and their full
   Young-block `tableauDim` multiples from the explicit eigenbasis and
-  high-label count assumed by its paper statement. Its positive-size even
-  tableau and full-block traces are now instantiated unconditionally from the
-  arbitrary-perfect-matching basis.
+  high-label count asserted by Lemma 5.10. Its positive-size even and all odd
+  tableau/full-block traces are instantiated unconditionally from the
+  arbitrary-matching bases.
 - Definitions 5.13--5.14 now define the actual recursive even and odd label
   multisets. Lemma 5.10 proves their `tableauDim` cardinalities, empty-label
   multiplicity `zEven`, and high-label multiplicities
@@ -213,8 +213,9 @@ Remaining Section 5/AppA bridge boundary:
   direct `M.toOrdered` character action. The canonical odd family is also a
   proved orthonormal spanning Mathlib basis with exact
   `S05_oddSignPatternMultiset` labels and every canonical matching eigenvalue.
-  The remaining Lemma 5.11 obligation is transport to arbitrary near-perfect
-  matchings; this is also the remaining fixed-trace instantiation in Lemma 5.13.
+  The unique unmatched point, odd conjugating permutation, direct
+  `M.toOrdered` character action, and exact transported odd labels are now also
+  proved. Lemmas 5.11 and 5.13 are complete for the intended matching sizes.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
 definition-only files `S05_Def5_24_TableauEvenHeight.lean` and
@@ -535,6 +536,7 @@ Lean theorem names:
 `S05_Lem5_11_canonicalEvenMatchingEigenbasis`,
 `S05_Lem5_11_arbitraryEvenMatchingEigenbasis_toOrdered`,
 `S05_Lem5_11_canonicalOddMatchingEigenbasis`,
+`S05_Lem5_11_arbitraryOddMatchingEigenbasis_toOrdered`,
 `matchingRestriction_even_specht_pieri_input`,
 `matchingRestriction_odd_specht_pieri_input`.
 
@@ -543,21 +545,18 @@ cardinality/high-count semantics are proved. The signed-child orthogonal
 decomposition and the canonical even labeled eigenbasis are also proved,
 including exact multiset equality. The basis is transported to every arbitrary
 perfect matching by an explicit conjugating permutation and represented
-isometry. The canonical odd labeled eigenbasis is now proved by explicit
-one-box assembly. The full paper-level statement remains open only for its
-transport to arbitrary odd near-perfect matchings.
+isometry. The canonical odd labeled eigenbasis is proved by explicit one-box
+assembly and transported to every arbitrary odd near-perfect matching by the
+proved unique-unmatched-point relabeling. The paper-level statement is proved.
 
 Mathematical content: restricting `S^lambda` to the matching subgroup
 `A_M ~= (Z/2Z)^m` has the local character-weight multiset recursively counted
 by the Section 5 `X_m(lambda)` data.
 
-Exact internal blocker: construct the unique unmatched point and endpoint
-relabeling for an arbitrary odd near-perfect matching, prove the conjugation
-identity, and transport the now-proved canonical odd basis. Even matching
-transport and canonical odd assembly are no longer blockers.
-
-Citation target if external: repeated Pieri/Littlewood--Richardson branching
-for restriction to Young subgroups and then to the matching subgroup.
+Resolved internally: the unique unmatched point, endpoint relabeling,
+conjugation identity, arbitrary odd basis transport, exact labels, and fixed
+odd traces are all proved. The positive-size restriction in the even operator
+interface remains an arithmetic zero-level issue outside the paper's use.
 
 Downstream dependencies: the trace/scalar-value inputs used by Lemmas
 5.26--5.28.

@@ -2297,7 +2297,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Matching algebra",
       "kind": "paper",
       "importance": "major",
-      "status": "unproven",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_11_MatchingSubgroupEigenbasis.lean",
       "wrappers": [
         "S05_signedTwoBoxChild_orthogonal_decomposition",
@@ -2315,6 +2315,12 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Lem5_11_arbitraryEvenMatchingEigenbasis_toOrdered",
         "S05_arbitraryEvenMatchingBasis_toOrdered_character_action",
         "S05_arbitraryEvenMatchingLabelMultiset_eq",
+        "S05_Lem5_11_canonicalOddMatchingEigenbasis",
+        "S05_nearPerfectMatchingUnmatchedPoint",
+        "S05_nearPerfectMatchingRelabeling",
+        "S05_Lem5_11_arbitraryOddMatchingEigenbasis_toOrdered",
+        "S05_arbitraryOddMatchingBasis_toOrdered_character_action",
+        "S05_arbitraryOddMatchingLabelMultiset_eq",
         "S05_perfectMatchingRelabeling",
         "YoungOrthogonalActionData.rho_inner",
         "S05_Lem5_11_matchingSignProjectionEven_isMatchingEigenvector",
@@ -2337,8 +2343,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D18",
         "S05_D19"
       ],
-      "summary": "Canonical and arbitrary-perfect-matching even eigenbases are proved; the odd basis remains.",
-      "statement": "Lemma 5.11 constructs the canonical even matching basis recursively, transports it to every perfect matching by an explicit conjugating permutation and represented isometry, and preserves exact recursive labels. It also assembles the canonical odd basis from one-box removable-row fibers, proving orthonormality, spanning, character action, and exact odd label multiplicity. The remaining paper-level step is transport to arbitrary near-perfect matchings.",
+      "summary": "Canonical and arbitrary matching eigenbases are proved in both parity cases with exact labels.",
+      "statement": "Lemma 5.11 constructs canonical even and odd matching bases explicitly, proves orthonormality, spanning, character action, and exact recursive label multiplicities, and transports them to arbitrary matchings by proved endpoint-preserving conjugating permutations. In the odd case it first proves the unmatched vertex is unique. The paper statement is complete for positive even matching size and all odd sizes.",
       "terms": [
         {
           "text": "Tableau Coxeter model",
@@ -2383,63 +2389,87 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "S05_Lem5_11_canonicalEvenMatchingEigenbasis",
-          "line": 3028
+          "line": 3034
         },
         {
           "name": "S05_canonicalEvenEigenbasisLabelMultiset_eq",
-          "line": 2678
+          "line": 2686
         },
         {
           "name": "S05_canonicalEvenEigenbasisVector_inner",
-          "line": 2721
+          "line": 2729
         },
         {
           "name": "S05_canonicalEvenEigenbasisVector_span",
-          "line": 2798
+          "line": 2806
         },
         {
           "name": "S05_canonicalEvenEigenbasisVector_isMatchingEigenvector",
-          "line": 2927
+          "line": 2935
         },
         {
           "name": "S05_canonicalEvenMatchingBasis_character_action",
-          "line": 3055
+          "line": 3061
+        },
+        {
+          "name": "S05_Lem5_11_canonicalOddMatchingEigenbasis",
+          "line": 3745
         },
         {
           "name": "YoungOrthogonalActionData.rho_inner",
-          "line": 3139
+          "line": 3857
         },
         {
           "name": "S05_perfectMatchingRelabeling",
-          "line": 3357
+          "line": 4075
         },
         {
           "name": "S05_arbitraryEvenMatchingLabelMultiset_eq",
-          "line": 3731
+          "line": 4449
         },
         {
           "name": "S05_arbitraryEvenMatchingBasis_toOrdered_character_action",
-          "line": 3779
+          "line": 4497
         },
         {
           "name": "S05_Lem5_11_arbitraryEvenMatchingEigenbasis_toOrdered",
-          "line": 3813
+          "line": 4531
+        },
+        {
+          "name": "S05_nearPerfectMatchingUnmatchedPoint",
+          "line": 4678
+        },
+        {
+          "name": "S05_nearPerfectMatchingRelabeling",
+          "line": 4841
+        },
+        {
+          "name": "S05_arbitraryOddMatchingLabelMultiset_eq",
+          "line": 5138
+        },
+        {
+          "name": "S05_arbitraryOddMatchingBasis_toOrdered_character_action",
+          "line": 5185
+        },
+        {
+          "name": "S05_Lem5_11_arbitraryOddMatchingEigenbasis_toOrdered",
+          "line": 5218
         },
         {
           "name": "S05_Lem5_11_matchingSignProjectionEven_isMatchingEigenvector",
-          "line": 4162
+          "line": 5567
         },
         {
           "name": "S05_Lem5_11_matchingSignProjectionOdd_isMatchingEigenvector",
-          "line": 4170
+          "line": 5575
         },
         {
           "name": "S05_Lem5_11_highLabelCount_of_evenSignPatternMultiset",
-          "line": 4310
+          "line": 5715
         },
         {
           "name": "S05_Lem5_11_highLabelCount_of_oddSignPatternMultiset",
-          "line": 4322
+          "line": 5727
         }
       ]
     },
@@ -2488,7 +2518,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Matching algebra",
       "kind": "paper",
       "importance": "major",
-      "status": "unproven",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_13_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
       "wrappers": [
         "S05_Lem5_13_fixedMatching_tableauTrace_even_of_eigenbasis",
@@ -2497,6 +2527,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Lem5_13_fixedMatching_youngBlockTrace_odd_of_eigenbasis",
         "S05_Lem5_13_fixedMatching_tableauTrace_even",
         "S05_Lem5_13_fixedMatching_youngBlockTrace_even",
+        "S05_Lem5_13_fixedMatching_tableauTrace_odd",
+        "S05_Lem5_13_fixedMatching_youngBlockTrace_odd",
         "traceLocalTruncation_even_from_restriction",
         "traceLocalTruncation_odd_from_restriction"
       ],
@@ -2506,8 +2538,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D20",
         "S05_D21"
       ],
-      "summary": "The fixed-trace algebra is proved, and the positive-size even traces are instantiated unconditionally.",
-      "statement": "Lemma 5.13 proves the even and odd tableau/full-block formulas from labeled eigenbasis data. Lemma 5.11 supplies the arbitrary-perfect-matching even basis, so the positive-size even tableau trace and its tableauDim full-block multiple are unconditional. The canonical odd basis is proved; odd trace instantiation still awaits transport to arbitrary near-perfect matchings.",
+      "summary": "Fixed tableau and Young-block traces are instantiated in both parity cases.",
+      "statement": "Lemma 5.13 proves the concrete fixed-matching tableau and full Young-block trace formulas. Lemma 5.11's arbitrary-matching bases instantiate them unconditionally for positive even matching size and for every odd near-perfect matching.",
       "terms": [
         {
           "text": "Matching subgroup eigenbasis",
@@ -2536,35 +2568,43 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "S05_Lem5_13_fixedMatching_tableauTrace_even_of_eigenbasis",
-          "line": 72
+          "line": 71
         },
         {
           "name": "S05_Lem5_13_fixedMatching_tableauTrace_odd_of_eigenbasis",
-          "line": 97
+          "line": 96
         },
         {
           "name": "S05_Lem5_13_fixedMatching_youngBlockTrace_even_of_eigenbasis",
-          "line": 121
+          "line": 120
         },
         {
           "name": "S05_Lem5_13_fixedMatching_youngBlockTrace_odd_of_eigenbasis",
-          "line": 145
+          "line": 144
         },
         {
           "name": "S05_Lem5_13_fixedMatching_tableauTrace_even",
-          "line": 169
+          "line": 168
         },
         {
           "name": "S05_Lem5_13_fixedMatching_youngBlockTrace_even",
-          "line": 186
+          "line": 185
+        },
+        {
+          "name": "S05_Lem5_13_fixedMatching_tableauTrace_odd",
+          "line": 197
+        },
+        {
+          "name": "S05_Lem5_13_fixedMatching_youngBlockTrace_odd",
+          "line": 214
         },
         {
           "name": "traceLocalTruncation_even_from_restriction",
-          "line": 198
+          "line": 226
         },
         {
           "name": "traceLocalTruncation_odd_from_restriction",
-          "line": 206
+          "line": 234
         }
       ]
     },

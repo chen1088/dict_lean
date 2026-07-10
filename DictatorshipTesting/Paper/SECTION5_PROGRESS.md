@@ -65,8 +65,11 @@ Detailed maps:
   removable-row fibers. The family is an actual Mathlib basis, is orthonormal
   and spanning, inherits every matching eigenvalue through Lemma 5.7, and has
   literal label multiset `S05_oddSignPatternMultiset`.
-- Lemma 5.13 now instantiates the positive-size even tableau and full Young-block
-  fixed-matching traces without an eigenbasis hypothesis.
+- Lemma 5.11 proves the unique unmatched point for every odd matching, the
+  endpoint-plus-unmatched conjugating permutation, and arbitrary odd transport
+  with direct `M.toOrdered` character action and exact labels.
+- Lemma 5.13 now instantiates the positive-size even and all odd tableau and
+  full Young-block fixed-matching traces without an eigenbasis hypothesis.
 - Definition 5.22 has proved low/high matching idempotent identities, zero
   cross-compositions, and the low-plus-high decomposition identity.
 - Lemma 5.15 proves the finite-average/high-idempotent part of central averaged
@@ -113,14 +116,10 @@ Detailed maps:
   paper statement.
 - Lemmas 5.18--5.21 expose the active tableauDim spectral-bridge route used by
   Theorem 4.8.
-- The first remaining representation-theoretic frontier is still Lemma 5.11,
-  but canonical even, arbitrary even, and canonical odd labeled eigenbases are
-  no longer part of the gap. The exact next layer is the unique unmatched-point
-  construction and odd near-perfect transport.
-  Lemma 5.13's even fixed traces are instantiated; its odd instantiation awaits
-  that basis. After that, the regular orthogonal
-  Young-block decomposition and global weighted energy identity are still
-  required.  The old numerical A.1/A.2 axiom types and the final
+- Lemmas 5.11 and 5.13 are now complete for the intended matching sizes in both
+  parity cases. The next representation-theoretic frontier is the regular
+  orthogonal Young-block decomposition and global weighted energy identity.
+  Those steps are still required. The old numerical A.1/A.2 axiom types and the final
   matching-average scalarity input therefore remain unchanged.
 - Appendix A exposes explicit marker axioms for A.1, A.2, and A.3.  Lemma 5.19
   consumes those markers together with

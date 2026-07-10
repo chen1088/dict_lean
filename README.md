@@ -206,8 +206,10 @@ Proven matching-cube components for Lemma 5.11:
   basis with exact labels to `M.toOrdered`. The same file now assembles the
   canonical odd basis from the one-box fibers, proving orthonormality, spanning,
   all canonical matching eigenvalues, and literal equality with
-  `S05_oddSignPatternMultiset`. Remaining for the full Lemma 5.11 statement:
-  transport this basis to arbitrary near-perfect matchings.
+  `S05_oddSignPatternMultiset`. It proves the unique unmatched vertex, builds
+  the endpoint-preserving conjugating permutation, and transports this basis to
+  every arbitrary near-perfect matching. Lemma 5.11 is therefore proved for
+  its intended positive even case and all odd cases.
 
 Proven Definition 5.22 matching-idempotent components:
 
@@ -287,9 +289,9 @@ regular Young-block energy decomposition.  Lemma 5.13 now identifies the trace
 of the concrete fixed-matching operator with `hEvenTableau` or `hOddTableau`
   from the labeled matching eigenbasis in its paper statement. The positive-size
   even trace and full Young-block trace are now instantiated unconditionally
-  from the arbitrary-perfect-matching basis. The canonical odd labeled basis is
-  proved; the remaining Lemma 5.11 and trace obligation is its transport to
-  arbitrary near-perfect matchings. The
+  from the arbitrary-perfect-matching basis. The odd tableau and full-block
+  traces are likewise instantiated from the arbitrary near-perfect-matching
+  basis. The
   final global weighted scalarity axiom therefore remains.
 
 Proven Lemma 5.18 trace-model-to-gap algebra:
@@ -391,8 +393,9 @@ Remaining bridge boundary:
 
 - `S05_Lem5_13_TraceOfOneLocalTruncationOnOneYoungBlock.lean` -- Lemma 5.13:
   the actual fixed-matching tableau and full-block trace formulas from the
-  explicit labeled matching eigenbasis in the paper statement; the even formulas
-  are now instantiated unconditionally for every positive-size perfect matching.
+  explicit labeled matching eigenbasis; the formulas are instantiated
+  unconditionally for every positive-size perfect matching and every odd
+  near-perfect matching.
 - `S05_Lem5_17_BlockScalarOfTheAveragedRejection.lean` -- Lemma 5.17:
   trace-divided-by-dimension algebra from explicit scalarity and trace identity
   inputs; those inputs are bundled into the spectral-block model boundary.
