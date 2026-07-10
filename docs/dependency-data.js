@@ -1646,20 +1646,22 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Spectral bridge",
       "kind": "paper",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean",
       "wrappers": [
         "GroupAlgebraElement",
         "rightConvolution",
         "repOfGroupAlgebraElement",
+        "repOfGroupAlgebraElement_commutes_of_central",
+        "repOfGroupAlgebraElements_commute_of_central",
         "YoungRepresentationActionData",
-        "averagedRejectionYoungOperatorData_of_groupAlgebraAction"
+        "averagedRejectionYoungOperatorData_of_centralGroupAlgebraElement"
       ],
       "deps": [
         "S05_L16A"
       ],
-      "summary": "Finite group-algebra and representation-action vocabulary for the averaged rejection operator.",
-      "statement": "Definition 5.28 introduces finite group-algebra coefficients, right convolution, representation action rho(a), and a Young representation-action interface. It proves that a represented group-algebra element satisfying adjacent and content commutation instantiates AveragedRejectionYoungOperatorData, but it does not instantiate the actual averaged high matching idempotent q.",
+      "summary": "Finite group-algebra action and the centrality-to-commutation theorem.",
+      "statement": "Definition 5.28 introduces finite group-algebra coefficients, right convolution, representation action rho(a), and a Young representation-action interface. Explicit finite conjugation reindexing proves that coefficient centrality implies commutation with every represented group element and every represented group-algebra element.",
       "terms": [
         {
           "text": "AveragedRejectionYoungOperatorData",
@@ -1684,15 +1686,90 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "name": "repOfGroupAlgebraElement",
-          "line": 66
+          "line": 74
+        },
+        {
+          "name": "repOfGroupAlgebraElement_commutes_of_central",
+          "line": 144
+        },
+        {
+          "name": "repOfGroupAlgebraElements_commute_of_central",
+          "line": 193
         },
         {
           "name": "YoungRepresentationActionData",
-          "line": 136
+          "line": 226
         },
         {
-          "name": "averagedRejectionYoungOperatorData_of_groupAlgebraAction",
-          "line": 201
+          "name": "averagedRejectionYoungOperatorData_of_centralGroupAlgebraElement",
+          "line": 322
+        }
+      ]
+    },
+    {
+      "id": "S05_D29",
+      "label": "Def 5.29",
+      "title": "Averaged high-matching element",
+      "section": "Spectral bridge",
+      "kind": "paper",
+      "importance": "major",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean",
+      "wrappers": [
+        "S05_fixedMatchingHighElement",
+        "S05_fixedMatchingHighElement_rightConvolution",
+        "S05_averagedHighMatchingElement",
+        "S05_averagedHighMatchingElement_central",
+        "S05_averagedRejectionYoungOperatorData_actual",
+        "S05_averagedRejectionYoungOperator_scalar_on_basis"
+      ],
+      "deps": [
+        "S05_D22",
+        "S05_D28"
+      ],
+      "summary": "The genuine averaged high matching coefficient element, its centrality, and its one-block represented action.",
+      "statement": "Definition 5.29 pushes the high Fourier kernel of each matching cube into the symmetric-group algebra and averages over all near-perfect matchings. It proves that this element acts by the existing averaged high idempotent, is conjugation invariant, and yields a scalar one-block Young operator for every supplied Young representation model.",
+      "terms": [
+        {
+          "text": "Matching idempotents",
+          "target": "S05_D22"
+        },
+        {
+          "text": "Group-algebra action",
+          "target": "S05_D28"
+        },
+        {
+          "text": "Young-basis scalar commutant",
+          "target": "S05_L15"
+        }
+      ],
+      "paperLabel": "def:averaged-high-matching-element",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For a matching $M$, let $q_M$ be the high-character idempotent in the matching subgroup algebra. Define the averaged element by\n\\[q=\\frac{1}{|\\mathcal M_n|}\\sum_{M\\in\\mathcal M_n}q_M.\\]\nRelabeling gives $q_{\\sigma M}(\\sigma g\\sigma^{-1})=q_M(g)$, hence $q(\\sigma g\\sigma^{-1})=q(g)$.",
+      "leanLinks": [
+        {
+          "name": "S05_fixedMatchingHighElement",
+          "line": 157
+        },
+        {
+          "name": "S05_fixedMatchingHighElement_rightConvolution",
+          "line": 164
+        },
+        {
+          "name": "S05_averagedHighMatchingElement",
+          "line": 254
+        },
+        {
+          "name": "S05_averagedHighMatchingElement_central",
+          "line": 336
+        },
+        {
+          "name": "S05_averagedRejectionYoungOperatorData_actual",
+          "line": 354
+        },
+        {
+          "name": "S05_averagedRejectionYoungOperator_scalar_on_basis",
+          "line": 386
         }
       ]
     },

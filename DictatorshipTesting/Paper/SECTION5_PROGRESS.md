@@ -4,10 +4,10 @@ Source checked: `../dictatorship_testing_soda27_latest.tex`.
 
 ## Spine Status
 
-- Section 5 now has 28 numbered definitions and 26 numbered result statements
+- Section 5 now has 29 numbered definitions and 26 numbered result statements
   (`lemma`, `proposition`, `theorem`, and `corollary` environments).  The two
   counters are separate.
-- Section 5 paper-facing Lean file count is 54.
+- Section 5 paper-facing Lean file count is 55.
 - Appendix A has 4 numbered external-input statements and 4 Lean-facing files.
 - No two Section 5 definition files share a definition number, and no two
   Section 5 result files share a lemma/theorem number.
@@ -48,23 +48,30 @@ Detailed maps:
 - Lemma 5.15 now proves a generic Young-model scalar commutant theorem:
   a linear operator on one tableau-coordinate block that commutes with all
   diagonal content operators and all adjacent Young operators is scalar on the
-  tableau basis, using A.4 connectedness.  Instantiating the averaged matching
-  rejection operator into this interface remains the scalarity bridge input.
+  tableau basis, using A.4 connectedness.
 - Lemma 5.16a introduces `AveragedRejectionYoungOperatorData`, the one-block
   operator interface still needed for the averaged rejection operator.  It
-  extracts adjacent/content commutation and applies Lemma 5.15, but it does not
-  construct the group-algebra action `rho_lambda(q)`.
+  extracts adjacent/content commutation and applies Lemma 5.15.
 - Definition 5.28 introduces a finite group-algebra action interface:
   `GroupAlgebraElement`, `rightConvolution`, `repOfGroupAlgebraElement`, and
   `YoungRepresentationActionData`.  It proves the adapter from such a
-  representation-action package to `AveragedRejectionYoungOperatorData`, once
-  adjacent and content commutation are supplied.  The actual averaged high
-  matching idempotent `q` is still not instantiated.
+  representation-action package to `AveragedRejectionYoungOperatorData`.  It
+  now also proves, by finite conjugation reindexing, that coefficient centrality
+  implies commutation with represented group elements and arbitrary represented
+  group-algebra sums.
+- Definition 5.29 constructs the actual averaged high matching element `q`,
+  proves its fixed-matching covariance and averaged coefficient centrality,
+  identifies its right-convolution action with the average of the existing
+  high matching idempotents, and constructs `rho_lambda(q)` with adjacent and
+  content commutation for every supplied `YoungRepresentationActionData`.
+  This gives `AveragedRejectionYoungOperatorData` and one-block scalarity.
 - Lemmas 5.17--5.20 expose the active tableauDim spectral-bridge route used by
   Theorem 4.8.
-- The remaining representation-theoretic frontier is the spectral-block model
-  input supplied by Appendix A plus the Section 5 matching-average scalarity
-  bridge input.
+- The remaining representation-theoretic frontier is connecting the concrete
+  `YoungRepresentationActionData` and one-block scalar to the Appendix A
+  block-energy and trace/scalar interfaces.  A.1/A.2 currently expose only
+  numerical shadows, so the global matching-average scalarity bridge input
+  remains.
 - Appendix A exposes explicit marker axioms for A.1, A.2, A.3, and A.4, where
   A.4 is now only standard-tableaux swap connectedness. Lemma 5.18 consumes
   those markers together with
@@ -89,8 +96,9 @@ Detailed maps:
 - Lemma 5.11 proves the matching-character local truncation calculation.
 - Definition 5.22 proves the low/high matching idempotent algebra.
 - Lemma 5.13 proves local truncation as convolution.
-- Lemma 5.14 proves the finite-average local rejection identities; centrality on
-  Young blocks remains representation-layer input.
+- Lemma 5.14 proves the finite-average local rejection identities, and
+  Definition 5.29 proves coefficient centrality of the actual averaged high
+  matching element plus one-block scalarity for a supplied Young action model.
 - Lemma 5.17 proves weighted-sum spectral-gap algebra from block scalar lower
   bounds.
 - Lemma 5.18 assembles Appendix A inputs plus the Section 5 scalarity bridge

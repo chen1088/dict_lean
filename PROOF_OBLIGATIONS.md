@@ -145,10 +145,7 @@ Remaining Section 5/AppA bridge boundary:
   tableau-coordinate block together with commutation against the explicit
   diagonal content and adjacent Young operators, and
   `S05_Lem5_15_youngModelOperator_scalar_on_basis` proves scalarity on tableau
-  basis vectors from that data and A.4 connectedness.  The remaining scalarity
-  bridge is the narrower instantiation problem: construct the averaged
-  matching rejection operator on each Young block and prove it satisfies this
-  interface.
+  basis vectors from that data and A.4 connectedness.
 - Lemma 5.16a records that instantiation target as
   `AveragedRejectionYoungOperatorData`.  It includes only the one-block
   operator, linearity, and adjacent/content commutation fields, then applies
@@ -159,10 +156,23 @@ Remaining Section 5/AppA bridge boundary:
 - Definition 5.28 adds the finite group-algebra action vocabulary:
   `GroupAlgebraElement`, `rightConvolution`, `repOfGroupAlgebraElement`,
   coefficient-level centrality predicates, and `YoungRepresentationActionData`.
-  It proves the adapter from a represented group-algebra element satisfying
-  adjacent/content commutation to `AveragedRejectionYoungOperatorData`.  The
-  remaining blocker is to instantiate this package for the actual averaged
-  high matching idempotent `q`.
+  It proves by an explicit finite conjugation reindexing that coefficient
+  centrality implies commutation with every represented group element and every
+  represented finite group-algebra element.
+- Definition 5.29 constructs the actual fixed and averaged high matching
+  coefficient functions.  It proves that right convolution recovers the
+  existing high idempotents, proves fixed-matching relabeling covariance and
+  centrality of the matching average, constructs `rho_lambda(q)` for any
+  supplied `YoungRepresentationActionData`, proves adjacent/content
+  commutation, instantiates `AveragedRejectionYoungOperatorData`, and obtains
+  one-block scalarity from A.4 connectedness.
+- The exact remaining operator-layer blocker is now the Appendix A interface:
+  A.1 currently returns only `AppA_YoungBlockEnergyData`, while A.2 currently
+  returns only `AppA_TraceScalarDataWithDim`.  Neither statement supplies the
+  concrete `YoungRepresentationActionData` needed to connect the constructed
+  `rho_lambda(q)` to those global energies and trace scalars.  Consequently the
+  scalar's trace identification and the global weighted block-energy identity
+  remain in `S05_matchingAverageScalarity_from_young_model_input`.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
 definition-only files `S05_Def5_24_TableauEvenHeight.lean` and
@@ -266,9 +276,9 @@ Lemma 5.1 and are tracked separately below.
 
 ## Section 5 Paper/Lean Status Table
 
-The current Section 5 source has 28 numbered definitions and 26 numbered result
+The current Section 5 source has 29 numbered definitions and 26 numbered result
 statements when remarks and Appendix A inputs are excluded.  The paper-facing
-Lean file count is 54.  The full statement-to-file map is maintained in
+Lean file count is 55.  The full statement-to-file map is maintained in
 `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`; the four Appendix A external
 inputs are mapped in `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
@@ -450,10 +460,11 @@ trace formula identifies those scalars as
 Why it is external or why it should be proven: the finite weighted-sum
 comparison and trace-divided-by-dimension algebra are formalized, but the
 actual Young-block decomposition of `L^2(S_n)`, compatibility of those energies
-with `U_1`, scalarity of the matching-average operator, tableau-count dimension
-positivity inside the spectral model, and the trace/scalar identification
-require the unformalized Specht-block model, conjugation-invariance argument,
-Schur's lemma, and matching-restriction theorem.
+with `U_1`, the connection between the concrete Young action and the global
+block model, tableau-count dimension positivity inside the spectral model, and
+the trace/scalar identification require the unformalized Specht-block model,
+Schur's lemma, and matching-restriction theorem.  Conjugation covariance and
+coefficient centrality of the averaged high matching element are now proved.
 
 Citation target if external: regular representation/Specht decomposition and
 Schur's lemma from standard finite-group representation theory; the
@@ -565,8 +576,11 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   `S05_matchingLow_add_matchingHigh`.
 - `S05_Lem5_14_CentralAveragedRejection.lean`: finite-average local rejection
   identities, including the high-idempotent norm formula
-  `S05_Lem5_14_matchingMeanProjectionError_eq_high_idempotent_average`.  The
-  operator centrality refinement remains a representation-layer target.
+  `S05_Lem5_14_matchingMeanProjectionError_eq_high_idempotent_average`.
+- `S05_Def5_29_AveragedHighMatchingElement.lean`: the explicit averaged
+  high-matching group-algebra element, its convolution identity, conjugation
+  covariance, coefficient centrality, represented adjacent/content
+  commutation, and one-block scalarity for supplied Young action data.
 - `S05_Lem5_17_BlockLowerBoundImpliesTheGap.lean`: weighted-sum spectral-gap
   algebra, including trace-model-to-gap wrappers
   `S05_Lem5_17_spectralGapFromBlockTraceModel` and

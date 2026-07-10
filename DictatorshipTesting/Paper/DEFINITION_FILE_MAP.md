@@ -97,6 +97,11 @@ This file records the definition-file refactor inventory. Definition modules now
 | `repOfGroupAlgebraElement` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
 | `YoungRepresentationActionData` | structure | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
 | `averagedRejectionYoungOperatorData_of_groupAlgebraAction` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
+| `S05_matchingHighKernel` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
+| `S05_fixedMatchingHighElement` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
+| `S05_averagedHighMatchingElement` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
+| `S05_averagedRejectionYoungOperator` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
+| `S05_averagedRejectionYoungOperatorData_actual` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
 
 ## Reusable declarations still outside the split `Defs.lean` layer
 

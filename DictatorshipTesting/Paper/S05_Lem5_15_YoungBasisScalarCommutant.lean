@@ -15,8 +15,9 @@ Direct reverse imports:
 Paper statement: Lemma 5.15 (`lem:young-basis-scalar-commutant`)
 Title in paper: Young-basis scalar commutant.
 
-Status: external: scalar commutant input.  This file exposes the scalarity input
-consumed by the active spectral bridge.
+Status: proven.  The generic scalar commutant is proved here; Definition 5.29
+applies it to the actual averaged high-matching element for every supplied
+Young representation action model.
 -/
 
 noncomputable section

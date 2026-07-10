@@ -11,9 +11,9 @@ Direct reverse imports:
 Paper statement: Lemma 5.14 (`lem:averaged-rejection-central`)
 Title in paper: Central averaged rejection.
 
-Status: external: Young-block centrality input.  The finite-average and
-high-idempotent norm identities are proved below; centrality on Young blocks is
-part of the spectral-block model boundary.
+Status: proven finite-average component.  Definition 5.29 constructs the
+corresponding group-algebra element and proves its coefficient centrality; the
+global block-energy identification remains part of the spectral-model boundary.
 -/
 
 noncomputable section

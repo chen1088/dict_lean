@@ -35,7 +35,7 @@ for GitHub Pages and separates large paper-facing theorem nodes from smaller
 internal support nodes.  Open [`docs/index.html`](docs/index.html), or enable
 GitHub Pages from the repository `docs/` folder to publish the same view.  The
 browser includes a compact paper-map tab and gives the numbered Section 5
-definitions 5.1--5.23 clickable popovers, so broad shared-definition
+definitions 5.1--5.29 clickable popovers, so broad shared-definition
 dependencies do not obscure the proof structure.  Selected nodes show the
 paper statement in LaTeX and link wrapper declarations to their Lean source
 lines when available.
@@ -62,8 +62,8 @@ input, see `PROOF_OBLIGATIONS.md`.
 
 For the current rewritten Section 5 statement-to-file map, see
 `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`.  Section 5 now uses separate
-counters: 28 numbered definitions (`Def 5.x`) and 26 numbered result statements
-(`Lem 5.x` and theorem-like variants), for 54 paper-facing Section 5 Lean files.
+counters: 29 numbered definitions (`Def 5.x`) and 26 numbered result statements
+(`Lem 5.x` and theorem-like variants), for 55 paper-facing Section 5 Lean files.
 Appendix A external representation-theoretic inputs are mapped separately in
 `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
@@ -199,8 +199,12 @@ Finite-average components used near external Lemma 5.14:
 - `S05_Lem5_14_CentralAveragedRejection.lean` -- Lemma 5.14
   (`lem:averaged-rejection-central`): proves that the local rejection error is
   the squared distance of the high matching idempotent from zero, and that the
-  mean rejection is the average of those squared high-idempotent norms.  The
-  operator centrality statement remains a representation-layer target.
+  mean rejection is the average of those squared high-idempotent norms.
+- `S05_Def5_29_AveragedHighMatchingElement.lean` constructs the corresponding
+  group-algebra coefficient function `q`, proves fixed-matching conjugation
+  covariance and coefficient centrality of its matching average, and proves
+  that right convolution by `q` is the uniform average of the existing high
+  matching idempotents.
 
 Generic commutant infrastructure for Lemma 5.15:
 
@@ -222,10 +226,17 @@ Generic commutant infrastructure for Lemma 5.15:
 - `S05_Def5_28_GroupAlgebraAction.lean` adds the next interface layer:
   finite group-algebra coefficient functions, right convolution,
   representation action `rho(a)`, coefficient-level centrality predicates, and
-  `YoungRepresentationActionData`.  It proves that a represented
-  group-algebra element satisfying adjacent and content commutation gives an
-  `AveragedRejectionYoungOperatorData`.  The actual averaged high matching
-  idempotent `q` has not yet been instantiated in this interface.
+  `YoungRepresentationActionData`.  It proves by finite conjugation reindexing
+  that a coefficient-central element commutes with every represented group
+  element and every represented group-algebra element.
+- `S05_Def5_29_AveragedHighMatchingElement.lean` instantiates this interface
+  with the actual averaged high matching element.  For every supplied
+  `YoungRepresentationActionData`, it constructs `rho_lambda(q)`, proves its
+  adjacent/content commutation, packages `AveragedRejectionYoungOperatorData`,
+  and obtains one-block scalarity from Lemma 5.15 and A.4.  The remaining link
+  is to strengthen the Appendix A.1/A.2 Lean interfaces, which currently expose
+  only block-energy and trace/scalar data, so that they supply the concrete
+  `YoungRepresentationActionData`; the global weighted scalarity axiom remains.
 
 Proven Lemma 5.17 trace-model-to-gap algebra:
 

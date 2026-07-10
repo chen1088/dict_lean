@@ -3,6 +3,7 @@ import DictatorshipTesting.Paper.S05_Lem5_16a_AveragedRejectionYoungOperator
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_29_AveragedHighMatchingElement`
 -/
 
 /-!
@@ -61,6 +62,14 @@ structure GroupRepresentationActionData
   map_one :
     forall v : V, rho 1 v = v
 
+/-- One represented group element, packaged as a linear map. -/
+def GroupRepresentationActionData.linearMap
+    {G V : Type*} [Group G] [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData G V) (g : G) : V →ₗ[Real] V where
+  toFun := rep.rho g
+  map_add' := rep.map_add g
+  map_smul' := rep.map_smul g
+
 /-- The operator `rho(a) = sum_g a(g) rho(g)` attached to a finite
 group-algebra element. -/
 def repOfGroupAlgebraElement {G V : Type*} [Fintype G] [Group G]
@@ -99,6 +108,15 @@ theorem repOfGroupAlgebraElement_map_smul {G V : Type*}
     _ = c • ∑ g : G, a g • rep.rho g v := by
             rw [Finset.smul_sum]
 
+/-- The represented group-algebra element, packaged as a linear map. -/
+def repOfGroupAlgebraElementLinearMap {G V : Type*}
+    [Fintype G] [Group G] [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData G V)
+    (a : GroupAlgebraElement G) : V →ₗ[Real] V where
+  toFun := repOfGroupAlgebraElement rep a
+  map_add' := repOfGroupAlgebraElement_map_add rep a
+  map_smul' := repOfGroupAlgebraElement_map_smul rep a
+
 /-- Coefficient-level commutation with a group element.  This is the narrow
 centrality condition needed for changing variables in `rho(a) rho(s)` versus
 `rho(s) rho(a)`. -/
@@ -121,6 +139,47 @@ def RepElementCommutesWithGroupAction {G V : Type*}
     repOfGroupAlgebraElement rep a (rep.rho s v) =
       rep.rho s (repOfGroupAlgebraElement rep a v)
 
+/-- Coefficient-level centrality implies that the represented group-algebra
+element commutes with every represented group element.  The proof is the
+finite change of variables `g \mapsto s g s^{-1}`. -/
+theorem repOfGroupAlgebraElement_commutes_of_central
+    {G V : Type*} [Fintype G] [Group G]
+    [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData G V)
+    (a : GroupAlgebraElement G)
+    (hcentral : a.IsCentralByCoefficients) :
+    RepElementCommutesWithGroupAction rep a := by
+  classical
+  intro s v
+  let conj : G ≃ G := (Equiv.mulLeft s).trans (Equiv.mulRight s⁻¹)
+  have hcoeff (g : G) : a (s * g * s⁻¹) = a g := by
+    have h := hcentral s (s * g)
+    simpa [GroupAlgebraElement.CommutesWithGroupElement, mul_assoc] using h
+  unfold repOfGroupAlgebraElement
+  calc
+    (∑ g : G, a g • rep.rho g (rep.rho s v)) =
+        ∑ g : G, a g • rep.rho (g * s) v := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      rw [rep.map_mul]
+    _ = ∑ g : G,
+        a (s * g * s⁻¹) • rep.rho ((s * g * s⁻¹) * s) v := by
+      exact (Equiv.sum_comp conj
+        (fun g : G => a g • rep.rho (g * s) v)).symm
+    _ = ∑ g : G, a g • rep.rho (s * g) v := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      rw [hcoeff]
+      simp [mul_assoc]
+    _ = ∑ g : G, rep.linearMap s (a g • rep.rho g v) := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      change a g • rep.rho (s * g) v = rep.rho s (a g • rep.rho g v)
+      rw [rep.map_mul, rep.map_smul]
+    _ = rep.linearMap s (∑ g : G, a g • rep.rho g v) := by
+      rw [map_sum]
+    _ = rep.rho s (∑ g : G, a g • rep.rho g v) := rfl
+
 /-- The statement that two represented group-algebra elements commute. -/
 def RepElementsCommute {G V : Type*}
     [Fintype G] [Group G] [AddCommMonoid V] [Module Real V]
@@ -129,6 +188,38 @@ def RepElementsCommute {G V : Type*}
   forall v : V,
     repOfGroupAlgebraElement rep a (repOfGroupAlgebraElement rep b v) =
       repOfGroupAlgebraElement rep b (repOfGroupAlgebraElement rep a v)
+
+/-- A coefficient-central element commutes, after applying a representation,
+with every represented group-algebra element. -/
+theorem repOfGroupAlgebraElements_commute_of_central
+    {G V : Type*} [Fintype G] [Group G]
+    [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData G V)
+    (a b : GroupAlgebraElement G)
+    (hcentral : a.IsCentralByCoefficients) :
+    RepElementsCommute rep a b := by
+  classical
+  intro v
+  let A : V →ₗ[Real] V := repOfGroupAlgebraElementLinearMap rep a
+  have hgroup := repOfGroupAlgebraElement_commutes_of_central rep a hcentral
+  change A (repOfGroupAlgebraElement rep b v) =
+    repOfGroupAlgebraElement rep b (A v)
+  unfold repOfGroupAlgebraElement
+  calc
+    A (∑ g : G, b g • rep.rho g v) =
+        ∑ g : G, A (b g • rep.rho g v) := by
+      rw [map_sum]
+    _ = ∑ g : G, b g • A (rep.rho g v) := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      rw [map_smul]
+    _ = ∑ g : G, b g • rep.rho g (A v) := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      congr 1
+      change repOfGroupAlgebraElement rep a (rep.rho g v) =
+        rep.rho g (repOfGroupAlgebraElement rep a v)
+      exact hgroup g v
 
 /-- A Young-block representation-action interface.  It identifies adjacent
 Young operators and diagonal content operators with represented group-algebra
@@ -225,5 +316,20 @@ def averagedRejectionYoungOperatorData_of_groupAlgebraAction {n : Nat}
   commutes_content := by
     exact averagedRejectionYoungOperatorOfGroupAlgebra_commutes_content
       young q hcontent
+
+/-- A coefficient-central group-algebra element automatically supplies both
+commutation fields required by the averaged-rejection Young-operator
+interface. -/
+def averagedRejectionYoungOperatorData_of_centralGroupAlgebraElement
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (young : YoungRepresentationActionData lam)
+    (q : GroupAlgebraElement (Perm (Fin (n + 1))))
+    (hcentral : q.IsCentralByCoefficients) :
+    AveragedRejectionYoungOperatorData lam :=
+  averagedRejectionYoungOperatorData_of_groupAlgebraAction young q
+    (repOfGroupAlgebraElement_commutes_of_central young.rep q hcentral)
+    (fun a =>
+      repOfGroupAlgebraElements_commute_of_central young.rep q
+        (young.jucysMurphyElement a) hcentral)
 
 end DictatorshipTesting

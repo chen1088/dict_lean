@@ -3,16 +3,17 @@ import DictatorshipTesting.Paper.S05_Lem5_15_YoungBasisScalarCommutant
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_28_GroupAlgebraAction`
 -/
 
 /-!
 Preparatory interface below Lemma 5.16.
 
-This file names the missing operator-level object needed to turn the generic
+This file names the operator-level object needed to turn the generic
 Young-basis scalar commutant theorem into the matching-average scalarity
-bridge.  It does not assert scalarity and does not construct the group-algebra
-operator `rho_lambda(q)`.  Instead, it records the precise data still needed
-for one tableau-coordinate Young block.
+bridge.  Definition 5.29 later constructs this data for the actual
+group-algebra operator `rho_lambda(q)` on every supplied Young representation
+action model.
 -/
 
 noncomputable section
