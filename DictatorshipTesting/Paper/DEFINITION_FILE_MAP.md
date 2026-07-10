@@ -109,6 +109,8 @@ This file records the definition-file refactor inventory. Definition modules now
 | `S05_averagedRejectionYoungOperatorData_actual` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
 | `tableauOperatorTrace` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_30_TableauOperatorTrace.lean` | Definition 5.30 | `DictatorshipTesting` | added |
 | `youngBlockRightCoordinateTrace` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_30_TableauOperatorTrace.lean` | Definition 5.30 | Lemma 5.12 | full matrix-coordinate trace for a right-index operator |
+| `tableauOperatorTrace_eq_linearMapTrace` | theorem | `DictatorshipTesting/Paper/Defs/S05_Def5_30_TableauOperatorTrace.lean` | Definition 5.30 | Lemma 5.12 | identifies the coordinate sum with basis-independent trace |
+| `fixedMatchingRejectionYoungOperator_trace_eq_highLabelCount_of_eigenbasis` | theorem | `DictatorshipTesting/Paper/Defs/S05_Def5_30_TableauOperatorTrace.lean` | Definition 5.30 | Lemma 5.12 | computes the actual fixed trace from a supplied labeled eigenbasis |
 
 ## Reusable declarations still outside the split `Defs.lean` layer
 

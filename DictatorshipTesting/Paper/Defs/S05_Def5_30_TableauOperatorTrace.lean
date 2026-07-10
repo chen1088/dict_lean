@@ -36,6 +36,70 @@ def youngBlockRightCoordinateTrace {n : Nat} {lam : YoungDiagram n}
   ∑ _S : StandardYoungTableau lam,
     ∑ T : StandardYoungTableau lam, op (tableauBasisVec T) T
 
+/-- The explicit tableau-coordinate trace agrees with the basis-independent
+linear-map trace. -/
+theorem tableauOperatorTrace_eq_linearMapTrace
+    {n : Nat} {lam : YoungDiagram n}
+    (op : TableauSpace lam →ₗ[Real] TableauSpace lam) :
+    tableauOperatorTrace op = LinearMap.trace Real (TableauSpace lam) op := by
+  classical
+  rw [LinearMap.trace_eq_matrix_trace Real
+    (Pi.basisFun Real (StandardYoungTableau lam))]
+  unfold tableauOperatorTrace Matrix.trace
+  apply Finset.sum_congr rfl
+  intro T _hT
+  change op (tableauBasisVec T) T =
+    (LinearMap.toMatrix
+      (Pi.basisFun Real (StandardYoungTableau lam))
+      (Pi.basisFun Real (StandardYoungTableau lam)) op) T T
+  rw [LinearMap.toMatrix_apply, Pi.basisFun_repr]
+  have hbasis :
+      Pi.basisFun Real (StandardYoungTableau lam) T = tableauBasisVec T := by
+    funext S
+    simp [Pi.basisFun_apply, Pi.single_apply, tableauBasisVec, eq_comm]
+  rw [hbasis]
+
+/-- If a supplied basis diagonalizes the matching cube with labels `label`,
+then the trace of the actual represented high-matching element is the number
+of high labels.  This is the finite-dimensional trace step in Lemma 5.12; it
+does not assume the trace value itself. -/
+theorem fixedMatchingRejectionYoungOperator_trace_eq_highLabelCount_of_eigenbasis
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (n + 1))
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (b : Module.Basis ι Real (TableauSpace lam))
+    (label : ι -> Finset (Fin M.toOrdered.edgeCount))
+    (heigen : forall i x,
+      action.rep.rho (M.toOrdered.tau x) (b i) =
+        cubeChar (label i) x • b i) :
+    tableauOperatorTrace
+        (S05_fixedMatchingRejectionYoungOperator action M) =
+      ∑ i : ι,
+        if S05_matchingCharacterHigh (label i) then (1 : Real) else 0 := by
+  classical
+  let op : TableauSpace lam →ₗ[Real] TableauSpace lam :=
+    repOfGroupAlgebraElementLinearMap action.rep
+      (S05_fixedMatchingHighElement M.toOrdered)
+  change tableauOperatorTrace op = _
+  rw [tableauOperatorTrace_eq_linearMapTrace op]
+  rw [LinearMap.trace_eq_matrix_trace Real b]
+  unfold Matrix.trace
+  apply Finset.sum_congr rfl
+  intro i _hi
+  change
+    (LinearMap.toMatrix b b op) i i =
+      if S05_matchingCharacterHigh (label i) then 1 else 0
+  rw [LinearMap.toMatrix_apply]
+  have hq := S05_fixedMatchingRejectionYoungOperator_apply_eigenvector
+    action M (label i) (b i) (heigen i)
+  change op (b i) =
+    if S05_matchingCharacterHigh (label i) then b i else 0 at hq
+  rw [hq]
+  by_cases hhigh : S05_matchingCharacterHigh (label i)
+  · simp [hhigh]
+  · simp [hhigh]
+
 /-- Trace is linear across a finite sum of tableau-coordinate operators. -/
 theorem tableauOperatorTrace_finset_sum
     {n : Nat} {lam : YoungDiagram n} {ι : Type*}

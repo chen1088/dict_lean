@@ -246,19 +246,22 @@ Generic commutant infrastructure for Lemma 5.15:
   is tied to the literal adjacent transposition `(a,a+1)`, not an arbitrary
   named permutation.
 - `S05_Def5_30_TableauOperatorTrace.lean` defines the basis trace, proves
+  that it agrees with Mathlib's basis-independent linear-map trace, proves
   `trace = tableauDim * scalar`, proves scalar equals trace divided by nonzero
   tableau dimension, and proves that the concrete averaged-operator trace is
   the average of the represented fixed-matching traces.  It also proves that a
-  fixed trace is the sum of its high-character idempotent traces and that right
+  fixed trace is the sum of its high-character idempotent traces, and that in
+  any supplied matching eigenbasis it equals the number of high labels.  Right
   action on the full matrix-coordinate block contributes the factor
   `tableauDim` from the free left tableau index.
 
 The existing A.1/A.2 axiom declarations still have their old numerical-shadow
 types.  They were not silently changed: replacing them now would break the
 active Theorem 4.8 route because the repository does not yet construct the
-regular Young-block energy decomposition, and Lemma 5.12 does not yet identify
-the trace of the concrete fixed-matching operator with `hEvenTableau` or
-`hOddTableau`.  The exact missing result is an actual matching eigenbasis whose
+regular Young-block energy decomposition.  Lemma 5.12 now identifies the trace
+of the concrete fixed-matching operator with `hEvenTableau` or `hOddTableau`
+from the labeled matching eigenbasis in its paper statement.  The exact missing
+result for applying it is Lemma 5.10: an actual matching eigenbasis whose
 character-label multiplicities are the recursive sign-pattern counts; the
 current Lemma 5.10 has predicates and projections but no basis/spanning or
 multiplicity theorem.  The final global weighted scalarity axiom therefore
@@ -357,8 +360,8 @@ Internal bridge components proven:
 Remaining bridge boundary:
 
 - `S05_Lem5_12_TraceOfOneLocalTruncationOnOneYoungBlock.lean` -- Lemma 5.12:
-  matching-character/local-truncation calculation plus an explicit Young-block
-  trace-model interface.
+  the actual fixed-matching tableau and full-block trace formulas from the
+  explicit labeled matching eigenbasis in the paper statement.
 - `S05_Lem5_16_BlockScalarOfTheAveragedRejection.lean` -- Lemma 5.16:
   trace-divided-by-dimension algebra from explicit scalarity and trace identity
   inputs; those inputs are bundled into the spectral-block model boundary.

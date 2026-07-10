@@ -180,19 +180,23 @@ Remaining Section 5/AppA bridge boundary:
   `AppA_YoungBlockEnergyData` and `AppA_TraceScalarDataWithDim`; their types have
   not yet been replaced because the active global route has no internal source
   for those numerical packages.
-- Definition 5.30 proves the explicit tableau-basis trace formula, scalar equals
-  trace divided by nonzero tableau dimension, and linearity of trace across the
-  matching average.  It now reduces the concrete fixed trace to the sum of the
-  actual high-character projection traces and proves the finite double-index
+- Definition 5.30 proves that the explicit tableau-basis trace is Mathlib's
+  basis-independent linear-map trace, proves scalar equals trace divided by
+  nonzero tableau dimension, and proves linearity across the matching average.
+  It reduces the concrete fixed trace to the sum of the actual high-character
+  projection traces and proves that, in any supplied matching eigenbasis, this
+  trace is exactly the number of high labels.  It also proves the finite double-index
   identity
   `young-block trace = tableauDim * tableau-space trace`.
-- The first missing implication is no longer Fourier algebra or the left-index
-  factor.  The current Lemma 5.10 has no actual eigenbasis, no spanning theorem,
-  and no theorem identifying the multiplicity of each character label with the
-  recursively defined sign-pattern multiset.  Its formal
+- Lemma 5.12 now proves the even and odd numerical tableau traces and their full
+  Young-block `tableauDim` multiples from the explicit eigenbasis and
+  high-label count assumed by its paper statement.
+- The first missing implication is Lemma 5.10.  It has no actual eigenbasis, no
+  spanning theorem, and no theorem identifying the multiplicity of each
+  character label with the recursively defined sign-pattern multiset.  Its formal
   `MatchingRestrictionEvenInput` and `MatchingRestrictionOddInput` conclusions
   are only inequalities for `hEven/hOdd`.  Therefore Lean cannot yet turn the
-  sum of character-projection traces into `hEvenTableau` or `hOddTableau`.
+  proved conditional Lemma 5.12 trace into an unconditional application.
   The global orthogonal block decomposition is the next missing layer after
   that representation-theoretic rank/count theorem.
 
@@ -604,8 +608,9 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   covariance, coefficient centrality, represented adjacent/content
   commutation, and one-block scalarity for supplied Young action data.
 - `S05_Def5_30_TableauOperatorTrace.lean`: explicit tableau-coordinate trace,
-  scalar trace/division formulas, and the average-of-fixed-traces theorem for
-  the concrete averaged rejection operator.
+  equality with linear-map trace, fixed trace from a labeled eigenbasis, scalar
+  trace/division formulas, and the average-of-fixed-traces theorem for the
+  concrete averaged rejection operator.
 - `S05_Lem5_17_BlockLowerBoundImpliesTheGap.lean`: weighted-sum spectral-gap
   algebra, including trace-model-to-gap wrappers
   `S05_Lem5_17_spectralGapFromBlockTraceModel` and

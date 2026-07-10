@@ -80,14 +80,19 @@ Detailed maps:
   average of the concrete fixed-matching traces.  It reduces each fixed trace
   to the sum of its high-character idempotent traces and proves the
   `tableauDim` left-index factor for the full matrix-coordinate block.
+- Definition 5.30 now also identifies the coordinate trace with Mathlib's
+  basis-independent linear-map trace.  Lemma 5.12 uses this to prove the actual
+  even and odd fixed-matching tableau traces, and their full Young-block
+  `tableauDim` multiples, from the labeled matching eigenbasis assumed in the
+  paper statement.
 - Lemmas 5.17--5.20 expose the active tableauDim spectral-bridge route used by
   Theorem 4.8.
-- The first remaining representation-theoretic frontier is the rank/count part
-  of the fixed-matching trace theorem.  Lemma 5.10 currently has no actual
-  matching eigenbasis, spanning theorem, or identification of character-label
-  multiplicities with the recursive sign-pattern multiset.  Consequently the
-  proved sum of character-projection traces cannot yet be rewritten as
-  `hEvenTableau` or `hOddTableau`.  After that, the regular orthogonal
+- The first remaining representation-theoretic frontier is Lemma 5.10.
+  It currently has no actual matching eigenbasis, spanning theorem, or
+  identification of character-label multiplicities with the recursive
+  sign-pattern multiset.  Lemma 5.12 is now proved from exactly that explicit
+  eigenbasis/count data, but the repository cannot instantiate it until the
+  two-box branching construction in Lemma 5.10 is formalized.  After that, the regular orthogonal
   Young-block decomposition and global weighted energy identity are still
   required.  The old numerical A.1/A.2 axiom types and the final
   matching-average scalarity input therefore remain unchanged.

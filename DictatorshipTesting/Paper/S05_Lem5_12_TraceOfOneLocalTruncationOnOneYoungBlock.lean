@@ -14,10 +14,9 @@ Direct reverse imports:
 Paper statement: Lemma 5.12 (`lem:PM-trace-young-block`)
 Title in paper: Trace of one local truncation on one Young block.
 
-Status: unproven as the paper's numerical fixed-trace statement.  The concrete
-operator is reduced below to its character-idempotent traces, and the full
-matrix-coordinate trace factor is proved.  The missing step is the actual
-matching eigenbasis with its sign-pattern multiplicities.
+Status: proven with the explicit matching-eigenbasis and label-count hypotheses
+in the paper statement.  The application still awaits Lemma 5.10, which must
+construct that labeled eigenbasis from two-box branching.
 -/
 
 /-!
@@ -66,6 +65,104 @@ theorem S05_Lem5_12_youngBlockTrace_eq_tableauDim_mul_repTrace
         tableauOperatorTrace
           (S05_fixedMatchingRejectionYoungOperator action M) := by
   exact fixedMatchingYoungBlockTrace_eq_tableauDim_mul_repTrace action M
+
+/-- Even tableau-space trace formula for the actual fixed-matching operator,
+from exactly the matching eigenbasis and high-label count asserted in Lemma
+5.10. -/
+theorem S05_Lem5_12_fixedMatching_tableauTrace_even_of_eigenbasis
+    {n m : Nat} (hsize : n + 1 = 2 * m)
+    {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (n + 1))
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (b : Module.Basis ι Real (TableauSpace lam))
+    (label : ι -> Finset (Fin M.toOrdered.edgeCount))
+    (heigen : forall i x,
+      action.rep.rho (M.toOrdered.tau x) (b i) =
+        cubeChar (label i) x • b i)
+    (hcount :
+      (∑ i : ι,
+        if S05_matchingCharacterHigh (label i) then (1 : Real) else 0) =
+          hEvenTableau m (hsize ▸ lam)) :
+    tableauOperatorTrace
+        (S05_fixedMatchingRejectionYoungOperator action M) =
+      hEvenTableau m (hsize ▸ lam) := by
+  rw [fixedMatchingRejectionYoungOperator_trace_eq_highLabelCount_of_eigenbasis
+    action M b label heigen]
+  exact hcount
+
+/-- Odd tableau-space trace formula for the actual fixed-matching operator,
+from exactly the matching eigenbasis and high-label count asserted in Lemma
+5.10. -/
+theorem S05_Lem5_12_fixedMatching_tableauTrace_odd_of_eigenbasis
+    {n m : Nat} (hsize : n + 1 = 2 * m + 1)
+    {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (n + 1))
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (b : Module.Basis ι Real (TableauSpace lam))
+    (label : ι -> Finset (Fin M.toOrdered.edgeCount))
+    (heigen : forall i x,
+      action.rep.rho (M.toOrdered.tau x) (b i) =
+        cubeChar (label i) x • b i)
+    (hcount :
+      (∑ i : ι,
+        if S05_matchingCharacterHigh (label i) then (1 : Real) else 0) =
+          hOddTableau m (hsize ▸ lam)) :
+    tableauOperatorTrace
+        (S05_fixedMatchingRejectionYoungOperator action M) =
+      hOddTableau m (hsize ▸ lam) := by
+  rw [fixedMatchingRejectionYoungOperator_trace_eq_highLabelCount_of_eigenbasis
+    action M b label heigen]
+  exact hcount
+
+/-- Even full Young-block trace formula.  The free left tableau index supplies
+the factor `tableauDim`. -/
+theorem S05_Lem5_12_fixedMatching_youngBlockTrace_even_of_eigenbasis
+    {n m : Nat} (hsize : n + 1 = 2 * m)
+    {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (n + 1))
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (b : Module.Basis ι Real (TableauSpace lam))
+    (label : ι -> Finset (Fin M.toOrdered.edgeCount))
+    (heigen : forall i x,
+      action.rep.rho (M.toOrdered.tau x) (b i) =
+        cubeChar (label i) x • b i)
+    (hcount :
+      (∑ i : ι,
+        if S05_matchingCharacterHigh (label i) then (1 : Real) else 0) =
+          hEvenTableau m (hsize ▸ lam)) :
+    youngBlockRightCoordinateTrace
+        (S05_fixedMatchingRejectionYoungOperator action M) =
+      tableauDim lam * hEvenTableau m (hsize ▸ lam) := by
+  rw [S05_Lem5_12_youngBlockTrace_eq_tableauDim_mul_repTrace action M]
+  rw [S05_Lem5_12_fixedMatching_tableauTrace_even_of_eigenbasis
+    hsize action M b label heigen hcount]
+
+/-- Odd full Young-block trace formula.  The free left tableau index supplies
+the factor `tableauDim`. -/
+theorem S05_Lem5_12_fixedMatching_youngBlockTrace_odd_of_eigenbasis
+    {n m : Nat} (hsize : n + 1 = 2 * m + 1)
+    {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (n + 1))
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (b : Module.Basis ι Real (TableauSpace lam))
+    (label : ι -> Finset (Fin M.toOrdered.edgeCount))
+    (heigen : forall i x,
+      action.rep.rho (M.toOrdered.tau x) (b i) =
+        cubeChar (label i) x • b i)
+    (hcount :
+      (∑ i : ι,
+        if S05_matchingCharacterHigh (label i) then (1 : Real) else 0) =
+          hOddTableau m (hsize ▸ lam)) :
+    youngBlockRightCoordinateTrace
+        (S05_fixedMatchingRejectionYoungOperator action M) =
+      tableauDim lam * hOddTableau m (hsize ▸ lam) := by
+  rw [S05_Lem5_12_youngBlockTrace_eq_tableauDim_mul_repTrace action M]
+  rw [S05_Lem5_12_fixedMatching_tableauTrace_odd_of_eigenbasis
+    hsize action M b label heigen hcount]
 
 /-- Scalar trace formula as the current Lean consequence of the even
 matching-restriction input. -/

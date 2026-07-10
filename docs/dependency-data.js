@@ -1821,6 +1821,8 @@ window.DICT_DEPENDENCY_DATA = {
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_30_TableauOperatorTrace.lean",
       "wrappers": [
         "tableauOperatorTrace",
+        "tableauOperatorTrace_eq_linearMapTrace",
+        "fixedMatchingRejectionYoungOperator_trace_eq_highLabelCount_of_eigenbasis",
         "S05_fixedMatchingRejectionYoungOperator_trace_eq_sum_characters",
         "youngBlockTrace_eq_tableauDim_mul_repTrace",
         "tableauOperatorTrace_eq_tableauDim_mul_of_scalar_on_basis",
@@ -1831,8 +1833,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D04",
         "S05_D29"
       ],
-      "summary": "Explicit tableau trace, fixed-character decomposition, full-block dimension factor, and scalar/average formulas.",
-      "statement": "Definition 5.30 defines operator trace by summing diagonal tableau-basis coefficients. It reduces a concrete fixed high-matching trace to the traces of its high-character idempotents, proves the extra tableau-dimension factor for right action on the full matrix-coordinate block, and proves the scalar and matching-average trace formulas. The character-projection ranks are not yet identified with the recursive heights.",
+      "summary": "Basis-independent tableau trace, fixed-eigenbasis count, full-block dimension factor, and scalar/average formulas.",
+      "statement": "Definition 5.30 defines operator trace by summing diagonal tableau-basis coefficients and proves that this is Mathlib's basis-independent linear-map trace. In any supplied matching eigenbasis, the concrete fixed high-matching trace equals the number of high character labels. It also proves the extra tableau-dimension factor for right action on the full matrix-coordinate block and the scalar and matching-average trace formulas.",
       "terms": [
         {
           "text": "Tableau coordinate space",
@@ -1852,28 +1854,36 @@ window.DICT_DEPENDENCY_DATA = {
           "line": 27
         },
         {
+          "name": "tableauOperatorTrace_eq_linearMapTrace",
+          "line": 41
+        },
+        {
+          "name": "fixedMatchingRejectionYoungOperator_trace_eq_highLabelCount_of_eigenbasis",
+          "line": 66
+        },
+        {
           "name": "youngBlockTrace_eq_tableauDim_mul_repTrace",
-          "line": 63
+          "line": 127
         },
         {
           "name": "S05_fixedMatchingRejectionYoungOperator_trace_eq_sum_characters",
-          "line": 77
+          "line": 141
         },
         {
           "name": "tableauOperatorTrace_eq_tableauDim_mul_of_scalar_on_basis",
-          "line": 117
+          "line": 181
         },
         {
           "name": "S05_averagedRejectionYoungOperator_trace_eq_tableauDim_mul_scalar",
-          "line": 155
+          "line": 219
         },
         {
           "name": "S05_averagedRejectionYoungOperator_trace_eq_average_fixed",
-          "line": 175
+          "line": 239
         },
         {
           "name": "S05_averagedRejectionYoungOperator_scalar_eq_trace_div_tableauDim",
-          "line": 226
+          "line": 290
         }
       ]
     },
@@ -2263,7 +2273,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Matching algebra",
       "kind": "paper",
       "importance": "major",
-      "status": "external",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_10_MatchingSubgroupEigenbasis.lean",
       "wrappers": [
         "S05_Lem5_10_matchingSignProjectionEven_isMatchingEigenvector",
@@ -2373,8 +2383,10 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "external",
       "file": "DictatorshipTesting/Paper/S05_Lem5_12_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
       "wrappers": [
-        "S05_Lem5_12_fixedMatching_trace_eq_sum_characterTraces",
-        "S05_Lem5_12_youngBlockTrace_eq_tableauDim_mul_repTrace",
+        "S05_Lem5_12_fixedMatching_tableauTrace_even_of_eigenbasis",
+        "S05_Lem5_12_fixedMatching_tableauTrace_odd_of_eigenbasis",
+        "S05_Lem5_12_fixedMatching_youngBlockTrace_even_of_eigenbasis",
+        "S05_Lem5_12_fixedMatching_youngBlockTrace_odd_of_eigenbasis",
         "traceLocalTruncation_even_from_restriction",
         "traceLocalTruncation_odd_from_restriction"
       ],
@@ -2384,8 +2396,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D20",
         "S05_D21"
       ],
-      "summary": "Concrete trace reductions are proved; the matching-character rank count remains representation input.",
-      "statement": "Lemma 5.12 reduces the actual fixed tableau-space trace to the sum of high-character projection traces and proves the tableau-dimension factor for the full matrix-coordinate block. Identifying those projection ranks with the even or odd tableau height remains unproved because Lemma 5.10 has no actual eigenbasis multiplicity theorem.",
+      "summary": "The actual fixed tableau and full Young-block traces are proved from the paper's labeled matching-eigenbasis hypothesis.",
+      "statement": "Lemma 5.12 uses basis-invariance of trace and the proved 0/1 action of the concrete high-matching operator. From the explicitly supplied matching eigenbasis and its high-label count, it proves the even and odd tableau-space traces and the full-block formulas with the tableau-dimension factor. Lemma 5.10 must still construct that labeled eigenbasis for the application.",
       "terms": [
         {
           "text": "Matching subgroup eigenbasis",
@@ -2413,12 +2425,20 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "Let $M$ be a perfect matching on $[2m]$ and let $\\lambda\\vdash2m$.  Suppose\n$v_1,\\ldots,v_{d_\\lambda}$ is an orthonormal basis of $V^\\lambda$ and\n$R_1,\\ldots,R_{d_\\lambda}$ is a listing of $\\mathsf X_m(\\lambda)$ satisfying\n\\begin{equation*}\n  \\rho^\\lambda(\\tau_x)v_a=\\chi_{R_a}(\\tau_x)v_a\n  \\qquad(\\tau_x\\in A_M).\n\\end{equation*}\nThen\n\\begin{equation}\\label{eq:trace-one-PM-even}\n  \\operatorname{tr}\\bigl((I-P_M)|_{\\mathcal H_\\lambda}\\bigr)\n  =d_\\lambda h_m(\\lambda).\n\\end{equation}\nSimilarly, if $M$ is a near-perfect matching on $[2m+1]$, $\\lambda\\vdash2m+1$,\nand the corresponding basis is listed by\n$\\mathsf X_m^{\\mathrm{odd}}(\\lambda)$, then\n\\begin{equation}\\label{eq:trace-one-PM-odd}\n  \\operatorname{tr}\\bigl((I-P_M)|_{\\mathcal H_\\lambda}\\bigr)\n  =d_\\lambda h_m^{\\mathrm{odd}}(\\lambda).\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S05_Lem5_12_fixedMatching_trace_eq_sum_characterTraces",
-          "line": 44
+          "name": "S05_Lem5_12_fixedMatching_tableauTrace_even_of_eigenbasis",
+          "line": 72
         },
         {
-          "name": "S05_Lem5_12_youngBlockTrace_eq_tableauDim_mul_repTrace",
-          "line": 59
+          "name": "S05_Lem5_12_fixedMatching_tableauTrace_odd_of_eigenbasis",
+          "line": 97
+        },
+        {
+          "name": "S05_Lem5_12_fixedMatching_youngBlockTrace_even_of_eigenbasis",
+          "line": 121
+        },
+        {
+          "name": "S05_Lem5_12_fixedMatching_youngBlockTrace_odd_of_eigenbasis",
+          "line": 145
         },
         {
           "name": "traceLocalTruncation_even_from_restriction",
