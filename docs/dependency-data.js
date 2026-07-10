@@ -1098,14 +1098,17 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "interface",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_13_EvenSignPatternMultiset.lean",
       "wrappers": [
+        "S05_evenSignPatternMultiset",
+        "S05_zeroSignPatternMultiplicity",
+        "S05_highSignPatternMultiplicity",
         "S05_evenZeroSignPatternCount",
         "S05_evenHighSignPatternCount"
       ],
       "deps": [
         "S05_D09"
       ],
-      "summary": "Even zero/high sign-pattern counters.",
-      "statement": "Definition 5.13 introduces the even sign-pattern multiset counters.",
+      "summary": "Multiplicity-preserving recursive even sign-pattern multiset.",
+      "statement": "Definition 5.13 defines the genuine recursive multiset of matching-character labels, together with zero/high multiplicity functions and older scalar shadows.",
       "terms": [
         {
           "text": "Two-box removals",
@@ -1117,12 +1120,16 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "For $\\lambda\\vdash2m$, define a multiset $\\mathsf X_m(\\lambda)$ of subsets of\n$[m]$ as follows.  For $m=1$,\n\\begin{equation*}\n  \\mathsf X_1((2))=\\{\\emptyset\\},\n  \\qquad\n  \\mathsf X_1((1,1))=\\{\\{1\\}\\}.\n\\end{equation*}\nFor $m\\ge2$,\n\\begin{equation}\\label{eq:X-recursion-even}\n\\begin{aligned}\n  \\mathsf X_m(\\lambda)\n  :=&\\biguplus_{\\mu\\in\\mathsf H_2(\\lambda)}\n      \\{R:R\\in\\mathsf X_{m-1}(\\mu)\\}  \\\\\n   &\\uplus\n     \\biguplus_{\\mu\\in\\mathsf V_2(\\lambda)}\n      \\{R\\cup\\{m\\}:R\\in\\mathsf X_{m-1}(\\mu)\\}.\n\\end{aligned}\n\\end{equation}\nHere $\\biguplus$ is multiset union.  Set\n\\begin{equation*}\n  z_m(\\lambda):=|\\{R\\in\\mathsf X_m(\\lambda):R=\\emptyset\\}|,\n  \\qquad\n  h_m(\\lambda):=|\\{R\\in\\mathsf X_m(\\lambda):|R|\\ge2\\}|.\n\\end{equation*}",
       "leanLinks": [
         {
+          "name": "S05_evenSignPatternMultiset",
+          "line": 40
+        },
+        {
           "name": "S05_evenZeroSignPatternCount",
-          "line": 24
+          "line": 63
         },
         {
           "name": "S05_evenHighSignPatternCount",
-          "line": 29
+          "line": 68
         }
       ]
     },
@@ -1136,13 +1143,15 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "interface",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_14_OddSignPatternMultiset.lean",
       "wrappers": [
+        "S05_oddSignPatternMultiset",
         "S05_oddHighSignPatternCount"
       ],
       "deps": [
+        "S05_D13",
         "S05_D11"
       ],
-      "summary": "Odd high sign-pattern counter.",
-      "statement": "Definition 5.14 introduces the odd sign-pattern multiset counter.",
+      "summary": "Multiplicity-preserving recursive odd sign-pattern multiset.",
+      "statement": "Definition 5.14 defines the odd label multiset as the multiset union of the even label multisets over one-box children.",
       "terms": [
         {
           "text": "One-box removals",
@@ -1154,8 +1163,12 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "For $\\lambda\\vdash2m+1$, define\n\\begin{equation}\\label{eq:X-recursion-odd}\n  \\mathsf X_m^{\\mathrm{odd}}(\\lambda)\n  :=\\biguplus_{\\mu\\nearrow\\lambda}\\mathsf X_m(\\mu),\n\\end{equation}\nand set\n\\begin{equation*}\n  h_m^{\\mathrm{odd}}(\\lambda)\n  :=|\\{R\\in\\mathsf X_m^{\\mathrm{odd}}(\\lambda):|R|\\ge2\\}|.\n\\end{equation*}",
       "leanLinks": [
         {
+          "name": "S05_oddSignPatternMultiset",
+          "line": 28
+        },
+        {
           "name": "S05_oddHighSignPatternCount",
-          "line": 23
+          "line": 35
         }
       ]
     },
@@ -2223,8 +2236,11 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_09_SizesOfTheSignPatternMultisets.lean",
       "wrappers": [
-        "S05_Lem5_09_tableauDim_twoStrip_size",
-        "S05_Lem5_09_tableauDim_oneBox_size"
+        "S05_Lem5_09_evenSignPatternMultiset_card",
+        "S05_Lem5_09_oddSignPatternMultiset_card",
+        "S05_Lem5_09_evenSignPatternMultiset_zeroMultiplicity",
+        "S05_Lem5_09_evenSignPatternMultiset_highMultiplicity",
+        "S05_Lem5_09_oddSignPatternMultiset_highMultiplicity"
       ],
       "deps": [
         "S05_D13",
@@ -2232,8 +2248,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_L07",
         "S05_L08"
       ],
-      "summary": "Tableau-count size identities for sign-pattern multisets.",
-      "statement": "Lemma 5.9 proves the size identities for the sign-pattern multisets.",
+      "summary": "Cardinality and zero/high multiplicity identities for the genuine label multisets.",
+      "statement": "Lemma 5.9 proves that the genuine even and odd sign-pattern multisets have cardinality tableauDim, that empty labels are counted by zEven, and that high labels are counted by hEvenTableau and hOddTableau.",
       "terms": [
         {
           "text": "Even sign-pattern multiset",
@@ -2257,12 +2273,20 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "For $\\lambda\\vdash2m$,\n\\begin{equation*}\n  |\\mathsf X_m(\\lambda)|=d_\\lambda .\n\\end{equation*}\nFor $\\lambda\\vdash2m+1$,\n\\begin{equation*}\n  |\\mathsf X_m^{\\mathrm{odd}}(\\lambda)|=d_\\lambda .\n\\end{equation*}",
       "leanLinks": [
         {
-          "name": "S05_Lem5_09_tableauDim_twoStrip_size",
-          "line": 89
+          "name": "S05_Lem5_09_evenSignPatternMultiset_card",
+          "line": 59
         },
         {
-          "name": "S05_Lem5_09_tableauDim_oneBox_size",
-          "line": 109
+          "name": "S05_Lem5_09_oddSignPatternMultiset_card",
+          "line": 90
+        },
+        {
+          "name": "S05_Lem5_09_evenSignPatternMultiset_highMultiplicity",
+          "line": 236
+        },
+        {
+          "name": "S05_Lem5_09_oddSignPatternMultiset_highMultiplicity",
+          "line": 281
         }
       ]
     },
@@ -2273,28 +2297,42 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Matching algebra",
       "kind": "paper",
       "importance": "major",
-      "status": "proven",
+      "status": "unproven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_10_MatchingSubgroupEigenbasis.lean",
       "wrappers": [
         "S05_Lem5_10_matchingSignProjectionEven_isMatchingEigenvector",
-        "S05_Lem5_10_matchingSignProjectionOdd_isMatchingEigenvector"
+        "S05_Lem5_10_matchingSignProjectionOdd_isMatchingEigenvector",
+        "S05_Lem5_10_highLabelCount_of_evenSignPatternMultiset",
+        "S05_Lem5_10_highLabelCount_of_oddSignPatternMultiset"
       ],
       "deps": [
-        "AppA_01",
-        "AppA_02",
         "S05_L01",
+        "S05_L03",
+        "S05_L05",
+        "S05_L06",
+        "S05_L09",
+        "S05_D13",
+        "S05_D14",
         "S05_D15",
         "S05_D16",
         "S05_D17",
         "S05_D18",
         "S05_D19"
       ],
-      "summary": "Concrete matching operators and sign projections are proved; the actual eigenbasis and label multiplicities are absent.",
-      "statement": "Lemma 5.10 currently proves commuting matching operators, simultaneous sign projections, and character action on any resulting eigenvector. It does not yet prove that these vectors form a basis or that their character multiplicities are the recursive sign-pattern multiset required by the paper statement.",
+      "summary": "Matching projections and label-multiset semantics are proved; the signed-child spanning eigenbasis is absent.",
+      "statement": "Lemma 5.10 currently proves commuting matching operators, simultaneous sign projections, character action, and the high-count consequence of an exact recursive label enumeration. It does not yet construct orthogonal signed-child embeddings or prove that their ranges span a basis whose labels enumerate the recursive multiset.",
       "terms": [
         {
           "text": "Tableau Coxeter model",
           "target": "S05_L01"
+        },
+        {
+          "text": "Two-box tableau branching",
+          "target": "S05_L03"
+        },
+        {
+          "text": "Sign-pattern multiset sizes",
+          "target": "S05_L09"
         },
         {
           "text": "Matching characters",
@@ -2327,11 +2365,19 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "S05_Lem5_10_matchingSignProjectionEven_isMatchingEigenvector",
-          "line": 362
+          "line": 365
         },
         {
           "name": "S05_Lem5_10_matchingSignProjectionOdd_isMatchingEigenvector",
-          "line": 370
+          "line": 373
+        },
+        {
+          "name": "S05_Lem5_10_highLabelCount_of_evenSignPatternMultiset",
+          "line": 513
+        },
+        {
+          "name": "S05_Lem5_10_highLabelCount_of_oddSignPatternMultiset",
+          "line": 525
         }
       ]
     },

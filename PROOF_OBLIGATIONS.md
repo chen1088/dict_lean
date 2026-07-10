@@ -191,14 +191,22 @@ Remaining Section 5/AppA bridge boundary:
 - Lemma 5.12 now proves the even and odd numerical tableau traces and their full
   Young-block `tableauDim` multiples from the explicit eigenbasis and
   high-label count assumed by its paper statement.
-- The first missing implication is Lemma 5.10.  It has no actual eigenbasis, no
-  spanning theorem, and no theorem identifying the multiplicity of each
-  character label with the recursively defined sign-pattern multiset.  Its formal
+- Definitions 5.13--5.14 now define the actual recursive even and odd label
+  multisets. Lemma 5.9 proves their `tableauDim` cardinalities, empty-label
+  multiplicity `zEven`, and high-label multiplicities
+  `hEvenTableau`/`hOddTableau`.
+- The first missing implication is Lemma 5.10. It has no actual eigenbasis or
+  spanning theorem, and no theorem that the labels of a basis enumerate the
+  recursive multisets. Its formal
   `MatchingRestrictionEvenInput` and `MatchingRestrictionOddInput` conclusions
   are only inequalities for `hEven/hOdd`.  Therefore Lean cannot yet turn the
   proved conditional Lemma 5.12 trace into an unconditional application.
-  The global orthogonal block decomposition is the next missing layer after
-  that representation-theoretic rank/count theorem.
+  The smallest missing internal layer is the signed-child decomposition: for
+  every tagged horizontal/vertical two-strip child, construct an isometric
+  embedding into the parent tableau space, prove its final-edge sign and
+  earlier-edge intertwining, prove distinct ranges orthogonal, and prove the
+  ranges span. The global orthogonal block decomposition is the next missing
+  layer after that theorem.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
 definition-only files `S05_Def5_24_TableauEvenHeight.lean` and
@@ -514,17 +522,19 @@ Lean theorem names:
 `matchingRestriction_even_specht_pieri_input`,
 `matchingRestriction_odd_specht_pieri_input`.
 
-Current status: the scalar/numerical shadow in Lean is proved; the full
-paper-level Specht restriction statement is not formalized.
+Current status: the recursive label multisets and all of their required
+cardinality/high-count semantics are proved. The full paper-level labeled
+eigenbasis statement is not formalized.
 
 Mathematical content: restricting `S^lambda` to the matching subgroup
 `A_M ~= (Z/2Z)^m` has the local character-weight multiset recursively counted
 by the Section 5 `X_m(lambda)` data.
 
-Why it is external or why it should be proven: the current Lean vocabulary does
-not contain Specht modules or restriction functors.  The file therefore proves
-only the scalar bounds needed by the scaffold, not the full representation
-statement.
+Exact internal blocker: the current two-step deletion API is a set-level
+tableau equivalence and dimension recursion. It does not yet provide signed
+child subspaces, isometric embeddings, final-edge eigenspace equations,
+pairwise orthogonality, or a direct-sum/spanning theorem. Those facts are needed
+to lift the induction hypothesis into a basis of the parent space.
 
 Citation target if external: repeated Pieri/Littlewood--Richardson branching
 for restriction to Young subgroups and then to the matching subgroup.
@@ -578,11 +588,13 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   `S05_Lem5_06_deletionCoordinateMap_youngAdjacentOperator_intertwines`, and
   coordinate-level diagonal-content intertwining through
   `S05_Lem5_06_deletionCoordinateMap_diagonalContent_intertwines`.
-- `S05_Lem5_09_SizesOfTheSignPatternMultisets.lean`: scalar sign-pattern count
-  recurrences and assumption-free `tableauDim` two-strip/one-box size wrappers
-  through `S05_Lem5_09_tableauDim_twoStrip_size` and
-  `S05_Lem5_09_tableauDim_oneBox_size`.  The older `youngDim` wrappers assume
-  the named dimension-branching inputs.
+- `S05_Lem5_09_SizesOfTheSignPatternMultisets.lean`: genuine recursive
+  multiset cardinalities and zero/high multiplicity identities through
+  `S05_Lem5_09_evenSignPatternMultiset_card`,
+  `S05_Lem5_09_oddSignPatternMultiset_card`, and the corresponding
+  `zeroMultiplicity`/`highMultiplicity` theorems. It also turns exact label
+  enumeration into the high-label sum used by Lemma 5.12. The older `youngDim`
+  wrappers assume the named dimension-branching inputs.
 - `S05_Lem5_10_MatchingSubgroupEigenbasis.lean`: concrete canonical
   matching-cube operator algebra, including fixed ordered-product wrappers and
   edge-sign product-to-character wrappers, plus preservation of other edge

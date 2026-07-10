@@ -10,14 +10,54 @@ Direct reverse imports:
 Paper statement: Definition 5.13 (`def:even-sign-patterns`)
 Title in paper: Even sign-pattern multiset.
 
-Status: definition/interface. The current finite scaffold records the two counts extracted from the
-even sign-pattern multiset: zero-weight entries `zEven` and high-weight entries
-`hEven`.
+Status: definition/interface. The multiset itself is represented as a
+`Multiset (Finset (Fin m))`, so repeated character labels retain their
+multiplicity. The older scalar shadows `zEven` and `hEven` remain available
+for the alternate `youngDim` certificate route.
 -/
 
 noncomputable section
 
+open scoped BigOperators
+
 namespace DictatorshipTesting
+
+/-- Embed a matching-character label on `m` edges into the first `m` edges of
+an `(m+1)`-edge matching. -/
+def S05_liftEvenSignPattern {m : Nat}
+    (R : Finset (Fin m)) : Finset (Fin (m + 1)) :=
+  R.map Fin.castSuccEmb
+
+/-- Extend a matching-character label by assigning negative sign to the new
+last matching edge. -/
+def S05_liftEvenSignPatternWithLast {m : Nat}
+    (R : Finset (Fin m)) : Finset (Fin (m + 1)) :=
+  insert (Fin.last m) (S05_liftEvenSignPattern R)
+
+/-- Definition 5.13: the recursive multiset of matching-character labels for
+an even Young diagram. Horizontal two-strip children keep the old label, while
+vertical two-strip children add the new last matching edge. -/
+noncomputable def S05_evenSignPatternMultiset :
+    (m : Nat) -> YoungDiagram (2 * m) -> Multiset (Finset (Fin m))
+  | 0, _ => ({Finset.empty} : Multiset (Finset (Fin 0)))
+  | m + 1, lam =>
+      (horizontalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu =>
+            (S05_evenSignPatternMultiset m mu).map S05_liftEvenSignPattern) +
+        (verticalTwoStripChildrenEven (m + 1) lam).sum
+          (fun mu =>
+            (S05_evenSignPatternMultiset m mu).map
+              S05_liftEvenSignPatternWithLast)
+
+/-- Multiplicity of weight-zero labels in a sign-pattern multiset. -/
+def S05_zeroSignPatternMultiplicity {m : Nat}
+    (X : Multiset (Finset (Fin m))) : Nat :=
+  X.countP (fun R => R.card = 0)
+
+/-- Multiplicity of labels of weight at least two in a sign-pattern multiset. -/
+def S05_highSignPatternMultiplicity {m : Nat}
+    (X : Multiset (Finset (Fin m))) : Nat :=
+  X.countP (fun R => 2 <= R.card)
 
 /-- Zero-weight count from the even sign-pattern multiset. -/
 abbrev S05_evenZeroSignPatternCount :

@@ -162,12 +162,15 @@ Proven Lemma 5.6 deletion-fiber intertwining:
   one-box deletion coordinate map intertwines both the deletion-fiber
   Young-adjacent operator and the explicit diagonal content operators.
 
-Proven Lemma 5.9 tableau-count size components:
+Proven Lemma 5.9 sign-pattern multiset semantics:
 
 - `S05_Lem5_09_SizesOfTheSignPatternMultisets.lean` -- Lemma 5.9
-  (`lem:X-size`): exposes the assumption-free `tableauDim` two-strip and
-  one-box size recurrences from Lemmas 5.7 and 5.8.  The older `youngDim`
-  wrappers assume the named dimension-branching inputs.
+  (`lem:X-size`): proves that the genuine recursive even and odd label
+  multisets have cardinality `tableauDim`. It also identifies empty-label and
+  high-label multiplicities with `zEven`, `hEvenTableau`, and `hOddTableau`,
+  and converts a finite enumeration of either multiset into the high-label sum
+  needed by Lemma 5.12. The older `youngDim` wrappers assume the named
+  dimension-branching inputs.
 
 Proven matching-cube components for Lemma 5.10:
 
@@ -181,8 +184,10 @@ Proven matching-cube components for Lemma 5.10:
   proves that one-edge plus/minus projections preserve all other edge
   eigenvalues, packages the support-selected one-edge projection choice, and
   proves that iterating those choices gives a simultaneous matching-edge
-  eigenvector.  The full Specht/Pieri restriction content is bundled into the
-  spectral-block model boundary.
+  eigenvector. Definitions 5.13--5.14 now contain the actual recursive label
+  multisets and Lemma 5.9 proves their multiplicity semantics. The missing
+  Lemma 5.10 step is the orthogonal signed-child decomposition that turns the
+  projected eigenvectors into a spanning basis with exactly those labels.
 
 Proven Definition 5.22 matching-idempotent components:
 
@@ -262,9 +267,10 @@ regular Young-block energy decomposition.  Lemma 5.12 now identifies the trace
 of the concrete fixed-matching operator with `hEvenTableau` or `hOddTableau`
 from the labeled matching eigenbasis in its paper statement.  The exact missing
 result for applying it is Lemma 5.10: an actual matching eigenbasis whose
-character-label multiplicities are the recursive sign-pattern counts; the
-current Lemma 5.10 has predicates and projections but no basis/spanning or
-multiplicity theorem.  The final global weighted scalarity axiom therefore
+character labels enumerate the now-defined recursive sign-pattern multisets.
+The multiset cardinality and high-label count are proved, but the current
+Lemma 5.10 still lacks orthogonal signed-child embeddings, spanning, and the
+basis-label equality. The final global weighted scalarity axiom therefore
 remains.
 
 Proven Lemma 5.17 trace-model-to-gap algebra:
@@ -313,10 +319,10 @@ External standard inputs:
   registered.
 - `S05_Lem5_10_MatchingSubgroupEigenbasis.lean` -- Lemma 5.10
   (`lem:matching-restriction-X`): the paper-level statement is the full
-  Specht/Pieri restriction theorem.  The current Lean file proves the concrete
-  matching-operator, sign-projection, and scalar-bound interfaces needed
-  downstream.  The Specht/Pieri representation-theoretic content is accounted
-  for inside the spectral-block model boundary.
+  labeled matching eigenbasis theorem. The current Lean file proves the
+  concrete matching-operator and sign-projection algebra and connects an exact
+  recursive label enumeration to `hEvenTableau`/`hOddTableau`. It does not yet
+  construct the orthogonal signed-child decomposition or spanning basis.
 - Lemmas 5.17--5.20, especially
   `S05_Lem5_18_RegularYoungBlockDecomposition.lean`,
   `S05_Lem5_19_EvenSpectralBridge.lean`, and

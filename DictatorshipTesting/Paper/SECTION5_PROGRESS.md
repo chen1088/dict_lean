@@ -38,6 +38,10 @@ Detailed maps:
 - Definition 5.23 exposes the Young-basis scalar commutant input.
 - Lemma 5.6 coordinate-level deletion-fiber intertwining is proved:
   `S05_Lem5_06_deletionCoordinateMap_youngAdjacentOperator_intertwines`.
+- Definitions 5.13 and 5.14 now contain genuine recursive
+  `Multiset (Finset (Fin m))` label data rather than only scalar shadows.
+- Lemma 5.9 proves the even/odd multiset cardinalities and identifies their
+  empty/high multiplicities with `zEven`, `hEvenTableau`, and `hOddTableau`.
 - Lemma 5.10 has proved matching eigenvalue preservation under one-edge
   projections, support-selected one-edge projections, and simultaneous matching
   sign projections.
@@ -89,10 +93,14 @@ Detailed maps:
   Theorem 4.8.
 - The first remaining representation-theoretic frontier is Lemma 5.10.
   It currently has no actual matching eigenbasis, spanning theorem, or
-  identification of character-label multiplicities with the recursive
-  sign-pattern multiset.  Lemma 5.12 is now proved from exactly that explicit
-  eigenbasis/count data, but the repository cannot instantiate it until the
-  two-box branching construction in Lemma 5.10 is formalized.  After that, the regular orthogonal
+  theorem that basis labels enumerate the recursive sign-pattern multiset.
+  The multiset itself, its cardinality, and its high-label semantics are now
+  proved. The exact next layer is an orthogonal signed-child decomposition:
+  isometric horizontal/vertical child embeddings with final-edge signs,
+  earlier-edge intertwining, pairwise-orthogonal ranges, and spanning.
+  Lemma 5.12 is proved from the resulting eigenbasis/count data, but the
+  repository cannot instantiate it until that construction is formalized.
+  After that, the regular orthogonal
   Young-block decomposition and global weighted energy identity are still
   required.  The old numerical A.1/A.2 axiom types and the final
   matching-average scalarity input therefore remain unchanged.
@@ -113,8 +121,8 @@ Detailed maps:
 - Lemma 5.5 proves the concrete coordinate form of one-box deletion unitarity.
 - Lemma 5.6 proves deletion/content compatibility and earlier-adjacent
   coefficient preservation.
-- Lemma 5.9 proves the tableau-count size identities for the sign-pattern
-  multisets.
+- Lemma 5.9 proves the genuine recursive sign-pattern multiset cardinalities,
+  zero multiplicity, and even/odd high multiplicities.
 - Lemma 5.10 proves the concrete matching-cube action and sign-projection
   wrappers around the matching eigenvector predicates.
 - Lemma 5.11 proves the matching-character local truncation calculation.

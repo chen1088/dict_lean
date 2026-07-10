@@ -11,13 +11,25 @@ Direct reverse imports:
 Paper statement: Definition 5.14 (`def:odd-sign-patterns`)
 Title in paper: Odd sign-pattern multiset.
 
-Status: definition/interface. The current finite scaffold records the high-weight count extracted
-from the odd sign-pattern multiset as `hOdd`.
+Status: definition/interface. The odd multiset is the multiplicity-preserving
+union of the even multisets over one-box children. The older scalar shadow
+`hOdd` remains available for the alternate `youngDim` certificate route.
 -/
 
 noncomputable section
 
+open scoped BigOperators
+
 namespace DictatorshipTesting
+
+/-- Definition 5.14: the recursive multiset of matching-character labels for
+an odd Young diagram, obtained by taking the multiset union over all one-box
+children. -/
+noncomputable def S05_oddSignPatternMultiset
+    (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
+    Multiset (Finset (Fin m)) :=
+  (oneBoxChildrenOdd m lam).sum
+    (fun mu => S05_evenSignPatternMultiset m mu)
 
 /-- High-weight count from the odd sign-pattern multiset. -/
 abbrev S05_oddHighSignPatternCount

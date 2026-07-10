@@ -4,6 +4,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_16_IsMatchingEigenvectorEven
 import DictatorshipTesting.Paper.Defs.S05_Def5_17_IsMatchingEigenvectorOdd
 import DictatorshipTesting.Paper.Defs.S05_Def5_18_MatchingRestrictionEvenInput
 import DictatorshipTesting.Paper.Defs.S05_Def5_19_MatchingRestrictionOddInput
+import DictatorshipTesting.Paper.S05_Lem5_09_SizesOfTheSignPatternMultisets
 import DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate
 
 /-
@@ -17,10 +18,12 @@ Direct reverse imports:
 Paper statement: Lemma 5.10 (`lem:matching-restriction-X`)
 Title in paper: Matching subgroup eigenbasis.
 
-Status: unproven as the paper's full eigenbasis statement.  The concrete
-matching-operator and sign-projection interfaces are proved below, but there is
-no basis/spanning theorem and no identification of character multiplicities
-with the sign-pattern multiset.
+Status: unproven as the paper's full eigenbasis statement. The concrete
+matching-operator and sign-projection interfaces are proved below. Definitions
+5.13--5.14 and Lemma 5.9 now provide the genuine recursive label multisets and
+prove their cardinality and high-label counts. The missing step is an
+orthogonal signed-child decomposition that constructs a spanning eigenbasis
+whose labels equal those multisets.
 -/
 
 /-!
@@ -31,12 +34,11 @@ indexed by `lambda` to the matching subgroup `A_M ≃ (Z / 2Z)^m`, the local
 character-weight multiset is the recursively defined multiset counted by
 `zEven`, `hEven`, and `hOdd`.
 
-The current Lean vocabulary does not yet contain Specht modules or restriction
-functors.  The statements below therefore do not claim to be the full
-restriction theorem.  They record concrete matching-operator and matching-cube
-character components, plus scalar-bound interfaces used by the rest of the
-scaffold.  The full restriction theorem remains an external
-representation-theoretic input.
+The current Lean vocabulary does not yet contain the signed two-box child
+spaces needed for the induction. The statements below therefore do not claim
+to be the full restriction theorem. They record concrete matching-operator and
+matching-cube character components and the exact combinatorial consequence of
+enumerating the recursive label multiset.
 -/
 
 noncomputable section
@@ -505,6 +507,30 @@ theorem S05_Lem5_10_matchingEdge_basis_swappable_swap_value_odd
       youngAdjacentOffCoeff T (canonicalNearMatchingAdjacentIndex m r) := by
   exact canonicalMatchingYoungOperatorOdd_basis_swappable_swap_value
     T r hrow_ne hcol_ne
+
+/-- Once an even matching eigenbasis is labeled by the genuine recursive
+multiset, its high-label count is the active tableau height. -/
+theorem S05_Lem5_10_highLabelCount_of_evenSignPatternMultiset
+    {m : Nat} {lam : YoungDiagram (2 * m)}
+    {ι : Type*} [Fintype ι]
+    (label : ι -> Finset (Fin m))
+    (hlabels : Finset.univ.1.map label = S05_evenSignPatternMultiset m lam) :
+    (∑ i : ι,
+        if S05_matchingCharacterHigh (label i) then (1 : Real) else 0) =
+      hEvenTableau m lam := by
+  exact S05_Lem5_09_highLabelCount_of_evenSignPatternMultiset label hlabels
+
+/-- Once an odd matching eigenbasis is labeled by the genuine recursive
+multiset, its high-label count is the active tableau height. -/
+theorem S05_Lem5_10_highLabelCount_of_oddSignPatternMultiset
+    {m : Nat} {lam : YoungDiagram (2 * m + 1)}
+    {ι : Type*} [Fintype ι]
+    (label : ι -> Finset (Fin m))
+    (hlabels : Finset.univ.1.map label = S05_oddSignPatternMultiset m lam) :
+    (∑ i : ι,
+        if S05_matchingCharacterHigh (label i) then (1 : Real) else 0) =
+      hOddTableau m lam := by
+  exact S05_Lem5_09_highLabelCount_of_oddSignPatternMultiset label hlabels
 
 /-- Scalar consequence for even matching subgroups. -/
 theorem matchingRestriction_even_specht_pieri_input
