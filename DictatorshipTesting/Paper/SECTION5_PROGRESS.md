@@ -4,10 +4,10 @@ Source checked: `../dictatorship_testing_soda27_latest.tex`.
 
 ## Spine Status
 
-- Section 5 now has 23 numbered definitions and 26 numbered result statements
+- Section 5 now has 27 numbered definitions and 26 numbered result statements
   (`lemma`, `proposition`, `theorem`, and `corollary` environments).  The two
   counters are separate.
-- Section 5 paper-facing Lean file count is 49.
+- Section 5 paper-facing Lean file count is 53.
 - Appendix A has 4 numbered external-input statements and 4 Lean-facing files.
 - No two Section 5 definition files share a definition number, and no two
   Section 5 result files share a lemma/theorem number.
@@ -48,10 +48,14 @@ Detailed maps:
 - Lemmas 5.17--5.20 expose the active tableauDim spectral-bridge route used by
   Theorem 4.8.
 - The remaining representation-theoretic frontier is the spectral-block model
-  input supplied by Appendix A.
-- Appendix A exposes explicit marker axioms for A.1, A.2, A.3, and A.4. Lemma
-  5.18 consumes those markers to produce the even/odd spectral-model theorem
-  wrappers `spectralBlockModelInputWithDim_even_from_appendixA` and
+  input supplied by Appendix A plus the Section 5 matching-average scalarity
+  bridge input.
+- Appendix A exposes explicit marker axioms for A.1, A.2, A.3, and A.4, where
+  A.4 is now only standard-tableaux swap connectedness. Lemma 5.18 consumes
+  those markers together with
+  `S05_matchingAverageScalarity_from_young_model_input` to produce the even/odd
+  spectral-model theorem wrappers
+  `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.
 
 ## Internal Progress
@@ -74,7 +78,8 @@ Detailed maps:
   Young blocks remains representation-layer input.
 - Lemma 5.17 proves weighted-sum spectral-gap algebra from block scalar lower
   bounds.
-- Lemma 5.18 assembles Appendix A inputs into `SpectralBlockModelInputWithDim`.
+- Lemma 5.18 assembles Appendix A inputs plus the Section 5 scalarity bridge
+  input into `SpectralBlockModelInputWithDim`.
 - Lemmas 5.19 and 5.20 prove the even and odd algebraic spectral bridges from
   explicit spectral-block-model hypotheses plus finite certificates.
 - Lemmas 5.22, 5.24, and 5.26 prove the finite `z`, even `h`, and odd `h`
@@ -91,7 +96,9 @@ theorems:
 - A.4 Connectedness of standard tableaux.
 
 The Appendix A files add only the A.1/A.2/A.3/A.4 external marker axioms.
-Lemma 5.18 has no standalone external input; it is proved by assembling those
-markers into the spectral model wrappers.  The current Section 5 tableau-count
-dimension route also no longer registers the older `youngDim`
+The fourth Appendix A input is only standard-tableaux swap connectedness.
+Matching-average scalarity is isolated separately as the Section 5 input
+`S05_matchingAverageScalarity_from_young_model_input`.  Lemma 5.18 assembles
+those ingredients into the spectral model wrappers.  The current Section 5
+tableau-count dimension route also no longer registers the older `youngDim`
 dimension-branching instances.

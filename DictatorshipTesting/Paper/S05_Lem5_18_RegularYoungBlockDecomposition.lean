@@ -4,6 +4,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_07_YoungBlockEnergyProfile
 import DictatorshipTesting.Paper.Defs.S05_Def5_08_U1CompatibleYoungBlockProfile
 import DictatorshipTesting.Paper.Defs.S05_Def5_24_TableauEvenHeight
 import DictatorshipTesting.Paper.Defs.S05_Def5_25_TableauOddHeight
+import DictatorshipTesting.Paper.S05_Lem5_16_BlockScalarOfTheAveragedRejection
 import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
 import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum
 import DictatorshipTesting.Paper.AppA_LemA_03_DegreeOneYoungBlockIdentification
@@ -21,10 +22,10 @@ Direct reverse imports:
 Paper statement: Lemma 5.18 (`lem:regular-young-block-decomposition`)
 Title in paper: Regular Young-block decomposition.
 
-Status: internal assembly from external Appendix A ingredients.  A.1, A.2,
-A.3, and A.4 are the named representation-theoretic inputs; this file contains
-the theorem that assembles them into the dimension-parameterized
-spectral-block model consumed by the active Theorem 4.8 path.
+Status: assembly from external inputs.  A.1, A.2, A.3, A.4, and the Section 5
+matching-average scalarity bridge input are the named representation-theoretic
+inputs; this file assembles them into the dimension-parameterized spectral-block
+model consumed by the active Theorem 4.8 path.
 -/
 
 noncomputable section
@@ -51,14 +52,16 @@ theorem S05_Lem5_18_u1_identification {n : Nat}
 /-- Lemma 5.18 assembly theorem for the tableau-count even route, from the
 explicit classical Appendix A ingredients.
 
-This theorem contains no representation-theoretic axiom of its own; it only
-assembles the precise A.1/A.2/A.3/A.4 component inputs into the compact
-`SpectralBlockModelInputWithDim` interface consumed by Section 5. -/
+This theorem contains no new representation-theoretic axiom of its own; it
+assembles the precise A.1/A.2/A.3/A.4 component inputs and the Section 5
+scalarity bridge input into the compact `SpectralBlockModelInputWithDim`
+interface consumed by Section 5. -/
 theorem spectralBlockModelInputWithDim_even_from_appA_inputs
     (hA1 : AppA_ThmA_01_YoungOrthogonalRealizationStatement)
     (hA2 : AppA_ThmA_02_JucysMurphyContentSpectrumStatement)
     (hA3 : AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement)
     (hA4 : AppA_LemA_04_StandardTableauxSwapConnectednessStatement)
+    (hScalarity : S05_MatchingAverageScalarityFromYoungModelStatement)
     (m : Nat) (hm : 2 <= m) :
     SpectralBlockModelInputWithDim
       (fun lam : YoungDiagram (2 * m) => tableauDim lam)
@@ -76,7 +79,7 @@ theorem spectralBlockModelInputWithDim_even_from_appA_inputs
         (fun lam : YoungDiagram (2 * m) => hEvenTableau m lam)
         F energy.blockEnergy :=
     { theta := traceData.theta
-      scalarity := hA4 traceData
+      scalarity := hScalarity hA4 traceData
       trace_value := traceData.trace_value }
   exact ⟨energy, ⟨scalar⟩⟩
 
@@ -91,6 +94,7 @@ theorem spectralBlockModelInputWithDim_even_from_appendixA
     AppA_ThmA_02_jucysMurphyContentSpectrum
     AppA_LemA_03_degreeOneYoungBlockIdentification
     AppA_LemA_04_standardTableauxSwapConnectedness
+    S05_matchingAverageScalarity_from_young_model_input
     m hm
 
 /-- Lemma 5.18 assembly theorem for the tableau-count odd route, from the
@@ -104,6 +108,7 @@ theorem spectralBlockModelInputWithDim_odd_from_appA_inputs
     (hA2 : AppA_ThmA_02_JucysMurphyContentSpectrumStatement)
     (hA3 : AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement)
     (hA4 : AppA_LemA_04_StandardTableauxSwapConnectednessStatement)
+    (hScalarity : S05_MatchingAverageScalarityFromYoungModelStatement)
     (m : Nat) (hm : 2 <= m) :
     SpectralBlockModelInputWithDim
       (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)
@@ -121,7 +126,7 @@ theorem spectralBlockModelInputWithDim_odd_from_appA_inputs
         (fun lam : YoungDiagram (2 * m + 1) => hOddTableau m lam)
         F energy.blockEnergy :=
     { theta := traceData.theta
-      scalarity := hA4 traceData
+      scalarity := hScalarity hA4 traceData
       trace_value := traceData.trace_value }
   exact ⟨energy, ⟨scalar⟩⟩
 
@@ -136,6 +141,7 @@ theorem spectralBlockModelInputWithDim_odd_from_appendixA
     AppA_ThmA_02_jucysMurphyContentSpectrum
     AppA_LemA_03_degreeOneYoungBlockIdentification
     AppA_LemA_04_standardTableauxSwapConnectedness
+    S05_matchingAverageScalarity_from_young_model_input
     m hm
 
 end DictatorshipTesting

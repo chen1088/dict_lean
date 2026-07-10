@@ -1,5 +1,4 @@
-import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum
-import DictatorshipTesting.Paper.S05_Int_StandardYoungTableaux
+import DictatorshipTesting.External.AppendixA.A04_TableauxSwapConnectedness
 
 /-
 Direct reverse imports:
@@ -12,25 +11,20 @@ Direct reverse imports:
 Paper statement: Lemma A.4 (`lem:app-tableau-swap-connected`)
 Title in paper: Connectedness of standard tableaux.
 
-Status: external: ingredient bundled into Lemma 5.18.  The current Lean
-development contains local adjacent-swap constructions for standard tableaux,
-but it consumes the global connectedness theorem only through the Lemma 5.18
-spectral-block assembly theorem in
-`S05_Lem5_18_RegularYoungBlockDecomposition`.
+Status: external: connectedness of the standard-tableau adjacent-swap graph.
+The current Lean development contains local adjacent-swap constructions and an
+abstract finite-list preservation layer, but the global connectedness theorem is
+still an Appendix A input.
 -/
 
 noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Lemma A.4 interface: standard-tableau connectedness supplies scalarity of
-the matching average for the trace/scalar data from Theorem A.2. -/
+/-- Lemma A.4 interface: connectedness of the standard-tableau adjacent-swap
+graph for each fixed Young diagram. -/
 def AppA_LemA_04_StandardTableauxSwapConnectednessStatement : Prop :=
-  ∀ {n : Nat} {dim height : YoungDiagram n -> ℝ}
-    {F : Perm (Fin n) -> ℝ}
-    {energy : AppA_YoungBlockEnergyData F}
-    (traceData : AppA_TraceScalarDataWithDim dim height energy),
-    MatchingAverageScalarityInput F energy.blockEnergy traceData.theta
+  External.AppendixA.StandardTableauxSwapConnectedStatement
 
 /-- External input Lemma A.4: connectedness of standard tableaux. -/
 axiom AppA_LemA_04_standardTableauxSwapConnectedness :

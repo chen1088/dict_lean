@@ -1,4 +1,6 @@
 import DictatorshipTesting.Paper.S05_Lem5_12_TraceOfOneLocalTruncationOnOneYoungBlock
+import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum
+import DictatorshipTesting.Paper.AppA_LemA_04_StandardTableauxSwapConnectedness
 
 /-
 Direct reverse imports:
@@ -12,9 +14,9 @@ Direct reverse imports:
 Paper statement: Lemma 5.16 (`lem:centralization-matchings`)
 Title in paper: Block scalar of the averaged rejection.
 
-Status: external: trace/scalar model input. Finite-dimensional trace-divided-by-dimension algebra is proved in the
-helper imported here; the remaining Young-block scalarity belongs to the
-spectral bridge input.
+Status: external: Section 5 scalarity bridge input.  Finite-dimensional
+trace-divided-by-dimension algebra is proved here; matching-average scalarity is
+isolated as `S05_matchingAverageScalarity_from_young_model_input`.
 -/
 
 /-!
@@ -33,6 +35,22 @@ Young block still belongs to the final spectral-decomposition input.
 noncomputable section
 
 namespace DictatorshipTesting
+
+/-- Section 5 scalarity bridge input.  Given the Appendix A.4 connectedness
+statement and the trace/scalar data from the Young model, the averaged matching
+rejection is scalar on each Young block with scalar `theta`. -/
+def S05_MatchingAverageScalarityFromYoungModelStatement : Prop :=
+  AppA_LemA_04_StandardTableauxSwapConnectednessStatement ->
+  ∀ {n : Nat} {dim height : YoungDiagram n -> ℝ}
+    {F : Perm (Fin n) -> ℝ}
+    {energy : AppA_YoungBlockEnergyData F}
+    (traceData : AppA_TraceScalarDataWithDim dim height energy),
+    MatchingAverageScalarityInput F energy.blockEnergy traceData.theta
+
+/-- Section 5 input isolating the still-external bridge from the Young-model
+connectedness and trace data to matching-average scalarity. -/
+axiom S05_matchingAverageScalarity_from_young_model_input :
+    S05_MatchingAverageScalarityFromYoungModelStatement
 
 /-- If a scalar operator on a block of dimension `d^2` has trace `d * h`, then
 its scalar is `h / d`.  This is the trace-divided-by-dimension calculation in

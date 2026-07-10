@@ -19,11 +19,14 @@ Current classification:
   `AppA_ThmA_01_youngOrthogonalRealization`,
   `AppA_ThmA_02_jucysMurphyContentSpectrum`,
   `AppA_LemA_03_degreeOneYoungBlockIdentification`, and
-  `AppA_LemA_04_standardTableauxSwapConnectedness`.  Lemma 5.18 has no
-  standalone axiom; it is a proved assembly theorem from these Appendix A
-  ingredients.
+  `AppA_LemA_04_standardTableauxSwapConnectedness`; and the Section 5
+  scalarity bridge input
+  `S05_matchingAverageScalarity_from_young_model_input`.  Lemma 5.18 is an
+  assembly theorem from these named inputs.
 - Appendix A bridge boundary: the remaining representation-theoretic obligation
-  is the spectral-block model input consumed by Section 5.
+  is the spectral-block model input consumed by Section 5.  A.4 is only
+  standard-tableaux swap connectedness; matching-average scalarity is tracked
+  separately as the Section 5 scalarity bridge input.
 - Old `youngDim` dimension axiom instances are gone.  The older `youngDim`
   wrappers remain only as theorems with explicit typeclass hypotheses, and no
   instance is registered for those hypotheses.
@@ -117,7 +120,8 @@ Internal Section 5 assembly:
 - Lemma 5.18 regular Young-block decomposition:
   `spectralBlockModelInputWithDim_even_from_appA_inputs` and
   `spectralBlockModelInputWithDim_odd_from_appA_inputs` are proved from the
-  A.1/A.2/A.3/A.4 external ingredients.
+  A.1/A.2/A.3/A.4 external ingredients, together with
+  `S05_matchingAverageScalarity_from_young_model_input`.
 
 Remaining Section 5/AppA bridge boundary:
 
@@ -125,11 +129,13 @@ Remaining Section 5/AppA bridge boundary:
   explicit `SpectralBlockModelInputWithDim` hypothesis for the `tableauDim`
   model with `hEvenTableau` and `hOddTableau` heights.
 - Lemma 5.18 supplies the `SpectralBlockModelInputWithDim` / spectral-block
-  model input for the paper application from Appendix A ingredients.
+  model input for the paper application from Appendix A ingredients plus the
+  Section 5 scalarity bridge input.
 - Appendix A representation theory supplies the intended bridge: regular
-  Specht-block decomposition, `U_1` identification, matching-average scalarity,
-  trace/scalar value, and the matching-restriction data needed to instantiate
-  the spectral-block model.
+  Specht-block decomposition, `U_1` identification, trace/scalar value, and the
+  matching-restriction data needed to instantiate the spectral-block model.
+  Matching-average scalarity is now a named Section 5 bridge input depending on
+  the A.4 connectedness statement and the trace/scalar data.
 - The concrete Lemma 5.10 matching-cube operator/character/projection algebra
   is proved; the representation-theoretic Specht/Pieri content it shadows is
   accounted for inside the spectral-block model boundary rather than as a
@@ -226,8 +232,9 @@ expose these wrappers for the paper-facing interface.
 Active path note: Theorem 4.8 now uses the dimension-parametric `tableauDim`
 interface through Lemmas 5.18--5.20.  The remaining Section 5 mathematical
 input for this active route is the tableauDim spectral block model itself:
-Young-block decomposition, `U_1` identification, matching-average scalarity,
-and trace/scalar value with block dimension `tableauDim`.
+Young-block decomposition, `U_1` identification, trace/scalar value with block
+dimension `tableauDim`, and the separately named Section 5 matching-average
+scalarity bridge input.
 
 The newest internal representation-layer objects are still coordinate-level:
 they give a concrete Young adjacent Coxeter model, not a formal Specht-module
@@ -236,9 +243,9 @@ Lemma 5.1 and are tracked separately below.
 
 ## Section 5 Paper/Lean Status Table
 
-The current Section 5 source has 23 numbered definitions and 26 numbered result
+The current Section 5 source has 27 numbered definitions and 26 numbered result
 statements when remarks and Appendix A inputs are excluded.  The paper-facing
-Lean file count is 49.  The full statement-to-file map is maintained in
+Lean file count is 53.  The full statement-to-file map is maintained in
 `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`; the four Appendix A external
 inputs are mapped in `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
@@ -384,7 +391,7 @@ Downstream dependencies: only older `youngDim` alternatives such as
 Paper statements: Lemma 5.17 block lower bound, Lemma 5.18 regular Young-block
 decomposition assembly, Lemma 5.19 even spectral bridge, and Lemma 5.20 odd
 spectral bridge, together with the Young-block decomposition,
-matching-average scalarity, and trace/scalar value inputs they use.
+matching-average scalarity bridge, and trace/scalar value inputs they use.
 
 Lean files: `DictatorshipTesting/Paper/S05_Lem5_17_BlockLowerBoundImpliesTheGap.lean`,
 `DictatorshipTesting/Paper/S05_Lem5_18_RegularYoungBlockDecomposition.lean`,
@@ -404,9 +411,11 @@ Raw Appendix A axiom declarations:
 `AppA_LemA_03_degreeOneYoungBlockIdentification`,
 and `AppA_LemA_04_standardTableauxSwapConnectedness`.
 
+Section 5 scalarity bridge axiom declaration:
+`S05_matchingAverageScalarity_from_young_model_input`.
+
 Current status: named external axioms, not `sorry` declarations.  Together with
-the two Section 2 Filmus inputs, these are the only remaining axiom
-declarations.
+the two Section 2 Filmus inputs, these are the remaining axiom declarations.
 
 Mathematical content: the regular representation decomposes `F` into
 nonnegative Young-block energies whose non-`U_1` sum is `l2DistSqToU1 F`;

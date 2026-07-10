@@ -11,6 +11,7 @@ import DictatorshipTesting.BasicFacts
 import DictatorshipTesting.SetFacts
 import DictatorshipTesting.SetFacts.Fact_sub_sd_SetMinusSymmDiff
 import DictatorshipTesting.AlgebraicProperty
+import DictatorshipTesting.External.AppendixA.A04_TableauxSwapConnectedness
 
 
 /- Paper-numbered files currently represented in Lean. -/

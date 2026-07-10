@@ -111,7 +111,7 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "AppA_LemA_04_standardTableauxSwapConnectedness",
-          "line": 36
+          "line": 30
         }
       ]
     },
@@ -2321,16 +2321,27 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "external",
       "file": "DictatorshipTesting/Paper/S05_Lem5_16_BlockScalarOfTheAveragedRejection.lean",
       "wrappers": [
+        "S05_matchingAverageScalarity_from_young_model_input",
         "S05_Lem5_16_scalar_eq_trace_div_dimension",
         "S05_Lem5_16_even_scalar_eq_hEven_div_dim"
       ],
       "deps": [
+        "AppA_02",
+        "AppA_04",
         "S05_L12",
         "S05_L15"
       ],
-      "summary": "Trace-divided-by-dimension algebra from explicit scalarity and trace identities.",
-      "statement": "Lemma 5.16 derives the block scalar of the averaged rejection from trace and scalar inputs.",
+      "summary": "Section 5 scalarity bridge input plus trace-divided-by-dimension algebra.",
+      "statement": "Lemma 5.16 isolates matching-average scalarity as a Section 5 input and proves the trace-divided-by-dimension algebra.",
       "terms": [
+        {
+          "text": "Jucys-Murphy content spectrum",
+          "target": "AppA_02"
+        },
+        {
+          "text": "Standard tableaux connectedness",
+          "target": "AppA_04"
+        },
         {
           "text": "Trace of one local truncation",
           "target": "S05_L12"
@@ -2345,12 +2356,16 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "Let $\\cA=\\E_M(I-P_M)$.  On $\\mathcal H_\\lambda$, the operator $\\cA$ acts as the\nscalar\n\\begin{equation}\\label{eq:A-eigenvalue-even}\n  \\frac{h_m(\\lambda)}{d_\\lambda}\n  \\qquad(n=2m),\n\\end{equation}\nand as the scalar\n\\begin{equation}\\label{eq:A-eigenvalue-odd}\n  \\frac{h_m^{\\mathrm{odd}}(\\lambda)}{d_\\lambda}\n  \\qquad(n=2m+1).\n\\end{equation}",
       "leanLinks": [
         {
+          "name": "S05_matchingAverageScalarity_from_young_model_input",
+          "line": 52
+        },
+        {
           "name": "S05_Lem5_16_scalar_eq_trace_div_dimension",
-          "line": 108
+          "line": 126
         },
         {
           "name": "S05_Lem5_16_even_scalar_eq_hEven_div_dim",
-          "line": 115
+          "line": 133
         }
       ]
     },
@@ -2361,7 +2376,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Spectral bridge",
       "kind": "paper",
       "importance": "major",
-      "status": "proven",
+      "status": "external",
       "file": "DictatorshipTesting/Paper/S05_Lem5_17_BlockLowerBoundImpliesTheGap.lean",
       "wrappers": [
         "S05_Lem5_17_spectralGapFromBlockModelWithDim"
@@ -2417,10 +2432,11 @@ window.DICT_DEPENDENCY_DATA = {
         "AppA_02",
         "AppA_03",
         "AppA_04",
+        "S05_L16",
         "S05_L02"
       ],
-      "summary": "Assembles Appendix A markers into the dimension-parameterized spectral-block model.",
-      "statement": "Lemma 5.18 assembles Appendix A ingredients into the regular Young-block spectral model.",
+      "summary": "Assembles Appendix A markers plus the Section 5 scalarity input into the dimension-parameterized spectral-block model.",
+      "statement": "Lemma 5.18 assembles Appendix A ingredients and the Section 5 scalarity bridge into the regular Young-block spectral model.",
       "terms": [
         {
           "text": "Young-block energy profile",
@@ -2447,6 +2463,10 @@ window.DICT_DEPENDENCY_DATA = {
           "target": "AppA_04"
         },
         {
+          "text": "matching-average scalarity bridge",
+          "target": "S05_L16"
+        },
+        {
           "text": "Diagonal content eigenspaces",
           "target": "S05_L02"
         }
@@ -2457,11 +2477,11 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "spectralBlockModelInputWithDim_even_from_appendixA",
-          "line": 84
+          "line": 86
         },
         {
           "name": "spectralBlockModelInputWithDim_odd_from_appendixA",
-          "line": 129
+          "line": 133
         }
       ]
     },

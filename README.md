@@ -46,9 +46,11 @@ The scaffold contains real Lean proofs for the elementary Boolean-cube,
 matching-cube, and averaging steps that have been formalized so far.  A small
 number of hard results are intentionally isolated behind named declarations or
 named external axioms.  There are no remaining `sorry` declarations.  The named
-external axioms are the two Section 2 Filmus inputs and the four Appendix A
-representation-theory ingredient markers A.1, A.2, A.3, and A.4.  Lemma 5.18
-is a proved assembly theorem from those ingredients.  The theorem wrappers
+external axioms are the two Section 2 Filmus inputs, the four Appendix A
+representation-theory ingredient markers A.1, A.2, A.3, and A.4, and the
+Section 5 matching-average scalarity bridge input
+`S05_matchingAverageScalarity_from_young_model_input`.  Lemma 5.18 is an
+assembly theorem from those ingredients.  The theorem wrappers
 consumed by the active Theorem 4.8 path are
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.
@@ -60,8 +62,8 @@ input, see `PROOF_OBLIGATIONS.md`.
 
 For the current rewritten Section 5 statement-to-file map, see
 `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`.  Section 5 now uses separate
-counters: 23 numbered definitions (`Def 5.x`) and 26 numbered result statements
-(`Lem 5.x` and theorem-like variants), for 49 paper-facing Section 5 Lean files.
+counters: 27 numbered definitions (`Def 5.x`) and 26 numbered result statements
+(`Lem 5.x` and theorem-like variants), for 53 paper-facing Section 5 Lean files.
 Appendix A external representation-theoretic inputs are mapped separately in
 `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
@@ -257,10 +259,11 @@ External standard inputs:
   spectral bridge is consumed through Lemma 5.18 theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.  Those wrappers are
-  proved by Lemma 5.18 from the explicit A.1/A.2/A.3/A.4 marker
-  axioms, citing the regular Specht decomposition, Littlewood-Richardson
-  restriction to Young subgroups, Pieri two-strip specializations, and Schur's
-  lemma for the tableauDim spectral model.
+  produced by Lemma 5.18 from the explicit A.1/A.2/A.3/A.4 marker axioms plus
+  `S05_matchingAverageScalarity_from_young_model_input`, citing the regular
+  Specht decomposition, Littlewood-Richardson restriction to Young subgroups,
+  Pieri two-strip specializations, and Schur's lemma for the tableauDim
+  spectral model.
 
 Internal bridge components proven:
 
@@ -273,7 +276,8 @@ Internal bridge components proven:
   `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and the
   dimension-parameterized `SpectralGapFromBlockModelWithDim` route are proved.
 - `S05_Lem5_18_RegularYoungBlockDecomposition.lean`: the main-text assembly
-  lemma turning Appendix A.1/A.2/A.3/A.4 external inputs into the even and odd
+  lemma turning Appendix A.1/A.2/A.3/A.4 external inputs plus
+  `S05_matchingAverageScalarity_from_young_model_input` into the even and odd
   `SpectralBlockModelInputWithDim` theorem wrappers consumed by Theorem 4.8.
 - `S05_Lem5_19_EvenSpectralBridge.lean` and
   `S05_Lem5_20_OddSpectralBridge.lean`: the tableau-count spectral bridges are
@@ -308,8 +312,9 @@ Section 5 spectral-bridge files make the missing representation theory explicit
 through Lemma 5.18 theorem wrappers:
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.  The Appendix A axiom
-declarations are the A.1/A.2/A.3/A.4 marker inputs; Lemma 5.18 consumes them
-through proved assembly theorems.
+declarations are the A.1/A.2/A.3/A.4 marker inputs plus
+`S05_matchingAverageScalarity_from_young_model_input`; Lemma 5.18 consumes them
+through assembly theorems.
 
 - The explicit spectral-block-model theorem wrappers supply the actual Young-block
   energies of `F`, the `U_1` energy identification, and the matching-average
