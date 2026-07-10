@@ -91,9 +91,12 @@ This file records the definition-file refactor inventory. Definition modules now
 
 | Declaration name | Kind | File | Paper definition number, if any | Direct users/imports | Status |
 |---|---|---|---|---|---|
-| `GroupAlgebraElement` | abbrev | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
+| `GroupAlgebraElement` | abbrev | `DictatorshipTesting/Paper/Defs/AppA_DefA_01_YoungOrthogonalActionData.lean` | Appendix A.1 interface | `DictatorshipTesting`, A.2, Def 5.28 | moved to faithful operator layer |
 | `rightConvolution` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
-| `GroupRepresentationActionData` | structure | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
+| `GroupRepresentationActionData` | structure | `DictatorshipTesting/Paper/Defs/AppA_DefA_01_YoungOrthogonalActionData.lean` | Appendix A.1 interface | `DictatorshipTesting`, Def 5.28 | moved to faithful operator layer |
+| `YoungOrthogonalActionData` | structure | `DictatorshipTesting/Paper/Defs/AppA_DefA_01_YoungOrthogonalActionData.lean` | Appendix A.1 interface | A.1, A.2, Defs 5.28--5.30 | added |
+| `appA_jucysMurphyElement` | def | `DictatorshipTesting/Paper/Defs/AppA_DefA_02_JucysMurphyContentActionData.lean` | Appendix A.2 interface | A.2, Def 5.28 | added |
+| `JucysMurphyContentActionData` | structure | `DictatorshipTesting/Paper/Defs/AppA_DefA_02_JucysMurphyContentActionData.lean` | Appendix A.2 interface | A.2, Defs 5.28--5.30 | added |
 | `repOfGroupAlgebraElement` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
 | `YoungRepresentationActionData` | structure | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
 | `averagedRejectionYoungOperatorData_of_groupAlgebraAction` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
@@ -102,6 +105,7 @@ This file records the definition-file refactor inventory. Definition modules now
 | `S05_averagedHighMatchingElement` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
 | `S05_averagedRejectionYoungOperator` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
 | `S05_averagedRejectionYoungOperatorData_actual` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
+| `tableauOperatorTrace` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_30_TableauOperatorTrace.lean` | Definition 5.30 | `DictatorshipTesting` | added |
 
 ## Reusable declarations still outside the split `Defs.lean` layer
 
@@ -114,8 +118,10 @@ The declarations below were present outside `Defs.lean` in the initial inventory
 | `AppA_LemA_03_nonU1YoungBlocks` | abbrev | `DictatorshipTesting/Paper/AppA_LemA_03_DegreeOneYoungBlockIdentification.lean` | TBD | See file header or paper map | Use `rg "AppA_LemA_03_nonU1YoungBlocks" DictatorshipTesting/Paper` for direct users. | not moved |
 | `AppA_LemA_04_StandardTableauxSwapConnectednessStatement` | def | `DictatorshipTesting/Paper/AppA_LemA_04_StandardTableauxSwapConnectedness.lean` | TBD | See file header or paper map | Use `rg "AppA_LemA_04_StandardTableauxSwapConnectednessStatement" DictatorshipTesting/Paper` for direct users. | not moved |
 | `AppA_YoungBlockEnergyData` | structure | `DictatorshipTesting/Paper/AppA_ThmA_01_YoungOrthogonalRealization.lean` | TBD | See file header or paper map | Use `rg "AppA_YoungBlockEnergyData" DictatorshipTesting/Paper` for direct users. | not moved |
+| `AppA_ThmA_01_YoungOrthogonalActionStatement` | def | `DictatorshipTesting/Paper/AppA_ThmA_01_YoungOrthogonalRealization.lean` | Appendix A.1 | See Appendix A map | Faithful statement defined; existing axiom still has old numerical type. |
 | `AppA_ThmA_01_YoungOrthogonalRealizationStatement` | def | `DictatorshipTesting/Paper/AppA_ThmA_01_YoungOrthogonalRealization.lean` | TBD | See file header or paper map | Use `rg "AppA_ThmA_01_YoungOrthogonalRealizationStatement" DictatorshipTesting/Paper` for direct users. | not moved |
 | `AppA_TraceScalarDataWithDim` | structure | `DictatorshipTesting/Paper/AppA_ThmA_02_JucysMurphyContentSpectrum.lean` | TBD | See file header or paper map | Use `rg "AppA_TraceScalarDataWithDim" DictatorshipTesting/Paper` for direct users. | not moved |
+| `AppA_ThmA_02_JucysMurphyContentActionStatement` | def | `DictatorshipTesting/Paper/AppA_ThmA_02_JucysMurphyContentSpectrum.lean` | Appendix A.2 | See Appendix A map | Faithful statement defined; existing axiom still has old numerical type. |
 | `AppA_ThmA_02_JucysMurphyContentSpectrumStatement` | def | `DictatorshipTesting/Paper/AppA_ThmA_02_JucysMurphyContentSpectrum.lean` | TBD | See file header or paper map | Use `rg "AppA_ThmA_02_JucysMurphyContentSpectrumStatement" DictatorshipTesting/Paper` for direct users. | not moved |
 | `cubeXorEquiv` | def | `DictatorshipTesting/Paper/S02_Int_CubeCharXor.lean` | TBD | See file header or paper map | Use `rg "cubeXorEquiv" DictatorshipTesting/Paper` for direct users. | not moved |
 | `cubeColorSignU` | def | `DictatorshipTesting/Paper/S04_Lem4_01_CubeSquare.lean` | Lemma 4.1 | Color-counting helper internal to the cube-square proof | Used only inside Lemma 4.1. | absorbed into paper lemma |

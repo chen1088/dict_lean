@@ -167,12 +167,22 @@ Remaining Section 5/AppA bridge boundary:
   commutation, instantiates `AveragedRejectionYoungOperatorData`, and obtains
   one-block scalarity from A.4 connectedness.
 - The exact remaining operator-layer blocker is now the Appendix A interface:
-  A.1 currently returns only `AppA_YoungBlockEnergyData`, while A.2 currently
-  returns only `AppA_TraceScalarDataWithDim`.  Neither statement supplies the
-  concrete `YoungRepresentationActionData` needed to connect the constructed
-  `rho_lambda(q)` to those global energies and trace scalars.  Consequently the
-  scalar's trace identification and the global weighted block-energy identity
-  remain in `S05_matchingAverageScalarity_from_young_model_input`.
+  the faithful statement definitions
+  `AppA_ThmA_01_YoungOrthogonalActionStatement` and
+  `AppA_ThmA_02_JucysMurphyContentActionStatement` are now present, and their
+  data constructs the concrete `rho_lambda(q)` and proves one-block scalarity.
+  The existing A.1/A.2 axiom declarations still return only
+  `AppA_YoungBlockEnergyData` and `AppA_TraceScalarDataWithDim`; their types have
+  not yet been replaced because the active global route has no internal source
+  for those numerical packages.
+- Definition 5.30 proves the explicit tableau-basis trace formula, scalar equals
+  trace divided by nonzero tableau dimension, and linearity of trace across the
+  matching average.  The first missing operator theorem is now the fixed-block
+  trace identity: current Lemma 5.12 only provides an existential scalar using
+  `youngDim`, `hEven`, and `hOdd`; it does not mention the concrete fixed
+  operator, `tableauOperatorTrace`, `tableauDim`, `hEvenTableau`, or
+  `hOddTableau`.  The global orthogonal block decomposition is the next missing
+  layer after that trace identity.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
 definition-only files `S05_Def5_24_TableauEvenHeight.lean` and
@@ -276,9 +286,9 @@ Lemma 5.1 and are tracked separately below.
 
 ## Section 5 Paper/Lean Status Table
 
-The current Section 5 source has 29 numbered definitions and 26 numbered result
+The current Section 5 source has 30 numbered definitions and 26 numbered result
 statements when remarks and Appendix A inputs are excluded.  The paper-facing
-Lean file count is 55.  The full statement-to-file map is maintained in
+Lean file count is 56.  The full statement-to-file map is maintained in
 `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`; the four Appendix A external
 inputs are mapped in `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
@@ -581,6 +591,9 @@ Downstream dependencies: the trace/scalar-value inputs used by Lemmas
   high-matching group-algebra element, its convolution identity, conjugation
   covariance, coefficient centrality, represented adjacent/content
   commutation, and one-block scalarity for supplied Young action data.
+- `S05_Def5_30_TableauOperatorTrace.lean`: explicit tableau-coordinate trace,
+  scalar trace/division formulas, and the average-of-fixed-traces theorem for
+  the concrete averaged rejection operator.
 - `S05_Lem5_17_BlockLowerBoundImpliesTheGap.lean`: weighted-sum spectral-gap
   algebra, including trace-model-to-gap wrappers
   `S05_Lem5_17_spectralGapFromBlockTraceModel` and

@@ -4,10 +4,10 @@ Source checked: `../dictatorship_testing_soda27_latest.tex`.
 
 ## Spine Status
 
-- Section 5 now has 29 numbered definitions and 26 numbered result statements
+- Section 5 now has 30 numbered definitions and 26 numbered result statements
   (`lemma`, `proposition`, `theorem`, and `corollary` environments).  The two
   counters are separate.
-- Section 5 paper-facing Lean file count is 55.
+- Section 5 paper-facing Lean file count is 56.
 - Appendix A has 4 numbered external-input statements and 4 Lean-facing files.
 - No two Section 5 definition files share a definition number, and no two
   Section 5 result files share a lemma/theorem number.
@@ -65,13 +65,23 @@ Detailed maps:
   high matching idempotents, and constructs `rho_lambda(q)` with adjacent and
   content commutation for every supplied `YoungRepresentationActionData`.
   This gives `AveragedRejectionYoungOperatorData` and one-block scalarity.
+- Faithful operator-only Appendix A interfaces are now defined as
+  `YoungOrthogonalActionData` and `JucysMurphyContentActionData`.  Their adapter
+  constructs `YoungRepresentationActionData`, so A.1 action data plus A.2
+  content data now reaches the concrete Definition 5.29 operator without
+  putting scalarity into either external interface.
+- Definition 5.30 defines `tableauOperatorTrace`, proves the scalar trace and
+  trace-division formulas, and proves that the concrete average trace is the
+  average of the concrete fixed-matching traces.
 - Lemmas 5.17--5.20 expose the active tableauDim spectral-bridge route used by
   Theorem 4.8.
-- The remaining representation-theoretic frontier is connecting the concrete
-  `YoungRepresentationActionData` and one-block scalar to the Appendix A
-  block-energy and trace/scalar interfaces.  A.1/A.2 currently expose only
-  numerical shadows, so the global matching-average scalarity bridge input
-  remains.
+- The first remaining representation-theoretic frontier is an operator-level
+  fixed-matching trace theorem.  Lemma 5.12 currently has only a scalar
+  `youngDim/hEven/hOdd` shadow, not a theorem about the represented fixed
+  operator and the active `tableauDim` heights.  After that, the regular
+  orthogonal Young-block decomposition and global weighted energy identity are
+  still required.  The old numerical A.1/A.2 axiom types and the final
+  matching-average scalarity input therefore remain unchanged.
 - Appendix A exposes explicit marker axioms for A.1, A.2, A.3, and A.4, where
   A.4 is now only standard-tableaux swap connectedness. Lemma 5.18 consumes
   those markers together with

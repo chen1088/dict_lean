@@ -4,6 +4,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_28_GroupAlgebraAction
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_30_TableauOperatorTrace`
 -/
 
 /-!
@@ -349,6 +350,42 @@ def S05_averagedRejectionYoungOperator {n : Nat}
   averagedRejectionYoungOperatorOfGroupAlgebra young
     (S05_averagedHighMatchingElement (n + 1))
 
+/-- The represented high-idempotent operator for one fixed near-perfect
+matching on a faithful A.1 Young action. -/
+def S05_fixedMatchingRejectionYoungOperator {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (n + 1)) :
+    TableauSpace lam -> TableauSpace lam :=
+  repOfGroupAlgebraElement action.rep
+    (S05_fixedMatchingHighElement M.toOrdered)
+
+/-- On faithful A.1/A.2 data, the concrete averaged operator is the finite
+average of the represented fixed-matching high-idempotent operators. -/
+theorem S05_averagedRejectionYoungOperator_eq_average_fixed
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action)
+    (f : TableauSpace lam) :
+    S05_averagedRejectionYoungOperator
+        (YoungRepresentationActionData.ofAppendixA action content) f =
+      (Fintype.card (NearPerfectMatching (n + 1)) : Real)⁻¹ •
+        ∑ M : NearPerfectMatching (n + 1),
+          S05_fixedMatchingRejectionYoungOperator action M f := by
+  change
+    repOfGroupAlgebraElement action.rep
+        (fun g =>
+          (∑ M : NearPerfectMatching (n + 1),
+            S05_fixedMatchingHighElement M.toOrdered g) /
+              (Fintype.card (NearPerfectMatching (n + 1)) : Real)) f =
+      (Fintype.card (NearPerfectMatching (n + 1)) : Real)⁻¹ •
+        ∑ M : NearPerfectMatching (n + 1),
+          repOfGroupAlgebraElement action.rep
+            (S05_fixedMatchingHighElement M.toOrdered) f
+  exact repOfGroupAlgebraElement_fintypeAverage action.rep
+    (fun M : NearPerfectMatching (n + 1) =>
+      S05_fixedMatchingHighElement M.toOrdered) f
+
 /-- The actual averaged high-matching operator supplies the one-block
 commutation interface for every supplied Young representation model. -/
 def S05_averagedRejectionYoungOperatorData_actual {n : Nat}
@@ -358,6 +395,16 @@ def S05_averagedRejectionYoungOperatorData_actual {n : Nat}
   averagedRejectionYoungOperatorData_of_centralGroupAlgebraElement young
     (S05_averagedHighMatchingElement (n + 1))
     (S05_averagedHighMatchingElement_central (n + 1))
+
+/-- Faithful Appendix A.1/A.2 data constructs the concrete averaged rejection
+operator package without any scalarity field in either external input. -/
+def S05_averagedRejectionYoungOperatorData_from_appendixA
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action) :
+    AveragedRejectionYoungOperatorData lam :=
+  S05_averagedRejectionYoungOperatorData_actual
+    (YoungRepresentationActionData.ofAppendixA action content)
 
 /-- The genuine averaged high-matching Young operator commutes with every
 adjacent Young operator. -/
@@ -395,5 +442,23 @@ theorem S05_averagedRejectionYoungOperator_scalar_on_basis
           tableauBasisVec T U := by
   exact averagedRejectionYoungOperator_scalar_on_basis hconn
     (S05_averagedRejectionYoungOperatorData_actual young) T0 T
+
+/-- Concrete one-block scalarity derived from faithful A.1 action data,
+faithful A.2 content data, centrality of the actual averaged matching element,
+and A.4 connectedness. -/
+theorem S05_averagedRejectionYoungOperator_scalar_from_appendixA
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (hconn : External.AppendixA.StandardTableauxSwapConnectedStatement)
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action)
+    (T0 T : StandardYoungTableau lam) :
+    (S05_averagedRejectionYoungOperatorData_from_appendixA action content).operator
+        (tableauBasisVec T) =
+      fun U =>
+        (AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
+            (S05_averagedRejectionYoungOperatorData_from_appendixA
+              action content)).basisScalar T0 * tableauBasisVec T U := by
+  exact averagedRejectionYoungOperator_scalar_on_basis hconn
+    (S05_averagedRejectionYoungOperatorData_from_appendixA action content) T0 T
 
 end DictatorshipTesting

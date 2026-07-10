@@ -11,19 +11,24 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "external",
       "file": "DictatorshipTesting/Paper/AppA_ThmA_01_YoungOrthogonalRealization.lean",
       "wrappers": [
+        "AppA_ThmA_01_YoungOrthogonalActionStatement",
         "AppA_ThmA_01_youngOrthogonalRealization"
       ],
       "deps": [],
-      "summary": "External marker for Young orthogonal realization.",
-      "statement": "App A.1: External marker for Young orthogonal realization.",
+      "summary": "Faithful Young action interface defined; the existing axiom still has its old numerical-shadow type.",
+      "statement": "App A.1 now has a faithful operator statement type supplying YoungOrthogonalActionData: a linear multiplicative symmetric-group action whose adjacent generators are the explicit Young operators. The existing axiom declaration is still the older block-energy shadow because the regular-decomposition adapter is not proved.",
       "terms": [],
       "paperLabel": "thm:app-young-orthogonal",
       "paperEnv": "theorem",
       "paperStatementLatex": "Let $\\lambda\\vdash N$.  Let $V_\\lambda$ be the complex vector space with basis\n$\\{e_T:T\\in\\SYT(\\lambda)\\}$.  For each adjacent transposition $s_i=(i,i+1)$,\ndefine $S_i^\\lambda$ on this basis by Young's orthogonal local rule: if $i$ and\n$i+1$ are in the same row of $T$, then $S_i^\\lambda e_T=e_T$; if they are in the\nsame column, then $S_i^\\lambda e_T=-e_T$; otherwise $s_iT$ is standard and\n$S_i^\\lambda$ acts on $\\spanop\\{e_T,e_{s_iT}\\}$ by the usual $2\\times2$\nseminormal block determined by the axial distance.  Then the operators\n$S_i^\\lambda$ give the Young orthogonal, or seminormal, realization of the\nSpecht representation $S^\\lambda$ of $S_N$.",
       "leanLinks": [
         {
+          "name": "AppA_ThmA_01_YoungOrthogonalActionStatement",
+          "line": 31
+        },
+        {
           "name": "AppA_ThmA_01_youngOrthogonalRealization",
-          "line": 41
+          "line": 52
         }
       ]
     },
@@ -37,19 +42,26 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "external",
       "file": "DictatorshipTesting/Paper/AppA_ThmA_02_JucysMurphyContentSpectrum.lean",
       "wrappers": [
+        "AppA_ThmA_02_JucysMurphyContentActionStatement",
         "AppA_ThmA_02_jucysMurphyContentSpectrum"
       ],
-      "deps": [],
-      "summary": "External marker for the Jucys-Murphy content spectrum.",
-      "statement": "App A.2: External marker for the Jucys-Murphy content spectrum.",
+      "deps": [
+        "AppA_01"
+      ],
+      "summary": "Faithful JM/content interface defined; the existing axiom still has its old trace/scalar-shadow type.",
+      "statement": "App A.2 now has a faithful operator statement type supplying JucysMurphyContentActionData for the same A.1 action and the actual coefficient element J_k. The existing axiom declaration is still the older trace/scalar shadow because the concrete fixed-block trace theorem is not proved.",
       "terms": [],
       "paperLabel": "thm:app-jucys-murphy-content",
       "paperEnv": "theorem",
       "paperStatementLatex": "Let\n\\begin{equation*}\n  J_k=\\sum_{i<k}(i,k)\\in\\mathbb C[S_N].\n\\end{equation*}\nIn the Young orthogonal basis of $S^\\lambda$, the operator $\\rho^\\lambda(J_k)$\nis diagonal and satisfies\n\\begin{equation*}\n  \\rho^\\lambda(J_k)e_T=c_T(k)e_T,\n\\end{equation*}\nwhere $c_T(k)=\\col_T(k)-\\row_T(k)$ is the content of the box containing $k$ in\n$T$.",
       "leanLinks": [
         {
+          "name": "AppA_ThmA_02_JucysMurphyContentActionStatement",
+          "line": 33
+        },
+        {
           "name": "AppA_ThmA_02_jucysMurphyContentSpectrum",
-          "line": 59
+          "line": 69
         }
       ]
     },
@@ -1677,32 +1689,32 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "A finite group-algebra element is a coefficient function $a:G\\to\\mathbb R$.  It acts by right convolution\n\\[(C_aF)(x)=\\sum_{g\\in G}a(g)F(xg)\\]\nand, under a representation $\\rho$, by\n\\[\\rho(a)v=\\sum_{g\\in G}a(g)\\rho(g)v.\\]\nFor a Young block, the interface records the represented adjacent transpositions and Jucys--Murphy content elements needed to build the averaged rejection operator.",
       "leanLinks": [
         {
-          "name": "GroupAlgebraElement",
-          "line": 25
-        },
-        {
           "name": "rightConvolution",
-          "line": 30
+          "line": 26
         },
         {
           "name": "repOfGroupAlgebraElement",
-          "line": 74
+          "line": 48
         },
         {
           "name": "repOfGroupAlgebraElement_commutes_of_central",
-          "line": 144
+          "line": 152
         },
         {
           "name": "repOfGroupAlgebraElements_commute_of_central",
-          "line": 193
+          "line": 201
         },
         {
           "name": "YoungRepresentationActionData",
-          "line": 226
+          "line": 234
+        },
+        {
+          "name": "YoungRepresentationActionData.ofAppendixA",
+          "line": 251
         },
         {
           "name": "averagedRejectionYoungOperatorData_of_centralGroupAlgebraElement",
-          "line": 322
+          "line": 345
         }
       ]
     },
@@ -1721,7 +1733,9 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_averagedHighMatchingElement",
         "S05_averagedHighMatchingElement_central",
         "S05_averagedRejectionYoungOperatorData_actual",
-        "S05_averagedRejectionYoungOperator_scalar_on_basis"
+        "S05_averagedRejectionYoungOperatorData_from_appendixA",
+        "S05_averagedRejectionYoungOperator_scalar_on_basis",
+        "S05_averagedRejectionYoungOperator_scalar_from_appendixA"
       ],
       "deps": [
         "S05_D22",
@@ -1749,27 +1763,92 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "S05_fixedMatchingHighElement",
-          "line": 157
+          "line": 158
         },
         {
           "name": "S05_fixedMatchingHighElement_rightConvolution",
-          "line": 164
+          "line": 165
         },
         {
           "name": "S05_averagedHighMatchingElement",
-          "line": 254
+          "line": 255
         },
         {
           "name": "S05_averagedHighMatchingElement_central",
-          "line": 336
+          "line": 337
         },
         {
           "name": "S05_averagedRejectionYoungOperatorData_actual",
-          "line": 354
+          "line": 391
+        },
+        {
+          "name": "S05_averagedRejectionYoungOperatorData_from_appendixA",
+          "line": 401
         },
         {
           "name": "S05_averagedRejectionYoungOperator_scalar_on_basis",
-          "line": 386
+          "line": 433
+        },
+        {
+          "name": "S05_averagedRejectionYoungOperator_scalar_from_appendixA",
+          "line": 449
+        }
+      ]
+    },
+    {
+      "id": "S05_D30",
+      "label": "Def 5.30",
+      "title": "Tableau-operator trace",
+      "section": "Spectral bridge",
+      "kind": "paper",
+      "importance": "major",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_30_TableauOperatorTrace.lean",
+      "wrappers": [
+        "tableauOperatorTrace",
+        "tableauOperatorTrace_eq_tableauDim_mul_of_scalar_on_basis",
+        "scalar_eq_tableauOperatorTrace_div_tableauDim",
+        "S05_averagedRejectionYoungOperator_trace_eq_average_fixed"
+      ],
+      "deps": [
+        "S05_D04",
+        "S05_D29"
+      ],
+      "summary": "Explicit tableau-basis trace and the scalar/average trace formulas.",
+      "statement": "Definition 5.30 defines operator trace by summing diagonal tableau-basis coefficients. It proves trace equals tableau dimension times a basis scalar, recovers the scalar by division when the dimension is nonzero, and proves that the concrete averaged matching trace is the average of the represented fixed-matching traces.",
+      "terms": [
+        {
+          "text": "Tableau coordinate space",
+          "target": "S05_D04"
+        },
+        {
+          "text": "Averaged high-matching element",
+          "target": "S05_D29"
+        }
+      ],
+      "paperLabel": "def:tableau-operator-trace",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For an operator $B$ on the tableau-coordinate space, define\n\\[\\operatorname{tr}_{\\mathrm{tab}}(B)=\\sum_{T\\in\\operatorname{SYT}(\\lambda)}(Be_T)(T).\\]\nIf $Be_T=c e_T$ for every $T$, then $\\operatorname{tr}_{\\mathrm{tab}}(B)=d_\\lambda c$.",
+      "leanLinks": [
+        {
+          "name": "tableauOperatorTrace",
+          "line": 26
+        },
+        {
+          "name": "tableauOperatorTrace_eq_tableauDim_mul_of_scalar_on_basis",
+          "line": 32
+        },
+        {
+          "name": "S05_averagedRejectionYoungOperator_trace_eq_tableauDim_mul_scalar",
+          "line": 70
+        },
+        {
+          "name": "S05_averagedRejectionYoungOperator_trace_eq_average_fixed",
+          "line": 90
+        },
+        {
+          "name": "S05_averagedRejectionYoungOperator_scalar_eq_trace_div_tableauDim",
+          "line": 141
         }
       ]
     },

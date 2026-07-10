@@ -7,9 +7,9 @@ lemmas/theorems/propositions/corollaries have their own result counter.  Remarks
 examples, equations, proofs, and Appendix A statements are not represented as
 Section 5 paper-facing Lean files.
 
-Section 5 definition count: 29.
+Section 5 definition count: 30.
 Section 5 result count: 26.
-Section 5 paper-facing Lean file count: 55.
+Section 5 paper-facing Lean file count: 56.
 
 The former unnumbered tableau-preliminaries block is split into numbered
 Definitions 5.1--5.5.  Interface definitions that were formerly bundled into
@@ -64,6 +64,7 @@ again at Lemma 5.1, so the table always displays the prefix `Def` or `Lem`.
 | proven interface; instantiated in Def 5.29 | Lem 5.16a | interface | Averaged rejection Young operator | `S05_Lem5_16a_AveragedRejectionYoungOperator.lean` | `AveragedRejectionYoungOperatorData`, `averagedRejectionYoungOperator_commutes_adjacent`, `averagedRejectionYoungOperator_commutes_content`, `averagedRejectionYoungOperator_scalar_on_basis` | Names the one-block operator data needed to instantiate Lemma 5.15 and proves scalarity from it; Def 5.29 constructs this data for `rho_lambda(q)` on supplied Young action models. |
 | proven algebraic interface | Def 5.28 | definition | Group-algebra action interface | `S05_Def5_28_GroupAlgebraAction.lean` | `GroupAlgebraElement`, `rightConvolution`, `repOfGroupAlgebraElement`, `repOfGroupAlgebraElement_commutes_of_central`, `YoungRepresentationActionData` | Finite group-algebra coefficients and representation action; finite reindexing proves that coefficient centrality gives group and group-algebra commutation. |
 | proven construction and centrality | Def 5.29 | definition | Averaged high-matching group-algebra element | `S05_Def5_29_AveragedHighMatchingElement.lean` | `S05_fixedMatchingHighElement`, `S05_averagedHighMatchingElement`, `S05_averagedHighMatchingElement_central`, `S05_averagedRejectionYoungOperatorData_actual` | Explicit fixed and averaged coefficients; convolution identity, relabeling covariance, centrality, actual represented operator, adjacent/content commutation, and one-block scalarity for supplied Young action data are proved.  Connecting that action data and scalar to Appendix A energy/trace data remains external. |
+| proven | Def 5.30 | definition | Tableau-coordinate operator trace | `S05_Def5_30_TableauOperatorTrace.lean` | `tableauOperatorTrace`, `tableauOperatorTrace_eq_tableauDim_mul_of_scalar_on_basis`, `S05_averagedRejectionYoungOperator_trace_eq_average_fixed` | Explicit basis trace; scalar trace/division and average-of-fixed-traces are proved.  Lemma 5.12 does not yet identify the concrete fixed traces. |
 | proven | Lem 5.17 | lemma | Block lower bound implies the gap | `S05_Lem5_17_BlockLowerBoundImpliesTheGap.lean` | `S05_Lem5_17_spectralGapFromBlockScalars`, `S05_Lem5_17_spectralGapFromBlockModelWithDim` | Weighted-sum spectral-gap algebra. |
 | external: Appendix A plus Section 5 scalarity bridge input | Lem 5.18 | lemma | Regular Young-block decomposition | `S05_Lem5_18_RegularYoungBlockDecomposition.lean` | `spectralBlockModelInputWithDim_even_from_appendixA`, `spectralBlockModelInputWithDim_odd_from_appendixA` | Assembly from A.1/A.2/A.3/A.4 and `S05_matchingAverageScalarity_from_young_model_input` into the `SpectralBlockModelInputWithDim` interface. |
 | proven | Lem 5.19 | lemma | Even spectral bridge | `S05_Lem5_19_EvenSpectralBridge.lean` | `S05_Lem5_19_tableauDim_evenSpectralGapFromCertificates` | Algebraic bridge from explicit `SpectralBlockModelInputWithDim` hypothesis and finite certificate. |

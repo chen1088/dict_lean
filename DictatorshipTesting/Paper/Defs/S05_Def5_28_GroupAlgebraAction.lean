@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.S05_Lem5_16a_AveragedRejectionYoungOperator
+import DictatorshipTesting.Paper.Defs.AppA_DefA_02_JucysMurphyContentActionData
 
 /-
 Direct reverse imports:
@@ -19,12 +20,6 @@ not replace the named Section 5 scalarity input.
 noncomputable section
 
 namespace DictatorshipTesting
-
-/-- A real finite group-algebra element, represented as its coefficient
-function.  For the active Section 5 route the intended group is a finite
-symmetric group. -/
-abbrev GroupAlgebraElement (G : Type*) [Fintype G] :=
-  G -> Real
 
 /-- Right convolution by a finite group-algebra element:
 `(C_a F)(x) = sum_g a(g) F(xg)`. -/
@@ -47,28 +42,6 @@ theorem rightConvolution_smul {G : Type*} [Fintype G] [Mul G]
       fun x => c * rightConvolution a F x := by
   funext x
   simp [rightConvolution, Finset.mul_sum, mul_left_comm]
-
-/-- A representation-like finite group action on a real module, stated only in
-the form needed to sum group elements with group-algebra coefficients. -/
-structure GroupRepresentationActionData
-    (G V : Type*) [Group G] [AddCommMonoid V] [Module Real V] where
-  rho : G -> V -> V
-  map_add :
-    forall g : G, forall v w : V, rho g (v + w) = rho g v + rho g w
-  map_smul :
-    forall g : G, forall (c : Real) (v : V), rho g (c • v) = c • rho g v
-  map_mul :
-    forall g h : G, forall v : V, rho (g * h) v = rho g (rho h v)
-  map_one :
-    forall v : V, rho 1 v = v
-
-/-- One represented group element, packaged as a linear map. -/
-def GroupRepresentationActionData.linearMap
-    {G V : Type*} [Group G] [AddCommMonoid V] [Module Real V]
-    (rep : GroupRepresentationActionData G V) (g : G) : V →ₗ[Real] V where
-  toFun := rep.rho g
-  map_add' := rep.map_add g
-  map_smul' := rep.map_smul g
 
 /-- The operator `rho(a) = sum_g a(g) rho(g)` attached to a finite
 group-algebra element. -/
@@ -116,6 +89,40 @@ def repOfGroupAlgebraElementLinearMap {G V : Type*}
   toFun := repOfGroupAlgebraElement rep a
   map_add' := repOfGroupAlgebraElement_map_add rep a
   map_smul' := repOfGroupAlgebraElement_map_smul rep a
+
+/-- Representing a coefficientwise finite average gives the corresponding
+finite average of the represented operators. -/
+theorem repOfGroupAlgebraElement_fintypeAverage
+    {G V ι : Type*} [Fintype G] [Group G]
+    [Fintype ι] [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData G V)
+    (a : ι -> GroupAlgebraElement G) (v : V) :
+    repOfGroupAlgebraElement rep
+        (fun g => (∑ i : ι, a i g) / (Fintype.card ι : Real)) v =
+      (Fintype.card ι : Real)⁻¹ •
+        ∑ i : ι, repOfGroupAlgebraElement rep (a i) v := by
+  classical
+  unfold repOfGroupAlgebraElement
+  calc
+    (∑ g : G,
+      ((∑ i : ι, a i g) / (Fintype.card ι : Real)) • rep.rho g v) =
+        ∑ g : G, ∑ i : ι,
+          (Fintype.card ι : Real)⁻¹ • (a i g • rep.rho g v) := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      rw [← Finset.smul_sum, ← Finset.sum_smul]
+      simp [div_eq_mul_inv, smul_smul, mul_comm]
+    _ = ∑ i : ι, ∑ g : G,
+          (Fintype.card ι : Real)⁻¹ • (a i g • rep.rho g v) := by
+      rw [Finset.sum_comm]
+    _ = ∑ i : ι, (Fintype.card ι : Real)⁻¹ •
+          ∑ g : G, a i g • rep.rho g v := by
+      apply Finset.sum_congr rfl
+      intro i _hi
+      rw [Finset.smul_sum]
+    _ = (Fintype.card ι : Real)⁻¹ •
+        ∑ i : ι, ∑ g : G, a i g • rep.rho g v := by
+      rw [Finset.smul_sum]
 
 /-- Coefficient-level commutation with a group element.  This is the narrow
 centrality condition needed for changing variables in `rho(a) rho(s)` versus
@@ -238,6 +245,21 @@ structure YoungRepresentationActionData {n : Nat}
     forall a : Fin (n + 1), forall f : TableauSpace lam,
       repOfGroupAlgebraElement rep (jucysMurphyElement a) f =
         jucysMurphyDiagonalOperator a f
+
+/-- Combine the faithful A.1 action and A.2 content-action data into the
+Section 5 representation interface used by the averaged matching element. -/
+def YoungRepresentationActionData.ofAppendixA
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action) :
+    YoungRepresentationActionData lam where
+  rep := action.rep
+  adjacentPerm := action.adjacentPerm
+  rho_adjacent := action.rho_adjacent
+  jucysMurphyElement := appA_jucysMurphyElement
+  rho_content := by
+    intro a f
+    exact content.rho_content a f
 
 /-- The operator on a Young block produced by a group-algebra element through a
 Young representation-action interface. -/

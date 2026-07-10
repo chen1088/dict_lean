@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
+import DictatorshipTesting.Paper.Defs.AppA_DefA_01_YoungOrthogonalActionData
 
 /-
 Direct reverse imports:
@@ -24,6 +25,13 @@ noncomputable section
 
 namespace DictatorshipTesting
 
+/-- Faithful operator-level statement of Theorem A.1: every tableau shape has
+a Young orthogonal symmetric-group action realizing the explicit adjacent
+operators. -/
+def AppA_ThmA_01_YoungOrthogonalActionStatement : Prop :=
+  ∀ {n : Nat} (lam : YoungDiagram (n + 1)),
+    Nonempty (YoungOrthogonalActionData lam)
+
 /-- The block-energy data supplied by the Young orthogonal realization.  This
 is the Lean-facing numerical shadow of decomposing a function into Young
 blocks: each block receives a nonnegative squared energy. -/
@@ -32,12 +40,15 @@ structure AppA_YoungBlockEnergyData {n : Nat}
   blockEnergy : YoungDiagram n -> ℝ
   nonneg : YoungBlockDecompositionInput blockEnergy
 
-/-- Theorem A.1 interface: every function has Young-block energy data. -/
+/-- Old numerical A.1 shadow used by the active global spectral assembly.
+This is not the faithful operator-level statement above. -/
 def AppA_ThmA_01_YoungOrthogonalRealizationStatement : Prop :=
   ∀ {n : Nat} (F : Perm (Fin n) -> ℝ),
     Nonempty (AppA_YoungBlockEnergyData F)
 
-/-- External input Theorem A.1: Young orthogonal realization. -/
+/-- Existing external A.1 input.  Its numerical type is retained until the
+regular Young-block decomposition can be constructed from the faithful action
+statement without breaking the active Theorem 4.8 route. -/
 axiom AppA_ThmA_01_youngOrthogonalRealization :
     AppA_ThmA_01_YoungOrthogonalRealizationStatement
 

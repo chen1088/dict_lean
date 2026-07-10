@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
+import DictatorshipTesting.Paper.Defs.AppA_DefA_02_JucysMurphyContentActionData
 import DictatorshipTesting.Paper.S05_Int_TableauDimension
 import DictatorshipTesting.Paper.Defs.S05_Def5_24_TableauEvenHeight
 import DictatorshipTesting.Paper.Defs.S05_Def5_25_TableauOddHeight
@@ -26,6 +27,14 @@ noncomputable section
 
 namespace DictatorshipTesting
 
+/-- Faithful operator-level statement of Theorem A.2: for each A.1 action, the
+actual Jucys--Murphy coefficient elements act as the explicit diagonal content
+operators. -/
+def AppA_ThmA_02_JucysMurphyContentActionStatement : Prop :=
+  ∀ {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam),
+    Nonempty (JucysMurphyContentActionData action)
+
 /-- Trace/scalar data supplied by the Jucys--Murphy content-spectrum
 calculation, parameterized by the block dimension and height functions. -/
 structure AppA_TraceScalarDataWithDim {n : Nat}
@@ -35,8 +44,8 @@ structure AppA_TraceScalarDataWithDim {n : Nat}
   theta : YoungDiagram n -> ℝ
   trace_value : TraceScalarValueInputWithDim dim height theta
 
-/-- Theorem A.2 interface: the content-spectrum calculation supplies the
-trace/scalar values needed by the even and odd tableau-count spectral models. -/
+/-- Old numerical A.2 shadow used by the active global spectral assembly.
+This is not the faithful operator-level statement above. -/
 def AppA_ThmA_02_JucysMurphyContentSpectrumStatement : Prop :=
   (∀ (m : Nat) (_hm : 2 <= m)
       {F : Perm (Fin (2 * m)) -> ℝ}
@@ -55,7 +64,8 @@ def AppA_ThmA_02_JucysMurphyContentSpectrumStatement : Prop :=
           (fun lam : YoungDiagram (2 * m + 1) => hOddTableau m lam)
           energy))
 
-/-- External input Theorem A.2: Jucys--Murphy content spectrum. -/
+/-- Existing external A.2 input.  Its numerical type is retained until the
+concrete operator trace can be connected to the global Young-block assembly. -/
 axiom AppA_ThmA_02_jucysMurphyContentSpectrum :
     AppA_ThmA_02_JucysMurphyContentSpectrumStatement
 

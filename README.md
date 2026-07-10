@@ -35,7 +35,7 @@ for GitHub Pages and separates large paper-facing theorem nodes from smaller
 internal support nodes.  Open [`docs/index.html`](docs/index.html), or enable
 GitHub Pages from the repository `docs/` folder to publish the same view.  The
 browser includes a compact paper-map tab and gives the numbered Section 5
-definitions 5.1--5.29 clickable popovers, so broad shared-definition
+definitions 5.1--5.30 clickable popovers, so broad shared-definition
 dependencies do not obscure the proof structure.  Selected nodes show the
 paper statement in LaTeX and link wrapper declarations to their Lean source
 lines when available.
@@ -62,8 +62,8 @@ input, see `PROOF_OBLIGATIONS.md`.
 
 For the current rewritten Section 5 statement-to-file map, see
 `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`.  Section 5 now uses separate
-counters: 29 numbered definitions (`Def 5.x`) and 26 numbered result statements
-(`Lem 5.x` and theorem-like variants), for 55 paper-facing Section 5 Lean files.
+counters: 30 numbered definitions (`Def 5.x`) and 26 numbered result statements
+(`Lem 5.x` and theorem-like variants), for 56 paper-facing Section 5 Lean files.
 Appendix A external representation-theoretic inputs are mapped separately in
 `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
@@ -233,10 +233,23 @@ Generic commutant infrastructure for Lemma 5.15:
   with the actual averaged high matching element.  For every supplied
   `YoungRepresentationActionData`, it constructs `rho_lambda(q)`, proves its
   adjacent/content commutation, packages `AveragedRejectionYoungOperatorData`,
-  and obtains one-block scalarity from Lemma 5.15 and A.4.  The remaining link
-  is to strengthen the Appendix A.1/A.2 Lean interfaces, which currently expose
-  only block-energy and trace/scalar data, so that they supply the concrete
-  `YoungRepresentationActionData`; the global weighted scalarity axiom remains.
+  and obtains one-block scalarity from Lemma 5.15 and A.4.
+- `AppA_DefA_01_YoungOrthogonalActionData.lean` and
+  `AppA_DefA_02_JucysMurphyContentActionData.lean` now state the faithful A.1
+  representation action and A.2 Jucys--Murphy/content action interfaces without
+  energy, trace, or scalarity fields.  Their internal adapter constructs the
+  `YoungRepresentationActionData` used by Definition 5.29.
+- `S05_Def5_30_TableauOperatorTrace.lean` defines the basis trace, proves
+  `trace = tableauDim * scalar`, proves scalar equals trace divided by nonzero
+  tableau dimension, and proves that the concrete averaged-operator trace is
+  the average of the represented fixed-matching traces.
+
+The existing A.1/A.2 axiom declarations still have their old numerical-shadow
+types.  They were not silently changed: replacing them now would break the
+active Theorem 4.8 route because the repository does not yet construct the
+regular Young-block energy decomposition, and Lemma 5.12 does not yet identify
+the trace of the concrete fixed-matching operator.  The final global weighted
+scalarity axiom therefore remains.
 
 Proven Lemma 5.17 trace-model-to-gap algebra:
 
