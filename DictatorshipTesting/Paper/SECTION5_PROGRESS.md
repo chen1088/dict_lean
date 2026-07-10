@@ -56,6 +56,13 @@ Detailed maps:
   spans, has the prescribed simultaneous canonical-edge eigenvalues, and its
   label enumeration is literally `S05_evenSignPatternMultiset` with
   multiplicity.
+- Lemma 5.11 now transports that basis to every even matching. Endpoint
+  coverage and the conjugating permutation are explicit; represented
+  permutations are proved invertible and inner-product preserving; the
+  transported basis has direct `M.toOrdered` character action and exact
+  transported label multiplicity.
+- Lemma 5.13 now instantiates the positive-size even tableau and full Young-block
+  fixed-matching traces without an eigenbasis hypothesis.
 - Definition 5.22 has proved low/high matching idempotent identities, zero
   cross-compositions, and the low-plus-high decomposition identity.
 - Lemma 5.15 proves the finite-average/high-idempotent part of central averaged
@@ -103,12 +110,11 @@ Detailed maps:
 - Lemmas 5.18--5.21 expose the active tableauDim spectral-bridge route used by
   Theorem 4.8.
 - The first remaining representation-theoretic frontier is still Lemma 5.11,
-  but the canonical even labeled eigenbasis is no longer part of the gap. The
-  exact next layers are transport to arbitrary perfect matchings and the odd
-  one-box assembly with exact `S05_oddSignPatternMultiset` labels. Lemma 5.13
-  is proved from labeled eigenbasis/count data; applying it also requires
-  identifying the Appendix-action fixed-matching operator with the concrete
-  canonical action. After that, the regular orthogonal
+  but both canonical and arbitrary even labeled eigenbases are no longer part
+  of the gap. The exact next layer is the odd one-box assembly with exact
+  `S05_oddSignPatternMultiset` labels, followed by odd near-perfect transport.
+  Lemma 5.13's even fixed traces are instantiated; its odd instantiation awaits
+  that basis. After that, the regular orthogonal
   Young-block decomposition and global weighted energy identity are still
   required.  The old numerical A.1/A.2 axiom types and the final
   matching-average scalarity input therefore remain unchanged.
@@ -133,8 +139,9 @@ Detailed maps:
   zero multiplicity, and even/odd high multiplicities.
 - Lemma 5.11 proves the concrete matching-cube action, sign-projection wrappers,
   the full signed-child orthogonal decomposition, and the recursive canonical
-  even labeled eigenbasis with exact label multiplicities. Arbitrary matching
-  transport and the odd basis remain.
+  even labeled eigenbasis with exact label multiplicities. Arbitrary perfect
+  matching transport is proved by explicit conjugation and isometry. The odd
+  basis remains.
 - Lemma 5.12 proves the matching-character local truncation calculation.
 - Definition 5.22 proves the low/high matching idempotent algebra.
 - Lemma 5.14 proves local truncation as convolution.

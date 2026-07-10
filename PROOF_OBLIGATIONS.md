@@ -141,7 +141,10 @@ Remaining Section 5/AppA bridge boundary:
   and joint spanning are proved internally. The canonical even matching basis
   is now recursively assembled from these embeddings; its orthonormality,
   spanning, simultaneous edge eigenvalues, and literal label-multiset equality
-  with `S05_evenSignPatternMultiset` are proved. The representation-theoretic
+  with `S05_evenSignPatternMultiset` are proved. Every even matching is now
+  covered by an explicit endpoint equivalence and conjugating permutation;
+  the represented action is proved invertible and inner-product preserving,
+  so the arbitrary-perfect-matching labeled basis is proved as well. The representation-theoretic
   Specht/Pieri content beyond this tableau decomposition is accounted for
   inside the spectral-block model boundary rather than as a separate Lean
   axiom.
@@ -195,7 +198,9 @@ Remaining Section 5/AppA bridge boundary:
   `young-block trace = tableauDim * tableau-space trace`.
 - Lemma 5.13 now proves the even and odd numerical tableau traces and their full
   Young-block `tableauDim` multiples from the explicit eigenbasis and
-  high-label count assumed by its paper statement.
+  high-label count assumed by its paper statement. Its positive-size even
+  tableau and full-block traces are now instantiated unconditionally from the
+  arbitrary-perfect-matching basis.
 - Definitions 5.13--5.14 now define the actual recursive even and odd label
   multisets. Lemma 5.10 proves their `tableauDim` cardinalities, empty-label
   multiplicity `zEven`, and high-label multiplicities
@@ -203,13 +208,12 @@ Remaining Section 5/AppA bridge boundary:
 - The canonical even assembly step of Lemma 5.11 is proved by
   `S05_Lem5_11_canonicalEvenMatchingEigenbasis`.  The explicit recursive basis
   has exact label multiset `S05_evenSignPatternMultiset`, not merely the same
-  cardinality.  The remaining Lemma 5.11 obligations are transport from the
-  canonical matching to an arbitrary perfect matching and construction of the
-  odd near-perfect matching eigenbasis with exact
-  `S05_oddSignPatternMultiset` labels.  Lemma 5.13 also needs the corresponding
-  identification between the Appendix-action fixed-matching operator and the
-  concrete canonical matching action before its conditional trace theorem can
-  be instantiated.
+  cardinality. Transport from the canonical matching to every arbitrary
+  perfect matching is also proved, including exact edge-label transport and
+  direct `M.toOrdered` character action. The remaining Lemma 5.11 obligation is
+  construction of the odd near-perfect matching eigenbasis with exact
+  `S05_oddSignPatternMultiset` labels; this is also the remaining fixed-trace
+  instantiation in Lemma 5.13.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
 definition-only files `S05_Def5_24_TableauEvenHeight.lean` and
@@ -528,24 +532,25 @@ Lean file: `DictatorshipTesting/Paper/S05_Lem5_11_MatchingSubgroupEigenbasis.lea
 
 Lean theorem names:
 `S05_Lem5_11_canonicalEvenMatchingEigenbasis`,
+`S05_Lem5_11_arbitraryEvenMatchingEigenbasis_toOrdered`,
 `matchingRestriction_even_specht_pieri_input`,
 `matchingRestriction_odd_specht_pieri_input`.
 
 Current status: the recursive label multisets and all of their required
 cardinality/high-count semantics are proved. The signed-child orthogonal
 decomposition and the canonical even labeled eigenbasis are also proved,
-including exact multiset equality. The full paper-level labeled eigenbasis
-statement is not yet formalized for arbitrary perfect matchings or for the odd
-near-perfect case.
+including exact multiset equality. The basis is transported to every arbitrary
+perfect matching by an explicit conjugating permutation and represented
+isometry. The full paper-level labeled eigenbasis statement remains open only
+for the odd near-perfect case.
 
 Mathematical content: restricting `S^lambda` to the matching subgroup
 `A_M ~= (Z/2Z)^m` has the local character-weight multiset recursively counted
 by the Section 5 `X_m(lambda)` data.
 
-Exact internal blocker: transport the proved canonical even basis to an
-arbitrary perfect matching while preserving its character labels, then carry
-out the one-box odd assembly and identify its labels with
-`S05_oddSignPatternMultiset`. The concrete canonical basis itself is no longer
+Exact internal blocker: carry out the one-box odd assembly, prove its
+orthonormal spanning decomposition and matching eigenvalues, and identify its
+labels with `S05_oddSignPatternMultiset`. Even matching transport is no longer
 a blocker.
 
 Citation target if external: repeated Pieri/Littlewood--Richardson branching

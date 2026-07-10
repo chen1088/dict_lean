@@ -200,9 +200,11 @@ Proven matching-cube components for Lemma 5.11:
   canonical even matching basis from those signed-child embeddings, proves
   orthonormality and spanning, proves every canonical-edge eigenvalue, and
   identifies its labels literally, with multiplicity, with
-  `S05_evenSignPatternMultiset`. Remaining for the full Lemma 5.11 statement:
-  transport to arbitrary perfect matchings and construct the odd near-perfect
-  matching eigenbasis.
+  `S05_evenSignPatternMultiset`. It now also constructs the endpoint
+  equivalence and conjugating permutation for every even matching, proves that
+  represented permutations are invertible isometries, and transports the
+  basis with exact labels to `M.toOrdered`. Remaining for the full Lemma 5.11
+  statement: construct the odd near-perfect matching eigenbasis.
 
 Proven Definition 5.22 matching-idempotent components:
 
@@ -280,12 +282,11 @@ types.  They were not silently changed: replacing them now would break the
 active Theorem 4.8 route because the repository does not yet construct the
 regular Young-block energy decomposition.  Lemma 5.13 now identifies the trace
 of the concrete fixed-matching operator with `hEvenTableau` or `hOddTableau`
-from the labeled matching eigenbasis in its paper statement.  The exact missing
-result for applying it is the remaining part of Lemma 5.11: transport of the
-now-proved canonical even labeled eigenbasis to arbitrary perfect matchings and
-construction of the odd near-perfect labeled eigenbasis. The canonical even
-basis already has exact recursive label-multiset equality. The final global
-weighted scalarity axiom therefore remains.
+  from the labeled matching eigenbasis in its paper statement. The positive-size
+  even trace and full Young-block trace are now instantiated unconditionally
+  from the arbitrary-perfect-matching basis. The remaining Lemma 5.11 and trace
+  obligation is construction of the odd near-perfect labeled eigenbasis. The
+  final global weighted scalarity axiom therefore remains.
 
 Proven Lemma 5.18 trace-model-to-gap algebra:
 
@@ -338,8 +339,9 @@ External standard inputs:
   signed-child orthogonal decomposition, constructs the canonical even
   matching basis recursively, proves its simultaneous eigenvalue equations,
   and proves exact label-multiset equality with
-  `S05_evenSignPatternMultiset`. Arbitrary-perfect-matching transport and the
-  odd near-perfect matching basis remain.
+  `S05_evenSignPatternMultiset`. Arbitrary-perfect-matching transport is also
+  proved by an explicit endpoint permutation and represented isometry. The odd
+  near-perfect matching basis remains.
 - Lemmas 5.18--5.21, especially
   `S05_Lem5_19_RegularYoungBlockDecomposition.lean`,
   `S05_Lem5_20_EvenSpectralBridge.lean`, and
@@ -385,7 +387,8 @@ Remaining bridge boundary:
 
 - `S05_Lem5_13_TraceOfOneLocalTruncationOnOneYoungBlock.lean` -- Lemma 5.13:
   the actual fixed-matching tableau and full-block trace formulas from the
-  explicit labeled matching eigenbasis in the paper statement.
+  explicit labeled matching eigenbasis in the paper statement; the even formulas
+  are now instantiated unconditionally for every positive-size perfect matching.
 - `S05_Lem5_17_BlockScalarOfTheAveragedRejection.lean` -- Lemma 5.17:
   trace-divided-by-dimension algebra from explicit scalarity and trace identity
   inputs; those inputs are bundled into the spectral-block model boundary.

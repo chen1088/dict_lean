@@ -7,6 +7,8 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_19_MatchingRestrictionOddInput
 import DictatorshipTesting.Paper.S05_Lem5_10_SizesOfTheSignPatternMultisets
 import DictatorshipTesting.Paper.S05_Lem5_04_TwoBoxTableauBranching
 import DictatorshipTesting.Paper.S05_Lem5_27_OddCertificate
+import DictatorshipTesting.Paper.Defs.AppA_DefA_01_YoungOrthogonalActionData
+import DictatorshipTesting.Paper.Defs.S05_Def5_29_AveragedHighMatchingElement
 
 /-
 Direct reverse imports:
@@ -26,8 +28,9 @@ the final edge, intertwining on earlier edges, pairwise orthogonal, and jointly
 spanning. Definitions 5.13--5.14 and Lemma 5.10 provide the genuine recursive
 label multisets and prove their cardinality and high-label counts. The canonical
 even labeled matching eigenbasis is now recursively constructed below, with
-literal multiset equality of its labels. Remaining: transport to arbitrary
-perfect matchings and construct the odd near-perfect matching eigenbasis.
+literal multiset equality of its labels. The explicit endpoint permutation and
+represented isometry now transport it to every arbitrary perfect matching.
+Remaining: construct the odd near-perfect matching eigenbasis.
 -/
 
 /-!
@@ -3060,6 +3063,785 @@ theorem S05_canonicalEvenMatchingBasis_character_action
         S05_canonicalEvenMatchingBasis (m + 1) lam i := by
   exact canonicalMatchingCubeOperatorEven_apply_character_of_isMatchingEigenvector
     ((S05_Lem5_11_canonicalEvenMatchingEigenbasis m lam).2.1 i) x
+
+/-! ## Transport from the canonical perfect matching -/
+
+/-- One concrete Young adjacent operator preserves the tableau-coordinate
+inner product. -/
+theorem S05_youngAdjacentOperator_inner
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (a : Fin n) (f g : TableauSpace lam) :
+    tableauInner (youngAdjacentOperator a f) (youngAdjacentOperator a g) =
+      tableauInner f g := by
+  calc
+    tableauInner (youngAdjacentOperator a f) (youngAdjacentOperator a g) =
+        tableauInner f
+          (youngAdjacentOperator a (youngAdjacentOperator a g)) :=
+      S05_tableauInner_youngAdjacentOperator_selfAdjoint a f
+        (youngAdjacentOperator a g)
+    _ = tableauInner f g := by rw [youngAdjacentOperator_sq]
+
+/-- The represented inverse permutation is a left inverse on tableau
+coordinates. -/
+theorem YoungOrthogonalActionData.rho_leftInverse
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (σ : Perm (Fin (n + 1))) (f : TableauSpace lam) :
+    action.rep.rho σ.symm (action.rep.rho σ f) = f := by
+  have hσ : σ.symm * σ = 1 := by
+    ext x
+    simp
+  calc
+    action.rep.rho σ.symm (action.rep.rho σ f) =
+        action.rep.rho (σ.symm * σ) f :=
+      (action.rep.map_mul σ.symm σ f).symm
+    _ = action.rep.rho 1 f := by rw [hσ]
+    _ = f := action.rep.map_one f
+
+/-- The represented inverse permutation is a right inverse on tableau
+coordinates. -/
+theorem YoungOrthogonalActionData.rho_rightInverse
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (σ : Perm (Fin (n + 1))) (f : TableauSpace lam) :
+    action.rep.rho σ (action.rep.rho σ.symm f) = f := by
+  have hσ : σ * σ.symm = 1 := by
+    ext x
+    simp
+  calc
+    action.rep.rho σ (action.rep.rho σ.symm f) =
+        action.rep.rho (σ * σ.symm) f :=
+      (action.rep.map_mul σ σ.symm f).symm
+    _ = action.rep.rho 1 f := by rw [hσ]
+    _ = f := action.rep.map_one f
+
+/-- Every represented permutation acts bijectively on tableau coordinates. -/
+theorem YoungOrthogonalActionData.rho_bijective
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (σ : Perm (Fin (n + 1))) :
+    Function.Bijective (action.rep.rho σ) :=
+  ⟨Function.LeftInverse.injective (action.rho_leftInverse σ),
+    Function.RightInverse.surjective (action.rho_rightInverse σ)⟩
+
+/-- A represented permutation, packaged with its represented inverse as a
+linear equivalence. -/
+noncomputable def YoungOrthogonalActionData.rhoLinearEquiv
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (σ : Perm (Fin (n + 1))) :
+    TableauSpace lam ≃ₗ[Real] TableauSpace lam :=
+  LinearEquiv.mk (action.rep.linearMap σ) (action.rep.rho σ.symm)
+    (action.rho_leftInverse σ) (action.rho_rightInverse σ)
+
+/-- Every represented permutation preserves the tableau-coordinate inner
+product. This follows from the adjacent-generator formula and Mathlib's theorem
+that adjacent transpositions generate the finite symmetric group. -/
+theorem YoungOrthogonalActionData.rho_inner
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (σ : Perm (Fin (n + 1))) (f g : TableauSpace lam) :
+    tableauInner (action.rep.rho σ f) (action.rep.rho σ g) =
+      tableauInner f g := by
+  have hmem :
+      σ ∈ Submonoid.closure
+        (Set.range fun a : Fin n => appA_adjacentTransposition a) := by
+    rw [show
+      (Set.range fun a : Fin n => appA_adjacentTransposition a) =
+        Set.range (fun a : Fin n => Equiv.swap a.castSucc a.succ) by rfl]
+    rw [Equiv.Perm.mclosure_swap_castSucc_succ]
+    trivial
+  exact Submonoid.closure_induction
+    (motive := fun τ _ => ∀ u v : TableauSpace lam,
+      tableauInner (action.rep.rho τ u) (action.rep.rho τ v) =
+        tableauInner u v)
+    (fun τ hτ => by
+      rcases hτ with ⟨a, rfl⟩
+      intro u v
+      rw [action.rho_adjacent a u, action.rho_adjacent a v]
+      exact S05_youngAdjacentOperator_inner a u v)
+    (by
+      intro u v
+      rw [action.rep.map_one u, action.rep.map_one v])
+    (fun τ υ _ _ hτ hυ => by
+      intro u v
+      rw [action.rep.map_mul τ υ u, action.rep.map_mul τ υ v]
+      calc
+        tableauInner (action.rep.rho τ (action.rep.rho υ u))
+            (action.rep.rho τ (action.rep.rho υ v)) =
+            tableauInner (action.rep.rho υ u) (action.rep.rho υ v) :=
+          hτ _ _
+        _ = tableauInner u v := hυ _ _)
+    hmem f g
+
+/-- The canonical endpoint encoding `(r,b) ↦ 2*r+b`. -/
+def S05_canonicalMatchingEndpointEquiv (m : Nat) :
+    Fin m × Fin 2 ≃ Fin (2 * m) :=
+  finProdFinEquiv.trans (finCongr (Nat.mul_comm m 2))
+
+@[simp] theorem S05_canonicalMatchingEndpointEquiv_zero_val
+    (m : Nat) (r : Fin m) :
+    ((S05_canonicalMatchingEndpointEquiv m (r, 0) : Fin (2 * m)) : Nat) =
+      2 * (r : Nat) := by
+  simp [S05_canonicalMatchingEndpointEquiv, finProdFinEquiv]
+
+@[simp] theorem S05_canonicalMatchingEndpointEquiv_one_val
+    (m : Nat) (r : Fin m) :
+    ((S05_canonicalMatchingEndpointEquiv m (r, 1) : Fin (2 * m)) : Nat) =
+      2 * (r : Nat) + 1 := by
+  simp [S05_canonicalMatchingEndpointEquiv, finProdFinEquiv]
+  omega
+
+/-- The canonical ordered perfect matching `(0,1),(2,3),...`. -/
+noncomputable def S05_canonicalOrderedPerfectMatching (m : Nat) :
+    OrderedMatching (Fin (2 * m)) where
+  edgeCount := m
+  left r := S05_canonicalMatchingEndpointEquiv m (r, 0)
+  right r := S05_canonicalMatchingEndpointEquiv m (r, 1)
+  left_ne_right r := by
+    intro h
+    have hp := (S05_canonicalMatchingEndpointEquiv m).injective h
+    simpa using congrArg Prod.snd hp
+  edges_disjoint := by
+    intro r s hrs
+    refine ⟨?_, ?_, ?_, ?_⟩
+    · intro h
+      exact hrs (congrArg Prod.fst
+        ((S05_canonicalMatchingEndpointEquiv m).injective h))
+    · intro h
+      have hb := congrArg Prod.snd
+        ((S05_canonicalMatchingEndpointEquiv m).injective h)
+      simp at hb
+    · intro h
+      have hb := congrArg Prod.snd
+        ((S05_canonicalMatchingEndpointEquiv m).injective h)
+      simp at hb
+    · intro h
+      exact hrs (congrArg Prod.fst
+        ((S05_canonicalMatchingEndpointEquiv m).injective h))
+
+@[simp] theorem S05_canonicalOrderedPerfectMatching_edgeCount (m : Nat) :
+    (S05_canonicalOrderedPerfectMatching m).edgeCount = m := by
+  rfl
+
+/-- Extensionality for ordered matchings, including the dependent edge index. -/
+theorem S05_orderedMatching_ext
+    {α : Type*} [DecidableEq α] (M N : OrderedMatching α)
+    (hcount : M.edgeCount = N.edgeCount)
+    (hleft : ∀ r : Fin M.edgeCount,
+      M.left r = N.left (Fin.cast hcount r))
+    (hright : ∀ r : Fin M.edgeCount,
+      M.right r = N.right (Fin.cast hcount r)) :
+    M = N := by
+  cases M with
+  | mk mc ml mr mlr med =>
+      cases N with
+      | mk nc nl nr nlr ned =>
+          change mc = nc at hcount
+          subst nc
+          simp only [Fin.cast_refl] at hleft hright
+          have hleft_fun : ml = nl := funext hleft
+          have hright_fun : mr = nr := funext hright
+          subst nl
+          subst nr
+          rfl
+
+/-- The edge count of an even near-perfect matching is exactly half its
+ambient cardinality. -/
+theorem S05_evenMatching_edgeCount_eq
+    (m : Nat) (M : NearPerfectMatching (2 * m)) :
+    m = M.toOrdered.edgeCount := by
+  simp [NearPerfectMatching.toOrdered]
+
+/-- Reindex an even near-perfect matching by the literal edge type `Fin m`. -/
+noncomputable def S05_evenOrderedMatching
+    (m : Nat) (M : NearPerfectMatching (2 * m)) :
+    OrderedMatching (Fin (2 * m)) where
+  edgeCount := m
+  left r := M.toOrdered.left (Fin.cast (S05_evenMatching_edgeCount_eq m M) r)
+  right r := M.toOrdered.right (Fin.cast (S05_evenMatching_edgeCount_eq m M) r)
+  left_ne_right r := M.toOrdered.left_ne_right _
+  edges_disjoint := by
+    intro r s hrs
+    apply M.toOrdered.edges_disjoint
+    intro h
+    apply hrs
+    exact Fin.cast_injective (S05_evenMatching_edgeCount_eq m M) h
+
+/-- The reindexed matching is propositionally the original ordered matching. -/
+theorem S05_evenOrderedMatching_eq_toOrdered
+    (m : Nat) (M : NearPerfectMatching (2 * m)) :
+    S05_evenOrderedMatching m M = M.toOrdered := by
+  apply S05_orderedMatching_ext _ _ (S05_evenMatching_edgeCount_eq m M)
+  · intro r
+    rfl
+  · intro r
+    rfl
+
+/-- Endpoint map of an even near-perfect matching, with an explicit side bit. -/
+def S05_matchingEndpointMap
+    (m : Nat) (M : NearPerfectMatching (2 * m)) :
+    Fin m × Fin 2 → Fin (2 * m)
+  | (r, b) => Fin.cases ((S05_evenOrderedMatching m M).left r)
+      (fun _ => (S05_evenOrderedMatching m M).right r) b
+
+@[simp] theorem S05_matchingEndpointMap_zero
+    (m : Nat) (M : NearPerfectMatching (2 * m)) (r : Fin m) :
+    S05_matchingEndpointMap m M (r, 0) =
+      (S05_evenOrderedMatching m M).left r := by
+  rfl
+
+@[simp] theorem S05_matchingEndpointMap_one
+    (m : Nat) (M : NearPerfectMatching (2 * m)) (r : Fin m) :
+    S05_matchingEndpointMap m M (r, 1) =
+      (S05_evenOrderedMatching m M).right r := by
+  rfl
+
+/-- Matching endpoint disjointness makes the endpoint map injective. -/
+theorem S05_matchingEndpointMap_injective
+    (m : Nat) (M : NearPerfectMatching (2 * m)) :
+    Function.Injective (S05_matchingEndpointMap m M) := by
+  intro x y h
+  rcases x with ⟨r, b⟩
+  rcases y with ⟨s, c⟩
+  fin_cases b <;> fin_cases c
+  · have hrs : r = s := by
+      by_contra hne
+      exact ((S05_evenOrderedMatching m M).edges_disjoint hne).1 h
+    subst s
+    rfl
+  · by_cases hrs : r = s
+    · subst s
+      exact False.elim ((S05_evenOrderedMatching m M).left_ne_right r h)
+    · exact False.elim
+        (((S05_evenOrderedMatching m M).edges_disjoint hrs).2.1 h)
+  · by_cases hrs : r = s
+    · subst s
+      exact False.elim ((S05_evenOrderedMatching m M).left_ne_right r h.symm)
+    · exact False.elim
+        (((S05_evenOrderedMatching m M).edges_disjoint hrs).2.2.1 h)
+  · have hrs : r = s := by
+      by_contra hne
+      exact ((S05_evenOrderedMatching m M).edges_disjoint hne).2.2.2 h
+    subst s
+    rfl
+
+/-- In the even case the injective endpoint map is surjective by cardinality. -/
+theorem S05_matchingEndpointMap_bijective
+    (m : Nat) (M : NearPerfectMatching (2 * m)) :
+    Function.Bijective (S05_matchingEndpointMap m M) := by
+  apply (Fintype.bijective_iff_injective_and_card _).2
+  refine ⟨S05_matchingEndpointMap_injective m M, ?_⟩
+  simp [Nat.mul_comm]
+
+/-- Every vertex of an even near-perfect matching is a unique edge endpoint. -/
+noncomputable def S05_matchingEndpointEquiv
+    (m : Nat) (M : NearPerfectMatching (2 * m)) :
+    Fin m × Fin 2 ≃ Fin (2 * m) :=
+  Equiv.ofBijective (S05_matchingEndpointMap m M)
+    (S05_matchingEndpointMap_bijective m M)
+
+@[simp] theorem S05_matchingEndpointEquiv_zero
+    (m : Nat) (M : NearPerfectMatching (2 * m)) (r : Fin m) :
+    S05_matchingEndpointEquiv m M (r, 0) =
+      (S05_evenOrderedMatching m M).left r := by
+  rfl
+
+@[simp] theorem S05_matchingEndpointEquiv_one
+    (m : Nat) (M : NearPerfectMatching (2 * m)) (r : Fin m) :
+    S05_matchingEndpointEquiv m M (r, 1) =
+      (S05_evenOrderedMatching m M).right r := by
+  rfl
+
+/-- The explicit permutation sending canonical edge endpoints to the endpoints
+of `M`, without changing the edge coordinate. -/
+noncomputable def S05_perfectMatchingRelabeling
+    (m : Nat) (M : NearPerfectMatching (2 * m)) :
+    Perm (Fin (2 * m)) :=
+  (S05_canonicalMatchingEndpointEquiv m).symm.trans
+    (S05_matchingEndpointEquiv m M)
+
+@[simp] theorem S05_perfectMatchingRelabeling_left
+    (m : Nat) (M : NearPerfectMatching (2 * m)) (r : Fin m) :
+    S05_perfectMatchingRelabeling m M
+        ((S05_canonicalOrderedPerfectMatching m).left r) =
+      (S05_evenOrderedMatching m M).left r := by
+  simp [S05_perfectMatchingRelabeling,
+    S05_canonicalOrderedPerfectMatching]
+
+@[simp] theorem S05_perfectMatchingRelabeling_right
+    (m : Nat) (M : NearPerfectMatching (2 * m)) (r : Fin m) :
+    S05_perfectMatchingRelabeling m M
+        ((S05_canonicalOrderedPerfectMatching m).right r) =
+      (S05_evenOrderedMatching m M).right r := by
+  simp [S05_perfectMatchingRelabeling,
+    S05_canonicalOrderedPerfectMatching]
+
+/-- Relabeling the canonical matching gives the supplied even matching. -/
+theorem S05_canonicalOrderedPerfectMatching_relabel
+    (m : Nat) (M : NearPerfectMatching (2 * m)) :
+    (S05_canonicalOrderedPerfectMatching m).relabel
+        (S05_perfectMatchingRelabeling m M) =
+      M.toOrdered := by
+  rw [← S05_evenOrderedMatching_eq_toOrdered m M]
+  refine S05_orderedMatching_ext
+    ((S05_canonicalOrderedPerfectMatching m).relabel
+      (S05_perfectMatchingRelabeling m M))
+    (S05_evenOrderedMatching m M) rfl ?_ ?_
+  · intro r
+    exact S05_perfectMatchingRelabeling_left m M r
+  · intro r
+    exact S05_perfectMatchingRelabeling_right m M r
+
+/-- The matching-cube element for the reindexed arbitrary matching is the
+conjugate of the canonical matching-cube element. -/
+theorem S05_evenOrderedMatching_tau_conjugate
+    (m : Nat) (M : NearPerfectMatching (2 * m)) (x : Cube m) :
+    (S05_evenOrderedMatching m M).tau x =
+      S05_perfectMatchingRelabeling m M *
+        (S05_canonicalOrderedPerfectMatching m).tau x *
+          (S05_perfectMatchingRelabeling m M).symm := by
+  have htau :
+      (S05_evenOrderedMatching m M).tau x =
+        ((S05_canonicalOrderedPerfectMatching m).relabel
+          (S05_perfectMatchingRelabeling m M)).tau x := by
+    unfold OrderedMatching.tau
+    change
+      (List.ofFn fun r : Fin m =>
+        (S05_evenOrderedMatching m M).edgePerm x r).prod =
+      (List.ofFn fun r : Fin m =>
+        ((S05_canonicalOrderedPerfectMatching m).relabel
+          (S05_perfectMatchingRelabeling m M)).edgePerm x r).prod
+    apply congrArg List.prod
+    apply congrArg List.ofFn
+    funext r
+    unfold OrderedMatching.edgePerm
+    by_cases hx : x r
+    · simp only [hx, if_true]
+      unfold OrderedMatching.edgeSwap OrderedMatching.relabel
+      change
+        pswap ((S05_evenOrderedMatching m M).left r)
+            ((S05_evenOrderedMatching m M).right r) =
+          pswap
+            (S05_perfectMatchingRelabeling m M
+              ((S05_canonicalOrderedPerfectMatching m).left r))
+            (S05_perfectMatchingRelabeling m M
+              ((S05_canonicalOrderedPerfectMatching m).right r))
+      rw [S05_perfectMatchingRelabeling_left,
+        S05_perfectMatchingRelabeling_right]
+    · simp [hx]
+  rw [htau]
+  exact orderedMatching_tau_relabel
+    (S05_perfectMatchingRelabeling m M)
+    (S05_canonicalOrderedPerfectMatching m) x
+
+/-- A represented list product acts by composing the represented factors in
+the same order. -/
+theorem GroupRepresentationActionData.rho_list_prod
+    {G V : Type*} [Group G] [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData G V) (l : List G) (v : V) :
+    rep.rho l.prod v = composeOperatorList (l.map rep.rho) v := by
+  induction l with
+  | nil =>
+      simp [composeOperatorList, rep.map_one]
+  | cons g l ih =>
+      simp only [List.prod_cons, List.map_cons, composeOperatorList]
+      rw [rep.map_mul, ih]
+
+/-- A canonical matching edge is the corresponding adjacent transposition,
+written in the arithmetic normal form used by `YoungOrthogonalActionData`. -/
+theorem S05_canonicalOrderedPerfectMatching_edgeSwap
+    (m : Nat) (r : Fin (m + 1)) :
+    (S05_canonicalOrderedPerfectMatching (m + 1)).edgeSwap r =
+      appA_adjacentTransposition
+        (Fin.cast (by omega : 2 * (m + 1) - 1 = 2 * m + 1)
+          (canonicalMatchingAdjacentIndex (m + 1) r)) := by
+  unfold OrderedMatching.edgeSwap appA_adjacentTransposition
+    S05_canonicalOrderedPerfectMatching
+  congr 1
+  · apply Fin.ext
+    simp [S05_canonicalMatchingEndpointEquiv, finProdFinEquiv,
+      canonicalMatchingAdjacentIndex]
+  · apply Fin.ext
+    simp [S05_canonicalMatchingEndpointEquiv, finProdFinEquiv,
+      canonicalMatchingAdjacentIndex]
+    omega
+
+/-- The representation of one selected canonical edge is the corresponding
+concrete Young operator bit. -/
+theorem S05_rho_canonicalMatchingEdgePerm_eq
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (x : Cube (m + 1)) (r : Fin (m + 1)) (f : TableauSpace lam) :
+    action.rep.rho
+        ((S05_canonicalOrderedPerfectMatching (m + 1)).edgePerm x r) f =
+      canonicalMatchingYoungOperatorEvenBit x r f := by
+  unfold OrderedMatching.edgePerm canonicalMatchingYoungOperatorEvenBit
+  by_cases hx : x r
+  · simp only [hx, if_true]
+    rw [S05_canonicalOrderedPerfectMatching_edgeSwap]
+    have hadj := action.rho_adjacent
+      (Fin.cast (by omega : 2 * (m + 1) - 1 = 2 * m + 1)
+        (canonicalMatchingAdjacentIndex (m + 1) r)) f
+    rw [hadj]
+    unfold canonicalMatchingYoungOperatorEven
+    congr 1
+  · simp only [hx]
+    exact action.rep.map_one f
+
+/-- The represented canonical matching-cube element is exactly the concrete
+canonical matching-cube operator. -/
+theorem S05_rho_canonicalMatchingTau_eq_canonicalMatchingCubeOperatorEven
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (x : Cube (m + 1)) (f : TableauSpace lam) :
+    action.rep.rho
+        ((S05_canonicalOrderedPerfectMatching (m + 1)).tau x) f =
+      canonicalMatchingCubeOperatorEven x f := by
+  unfold OrderedMatching.tau
+  change action.rep.rho
+      ((List.ofFn fun r : Fin (m + 1) =>
+        (S05_canonicalOrderedPerfectMatching (m + 1)).edgePerm x r).prod) f = _
+  rw [action.rep.rho_list_prod]
+  have hlist :
+      (List.ofFn fun r : Fin (m + 1) =>
+          (S05_canonicalOrderedPerfectMatching (m + 1)).edgePerm x r).map
+            action.rep.rho =
+        List.ofFn (fun r : Fin (m + 1) =>
+          canonicalMatchingYoungOperatorEvenBit x r) := by
+    calc
+      _ = List.ofFn (fun r : Fin (m + 1) =>
+          action.rep.rho
+            ((S05_canonicalOrderedPerfectMatching (m + 1)).edgePerm x r)) :=
+        (List.ofFn_comp'
+          (fun r : Fin (m + 1) =>
+            (S05_canonicalOrderedPerfectMatching (m + 1)).edgePerm x r)
+          action.rep.rho).symm
+      _ = _ := by
+        apply congrArg List.ofFn
+        funext r
+        funext v
+        exact S05_rho_canonicalMatchingEdgePerm_eq m lam action x r v
+  rw [hlist]
+  rfl
+
+/-- The canonical basis transported by the explicit matching relabeling. -/
+noncomputable def S05_arbitraryEvenMatchingBasis
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * (m + 1))) :
+    Module.Basis (S05_CanonicalEvenEigenbasisIndex (m + 1) lam) Real
+      (TableauSpace lam) :=
+  (S05_canonicalEvenMatchingBasis (m + 1) lam).map
+    (action.rhoLinearEquiv (S05_perfectMatchingRelabeling (m + 1) M))
+
+@[simp] theorem S05_arbitraryEvenMatchingBasis_apply
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * (m + 1)))
+    (i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam) :
+    S05_arbitraryEvenMatchingBasis m lam action M i =
+      action.rep.rho (S05_perfectMatchingRelabeling (m + 1) M)
+        (S05_canonicalEvenMatchingBasis (m + 1) lam i) := by
+  rw [S05_arbitraryEvenMatchingBasis, Module.Basis.map_apply]
+  rfl
+
+/-- Transport preserves the canonical orthonormality relations. -/
+theorem S05_arbitraryEvenMatchingBasis_inner
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * (m + 1)))
+    (i j : S05_CanonicalEvenEigenbasisIndex (m + 1) lam) :
+    tableauInner
+        (S05_arbitraryEvenMatchingBasis m lam action M i)
+        (S05_arbitraryEvenMatchingBasis m lam action M j) =
+      if i = j then 1 else 0 := by
+  rw [S05_arbitraryEvenMatchingBasis_apply,
+    S05_arbitraryEvenMatchingBasis_apply, action.rho_inner]
+  exact (S05_Lem5_11_canonicalEvenMatchingEigenbasis m lam).1 i j
+
+/-- The transported family spans because it is the image of a basis under the
+represented permutation linear equivalence. -/
+theorem S05_arbitraryEvenMatchingBasis_span
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * (m + 1))) :
+    Submodule.span Real
+        (Set.range (S05_arbitraryEvenMatchingBasis m lam action M)) = ⊤ :=
+  (S05_arbitraryEvenMatchingBasis m lam action M).span_eq
+
+/-- Every transported vector has its unchanged canonical character label for
+the reindexed arbitrary matching. -/
+theorem S05_arbitraryEvenMatchingBasis_character_action
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * (m + 1)))
+    (i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam)
+    (x : Cube (m + 1)) :
+    action.rep.rho ((S05_evenOrderedMatching (m + 1) M).tau x)
+        (S05_arbitraryEvenMatchingBasis m lam action M i) =
+      S05_matchingCharacter
+          (S05_canonicalEvenEigenbasisLabel (m + 1) lam i) x •
+        S05_arbitraryEvenMatchingBasis m lam action M i := by
+  let σ := S05_perfectMatchingRelabeling (m + 1) M
+  let τ := (S05_canonicalOrderedPerfectMatching (m + 1)).tau x
+  let v := S05_canonicalEvenMatchingBasis (m + 1) lam i
+  rw [S05_arbitraryEvenMatchingBasis_apply]
+  rw [S05_evenOrderedMatching_tau_conjugate]
+  change action.rep.rho (σ * τ * σ.symm) (action.rep.rho σ v) = _
+  calc
+    action.rep.rho (σ * τ * σ.symm) (action.rep.rho σ v) =
+        action.rep.rho σ
+          (action.rep.rho τ
+            (action.rep.rho σ.symm (action.rep.rho σ v))) := by
+      rw [action.rep.map_mul (σ * τ), action.rep.map_mul σ τ]
+    _ = action.rep.rho σ (action.rep.rho τ v) := by
+      rw [action.rho_leftInverse]
+    _ = action.rep.rho σ (canonicalMatchingCubeOperatorEven x v) := by
+      rw [S05_rho_canonicalMatchingTau_eq_canonicalMatchingCubeOperatorEven]
+    _ = action.rep.rho σ
+          (S05_matchingCharacter
+            (S05_canonicalEvenEigenbasisLabel (m + 1) lam i) x • v) := by
+      rw [S05_canonicalEvenMatchingBasis_character_action]
+    _ = S05_matchingCharacter
+          (S05_canonicalEvenEigenbasisLabel (m + 1) lam i) x •
+          action.rep.rho σ v := by
+      rw [action.rep.map_smul]
+
+/-- Complete arbitrary-perfect-matching transport in normalized edge
+coordinates: an orthonormal spanning basis, simultaneous character action, and
+the literal canonical label multiset. -/
+theorem S05_Lem5_11_arbitraryEvenMatchingEigenbasis
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * (m + 1))) :
+    (∀ i j : S05_CanonicalEvenEigenbasisIndex (m + 1) lam,
+      tableauInner
+          (S05_arbitraryEvenMatchingBasis m lam action M i)
+          (S05_arbitraryEvenMatchingBasis m lam action M j) =
+        if i = j then 1 else 0) ∧
+    (Submodule.span Real
+        (Set.range (S05_arbitraryEvenMatchingBasis m lam action M)) = ⊤) ∧
+    (∀ i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam,
+      ∀ x : Cube (m + 1),
+        action.rep.rho ((S05_evenOrderedMatching (m + 1) M).tau x)
+            (S05_arbitraryEvenMatchingBasis m lam action M i) =
+          S05_matchingCharacter
+              (S05_canonicalEvenEigenbasisLabel (m + 1) lam i) x •
+            S05_arbitraryEvenMatchingBasis m lam action M i) ∧
+    (Finset.univ : Finset
+        (S05_CanonicalEvenEigenbasisIndex (m + 1) lam)).1.map
+          (S05_canonicalEvenEigenbasisLabel (m + 1) lam) =
+      S05_evenSignPatternMultiset (m + 1) lam := by
+  refine ⟨?_, S05_arbitraryEvenMatchingBasis_span m lam action M, ?_, ?_⟩
+  · exact S05_arbitraryEvenMatchingBasis_inner m lam action M
+  · exact S05_arbitraryEvenMatchingBasis_character_action m lam action M
+  · exact S05_canonicalEvenEigenbasisLabelMultiset_eq (m + 1) lam
+
+/-- Transport a matching-cube coordinate function along equality of ordered
+matchings. -/
+def S05_matchingCubeCast
+    {α : Type*} [DecidableEq α] {M N : OrderedMatching α}
+    (h : M = N) (x : Cube M.edgeCount) : Cube N.edgeCount := by
+  cases h
+  exact x
+
+/-- Transport a matching-character label along equality of ordered matchings. -/
+def S05_matchingLabelCast
+    {α : Type*} [DecidableEq α] {M N : OrderedMatching α}
+    (h : M = N) (R : Finset (Fin M.edgeCount)) :
+    Finset (Fin N.edgeCount) := by
+  cases h
+  exact R
+
+@[simp] theorem S05_matchingCubeCast_refl
+    {α : Type*} [DecidableEq α] (M : OrderedMatching α)
+    (x : Cube M.edgeCount) :
+    S05_matchingCubeCast (Eq.refl M) x = x := by
+  rfl
+
+@[simp] theorem S05_matchingLabelCast_refl
+    {α : Type*} [DecidableEq α] (M : OrderedMatching α)
+    (R : Finset (Fin M.edgeCount)) :
+    S05_matchingLabelCast (Eq.refl M) R = R := by
+  rfl
+
+/-- Equality of ordered matchings transports their matching-cube elements. -/
+theorem S05_orderedMatching_tau_cast
+    {α : Type*} [DecidableEq α] {M N : OrderedMatching α}
+    (h : M = N) (x : Cube N.edgeCount) :
+    N.tau x = M.tau (S05_matchingCubeCast h.symm x) := by
+  cases h
+  rfl
+
+/-- Simultaneously transporting a label and pulling back a cube point preserves
+the matching character. -/
+theorem S05_matchingCharacter_labelCast
+    {α : Type*} [DecidableEq α] {M N : OrderedMatching α}
+    (h : M = N) (R : Finset (Fin M.edgeCount))
+    (x : Cube N.edgeCount) :
+    S05_matchingCharacter (S05_matchingLabelCast h R) x =
+      S05_matchingCharacter R (S05_matchingCubeCast h.symm x) := by
+  cases h
+  rfl
+
+/-- The canonical label viewed in the literal edge type of `M.toOrdered`. -/
+def S05_arbitraryEvenMatchingLabel
+    (m : Nat) (M : NearPerfectMatching (2 * m))
+    (R : Finset (Fin m)) : Finset (Fin M.toOrdered.edgeCount) :=
+  S05_matchingLabelCast (S05_evenOrderedMatching_eq_toOrdered m M) R
+
+/-- Pull a literal `M.toOrdered` cube point back to the normalized `Fin m`
+edge coordinates. -/
+def S05_arbitraryEvenMatchingCubePullback
+    (m : Nat) (M : NearPerfectMatching (2 * m))
+    (x : Cube M.toOrdered.edgeCount) : Cube m :=
+  S05_matchingCubeCast (S05_evenOrderedMatching_eq_toOrdered m M).symm x
+
+/-- The arithmetic edge-count transport does not alter the character value. -/
+theorem S05_arbitraryEvenMatchingCharacter_eq_pullback
+    (m : Nat) (M : NearPerfectMatching (2 * m))
+    (R : Finset (Fin m)) (x : Cube M.toOrdered.edgeCount) :
+    S05_matchingCharacter (S05_arbitraryEvenMatchingLabel m M R) x =
+      S05_matchingCharacter R
+        (S05_arbitraryEvenMatchingCubePullback m M x) := by
+  exact S05_matchingCharacter_labelCast
+    (S05_evenOrderedMatching_eq_toOrdered m M) R x
+
+/-- Equality transport of the edge type preserves label cardinality. -/
+@[simp] theorem S05_matchingLabelCast_card
+    {α : Type*} [DecidableEq α] {M N : OrderedMatching α}
+    (h : M = N) (R : Finset (Fin M.edgeCount)) :
+    (S05_matchingLabelCast h R).card = R.card := by
+  cases h
+  rfl
+
+/-- Equality transport of the edge type preserves the high-character
+predicate. -/
+@[simp] theorem S05_matchingCharacterHigh_labelCast
+    {α : Type*} [DecidableEq α] {M N : OrderedMatching α}
+    (h : M = N) (R : Finset (Fin M.edgeCount)) :
+    S05_matchingCharacterHigh (S05_matchingLabelCast h R) ↔
+      S05_matchingCharacterHigh R := by
+  cases h
+  rfl
+
+/-- Exact transported label multiset. The right side is Definition 5.13 mapped
+only through the propositional equality between `m` and `M.toOrdered.edgeCount`.
+-/
+theorem S05_arbitraryEvenMatchingLabelMultiset_eq
+    (m : Nat) (lam : YoungDiagram (2 * m))
+    (M : NearPerfectMatching (2 * m)) :
+    (Finset.univ : Finset
+        (S05_CanonicalEvenEigenbasisIndex m lam)).1.map
+          (fun i => S05_arbitraryEvenMatchingLabel m M
+            (S05_canonicalEvenEigenbasisLabel m lam i)) =
+      (S05_evenSignPatternMultiset m lam).map
+        (S05_matchingLabelCast (S05_evenOrderedMatching_eq_toOrdered m M)) := by
+  rw [← S05_canonicalEvenEigenbasisLabelMultiset_eq m lam]
+  change
+    (Finset.univ : Finset
+      (S05_CanonicalEvenEigenbasisIndex m lam)).1.map
+        (fun i => S05_matchingLabelCast
+          (S05_evenOrderedMatching_eq_toOrdered m M)
+          (S05_canonicalEvenEigenbasisLabel m lam i)) =
+      ((Finset.univ : Finset
+        (S05_CanonicalEvenEigenbasisIndex m lam)).1.map
+          (S05_canonicalEvenEigenbasisLabel m lam)).map
+        (S05_matchingLabelCast (S05_evenOrderedMatching_eq_toOrdered m M))
+  exact (Multiset.map_map
+    (S05_matchingLabelCast (S05_evenOrderedMatching_eq_toOrdered m M))
+    (S05_canonicalEvenEigenbasisLabel m lam) _).symm
+
+/-- The transported arbitrary-matching labels have the same high-label count
+as the canonical labels. -/
+theorem S05_arbitraryEvenMatchingBasis_highLabelCount
+    (m : Nat) (lam : YoungDiagram (2 * m))
+    (M : NearPerfectMatching (2 * m)) :
+    (∑ i : S05_CanonicalEvenEigenbasisIndex m lam,
+        if S05_matchingCharacterHigh
+            (S05_arbitraryEvenMatchingLabel m M
+              (S05_canonicalEvenEigenbasisLabel m lam i))
+        then (1 : Real) else 0) =
+      hEvenTableau m lam := by
+  change
+    (∑ i : S05_CanonicalEvenEigenbasisIndex m lam,
+      if S05_matchingCharacterHigh
+          (S05_matchingLabelCast (S05_evenOrderedMatching_eq_toOrdered m M)
+            (S05_canonicalEvenEigenbasisLabel m lam i))
+      then (1 : Real) else 0) = hEvenTableau m lam
+  simp_rw [S05_matchingCharacterHigh_labelCast]
+  exact S05_Lem5_10_highLabelCount_of_evenSignPatternMultiset
+    (S05_canonicalEvenEigenbasisLabel m lam)
+    (S05_canonicalEvenEigenbasisLabelMultiset_eq m lam)
+
+/-- Character action stated directly for `M.toOrdered`; the only coordinate
+transport is the proof-level identification of its edge count with `m+1`. -/
+theorem S05_arbitraryEvenMatchingBasis_toOrdered_character_action
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * (m + 1)))
+    (i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam)
+    (x : Cube M.toOrdered.edgeCount) :
+    action.rep.rho (M.toOrdered.tau x)
+        (S05_arbitraryEvenMatchingBasis m lam action M i) =
+      S05_matchingCharacter
+          (S05_arbitraryEvenMatchingLabel (m + 1) M
+            (S05_canonicalEvenEigenbasisLabel (m + 1) lam i)) x •
+        S05_arbitraryEvenMatchingBasis m lam action M i := by
+  let x₀ := S05_arbitraryEvenMatchingCubePullback (m + 1) M x
+  calc
+    action.rep.rho (M.toOrdered.tau x)
+        (S05_arbitraryEvenMatchingBasis m lam action M i) =
+        action.rep.rho ((S05_evenOrderedMatching (m + 1) M).tau x₀)
+          (S05_arbitraryEvenMatchingBasis m lam action M i) := by
+      rw [S05_orderedMatching_tau_cast
+        (S05_evenOrderedMatching_eq_toOrdered (m + 1) M)]
+      rfl
+    _ = S05_matchingCharacter
+          (S05_canonicalEvenEigenbasisLabel (m + 1) lam i) x₀ •
+        S05_arbitraryEvenMatchingBasis m lam action M i :=
+      S05_arbitraryEvenMatchingBasis_character_action m lam action M i x₀
+    _ = S05_matchingCharacter
+          (S05_arbitraryEvenMatchingLabel (m + 1) M
+            (S05_canonicalEvenEigenbasisLabel (m + 1) lam i)) x •
+        S05_arbitraryEvenMatchingBasis m lam action M i := by
+      rw [← S05_arbitraryEvenMatchingCharacter_eq_pullback]
+
+/-- Arbitrary-perfect-matching theorem stated directly for `M.toOrdered`.
+The label multiset is the literal Definition 5.13 multiset transported through
+the unavoidable propositional equality of the two edge-count expressions. -/
+theorem S05_Lem5_11_arbitraryEvenMatchingEigenbasis_toOrdered
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * (m + 1))) :
+    (∀ i j : S05_CanonicalEvenEigenbasisIndex (m + 1) lam,
+      tableauInner
+          (S05_arbitraryEvenMatchingBasis m lam action M i)
+          (S05_arbitraryEvenMatchingBasis m lam action M j) =
+        if i = j then 1 else 0) ∧
+    (Submodule.span Real
+        (Set.range (S05_arbitraryEvenMatchingBasis m lam action M)) = ⊤) ∧
+    (∀ i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam,
+      ∀ x : Cube M.toOrdered.edgeCount,
+        action.rep.rho (M.toOrdered.tau x)
+            (S05_arbitraryEvenMatchingBasis m lam action M i) =
+          S05_matchingCharacter
+              (S05_arbitraryEvenMatchingLabel (m + 1) M
+                (S05_canonicalEvenEigenbasisLabel (m + 1) lam i)) x •
+            S05_arbitraryEvenMatchingBasis m lam action M i) ∧
+    (Finset.univ : Finset
+        (S05_CanonicalEvenEigenbasisIndex (m + 1) lam)).1.map
+          (fun i => S05_arbitraryEvenMatchingLabel (m + 1) M
+            (S05_canonicalEvenEigenbasisLabel (m + 1) lam i)) =
+      (S05_evenSignPatternMultiset (m + 1) lam).map
+        (S05_matchingLabelCast
+          (S05_evenOrderedMatching_eq_toOrdered (m + 1) M)) := by
+  refine ⟨S05_arbitraryEvenMatchingBasis_inner m lam action M,
+    S05_arbitraryEvenMatchingBasis_span m lam action M, ?_, ?_⟩
+  · exact S05_arbitraryEvenMatchingBasis_toOrdered_character_action
+      m lam action M
+  · exact S05_arbitraryEvenMatchingLabelMultiset_eq (m + 1) lam M
 
 /-- Lemma 5.11 matching-operator component: a canonical even matching edge
 operator is an involution. -/

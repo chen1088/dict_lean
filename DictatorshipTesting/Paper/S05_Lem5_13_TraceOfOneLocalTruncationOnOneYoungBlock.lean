@@ -15,8 +15,9 @@ Paper statement: Lemma 5.13 (`lem:PM-trace-young-block`)
 Title in paper: Trace of one local truncation on one Young block.
 
 Status: proven with the explicit matching-eigenbasis and label-count hypotheses
-in the paper statement.  The application still awaits Lemma 5.11, which must
-construct that labeled eigenbasis from two-box branching.
+in the paper statement. The positive-size even application is now instantiated
+unconditionally from Lemma 5.11's arbitrary-perfect-matching basis; the odd
+application still awaits the odd basis.
 -/
 
 /-!
@@ -163,6 +164,35 @@ theorem S05_Lem5_13_fixedMatching_youngBlockTrace_odd_of_eigenbasis
   rw [S05_Lem5_13_youngBlockTrace_eq_tableauDim_mul_repTrace action M]
   rw [S05_Lem5_13_fixedMatching_tableauTrace_odd_of_eigenbasis
     hsize action M b label heigen hcount]
+
+/-- Unconditional positive-size even tableau trace, using the transported
+arbitrary-perfect-matching basis from Lemma 5.11. -/
+theorem S05_Lem5_13_fixedMatching_tableauTrace_even
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * (m + 1))) :
+    tableauOperatorTrace
+        (S05_fixedMatchingRejectionYoungOperator action M) =
+      hEvenTableau (m + 1) lam := by
+  exact S05_Lem5_13_fixedMatching_tableauTrace_even_of_eigenbasis
+    (n := 2 * m + 1) (m := m + 1) rfl action M
+    (S05_arbitraryEvenMatchingBasis m lam action M)
+    (fun i => S05_arbitraryEvenMatchingLabel (m + 1) M
+      (S05_canonicalEvenEigenbasisLabel (m + 1) lam i))
+    (S05_arbitraryEvenMatchingBasis_toOrdered_character_action
+      m lam action M)
+    (S05_arbitraryEvenMatchingBasis_highLabelCount (m + 1) lam M)
+
+/-- Unconditional positive-size even full Young-block trace. -/
+theorem S05_Lem5_13_fixedMatching_youngBlockTrace_even
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (2 * (m + 1))) :
+    youngBlockRightCoordinateTrace
+        (S05_fixedMatchingRejectionYoungOperator action M) =
+      tableauDim lam * hEvenTableau (m + 1) lam := by
+  rw [S05_Lem5_13_youngBlockTrace_eq_tableauDim_mul_repTrace action M]
+  rw [S05_Lem5_13_fixedMatching_tableauTrace_even m lam action M]
 
 /-- Scalar trace formula as the current Lean consequence of the even
 matching-restriction input. -/

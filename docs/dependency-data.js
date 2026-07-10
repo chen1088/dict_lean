@@ -2312,6 +2312,11 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_canonicalEvenEigenbasisVector_span",
         "S05_canonicalEvenEigenbasisVector_isMatchingEigenvector",
         "S05_canonicalEvenMatchingBasis_character_action",
+        "S05_Lem5_11_arbitraryEvenMatchingEigenbasis_toOrdered",
+        "S05_arbitraryEvenMatchingBasis_toOrdered_character_action",
+        "S05_arbitraryEvenMatchingLabelMultiset_eq",
+        "S05_perfectMatchingRelabeling",
+        "YoungOrthogonalActionData.rho_inner",
         "S05_Lem5_11_matchingSignProjectionEven_isMatchingEigenvector",
         "S05_Lem5_11_matchingSignProjectionOdd_isMatchingEigenvector",
         "S05_Lem5_11_highLabelCount_of_evenSignPatternMultiset",
@@ -2332,8 +2337,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D18",
         "S05_D19"
       ],
-      "summary": "The canonical even labeled eigenbasis is proved; arbitrary-perfect-matching transport and the odd basis remain.",
-      "statement": "Lemma 5.11 constructs the canonical even matching basis recursively from the signed two-box child decomposition. It proves orthonormality, spanning, all canonical-edge eigenvalue equations, matching-cube character action, and literal equality of the label enumeration with the recursive multiset. The full paper statement still requires transport to arbitrary perfect matchings and construction of the odd near-perfect matching basis.",
+      "summary": "Canonical and arbitrary-perfect-matching even eigenbases are proved; the odd basis remains.",
+      "statement": "Lemma 5.11 constructs the canonical even matching basis recursively, with orthonormality, spanning, character action, and exact recursive label multiplicity. It then proves endpoint coverage for every even matching, constructs the conjugating permutation, proves represented permutations are invertible isometries, and transports the labeled basis directly to M.toOrdered. The full paper statement still requires the odd near-perfect matching basis.",
       "terms": [
         {
           "text": "Tableau Coxeter model",
@@ -2378,7 +2383,7 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "S05_Lem5_11_canonicalEvenMatchingEigenbasis",
-          "line": 3026
+          "line": 3028
         },
         {
           "name": "S05_canonicalEvenEigenbasisLabelMultiset_eq",
@@ -2398,23 +2403,43 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "name": "S05_canonicalEvenMatchingBasis_character_action",
-          "line": 3053
+          "line": 3055
+        },
+        {
+          "name": "YoungOrthogonalActionData.rho_inner",
+          "line": 3139
+        },
+        {
+          "name": "S05_perfectMatchingRelabeling",
+          "line": 3357
+        },
+        {
+          "name": "S05_arbitraryEvenMatchingLabelMultiset_eq",
+          "line": 3731
+        },
+        {
+          "name": "S05_arbitraryEvenMatchingBasis_toOrdered_character_action",
+          "line": 3779
+        },
+        {
+          "name": "S05_Lem5_11_arbitraryEvenMatchingEigenbasis_toOrdered",
+          "line": 3813
         },
         {
           "name": "S05_Lem5_11_matchingSignProjectionEven_isMatchingEigenvector",
-          "line": 3381
+          "line": 4162
         },
         {
           "name": "S05_Lem5_11_matchingSignProjectionOdd_isMatchingEigenvector",
-          "line": 3389
+          "line": 4170
         },
         {
           "name": "S05_Lem5_11_highLabelCount_of_evenSignPatternMultiset",
-          "line": 3529
+          "line": 4310
         },
         {
           "name": "S05_Lem5_11_highLabelCount_of_oddSignPatternMultiset",
-          "line": 3541
+          "line": 4322
         }
       ]
     },
@@ -2470,6 +2495,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Lem5_13_fixedMatching_tableauTrace_odd_of_eigenbasis",
         "S05_Lem5_13_fixedMatching_youngBlockTrace_even_of_eigenbasis",
         "S05_Lem5_13_fixedMatching_youngBlockTrace_odd_of_eigenbasis",
+        "S05_Lem5_13_fixedMatching_tableauTrace_even",
+        "S05_Lem5_13_fixedMatching_youngBlockTrace_even",
         "traceLocalTruncation_even_from_restriction",
         "traceLocalTruncation_odd_from_restriction"
       ],
@@ -2479,8 +2506,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D20",
         "S05_D21"
       ],
-      "summary": "The actual fixed tableau and full Young-block traces are proved from labeled matching-eigenbasis data; canonical even basis data is now available.",
-      "statement": "Lemma 5.13 uses basis-invariance of trace and the proved 0/1 action of the concrete high-matching operator. From explicitly supplied matching eigenbasis data and its high-label count, it proves the even and odd tableau-space traces and the full-block formulas with the tableau-dimension factor. Lemma 5.11 now supplies the canonical even labeled basis; arbitrary-matching action transport and the odd basis are still needed for the general application.",
+      "summary": "The fixed-trace algebra is proved, and the positive-size even traces are instantiated unconditionally.",
+      "statement": "Lemma 5.13 proves the even and odd tableau/full-block formulas from labeled eigenbasis data. Lemma 5.11 now supplies the arbitrary-perfect-matching even basis, so the positive-size even tableau trace and its tableauDim full-block multiple are unconditional. Odd instantiation still awaits the odd near-perfect matching basis.",
       "terms": [
         {
           "text": "Matching subgroup eigenbasis",
@@ -2524,12 +2551,20 @@ window.DICT_DEPENDENCY_DATA = {
           "line": 145
         },
         {
-          "name": "traceLocalTruncation_even_from_restriction",
+          "name": "S05_Lem5_13_fixedMatching_tableauTrace_even",
           "line": 169
         },
         {
+          "name": "S05_Lem5_13_fixedMatching_youngBlockTrace_even",
+          "line": 186
+        },
+        {
+          "name": "traceLocalTruncation_even_from_restriction",
+          "line": 198
+        },
+        {
           "name": "traceLocalTruncation_odd_from_restriction",
-          "line": 177
+          "line": 206
         }
       ]
     },
