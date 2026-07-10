@@ -2306,6 +2306,12 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_signedTwoBoxChildEmbedding_intertwinesEarlierAdjacent",
         "S05_signedTwoBoxChildEmbedding_ranges_orthogonal",
         "S05_signedTwoBoxChildEmbeddings_span",
+        "S05_Lem5_11_canonicalEvenMatchingEigenbasis",
+        "S05_canonicalEvenEigenbasisLabelMultiset_eq",
+        "S05_canonicalEvenEigenbasisVector_inner",
+        "S05_canonicalEvenEigenbasisVector_span",
+        "S05_canonicalEvenEigenbasisVector_isMatchingEigenvector",
+        "S05_canonicalEvenMatchingBasis_character_action",
         "S05_Lem5_11_matchingSignProjectionEven_isMatchingEigenvector",
         "S05_Lem5_11_matchingSignProjectionOdd_isMatchingEigenvector",
         "S05_Lem5_11_highLabelCount_of_evenSignPatternMultiset",
@@ -2326,8 +2332,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D18",
         "S05_D19"
       ],
-      "summary": "The signed-child orthogonal decomposition is proved; recursive canonical labeled-basis assembly remains.",
-      "statement": "Lemma 5.11 now proves explicit signed two-box child embeddings, isometry, the final-edge sign, earlier-edge intertwining, pairwise orthogonality, and joint spanning, as well as the matching projection algebra and recursive label semantics. It does not yet recursively assemble the canonical even matching eigenbasis or identify that basis's labels with the recursive multiset.",
+      "summary": "The canonical even labeled eigenbasis is proved; arbitrary-perfect-matching transport and the odd basis remain.",
+      "statement": "Lemma 5.11 constructs the canonical even matching basis recursively from the signed two-box child decomposition. It proves orthonormality, spanning, all canonical-edge eigenvalue equations, matching-cube character action, and literal equality of the label enumeration with the recursive multiset. The full paper statement still requires transport to arbitrary perfect matchings and construction of the odd near-perfect matching basis.",
       "terms": [
         {
           "text": "Tableau Coxeter model",
@@ -2371,20 +2377,44 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "Let \\(M\\) be a perfect matching on \\([2m]\\).  For every\n\\(\\lambda\\vdash2m\\), the even matching-restriction input holds for\n\\((M,\\lambda)\\).\n\nLet \\(M\\) be a near-perfect matching on \\([2m+1]\\) with \\(m\\) edges.  For\nevery \\(\\lambda\\vdash2m+1\\), the odd matching-restriction input holds for\n\\((M,\\lambda)\\).",
       "leanLinks": [
         {
+          "name": "S05_Lem5_11_canonicalEvenMatchingEigenbasis",
+          "line": 3026
+        },
+        {
+          "name": "S05_canonicalEvenEigenbasisLabelMultiset_eq",
+          "line": 2678
+        },
+        {
+          "name": "S05_canonicalEvenEigenbasisVector_inner",
+          "line": 2721
+        },
+        {
+          "name": "S05_canonicalEvenEigenbasisVector_span",
+          "line": 2798
+        },
+        {
+          "name": "S05_canonicalEvenEigenbasisVector_isMatchingEigenvector",
+          "line": 2927
+        },
+        {
+          "name": "S05_canonicalEvenMatchingBasis_character_action",
+          "line": 3053
+        },
+        {
           "name": "S05_Lem5_11_matchingSignProjectionEven_isMatchingEigenvector",
-          "line": 365
+          "line": 3381
         },
         {
           "name": "S05_Lem5_11_matchingSignProjectionOdd_isMatchingEigenvector",
-          "line": 373
+          "line": 3389
         },
         {
           "name": "S05_Lem5_11_highLabelCount_of_evenSignPatternMultiset",
-          "line": 513
+          "line": 3529
         },
         {
           "name": "S05_Lem5_11_highLabelCount_of_oddSignPatternMultiset",
-          "line": 525
+          "line": 3541
         }
       ]
     },
@@ -2449,8 +2479,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D20",
         "S05_D21"
       ],
-      "summary": "The actual fixed tableau and full Young-block traces are proved from the paper's labeled matching-eigenbasis hypothesis.",
-      "statement": "Lemma 5.13 uses basis-invariance of trace and the proved 0/1 action of the concrete high-matching operator. From the explicitly supplied matching eigenbasis and its high-label count, it proves the even and odd tableau-space traces and the full-block formulas with the tableau-dimension factor. Lemma 5.11 must still construct that labeled eigenbasis for the application.",
+      "summary": "The actual fixed tableau and full Young-block traces are proved from labeled matching-eigenbasis data; canonical even basis data is now available.",
+      "statement": "Lemma 5.13 uses basis-invariance of trace and the proved 0/1 action of the concrete high-matching operator. From explicitly supplied matching eigenbasis data and its high-label count, it proves the even and odd tableau-space traces and the full-block formulas with the tableau-dimension factor. Lemma 5.11 now supplies the canonical even labeled basis; arbitrary-matching action transport and the odd basis are still needed for the general application.",
       "terms": [
         {
           "text": "Matching subgroup eigenbasis",

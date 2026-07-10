@@ -196,9 +196,13 @@ Proven matching-cube components for Lemma 5.11:
   embeddings and proves isometry, the final-edge sign, earlier-edge
   intertwining, pairwise orthogonality, and joint spanning. Definitions
   5.13--5.14 contain the actual recursive label multisets and Lemma 5.10 proves
-  their multiplicity semantics. The remaining Lemma 5.11 step is to assemble
-  the canonical even matching eigenbasis recursively from this decomposition
-  and prove that its labels are exactly those multisets.
+  their multiplicity semantics. The file now recursively constructs the
+  canonical even matching basis from those signed-child embeddings, proves
+  orthonormality and spanning, proves every canonical-edge eigenvalue, and
+  identifies its labels literally, with multiplicity, with
+  `S05_evenSignPatternMultiset`. Remaining for the full Lemma 5.11 statement:
+  transport to arbitrary perfect matchings and construct the odd near-perfect
+  matching eigenbasis.
 
 Proven Definition 5.22 matching-idempotent components:
 
@@ -277,12 +281,11 @@ active Theorem 4.8 route because the repository does not yet construct the
 regular Young-block energy decomposition.  Lemma 5.13 now identifies the trace
 of the concrete fixed-matching operator with `hEvenTableau` or `hOddTableau`
 from the labeled matching eigenbasis in its paper statement.  The exact missing
-result for applying it is Lemma 5.11: an actual matching eigenbasis whose
-character labels enumerate the now-defined recursive sign-pattern multisets.
-The multiset cardinality and high-label count are proved, and Lemma 5.11 now
-has the full signed-child orthogonal decomposition. It still lacks the
-recursive canonical matching-eigenbasis assembly and its basis-label equality.
-The final global weighted scalarity axiom therefore remains.
+result for applying it is the remaining part of Lemma 5.11: transport of the
+now-proved canonical even labeled eigenbasis to arbitrary perfect matchings and
+construction of the odd near-perfect labeled eigenbasis. The canonical even
+basis already has exact recursive label-multiset equality. The final global
+weighted scalarity axiom therefore remains.
 
 Proven Lemma 5.18 trace-model-to-gap algebra:
 
@@ -332,10 +335,11 @@ External standard inputs:
   (`lem:matching-restriction-X`): the paper-level statement is the full
   labeled matching eigenbasis theorem. The current Lean file proves the
   concrete matching-operator and sign-projection algebra, proves the complete
-  signed-child orthogonal decomposition, and connects an exact recursive label
-  enumeration to `hEvenTableau`/`hOddTableau`. It does not yet recursively
-  assemble the canonical even matching eigenbasis or prove its label-multiset
-  equality.
+  signed-child orthogonal decomposition, constructs the canonical even
+  matching basis recursively, proves its simultaneous eigenvalue equations,
+  and proves exact label-multiset equality with
+  `S05_evenSignPatternMultiset`. Arbitrary-perfect-matching transport and the
+  odd near-perfect matching basis remain.
 - Lemmas 5.18--5.21, especially
   `S05_Lem5_19_RegularYoungBlockDecomposition.lean`,
   `S05_Lem5_20_EvenSpectralBridge.lean`, and

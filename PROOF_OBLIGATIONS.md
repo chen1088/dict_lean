@@ -138,7 +138,10 @@ Remaining Section 5/AppA bridge boundary:
 - The concrete Lemma 5.11 matching-cube operator/character/projection algebra
   is proved. Its signed two-box child embeddings are explicit and their
   isometry, final-edge sign, earlier-edge intertwining, pairwise orthogonality,
-  and joint spanning are proved internally. The representation-theoretic
+  and joint spanning are proved internally. The canonical even matching basis
+  is now recursively assembled from these embeddings; its orthonormality,
+  spanning, simultaneous edge eigenvalues, and literal label-multiset equality
+  with `S05_evenSignPatternMultiset` are proved. The representation-theoretic
   Specht/Pieri content beyond this tableau decomposition is accounted for
   inside the spectral-block model boundary rather than as a separate Lean
   axiom.
@@ -197,18 +200,16 @@ Remaining Section 5/AppA bridge boundary:
   multisets. Lemma 5.10 proves their `tableauDim` cardinalities, empty-label
   multiplicity `zEven`, and high-label multiplicities
   `hEvenTableau`/`hOddTableau`.
-- The first missing implication is the final assembly step of Lemma 5.11. The
-  signed-child orthogonal decomposition is now proved, including spanning, but
-  there is not yet a recursively assembled canonical even matching eigenbasis
-  or a theorem that its labels enumerate the recursive multisets. Its formal
-  `MatchingRestrictionEvenInput` and `MatchingRestrictionOddInput` conclusions
-  are only inequalities for `hEven/hOdd`.  Therefore Lean cannot yet turn the
-  proved conditional Lemma 5.13 trace into an unconditional application.
-  The smallest missing internal theorem is
-  `canonicalEvenMatchingEigenbasis_of_signedChildren`: apply the induction
-  hypothesis in each proved child summand, transport it through the embedding,
-  append the final sign to its label, and identify the resulting global label
-  multiset with `S05_evenSignPatternMultiset`.
+- The canonical even assembly step of Lemma 5.11 is proved by
+  `S05_Lem5_11_canonicalEvenMatchingEigenbasis`.  The explicit recursive basis
+  has exact label multiset `S05_evenSignPatternMultiset`, not merely the same
+  cardinality.  The remaining Lemma 5.11 obligations are transport from the
+  canonical matching to an arbitrary perfect matching and construction of the
+  odd near-perfect matching eigenbasis with exact
+  `S05_oddSignPatternMultiset` labels.  Lemma 5.13 also needs the corresponding
+  identification between the Appendix-action fixed-matching operator and the
+  concrete canonical matching action before its conditional trace theorem can
+  be instantiated.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
 definition-only files `S05_Def5_24_TableauEvenHeight.lean` and
@@ -526,24 +527,26 @@ Paper statement: Lemma 5.11 (`lem:matching-restriction-X`).
 Lean file: `DictatorshipTesting/Paper/S05_Lem5_11_MatchingSubgroupEigenbasis.lean`
 
 Lean theorem names:
+`S05_Lem5_11_canonicalEvenMatchingEigenbasis`,
 `matchingRestriction_even_specht_pieri_input`,
 `matchingRestriction_odd_specht_pieri_input`.
 
 Current status: the recursive label multisets and all of their required
 cardinality/high-count semantics are proved. The signed-child orthogonal
-decomposition needed for the induction is also proved. The full paper-level
-labeled eigenbasis statement is not yet formalized.
+decomposition and the canonical even labeled eigenbasis are also proved,
+including exact multiset equality. The full paper-level labeled eigenbasis
+statement is not yet formalized for arbitrary perfect matchings or for the odd
+near-perfect case.
 
 Mathematical content: restricting `S^lambda` to the matching subgroup
 `A_M ~= (Z/2Z)^m` has the local character-weight multiset recursively counted
 by the Section 5 `X_m(lambda)` data.
 
-Exact internal blocker: recursively assemble the canonical even matching
-eigenbasis from the proved signed-child orthogonal decomposition. For each
-child basis, earlier labels must be preserved by intertwining, the final label
-must be appended according to the proved sign, and the sigma-indexed union must
-be identified with `S05_evenSignPatternMultiset`. Odd one-box assembly and
-arbitrary-matching transport remain later layers.
+Exact internal blocker: transport the proved canonical even basis to an
+arbitrary perfect matching while preserving its character labels, then carry
+out the one-box odd assembly and identify its labels with
+`S05_oddSignPatternMultiset`. The concrete canonical basis itself is no longer
+a blocker.
 
 Citation target if external: repeated Pieri/Littlewood--Richardson branching
 for restriction to Young subgroups and then to the matching subgroup.

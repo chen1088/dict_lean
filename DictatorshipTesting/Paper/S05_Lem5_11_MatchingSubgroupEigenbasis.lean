@@ -24,9 +24,10 @@ matching-operator and sign-projection interfaces are proved below. The signed
 two-box child embeddings are now explicit and are proved isometric, signed on
 the final edge, intertwining on earlier edges, pairwise orthogonal, and jointly
 spanning. Definitions 5.13--5.14 and Lemma 5.10 provide the genuine recursive
-label multisets and prove their cardinality and high-label counts. Remaining:
-recursively assemble the canonical even matching eigenbasis from the proved
-decomposition and identify its labels with those multisets.
+label multisets and prove their cardinality and high-label counts. The canonical
+even labeled matching eigenbasis is now recursively constructed below, with
+literal multiset equality of its labels. Remaining: transport to arbitrary
+perfect matchings and construct the odd near-perfect matching eigenbasis.
 -/
 
 /-!
@@ -2433,6 +2434,632 @@ theorem S05_signedTwoBoxChild_orthogonal_decomposition
       lam p a f
   · intro p q hpq f g
     exact S05_signedTwoBoxChildEmbedding_ranges_orthogonal lam hpq f g
+
+/-!
+## Recursive canonical even eigenbasis
+
+The recursive index below records an ordered signed two-box child at each
+stage.  The order is mathematically significant: for a disconnected two-box
+skew shape, the two deletion orders give the positive and negative copies of
+the same child.  Thus the sigma type retains exactly the multiplicity present
+in `S05_evenSignPatternMultiset`.
+-/
+
+/-- The unique standard tableau of an empty Young diagram. -/
+noncomputable def S05_emptyStandardYoungTableau
+    (lam : YoungDiagram 0) : StandardYoungTableau lam where
+  entry := fun u => Fin.elim0 u.1.1
+  bijective := by
+    constructor
+    · intro u
+      exact Fin.elim0 u.1.1
+    · intro a
+      exact Fin.elim0 a
+  row_strict := by
+    intro u
+    exact Fin.elim0 u.1.1
+  col_strict := by
+    intro u
+    exact Fin.elim0 u.1.1
+
+/-- Recursive finite index for the canonical even matching eigenbasis. -/
+def S05_CanonicalEvenEigenbasisIndex :
+    (m : Nat) → YoungDiagram (2 * m) → Type
+  | 0, _ => PUnit
+  | m + 1, lam =>
+      Sigma fun p : TwoStepRemovableRows lam =>
+        S05_CanonicalEvenEigenbasisIndex m
+          (deleteTwoRemovableRowsDiagram lam p)
+
+/-- The recursive index is finite at every level. -/
+@[reducible] noncomputable def S05_canonicalEvenEigenbasisIndexFintype :
+    (m : Nat) → (lam : YoungDiagram (2 * m)) →
+      Fintype (S05_CanonicalEvenEigenbasisIndex m lam)
+  | 0, _ => by
+      change Fintype PUnit
+      infer_instance
+  | m + 1, lam => by
+      change Fintype (Sigma fun p : TwoStepRemovableRows lam =>
+        S05_CanonicalEvenEigenbasisIndex m
+          (deleteTwoRemovableRowsDiagram lam p))
+      letI (p : TwoStepRemovableRows lam) :=
+        S05_canonicalEvenEigenbasisIndexFintype m
+          (deleteTwoRemovableRowsDiagram lam p)
+      infer_instance
+
+private def S05_twoStepRemovableRowsKey {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)}
+    (p : TwoStepRemovableRows lam) : Nat × Nat :=
+  (p.first.1, p.second.1)
+
+private theorem S05_twoStepRemovableRowsKey_injective {n : Nat}
+    {lam : YoungDiagram ((n + 1) + 1)} :
+    Function.Injective (@S05_twoStepRemovableRowsKey n lam) := by
+  intro p q h
+  change (p.first.1, p.second.1) = (q.first.1, q.second.1) at h
+  apply twoStepRemovableRows_ext
+  · exact congrArg Prod.fst h
+  · exact congrArg Prod.snd h
+
+private noncomputable def S05_twoStepRemovableRowsDecidableEq {n : Nat}
+    (lam : YoungDiagram ((n + 1) + 1)) :
+    DecidableEq (TwoStepRemovableRows lam) :=
+  Function.Injective.decidableEq S05_twoStepRemovableRowsKey_injective
+
+/-- Decidable equality obtained recursively from the signed-child index. -/
+@[reducible] noncomputable def S05_canonicalEvenEigenbasisIndexDecidableEq :
+    (m : Nat) → (lam : YoungDiagram (2 * m)) →
+      DecidableEq (S05_CanonicalEvenEigenbasisIndex m lam)
+  | 0, _ => by
+      change DecidableEq PUnit
+      infer_instance
+  | m + 1, lam => by
+      change DecidableEq (Sigma fun p : TwoStepRemovableRows lam =>
+        S05_CanonicalEvenEigenbasisIndex m
+          (deleteTwoRemovableRowsDiagram lam p))
+      letI : DecidableEq (TwoStepRemovableRows lam) :=
+        S05_twoStepRemovableRowsDecidableEq lam
+      letI (p : TwoStepRemovableRows lam) :=
+        S05_canonicalEvenEigenbasisIndexDecidableEq m
+          (deleteTwoRemovableRowsDiagram lam p)
+      infer_instance
+
+attribute [instance] S05_canonicalEvenEigenbasisIndexFintype
+  S05_canonicalEvenEigenbasisIndexDecidableEq
+
+/-- Explicit recursively transported vector attached to a canonical even
+eigenbasis index. -/
+noncomputable def S05_canonicalEvenEigenbasisVector :
+    (m : Nat) → (lam : YoungDiagram (2 * m)) →
+      S05_CanonicalEvenEigenbasisIndex m lam → TableauSpace lam
+  | 0, lam, _ => tableauBasisVec (S05_emptyStandardYoungTableau lam)
+  | m + 1, lam, ⟨p, i⟩ =>
+      S05_signedTwoBoxChildEmbedding lam p
+        (S05_canonicalEvenEigenbasisVector m
+          (deleteTwoRemovableRowsDiagram lam p) i)
+
+/-- Recursive character label attached to a canonical even eigenbasis index.
+The final coordinate is present exactly for a negative signed child. -/
+def S05_canonicalEvenEigenbasisLabel :
+    (m : Nat) → (lam : YoungDiagram (2 * m)) →
+      S05_CanonicalEvenEigenbasisIndex m lam → Finset (Fin m)
+  | 0, _, _ => ∅
+  | m + 1, lam, ⟨p, i⟩ =>
+      if p.first.1 <= p.second.1 then
+        S05_liftEvenSignPattern
+          (S05_canonicalEvenEigenbasisLabel m
+            (deleteTwoRemovableRowsDiagram lam p) i)
+      else
+        S05_liftEvenSignPatternWithLast
+          (S05_canonicalEvenEigenbasisLabel m
+            (deleteTwoRemovableRowsDiagram lam p) i)
+
+/-- Multiset of labels of the explicit recursive index, retaining repeated
+labels with their full multiplicity. -/
+noncomputable def S05_canonicalEvenEigenbasisLabelMultiset
+    (m : Nat) (lam : YoungDiagram (2 * m)) : Multiset (Finset (Fin m)) :=
+  (Finset.univ : Finset (S05_CanonicalEvenEigenbasisIndex m lam)).1.map
+    (S05_canonicalEvenEigenbasisLabel m lam)
+
+@[simp] theorem S05_canonicalEvenEigenbasisLabelMultiset_zero
+    (lam : YoungDiagram 0) :
+    S05_canonicalEvenEigenbasisLabelMultiset 0 lam = {∅} := by
+  classical
+  simp [S05_canonicalEvenEigenbasisLabelMultiset,
+    S05_CanonicalEvenEigenbasisIndex, S05_canonicalEvenEigenbasisLabel]
+
+private theorem S05_multiset_map_sigma_eq_sum_map
+    {α γ : Type*} {β : α → Type*}
+    (s : Multiset α) (t : ∀ a, Multiset (β a))
+    (f : (Sigma β) → γ) :
+    (s.sigma t).map f =
+      (s.map fun a => (t a).map fun b => f ⟨a, b⟩).sum := by
+  induction s using Multiset.induction_on with
+  | empty => simp
+  | cons a s ih =>
+      simp [ih]
+
+/-- Expanding the sigma index gives the signed-child recursion for the label
+multiset before identifying signed occurrences with strip children. -/
+theorem S05_canonicalEvenEigenbasisLabelMultiset_succ
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :
+    S05_canonicalEvenEigenbasisLabelMultiset (m + 1) lam =
+      ∑ p : TwoStepRemovableRows lam,
+        if p.first.1 <= p.second.1 then
+          (S05_canonicalEvenEigenbasisLabelMultiset m
+              (deleteTwoRemovableRowsDiagram lam p)).map
+            S05_liftEvenSignPattern
+        else
+          (S05_canonicalEvenEigenbasisLabelMultiset m
+              (deleteTwoRemovableRowsDiagram lam p)).map
+            S05_liftEvenSignPatternWithLast := by
+  classical
+  change
+    ((Finset.univ : Finset (TwoStepRemovableRows lam)).1.sigma
+        (fun p =>
+          (Finset.univ : Finset
+            (S05_CanonicalEvenEigenbasisIndex m
+              (deleteTwoRemovableRowsDiagram lam p))).1)).map
+      (fun x =>
+        if x.1.first.1 <= x.1.second.1 then
+          S05_liftEvenSignPattern
+            (S05_canonicalEvenEigenbasisLabel m
+              (deleteTwoRemovableRowsDiagram lam x.1) x.2)
+        else
+          S05_liftEvenSignPatternWithLast
+            (S05_canonicalEvenEigenbasisLabel m
+              (deleteTwoRemovableRowsDiagram lam x.1) x.2)) = _
+  rw [S05_multiset_map_sigma_eq_sum_map]
+  simp only [S05_canonicalEvenEigenbasisLabelMultiset,
+    Multiset.map_map, Function.comp_apply]
+  apply congrArg Multiset.sum
+  apply Multiset.map_congr rfl
+  intro p _hp
+  by_cases hpos : p.first.1 <= p.second.1 <;> simp [hpos]
+
+/-- Multiplicity-preserving bridge from ordered signed removals to the tagged
+horizontal/vertical two-strip children.  In particular, a disconnected child
+appears in both sums because its two deletion orders lie on opposite sides of
+the row-order test. -/
+theorem S05_sum_signedTwoBoxChildren_eq_horizontal_add_vertical
+    {α : Type*} [AddCommMonoid α]
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (horizontalValue verticalValue : YoungDiagram (2 * m) → α) :
+    (∑ p : TwoStepRemovableRows lam,
+        if p.first.1 <= p.second.1 then
+          horizontalValue (deleteTwoRemovableRowsDiagram lam p)
+        else
+          verticalValue (deleteTwoRemovableRowsDiagram lam p)) =
+      (horizontalTwoStripChildrenEven (m + 1) lam).sum horizontalValue +
+        (verticalTwoStripChildrenEven (m + 1) lam).sum verticalValue := by
+  classical
+  calc
+    (∑ p : TwoStepRemovableRows lam,
+        if p.first.1 <= p.second.1 then
+          horizontalValue (deleteTwoRemovableRowsDiagram lam p)
+        else
+          verticalValue (deleteTwoRemovableRowsDiagram lam p)) =
+        ∑ x : TaggedTwoStripChildrenSized lam,
+          match x with
+          | Sum.inl h => horizontalValue h.1
+          | Sum.inr v => verticalValue v.1 := by
+      exact Fintype.sum_equiv
+        (twoStepRemovableRowsEquivTaggedTwoStripChildren lam)
+        (fun p : TwoStepRemovableRows lam =>
+          if p.first.1 <= p.second.1 then
+            horizontalValue (deleteTwoRemovableRowsDiagram lam p)
+          else
+            verticalValue (deleteTwoRemovableRowsDiagram lam p))
+        (fun x : TaggedTwoStripChildrenSized lam =>
+          match x with
+          | Sum.inl h => horizontalValue h.1
+          | Sum.inr v => verticalValue v.1)
+        (fun p => by
+          by_cases hpos : p.first.1 <= p.second.1 <;>
+            simp [twoStepRemovableRowsEquivTaggedTwoStripChildren,
+              twoStepToTaggedTwoStripChild, hpos])
+    _ = (horizontalTwoStripChildrenSized lam).sum horizontalValue +
+          (verticalTwoStripChildrenSized lam).sum verticalValue := by
+      rw [Fintype.sum_sum_type]
+      congr 1
+      · rw [Finset.univ_eq_attach]
+        exact Finset.sum_attach
+          (horizontalTwoStripChildrenSized lam) horizontalValue
+      · rw [Finset.univ_eq_attach]
+        exact Finset.sum_attach
+          (verticalTwoStripChildrenSized lam) verticalValue
+    _ = _ := by
+      rw [horizontalTwoStripChildrenSized_eq_even_succ,
+        verticalTwoStripChildrenSized_eq_even_succ]
+      rfl
+
+/-- The explicit recursive eigenbasis labels reproduce Definition 5.13 as a
+literal multiset equality, including every repeated label. -/
+theorem S05_canonicalEvenEigenbasisLabelMultiset_eq :
+    ∀ (m : Nat) (lam : YoungDiagram (2 * m)),
+      S05_canonicalEvenEigenbasisLabelMultiset m lam =
+        S05_evenSignPatternMultiset m lam := by
+  intro m
+  induction m with
+  | zero =>
+      intro lam
+      rw [S05_canonicalEvenEigenbasisLabelMultiset_zero]
+      rfl
+  | succ m ih =>
+      intro lam
+      rw [S05_canonicalEvenEigenbasisLabelMultiset_succ]
+      simp_rw [ih]
+      calc
+        (∑ p : TwoStepRemovableRows lam,
+            if p.first.1 <= p.second.1 then
+              (S05_evenSignPatternMultiset m
+                (deleteTwoRemovableRowsDiagram lam p)).map
+                  S05_liftEvenSignPattern
+            else
+              (S05_evenSignPatternMultiset m
+                (deleteTwoRemovableRowsDiagram lam p)).map
+                  S05_liftEvenSignPatternWithLast) =
+            (horizontalTwoStripChildrenEven (m + 1) lam).sum
+                (fun mu =>
+                  (S05_evenSignPatternMultiset m mu).map
+                    S05_liftEvenSignPattern) +
+              (verticalTwoStripChildrenEven (m + 1) lam).sum
+                (fun mu =>
+                  (S05_evenSignPatternMultiset m mu).map
+                    S05_liftEvenSignPatternWithLast) :=
+          S05_sum_signedTwoBoxChildren_eq_horizontal_add_vertical
+            m lam
+            (fun mu =>
+              (S05_evenSignPatternMultiset m mu).map
+                S05_liftEvenSignPattern)
+            (fun mu =>
+              (S05_evenSignPatternMultiset m mu).map
+                S05_liftEvenSignPatternWithLast)
+        _ = S05_evenSignPatternMultiset (m + 1) lam := rfl
+
+/-- The recursively transported vectors form an orthonormal family. -/
+theorem S05_canonicalEvenEigenbasisVector_inner :
+    ∀ (m : Nat) (lam : YoungDiagram (2 * m))
+      (i j : S05_CanonicalEvenEigenbasisIndex m lam),
+      tableauInner
+          (S05_canonicalEvenEigenbasisVector m lam i)
+          (S05_canonicalEvenEigenbasisVector m lam j) =
+        if i = j then 1 else 0 := by
+  intro m
+  induction m with
+  | zero =>
+      intro lam i j
+      cases i
+      cases j
+      simp [S05_canonicalEvenEigenbasisVector]
+  | succ m ih =>
+      intro lam i j
+      rcases i with ⟨p, i⟩
+      rcases j with ⟨q, j⟩
+      by_cases hpq : p = q
+      · subst q
+        rw [S05_canonicalEvenEigenbasisVector,
+          S05_canonicalEvenEigenbasisVector,
+          S05_signedTwoBoxChildEmbedding_isometry, ih]
+        by_cases hij : i = j
+        · subst j
+          simp
+        · rw [if_neg hij, if_neg]
+          intro h
+          exact hij (eq_of_heq (Sigma.mk.inj_iff.mp h).2)
+      · rw [S05_canonicalEvenEigenbasisVector,
+          S05_canonicalEvenEigenbasisVector,
+          S05_signedTwoBoxChildEmbedding_ranges_orthogonal lam hpq]
+        rw [if_neg]
+        intro h
+        exact hpq (congrArg Sigma.fst h)
+
+/-- The recursively transported orthonormal family is linearly independent. -/
+theorem S05_canonicalEvenEigenbasisVector_linearIndependent
+    (m : Nat) (lam : YoungDiagram (2 * m)) :
+    LinearIndependent Real (S05_canonicalEvenEigenbasisVector m lam) := by
+  classical
+  rw [Fintype.linearIndependent_iff]
+  intro c hc x
+  have hinner := congrArg
+    (fun f => tableauInner f (S05_canonicalEvenEigenbasisVector m lam x)) hc
+  have hcomb :
+      (∑ i : S05_CanonicalEvenEigenbasisIndex m lam,
+          c i • S05_canonicalEvenEigenbasisVector m lam i) =
+        fun T => ∑ i : S05_CanonicalEvenEigenbasisIndex m lam,
+          c i * S05_canonicalEvenEigenbasisVector m lam i T := by
+    funext T
+    simp
+  rw [hcomb] at hinner
+  rw [S05_tableauInner_sum_left] at hinner
+  simp_rw [S05_tableauInner_mul_left,
+    S05_canonicalEvenEigenbasisVector_inner] at hinner
+  simpa [tableauInner] using hinner
+
+/-- The recursive index has exactly the cardinality of the tableau coordinate
+basis. -/
+theorem S05_card_canonicalEvenEigenbasisIndex
+    (m : Nat) (lam : YoungDiagram (2 * m)) :
+    Fintype.card (S05_CanonicalEvenEigenbasisIndex m lam) =
+      Fintype.card (StandardYoungTableau lam) := by
+  classical
+  calc
+    Fintype.card (S05_CanonicalEvenEigenbasisIndex m lam) =
+        (S05_canonicalEvenEigenbasisLabelMultiset m lam).card := by
+      simp [S05_canonicalEvenEigenbasisLabelMultiset]
+    _ = (S05_evenSignPatternMultiset m lam).card := by
+      rw [S05_canonicalEvenEigenbasisLabelMultiset_eq]
+    _ = Fintype.card (StandardYoungTableau lam) := by
+      have h := S05_Lem5_10_evenSignPatternMultiset_card m lam
+      unfold tableauDim tableauDimNat at h
+      exact_mod_cast h
+
+/-- The explicit recursive family spans the full parent tableau space. -/
+theorem S05_canonicalEvenEigenbasisVector_span
+    (m : Nat) (lam : YoungDiagram (2 * m)) :
+    Submodule.span Real
+        (Set.range (S05_canonicalEvenEigenbasisVector m lam)) = ⊤ := by
+  classical
+  apply
+    (S05_canonicalEvenEigenbasisVector_linearIndependent m lam).span_eq_top_of_card_eq_finrank'
+  rw [S05_card_canonicalEvenEigenbasisIndex]
+  exact (Module.finrank_pi Real :
+      Module.finrank Real (StandardYoungTableau lam → Real) =
+        Fintype.card (StandardYoungTableau lam)).symm
+
+/-- Mathlib basis carried by the explicit recursive canonical-even family. -/
+noncomputable def S05_canonicalEvenMatchingBasis
+    (m : Nat) (lam : YoungDiagram (2 * m)) :
+    Module.Basis (S05_CanonicalEvenEigenbasisIndex m lam) Real
+      (TableauSpace lam) :=
+  Module.Basis.mk (S05_canonicalEvenEigenbasisVector_linearIndependent m lam)
+    (S05_canonicalEvenEigenbasisVector_span m lam).ge
+
+@[simp] theorem S05_canonicalEvenMatchingBasis_apply
+    (m : Nat) (lam : YoungDiagram (2 * m))
+    (i : S05_CanonicalEvenEigenbasisIndex m lam) :
+    S05_canonicalEvenMatchingBasis m lam i =
+      S05_canonicalEvenEigenbasisVector m lam i := by
+  exact Module.Basis.mk_apply _ _ _
+
+/-- Earlier canonical matching edges are the twice-cast child edges. -/
+theorem S05_canonicalMatchingAdjacentIndex_succ_castSucc
+    (m : Nat) (r : Fin m) :
+    canonicalMatchingAdjacentIndex (m + 1) r.castSucc =
+      Fin.cast (by
+        have hr := r.isLt
+        omega)
+        (Fin.castSucc (Fin.castSucc (canonicalMatchingAdjacentIndex m r))) := by
+  apply Fin.ext
+  simp [canonicalMatchingAdjacentIndex]
+
+/-- The last canonical matching edge is the final adjacent generator. -/
+theorem S05_canonicalMatchingAdjacentIndex_succ_last (m : Nat) :
+    canonicalMatchingAdjacentIndex (m + 1) (Fin.last m) =
+      Fin.last (2 * m) := by
+  apply Fin.ext
+  simp [canonicalMatchingAdjacentIndex]
+
+@[simp] theorem S05_matchingEdgeSign_liftEvenSignPattern_castSucc
+    {m : Nat} (R : Finset (Fin m)) (r : Fin m) :
+    matchingEdgeSign (S05_liftEvenSignPattern R) r.castSucc =
+      matchingEdgeSign R r := by
+  simp [matchingEdgeSign, S05_liftEvenSignPattern]
+
+@[simp] theorem S05_matchingEdgeSign_liftEvenSignPatternWithLast_castSucc
+    {m : Nat} (R : Finset (Fin m)) (r : Fin m) :
+    matchingEdgeSign (S05_liftEvenSignPatternWithLast R) r.castSucc =
+      matchingEdgeSign R r := by
+  simp [matchingEdgeSign, S05_liftEvenSignPatternWithLast,
+    S05_liftEvenSignPattern]
+
+@[simp] theorem S05_matchingEdgeSign_liftEvenSignPattern_last
+    {m : Nat} (R : Finset (Fin m)) :
+    matchingEdgeSign (S05_liftEvenSignPattern R) (Fin.last m) = 1 := by
+  simp [matchingEdgeSign, S05_liftEvenSignPattern]
+
+@[simp] theorem S05_matchingEdgeSign_liftEvenSignPatternWithLast_last
+    {m : Nat} (R : Finset (Fin m)) :
+    matchingEdgeSign (S05_liftEvenSignPatternWithLast R) (Fin.last m) = -1 := by
+  simp [matchingEdgeSign, S05_liftEvenSignPatternWithLast]
+
+/-- The signed-child final eigenvalue is exactly the character sign prescribed
+by the recursively lifted label. -/
+theorem S05_signedTwoBoxRemovalSign_eq_matchingEdgeSign_label
+    {m : Nat} {lam : YoungDiagram (2 * (m + 1))}
+    (p : TwoStepRemovableRows lam) (R : Finset (Fin m)) :
+    S05_signedTwoBoxRemovalSign p =
+      matchingEdgeSign
+        (if p.first.1 <= p.second.1 then
+          S05_liftEvenSignPattern R
+        else
+          S05_liftEvenSignPatternWithLast R)
+        (Fin.last m) := by
+  by_cases hpos : p.first.1 <= p.second.1 <;>
+    simp [S05_signedTwoBoxRemovalSign, hpos]
+
+/-- The final canonical perfect-matching operator is the final adjacent
+operator from the signed-child decomposition. -/
+theorem S05_signedTwoBoxChildEmbedding_finalCanonicalOperator
+    {m : Nat} (lam : YoungDiagram (2 * (m + 1)))
+    (p : TwoStepRemovableRows lam)
+    (f : TableauSpace (deleteTwoRemovableRowsDiagram lam p)) :
+    canonicalMatchingYoungOperatorEven (Fin.last m)
+        (S05_signedTwoBoxChildEmbedding lam p f) =
+      S05_signedTwoBoxRemovalSign p •
+        S05_signedTwoBoxChildEmbedding lam p f := by
+  unfold canonicalMatchingYoungOperatorEven
+  rw [S05_canonicalMatchingAdjacentIndex_succ_last]
+  convert S05_signedTwoBoxChildEmbedding_finalOperator lam p f using 1 <;> rfl
+
+/-- Every earlier canonical perfect-matching edge is transported from the
+child by the signed two-box embedding. -/
+theorem S05_signedTwoBoxChildEmbedding_intertwinesEarlierCanonical
+    {m : Nat} (lam : YoungDiagram (2 * ((m + 1) + 1)))
+    (p : TwoStepRemovableRows lam) (r : Fin (m + 1))
+    (f : TableauSpace (deleteTwoRemovableRowsDiagram lam p)) :
+    canonicalMatchingYoungOperatorEven r.castSucc
+        (S05_signedTwoBoxChildEmbedding lam p f) =
+      S05_signedTwoBoxChildEmbedding lam p
+        (canonicalMatchingYoungOperatorEven r f) := by
+  unfold canonicalMatchingYoungOperatorEven
+  have h := S05_signedTwoBoxChildEmbedding_intertwinesEarlierAdjacent
+    lam p (canonicalMatchingAdjacentIndex (m + 1) r) f
+  have hbound :
+      ((2 * (m + 1) - 1) + 1) + 1 =
+        2 * ((m + 1) + 1) - 1 := by
+    omega
+  have hindex :
+      canonicalMatchingAdjacentIndex ((m + 1) + 1) r.castSucc =
+        Fin.cast hbound
+          (Fin.castSucc
+            (Fin.castSucc (canonicalMatchingAdjacentIndex (m + 1) r))) := by
+    apply Fin.ext
+    simp [canonicalMatchingAdjacentIndex]
+  rw [hindex]
+  cases hbound
+  exact h
+
+/-- Every vector in the recursively constructed positive-level basis is a
+simultaneous eigenvector for the canonical perfect-matching edges, with the
+recursively constructed label.  The theorem starts at one edge because the
+legacy predicate's size expression is not the empty-diagram size at `m = 0`. -/
+theorem S05_canonicalEvenEigenbasisVector_isMatchingEigenvector :
+    ∀ (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+      (i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam),
+      S05_IsMatchingEigenvectorEven
+        (S05_canonicalEvenEigenbasisVector (m + 1) lam i)
+        (S05_canonicalEvenEigenbasisLabel (m + 1) lam i) := by
+  intro m
+  induction m with
+  | zero =>
+      intro lam i
+      rcases i with ⟨p, i⟩
+      intro r
+      refine Fin.lastCases ?_ (fun r => Fin.elim0 r) r
+      let childVector :=
+        S05_canonicalEvenEigenbasisVector 0
+          (deleteTwoRemovableRowsDiagram lam p) i
+      let childLabel :=
+        S05_canonicalEvenEigenbasisLabel 0
+          (deleteTwoRemovableRowsDiagram lam p) i
+      change
+        canonicalMatchingYoungOperatorEven (Fin.last 0)
+            (S05_signedTwoBoxChildEmbedding lam p childVector) =
+          matchingEdgeSign
+              (if p.first.1 <= p.second.1 then
+                S05_liftEvenSignPattern childLabel
+              else
+                S05_liftEvenSignPatternWithLast childLabel)
+              (Fin.last 0) •
+            S05_signedTwoBoxChildEmbedding lam p childVector
+      rw [S05_signedTwoBoxChildEmbedding_finalCanonicalOperator,
+        S05_signedTwoBoxRemovalSign_eq_matchingEdgeSign_label]
+  | succ m ih =>
+      intro lam i
+      rcases i with ⟨p, i⟩
+      intro r
+      refine Fin.lastCases ?_ (fun r => ?_) r
+      · let childVector :=
+          S05_canonicalEvenEigenbasisVector (m + 1)
+            (deleteTwoRemovableRowsDiagram lam p) i
+        let childLabel :=
+          S05_canonicalEvenEigenbasisLabel (m + 1)
+            (deleteTwoRemovableRowsDiagram lam p) i
+        change
+          canonicalMatchingYoungOperatorEven (Fin.last (m + 1))
+              (S05_signedTwoBoxChildEmbedding lam p childVector) =
+            matchingEdgeSign
+                (if p.first.1 <= p.second.1 then
+                  S05_liftEvenSignPattern childLabel
+                else
+                  S05_liftEvenSignPatternWithLast childLabel)
+                (Fin.last (m + 1)) •
+              S05_signedTwoBoxChildEmbedding lam p childVector
+        rw [S05_signedTwoBoxChildEmbedding_finalCanonicalOperator,
+          S05_signedTwoBoxRemovalSign_eq_matchingEdgeSign_label]
+      · let childVector :=
+          S05_canonicalEvenEigenbasisVector (m + 1)
+            (deleteTwoRemovableRowsDiagram lam p) i
+        let childLabel :=
+          S05_canonicalEvenEigenbasisLabel (m + 1)
+            (deleteTwoRemovableRowsDiagram lam p) i
+        change
+          canonicalMatchingYoungOperatorEven r.castSucc
+              (S05_signedTwoBoxChildEmbedding lam p childVector) =
+            matchingEdgeSign
+                (if p.first.1 <= p.second.1 then
+                  S05_liftEvenSignPattern childLabel
+                else
+                  S05_liftEvenSignPatternWithLast childLabel)
+                r.castSucc •
+              S05_signedTwoBoxChildEmbedding lam p childVector
+        calc
+          canonicalMatchingYoungOperatorEven r.castSucc
+              (S05_signedTwoBoxChildEmbedding lam p childVector) =
+              S05_signedTwoBoxChildEmbedding lam p
+                (canonicalMatchingYoungOperatorEven r childVector) := by
+            exact S05_signedTwoBoxChildEmbedding_intertwinesEarlierCanonical
+              lam p r childVector
+          _ = S05_signedTwoBoxChildEmbedding lam p
+                (matchingEdgeSign childLabel r • childVector) := by
+            convert congrArg
+              (S05_signedTwoBoxChildEmbedding lam p)
+              (ih (deleteTwoRemovableRowsDiagram lam p) i r) using 1
+            all_goals rfl
+          _ = matchingEdgeSign childLabel r •
+                S05_signedTwoBoxChildEmbedding lam p childVector := by
+            exact S05_signedTwoBoxChildEmbedding_smul lam p _ childVector
+          _ = matchingEdgeSign
+                (if p.first.1 <= p.second.1 then
+                  S05_liftEvenSignPattern childLabel
+                else
+                  S05_liftEvenSignPatternWithLast childLabel)
+                r.castSucc •
+              S05_signedTwoBoxChildEmbedding lam p childVector := by
+            by_cases hpos : p.first.1 <= p.second.1 <;> simp [hpos]
+
+/-- Canonical even labeled eigenbasis theorem.  The named recursive index is
+finite, `S05_canonicalEvenMatchingBasis` is an actual Mathlib basis, every
+basis vector has its simultaneous canonical matching label, and enumerating
+those labels gives Definition 5.13 with exact multiplicity. -/
+theorem S05_Lem5_11_canonicalEvenMatchingEigenbasis
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :
+    (∀ i j : S05_CanonicalEvenEigenbasisIndex (m + 1) lam,
+      tableauInner
+          (S05_canonicalEvenMatchingBasis (m + 1) lam i)
+          (S05_canonicalEvenMatchingBasis (m + 1) lam j) =
+        if i = j then 1 else 0) ∧
+    (∀ i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam,
+      S05_IsMatchingEigenvectorEven
+        (S05_canonicalEvenMatchingBasis (m + 1) lam i)
+        (S05_canonicalEvenEigenbasisLabel (m + 1) lam i)) ∧
+    (Finset.univ : Finset
+        (S05_CanonicalEvenEigenbasisIndex (m + 1) lam)).1.map
+          (S05_canonicalEvenEigenbasisLabel (m + 1) lam) =
+      S05_evenSignPatternMultiset (m + 1) lam := by
+  refine ⟨?_, ?_, ?_⟩
+  · intro i j
+    rw [S05_canonicalEvenMatchingBasis_apply,
+      S05_canonicalEvenMatchingBasis_apply]
+    exact S05_canonicalEvenEigenbasisVector_inner (m + 1) lam i j
+  · intro i
+    rw [S05_canonicalEvenMatchingBasis_apply]
+    exact S05_canonicalEvenEigenbasisVector_isMatchingEigenvector m lam i
+  · exact S05_canonicalEvenEigenbasisLabelMultiset_eq (m + 1) lam
+
+/-- The canonical matching cube acts on each recursive basis vector by the
+character attached to its exact recursive label. -/
+theorem S05_canonicalEvenMatchingBasis_character_action
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam) (x : Cube (m + 1)) :
+    canonicalMatchingCubeOperatorEven x
+        (S05_canonicalEvenMatchingBasis (m + 1) lam i) =
+      S05_matchingCharacter
+          (S05_canonicalEvenEigenbasisLabel (m + 1) lam i) x •
+        S05_canonicalEvenMatchingBasis (m + 1) lam i := by
+  exact canonicalMatchingCubeOperatorEven_apply_character_of_isMatchingEigenvector
+    ((S05_Lem5_11_canonicalEvenMatchingEigenbasis m lam).2.1 i) x
 
 /-- Lemma 5.11 matching-operator component: a canonical even matching edge
 operator is an involution. -/
