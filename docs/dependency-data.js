@@ -2300,6 +2300,12 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "unproven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_11_MatchingSubgroupEigenbasis.lean",
       "wrappers": [
+        "S05_signedTwoBoxChild_orthogonal_decomposition",
+        "S05_signedTwoBoxChildEmbedding_isometry",
+        "S05_signedTwoBoxChildEmbedding_finalOperator",
+        "S05_signedTwoBoxChildEmbedding_intertwinesEarlierAdjacent",
+        "S05_signedTwoBoxChildEmbedding_ranges_orthogonal",
+        "S05_signedTwoBoxChildEmbeddings_span",
         "S05_Lem5_11_matchingSignProjectionEven_isMatchingEigenvector",
         "S05_Lem5_11_matchingSignProjectionOdd_isMatchingEigenvector",
         "S05_Lem5_11_highLabelCount_of_evenSignPatternMultiset",
@@ -2310,6 +2316,7 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_L04",
         "S05_L06",
         "S05_L07",
+        "S05_L08",
         "S05_L10",
         "S05_D13",
         "S05_D14",
@@ -2319,8 +2326,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D18",
         "S05_D19"
       ],
-      "summary": "Matching projections and label-multiset semantics are proved; the signed-child spanning eigenbasis is absent.",
-      "statement": "Lemma 5.11 currently proves commuting matching operators, simultaneous sign projections, character action, and the high-count consequence of an exact recursive label enumeration. It does not yet construct orthogonal signed-child embeddings or prove that their ranges span a basis whose labels enumerate the recursive multiset.",
+      "summary": "The signed-child orthogonal decomposition is proved; recursive canonical labeled-basis assembly remains.",
+      "statement": "Lemma 5.11 now proves explicit signed two-box child embeddings, isometry, the final-edge sign, earlier-edge intertwining, pairwise orthogonality, and joint spanning, as well as the matching projection algebra and recursive label semantics. It does not yet recursively assemble the canonical even matching eigenbasis or identify that basis's labels with the recursive multiset.",
       "terms": [
         {
           "text": "Tableau Coxeter model",

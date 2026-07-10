@@ -437,6 +437,445 @@ noncomputable def S05_Lem5_04_twoStepDeletionTableauxEquivChildTableaux
       StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p) :=
   twoStepDeletionTableauxEquivChildTableaux lam p
 
+/-- Extend a child tableau by placing the two largest entries according to a
+fixed ordered two-step removal. -/
+noncomputable def S05_Lem5_04_twoBoxExtensionTableau
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    StandardYoungTableau lam :=
+  ((S05_Lem5_04_twoStepDeletionTableauxEquivChildTableaux lam p).symm U).1.1
+
+/-- The inverse of the fixed two-step deletion equivalence is the composite of
+the two explicit one-box maximum-entry insertions. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_eq_insertMax_twice
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    S05_Lem5_04_twoBoxExtensionTableau lam p U =
+      S05_Lem5_06_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+        (twoStepFirstChild_isOneBoxChild lam p)
+        (twoStepFirstChild_row_form lam p)
+        (S05_Lem5_06_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+          (twoStepSecondChild_isOneBoxChild lam p)
+          (twoStepSecondChild_row_form lam p) U) := by
+  rfl
+
+/-- Two-box extension preserves the same-row test for every adjacent pair that
+belongs to the child tableau. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_earlier_sameRow_iff
+    {n : Nat} (lam : YoungDiagram (((n + 1) + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p))
+    (a : Fin n) :
+    adjacentSameRow (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+        (Fin.castSucc (Fin.castSucc a)) ↔
+      adjacentSameRow U a := by
+  rw [S05_Lem5_04_twoBoxExtensionTableau_eq_insertMax_twice]
+  rw [S05_Lem5_07_insertMax_adjacentSameRow_iff,
+    S05_Lem5_07_insertMax_adjacentSameRow_iff]
+
+/-- Two-box extension preserves the same-column test for every adjacent pair
+that belongs to the child tableau. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_earlier_sameCol_iff
+    {n : Nat} (lam : YoungDiagram (((n + 1) + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p))
+    (a : Fin n) :
+    adjacentSameCol (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+        (Fin.castSucc (Fin.castSucc a)) ↔
+      adjacentSameCol U a := by
+  rw [S05_Lem5_04_twoBoxExtensionTableau_eq_insertMax_twice]
+  rw [S05_Lem5_07_insertMax_adjacentSameCol_iff,
+    S05_Lem5_07_insertMax_adjacentSameCol_iff]
+
+/-- Two-box extension preserves the diagonal Young coefficient for every
+adjacent pair that belongs to the child tableau. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_earlier_diagCoeff
+    {n : Nat} (lam : YoungDiagram (((n + 1) + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p))
+    (a : Fin n) :
+    youngAdjacentDiagCoeff (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+        (Fin.castSucc (Fin.castSucc a)) =
+      youngAdjacentDiagCoeff U a := by
+  rw [S05_Lem5_04_twoBoxExtensionTableau_eq_insertMax_twice]
+  calc
+    _ = youngAdjacentDiagCoeff
+        (S05_Lem5_06_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+          (twoStepSecondChild_isOneBoxChild lam p)
+          (twoStepSecondChild_row_form lam p) U)
+        (Fin.castSucc a) :=
+      (S05_Lem5_07_insertMax_youngAdjacentDiagCoeff
+        (twoStepFirstChild_isOneBoxChild lam p)
+        (twoStepFirstChild_row_form lam p) _ (Fin.castSucc a)).symm
+    _ = youngAdjacentDiagCoeff U a :=
+      (S05_Lem5_07_insertMax_youngAdjacentDiagCoeff
+        (twoStepSecondChild_isOneBoxChild lam p)
+        (twoStepSecondChild_row_form lam p) U a).symm
+
+/-- Two-box extension preserves the off-diagonal Young coefficient for every
+adjacent pair that belongs to the child tableau. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_earlier_offCoeff
+    {n : Nat} (lam : YoungDiagram (((n + 1) + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p))
+    (a : Fin n) :
+    youngAdjacentOffCoeff (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+        (Fin.castSucc (Fin.castSucc a)) =
+      youngAdjacentOffCoeff U a := by
+  rw [S05_Lem5_04_twoBoxExtensionTableau_eq_insertMax_twice]
+  calc
+    _ = youngAdjacentOffCoeff
+        (S05_Lem5_06_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+          (twoStepSecondChild_isOneBoxChild lam p)
+          (twoStepSecondChild_row_form lam p) U)
+        (Fin.castSucc a) :=
+      (S05_Lem5_07_insertMax_youngAdjacentOffCoeff
+        (twoStepFirstChild_isOneBoxChild lam p)
+        (twoStepFirstChild_row_form lam p) _ (Fin.castSucc a)).symm
+    _ = youngAdjacentOffCoeff U a :=
+      (S05_Lem5_07_insertMax_youngAdjacentOffCoeff
+        (twoStepSecondChild_isOneBoxChild lam p)
+        (twoStepSecondChild_row_form lam p) U a).symm
+
+/-- Swapping an adjacent pair belonging to the child commutes with the explicit
+two-box extension. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_earlier_swap
+    {n : Nat} (lam : YoungDiagram (((n + 1) + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p))
+    (a : Fin n)
+    (hrow : ¬ adjacentSameRow U a) (hcol : ¬ adjacentSameCol U a) :
+    S05_Lem5_04_twoBoxExtensionTableau lam p
+        (adjacentSwapTableau U a hrow hcol) =
+      adjacentSwapTableau (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+        (Fin.castSucc (Fin.castSucc a))
+        (by
+          intro hp
+          exact hrow
+            ((S05_Lem5_04_twoBoxExtensionTableau_earlier_sameRow_iff
+              lam p U a).1 hp))
+        (by
+          intro hp
+          exact hcol
+            ((S05_Lem5_04_twoBoxExtensionTableau_earlier_sameCol_iff
+              lam p U a).1 hp)) := by
+  let U1 := S05_Lem5_06_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+    (twoStepSecondChild_isOneBoxChild lam p)
+    (twoStepSecondChild_row_form lam p) U
+  have hrow1 : ¬ adjacentSameRow U1 (Fin.castSucc a) := by
+    intro hp
+    exact hrow ((S05_Lem5_07_insertMax_adjacentSameRow_iff
+      (twoStepSecondChild_isOneBoxChild lam p)
+      (twoStepSecondChild_row_form lam p) U a).1 hp)
+  have hcol1 : ¬ adjacentSameCol U1 (Fin.castSucc a) := by
+    intro hp
+    exact hcol ((S05_Lem5_07_insertMax_adjacentSameCol_iff
+      (twoStepSecondChild_isOneBoxChild lam p)
+      (twoStepSecondChild_row_form lam p) U a).1 hp)
+  have hsecond := S05_Lem5_07_insertMax_adjacentSwapTableau
+    (twoStepSecondChild_isOneBoxChild lam p)
+    (twoStepSecondChild_row_form lam p) U a hrow hcol
+  have hfirst := S05_Lem5_07_insertMax_adjacentSwapTableau
+    (twoStepFirstChild_isOneBoxChild lam p)
+    (twoStepFirstChild_row_form lam p) U1 (Fin.castSucc a) hrow1 hcol1
+  calc
+    S05_Lem5_04_twoBoxExtensionTableau lam p
+        (adjacentSwapTableau U a hrow hcol) =
+      S05_Lem5_06_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+        (twoStepFirstChild_isOneBoxChild lam p)
+        (twoStepFirstChild_row_form lam p)
+        (S05_Lem5_06_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+          (twoStepSecondChild_isOneBoxChild lam p)
+          (twoStepSecondChild_row_form lam p)
+          (adjacentSwapTableau U a hrow hcol)) :=
+      S05_Lem5_04_twoBoxExtensionTableau_eq_insertMax_twice lam p _
+    _ = S05_Lem5_06_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+        (twoStepFirstChild_isOneBoxChild lam p)
+        (twoStepFirstChild_row_form lam p)
+        (adjacentSwapTableau U1 (Fin.castSucc a) hrow1 hcol1) := by
+      exact congrArg
+        (S05_Lem5_06_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+          (twoStepFirstChild_isOneBoxChild lam p)
+          (twoStepFirstChild_row_form lam p)) hsecond
+    _ = adjacentSwapTableau
+        (S05_Lem5_06_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+          (twoStepFirstChild_isOneBoxChild lam p)
+          (twoStepFirstChild_row_form lam p) U1)
+        (Fin.castSucc (Fin.castSucc a)) _ _ := hfirst
+    _ = adjacentSwapTableau (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+        (Fin.castSucc (Fin.castSucc a)) _ _ := by
+      have hbase :
+          S05_Lem5_06_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+              (twoStepFirstChild_isOneBoxChild lam p)
+              (twoStepFirstChild_row_form lam p) U1 =
+            S05_Lem5_04_twoBoxExtensionTableau lam p U := by
+        exact (S05_Lem5_04_twoBoxExtensionTableau_eq_insertMax_twice
+          lam p U).symm
+      cases hbase
+      rfl
+
+/-- Distinct child tableaux have distinct extensions in a fixed two-step
+deletion fiber. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_injective
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam) :
+    Function.Injective (S05_Lem5_04_twoBoxExtensionTableau lam p) := by
+  intro U V hUV
+  let e := S05_Lem5_04_twoStepDeletionTableauxEquivChildTableaux lam p
+  apply e.symm.injective
+  apply Subtype.ext
+  apply Subtype.ext
+  exact hUV
+
+/-- The largest entry of a two-box extension occupies the first deleted
+corner. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_maxAt_firstCorner
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    TableauMaxAt (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+      (firstDeletedCornerOfTwoStep lam p) := by
+  exact
+    ((S05_Lem5_04_twoStepDeletionTableauxEquivChildTableaux lam p).symm U).1.2
+
+/-- After deleting the largest entry of a two-box extension, the next largest
+entry occupies the second deleted corner. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_nextMaxAt_secondCorner
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    TableauMaxAt
+      (twoStepFirstDeletionEquiv lam p
+        ((S05_Lem5_04_twoStepDeletionTableauxEquivChildTableaux lam p).symm U).1)
+      (secondDeletedCornerOfTwoStepInChild lam p) := by
+  exact
+    ((S05_Lem5_04_twoStepDeletionTableauxEquivChildTableaux lam p).symm U).2
+
+/-- In a two-box extension, the higher of the final adjacent labels occupies
+the first deleted corner. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_final_hiCell
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    adjacentHiCell (S05_Lem5_04_twoBoxExtensionTableau lam p U) (Fin.last n) =
+      firstDeletedCornerOfTwoStep lam p := by
+  unfold adjacentHiCell
+  apply cellOfEntry_eq_of_entry
+  have hmax :=
+    S05_Lem5_04_twoBoxExtensionTableau_maxAt_firstCorner lam p U
+  unfold TableauMaxAt at hmax
+  rw [hmax]
+  apply Fin.ext
+  rfl
+
+/-- In a two-box extension, the lower of the final adjacent labels occupies
+the second deleted corner, viewed in the parent diagram. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_final_loCell
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    adjacentLoCell (S05_Lem5_04_twoBoxExtensionTableau lam p U) (Fin.last n) =
+      secondDeletedCornerOfTwoStepInParent lam p := by
+  let e := S05_Lem5_04_twoStepDeletionTableauxEquivChildTableaux lam p
+  let X := e.symm U
+  let T := S05_Lem5_04_twoBoxExtensionTableau lam p U
+  have hsecond :
+      cellOfEntry (twoStepFirstDeletionEquiv lam p X.1) (Fin.last n) =
+        secondDeletedCornerOfTwoStepInChild lam p := by
+    apply cellOfEntry_eq_of_entry
+    simpa [TableauMaxAt] using X.2
+  have hmap := S05_Lem5_04_first_deletion_childCellToParent_cellOfEntry
+    (twoStepFirstChild_isOneBoxChild lam p)
+    (twoStepFirstChild_row_form lam p)
+    T X.1.2 (Fin.last n)
+  change cellOfEntry T (Fin.castSucc (Fin.last n)) =
+    secondDeletedCornerOfTwoStepInParent lam p
+  rw [secondDeletedCornerOfTwoStepInParent]
+  rw [← hsecond]
+  exact hmap.symm
+
+/-- The lower final label lies in the second deleted row. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_final_loCell_row
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    YoungCell.row
+        (adjacentLoCell (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+          (Fin.last n)) =
+      p.second.1 := by
+  rw [S05_Lem5_04_twoBoxExtensionTableau_final_loCell]
+  exact secondDeletedCornerOfTwoStepInParent_row lam p
+
+/-- The higher final label lies in the first deleted row. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_final_hiCell_row
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    YoungCell.row
+        (adjacentHiCell (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+          (Fin.last n)) =
+      p.first.1 := by
+  rw [S05_Lem5_04_twoBoxExtensionTableau_final_hiCell]
+  exact firstDeletedCornerOfTwoStep_row lam p
+
+/-- The final adjacent labels of an extension share a row exactly when the two
+deletions use the same row. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_final_sameRow_iff
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    adjacentSameRow (S05_Lem5_04_twoBoxExtensionTableau lam p U) (Fin.last n) ↔
+      p.second.1 = p.first.1 := by
+  unfold adjacentSameRow
+  rw [S05_Lem5_04_twoBoxExtensionTableau_final_loCell_row,
+    S05_Lem5_04_twoBoxExtensionTableau_final_hiCell_row]
+
+/-- The column of the lower final label is fixed by the two-step removal. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_final_loCell_col
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    YoungCell.col
+        (adjacentLoCell (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+          (Fin.last n)) =
+      youngRow (deleteTwoRemovableRowsDiagram lam p) p.second.1 := by
+  rw [S05_Lem5_04_twoBoxExtensionTableau_final_loCell]
+  exact secondDeletedCornerOfTwoStepInParent_col lam p
+
+/-- The column of the higher final label is fixed by the two-step removal. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_final_hiCell_col
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    YoungCell.col
+        (adjacentHiCell (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+          (Fin.last n)) =
+      youngRow (twoStepFirstChild lam p) p.first.1 := by
+  rw [S05_Lem5_04_twoBoxExtensionTableau_final_hiCell]
+  exact firstDeletedCornerOfTwoStep_col lam p
+
+/-- Whether the final adjacent labels share a column depends only on the
+ordered two-step removal, not on the child tableau. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_final_sameCol_iff
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    adjacentSameCol (S05_Lem5_04_twoBoxExtensionTableau lam p U) (Fin.last n) ↔
+      youngRow (deleteTwoRemovableRowsDiagram lam p) p.second.1 =
+        youngRow (twoStepFirstChild lam p) p.first.1 := by
+  unfold adjacentSameCol
+  rw [S05_Lem5_04_twoBoxExtensionTableau_final_loCell_col,
+    S05_Lem5_04_twoBoxExtensionTableau_final_hiCell_col]
+
+/-- The axial distance of the final two labels depends only on the two removed
+boxes, not on the child tableau. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_final_axialDistance_eq
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U V : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    adjacentAxialDistance (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+        (Fin.last n) =
+      adjacentAxialDistance (S05_Lem5_04_twoBoxExtensionTableau lam p V)
+        (Fin.last n) := by
+  unfold adjacentAxialDistance entryContent
+  change
+    YoungCell.content
+          (adjacentHiCell (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+            (Fin.last n)) -
+        YoungCell.content
+          (adjacentLoCell (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+            (Fin.last n)) =
+      YoungCell.content
+          (adjacentHiCell (S05_Lem5_04_twoBoxExtensionTableau lam p V)
+            (Fin.last n)) -
+        YoungCell.content
+          (adjacentLoCell (S05_Lem5_04_twoBoxExtensionTableau lam p V)
+            (Fin.last n))
+  rw [S05_Lem5_04_twoBoxExtensionTableau_final_hiCell,
+    S05_Lem5_04_twoBoxExtensionTableau_final_loCell,
+    S05_Lem5_04_twoBoxExtensionTableau_final_hiCell,
+    S05_Lem5_04_twoBoxExtensionTableau_final_loCell]
+
+/-- The diagonal coefficient of the final Young block is constant across a
+fixed two-step extension fiber. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_final_diagCoeff_eq
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U V : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    youngAdjacentDiagCoeff (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+        (Fin.last n) =
+      youngAdjacentDiagCoeff (S05_Lem5_04_twoBoxExtensionTableau lam p V)
+        (Fin.last n) := by
+  unfold youngAdjacentDiagCoeff
+  rw [S05_Lem5_04_twoBoxExtensionTableau_final_axialDistance_eq lam p U V]
+
+/-- The off-diagonal coefficient of the final Young block is constant across a
+fixed two-step extension fiber. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_final_offCoeff_eq
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U V : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
+    youngAdjacentOffCoeff (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+        (Fin.last n) =
+      youngAdjacentOffCoeff (S05_Lem5_04_twoBoxExtensionTableau lam p V)
+        (Fin.last n) := by
+  unfold youngAdjacentOffCoeff
+  rw [S05_Lem5_04_twoBoxExtensionTableau_final_diagCoeff_eq lam p U V]
+
+/-- Restricting a two-box extension to an earlier entry preserves the row of
+that entry in the child tableau. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_child_cellOfEntry_row
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p))
+    (a : Fin n) :
+    YoungCell.row (cellOfEntry U a) =
+      YoungCell.row
+        (cellOfEntry (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+          (Fin.castSucc (Fin.castSucc a))) := by
+  let e := S05_Lem5_04_twoStepDeletionTableauxEquivChildTableaux lam p
+  let X := e.symm U
+  let T := S05_Lem5_04_twoBoxExtensionTableau lam p U
+  have hiter := S05_Lem5_04_iterated_deletion_cellOfEntry_row
+    (twoStepFirstChild_isOneBoxChild lam p)
+    (twoStepFirstChild_row_form lam p)
+    (twoStepSecondChild_isOneBoxChild lam p)
+    (twoStepSecondChild_row_form lam p)
+    T X.1.2 X.2 a
+  change
+    YoungCell.row (cellOfEntry (e X) a) =
+      YoungCell.row (cellOfEntry T (Fin.castSucc (Fin.castSucc a))) at hiter
+  rw [e.apply_symm_apply U] at hiter
+  exact hiter
+
+/-- Restricting a two-box extension to an earlier entry preserves the column
+of that entry in the child tableau. -/
+theorem S05_Lem5_04_twoBoxExtensionTableau_child_cellOfEntry_col
+    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
+    (p : TwoStepRemovableRows lam)
+    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p))
+    (a : Fin n) :
+    YoungCell.col (cellOfEntry U a) =
+      YoungCell.col
+        (cellOfEntry (S05_Lem5_04_twoBoxExtensionTableau lam p U)
+          (Fin.castSucc (Fin.castSucc a))) := by
+  let e := S05_Lem5_04_twoStepDeletionTableauxEquivChildTableaux lam p
+  let X := e.symm U
+  let T := S05_Lem5_04_twoBoxExtensionTableau lam p U
+  have hiter := S05_Lem5_04_iterated_deletion_cellOfEntry_col
+    (twoStepFirstChild_isOneBoxChild lam p)
+    (twoStepFirstChild_row_form lam p)
+    (twoStepSecondChild_isOneBoxChild lam p)
+    (twoStepSecondChild_row_form lam p)
+    T X.1.2 X.2 a
+  change
+    YoungCell.col (cellOfEntry (e X) a) =
+      YoungCell.col (cellOfEntry T (Fin.castSucc (Fin.castSucc a))) at hiter
+  rw [e.apply_symm_apply U] at hiter
+  exact hiter
+
 /-- Lemma 5.4 cardinality form of the fixed two-step tableau branching
 bijection. -/
 theorem S05_Lem5_04_card_twoStepDeletionTableaux_eq_child

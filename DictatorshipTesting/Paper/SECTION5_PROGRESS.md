@@ -47,6 +47,10 @@ Detailed maps:
 - Lemma 5.11 has proved matching eigenvalue preservation under one-edge
   projections, support-selected one-edge projections, and simultaneous matching
   sign projections.
+- Lemma 5.11 now also proves the complete signed two-box child orthogonal
+  decomposition: explicit coordinate embeddings, isometry, the final-edge
+  sign, earlier-adjacent intertwining, pairwise-orthogonal ranges, and joint
+  spanning of the parent tableau space.
 - Definition 5.22 has proved low/high matching idempotent identities, zero
   cross-compositions, and the low-plus-high decomposition identity.
 - Lemma 5.15 proves the finite-average/high-idempotent part of central averaged
@@ -94,15 +98,14 @@ Detailed maps:
 - Lemmas 5.18--5.21 expose the active tableauDim spectral-bridge route used by
   Theorem 4.8.
 - The first remaining representation-theoretic frontier is Lemma 5.11.
-  It currently has no actual matching eigenbasis, spanning theorem, or
-  theorem that basis labels enumerate the recursive sign-pattern multiset.
-  The multiset itself, its cardinality, and its high-label semantics are now
-  proved. The exact next layer is an orthogonal signed-child decomposition:
-  isometric horizontal/vertical child embeddings with final-edge signs,
-  earlier-edge intertwining, pairwise-orthogonal ranges, and spanning.
+  Its signed-child orthogonal decomposition and spanning theorem are now
+  proved, as are the recursive multiset, its cardinality, and its high-label
+  semantics. The exact next layer is the recursive canonical even matching
+  eigenbasis assembly: transport each child eigenbasis through the proved
+  embedding, append the final sign, and identify the global label multiset.
   Lemma 5.13 is proved from the resulting eigenbasis/count data, but the
-  repository cannot instantiate it until that construction is formalized.
-  After that, the regular orthogonal
+  repository cannot instantiate it until that assembly is formalized. After
+  that, the regular orthogonal
   Young-block decomposition and global weighted energy identity are still
   required.  The old numerical A.1/A.2 axiom types and the final
   matching-average scalarity input therefore remain unchanged.
@@ -125,8 +128,9 @@ Detailed maps:
   coefficient preservation.
 - Lemma 5.10 proves the genuine recursive sign-pattern multiset cardinalities,
   zero multiplicity, and even/odd high multiplicities.
-- Lemma 5.11 proves the concrete matching-cube action and sign-projection
-  wrappers around the matching eigenvector predicates.
+- Lemma 5.11 proves the concrete matching-cube action, sign-projection wrappers,
+  and the full signed-child orthogonal decomposition. The recursive canonical
+  labeled eigenbasis assembly remains.
 - Lemma 5.12 proves the matching-character local truncation calculation.
 - Definition 5.22 proves the low/high matching idempotent algebra.
 - Lemma 5.14 proves local truncation as convolution.

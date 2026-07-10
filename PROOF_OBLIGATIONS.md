@@ -136,9 +136,12 @@ Remaining Section 5/AppA bridge boundary:
   Matching-average scalarity is now a named Section 5 bridge input from the
   trace/scalar data; connectedness is discharged internally by Lemma 5.3.
 - The concrete Lemma 5.11 matching-cube operator/character/projection algebra
-  is proved; the representation-theoretic Specht/Pieri content it shadows is
-  accounted for inside the spectral-block model boundary rather than as a
-  separate Lean axiom.
+  is proved. Its signed two-box child embeddings are explicit and their
+  isometry, final-edge sign, earlier-edge intertwining, pairwise orthogonality,
+  and joint spanning are proved internally. The representation-theoretic
+  Specht/Pieri content beyond this tableau decomposition is accounted for
+  inside the spectral-block model boundary rather than as a separate Lean
+  axiom.
 - Lemma 5.16 now has a proved generic commutant layer:
   `YoungModelOperatorCommutationData` packages a linear operator on one
   tableau-coordinate block together with commutation against the explicit
@@ -194,18 +197,18 @@ Remaining Section 5/AppA bridge boundary:
   multisets. Lemma 5.10 proves their `tableauDim` cardinalities, empty-label
   multiplicity `zEven`, and high-label multiplicities
   `hEvenTableau`/`hOddTableau`.
-- The first missing implication is Lemma 5.11. It has no actual eigenbasis or
-  spanning theorem, and no theorem that the labels of a basis enumerate the
-  recursive multisets. Its formal
+- The first missing implication is the final assembly step of Lemma 5.11. The
+  signed-child orthogonal decomposition is now proved, including spanning, but
+  there is not yet a recursively assembled canonical even matching eigenbasis
+  or a theorem that its labels enumerate the recursive multisets. Its formal
   `MatchingRestrictionEvenInput` and `MatchingRestrictionOddInput` conclusions
   are only inequalities for `hEven/hOdd`.  Therefore Lean cannot yet turn the
   proved conditional Lemma 5.13 trace into an unconditional application.
-  The smallest missing internal layer is the signed-child decomposition: for
-  every tagged horizontal/vertical two-strip child, construct an isometric
-  embedding into the parent tableau space, prove its final-edge sign and
-  earlier-edge intertwining, prove distinct ranges orthogonal, and prove the
-  ranges span. The global orthogonal block decomposition is the next missing
-  layer after that theorem.
+  The smallest missing internal theorem is
+  `canonicalEvenMatchingEigenbasis_of_signedChildren`: apply the induction
+  hypothesis in each proved child summand, transport it through the embedding,
+  append the final sign to its label, and identify the resulting global label
+  multiset with `S05_evenSignPatternMultiset`.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
 definition-only files `S05_Def5_24_TableauEvenHeight.lean` and
@@ -527,18 +530,20 @@ Lean theorem names:
 `matchingRestriction_odd_specht_pieri_input`.
 
 Current status: the recursive label multisets and all of their required
-cardinality/high-count semantics are proved. The full paper-level labeled
-eigenbasis statement is not formalized.
+cardinality/high-count semantics are proved. The signed-child orthogonal
+decomposition needed for the induction is also proved. The full paper-level
+labeled eigenbasis statement is not yet formalized.
 
 Mathematical content: restricting `S^lambda` to the matching subgroup
 `A_M ~= (Z/2Z)^m` has the local character-weight multiset recursively counted
 by the Section 5 `X_m(lambda)` data.
 
-Exact internal blocker: the current two-step deletion API is a set-level
-tableau equivalence and dimension recursion. It does not yet provide signed
-child subspaces, isometric embeddings, final-edge eigenspace equations,
-pairwise orthogonality, or a direct-sum/spanning theorem. Those facts are needed
-to lift the induction hypothesis into a basis of the parent space.
+Exact internal blocker: recursively assemble the canonical even matching
+eigenbasis from the proved signed-child orthogonal decomposition. For each
+child basis, earlier labels must be preserved by intertwining, the final label
+must be appended according to the proved sign, and the sigma-indexed union must
+be identified with `S05_evenSignPatternMultiset`. Odd one-box assembly and
+arbitrary-matching transport remain later layers.
 
 Citation target if external: repeated Pieri/Littlewood--Richardson branching
 for restriction to Young subgroups and then to the matching subgroup.

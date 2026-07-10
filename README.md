@@ -192,10 +192,13 @@ Proven matching-cube components for Lemma 5.11:
   proves that one-edge plus/minus projections preserve all other edge
   eigenvalues, packages the support-selected one-edge projection choice, and
   proves that iterating those choices gives a simultaneous matching-edge
-  eigenvector. Definitions 5.13--5.14 now contain the actual recursive label
-  multisets and Lemma 5.10 proves their multiplicity semantics. The missing
-  Lemma 5.11 step is the orthogonal signed-child decomposition that turns the
-  projected eigenvectors into a spanning basis with exactly those labels.
+  eigenvector. The file now also constructs explicit signed two-box child
+  embeddings and proves isometry, the final-edge sign, earlier-edge
+  intertwining, pairwise orthogonality, and joint spanning. Definitions
+  5.13--5.14 contain the actual recursive label multisets and Lemma 5.10 proves
+  their multiplicity semantics. The remaining Lemma 5.11 step is to assemble
+  the canonical even matching eigenbasis recursively from this decomposition
+  and prove that its labels are exactly those multisets.
 
 Proven Definition 5.22 matching-idempotent components:
 
@@ -276,10 +279,10 @@ of the concrete fixed-matching operator with `hEvenTableau` or `hOddTableau`
 from the labeled matching eigenbasis in its paper statement.  The exact missing
 result for applying it is Lemma 5.11: an actual matching eigenbasis whose
 character labels enumerate the now-defined recursive sign-pattern multisets.
-The multiset cardinality and high-label count are proved, but the current
-Lemma 5.11 still lacks orthogonal signed-child embeddings, spanning, and the
-basis-label equality. The final global weighted scalarity axiom therefore
-remains.
+The multiset cardinality and high-label count are proved, and Lemma 5.11 now
+has the full signed-child orthogonal decomposition. It still lacks the
+recursive canonical matching-eigenbasis assembly and its basis-label equality.
+The final global weighted scalarity axiom therefore remains.
 
 Proven Lemma 5.18 trace-model-to-gap algebra:
 
@@ -328,9 +331,11 @@ External standard inputs:
 - `S05_Lem5_11_MatchingSubgroupEigenbasis.lean` -- Lemma 5.11
   (`lem:matching-restriction-X`): the paper-level statement is the full
   labeled matching eigenbasis theorem. The current Lean file proves the
-  concrete matching-operator and sign-projection algebra and connects an exact
-  recursive label enumeration to `hEvenTableau`/`hOddTableau`. It does not yet
-  construct the orthogonal signed-child decomposition or spanning basis.
+  concrete matching-operator and sign-projection algebra, proves the complete
+  signed-child orthogonal decomposition, and connects an exact recursive label
+  enumeration to `hEvenTableau`/`hOddTableau`. It does not yet recursively
+  assemble the canonical even matching eigenbasis or prove its label-multiset
+  equality.
 - Lemmas 5.18--5.21, especially
   `S05_Lem5_19_RegularYoungBlockDecomposition.lean`,
   `S05_Lem5_20_EvenSpectralBridge.lean`, and
