@@ -87,6 +87,17 @@ This file records the definition-file refactor inventory. Definition modules now
 | `hEvenTableau` | noncomputable def | `DictatorshipTesting/Paper/S05_Lem5_24_EvenCertificate.lean` | `DictatorshipTesting/Paper/Defs/S05_Def5_24_TableauEvenHeight.lean` | Definition 5.24 | `AppA_ThmA_02_JucysMurphyContentSpectrum`, `S05_Def5_25_TableauOddHeight`, `S05_Lem5_18_RegularYoungBlockDecomposition`, `S05_Lem5_24_EvenCertificate` | moved |
 | `hOddTableau` | noncomputable def | `DictatorshipTesting/Paper/S05_Lem5_26_OddCertificate.lean` | `DictatorshipTesting/Paper/Defs/S05_Def5_25_TableauOddHeight.lean` | Definition 5.25 | `AppA_ThmA_02_JucysMurphyContentSpectrum`, `S05_Lem5_18_RegularYoungBlockDecomposition`, `S05_Lem5_26_OddCertificate` | moved |
 
+## Reusable declarations added after the definition split
+
+| Declaration name | Kind | File | Paper definition number, if any | Direct users/imports | Status |
+|---|---|---|---|---|---|
+| `GroupAlgebraElement` | abbrev | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
+| `rightConvolution` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
+| `GroupRepresentationActionData` | structure | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
+| `repOfGroupAlgebraElement` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
+| `YoungRepresentationActionData` | structure | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
+| `averagedRejectionYoungOperatorData_of_groupAlgebraAction` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
+
 ## Reusable declarations still outside the split `Defs.lean` layer
 
 The declarations below were present outside `Defs.lean` in the initial inventory and have not been moved in this phase.  Many are paper-facing wrappers or substantial auxiliary interfaces.  They are tracked for later one-file-per-definition cleanup unless marked intentionally local.

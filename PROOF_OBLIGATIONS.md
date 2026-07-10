@@ -156,6 +156,13 @@ Remaining Section 5/AppA bridge boundary:
   construction of the actual Young-block operator `rho_lambda(q)` from the
   averaged high matching idempotent and the proof that it satisfies these
   fields.
+- Definition 5.28 adds the finite group-algebra action vocabulary:
+  `GroupAlgebraElement`, `rightConvolution`, `repOfGroupAlgebraElement`,
+  coefficient-level centrality predicates, and `YoungRepresentationActionData`.
+  It proves the adapter from a represented group-algebra element satisfying
+  adjacent/content commutation to `AveragedRejectionYoungOperatorData`.  The
+  remaining blocker is to instantiate this package for the actual averaged
+  high matching idempotent `q`.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
 definition-only files `S05_Def5_24_TableauEvenHeight.lean` and
@@ -259,9 +266,9 @@ Lemma 5.1 and are tracked separately below.
 
 ## Section 5 Paper/Lean Status Table
 
-The current Section 5 source has 27 numbered definitions and 26 numbered result
+The current Section 5 source has 28 numbered definitions and 26 numbered result
 statements when remarks and Appendix A inputs are excluded.  The paper-facing
-Lean file count is 53.  The full statement-to-file map is maintained in
+Lean file count is 54.  The full statement-to-file map is maintained in
 `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`; the four Appendix A external
 inputs are mapped in `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 

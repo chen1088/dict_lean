@@ -7,9 +7,9 @@ lemmas/theorems/propositions/corollaries have their own result counter.  Remarks
 examples, equations, proofs, and Appendix A statements are not represented as
 Section 5 paper-facing Lean files.
 
-Section 5 definition count: 27.
+Section 5 definition count: 28.
 Section 5 result count: 26.
-Section 5 paper-facing Lean file count: 53.
+Section 5 paper-facing Lean file count: 54.
 
 The former unnumbered tableau-preliminaries block is split into numbered
 Definitions 5.1--5.5.  Interface definitions that were formerly bundled into
@@ -62,6 +62,7 @@ again at Lemma 5.1, so the table always displays the prefix `Def` or `Lem`.
 | proven generic commutant; external matching-average instantiation | Lem 5.15 | lemma | Young-basis scalar commutant | `S05_Lem5_15_YoungBasisScalarCommutant.lean` | `YoungModelOperatorCommutationData`, `S05_Lem5_15_youngModelOperator_scalar_on_basis`, `S05_Lem5_15_matchingAverageScalarity_eq_sum` | Generic tableau-block scalar commutant is proved from A.4 connectedness, content eigenspaces, and adjacent-operator commutation; applying it to the averaged matching rejection operator remains the scalarity bridge input. |
 | external: Section 5 scalarity bridge input | Lem 5.16 | lemma | Block scalar of the averaged rejection | `S05_Lem5_16_BlockScalarOfTheAveragedRejection.lean` | `S05_matchingAverageScalarity_from_young_model_input`, `S05_Lem5_16_scalar_eq_trace_div_dimension`, `S05_Lem5_16_even_scalar_eq_hEven_div_dim` | Matching-average scalarity is isolated as a named Section 5 input depending on A.4 and trace/scalar data; the trace-divided-by-dimension algebra itself is proved. |
 | operator interface | Lem 5.16a | interface | Averaged rejection Young operator | `S05_Lem5_16a_AveragedRejectionYoungOperator.lean` | `AveragedRejectionYoungOperatorData`, `averagedRejectionYoungOperator_commutes_adjacent`, `averagedRejectionYoungOperator_commutes_content`, `averagedRejectionYoungOperator_scalar_on_basis` | Names the one-block operator data needed to instantiate Lemma 5.15; it proves scalarity from the commutation interface but does not construct `rho_lambda(q)` or remove the scalarity bridge input. |
+| definition/interface | Def 5.28 | definition | Group-algebra action interface | `S05_Def5_28_GroupAlgebraAction.lean` | `GroupAlgebraElement`, `rightConvolution`, `repOfGroupAlgebraElement`, `YoungRepresentationActionData`, `averagedRejectionYoungOperatorData_of_groupAlgebraAction` | Finite group-algebra coefficients, right convolution, representation action, and the adapter from a represented element satisfying adjacent/content commutation into `AveragedRejectionYoungOperatorData`; the actual averaged high matching idempotent `q` is not yet instantiated. |
 | proven | Lem 5.17 | lemma | Block lower bound implies the gap | `S05_Lem5_17_BlockLowerBoundImpliesTheGap.lean` | `S05_Lem5_17_spectralGapFromBlockScalars`, `S05_Lem5_17_spectralGapFromBlockModelWithDim` | Weighted-sum spectral-gap algebra. |
 | external: Appendix A plus Section 5 scalarity bridge input | Lem 5.18 | lemma | Regular Young-block decomposition | `S05_Lem5_18_RegularYoungBlockDecomposition.lean` | `spectralBlockModelInputWithDim_even_from_appendixA`, `spectralBlockModelInputWithDim_odd_from_appendixA` | Assembly from A.1/A.2/A.3/A.4 and `S05_matchingAverageScalarity_from_young_model_input` into the `SpectralBlockModelInputWithDim` interface. |
 | proven | Lem 5.19 | lemma | Even spectral bridge | `S05_Lem5_19_EvenSpectralBridge.lean` | `S05_Lem5_19_tableauDim_evenSpectralGapFromCertificates` | Algebraic bridge from explicit `SpectralBlockModelInputWithDim` hypothesis and finite certificate. |

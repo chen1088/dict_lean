@@ -1640,6 +1640,63 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
+      "id": "S05_D28",
+      "label": "Def 5.28",
+      "title": "Group-algebra action interface",
+      "section": "Spectral bridge",
+      "kind": "paper",
+      "importance": "normal",
+      "status": "interface",
+      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean",
+      "wrappers": [
+        "GroupAlgebraElement",
+        "rightConvolution",
+        "repOfGroupAlgebraElement",
+        "YoungRepresentationActionData",
+        "averagedRejectionYoungOperatorData_of_groupAlgebraAction"
+      ],
+      "deps": [
+        "S05_L16A"
+      ],
+      "summary": "Finite group-algebra and representation-action vocabulary for the averaged rejection operator.",
+      "statement": "Definition 5.28 introduces finite group-algebra coefficients, right convolution, representation action rho(a), and a Young representation-action interface. It proves that a represented group-algebra element satisfying adjacent and content commutation instantiates AveragedRejectionYoungOperatorData, but it does not instantiate the actual averaged high matching idempotent q.",
+      "terms": [
+        {
+          "text": "AveragedRejectionYoungOperatorData",
+          "target": "S05_L16A"
+        },
+        {
+          "text": "adjacent/content commutation",
+          "target": "S05_L16A"
+        }
+      ],
+      "paperLabel": "def:group-algebra-action-interface",
+      "paperEnv": "definition",
+      "paperStatementLatex": "A finite group-algebra element is a coefficient function $a:G\\to\\mathbb R$.  It acts by right convolution\n\\[(C_aF)(x)=\\sum_{g\\in G}a(g)F(xg)\\]\nand, under a representation $\\rho$, by\n\\[\\rho(a)v=\\sum_{g\\in G}a(g)\\rho(g)v.\\]\nFor a Young block, the interface records the represented adjacent transpositions and Jucys--Murphy content elements needed to build the averaged rejection operator.",
+      "leanLinks": [
+        {
+          "name": "GroupAlgebraElement",
+          "line": 25
+        },
+        {
+          "name": "rightConvolution",
+          "line": 30
+        },
+        {
+          "name": "repOfGroupAlgebraElement",
+          "line": 66
+        },
+        {
+          "name": "YoungRepresentationActionData",
+          "line": 136
+        },
+        {
+          "name": "averagedRejectionYoungOperatorData_of_groupAlgebraAction",
+          "line": 201
+        }
+      ]
+    },
+    {
       "id": "S05_L01",
       "label": "Lem 5.1",
       "title": "Tableau Coxeter model",

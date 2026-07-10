@@ -62,8 +62,8 @@ input, see `PROOF_OBLIGATIONS.md`.
 
 For the current rewritten Section 5 statement-to-file map, see
 `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`.  Section 5 now uses separate
-counters: 27 numbered definitions (`Def 5.x`) and 26 numbered result statements
-(`Lem 5.x` and theorem-like variants), for 53 paper-facing Section 5 Lean files.
+counters: 28 numbered definitions (`Def 5.x`) and 26 numbered result statements
+(`Lem 5.x` and theorem-like variants), for 54 paper-facing Section 5 Lean files.
 Appendix A external representation-theoretic inputs are mapped separately in
 `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
@@ -219,6 +219,13 @@ Generic commutant infrastructure for Lemma 5.15:
   adjacent/content commutation fields, and proves
   `averagedRejectionYoungOperator_scalar_on_basis` by applying Lemma 5.15.  It
   does not define the group-algebra operator `rho_lambda(q)`.
+- `S05_Def5_28_GroupAlgebraAction.lean` adds the next interface layer:
+  finite group-algebra coefficient functions, right convolution,
+  representation action `rho(a)`, coefficient-level centrality predicates, and
+  `YoungRepresentationActionData`.  It proves that a represented
+  group-algebra element satisfying adjacent and content commutation gives an
+  `AveragedRejectionYoungOperatorData`.  The actual averaged high matching
+  idempotent `q` has not yet been instantiated in this interface.
 
 Proven Lemma 5.17 trace-model-to-gap algebra:
 

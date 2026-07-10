@@ -4,10 +4,10 @@ Source checked: `../dictatorship_testing_soda27_latest.tex`.
 
 ## Spine Status
 
-- Section 5 now has 27 numbered definitions and 26 numbered result statements
+- Section 5 now has 28 numbered definitions and 26 numbered result statements
   (`lemma`, `proposition`, `theorem`, and `corollary` environments).  The two
   counters are separate.
-- Section 5 paper-facing Lean file count is 53.
+- Section 5 paper-facing Lean file count is 54.
 - Appendix A has 4 numbered external-input statements and 4 Lean-facing files.
 - No two Section 5 definition files share a definition number, and no two
   Section 5 result files share a lemma/theorem number.
@@ -54,6 +54,12 @@ Detailed maps:
   operator interface still needed for the averaged rejection operator.  It
   extracts adjacent/content commutation and applies Lemma 5.15, but it does not
   construct the group-algebra action `rho_lambda(q)`.
+- Definition 5.28 introduces a finite group-algebra action interface:
+  `GroupAlgebraElement`, `rightConvolution`, `repOfGroupAlgebraElement`, and
+  `YoungRepresentationActionData`.  It proves the adapter from such a
+  representation-action package to `AveragedRejectionYoungOperatorData`, once
+  adjacent and content commutation are supplied.  The actual averaged high
+  matching idempotent `q` is still not instantiated.
 - Lemmas 5.17--5.20 expose the active tableauDim spectral-bridge route used by
   Theorem 4.8.
 - The remaining representation-theoretic frontier is the spectral-block model
