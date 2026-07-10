@@ -233,23 +233,36 @@ Generic commutant infrastructure for Lemma 5.15:
   with the actual averaged high matching element.  For every supplied
   `YoungRepresentationActionData`, it constructs `rho_lambda(q)`, proves its
   adjacent/content commutation, packages `AveragedRejectionYoungOperatorData`,
-  and obtains one-block scalarity from Lemma 5.15 and A.4.
+  and obtains one-block scalarity from Lemma 5.15 and A.4.  It now also defines
+  each actual matching-character Fourier idempotent and proves, from cube
+  character orthogonality, that the represented idempotent selects its
+  matching eigenspace and that the represented high element acts by `1` on
+  high characters and `0` on low characters.
 - `AppA_DefA_01_YoungOrthogonalActionData.lean` and
   `AppA_DefA_02_JucysMurphyContentActionData.lean` now state the faithful A.1
   representation action and A.2 Jucys--Murphy/content action interfaces without
   energy, trace, or scalarity fields.  Their internal adapter constructs the
-  `YoungRepresentationActionData` used by Definition 5.29.
+  `YoungRepresentationActionData` used by Definition 5.29.  The A.1 interface
+  is tied to the literal adjacent transposition `(a,a+1)`, not an arbitrary
+  named permutation.
 - `S05_Def5_30_TableauOperatorTrace.lean` defines the basis trace, proves
   `trace = tableauDim * scalar`, proves scalar equals trace divided by nonzero
   tableau dimension, and proves that the concrete averaged-operator trace is
-  the average of the represented fixed-matching traces.
+  the average of the represented fixed-matching traces.  It also proves that a
+  fixed trace is the sum of its high-character idempotent traces and that right
+  action on the full matrix-coordinate block contributes the factor
+  `tableauDim` from the free left tableau index.
 
 The existing A.1/A.2 axiom declarations still have their old numerical-shadow
 types.  They were not silently changed: replacing them now would break the
 active Theorem 4.8 route because the repository does not yet construct the
 regular Young-block energy decomposition, and Lemma 5.12 does not yet identify
-the trace of the concrete fixed-matching operator.  The final global weighted
-scalarity axiom therefore remains.
+the trace of the concrete fixed-matching operator with `hEvenTableau` or
+`hOddTableau`.  The exact missing result is an actual matching eigenbasis whose
+character-label multiplicities are the recursive sign-pattern counts; the
+current Lemma 5.10 has predicates and projections but no basis/spanning or
+multiplicity theorem.  The final global weighted scalarity axiom therefore
+remains.
 
 Proven Lemma 5.17 trace-model-to-gap algebra:
 

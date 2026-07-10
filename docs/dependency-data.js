@@ -1728,6 +1728,9 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean",
       "wrappers": [
+        "S05_fixedMatchingCharacterElement",
+        "representedMatchingIdempotent_apply_eigenvector",
+        "representedHighMatchingElement_apply_eigenvector",
         "S05_fixedMatchingHighElement",
         "S05_fixedMatchingHighElement_rightConvolution",
         "S05_averagedHighMatchingElement",
@@ -1741,8 +1744,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D22",
         "S05_D28"
       ],
-      "summary": "The genuine averaged high matching coefficient element, its centrality, and its one-block represented action.",
-      "statement": "Definition 5.29 pushes the high Fourier kernel of each matching cube into the symmetric-group algebra and averages over all near-perfect matchings. It proves that this element acts by the existing averaged high idempotent, is conjugation invariant, and yields a scalar one-block Young operator for every supplied Young representation model.",
+      "summary": "Actual character and high matching elements, their eigenvector action, centrality, and one-block represented action.",
+      "statement": "Definition 5.29 pushes each matching-character Fourier idempotent and the high Fourier kernel into the symmetric-group algebra. Boolean-character orthogonality proves that the represented character idempotent selects its eigenspace and that the represented high element acts by one on high characters and zero on low characters. Averaging gives the central element and the scalar one-block Young operator.",
       "terms": [
         {
           "text": "Matching idempotents",
@@ -1762,36 +1765,48 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "For a matching $M$, let $q_M$ be the high-character idempotent in the matching subgroup algebra. Define the averaged element by\n\\[q=\\frac{1}{|\\mathcal M_n|}\\sum_{M\\in\\mathcal M_n}q_M.\\]\nRelabeling gives $q_{\\sigma M}(\\sigma g\\sigma^{-1})=q_M(g)$, hence $q(\\sigma g\\sigma^{-1})=q(g)$.",
       "leanLinks": [
         {
+          "name": "S05_fixedMatchingCharacterElement",
+          "line": 157
+        },
+        {
+          "name": "representedMatchingIdempotent_apply_eigenvector",
+          "line": 206
+        },
+        {
+          "name": "representedHighMatchingElement_apply_eigenvector",
+          "line": 292
+        },
+        {
           "name": "S05_fixedMatchingHighElement",
-          "line": 158
+          "line": 169
         },
         {
           "name": "S05_fixedMatchingHighElement_rightConvolution",
-          "line": 165
+          "line": 341
         },
         {
           "name": "S05_averagedHighMatchingElement",
-          "line": 255
+          "line": 431
         },
         {
           "name": "S05_averagedHighMatchingElement_central",
-          "line": 337
+          "line": 513
         },
         {
           "name": "S05_averagedRejectionYoungOperatorData_actual",
-          "line": 391
+          "line": 623
         },
         {
           "name": "S05_averagedRejectionYoungOperatorData_from_appendixA",
-          "line": 401
+          "line": 633
         },
         {
           "name": "S05_averagedRejectionYoungOperator_scalar_on_basis",
-          "line": 433
+          "line": 665
         },
         {
           "name": "S05_averagedRejectionYoungOperator_scalar_from_appendixA",
-          "line": 449
+          "line": 681
         }
       ]
     },
@@ -1806,6 +1821,8 @@ window.DICT_DEPENDENCY_DATA = {
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_30_TableauOperatorTrace.lean",
       "wrappers": [
         "tableauOperatorTrace",
+        "S05_fixedMatchingRejectionYoungOperator_trace_eq_sum_characters",
+        "youngBlockTrace_eq_tableauDim_mul_repTrace",
         "tableauOperatorTrace_eq_tableauDim_mul_of_scalar_on_basis",
         "scalar_eq_tableauOperatorTrace_div_tableauDim",
         "S05_averagedRejectionYoungOperator_trace_eq_average_fixed"
@@ -1814,8 +1831,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D04",
         "S05_D29"
       ],
-      "summary": "Explicit tableau-basis trace and the scalar/average trace formulas.",
-      "statement": "Definition 5.30 defines operator trace by summing diagonal tableau-basis coefficients. It proves trace equals tableau dimension times a basis scalar, recovers the scalar by division when the dimension is nonzero, and proves that the concrete averaged matching trace is the average of the represented fixed-matching traces.",
+      "summary": "Explicit tableau trace, fixed-character decomposition, full-block dimension factor, and scalar/average formulas.",
+      "statement": "Definition 5.30 defines operator trace by summing diagonal tableau-basis coefficients. It reduces a concrete fixed high-matching trace to the traces of its high-character idempotents, proves the extra tableau-dimension factor for right action on the full matrix-coordinate block, and proves the scalar and matching-average trace formulas. The character-projection ranks are not yet identified with the recursive heights.",
       "terms": [
         {
           "text": "Tableau coordinate space",
@@ -1832,23 +1849,31 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "tableauOperatorTrace",
-          "line": 26
+          "line": 27
+        },
+        {
+          "name": "youngBlockTrace_eq_tableauDim_mul_repTrace",
+          "line": 63
+        },
+        {
+          "name": "S05_fixedMatchingRejectionYoungOperator_trace_eq_sum_characters",
+          "line": 77
         },
         {
           "name": "tableauOperatorTrace_eq_tableauDim_mul_of_scalar_on_basis",
-          "line": 32
+          "line": 117
         },
         {
           "name": "S05_averagedRejectionYoungOperator_trace_eq_tableauDim_mul_scalar",
-          "line": 70
+          "line": 155
         },
         {
           "name": "S05_averagedRejectionYoungOperator_trace_eq_average_fixed",
-          "line": 90
+          "line": 175
         },
         {
           "name": "S05_averagedRejectionYoungOperator_scalar_eq_trace_div_tableauDim",
-          "line": 141
+          "line": 226
         }
       ]
     },
@@ -2238,13 +2263,15 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Matching algebra",
       "kind": "paper",
       "importance": "major",
-      "status": "proven",
+      "status": "external",
       "file": "DictatorshipTesting/Paper/S05_Lem5_10_MatchingSubgroupEigenbasis.lean",
       "wrappers": [
         "S05_Lem5_10_matchingSignProjectionEven_isMatchingEigenvector",
         "S05_Lem5_10_matchingSignProjectionOdd_isMatchingEigenvector"
       ],
       "deps": [
+        "AppA_01",
+        "AppA_02",
         "S05_L01",
         "S05_D15",
         "S05_D16",
@@ -2252,8 +2279,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D18",
         "S05_D19"
       ],
-      "summary": "Concrete matching-operator and sign-projection wrappers.",
-      "statement": "Lemma 5.10 proves the concrete matching-subgroup eigenbasis and sign-projection wrappers.",
+      "summary": "Concrete matching operators and sign projections are proved; the actual eigenbasis and label multiplicities are absent.",
+      "statement": "Lemma 5.10 currently proves commuting matching operators, simultaneous sign projections, and character action on any resulting eigenvector. It does not yet prove that these vectors form a basis or that their character multiplicities are the recursive sign-pattern multiset required by the paper statement.",
       "terms": [
         {
           "text": "Tableau Coxeter model",
@@ -2346,6 +2373,8 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "external",
       "file": "DictatorshipTesting/Paper/S05_Lem5_12_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
       "wrappers": [
+        "S05_Lem5_12_fixedMatching_trace_eq_sum_characterTraces",
+        "S05_Lem5_12_youngBlockTrace_eq_tableauDim_mul_repTrace",
         "traceLocalTruncation_even_from_restriction",
         "traceLocalTruncation_odd_from_restriction"
       ],
@@ -2355,8 +2384,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_D20",
         "S05_D21"
       ],
-      "summary": "Trace formula wrappers from explicit scalar inputs; the block trace model is representation input.",
-      "statement": "Lemma 5.12 states the trace of one local truncation on one Young block from explicit scalar inputs.",
+      "summary": "Concrete trace reductions are proved; the matching-character rank count remains representation input.",
+      "statement": "Lemma 5.12 reduces the actual fixed tableau-space trace to the sum of high-character projection traces and proves the tableau-dimension factor for the full matrix-coordinate block. Identifying those projection ranks with the even or odd tableau height remains unproved because Lemma 5.10 has no actual eigenbasis multiplicity theorem.",
       "terms": [
         {
           "text": "Matching subgroup eigenbasis",
@@ -2384,12 +2413,20 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "Let $M$ be a perfect matching on $[2m]$ and let $\\lambda\\vdash2m$.  Suppose\n$v_1,\\ldots,v_{d_\\lambda}$ is an orthonormal basis of $V^\\lambda$ and\n$R_1,\\ldots,R_{d_\\lambda}$ is a listing of $\\mathsf X_m(\\lambda)$ satisfying\n\\begin{equation*}\n  \\rho^\\lambda(\\tau_x)v_a=\\chi_{R_a}(\\tau_x)v_a\n  \\qquad(\\tau_x\\in A_M).\n\\end{equation*}\nThen\n\\begin{equation}\\label{eq:trace-one-PM-even}\n  \\operatorname{tr}\\bigl((I-P_M)|_{\\mathcal H_\\lambda}\\bigr)\n  =d_\\lambda h_m(\\lambda).\n\\end{equation}\nSimilarly, if $M$ is a near-perfect matching on $[2m+1]$, $\\lambda\\vdash2m+1$,\nand the corresponding basis is listed by\n$\\mathsf X_m^{\\mathrm{odd}}(\\lambda)$, then\n\\begin{equation}\\label{eq:trace-one-PM-odd}\n  \\operatorname{tr}\\bigl((I-P_M)|_{\\mathcal H_\\lambda}\\bigr)\n  =d_\\lambda h_m^{\\mathrm{odd}}(\\lambda).\n\\end{equation}",
       "leanLinks": [
         {
+          "name": "S05_Lem5_12_fixedMatching_trace_eq_sum_characterTraces",
+          "line": 44
+        },
+        {
+          "name": "S05_Lem5_12_youngBlockTrace_eq_tableauDim_mul_repTrace",
+          "line": 59
+        },
+        {
           "name": "traceLocalTruncation_even_from_restriction",
-          "line": 41
+          "line": 72
         },
         {
           "name": "traceLocalTruncation_odd_from_restriction",
-          "line": 49
+          "line": 80
         }
       ]
     },
@@ -2484,7 +2521,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Matching algebra",
       "kind": "paper",
       "importance": "major",
-      "status": "proven",
+      "status": "external",
       "file": "DictatorshipTesting/Paper/S05_Lem5_15_YoungBasisScalarCommutant.lean",
       "wrappers": [
         "YoungModelOperatorCommutationData",

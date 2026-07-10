@@ -1,6 +1,7 @@
 import DictatorshipTesting.Paper.S05_Lem5_10_MatchingSubgroupEigenbasis
 import DictatorshipTesting.Paper.Defs.S05_Def5_20_TraceLocalTruncationEvenInput
 import DictatorshipTesting.Paper.Defs.S05_Def5_21_TraceLocalTruncationOddInput
+import DictatorshipTesting.Paper.Defs.S05_Def5_30_TableauOperatorTrace
 
 /-
 Direct reverse imports:
@@ -13,8 +14,10 @@ Direct reverse imports:
 Paper statement: Lemma 5.12 (`lem:PM-trace-young-block`)
 Title in paper: Trace of one local truncation on one Young block.
 
-Status: external: block trace model input. Derived from the matching-restriction input and finite scalar
-certificate definitions.
+Status: unproven as the paper's numerical fixed-trace statement.  The concrete
+operator is reduced below to its character-idempotent traces, and the full
+matrix-coordinate trace factor is proved.  The missing step is the actual
+matching eigenbasis with its sign-pattern multiplicities.
 -/
 
 /-!
@@ -35,6 +38,34 @@ scalar trace formula used by the later bridge.
 noncomputable section
 
 namespace DictatorshipTesting
+
+/-- Concrete operator reduction for Lemma 5.12: the fixed high-matching trace
+is the sum of the traces of its high-character Fourier idempotents. -/
+theorem S05_Lem5_12_fixedMatching_trace_eq_sum_characterTraces
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (n + 1)) :
+    tableauOperatorTrace
+        (S05_fixedMatchingRejectionYoungOperator action M) =
+      ∑ R ∈ S05_matchingHighCharacterSet M.toOrdered,
+        tableauOperatorTrace
+          (S05_fixedMatchingCharacterYoungOperator action M R) := by
+  exact S05_fixedMatchingRejectionYoungOperator_trace_eq_sum_characters
+    action M
+
+/-- Concrete multiplicity reduction for Lemma 5.12: right action on the full
+matrix-coordinate Young block contributes one identical trace for each left
+tableau index. -/
+theorem S05_Lem5_12_youngBlockTrace_eq_tableauDim_mul_repTrace
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (n + 1)) :
+    youngBlockRightCoordinateTrace
+        (S05_fixedMatchingRejectionYoungOperator action M) =
+      tableauDim lam *
+        tableauOperatorTrace
+          (S05_fixedMatchingRejectionYoungOperator action M) := by
+  exact fixedMatchingYoungBlockTrace_eq_tableauDim_mul_repTrace action M
 
 /-- Scalar trace formula as the current Lean consequence of the even
 matching-restriction input. -/

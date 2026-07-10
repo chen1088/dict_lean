@@ -152,6 +152,17 @@ def S05_matchingHighKernel {α : Type*} [Fintype α] [DecidableEq α]
       cubeChar S x * cubeChar S (cubeZero M.edgeCount)) /
     (Fintype.card (Cube M.edgeCount) : Real)
 
+/-- The coefficient function of one matching-character Fourier idempotent.
+This is the pushforward of `|Cube|⁻¹ χ_R` along the matching-cube map. -/
+def S05_fixedMatchingCharacterElement {α : Type*}
+    [Fintype α] [DecidableEq α]
+    (M : OrderedMatching α) (R : Finset (Fin M.edgeCount)) :
+    GroupAlgebraElement (Perm α) :=
+  fun g => ∑ x : Cube M.edgeCount,
+    if M.tau x = g then
+      cubeChar R x / (Fintype.card (Cube M.edgeCount) : Real)
+    else 0
+
 /-- The coefficient function of the high matching idempotent for one fixed
 matching.  The sum over preimages avoids requiring a separate injectivity
 lemma for `M.tau`. -/
@@ -159,6 +170,171 @@ def S05_fixedMatchingHighElement {α : Type*} [Fintype α] [DecidableEq α]
     (M : OrderedMatching α) : GroupAlgebraElement (Perm α) :=
   fun g => ∑ x : Cube M.edgeCount,
     if M.tau x = g then S05_matchingHighKernel M x else 0
+
+/-- Representing a coefficient function pushed forward from one matching cube
+is the same as summing the represented matching-cube elements directly. -/
+theorem repOfGroupAlgebraElement_matchingCubePushforward
+    {α V : Type*} [Fintype α] [DecidableEq α]
+    [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData (Perm α) V)
+    (M : OrderedMatching α) (k : Cube M.edgeCount → Real) (v : V) :
+    repOfGroupAlgebraElement rep
+        (fun g => ∑ x : Cube M.edgeCount,
+          if M.tau x = g then k x else 0) v =
+      ∑ x : Cube M.edgeCount, k x • rep.rho (M.tau x) v := by
+  classical
+  unfold repOfGroupAlgebraElement
+  calc
+    (∑ g : Perm α,
+        (∑ x : Cube M.edgeCount,
+          if M.tau x = g then k x else 0) • rep.rho g v) =
+        ∑ g : Perm α, ∑ x : Cube M.edgeCount,
+          (if M.tau x = g then k x else 0) • rep.rho g v := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      rw [Finset.sum_smul]
+    _ = ∑ x : Cube M.edgeCount, ∑ g : Perm α,
+          (if M.tau x = g then k x else 0) • rep.rho g v := by
+      rw [Finset.sum_comm]
+    _ = ∑ x : Cube M.edgeCount, k x • rep.rho (M.tau x) v := by
+      apply Finset.sum_congr rfl
+      intro x _hx
+      simp
+
+/-- A represented matching-character idempotent selects precisely the
+matching-character eigenspace with the same support. -/
+theorem representedMatchingIdempotent_apply_eigenvector
+    {α V : Type*} [Fintype α] [DecidableEq α]
+    [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData (Perm α) V)
+    (M : OrderedMatching α) (R A : Finset (Fin M.edgeCount)) (v : V)
+    (hv : ∀ x : Cube M.edgeCount,
+      rep.rho (M.tau x) v = cubeChar A x • v) :
+    repOfGroupAlgebraElement rep
+        (S05_fixedMatchingCharacterElement M R) v =
+      if R = A then v else 0 := by
+  classical
+  rw [show S05_fixedMatchingCharacterElement M R =
+      fun g => ∑ x : Cube M.edgeCount,
+        if M.tau x = g then
+          cubeChar R x / (Fintype.card (Cube M.edgeCount) : Real)
+        else 0 by rfl]
+  rw [repOfGroupAlgebraElement_matchingCubePushforward]
+  calc
+    (∑ x : Cube M.edgeCount,
+        (cubeChar R x / (Fintype.card (Cube M.edgeCount) : Real)) •
+          rep.rho (M.tau x) v) =
+        ∑ x : Cube M.edgeCount,
+          ((cubeChar R x * cubeChar A x) /
+            (Fintype.card (Cube M.edgeCount) : Real)) • v := by
+      apply Finset.sum_congr rfl
+      intro x _hx
+      rw [hv x, smul_smul]
+      congr 1
+      ring
+    _ = ((∑ x : Cube M.edgeCount,
+          cubeChar R x * cubeChar A x) /
+            (Fintype.card (Cube M.edgeCount) : Real)) • v := by
+      rw [Finset.sum_div, Finset.sum_smul]
+    _ = (if R = A then (1 : Real) else 0) • v := by
+      rw [show
+        (∑ x : Cube M.edgeCount, cubeChar R x * cubeChar A x) /
+            (Fintype.card (Cube M.edgeCount) : Real) =
+          cubeExpectation (fun x : Cube M.edgeCount =>
+            cubeChar R x * cubeChar A x) by rfl]
+      rw [L2_3_cubeChar_orthonormality]
+    _ = if R = A then v else 0 := by
+      split <;> simp_all
+
+/-- The fixed high-matching coefficient element is the sum of its
+high-character Fourier idempotents. -/
+theorem S05_fixedMatchingHighElement_eq_sum_characterElements
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (M : OrderedMatching α) :
+    S05_fixedMatchingHighElement M =
+      fun g => ∑ R ∈ S05_matchingHighCharacterSet M,
+        S05_fixedMatchingCharacterElement M R g := by
+  classical
+  funext g
+  unfold S05_fixedMatchingHighElement S05_fixedMatchingCharacterElement
+    S05_matchingHighKernel
+  calc
+    (∑ x : Cube M.edgeCount,
+        if M.tau x = g then
+          (∑ S ∈ S05_matchingHighCharacterSet M,
+              cubeChar S x * cubeChar S (cubeZero M.edgeCount)) /
+            (Fintype.card (Cube M.edgeCount) : Real)
+        else 0) =
+      ∑ x : Cube M.edgeCount, ∑ S ∈ S05_matchingHighCharacterSet M,
+        if M.tau x = g then
+          cubeChar S x / (Fintype.card (Cube M.edgeCount) : Real)
+        else 0 := by
+      apply Finset.sum_congr rfl
+      intro x _hx
+      by_cases hx : M.tau x = g
+      · simp only [hx, if_pos]
+        rw [Finset.sum_div]
+        apply Finset.sum_congr rfl
+        intro S _hS
+        simp only [cubeChar, cubeZero, Bool.false_eq_true, if_false,
+          Finset.prod_const_one]
+        ring
+      · simp [hx]
+    _ = ∑ S ∈ S05_matchingHighCharacterSet M,
+        ∑ x : Cube M.edgeCount,
+          if M.tau x = g then
+            cubeChar S x / (Fintype.card (Cube M.edgeCount) : Real)
+          else 0 := by
+      rw [Finset.sum_comm]
+
+/-- The represented fixed high-matching element is the identity on a high
+matching-character eigenvector and zero on a low one. -/
+theorem representedHighMatchingElement_apply_eigenvector
+    {α V : Type*} [Fintype α] [DecidableEq α]
+    [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData (Perm α) V)
+    (M : OrderedMatching α) (A : Finset (Fin M.edgeCount)) (v : V)
+    (hv : ∀ x : Cube M.edgeCount,
+      rep.rho (M.tau x) v = cubeChar A x • v) :
+    repOfGroupAlgebraElement rep (S05_fixedMatchingHighElement M) v =
+      if S05_matchingCharacterHigh A then v else 0 := by
+  classical
+  rw [S05_fixedMatchingHighElement_eq_sum_characterElements]
+  unfold repOfGroupAlgebraElement
+  calc
+    (∑ g : Perm α,
+        (∑ R ∈ S05_matchingHighCharacterSet M,
+          S05_fixedMatchingCharacterElement M R g) • rep.rho g v) =
+      ∑ R ∈ S05_matchingHighCharacterSet M,
+        repOfGroupAlgebraElement rep
+          (S05_fixedMatchingCharacterElement M R) v := by
+      simp only [Finset.sum_smul, repOfGroupAlgebraElement]
+      rw [Finset.sum_comm]
+    _ = ∑ R ∈ S05_matchingHighCharacterSet M,
+        if R = A then v else 0 := by
+      apply Finset.sum_congr rfl
+      intro R _hR
+      exact representedMatchingIdempotent_apply_eigenvector rep M R A v hv
+    _ = if S05_matchingCharacterHigh A then v else 0 := by
+      by_cases hA : A ∈ S05_matchingHighCharacterSet M
+      · rw [Finset.sum_eq_single A]
+        · have hhigh := (S05_mem_matchingHighCharacterSet_iff M A).mp hA
+          simp [hhigh]
+        · intro R hR hne
+          simp [hne]
+        · intro hnot
+          exact False.elim (hnot hA)
+      · have hhigh : ¬ S05_matchingCharacterHigh A := by
+          intro h
+          exact hA ((S05_mem_matchingHighCharacterSet_iff M A).mpr h)
+        rw [if_neg hhigh]
+        apply Finset.sum_eq_zero
+        intro R hR
+        have hne : R ≠ A := by
+          intro hRA
+          apply hA
+          simpa [hRA] using hR
+        simp [hne]
 
 /-- Right convolution by the fixed-matching coefficient function is exactly
 the existing high matching idempotent. -/
@@ -359,6 +535,62 @@ def S05_fixedMatchingRejectionYoungOperator {n : Nat}
     TableauSpace lam -> TableauSpace lam :=
   repOfGroupAlgebraElement action.rep
     (S05_fixedMatchingHighElement M.toOrdered)
+
+/-- The represented Fourier idempotent for one character of one fixed
+near-perfect matching. -/
+def S05_fixedMatchingCharacterYoungOperator {n : Nat}
+    {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (n + 1))
+    (R : Finset (Fin M.toOrdered.edgeCount)) :
+    TableauSpace lam -> TableauSpace lam :=
+  repOfGroupAlgebraElement action.rep
+    (S05_fixedMatchingCharacterElement M.toOrdered R)
+
+/-- The actual represented character idempotent selects an actual
+matching-cube eigenvector with the same character support. -/
+theorem S05_fixedMatchingCharacterYoungOperator_apply_eigenvector
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (n + 1))
+    (R A : Finset (Fin M.toOrdered.edgeCount)) (v : TableauSpace lam)
+    (hv : ∀ x : Cube M.toOrdered.edgeCount,
+      action.rep.rho (M.toOrdered.tau x) v = cubeChar A x • v) :
+    S05_fixedMatchingCharacterYoungOperator action M R v =
+      if R = A then v else 0 := by
+  exact representedMatchingIdempotent_apply_eigenvector
+    action.rep M.toOrdered R A v hv
+
+/-- The actual represented fixed high-matching operator is the identity on an
+actual high matching-cube eigenvector and zero on a low one. -/
+theorem S05_fixedMatchingRejectionYoungOperator_apply_eigenvector
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (n + 1))
+    (A : Finset (Fin M.toOrdered.edgeCount)) (v : TableauSpace lam)
+    (hv : ∀ x : Cube M.toOrdered.edgeCount,
+      action.rep.rho (M.toOrdered.tau x) v = cubeChar A x • v) :
+    S05_fixedMatchingRejectionYoungOperator action M v =
+      if S05_matchingCharacterHigh A then v else 0 := by
+  exact representedHighMatchingElement_apply_eigenvector
+    action.rep M.toOrdered A v hv
+
+/-- The actual represented fixed high-matching operator is the finite sum of
+the represented high-character idempotents. -/
+theorem S05_fixedMatchingRejectionYoungOperator_eq_sum_characters
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (M : NearPerfectMatching (n + 1)) (v : TableauSpace lam) :
+    S05_fixedMatchingRejectionYoungOperator action M v =
+      ∑ R ∈ S05_matchingHighCharacterSet M.toOrdered,
+        S05_fixedMatchingCharacterYoungOperator action M R v := by
+  classical
+  unfold S05_fixedMatchingRejectionYoungOperator
+    S05_fixedMatchingCharacterYoungOperator
+  rw [S05_fixedMatchingHighElement_eq_sum_characterElements]
+  unfold repOfGroupAlgebraElement
+  simp only [Finset.sum_smul]
+  rw [Finset.sum_comm]
 
 /-- On faithful A.1/A.2 data, the concrete averaged operator is the finite
 average of the represented fixed-matching high-idempotent operators. -/

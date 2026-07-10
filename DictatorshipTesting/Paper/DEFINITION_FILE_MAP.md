@@ -94,6 +94,7 @@ This file records the definition-file refactor inventory. Definition modules now
 | `GroupAlgebraElement` | abbrev | `DictatorshipTesting/Paper/Defs/AppA_DefA_01_YoungOrthogonalActionData.lean` | Appendix A.1 interface | `DictatorshipTesting`, A.2, Def 5.28 | moved to faithful operator layer |
 | `rightConvolution` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
 | `GroupRepresentationActionData` | structure | `DictatorshipTesting/Paper/Defs/AppA_DefA_01_YoungOrthogonalActionData.lean` | Appendix A.1 interface | `DictatorshipTesting`, Def 5.28 | moved to faithful operator layer |
+| `appA_adjacentTransposition` | def | `DictatorshipTesting/Paper/Defs/AppA_DefA_01_YoungOrthogonalActionData.lean` | Appendix A.1 interface | A.1, Def 5.28 | literal swap `(a,a+1)` |
 | `YoungOrthogonalActionData` | structure | `DictatorshipTesting/Paper/Defs/AppA_DefA_01_YoungOrthogonalActionData.lean` | Appendix A.1 interface | A.1, A.2, Defs 5.28--5.30 | added |
 | `appA_jucysMurphyElement` | def | `DictatorshipTesting/Paper/Defs/AppA_DefA_02_JucysMurphyContentActionData.lean` | Appendix A.2 interface | A.2, Def 5.28 | added |
 | `JucysMurphyContentActionData` | structure | `DictatorshipTesting/Paper/Defs/AppA_DefA_02_JucysMurphyContentActionData.lean` | Appendix A.2 interface | A.2, Defs 5.28--5.30 | added |
@@ -101,11 +102,13 @@ This file records the definition-file refactor inventory. Definition modules now
 | `YoungRepresentationActionData` | structure | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
 | `averagedRejectionYoungOperatorData_of_groupAlgebraAction` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_28_GroupAlgebraAction.lean` | Definition 5.28 | `DictatorshipTesting` | added |
 | `S05_matchingHighKernel` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
+| `S05_fixedMatchingCharacterElement` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | Lemma 5.12, Def 5.30 | actual Fourier character idempotent |
 | `S05_fixedMatchingHighElement` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
 | `S05_averagedHighMatchingElement` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
 | `S05_averagedRejectionYoungOperator` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
 | `S05_averagedRejectionYoungOperatorData_actual` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_29_AveragedHighMatchingElement.lean` | Definition 5.29 | `DictatorshipTesting` | added |
 | `tableauOperatorTrace` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_30_TableauOperatorTrace.lean` | Definition 5.30 | `DictatorshipTesting` | added |
+| `youngBlockRightCoordinateTrace` | def | `DictatorshipTesting/Paper/Defs/S05_Def5_30_TableauOperatorTrace.lean` | Definition 5.30 | Lemma 5.12 | full matrix-coordinate trace for a right-index operator |
 
 ## Reusable declarations still outside the split `Defs.lean` layer
 

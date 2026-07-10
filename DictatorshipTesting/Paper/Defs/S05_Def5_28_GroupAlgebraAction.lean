@@ -254,7 +254,7 @@ def YoungRepresentationActionData.ofAppendixA
     (content : JucysMurphyContentActionData action) :
     YoungRepresentationActionData lam where
   rep := action.rep
-  adjacentPerm := action.adjacentPerm
+  adjacentPerm := appA_adjacentTransposition
   rho_adjacent := action.rho_adjacent
   jucysMurphyElement := appA_jucysMurphyElement
   rho_content := by

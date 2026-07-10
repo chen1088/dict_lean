@@ -64,23 +64,32 @@ Detailed maps:
   identifies its right-convolution action with the average of the existing
   high matching idempotents, and constructs `rho_lambda(q)` with adjacent and
   content commutation for every supplied `YoungRepresentationActionData`.
-  This gives `AveragedRejectionYoungOperatorData` and one-block scalarity.
+  This gives `AveragedRejectionYoungOperatorData` and one-block scalarity.  The
+  actual matching-character idempotents are now also represented explicitly;
+  character orthogonality proves their eigenvector action and the `0/1` action
+  of the fixed high element.
 - Faithful operator-only Appendix A interfaces are now defined as
   `YoungOrthogonalActionData` and `JucysMurphyContentActionData`.  Their adapter
   constructs `YoungRepresentationActionData`, so A.1 action data plus A.2
   content data now reaches the concrete Definition 5.29 operator without
-  putting scalarity into either external interface.
+  putting scalarity into either external interface.  A.1 now identifies the
+  literal adjacent swap `(a,a+1)`, rather than an arbitrary permutation, with
+  the concrete Young adjacent operator.
 - Definition 5.30 defines `tableauOperatorTrace`, proves the scalar trace and
   trace-division formulas, and proves that the concrete average trace is the
-  average of the concrete fixed-matching traces.
+  average of the concrete fixed-matching traces.  It reduces each fixed trace
+  to the sum of its high-character idempotent traces and proves the
+  `tableauDim` left-index factor for the full matrix-coordinate block.
 - Lemmas 5.17--5.20 expose the active tableauDim spectral-bridge route used by
   Theorem 4.8.
-- The first remaining representation-theoretic frontier is an operator-level
-  fixed-matching trace theorem.  Lemma 5.12 currently has only a scalar
-  `youngDim/hEven/hOdd` shadow, not a theorem about the represented fixed
-  operator and the active `tableauDim` heights.  After that, the regular
-  orthogonal Young-block decomposition and global weighted energy identity are
-  still required.  The old numerical A.1/A.2 axiom types and the final
+- The first remaining representation-theoretic frontier is the rank/count part
+  of the fixed-matching trace theorem.  Lemma 5.10 currently has no actual
+  matching eigenbasis, spanning theorem, or identification of character-label
+  multiplicities with the recursive sign-pattern multiset.  Consequently the
+  proved sum of character-projection traces cannot yet be rewritten as
+  `hEvenTableau` or `hOddTableau`.  After that, the regular orthogonal
+  Young-block decomposition and global weighted energy identity are still
+  required.  The old numerical A.1/A.2 axiom types and the final
   matching-average scalarity input therefore remain unchanged.
 - Appendix A exposes explicit marker axioms for A.1, A.2, A.3, and A.4, where
   A.4 is now only standard-tableaux swap connectedness. Lemma 5.18 consumes

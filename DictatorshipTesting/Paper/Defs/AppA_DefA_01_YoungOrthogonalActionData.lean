@@ -47,6 +47,11 @@ def GroupRepresentationActionData.linearMap
   map_add' := rep.map_add g
   map_smul' := rep.map_smul g
 
+/-- The literal adjacent transposition `(a,a+1)` in `S_(n+1)`. -/
+def appA_adjacentTransposition {n : Nat} (a : Fin n) :
+    Perm (Fin (n + 1)) :=
+  Equiv.swap a.castSucc a.succ
+
 /-- Faithful Lean data for Appendix A.1: a representation of the symmetric
 group on one tableau-coordinate Young space whose adjacent generators are the
 explicit Young adjacent operators. -/
@@ -54,9 +59,8 @@ structure YoungOrthogonalActionData {n : Nat}
     (lam : YoungDiagram (n + 1)) where
   rep :
     GroupRepresentationActionData (Perm (Fin (n + 1))) (TableauSpace lam)
-  adjacentPerm : Fin n -> Perm (Fin (n + 1))
   rho_adjacent :
     forall a : Fin n, forall f : TableauSpace lam,
-      rep.rho (adjacentPerm a) f = youngAdjacentOperator a f
+      rep.rho (appA_adjacentTransposition a) f = youngAdjacentOperator a f
 
 end DictatorshipTesting

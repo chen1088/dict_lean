@@ -17,9 +17,10 @@ Direct reverse imports:
 Paper statement: Lemma 5.10 (`lem:matching-restriction-X`)
 Title in paper: Matching subgroup eigenbasis.
 
-Status: proven. The concrete matching-operator and sign-projection interfaces
-are proved below; the full Specht/Pieri restriction content is bundled into the
-spectral-block model boundary.
+Status: unproven as the paper's full eigenbasis statement.  The concrete
+matching-operator and sign-projection interfaces are proved below, but there is
+no basis/spanning theorem and no identification of character multiplicities
+with the sign-pattern multiset.
 -/
 
 /-!

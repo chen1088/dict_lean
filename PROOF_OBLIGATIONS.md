@@ -165,7 +165,12 @@ Remaining Section 5/AppA bridge boundary:
   centrality of the matching average, constructs `rho_lambda(q)` for any
   supplied `YoungRepresentationActionData`, proves adjacent/content
   commutation, instantiates `AveragedRejectionYoungOperatorData`, and obtains
-  one-block scalarity from A.4 connectedness.
+  one-block scalarity from A.4 connectedness.  The fixed character-idempotent
+  action is now internal: `representedMatchingIdempotent_apply_eigenvector`
+  follows from Boolean-character orthogonality, and
+  `representedHighMatchingElement_apply_eigenvector` proves that the actual
+  fixed high element acts by `1` on high character eigenvectors and by `0` on
+  low ones.
 - The exact remaining operator-layer blocker is now the Appendix A interface:
   the faithful statement definitions
   `AppA_ThmA_01_YoungOrthogonalActionStatement` and
@@ -177,12 +182,19 @@ Remaining Section 5/AppA bridge boundary:
   for those numerical packages.
 - Definition 5.30 proves the explicit tableau-basis trace formula, scalar equals
   trace divided by nonzero tableau dimension, and linearity of trace across the
-  matching average.  The first missing operator theorem is now the fixed-block
-  trace identity: current Lemma 5.12 only provides an existential scalar using
-  `youngDim`, `hEven`, and `hOdd`; it does not mention the concrete fixed
-  operator, `tableauOperatorTrace`, `tableauDim`, `hEvenTableau`, or
-  `hOddTableau`.  The global orthogonal block decomposition is the next missing
-  layer after that trace identity.
+  matching average.  It now reduces the concrete fixed trace to the sum of the
+  actual high-character projection traces and proves the finite double-index
+  identity
+  `young-block trace = tableauDim * tableau-space trace`.
+- The first missing implication is no longer Fourier algebra or the left-index
+  factor.  The current Lemma 5.10 has no actual eigenbasis, no spanning theorem,
+  and no theorem identifying the multiplicity of each character label with the
+  recursively defined sign-pattern multiset.  Its formal
+  `MatchingRestrictionEvenInput` and `MatchingRestrictionOddInput` conclusions
+  are only inequalities for `hEven/hOdd`.  Therefore Lean cannot yet turn the
+  sum of character-projection traces into `hEvenTableau` or `hOddTableau`.
+  The global orthogonal block decomposition is the next missing layer after
+  that representation-theoretic rank/count theorem.
 
 Implementation hygiene update: `hEvenTableau` and `hOddTableau` now live in the
 definition-only files `S05_Def5_24_TableauEvenHeight.lean` and
