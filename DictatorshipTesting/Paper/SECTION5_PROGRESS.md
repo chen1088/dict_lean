@@ -8,8 +8,8 @@ Source checked: `../dictatorship_testing_soda27_latest.tex`.
   (`lemma`, `proposition`, `theorem`, and `corollary` environments).  The two
   counters are separate.
 - Section 5 paper-facing Lean file count is 57.
-- Appendix A has 3 numbered statements and 3 Lean-facing files; only A.2
-  remains an external input.
+- Appendix A has 3 numbered statements and 3 Lean-facing files; all three are
+  proved internally.
 - No two Section 5 definition files share a definition number, and no two
   Section 5 result files share a lemma/theorem number.
 - Interface definitions formerly bundled into larger results are now exposed as
@@ -128,14 +128,13 @@ Detailed maps:
   The faithful A.3 subspace equality is now proved internally and gives the
   exact `l2DistSqToU1` complementary-energy identity by an internal `sInf`
   argument.
-- A.1 now constructs the faithful Young action internally from the complete
-  type-A adjacent-word presentation.  A.2 supplies faithful
-  content-action data together with its trace/scalar payload.  A.3 proves the
-  faithful one-row-plus-standard subspace equality internally.  Lemma 5.19 now
+- A.1 constructs the faithful Young action internally from the complete type-A
+  adjacent-word presentation.  A.2 proves the faithful content action by the
+  group-algebra and tableau-operator Jucys--Murphy recurrences.  A.3 proves the
+  faithful one-row-plus-standard subspace equality internally.  Lemma 5.19
   proves the final global weighted matching identity in both parity cases.
-- Appendix A exposes one explicit marker axiom for A.2.  Lemma 5.19 combines
-  that marker with internal A.1/A.3 and the proved scalarity identities to
-  produce the even/odd spectral-model theorem wrappers
+- Lemma 5.19 combines internally proved A.1--A.3 with the scalarity identities
+  to produce the even/odd spectral-model theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.
 
@@ -179,19 +178,14 @@ Detailed maps:
   the A.3 complementary-energy formula for `l2DistSqToU1`.  It also proves
   `S05_matchingAverageScalarity_concrete_even` and
   `S05_matchingAverageScalarity_concrete_odd`; its active paper wrappers now
-  assemble internal Appendix A.1/A.3 and external A.2 into
+  assemble internal Appendix A.1--A.3 into
   `SpectralBlockModelInputWithDim`.
 - Lemmas 5.20 and 5.21 prove the even and odd algebraic spectral bridges from
   explicit spectral-block-model hypotheses plus finite certificates.
 - Lemmas 5.23, 5.25, and 5.27 prove the finite `z`, even `h`, and odd `h`
   certificates.
 
-## Appendix A Boundary
-
-The following remains an external input rather than a Lean-proved
-representation theorem:
-
-- A.2 Jucys--Murphy content spectrum.
+## Appendix A Status
 
 A.1 Young orthogonal realization is proved internally in
 `S05_Int_AdjacentCoxeterPresentation.lean`: an explicit top-segment normal form
@@ -201,12 +195,18 @@ permutation action with the required adjacent-generator formula.
 A.3 degree-one Young-block identification is proved internally in
 `S05_Int_DegreeOneYoungBlock.lean`.
 
+A.2 Jucys--Murphy content spectrum is proved internally in
+`S05_Int_JucysMurphyContentAction.lean`.  The proof establishes
+`J_(a+1) = s_a J_a s_a + s_a`, proves the matching tableau content recurrence,
+and inducts over `Fin`.  The former trace/scalar payload has been removed;
+matching traces and `tableauDim` positivity are internal.
+
 Standard-tableaux connectedness is proved internally as Lemma 5.3 in
 `S05_Lem5_03_ConnectednessOfStandardTableaux.lean`.
 
-The Appendix A files add only the A.2 external marker axiom.  Lemma 5.19 proves
-matching-average scalarity internally and assembles external A.2 together with
-internal A.1/A.3 into the spectral model wrappers.  The current Section 5
+The Appendix A files add no axioms.  Lemma 5.19 proves matching-average
+scalarity internally and assembles A.1--A.3 into the spectral model wrappers.
+The current Section 5
 tableau-count dimension route also no longer registers the older `youngDim`
 dimension-branching instances.
 
@@ -214,5 +214,6 @@ For the concrete route, the coefficient-index cardinality equality and the
 standard-tableau sum-of-squares identity are proved internally from the
 Young-lattice differential relation.  A.3 now proves the faithful concrete
 subspace equality, and its exact distance consequence is proved internally.
-The even and odd weighted matching-energy identities are also proved internally;
-the remaining external representation boundary is exactly A.2.
+The even and odd weighted matching-energy identities are also proved internally.
+The only remaining axioms in the project are the two Section 2 literature
+inputs.

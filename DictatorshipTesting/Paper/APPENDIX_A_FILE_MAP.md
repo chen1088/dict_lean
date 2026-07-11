@@ -8,16 +8,15 @@ Appendix A Lean-facing file count: 3.
 | Status | Paper stmt | Environment | Paper title | Lean file | Main wrappers | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | proven internally | A.1 | theorem | Young orthogonal realization | `AppA_ThmA_01_YoungOrthogonalRealization.lean` | `AppA_ThmA_01_YoungOrthogonalActionStatement`, `AppA_ThmA_01_youngOrthogonalRealization` | `S05_Int_AdjacentCoxeterPresentation.lean` proves the complete type-A adjacent-word presentation and constructs `YoungOrthogonalActionData`, identifying each literal adjacent swap `(a,a+1)` with the concrete Young operator. |
-| external: faithful content action and trace payload | A.2 | theorem | Jucys--Murphy content spectrum | `AppA_ThmA_02_JucysMurphyContentSpectrum.lean` | `AppA_ThmA_02_JucysMurphyContentActionStatement`, `AppA_ThmA_02_TraceScalarStatement`, `AppA_ThmA_02_jucysMurphyContentSpectrum` | The axiom supplies `JucysMurphyContentActionData` for each A.1 action together with the even/odd trace-scalar payload used by the active matching calculation. |
+| proven internally | A.2 | theorem | Jucys--Murphy content spectrum | `AppA_ThmA_02_JucysMurphyContentSpectrum.lean` | `AppA_ThmA_02_JucysMurphyContentActionStatement`, `AppA_ThmA_02_jucysMurphyContentSpectrum` | `S05_Int_JucysMurphyContentAction.lean` proves the group-algebra recurrence, the tableau content recurrence, and the finite induction for every A.1 action. The former trace payload is unnecessary: matching traces and universal positivity of `tableauDim` are proved internally. |
 | proven internally | A.3 | lemma | Degree-one Young-block identification | `AppA_LemA_03_DegreeOneYoungBlockIdentification.lean` | `AppA_LemA_03_degreeOneYoungBlockIdentification`, `AppA_LemA_03_U1_eq_concreteDegreeOneYoungBlockSum`, `AppA_LemA_03_l2DistSqToU1_eq_nonU1_sum` | `S05_Int_DegreeOneYoungBlock.lean` proves `U1 =` the concrete sum of the one-row and standard matrix-coefficient blocks by an explicit permutation-coordinate decomposition. Lemma 5.19 derives the complementary-energy distance identity from this equality, orthogonality, and the defining `sInf`. |
 
-Appendix A has one explicit Lean axiom declaration for the remaining external
-paper ingredient A.2.  A.1 and A.3 are proved internally.  Standard-tableau connectedness is now
-internal Lemma 5.3 and is not an Appendix statement.
+All three Appendix A statements are proved internally.  Standard-tableau
+connectedness is internal Lemma 5.3 and is not an Appendix statement.
 The A.1 theorem constructs its faithful operator action from the type-A
-Coxeter presentation.  A.2 bundles its faithful content
-action with the trace/scalar payload
-used downstream.  The concrete matrix-coefficient family is orthogonal and
+Coxeter presentation.  A.2 derives its faithful content action from the
+Jucys--Murphy and tableau-operator recurrences.  The concrete
+matrix-coefficient family is orthogonal and
 linearly independent, its block components and Parseval identity are
 unconditional, and the Young-tableau sum-of-squares equality is internal.
 Faithful A.3 and its connection to the active numerical model are internally

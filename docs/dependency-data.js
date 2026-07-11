@@ -37,20 +37,20 @@ window.DICT_DEPENDENCY_DATA = {
       "label": "App A.2",
       "title": "Jucys-Murphy content spectrum",
       "section": "Appendix A",
-      "kind": "external",
+      "kind": "paper",
       "importance": "normal",
       "status": "external",
       "file": "DictatorshipTesting/Paper/AppA_ThmA_02_JucysMurphyContentSpectrum.lean",
       "wrappers": [
         "AppA_ThmA_02_JucysMurphyContentActionStatement",
-        "AppA_ThmA_02_TraceScalarStatement",
         "AppA_ThmA_02_jucysMurphyContentSpectrum"
       ],
       "deps": [
-        "AppA_01"
+        "AppA_01",
+        "S05_L02"
       ],
-      "summary": "External faithful JM/content action with its trace-scalar payload.",
-      "statement": "App A.2 supplies JucysMurphyContentActionData for the same A.1 action and the actual coefficient element J_k, bundled with the even/odd trace-scalar payload consumed by the active matching calculation.",
+      "summary": "Faithful Jucys-Murphy content action proved internally by recurrence and induction.",
+      "statement": "App A.2 proves JucysMurphyContentActionData for every A.1 action: the actual coefficient element J_k acts as the diagonal tableau-content operator.",
       "terms": [],
       "paperLabel": "thm:app-jucys-murphy-content",
       "paperEnv": "theorem",
@@ -58,11 +58,11 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "AppA_ThmA_02_JucysMurphyContentActionStatement",
-          "line": 32
+          "line": 26
         },
         {
           "name": "AppA_ThmA_02_jucysMurphyContentSpectrum",
-          "line": 72
+          "line": 37
         }
       ]
     },
@@ -2914,7 +2914,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Spectral bridge",
       "kind": "paper",
       "importance": "major",
-      "status": "external",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_19_RegularYoungBlockDecomposition.lean",
       "wrappers": [
         "weightedEnergyIdentity_of_pairwiseOrthogonal_components",
@@ -2942,8 +2942,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_L17",
         "S05_L02"
       ],
-      "summary": "Concrete block decomposition, faithful A.3 distance identity, and both global weighted matching identities are proved; only Appendix A.2 remains external.",
-      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, internal tableau sum-of-squares and coefficient-index cardinality, unconditional spanning and basis constructions, concrete block components and energies, Parseval, the exact l2DistSqToU1 complementary-energy identity from faithful A.3, U1 annihilation by averaged high convolution, the h/d component action, and the even/odd global weighted matching identities. Its active spectral-model wrappers consume internal faithful Appendix A.1/A.3 and external A.2.",
+      "summary": "Concrete block decomposition, faithful A.3 distance identity, both global weighted matching identities, and the active spectral model are proved.",
+      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, internal tableau sum-of-squares and coefficient-index cardinality, unconditional spanning and basis constructions, concrete block components and energies, Parseval, the exact l2DistSqToU1 complementary-energy identity from faithful A.3, U1 annihilation by averaged high convolution, the h/d component action, and the even/odd global weighted matching identities. Its active spectral-model wrappers consume internally proved Appendix A.1-A.3.",
       "terms": [
         {
           "text": "Young-block energy profile",

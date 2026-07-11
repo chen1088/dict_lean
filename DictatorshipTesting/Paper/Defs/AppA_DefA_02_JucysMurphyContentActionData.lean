@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Defs.AppA_DefA_01_YoungOrthogonalActionData
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
+- `DictatorshipTesting.Paper.S05_Int_JucysMurphyContentAction`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_28_GroupAlgebraAction`
 -/
 

@@ -4,7 +4,6 @@ import DictatorshipTesting.Paper.S05_Int_YoungDiagramCorners
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
 - `DictatorshipTesting.Paper.S05_Int_YoungOrthogonal`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_04_TableauCoordinateSpace`

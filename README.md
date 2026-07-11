@@ -45,9 +45,8 @@ lines when available.
 The scaffold contains real Lean proofs for the elementary Boolean-cube,
 matching-cube, and averaging steps that have been formalized so far.  A small
 number of hard results are intentionally isolated behind named declarations or
-named external axioms.  There are no remaining `sorry` declarations.  The named
-external axioms are the two Section 2 Filmus inputs and the Appendix A.2
-Jucys--Murphy/content input.  Appendix A.1 is proved internally from the
+named external axioms.  There are no remaining `sorry` declarations.  The only
+named external axioms are the two Section 2 Filmus inputs.  Appendix A.1 is proved internally from the
 complete type-A adjacent-word normal form and the Coxeter relations of Lemma
 5.1.  Standard-tableaux swap connectedness is proved internally as Lemma 5.3,
 and A.3 is proved internally by the explicit permutation-coordinate
@@ -144,8 +143,8 @@ Proven Lemma 5.2 diagonal content package:
   (`lem:jucys-murphy-eigenbasis`, rewritten Section 5 form): proves that
   content sequences determine standard tableaux, distinct tableaux differ in a
   content coordinate, and simultaneous eigenspaces of the explicit diagonal
-  content operators are the tableau basis lines.  Appendix A.2 remains the
-  external group-algebra Jucys--Murphy identification.
+  content operators are the tableau basis lines.  Appendix A.2 proves the
+  group-algebra Jucys--Murphy identification internally.
 
 Proven Lemma 5.3 standard-tableaux connectedness:
 
@@ -293,10 +292,10 @@ Generic commutant infrastructure for Lemma 5.16:
   action on the full matrix-coordinate block contributes the factor
   `tableauDim` from the free left tableau index.
 
-The A.1 theorem now constructs the faithful Young action internally from the
-type-A Coxeter presentation.  The A.2 axiom supplies
-the faithful Jucys--Murphy content action together with the trace/scalar payload
-used by the active matching calculation.  A.3 is proved internally as the
+The A.1 theorem constructs the faithful Young action internally from the
+type-A Coxeter presentation.  A.2 proves the faithful Jucys--Murphy content
+action internally from the group-algebra and tableau-operator recurrences.  Its
+old trace/scalar payload has been removed.  A.3 is proved internally as the
 faithful equality between `U_1` and the concrete one-row plus standard block
 sum.  The sum-of-squares completeness theorem and the resulting A.3 distance
 adapter are also internal.
@@ -372,8 +371,8 @@ External standard inputs:
   through Lemma 5.19 theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.  Those wrappers are
-  produced by Lemma 5.19 from the internally proved A.1 action, the explicit
-  A.2 marker axiom, and the internally proved A.3 equality.  The
+  produced by Lemma 5.19 from the internally proved A.1 action, A.2 content
+  action, and A.3 equality.  The
   concrete matrix-coefficient, completeness, one-block scalarity, faithful A.3
   distance adapter, and global weighted-energy assembly are internal.
 
@@ -428,16 +427,14 @@ Remaining bridge boundary:
   `SpectralBlockModelInputWithDim` / spectral block model input; Lemma 5.19
   supplies that input for the paper application.
 
-Remaining spectral-bridge representation-theory boundary:
+Spectral-bridge representation layer:
 
 There are no longer `sorry` declarations for the spectral bridge.  Instead, the
-Section 5 spectral-bridge files make the missing representation theory explicit
-through Lemma 5.19 theorem wrappers:
+Section 5 spectral-bridge files expose the representation layer through Lemma
+5.19 theorem wrappers:
 `spectralBlockModelInputWithDim_even_from_appendixA` and
-`spectralBlockModelInputWithDim_odd_from_appendixA`.  The remaining axiom
-declaration used by this bridge is exactly the Appendix A.2 marker input;
-Lemma 5.19 combines it with the internal A.1 action and A.3 theorem through its
-assembly theorems.
+`spectralBlockModelInputWithDim_odd_from_appendixA`.  These wrappers now use
+ordinary theorems A.1--A.3; the bridge introduces no axiom declaration.
 
 The coefficient-index cardinality theorem
 `card_YoungMatrixCoefficientIndex_eq_perm` is now proved internally.  Its core
@@ -479,9 +476,8 @@ Core paper definitions:
   definitions and should be imported directly.
 - `DictatorshipTesting/Paper/Defs/S05_Def5_24_TableauEvenHeight.lean` and
   `DictatorshipTesting/Paper/Defs/S05_Def5_25_TableauOddHeight.lean`: neutral
-  `hEvenTableau`/`hOddTableau` height definitions shared by Appendix A.2 and
-  the finite certificate proofs, so Appendix A does not import certificate
-  proof files just to mention those functions.
+  `hEvenTableau`/`hOddTableau` height definitions used by the finite certificate
+  and spectral-model proofs.
 - `DictatorshipTesting/Paper/Defs/S05_Def5_26_CertificateSpecialDiagrams.lean` and
   `DictatorshipTesting/Paper/Defs/S05_Def5_27_CertificateExceptionalPredicates.lean`:
   canonical finite-certificate diagrams and exceptional-shape predicates used

@@ -2352,14 +2352,10 @@ theorem spectralBlockModelInputWithDim_even_from_appA_inputs
       let content :
           ∀ lam : YoungDiagram (2 * Nat.succ m),
             JucysMurphyContentActionData (action lam) :=
-        fun lam => Classical.choice (hA2.1 (action lam))
-      let energyData : AppA_YoungBlockEnergyData F :=
-        { blockEnergy := concreteYoungBlockEnergy action content F
-          nonneg := concreteYoungBlockEnergy_nonnegative action content F }
-      rcases hA2.2.1 (Nat.succ m) hm energyData with ⟨traceData⟩
+        fun lam => Classical.choice (hA2 (action lam))
       let energy : YoungBlockEnergyModel F :=
-        { blockEnergy := energyData.blockEnergy
-          nonneg := energyData.nonneg
+        { blockEnergy := concreteYoungBlockEnergy action content F
+          nonneg := concreteYoungBlockEnergy_nonnegative action content F
           u1_identification :=
             l2DistSqToU1_eq_sum_concreteYoungBlockEnergy action content
               (hA3 action) F }
@@ -2374,9 +2370,9 @@ theorem spectralBlockModelInputWithDim_even_from_appA_inputs
           scalarity :=
             S05_matchingAverageScalarity_concrete_even
               m action content (hA3 action)
-                (fun lam => (traceData.trace_value lam).1) F
+                (fun lam => tableauDim_pos_all lam) F
           trace_value := fun lam =>
-            ⟨(traceData.trace_value lam).1, rfl⟩ }
+            ⟨tableauDim_pos_all lam, rfl⟩ }
       exact ⟨energy, ⟨scalar⟩⟩
 
 /-- Appendix A spectral-block model input for the tableau-count even route. -/
@@ -2401,7 +2397,7 @@ theorem spectralBlockModelInputWithDim_odd_from_appA_inputs
     (hA1 : AppA_ThmA_01_YoungOrthogonalRealizationStatement)
     (hA2 : AppA_ThmA_02_JucysMurphyContentSpectrumStatement)
     (hA3 : AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement)
-    (m : Nat) (hm : 2 <= m) :
+    (m : Nat) (_hm : 2 <= m) :
     SpectralBlockModelInputWithDim
       (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)
       (fun lam : YoungDiagram (2 * m + 1) => hOddTableau m lam) := by
@@ -2412,14 +2408,10 @@ theorem spectralBlockModelInputWithDim_odd_from_appA_inputs
   let content :
       ∀ lam : YoungDiagram (2 * m + 1),
         JucysMurphyContentActionData (action lam) :=
-    fun lam => Classical.choice (hA2.1 (action lam))
-  let energyData : AppA_YoungBlockEnergyData F :=
-    { blockEnergy := concreteYoungBlockEnergy action content F
-      nonneg := concreteYoungBlockEnergy_nonnegative action content F }
-  rcases hA2.2.2 m hm energyData with ⟨traceData⟩
+    fun lam => Classical.choice (hA2 (action lam))
   let energy : YoungBlockEnergyModel F :=
-    { blockEnergy := energyData.blockEnergy
-      nonneg := energyData.nonneg
+    { blockEnergy := concreteYoungBlockEnergy action content F
+      nonneg := concreteYoungBlockEnergy_nonnegative action content F
       u1_identification :=
         l2DistSqToU1_eq_sum_concreteYoungBlockEnergy action content
           (hA3 action) F }
@@ -2432,9 +2424,9 @@ theorem spectralBlockModelInputWithDim_odd_from_appA_inputs
       scalarity :=
         S05_matchingAverageScalarity_concrete_odd
           m action content (hA3 action)
-            (fun lam => (traceData.trace_value lam).1) F
+            (fun lam => tableauDim_pos_all lam) F
       trace_value := fun lam =>
-        ⟨(traceData.trace_value lam).1, rfl⟩ }
+        ⟨tableauDim_pos_all lam, rfl⟩ }
   exact ⟨energy, ⟨scalar⟩⟩
 
 /-- Appendix A spectral-block model input for the tableau-count odd route. -/

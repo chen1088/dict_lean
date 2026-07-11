@@ -3,6 +3,7 @@ import DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S05_Int_JucysMurphyContentAction`
 - `DictatorshipTesting.Paper.S05_Lem5_07_OneBoxDeletionIntertwinesEarlierSwaps`
 -/
 
@@ -15,7 +16,8 @@ Title in paper: Diagonal content eigenspaces.
 Status: proven. Proved internally for the explicit diagonal content operators.  The
 content sequence determines a standard tableau, distinct tableaux differ in a
 content coordinate, and the common eigenspaces are the tableau basis lines.
-Appendix A.2 remains the external group-algebra Jucys--Murphy identification.
+The group-algebra Jucys--Murphy identification is proved internally in the A.2
+implementation.
 -/
 
 noncomputable section
