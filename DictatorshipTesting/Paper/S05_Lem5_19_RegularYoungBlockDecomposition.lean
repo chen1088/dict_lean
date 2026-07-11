@@ -35,6 +35,11 @@ namespace DictatorshipTesting
 
 open scoped BigOperators
 
+local instance standardYoungTableauDecidableEqForRegularBlocks
+    {n : Nat} {lam : YoungDiagram n} :
+    DecidableEq (StandardYoungTableau lam) :=
+  Classical.decEq _
+
 /-- Pairwise orthogonal finite-coordinate components have no cross terms in
 the quadratic form of an operator that is scalar on each component.
 
@@ -171,6 +176,487 @@ theorem youngBlockSynthesis_mem_youngMatrixCoefficientBlock
     simp [youngBlockSynthesis, Finset.sum_apply, Pi.smul_apply, smul_eq_mul]
   rw [hsynthesis]
   exact hsum
+
+/-- The coordinate rank-one operator `|T><V|` on one tableau space. -/
+def tableauRankOne {n : Nat} {lam : YoungDiagram n}
+    (T V : StandardYoungTableau lam) :
+    TableauSpace lam → TableauSpace lam :=
+  fun f U => f V * tableauBasisVec T U
+
+/-- Conjugate a coordinate rank-one operator by one represented
+permutation. -/
+def youngConjugatedRankOne {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (T V : StandardYoungTableau lam)
+    (g : Perm (Fin (n + 1))) :
+    TableauSpace lam → TableauSpace lam :=
+  fun f =>
+    action.rep.rho g
+      (tableauRankOne T V (action.rep.rho g.symm f))
+
+/-- Uniform conjugation average of a coordinate rank-one operator. -/
+def youngAveragedRankOne {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (T V : StandardYoungTableau lam) :
+    TableauSpace lam → TableauSpace lam :=
+  fun f =>
+    (Fintype.card (Perm (Fin (n + 1))) : ℝ)⁻¹ •
+      ∑ g : Perm (Fin (n + 1)), youngConjugatedRankOne action T V g f
+
+/-- Orthogonality of the represented permutation moves an inverse action from
+one side of a basis matrix coefficient to the other. -/
+theorem rho_symm_basis_coordinate
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (g : Perm (Fin (n + 1)))
+    (U V : StandardYoungTableau lam) :
+    action.rep.rho g.symm (tableauBasisVec U) V =
+      action.rep.rho g (tableauBasisVec V) U := by
+  calc
+    action.rep.rho g.symm (tableauBasisVec U) V =
+        tableauInner (tableauBasisVec V)
+          (action.rep.rho g.symm (tableauBasisVec U)) := by
+      rw [tableauInner_left_basis]
+    _ = tableauInner
+          (action.rep.rho g (tableauBasisVec V))
+          (action.rep.rho g
+            (action.rep.rho g.symm (tableauBasisVec U))) := by
+      rw [action.rho_inner]
+    _ = tableauInner
+          (action.rep.rho g (tableauBasisVec V))
+          (tableauBasisVec U) := by
+      rw [action.rho_rightInverse]
+    _ = action.rep.rho g (tableauBasisVec V) U := by
+      rw [tableauInner_right_basis]
+
+/-- Conjugating a rank-one operator preserves its trace. -/
+theorem youngConjugatedRankOne_trace
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (T V : StandardYoungTableau lam)
+    (g : Perm (Fin (n + 1))) :
+    tableauOperatorTrace (youngConjugatedRankOne action T V g) =
+      if T = V then 1 else 0 := by
+  classical
+  unfold tableauOperatorTrace youngConjugatedRankOne tableauRankOne
+  calc
+    (∑ U : StandardYoungTableau lam,
+      action.rep.rho g
+        (fun W =>
+          action.rep.rho g.symm (tableauBasisVec U) V *
+            tableauBasisVec T W) U) =
+        ∑ U : StandardYoungTableau lam,
+          action.rep.rho g.symm (tableauBasisVec U) V *
+            action.rep.rho g (tableauBasisVec T) U := by
+      apply Finset.sum_congr rfl
+      intro U _hU
+      change action.rep.rho g
+          (action.rep.rho g.symm (tableauBasisVec U) V •
+            tableauBasisVec T) U = _
+      rw [action.rep.map_smul]
+      rfl
+    _ = ∑ U : StandardYoungTableau lam,
+        action.rep.rho g (tableauBasisVec V) U *
+          action.rep.rho g (tableauBasisVec T) U := by
+      apply Finset.sum_congr rfl
+      intro U _hU
+      rw [rho_symm_basis_coordinate]
+    _ = tableauInner
+        (action.rep.rho g (tableauBasisVec V))
+        (action.rep.rho g (tableauBasisVec T)) := by
+      rfl
+    _ = tableauInner (tableauBasisVec V) (tableauBasisVec T) := by
+      rw [action.rho_inner]
+    _ = if T = V then 1 else 0 := by
+      rw [tableauInner_basis_basis_eq_ite]
+      by_cases hTV : T = V
+      · simp [hTV]
+      · have hVT : V ≠ T := Ne.symm hTV
+        simp [hTV, hVT]
+
+/-- The conjugation-averaged rank-one operator has the same trace as the
+original rank-one operator. -/
+theorem youngAveragedRankOne_trace
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (T V : StandardYoungTableau lam) :
+    tableauOperatorTrace (youngAveragedRankOne action T V) =
+      if T = V then 1 else 0 := by
+  classical
+  unfold tableauOperatorTrace youngAveragedRankOne
+  calc
+    (∑ U : StandardYoungTableau lam,
+      ((Fintype.card (Perm (Fin (n + 1))) : ℝ)⁻¹ •
+        ∑ g : Perm (Fin (n + 1)),
+          youngConjugatedRankOne action T V g (tableauBasisVec U)) U) =
+        (Fintype.card (Perm (Fin (n + 1))) : ℝ)⁻¹ *
+          ∑ g : Perm (Fin (n + 1)),
+            tableauOperatorTrace (youngConjugatedRankOne action T V g) := by
+      simp only [Pi.smul_apply, Finset.sum_apply, smul_eq_mul]
+      calc
+        (∑ U : StandardYoungTableau lam,
+          (Fintype.card (Perm (Fin (n + 1))) : ℝ)⁻¹ *
+            ∑ g : Perm (Fin (n + 1)),
+              youngConjugatedRankOne action T V g (tableauBasisVec U) U) =
+            ∑ U : StandardYoungTableau lam,
+              ∑ g : Perm (Fin (n + 1)),
+                (Fintype.card (Perm (Fin (n + 1))) : ℝ)⁻¹ *
+                  youngConjugatedRankOne action T V g
+                    (tableauBasisVec U) U := by
+          apply Finset.sum_congr rfl
+          intro U _hU
+          rw [Finset.mul_sum]
+        _ = ∑ g : Perm (Fin (n + 1)),
+            ∑ U : StandardYoungTableau lam,
+              (Fintype.card (Perm (Fin (n + 1))) : ℝ)⁻¹ *
+                youngConjugatedRankOne action T V g
+                  (tableauBasisVec U) U := by
+          rw [Finset.sum_comm]
+        _ = (Fintype.card (Perm (Fin (n + 1))) : ℝ)⁻¹ *
+            ∑ g : Perm (Fin (n + 1)),
+              tableauOperatorTrace
+                (youngConjugatedRankOne action T V g) := by
+          rw [Finset.mul_sum]
+          apply Finset.sum_congr rfl
+          intro g _hg
+          unfold tableauOperatorTrace
+          rw [Finset.mul_sum]
+    _ = (Fintype.card (Perm (Fin (n + 1))) : ℝ)⁻¹ *
+        ∑ _g : Perm (Fin (n + 1)), (if T = V then 1 else 0) := by
+      congr 1
+      apply Finset.sum_congr rfl
+      intro g _hg
+      rw [youngConjugatedRankOne_trace]
+    _ = if T = V then 1 else 0 := by
+      rw [Finset.sum_const, Finset.card_univ]
+      simp only [nsmul_eq_mul]
+      have hcard :
+          (Fintype.card (Perm (Fin (n + 1))) : ℝ) ≠ 0 := by
+        exact_mod_cast Fintype.card_ne_zero
+      field_simp
+
+/-- A conjugated rank-one operator is additive. -/
+theorem youngConjugatedRankOne_map_add
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (T V : StandardYoungTableau lam)
+    (g : Perm (Fin (n + 1))) (f h : TableauSpace lam) :
+    youngConjugatedRankOne action T V g (f + h) =
+      youngConjugatedRankOne action T V g f +
+        youngConjugatedRankOne action T V g h := by
+  have hrank :
+      tableauRankOne T V (action.rep.rho g.symm (f + h)) =
+        tableauRankOne T V (action.rep.rho g.symm f) +
+          tableauRankOne T V (action.rep.rho g.symm h) := by
+    funext U
+    rw [action.rep.map_add]
+    simp [tableauRankOne]
+    ring
+  unfold youngConjugatedRankOne
+  rw [hrank, action.rep.map_add]
+
+/-- A conjugated rank-one operator is homogeneous. -/
+theorem youngConjugatedRankOne_map_smul
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (T V : StandardYoungTableau lam)
+    (g : Perm (Fin (n + 1))) (c : ℝ) (f : TableauSpace lam) :
+    youngConjugatedRankOne action T V g (c • f) =
+      c • youngConjugatedRankOne action T V g f := by
+  have hrank :
+      tableauRankOne T V (action.rep.rho g.symm (c • f)) =
+        c • tableauRankOne T V (action.rep.rho g.symm f) := by
+    funext U
+    rw [action.rep.map_smul]
+    simp [tableauRankOne]
+    ring
+  unfold youngConjugatedRankOne
+  rw [hrank, action.rep.map_smul]
+
+/-- The conjugation-averaged rank-one operator is additive. -/
+theorem youngAveragedRankOne_map_add
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (T V : StandardYoungTableau lam)
+    (f h : TableauSpace lam) :
+    youngAveragedRankOne action T V (f + h) =
+      youngAveragedRankOne action T V f +
+        youngAveragedRankOne action T V h := by
+  classical
+  unfold youngAveragedRankOne
+  simp_rw [youngConjugatedRankOne_map_add action T V]
+  rw [Finset.sum_add_distrib, smul_add]
+
+/-- The conjugation-averaged rank-one operator is homogeneous. -/
+theorem youngAveragedRankOne_map_smul
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (T V : StandardYoungTableau lam)
+    (c : ℝ) (f : TableauSpace lam) :
+    youngAveragedRankOne action T V (c • f) =
+      c • youngAveragedRankOne action T V f := by
+  classical
+  unfold youngAveragedRankOne
+  simp_rw [youngConjugatedRankOne_map_smul action T V]
+  funext U
+  simp only [Pi.smul_apply, Finset.sum_apply, smul_eq_mul]
+  rw [← Finset.mul_sum]
+  ring
+
+/-- The averaged rank-one operator, packaged as a linear map. -/
+def youngAveragedRankOneLinearMap
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (T V : StandardYoungTableau lam) :
+    TableauSpace lam →ₗ[ℝ] TableauSpace lam where
+  toFun := youngAveragedRankOne action T V
+  map_add' := youngAveragedRankOne_map_add action T V
+  map_smul' := youngAveragedRankOne_map_smul action T V
+
+/-- Relabeling the conjugation summand by left multiplication moves the group
+action outside that summand. -/
+theorem youngConjugatedRankOne_mul_left
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (T V : StandardYoungTableau lam)
+    (h g : Perm (Fin (n + 1))) (f : TableauSpace lam) :
+    youngConjugatedRankOne action T V (h * g) (action.rep.rho h f) =
+      action.rep.rho h (youngConjugatedRankOne action T V g f) := by
+  have hinverse :
+      action.rep.rho (h * g).symm (action.rep.rho h f) =
+        action.rep.rho g.symm f := by
+    rw [show (h * g).symm = g.symm * h.symm by rfl]
+    rw [action.rep.map_mul]
+    rw [action.rho_leftInverse]
+  unfold youngConjugatedRankOne
+  rw [hinverse]
+  rw [action.rep.map_mul]
+
+/-- The conjugation average commutes with every represented permutation. -/
+theorem youngAveragedRankOne_commutes_rho
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (T V : StandardYoungTableau lam)
+    (h : Perm (Fin (n + 1))) (f : TableauSpace lam) :
+    youngAveragedRankOne action T V (action.rep.rho h f) =
+      action.rep.rho h (youngAveragedRankOne action T V f) := by
+  classical
+  let leftMul : Perm (Fin (n + 1)) ≃ Perm (Fin (n + 1)) := Equiv.mulLeft h
+  have hsum :
+      (∑ g : Perm (Fin (n + 1)),
+        youngConjugatedRankOne action T V g (action.rep.rho h f)) =
+        action.rep.rho h
+          (∑ g : Perm (Fin (n + 1)),
+            youngConjugatedRankOne action T V g f) := by
+    calc
+      (∑ g : Perm (Fin (n + 1)),
+        youngConjugatedRankOne action T V g (action.rep.rho h f)) =
+          ∑ g : Perm (Fin (n + 1)),
+            youngConjugatedRankOne action T V (h * g)
+              (action.rep.rho h f) := by
+        exact (Equiv.sum_comp leftMul
+          (fun g : Perm (Fin (n + 1)) =>
+            youngConjugatedRankOne action T V g
+              (action.rep.rho h f))).symm
+      _ = ∑ g : Perm (Fin (n + 1)),
+          action.rep.rho h (youngConjugatedRankOne action T V g f) := by
+        apply Finset.sum_congr rfl
+        intro g _hg
+        exact youngConjugatedRankOne_mul_left action T V h g f
+      _ = action.rep.rho h
+          (∑ g : Perm (Fin (n + 1)),
+            youngConjugatedRankOne action T V g f) := by
+        change
+          (∑ g : Perm (Fin (n + 1)),
+            (action.rep.linearMap h)
+              (youngConjugatedRankOne action T V g f)) =
+            (action.rep.linearMap h)
+              (∑ g : Perm (Fin (n + 1)),
+                youngConjugatedRankOne action T V g f)
+        exact
+          (map_sum (action.rep.linearMap h)
+            (fun g : Perm (Fin (n + 1)) =>
+              youngConjugatedRankOne action T V g f)
+            Finset.univ).symm
+  unfold youngAveragedRankOne
+  rw [hsum]
+  rw [action.rep.map_smul]
+
+/-- Commutation with every represented group element extends by linearity to
+every finite group-algebra element. -/
+theorem youngAveragedRankOne_commutes_repOfGroupAlgebra
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (T V : StandardYoungTableau lam)
+    (a : GroupAlgebraElement (Perm (Fin (n + 1))))
+    (f : TableauSpace lam) :
+    youngAveragedRankOne action T V
+        (repOfGroupAlgebraElement action.rep a f) =
+      repOfGroupAlgebraElement action.rep a
+        (youngAveragedRankOne action T V f) := by
+  classical
+  unfold repOfGroupAlgebraElement
+  change
+    (youngAveragedRankOneLinearMap action T V)
+        (∑ g : Perm (Fin (n + 1)), a g • action.rep.rho g f) =
+      ∑ g : Perm (Fin (n + 1)),
+        a g • action.rep.rho g (youngAveragedRankOne action T V f)
+  calc
+    (youngAveragedRankOneLinearMap action T V)
+        (∑ g : Perm (Fin (n + 1)), a g • action.rep.rho g f) =
+        ∑ g : Perm (Fin (n + 1)),
+          (youngAveragedRankOneLinearMap action T V)
+            (a g • action.rep.rho g f) := by
+      exact map_sum (youngAveragedRankOneLinearMap action T V)
+        (fun g : Perm (Fin (n + 1)) => a g • action.rep.rho g f)
+        Finset.univ
+    _ = ∑ g : Perm (Fin (n + 1)),
+        a g • youngAveragedRankOne action T V (action.rep.rho g f) := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      exact (youngAveragedRankOneLinearMap action T V).map_smul
+        (a g) (action.rep.rho g f)
+    _ = ∑ g : Perm (Fin (n + 1)),
+        a g • action.rep.rho g (youngAveragedRankOne action T V f) := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      rw [youngAveragedRankOne_commutes_rho]
+
+/-- The averaged rank-one operator supplies the hypotheses of the internally
+proved Young-basis scalar commutant theorem. -/
+def youngAveragedRankOneCommutationData
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action)
+    (T V : StandardYoungTableau lam) :
+    YoungModelOperatorCommutationData lam where
+  op := youngAveragedRankOne action T V
+  map_add := youngAveragedRankOne_map_add action T V
+  map_smul := by
+    intro c f
+    exact youngAveragedRankOne_map_smul action T V c f
+  commutes_adjacent := by
+    intro a f
+    rw [← action.rho_adjacent a f]
+    rw [youngAveragedRankOne_commutes_rho]
+    rw [action.rho_adjacent]
+  commutes_content := by
+    intro a f
+    calc
+      youngAveragedRankOne action T V
+          (jucysMurphyDiagonalOperator a f) =
+          youngAveragedRankOne action T V
+            (repOfGroupAlgebraElement action.rep
+              (appA_jucysMurphyElement a) f) := by
+        simpa [repOfGroupAlgebraElement] using
+          congrArg (youngAveragedRankOne action T V)
+            (content.rho_content a f).symm
+      _ = repOfGroupAlgebraElement action.rep
+          (appA_jucysMurphyElement a)
+            (youngAveragedRankOne action T V f) := by
+        exact youngAveragedRankOne_commutes_repOfGroupAlgebra
+          action T V (appA_jucysMurphyElement a) f
+      _ = jucysMurphyDiagonalOperator a
+          (youngAveragedRankOne action T V f) := by
+        simpa [repOfGroupAlgebraElement] using
+          content.rho_content a (youngAveragedRankOne action T V f)
+
+/-- The conjugation-averaged rank-one operator is scalar on every tableau
+basis vector. -/
+theorem youngAveragedRankOne_scalar_on_basis
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action)
+    (T V T0 U : StandardYoungTableau lam) :
+    youngAveragedRankOne action T V (tableauBasisVec U) =
+      fun W =>
+        (youngAveragedRankOneCommutationData action content T V).basisScalar T0 *
+          tableauBasisVec U W := by
+  exact S05_Lem5_16_youngModelOperator_scalar_on_basis
+    (youngAveragedRankOneCommutationData action content T V) T0 U
+
+/-- The trace determines the scalar of the conjugation-averaged rank-one
+operator. -/
+theorem youngAveragedRankOne_basisScalar
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action)
+    (T V T0 : StandardYoungTableau lam) :
+    (youngAveragedRankOneCommutationData action content T V).basisScalar T0 =
+      (if T = V then 1 else 0) / tableauDim lam := by
+  let c :=
+    (youngAveragedRankOneCommutationData action content T V).basisScalar T0
+  have hdim : tableauDim lam ≠ 0 := tableauDim_ne_zero_of_tableau T0
+  calc
+    c = tableauOperatorTrace (youngAveragedRankOne action T V) /
+        tableauDim lam := by
+      apply scalar_eq_tableauOperatorTrace_div_tableauDim
+        (youngAveragedRankOne action T V) c hdim
+      intro U
+      exact youngAveragedRankOne_scalar_on_basis
+        action content T V T0 U
+    _ = (if T = V then 1 else 0) / tableauDim lam := by
+      rw [youngAveragedRankOne_trace]
+
+/-- One matrix entry of a conjugated rank-one operator is the product of the
+corresponding two Young matrix coefficients. -/
+theorem youngConjugatedRankOne_basis_coordinate
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (S T U V : StandardYoungTableau lam)
+    (g : Perm (Fin (n + 1))) :
+    youngConjugatedRankOne action T V g (tableauBasisVec U) S =
+      youngMatrixCoefficient action S T g *
+        youngMatrixCoefficient action U V g := by
+  unfold youngConjugatedRankOne tableauRankOne
+  change action.rep.rho g
+      (action.rep.rho g.symm (tableauBasisVec U) V • tableauBasisVec T) S = _
+  rw [action.rep.map_smul]
+  rw [rho_symm_basis_coordinate]
+  simp only [Pi.smul_apply, smul_eq_mul]
+  unfold youngMatrixCoefficient
+  rw [tableauInner_left_basis, tableauInner_left_basis]
+  ring
+
+/-- The normalized product of two matrix coefficients is a matrix entry of
+the conjugation-averaged rank-one operator. -/
+theorem permInner_youngMatrixCoefficient_eq_averagedRankOne_coordinate
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (S T U V : StandardYoungTableau lam) :
+    permInner (youngMatrixCoefficient action S T)
+        (youngMatrixCoefficient action U V) =
+      youngAveragedRankOne action T V (tableauBasisVec U) S := by
+  classical
+  unfold permInner youngAveragedRankOne
+  simp only [Pi.smul_apply, Finset.sum_apply, smul_eq_mul]
+  simp_rw [youngConjugatedRankOne_basis_coordinate action S T U V]
+  rw [div_eq_mul_inv]
+  ring
+
+/-- Schur orthogonality for matrix coefficients belonging to one concrete
+Young action.  The proof is the explicit averaged-rank-one argument above. -/
+theorem youngMatrixCoefficient_orthogonality_same_shape
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action)
+    (S T U V : StandardYoungTableau lam) :
+    permInner (youngMatrixCoefficient action S T)
+        (youngMatrixCoefficient action U V) =
+      if S = U ∧ T = V then 1 / tableauDim lam else 0 := by
+  rw [permInner_youngMatrixCoefficient_eq_averagedRankOne_coordinate]
+  have hscalar := congrFun
+    (youngAveragedRankOne_scalar_on_basis
+      action content T V T U) S
+  rw [hscalar]
+  rw [youngAveragedRankOne_basisScalar action content T V T]
+  by_cases hSU : S = U
+  · subst U
+    by_cases hTV : T = V
+    · subst V
+      simp [tableauBasisVec]
+    · simp [hTV, tableauBasisVec]
+  · simp [hSU, tableauBasisVec]
 
 @[simp] theorem youngMatrixCoefficient_apply
     {n : Nat} {lam : YoungDiagram (n + 1)}
