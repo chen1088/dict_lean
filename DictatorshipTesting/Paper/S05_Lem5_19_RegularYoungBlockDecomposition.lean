@@ -7,6 +7,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_25_TableauOddHeight
 import DictatorshipTesting.Paper.Defs.S05_Def5_29_AveragedHighMatchingElement
 import DictatorshipTesting.Paper.S05_Lem5_13_TraceOfOneLocalTruncationOnOneYoungBlock
 import DictatorshipTesting.Paper.S05_Lem5_17_BlockScalarOfTheAveragedRejection
+import DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular
 import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
 import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum
 import DictatorshipTesting.Paper.AppA_LemA_03_DegreeOneYoungBlockIdentification
@@ -118,6 +119,74 @@ theorem weightedEnergyIdentity_of_pairwiseOrthogonal_components_normalized
   apply Finset.sum_congr rfl
   intro j _hj
   ring
+
+/-- One local projection error is the quadratic form of its concrete high
+matching idempotent. -/
+theorem matchingLocalProjectionError_eq_permInner_highIdempotent
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (F : Perm α → ℝ) (M : OrderedMatching α) :
+    matchingLocalProjectionError F M =
+      permInner F (S05_matchingHighIdempotent M F) := by
+  have hlocal :=
+    (L4_7_PMPerpendicular F (matchingLocalProjection M F) M
+      (L4_5_PMFixesLocal F M).1).2
+  rw [S05_Lem5_14_residual_eq_high_idempotent M F] at hlocal
+  exact hlocal.symm
+
+/-- The averaged matching projection error is the quadratic form of right
+convolution by the actual central averaged high-matching element `q`. -/
+theorem matchingMeanProjectionError_eq_inner_averagedHighConvolution
+    {n : Nat} (F : Perm (Fin n) → ℝ) :
+    matchingMeanProjectionError F =
+      permInner F
+        (rightConvolution (S05_averagedHighMatchingElement n) F) := by
+  classical
+  rw [S05_Lem5_15_matchingMeanProjectionError_eq_average]
+  simp_rw [matchingLocalProjectionError_eq_permInner_highIdempotent F]
+  rw [S05_averagedHighMatchingElement_rightConvolution]
+  unfold permInner
+  calc
+    (∑ M : NearPerfectMatching n,
+        (∑ π : Perm (Fin n),
+          F π * S05_matchingHighIdempotent M.toOrdered F π) /
+            (Fintype.card (Perm (Fin n)) : ℝ)) /
+          (Fintype.card (NearPerfectMatching n) : ℝ) =
+        ((∑ M : NearPerfectMatching n,
+            ∑ π : Perm (Fin n),
+              F π * S05_matchingHighIdempotent M.toOrdered F π) /
+            (Fintype.card (Perm (Fin n)) : ℝ)) /
+          (Fintype.card (NearPerfectMatching n) : ℝ) := by
+      congr 1
+      rw [← Finset.sum_div]
+    _ = ((∑ π : Perm (Fin n),
+          ∑ M : NearPerfectMatching n,
+            F π * S05_matchingHighIdempotent M.toOrdered F π) /
+          (Fintype.card (Perm (Fin n)) : ℝ)) /
+        (Fintype.card (NearPerfectMatching n) : ℝ) := by
+      rw [Finset.sum_comm]
+    _ = ((∑ π : Perm (Fin n),
+          ∑ M : NearPerfectMatching n,
+            F π * S05_matchingHighIdempotent M.toOrdered F π) /
+          (Fintype.card (NearPerfectMatching n) : ℝ)) /
+        (Fintype.card (Perm (Fin n)) : ℝ) := by
+      ring
+    _ = (∑ π : Perm (Fin n),
+          (∑ M : NearPerfectMatching n,
+            F π * S05_matchingHighIdempotent M.toOrdered F π) /
+              (Fintype.card (NearPerfectMatching n) : ℝ)) /
+        (Fintype.card (Perm (Fin n)) : ℝ) := by
+      rw [Finset.sum_div]
+    _ = (∑ π : Perm (Fin n),
+          F π *
+            ((∑ M : NearPerfectMatching n,
+              S05_matchingHighIdempotent M.toOrdered F π) /
+                (Fintype.card (NearPerfectMatching n) : ℝ))) /
+        (Fintype.card (Perm (Fin n)) : ℝ) := by
+      congr 1
+      apply Finset.sum_congr rfl
+      intro π _hπ
+      rw [← Finset.mul_sum]
+      ring
 
 /-- The real matrix coefficient of a faithful Young action in the standard
 tableau coordinate basis. -/

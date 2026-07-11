@@ -7,6 +7,7 @@ import DictatorshipTesting.Paper.S04_Lem4_03_PMFixesLocal
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S05_Lem5_19_RegularYoungBlockDecomposition`
 -/
 
 
