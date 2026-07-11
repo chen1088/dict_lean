@@ -15,18 +15,17 @@ Current classification:
 - Internal open finite certificates: none currently listed.
 - Current external axiom declarations are exactly the two Section 2 inputs
   `booleanU1_dictator_classification_input` and `fknStability_input`, and the
-  two Appendix A ingredient markers
-  `AppA_ThmA_01_youngOrthogonalRealization` and
+  Appendix A.2 ingredient marker
   `AppA_ThmA_02_jucysMurphyContentSpectrum`.  Lemma 5.19 is an
-  active assembly theorem from these two named inputs and the internally proved
-  A.3 equality.  Its internal concrete route
+  active assembly theorem from this named input and the internally proved A.1
+  action and A.3 equality.  Its internal concrete route
   now proves matrix-coefficient orthogonality, linear independence,
   right-convolution scalarity, the matching-error quadratic form, the internal
   coefficient-index cardinality theorem, and unconditional concrete block
   components/Parseval and the exact complementary-energy formula for
   `l2DistSqToU1`.
-- Appendix A bridge boundary: A.1 supplies the faithful Young action and A.2
-  supplies the faithful content action together with its trace/scalar payload.
+- Appendix A bridge boundary: A.1 proves the faithful Young action internally;
+  A.2 supplies the faithful content action together with its trace/scalar payload.
   A.3 proves the faithful concrete `U_1` subspace equality internally.  From A.3, Lean
   proves the numerical distance identity internally using orthogonality and the
   defining `sInf`.  Standard-tableaux swap connectedness is internal Lemma 5.3,
@@ -111,14 +110,16 @@ Proven current Section 5 components:
   `SpectralGapFromBlockScalarsWithDim` and
   `SpectralGapFromBlockModelWithDim`.
 
-External Appendix A inputs:
+External Appendix A input:
 
-- A.1 Young orthogonal realization:
-  `AppA_ThmA_01_youngOrthogonalRealization`.
 - A.2 Jucys--Murphy content spectrum:
   `AppA_ThmA_02_jucysMurphyContentSpectrum`.
 
-Internally proved Appendix A result:
+Internally proved Appendix A results:
+
+- A.1 Young orthogonal realization:
+  `AppA_ThmA_01_youngOrthogonalRealization`, constructed from
+  `adjacentWordPerm_complete` and the concrete Young adjacent operators.
 
 - A.3 degree-one Young-block identification:
   `AppA_LemA_03_degreeOneYoungBlockIdentification`.
@@ -128,7 +129,7 @@ Internal Section 5 assembly:
 - Lemma 5.19 regular Young-block decomposition:
   `spectralBlockModelInputWithDim_even_from_appA_inputs` and
   `spectralBlockModelInputWithDim_odd_from_appA_inputs` are proved from the
-  external A.1/A.2 ingredients and the internal A.3 theorem.  The same file proves concrete
+  internal A.1/A.3 and the external A.2 ingredient.  The same file proves concrete
   Young matrix coefficients, their normalized same- and distinct-shape
   orthogonality, global linear independence, right-convolution scalarity on
   every concrete shape block, and the scalar values `hEvenTableau / tableauDim`
@@ -155,8 +156,8 @@ Remaining Section 5/AppA bridge boundary:
   internally by a Young-lattice differential recurrence.  The faithful
   concrete A.3 `U_1` identification and global weighted-energy assembly are
   wired into the active model.
-- Appendix A representation theory still supplies A.1--A.2 for the active
-  paper route.  Connectedness, one-block scalarity, trace/scalar identification,
+- Appendix A representation theory still supplies A.2 for the active paper
+  route.  A.1, connectedness, one-block scalarity, trace/scalar identification,
   matrix-coefficient orthogonality, and global weighted scalarity are discharged
   internally.
 - The concrete Lemma 5.11 matching-cube operator/character/projection algebra
@@ -205,8 +206,8 @@ Remaining Section 5/AppA bridge boundary:
   low ones.
 - The Appendix A interface now uses the faithful statement definitions
   `AppA_ThmA_01_YoungOrthogonalActionStatement` and
-  `AppA_ThmA_02_JucysMurphyContentActionStatement`.  The A.1 axiom supplies the
-  former.  The A.2 axiom supplies the latter together with its trace/scalar
+  `AppA_ThmA_02_JucysMurphyContentActionStatement`.  The internal A.1 theorem
+  supplies the former.  The A.2 axiom supplies the latter together with its trace/scalar
   payload.  Their data constructs the concrete `rho_lambda(q)` and proves
   one-block scalarity.  Concrete energies are now built internally rather than
   returned by an arbitrary A.1 numerical package.
@@ -293,6 +294,12 @@ Proved internally:
   word moves, defines the adjacent-word permutation shadow `adjacentWordPerm`,
   and descends both the operator and permutation shadow to the formal quotient
   `AdjacentCoxeterClass`.
+- `S05_Int_AdjacentCoxeterPresentation.lean` proves an explicit ascending
+  top-segment normal form and `adjacentWordPerm_complete`, so the formal
+  quotient is identified with permutations.  It defines
+  `youngPermutationOperator`, proves linearity, identity, multiplicativity, and
+  the literal adjacent-generator equation, and packages
+  `YoungOrthogonalActionData`.
 - The strongest paper-facing package currently exposed is
   `S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel`.
 
@@ -300,12 +307,8 @@ Not proved, and not claimed:
 
 - The coordinate model has not been identified with the classical Specht module
   or irreducible Young orthogonal representation.
-- There is no full action of `Equiv.Perm (Fin (n+1))` on `TableauSpace lam`
-  defined from arbitrary permutations.  The precise missing theorem is the
-  type-A symmetric-group Coxeter presentation/Matsumoto theorem for adjacent
-  words, or a mathlib `CoxeterSystem (CoxeterMatrix.A n)
-  (Equiv.Perm (Fin (n+1)))` interface connecting the adjacent-word quotient to
-  permutations.
+- No Specht irreducibility or classification theorem is claimed by A.1; its
+  required concrete symmetric-group action is now fully constructed.
 
 ## TableauDim Migration Status
 
@@ -332,7 +335,7 @@ interface through Lemmas 5.18--5.21.  The remaining Section 5 mathematical
 input for this active route is the tableauDim spectral block model itself:
 Young-block decomposition, `U_1` identification, trace/scalar value with block
 dimension `tableauDim`, and matching-average scalarity.  Lemma 5.19 constructs
-  that model from faithful external Appendix A.1--A.2 and internal A.3;
+  that model from faithful internal Appendix A.1/A.3 and external A.2;
   scalarity is proved internally.
 
 The newest internal representation-layer objects are still coordinate-level:
@@ -345,8 +348,8 @@ Lemma 5.1 and are tracked separately below.
 The current Section 5 source has 30 numbered definitions and 27 numbered result
 statements when remarks and Appendix A inputs are excluded.  The paper-facing
 Lean file count is 57.  The full statement-to-file map is maintained in
-`DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`; the three remaining Appendix A
-external inputs are mapped in
+`DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`; the three Appendix A
+statements, including the one remaining external input A.2, are mapped in
 `DictatorshipTesting/Paper/APPENDIX_A_FILE_MAP.md`.
 
 The most important numbering corrections after the Lemma 5.1 rewrite are:
@@ -507,9 +510,13 @@ Lean names consumed downstream:
 `spectralBlockModelInputWithDim_odd_from_appendixA`,
 and `SpectralBlockModelInputWithDim`.
 
-Raw Appendix A axiom declarations:
-`AppA_ThmA_01_youngOrthogonalRealization`,
-and `AppA_ThmA_02_jucysMurphyContentSpectrum`.
+Raw Appendix A axiom declaration:
+`AppA_ThmA_02_jucysMurphyContentSpectrum`.
+
+Appendix A.1 is the ordinary theorem
+`AppA_ThmA_01_youngOrthogonalRealization`, proved in
+`S05_Int_AdjacentCoxeterPresentation.lean` from the complete type-A
+adjacent-word presentation.
 
 Appendix A.3 is the ordinary theorem
 `AppA_LemA_03_degreeOneYoungBlockIdentification`, proved in
@@ -519,9 +526,9 @@ decomposition.
 Standard-tableaux connectedness is internally proved as Lemma 5.3 by
 `S05_Lem5_03_standardTableauxSwapConnectedness`.
 
-Current status: the two Appendix A declarations above are named external
-axioms, not `sorry` declarations.  Together with the two Section 2 Filmus
-inputs, they are exactly the remaining axiom declarations.
+Current status: the Appendix A.2 declaration above is a named external axiom,
+not a `sorry` declaration.  Together with the two Section 2 Filmus inputs, it
+is exactly the remaining axiom declarations.
 
 Mathematical content: the regular representation decomposes `F` into
 nonnegative Young-block energies whose non-`U_1` sum is `l2DistSqToU1 F`;
@@ -545,7 +552,7 @@ The sum-of-squares/cardinality obstruction is closed by
 `card_YoungMatrixCoefficientIndex_eq_perm`, proved without an RSK axiom.  The
 faithful concrete A.3 equality and its distance consequence are now wired into
 the active model.  The full weighted matching identity is internal; the
-remaining external boundary is precisely faithful Appendix A.1--A.2.
+remaining external boundary is precisely faithful Appendix A.2.
 
 Citation target if external: regular representation/Specht decomposition and
 Schur's lemma from standard finite-group representation theory; the

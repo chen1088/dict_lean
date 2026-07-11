@@ -46,10 +46,12 @@ The scaffold contains real Lean proofs for the elementary Boolean-cube,
 matching-cube, and averaging steps that have been formalized so far.  A small
 number of hard results are intentionally isolated behind named declarations or
 named external axioms.  There are no remaining `sorry` declarations.  The named
-external axioms are the two Section 2 Filmus inputs and the two Appendix A
-representation-theory ingredient markers A.1 and A.2.  Standard-tableaux swap
-connectedness is proved internally as Lemma 5.3, and A.3 is proved internally
-by the explicit permutation-coordinate decomposition.  Lemma 5.19 now proves the
+external axioms are the two Section 2 Filmus inputs and the Appendix A.2
+Jucys--Murphy/content input.  Appendix A.1 is proved internally from the
+complete type-A adjacent-word normal form and the Coxeter relations of Lemma
+5.1.  Standard-tableaux swap connectedness is proved internally as Lemma 5.3,
+and A.3 is proved internally by the explicit permutation-coordinate
+decomposition.  Lemma 5.19 now proves the
 concrete Young matrix-coefficient construction, same- and distinct-shape
 orthogonality, global linear independence, right-convolution scalarity, the
   `h / d` block scalar, and the matching-error quadratic-form identity.  The
@@ -291,7 +293,8 @@ Generic commutant infrastructure for Lemma 5.16:
   action on the full matrix-coordinate block contributes the factor
   `tableauDim` from the free left tableau index.
 
-The A.1 axiom now has the faithful Young-action type.  The A.2 axiom supplies
+The A.1 theorem now constructs the faithful Young action internally from the
+type-A Coxeter presentation.  The A.2 axiom supplies
 the faithful Jucys--Murphy content action together with the trace/scalar payload
 used by the active matching calculation.  A.3 is proved internally as the
 faithful equality between `U_1` and the concrete one-row plus standard block
@@ -314,15 +317,15 @@ Proven Lemma 5.18 trace-model-to-gap algebra:
   including wrappers that start from scalarity, a block trace identity,
   dimension positivity, and a finite certificate.
 
-Appendix A representation-theory boundary for Lemma 5.1:
+Internal type-A action for Lemma 5.1 and Appendix A.1:
 
-- The Lean development does not claim a classical Specht-module
-  identification for the coordinate model, nor a full action of arbitrary
-  `Equiv.Perm (Fin (n+1))` on `TableauSpace lam`.  The precise missing
-  infrastructure is the type-A symmetric-group Coxeter presentation/Matsumoto
-  theorem for adjacent words, or a usable mathlib `CoxeterSystem
-  (CoxeterMatrix.A n) (Equiv.Perm (Fin (n+1)))` connecting the adjacent-word
-  quotient to permutations.
+- `S05_Int_AdjacentCoxeterPresentation.lean` proves an explicit ascending
+  top-segment normal form for adjacent words and the completeness theorem
+  `adjacentWordPerm_complete`.  It uses this presentation to define a linear,
+  multiplicative action of every `Equiv.Perm (Fin (n+1))` on
+  `TableauSpace lam`, with each literal adjacent transposition acting as
+  `youngAdjacentOperator`.  This proves the faithful action interface required
+  by A.1; it does not assert Specht irreducibility or classification.
 
 External standard inputs:
 
@@ -369,8 +372,8 @@ External standard inputs:
   through Lemma 5.19 theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.  Those wrappers are
-  produced by Lemma 5.19 from the explicit A.1/A.2 marker axioms and the
-  internally proved A.3 equality.  The
+  produced by Lemma 5.19 from the internally proved A.1 action, the explicit
+  A.2 marker axiom, and the internally proved A.3 equality.  The
   concrete matrix-coefficient, completeness, one-block scalarity, faithful A.3
   distance adapter, and global weighted-energy assembly are internal.
 
@@ -432,8 +435,8 @@ Section 5 spectral-bridge files make the missing representation theory explicit
 through Lemma 5.19 theorem wrappers:
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.  The remaining axiom
-declarations used by this bridge are exactly the Appendix A.1/A.2 marker
-inputs; Lemma 5.19 combines them with the internal A.3 theorem through its
+declaration used by this bridge is exactly the Appendix A.2 marker input;
+Lemma 5.19 combines it with the internal A.1 action and A.3 theorem through its
 assembly theorems.
 
 The coefficient-index cardinality theorem

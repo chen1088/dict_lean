@@ -8,7 +8,8 @@ Source checked: `../dictatorship_testing_soda27_latest.tex`.
   (`lemma`, `proposition`, `theorem`, and `corollary` environments).  The two
   counters are separate.
 - Section 5 paper-facing Lean file count is 57.
-- Appendix A has 3 numbered external-input statements and 3 Lean-facing files.
+- Appendix A has 3 numbered statements and 3 Lean-facing files; only A.2
+  remains an external input.
 - No two Section 5 definition files share a definition number, and no two
   Section 5 result files share a lemma/theorem number.
 - Interface definitions formerly bundled into larger results are now exposed as
@@ -100,8 +101,8 @@ Detailed maps:
 - Faithful operator-only Appendix A interfaces are now defined as
   `YoungOrthogonalActionData` and `JucysMurphyContentActionData`.  Their adapter
   constructs `YoungRepresentationActionData`, so A.1 action data plus A.2
-  content data now reaches the concrete Definition 5.29 operator without
-  putting scalarity into either external interface.  A.1 now identifies the
+  content data now reaches the concrete Definition 5.29 operator; one-block
+  scalarity is proved internally.  The internally proved A.1 action identifies the
   literal adjacent swap `(a,a+1)`, rather than an arbitrary permutation, with
   the concrete Young adjacent operator.
 - Definition 5.30 defines `tableauOperatorTrace`, proves the scalar trace and
@@ -127,12 +128,13 @@ Detailed maps:
   The faithful A.3 subspace equality is now proved internally and gives the
   exact `l2DistSqToU1` complementary-energy identity by an internal `sInf`
   argument.
-- A.1 now has the faithful Young-action axiom type.  A.2 supplies faithful
+- A.1 now constructs the faithful Young action internally from the complete
+  type-A adjacent-word presentation.  A.2 supplies faithful
   content-action data together with its trace/scalar payload.  A.3 proves the
   faithful one-row-plus-standard subspace equality internally.  Lemma 5.19 now
   proves the final global weighted matching identity in both parity cases.
-- Appendix A exposes explicit marker axioms for A.1 and A.2.  Lemma 5.19
-  combines those markers with internal A.3 and the proved scalarity identities to
+- Appendix A exposes one explicit marker axiom for A.2.  Lemma 5.19 combines
+  that marker with internal A.1/A.3 and the proved scalarity identities to
   produce the even/odd spectral-model theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.
@@ -141,6 +143,8 @@ Detailed maps:
 
 - Definitions 5.1--5.5 expose the numbered tableau-preliminary interfaces.
 - Lemma 5.1 exposes the concrete tableau-coordinate Coxeter model.
+- `S05_Int_AdjacentCoxeterPresentation.lean` proves completeness of its type-A
+  word relations and constructs the full permutation action used by A.1.
 - Lemma 5.2 is proved internally for explicit diagonal content operators.
 - Lemma 5.3 proves standard-tableaux adjacent-swap connectedness internally.
 - Lemma 5.4 proves the fixed two-step tableau branching equivalence.
@@ -175,7 +179,7 @@ Detailed maps:
   the A.3 complementary-energy formula for `l2DistSqToU1`.  It also proves
   `S05_matchingAverageScalarity_concrete_even` and
   `S05_matchingAverageScalarity_concrete_odd`; its active paper wrappers now
-  assemble external Appendix A.1--A.2 and internal A.3 into
+  assemble internal Appendix A.1/A.3 and external A.2 into
   `SpectralBlockModelInputWithDim`.
 - Lemmas 5.20 and 5.21 prove the even and odd algebraic spectral bridges from
   explicit spectral-block-model hypotheses plus finite certificates.
@@ -184,11 +188,15 @@ Detailed maps:
 
 ## Appendix A Boundary
 
-The following remain external inputs rather than Lean-proved representation
-theorems:
+The following remains an external input rather than a Lean-proved
+representation theorem:
 
-- A.1 Young orthogonal realization.
 - A.2 Jucys--Murphy content spectrum.
+
+A.1 Young orthogonal realization is proved internally in
+`S05_Int_AdjacentCoxeterPresentation.lean`: an explicit top-segment normal form
+proves completeness of the type-A Coxeter relations and constructs the full
+permutation action with the required adjacent-generator formula.
 
 A.3 degree-one Young-block identification is proved internally in
 `S05_Int_DegreeOneYoungBlock.lean`.
@@ -196,9 +204,9 @@ A.3 degree-one Young-block identification is proved internally in
 Standard-tableaux connectedness is proved internally as Lemma 5.3 in
 `S05_Lem5_03_ConnectednessOfStandardTableaux.lean`.
 
-The Appendix A files add only the A.1/A.2 external marker axioms.  Lemma 5.19
-proves matching-average scalarity internally and assembles those two external
-ingredients together with internal A.3 into the spectral model wrappers.  The current Section 5
+The Appendix A files add only the A.2 external marker axiom.  Lemma 5.19 proves
+matching-average scalarity internally and assembles external A.2 together with
+internal A.1/A.3 into the spectral model wrappers.  The current Section 5
 tableau-count dimension route also no longer registers the older `youngDim`
 dimension-branching instances.
 
@@ -207,4 +215,4 @@ standard-tableau sum-of-squares identity are proved internally from the
 Young-lattice differential relation.  A.3 now proves the faithful concrete
 subspace equality, and its exact distance consequence is proved internally.
 The even and odd weighted matching-energy identities are also proved internally;
-the remaining external representation boundary is exactly A.1--A.2.
+the remaining external representation boundary is exactly A.2.

@@ -4,6 +4,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_05_ContentAndAdjacentOperators
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization`
+- `DictatorshipTesting.Paper.S05_Int_AdjacentCoxeterPresentation`
 - `DictatorshipTesting.Paper.Defs.AppA_DefA_02_JucysMurphyContentActionData`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_28_GroupAlgebraAction`
 -/

@@ -6,17 +6,17 @@ window.DICT_DEPENDENCY_DATA = {
       "label": "App A.1",
       "title": "Young orthogonal realization",
       "section": "Appendix A",
-      "kind": "external",
+      "kind": "paper",
       "importance": "normal",
-      "status": "external",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/AppA_ThmA_01_YoungOrthogonalRealization.lean",
       "wrappers": [
         "AppA_ThmA_01_YoungOrthogonalActionStatement",
         "AppA_ThmA_01_youngOrthogonalRealization"
       ],
-      "deps": [],
-      "summary": "External axiom in faithful Young-action form.",
-      "statement": "App A.1 supplies YoungOrthogonalActionData: a linear multiplicative symmetric-group action whose adjacent generators are the explicit Young operators. The active concrete block decomposition consumes this faithful action directly.",
+      "deps": ["S05_L01"],
+      "summary": "Internally proved faithful Young action from the complete type-A adjacent-word presentation.",
+      "statement": "App A.1 constructs YoungOrthogonalActionData: a linear multiplicative symmetric-group action whose literal adjacent transpositions are the explicit Young operators. An ascending top-segment normal form proves completeness of the Coxeter word relations.",
       "terms": [],
       "paperLabel": "thm:app-young-orthogonal",
       "paperEnv": "theorem",
@@ -24,7 +24,7 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "AppA_ThmA_01_YoungOrthogonalActionStatement",
-          "line": 30
+          "line": 29
         },
         {
           "name": "AppA_ThmA_01_youngOrthogonalRealization",
@@ -2942,8 +2942,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_L17",
         "S05_L02"
       ],
-      "summary": "Concrete block decomposition, faithful A.3 distance identity, and both global weighted matching identities are proved; only Appendix A.1-A.2 remain external.",
-      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, internal tableau sum-of-squares and coefficient-index cardinality, unconditional spanning and basis constructions, concrete block components and energies, Parseval, the exact l2DistSqToU1 complementary-energy identity from faithful A.3, U1 annihilation by averaged high convolution, the h/d component action, and the even/odd global weighted matching identities. Its active spectral-model wrappers consume external faithful Appendix A.1-A.2 and internal A.3.",
+      "summary": "Concrete block decomposition, faithful A.3 distance identity, and both global weighted matching identities are proved; only Appendix A.2 remains external.",
+      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, internal tableau sum-of-squares and coefficient-index cardinality, unconditional spanning and basis constructions, concrete block components and energies, Parseval, the exact l2DistSqToU1 complementary-energy identity from faithful A.3, U1 annihilation by averaged high convolution, the h/d component action, and the even/odd global weighted matching identities. Its active spectral-model wrappers consume internal faithful Appendix A.1/A.3 and external A.2.",
       "terms": [
         {
           "text": "Young-block energy profile",

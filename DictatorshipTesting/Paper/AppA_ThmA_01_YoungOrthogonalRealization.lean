@@ -1,5 +1,6 @@
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
 import DictatorshipTesting.Paper.Defs.AppA_DefA_01_YoungOrthogonalActionData
+import DictatorshipTesting.Paper.S05_Int_AdjacentCoxeterPresentation
 
 /-
 Direct reverse imports:
@@ -12,11 +13,9 @@ Direct reverse imports:
 Paper statement: Theorem A.1 (`thm:app-young-orthogonal`)
 Title in paper: Young orthogonal realization.
 
-Status: external: ingredient bundled into Lemma 5.19.  This file is kept
-separate from the internal Section 5 coordinate Coxeter proof: the classical
-Young orthogonal/Specht realization is consumed in Lean through the Lemma 5.19
-spectral-block assembly theorem in
-`S05_Lem5_19_RegularYoungBlockDecomposition`.
+Status: proven internally.  The type-A Coxeter normal form identifies adjacent
+words modulo the relations of Lemma 5.1 with permutations.  The explicit Young
+adjacent operators therefore define the required symmetric-group action.
 -/
 
 
@@ -44,8 +43,13 @@ faithful operator-level Young orthogonal realization. -/
 def AppA_ThmA_01_YoungOrthogonalRealizationStatement : Prop :=
   AppA_ThmA_01_YoungOrthogonalActionStatement
 
-/-- External A.1 input in its faithful operator-level form. -/
-axiom AppA_ThmA_01_youngOrthogonalRealization :
-    AppA_ThmA_01_YoungOrthogonalRealizationStatement
+/-- The faithful A.1 action, constructed from the complete type-A Coxeter
+presentation and the adjacent Young operators of Lemma 5.1. -/
+theorem AppA_ThmA_01_youngOrthogonalRealization :
+    AppA_ThmA_01_YoungOrthogonalRealizationStatement := by
+  unfold AppA_ThmA_01_YoungOrthogonalRealizationStatement
+  unfold AppA_ThmA_01_YoungOrthogonalActionStatement
+  intro n lam
+  exact youngOrthogonalActionData_nonempty lam
 
 end DictatorshipTesting

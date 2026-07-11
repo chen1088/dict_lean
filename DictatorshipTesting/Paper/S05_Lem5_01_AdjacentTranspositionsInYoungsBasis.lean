@@ -4,6 +4,7 @@ import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_02_DiagonalContentEigenspaces`
+- `DictatorshipTesting.Paper.S05_Int_AdjacentCoxeterPresentation`
 -/
 
 
