@@ -5,6 +5,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_28_GroupAlgebraAction
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_30_TableauOperatorTrace`
+- `DictatorshipTesting.Paper.S05_Lem5_19_RegularYoungBlockDecomposition`
 -/
 
 /-!

@@ -4,6 +4,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_07_YoungBlockEnergyProfile
 import DictatorshipTesting.Paper.Defs.S05_Def5_08_U1CompatibleYoungBlockProfile
 import DictatorshipTesting.Paper.Defs.S05_Def5_24_TableauEvenHeight
 import DictatorshipTesting.Paper.Defs.S05_Def5_25_TableauOddHeight
+import DictatorshipTesting.Paper.Defs.S05_Def5_29_AveragedHighMatchingElement
 import DictatorshipTesting.Paper.S05_Lem5_17_BlockScalarOfTheAveragedRejection
 import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
 import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum
@@ -111,6 +112,270 @@ theorem weightedEnergyIdentity_of_pairwiseOrthogonal_components_normalized
   apply Finset.sum_congr rfl
   intro j _hj
   ring
+
+/-- The real matrix coefficient of a faithful Young action in the standard
+tableau coordinate basis. -/
+def youngMatrixCoefficient {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (S T : StandardYoungTableau lam) :
+    Perm (Fin (n + 1)) → ℝ :=
+  fun π =>
+    tableauInner (tableauBasisVec S)
+      (action.rep.rho π (tableauBasisVec T))
+
+/-- A finite linear combination of all matrix coefficients of one Young
+action.  No injectivity, orthogonality, or spanning assertion is built into
+this definition. -/
+def youngBlockSynthesis {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (coeff : StandardYoungTableau lam × StandardYoungTableau lam → ℝ) :
+    Perm (Fin (n + 1)) → ℝ :=
+  fun π =>
+    ∑ ST : StandardYoungTableau lam × StandardYoungTableau lam,
+      coeff ST * youngMatrixCoefficient action ST.1 ST.2 π
+
+/-- The concrete matrix-coefficient block of one supplied Young action.  It is
+the linear span of the actual group functions `youngMatrixCoefficient` for
+that shape. -/
+def youngMatrixCoefficientBlock {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam) :
+    Submodule ℝ (Perm (Fin (n + 1)) → ℝ) :=
+  Submodule.span ℝ
+    (Set.range fun ST :
+      StandardYoungTableau lam × StandardYoungTableau lam =>
+        youngMatrixCoefficient action ST.1 ST.2)
+
+/-- Every explicitly synthesized matrix-coefficient combination lies in the
+concrete block span. -/
+theorem youngBlockSynthesis_mem_youngMatrixCoefficientBlock
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (coeff : StandardYoungTableau lam × StandardYoungTableau lam → ℝ) :
+    youngBlockSynthesis action coeff ∈
+      youngMatrixCoefficientBlock action := by
+  classical
+  have hsum :
+      (∑ ST : StandardYoungTableau lam × StandardYoungTableau lam,
+        coeff ST • youngMatrixCoefficient action ST.1 ST.2) ∈
+          youngMatrixCoefficientBlock action := by
+    apply Submodule.sum_mem
+    intro ST _hST
+    apply Submodule.smul_mem
+    exact Submodule.subset_span ⟨ST, rfl⟩
+  have hsynthesis :
+      youngBlockSynthesis action coeff =
+        ∑ ST : StandardYoungTableau lam × StandardYoungTableau lam,
+          coeff ST • youngMatrixCoefficient action ST.1 ST.2 := by
+    funext π
+    simp [youngBlockSynthesis, Finset.sum_apply, Pi.smul_apply, smul_eq_mul]
+  rw [hsynthesis]
+  exact hsum
+
+@[simp] theorem youngMatrixCoefficient_apply
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (S T : StandardYoungTableau lam) (π : Perm (Fin (n + 1))) :
+    youngMatrixCoefficient action S T π =
+      action.rep.rho π (tableauBasisVec T) S := by
+  simpa [youngMatrixCoefficient] using
+    tableauInner_left_basis S
+      (action.rep.rho π (tableauBasisVec T))
+
+/-- With the repository's convention `(C_a F)(x) = sum_g a(g) F(xg)`, right
+convolution acts on the right tableau coordinate of a Young matrix
+coefficient. -/
+theorem rightConvolution_youngMatrixCoefficient
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (a : GroupAlgebraElement (Perm (Fin (n + 1))))
+    (S T : StandardYoungTableau lam) :
+    rightConvolution a (youngMatrixCoefficient action S T) =
+      fun x =>
+        ∑ U : StandardYoungTableau lam,
+          repOfGroupAlgebraElement action.rep a (tableauBasisVec T) U *
+            youngMatrixCoefficient action S U x := by
+  classical
+  funext x
+  let v : TableauSpace lam :=
+    repOfGroupAlgebraElement action.rep a (tableauBasisVec T)
+  have hv_expand :
+      v = ∑ U : StandardYoungTableau lam,
+        v U • tableauBasisVec U := by
+    funext W
+    simpa [Finset.sum_apply, Pi.smul_apply, smul_eq_mul] using
+      congrFun (tableauBasis_expansion v) W
+  calc
+    rightConvolution a (youngMatrixCoefficient action S T) x =
+        ∑ g : Perm (Fin (n + 1)),
+          a g * action.rep.rho (x * g) (tableauBasisVec T) S := by
+      simp only [rightConvolution, youngMatrixCoefficient_apply]
+    _ = ∑ g : Perm (Fin (n + 1)),
+        a g * action.rep.rho x
+          (action.rep.rho g (tableauBasisVec T)) S := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      rw [action.rep.map_mul]
+    _ = action.rep.rho x v S := by
+      unfold v repOfGroupAlgebraElement
+      calc
+        (∑ g : Perm (Fin (n + 1)),
+          a g * action.rep.rho x
+            (action.rep.rho g (tableauBasisVec T)) S) =
+            (∑ g : Perm (Fin (n + 1)),
+              a g • action.rep.rho x
+                (action.rep.rho g (tableauBasisVec T))) S := by
+          simp [Finset.sum_apply]
+        _ = (∑ g : Perm (Fin (n + 1)),
+              action.rep.rho x
+                (a g • action.rep.rho g (tableauBasisVec T))) S := by
+          apply congrArg (fun f : TableauSpace lam => f S)
+          apply Finset.sum_congr rfl
+          intro g _hg
+          rw [action.rep.map_smul]
+        _ = action.rep.rho x
+              (∑ g : Perm (Fin (n + 1)),
+                a g • action.rep.rho g (tableauBasisVec T)) S := by
+          apply congrArg (fun f : TableauSpace lam => f S)
+          change
+            (∑ g : Perm (Fin (n + 1)),
+              (action.rep.linearMap x)
+                (a g • action.rep.rho g (tableauBasisVec T))) =
+              (action.rep.linearMap x)
+                (∑ g : Perm (Fin (n + 1)),
+                  a g • action.rep.rho g (tableauBasisVec T))
+          exact
+            (map_sum (action.rep.linearMap x)
+              (fun g : Perm (Fin (n + 1)) =>
+                a g • action.rep.rho g (tableauBasisVec T))
+              Finset.univ).symm
+    _ = action.rep.rho x
+        (∑ U : StandardYoungTableau lam,
+          v U • tableauBasisVec U) S := by
+      exact congrArg (fun w : TableauSpace lam => action.rep.rho x w S)
+        hv_expand
+    _ = ∑ U : StandardYoungTableau lam,
+        v U * action.rep.rho x (tableauBasisVec U) S := by
+      calc
+        action.rep.rho x
+            (∑ U : StandardYoungTableau lam,
+              v U • tableauBasisVec U) S =
+            (∑ U : StandardYoungTableau lam,
+              action.rep.rho x (v U • tableauBasisVec U)) S := by
+          apply congrArg (fun f : TableauSpace lam => f S)
+          change
+            (action.rep.linearMap x)
+                (∑ U : StandardYoungTableau lam,
+                  v U • tableauBasisVec U) =
+              ∑ U : StandardYoungTableau lam,
+                (action.rep.linearMap x) (v U • tableauBasisVec U)
+          exact
+            map_sum (action.rep.linearMap x)
+              (fun U : StandardYoungTableau lam =>
+                v U • tableauBasisVec U) Finset.univ
+        _ = ∑ U : StandardYoungTableau lam,
+            v U * action.rep.rho x (tableauBasisVec U) S := by
+          simp [action.rep.map_smul, Finset.sum_apply]
+    _ = ∑ U : StandardYoungTableau lam,
+        repOfGroupAlgebraElement action.rep a (tableauBasisVec T) U *
+          youngMatrixCoefficient action S U x := by
+      apply Finset.sum_congr rfl
+      intro U _hU
+      simp only [v, youngMatrixCoefficient_apply]
+
+/-- The actual averaged high-matching convolution is scalar on every matrix
+coefficient of one supplied faithful Young action.  The scalar is the one
+already proved for the represented tableau-coordinate operator. -/
+theorem rightConvolution_averagedHigh_on_youngMatrixCoefficient
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action)
+    (T0 S T : StandardYoungTableau lam) :
+    rightConvolution (S05_averagedHighMatchingElement (n + 1))
+        (youngMatrixCoefficient action S T) =
+      fun x =>
+        (AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
+            (S05_averagedRejectionYoungOperatorData_from_appendixA
+              action content)).basisScalar T0 *
+          youngMatrixCoefficient action S T x := by
+  classical
+  rw [rightConvolution_youngMatrixCoefficient]
+  funext x
+  have hscalar :=
+    S05_averagedRejectionYoungOperator_scalar_from_appendixA
+      action content T0 T
+  change
+    repOfGroupAlgebraElement action.rep
+        (S05_averagedHighMatchingElement (n + 1)) (tableauBasisVec T) =
+      fun U =>
+        (AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
+            (S05_averagedRejectionYoungOperatorData_from_appendixA
+              action content)).basisScalar T0 * tableauBasisVec T U at hscalar
+  rw [hscalar]
+  rw [Fintype.sum_eq_single T]
+  · simp
+  · intro U hUT
+    simp [tableauBasisVec, hUT]
+
+/-- The actual averaged high-matching convolution is scalar on the entire
+concrete matrix-coefficient block, not only on its named generators. -/
+theorem rightConvolution_averagedHigh_scalar_on_youngMatrixCoefficientBlock
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action)
+    (T0 : StandardYoungTableau lam)
+    {F : Perm (Fin (n + 1)) → ℝ}
+    (hF : F ∈ youngMatrixCoefficientBlock action) :
+    rightConvolution (S05_averagedHighMatchingElement (n + 1)) F =
+      fun x =>
+        (AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
+            (S05_averagedRejectionYoungOperatorData_from_appendixA
+              action content)).basisScalar T0 * F x := by
+  classical
+  let q := S05_averagedHighMatchingElement (n + 1)
+  let c :=
+    (AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
+      (S05_averagedRejectionYoungOperatorData_from_appendixA
+        action content)).basisScalar T0
+  refine Submodule.span_induction
+    (p := fun F _ => rightConvolution q F = fun x => c * F x)
+    ?mem ?zero ?add ?smul hF
+  · intro Φ hΦ
+    rcases hΦ with ⟨ST, rfl⟩
+    exact rightConvolution_averagedHigh_on_youngMatrixCoefficient
+      action content T0 ST.1 ST.2
+  · funext x
+    simp [rightConvolution]
+  · intro F₁ F₂ _hF₁mem _hF₂mem hF₁ hF₂
+    change rightConvolution q (fun x => F₁ x + F₂ x) =
+      fun x => c * (F₁ x + F₂ x)
+    rw [rightConvolution_add, hF₁, hF₂]
+    funext x
+    ring
+  · intro a F _hFmem hscalar
+    change rightConvolution q (fun x => a * F x) =
+      fun x => c * (a * F x)
+    rw [rightConvolution_smul, hscalar]
+    funext x
+    ring
+
+/-- Scalarity of the averaged high-matching convolution on an explicitly
+synthesized element of one Young matrix-coefficient block. -/
+theorem rightConvolution_averagedHigh_youngBlockSynthesis
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action)
+    (T0 : StandardYoungTableau lam)
+    (coeff : StandardYoungTableau lam × StandardYoungTableau lam → ℝ) :
+    rightConvolution (S05_averagedHighMatchingElement (n + 1))
+        (youngBlockSynthesis action coeff) =
+      fun x =>
+        (AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
+            (S05_averagedRejectionYoungOperatorData_from_appendixA
+              action content)).basisScalar T0 *
+          youngBlockSynthesis action coeff x := by
+  exact rightConvolution_averagedHigh_scalar_on_youngMatrixCoefficientBlock
+    action content T0
+      (youngBlockSynthesis_mem_youngMatrixCoefficientBlock action coeff)
 
 /-- Lemma 5.19 model projection: each Young-block energy is nonnegative. -/
 theorem S05_Lem5_19_blockEnergy_nonnegative {n : Nat}
