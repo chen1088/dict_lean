@@ -21,10 +21,8 @@ linearly independent, its block components and Parseval identity are
 unconditional, and the Young-tableau sum-of-squares equality is internal.
 Faithful A.3 is connected to the active numerical model by the internally
 proved complementary-energy distance theorem.
-The matching-average bridge is now isolated as the Section 5 input
-`S05_matchingAverageScalarity_from_young_model_input`,
-outside Appendix A.  The regular Young-block decomposition has moved to
-Section 5 as Lemma 5.19.  Its theorem wrappers
+The matching-average bridge is proved internally in Section 5 as part of Lemma
+5.19.  The regular Young-block decomposition theorem wrappers
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA` are the names used
 downstream by Theorem 4.8.

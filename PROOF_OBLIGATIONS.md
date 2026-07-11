@@ -18,10 +18,8 @@ Current classification:
   Appendix A ingredient markers
   `AppA_ThmA_01_youngOrthogonalRealization`,
   `AppA_ThmA_02_jucysMurphyContentSpectrum` and
-  `AppA_LemA_03_degreeOneYoungBlockIdentification`; and the Section 5 scalarity
-  bridge input
-  `S05_matchingAverageScalarity_from_young_model_input`.  Lemma 5.19 is an
-  active assembly theorem from these named inputs.  Its internal concrete route
+  `AppA_LemA_03_degreeOneYoungBlockIdentification`.  Lemma 5.19 is an
+  active assembly theorem from these three named inputs.  Its internal concrete route
   now proves matrix-coefficient orthogonality, linear independence,
   right-convolution scalarity, the matching-error quadratic form, the internal
   coefficient-index cardinality theorem, and unconditional concrete block
@@ -32,9 +30,8 @@ Current classification:
   and A.3 states the faithful concrete `U_1` subspace equality.  From A.3, Lean
   proves the numerical distance identity internally using orthogonality and the
   defining `sInf`.  Standard-tableaux swap connectedness is internal Lemma 5.3,
-  and Young-tableau sum-of-squares completeness is internal.  The remaining
-  Section 5 bridge obligation is the global weighted matching identity isolated
-  by `S05_matchingAverageScalarity_from_young_model_input`.
+  Young-tableau sum-of-squares completeness is internal, and the concrete
+  even/odd global weighted matching identities are now proved internally.
 - Old `youngDim` dimension axiom instances are gone.  The older `youngDim`
   wrappers remain only as theorems with explicit typeclass hypotheses, and no
   instance is registered for those hypotheses.
@@ -128,9 +125,7 @@ Internal Section 5 assembly:
 - Lemma 5.19 regular Young-block decomposition:
   `spectralBlockModelInputWithDim_even_from_appA_inputs` and
   `spectralBlockModelInputWithDim_odd_from_appA_inputs` are proved from the
-  external A.1/A.2/A.3 ingredients and
-  `S05_matchingAverageScalarity_from_young_model_input`.
-  Independently of those assembly wrappers, the same file proves concrete
+  external A.1/A.2/A.3 ingredients.  The same file proves concrete
   Young matrix coefficients, their normalized same- and distinct-shape
   orthogonality, global linear independence, right-convolution scalarity on
   every concrete shape block, and the scalar values `hEvenTableau / tableauDim`
@@ -140,7 +135,9 @@ Internal Section 5 assembly:
   `sum_tableauDimNat_sq_eq_factorial`, proves
   `card_YoungMatrixCoefficientIndex_eq_perm`, and unconditionally constructs a
   basis, concrete shape components and energies, pairwise orthogonality, and
-  Parseval.
+  Parseval.  It also proves the global weighted matching identities
+  `S05_matchingAverageScalarity_concrete_even` and
+  `S05_matchingAverageScalarity_concrete_odd`.
 
 Remaining Section 5/AppA bridge boundary:
 
@@ -148,17 +145,17 @@ Remaining Section 5/AppA bridge boundary:
   explicit `SpectralBlockModelInputWithDim` hypothesis for the `tableauDim`
   model with `hEvenTableau` and `hOddTableau` heights.
 - Lemma 5.19 supplies the `SpectralBlockModelInputWithDim` / spectral-block
-  model input for the paper application from Appendix A ingredients plus the
-  Section 5 scalarity bridge input.
+  model input for the paper application from Appendix A ingredients; its
+  scalarity field is constructed by the internal concrete weighted identities.
 - The concrete coefficient-index cardinality theorem and the equivalent
   `sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!` identity are proved
   internally by a Young-lattice differential recurrence.  The faithful
-  concrete A.3 `U_1` identification and final global weighted-energy assembly
-  remain.
+  concrete A.3 `U_1` identification and global weighted-energy assembly are
+  wired into the active model.
 - Appendix A representation theory still supplies A.1--A.3 for the active
-  paper route.  Matching-average scalarity remains a named Section 5 bridge
-  input; connectedness, one-block scalarity, trace/scalar identification, and
-  matrix-coefficient orthogonality are discharged internally.
+  paper route.  Connectedness, one-block scalarity, trace/scalar identification,
+  matrix-coefficient orthogonality, and global weighted scalarity are discharged
+  internally.
 - The concrete Lemma 5.11 matching-cube operator/character/projection algebra
   is proved. Its signed two-box child embeddings are explicit and their
   isometry, final-edge sign, earlier-edge intertwining, pairwise orthogonality,
@@ -331,8 +328,8 @@ Active path note: Theorem 4.8 now uses the dimension-parametric `tableauDim`
 interface through Lemmas 5.18--5.21.  The remaining Section 5 mathematical
 input for this active route is the tableauDim spectral block model itself:
 Young-block decomposition, `U_1` identification, trace/scalar value with block
-dimension `tableauDim`, and the separately named Section 5 matching-average
-scalarity bridge input.
+dimension `tableauDim`, and matching-average scalarity.  Lemma 5.19 constructs
+that model from faithful Appendix A.1--A.3; scalarity is proved internally.
 
 The newest internal representation-layer objects are still coordinate-level:
 they give a concrete Young adjacent Coxeter model, not a formal Specht-module
@@ -492,7 +489,7 @@ Downstream dependencies: only older `youngDim` alternatives such as
 Paper statements: Lemma 5.18 block lower bound, Lemma 5.19 regular Young-block
 decomposition assembly, Lemma 5.20 even spectral bridge, and Lemma 5.21 odd
 spectral bridge, together with the Young-block decomposition,
-matching-average scalarity bridge, and trace/scalar value inputs they use.
+matching-average scalarity, and trace/scalar value interfaces they use.
 
 Lean files: `DictatorshipTesting/Paper/S05_Lem5_18_BlockLowerBoundImpliesTheGap.lean`,
 `DictatorshipTesting/Paper/S05_Lem5_19_RegularYoungBlockDecomposition.lean`,
@@ -514,11 +511,9 @@ and `AppA_LemA_03_degreeOneYoungBlockIdentification`.
 Standard-tableaux connectedness is internally proved as Lemma 5.3 by
 `S05_Lem5_03_standardTableauxSwapConnectedness`.
 
-Section 5 scalarity bridge axiom declaration:
-`S05_matchingAverageScalarity_from_young_model_input`.
-
-Current status: named external axioms, not `sorry` declarations.  Together with
-the two Section 2 Filmus inputs, these are the remaining axiom declarations.
+Current status: the three Appendix A declarations above are named external
+axioms, not `sorry` declarations.  Together with the two Section 2 Filmus
+inputs, these are exactly the remaining axiom declarations.
 
 Mathematical content: the regular representation decomposes `F` into
 nonnegative Young-block energies whose non-`U_1` sum is `l2DistSqToU1 F`;
@@ -534,15 +529,15 @@ linear independence, matching-error quadratic-form identity, Young-tableau
 sum-of-squares, and coefficient-index cardinality are proved.  Lean
 unconditionally constructs the full basis, concrete block components and
 energies, orthogonality, and Parseval.  From faithful A.3 it also proves
-`l2DistSqToU1 F` equals the sum of all complementary concrete block energies.
+`l2DistSqToU1 F` equals the sum of all complementary concrete block energies,
+and it proves the even/odd global weighted matching identities.
 
 The sum-of-squares/cardinality obstruction is closed by
 `sum_tableauDimNat_sq_eq_factorial` and
 `card_YoungMatrixCoefficientIndex_eq_perm`, proved without an RSK axiom.  The
 faithful concrete A.3 equality and its distance consequence are now wired into
-the active model.  The exact remaining obstruction is the full weighted
-matching identity for the concrete components, currently isolated as
-`S05_matchingAverageScalarity_from_young_model_input`.
+the active model.  The full weighted matching identity is internal; the
+remaining external boundary is precisely faithful Appendix A.1--A.3.
 
 Citation target if external: regular representation/Specht decomposition and
 Schur's lemma from standard finite-group representation theory; the

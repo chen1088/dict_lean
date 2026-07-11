@@ -47,9 +47,7 @@ matching-cube, and averaging steps that have been formalized so far.  A small
 number of hard results are intentionally isolated behind named declarations or
 named external axioms.  There are no remaining `sorry` declarations.  The named
 external axioms are the two Section 2 Filmus inputs, the three Appendix A
-representation-theory ingredient markers A.1, A.2, and A.3, and the Section 5
-matching-average scalarity bridge input
-`S05_matchingAverageScalarity_from_young_model_input`.  Standard-tableaux swap
+representation-theory ingredient markers A.1, A.2, and A.3.  Standard-tableaux swap
 connectedness is proved internally as Lemma 5.3.  Lemma 5.19 now proves the
 concrete Young matrix-coefficient construction, same- and distinct-shape
 orthogonality, global linear independence, right-convolution scalarity, the
@@ -60,9 +58,9 @@ orthogonality, global linear independence, right-convolution scalarity, the
   energies, orthogonality, and Parseval decomposition are unconditional.  A.3
   now has the faithful subspace-equality type, and Lemma 5.19 derives the exact
   `l2DistSqToU1` complementary-energy identity from it and the current `sInf`
-  definition.  The next internal bridge is the global weighted matching identity
-  represented by the unchanged scalarity input.  The active Theorem 4.8 path
-  consumes the theorem wrappers
+  definition.  It also proves the concrete even and odd global weighted matching
+  identities and constructs the active spectral models without a separate
+  scalarity input.  The active Theorem 4.8 path consumes the theorem wrappers
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.
 
@@ -304,8 +302,8 @@ of the concrete fixed-matching operator with `hEvenTableau` or `hOddTableau`
   from the arbitrary-perfect-matching basis. The odd tableau and full-block
   traces are likewise instantiated from the arbitrary near-perfect-matching
   basis.  Lemma 5.19 now proves the coefficient-index cardinality theorem and
-  constructs concrete block components and Parseval unconditionally.  The final
-  global weighted scalarity axiom therefore remains.
+  constructs concrete block components and Parseval unconditionally.  It also
+  proves the final even/odd global weighted scalarity identities.
 
 Proven Lemma 5.18 trace-model-to-gap algebra:
 
@@ -369,11 +367,9 @@ External standard inputs:
   through Lemma 5.19 theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.  Those wrappers are
-  produced by Lemma 5.19 from the explicit A.1/A.2/A.3 marker axioms and
-  `S05_matchingAverageScalarity_from_young_model_input`.  The concrete
-  matrix-coefficient, completeness, and one-block Schur-orthogonality
-  calculations and the faithful A.3 distance adapter are now internal; removing
-  the scalarity input requires the final weighted-energy assembly.
+  produced by Lemma 5.19 from the explicit A.1/A.2/A.3 marker axioms.  The
+  concrete matrix-coefficient, completeness, one-block scalarity, faithful A.3
+  distance adapter, and global weighted-energy assembly are internal.
 
 Internal bridge components proven:
 
@@ -394,9 +390,10 @@ Internal bridge components proven:
   coefficient-index cardinality theorems, and the matching-error quadratic-form
   identity.  It unconditionally constructs a basis, concrete block components
   and energies, their pairwise orthogonality, Parseval, and the exact
-  `l2DistSqToU1` complementary-energy identity from faithful A.3.  Its assembly
-  wrappers still use `S05_matchingAverageScalarity_from_young_model_input` for
-  the active Theorem 4.8 route.
+  `l2DistSqToU1` complementary-energy identity from faithful A.3.  It proves
+  `S05_matchingAverageScalarity_concrete_even` and
+  `S05_matchingAverageScalarity_concrete_odd`, then uses them in the active
+  Theorem 4.8 assembly wrappers.
 - `S05_Lem5_20_EvenSpectralBridge.lean` and
   `S05_Lem5_21_OddSpectralBridge.lean`: the tableau-count spectral bridges are
   proved from explicit `SpectralBlockModelInputWithDim` hypotheses; Lemma 5.19
@@ -418,8 +415,8 @@ Remaining bridge boundary:
   unconditionally for every positive-size perfect matching and every odd
   near-perfect matching.
 - `S05_Lem5_17_BlockScalarOfTheAveragedRejection.lean` -- Lemma 5.17:
-  trace-divided-by-dimension algebra from explicit scalarity and trace identity
-  inputs; those inputs are bundled into the spectral-block model boundary.
+  proved trace-divided-by-dimension algebra; Lemma 5.19 supplies the concrete
+  block action and global weighted identity.
 - `S05_Lem5_20_EvenSpectralBridge.lean` and
   `S05_Lem5_21_OddSpectralBridge.lean`: proven algebraic bridges from explicit
   `SpectralBlockModelInputWithDim` / spectral block model input; Lemma 5.19
@@ -432,9 +429,8 @@ Section 5 spectral-bridge files make the missing representation theory explicit
 through Lemma 5.19 theorem wrappers:
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.  The remaining axiom
-declarations used by this bridge are the Appendix A.1/A.2/A.3 marker inputs and
-`S05_matchingAverageScalarity_from_young_model_input`; Lemma 5.19 consumes them
-through assembly theorems.
+declarations used by this bridge are exactly the Appendix A.1/A.2/A.3 marker
+inputs; Lemma 5.19 consumes them through assembly theorems.
 
 The coefficient-index cardinality theorem
 `card_YoungMatrixCoefficientIndex_eq_perm` is now proved internally.  Its core
@@ -442,9 +438,8 @@ combinatorial theorem, `sum_tableauDimNat_sq_eq_factorial`, uses the one-box
 Young-lattice differential recurrence rather than an external RSK input.  The
 faithful concrete A.3 equality now yields
 `l2DistSqToU1 F = sum_{lambda not in U1} concreteYoungBlockEnergy F lambda`.
-The first exact internal blocker is now the global weighted matching identity
-for those concrete components, whose current active interface is
-`S05_matchingAverageScalarity_from_young_model_input`.
+The global weighted matching identity for those concrete components is now
+proved in both parity cases, so no separate Section 5 scalarity axiom remains.
 
 - The explicit spectral-block-model theorem wrappers supply the actual Young-block
   energies of `F`, the `U_1` energy identification, and the matching-average

@@ -9,17 +9,16 @@ Direct reverse imports:
 Paper statement: Definition 5.23 (`def:young-basis-scalar-commutant-input`).
 Title in paper: Young-basis scalar commutant input.
 
-Status: definition/interface. This is the exact scalarity input consumed
-downstream by the spectral bridge.
+Status: definition/interface. This names the exact scalarity predicate used by
+the spectral bridge; Lemma 5.19 proves it for the concrete Young components.
 -/
 
 noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Definition 5.23 interface: scalarity of the averaged matching rejection on Young
-blocks.  Proving it from Young's basis/Schur's lemma remains
-representation-layer work. -/
+/-- Definition 5.23 interface: scalarity of the averaged matching rejection on
+Young blocks. -/
 abbrev S05_Def5_23_YoungBasisScalarCommutantInput {n : Nat}
     (F : Perm (Fin n) -> Real)
     (blockEnergy theta : YoungDiagram n -> Real) : Prop :=

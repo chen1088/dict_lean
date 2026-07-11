@@ -10,6 +10,7 @@ import DictatorshipTesting.Paper.S05_Lem5_17_BlockScalarOfTheAveragedRejection
 import DictatorshipTesting.Paper.S05_Int_YoungTableauSumOfSquares
 import DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks
 import DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular
+import DictatorshipTesting.Paper.S04_Cor4_07_U1Local
 import Mathlib.LinearAlgebra.Basis.Basic
 import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
 import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum
@@ -27,10 +28,10 @@ Direct reverse imports:
 Paper statement: Lemma 5.19 (`lem:regular-young-block-decomposition`)
 Title in paper: Regular Young-block decomposition.
 
-Status: assembly from external inputs.  A.1, A.2, A.3, and the Section 5
-matching-average scalarity bridge input are the named representation-theoretic
-inputs; this file assembles them into the dimension-parameterized spectral-block
-model consumed by the active Theorem 4.8 path.
+Status: assembly from external inputs.  A.1, A.2, and A.3 are the named
+representation-theoretic inputs; this file proves the concrete weighted
+matching identities and assembles those inputs into the dimension-parameterized
+spectral-block model consumed by the active Theorem 4.8 path.
 -/
 
 noncomputable section
@@ -190,6 +191,46 @@ theorem matchingMeanProjectionError_eq_inner_averagedHighConvolution
       intro π _hπ
       rw [← Finset.mul_sum]
       ring
+
+/-- Every fixed high matching idempotent kills `U1`. -/
+theorem matchingHighIdempotent_eq_zero_of_mem_U1
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (M : OrderedMatching α) (F : Perm α -> Real)
+    (hF : F ∈ U1 α) :
+    S05_matchingHighIdempotent M F = 0 := by
+  change matchingHighConvolution M F = 0
+  rw [← (L5_1_PMConvolution M F).2, (Cor4_9_U1Local M F hF).2]
+  funext pi
+  simp
+
+/-- Averaging the fixed high idempotents therefore still kills `U1`. -/
+theorem rightConvolution_averagedHigh_eq_zero_of_mem_U1
+    {n : Nat} (F : Perm (Fin n) -> Real)
+    (hF : F ∈ U1 (Fin n)) :
+    rightConvolution (S05_averagedHighMatchingElement n) F = 0 := by
+  classical
+  rw [S05_averagedHighMatchingElement_rightConvolution]
+  funext pi
+  simp_rw [matchingHighIdempotent_eq_zero_of_mem_U1 _ F hF]
+  simp
+
+/-- Right convolution commutes with a finite sum of functions. -/
+theorem rightConvolution_fintype_sum
+    {ι G : Type*} [Fintype ι] [Fintype G] [Mul G]
+    (a : GroupAlgebraElement G) (F : ι -> G -> Real) :
+    rightConvolution a (∑ i : ι, F i) =
+      ∑ i : ι, rightConvolution a (F i) := by
+  classical
+  funext x
+  simp only [rightConvolution, Finset.sum_apply]
+  calc
+    (∑ g : G, a g * ∑ i : ι, F i (x * g)) =
+        ∑ g : G, ∑ i : ι, a g * F i (x * g) := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      rw [Finset.mul_sum]
+    _ = ∑ i : ι, ∑ g : G, a g * F i (x * g) := by
+      rw [Finset.sum_comm]
 
 /-- The coordinate rank-one operator `|T><V|` on one tableau space. -/
 def tableauRankOne {n : Nat} {lam : YoungDiagram n}
@@ -2022,6 +2063,233 @@ theorem rightConvolution_averagedHigh_scalar_on_youngMatrixCoefficientBlock
     funext x
     ring
 
+/-- In even rank, the averaged high-matching convolution acts on each
+concrete Young-block component by the certificate scalar `h / d`. -/
+theorem rightConvolution_averagedHigh_concreteYoungBlockComponent_even
+    (m : Nat)
+    (action : ∀ lam : YoungDiagram (2 * (m + 1)),
+      YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (2 * (m + 1)),
+      JucysMurphyContentActionData (action lam))
+    (hpos : ∀ lam : YoungDiagram (2 * (m + 1)), 0 < tableauDim lam)
+    (F : Perm (Fin (2 * (m + 1))) → ℝ)
+    (lam : YoungDiagram (2 * (m + 1))) :
+    rightConvolution (S05_averagedHighMatchingElement (2 * (m + 1)))
+        (concreteYoungBlockComponent action content F lam) =
+      fun x =>
+        (hEvenTableau (m + 1) lam / tableauDim lam) *
+          concreteYoungBlockComponent action content F lam x := by
+  classical
+  have hdimNat : 0 < tableauDimNat lam := by
+    have hdimReal : (0 : Real) < (tableauDimNat lam : Real) := by
+      simpa [tableauDim] using hpos lam
+    exact_mod_cast hdimReal
+  rw [tableauDimNat_eq_card] at hdimNat
+  let T0 : StandardYoungTableau lam :=
+    Classical.choice (Fintype.card_pos_iff.mp hdimNat)
+  calc
+    rightConvolution (S05_averagedHighMatchingElement (2 * (m + 1)))
+        (concreteYoungBlockComponent action content F lam) =
+        fun x =>
+          (AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
+              (S05_averagedRejectionYoungOperatorData_from_appendixA
+                (action lam) (content lam))).basisScalar T0 *
+            concreteYoungBlockComponent action content F lam x := by
+      convert
+        (rightConvolution_averagedHigh_scalar_on_youngMatrixCoefficientBlock
+          (action lam) (content lam) T0
+            (concreteYoungBlockComponent_mem action content F lam)) using 1 <;>
+        rfl
+    _ = fun x =>
+        (hEvenTableau (m + 1) lam / tableauDim lam) *
+          concreteYoungBlockComponent action content F lam x := by
+      rw [averagedHigh_youngBlockScalar_even
+        m lam (action lam) (content lam) T0]
+
+/-- In odd rank, the averaged high-matching convolution acts on each
+concrete Young-block component by the certificate scalar `h / d`. -/
+theorem rightConvolution_averagedHigh_concreteYoungBlockComponent_odd
+    (m : Nat)
+    (action : ∀ lam : YoungDiagram (2 * m + 1),
+      YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (2 * m + 1),
+      JucysMurphyContentActionData (action lam))
+    (hpos : ∀ lam : YoungDiagram (2 * m + 1), 0 < tableauDim lam)
+    (F : Perm (Fin (2 * m + 1)) → ℝ)
+    (lam : YoungDiagram (2 * m + 1)) :
+    rightConvolution (S05_averagedHighMatchingElement (2 * m + 1))
+        (concreteYoungBlockComponent action content F lam) =
+      fun x =>
+        (hOddTableau m lam / tableauDim lam) *
+          concreteYoungBlockComponent action content F lam x := by
+  classical
+  have hdimNat : 0 < tableauDimNat lam := by
+    have hdimReal : (0 : Real) < (tableauDimNat lam : Real) := by
+      simpa [tableauDim] using hpos lam
+    exact_mod_cast hdimReal
+  rw [tableauDimNat_eq_card] at hdimNat
+  let T0 : StandardYoungTableau lam :=
+    Classical.choice (Fintype.card_pos_iff.mp hdimNat)
+  rw [rightConvolution_averagedHigh_scalar_on_youngMatrixCoefficientBlock
+    (action lam) (content lam) T0
+      (concreteYoungBlockComponent_mem action content F lam)]
+  rw [averagedHigh_youngBlockScalar_odd m lam (action lam) (content lam) T0]
+
+/-- Distinct concrete Young-block components are orthogonal for the
+unnormalized finite sum as well as for `permInner`. -/
+theorem concreteYoungBlockComponent_raw_orthogonal
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (F : Perm (Fin (n + 1)) → ℝ)
+    {lam mu : YoungDiagram (n + 1)} (hshape : lam ≠ mu) :
+    (∑ pi : Perm (Fin (n + 1)),
+      concreteYoungBlockComponent action content F lam pi *
+        concreteYoungBlockComponent action content F mu pi) = 0 := by
+  have horth :=
+    concreteYoungBlockComponent_orthogonal action content F hshape
+  unfold permInner at horth
+  have hcard : (Fintype.card (Perm (Fin (n + 1))) : Real) ≠ 0 := by
+    exact_mod_cast Fintype.card_ne_zero
+  simpa [hcard] using horth
+
+/-- A faithful A.3 identification and scalar action on every concrete Young
+component imply the global matching-average weighted-energy identity. -/
+theorem matchingAverageScalarityInput_of_concrete_component_scalars
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (hU1 : U1 (Fin (n + 1)) = concreteDegreeOneYoungBlockSum action)
+    (F : Perm (Fin (n + 1)) → ℝ)
+    (theta : YoungDiagram (n + 1) → ℝ)
+    (hscalar : ∀ lam : YoungDiagram (n + 1),
+      rightConvolution (S05_averagedHighMatchingElement (n + 1))
+          (concreteYoungBlockComponent action content F lam) =
+        fun x => theta lam *
+          concreteYoungBlockComponent action content F lam x) :
+    MatchingAverageScalarityInput F
+      (concreteYoungBlockEnergy action content F) theta := by
+  classical
+  let component := concreteYoungBlockComponent action content F
+  have hconv :
+      rightConvolution (S05_averagedHighMatchingElement (n + 1)) F =
+        fun x => ∑ lam : YoungDiagram (n + 1),
+          theta lam * component lam x := by
+    rw [← sum_concreteYoungBlockComponent action content F]
+    rw [rightConvolution_fintype_sum]
+    funext x
+    simp only [Finset.sum_apply]
+    apply Finset.sum_congr rfl
+    intro lam _hlam
+    rw [hscalar lam]
+  have hweighted :
+      permInner (∑ lam : YoungDiagram (n + 1), component lam)
+          (fun x => ∑ lam : YoungDiagram (n + 1),
+            theta lam * component lam x) =
+        ∑ lam : YoungDiagram (n + 1),
+          theta lam * concreteYoungBlockEnergy action content F lam := by
+    unfold concreteYoungBlockEnergy permInner
+    simpa [component, Finset.sum_apply, pow_two] using
+      (weightedEnergyIdentity_of_pairwiseOrthogonal_components_normalized
+        component theta fun lam mu hshape =>
+          concreteYoungBlockComponent_raw_orthogonal
+            action content F hshape)
+  have htotal :
+      matchingMeanProjectionError F =
+        ∑ lam : YoungDiagram (n + 1),
+          theta lam * concreteYoungBlockEnergy action content F lam := by
+    calc
+      matchingMeanProjectionError F =
+          permInner F
+            (rightConvolution
+              (S05_averagedHighMatchingElement (n + 1)) F) :=
+        matchingMeanProjectionError_eq_inner_averagedHighConvolution F
+      _ = permInner (∑ lam : YoungDiagram (n + 1), component lam)
+          (fun x => ∑ lam : YoungDiagram (n + 1),
+            theta lam * component lam x) := by
+        rw [sum_concreteYoungBlockComponent action content F, hconv]
+      _ = ∑ lam : YoungDiagram (n + 1),
+          theta lam * concreteYoungBlockEnergy action content F lam :=
+        hweighted
+  have hU1termZero
+      (lam : YoungDiagram (n + 1))
+      (hlam : IsOneRow lam ∨ IsStandard lam) :
+      theta lam * concreteYoungBlockEnergy action content F lam = 0 := by
+    have hcomponentU1 : component lam ∈ U1 (Fin (n + 1)) := by
+      rw [hU1]
+      apply youngMatrixCoefficientBlock_le_concreteDegreeOneYoungBlockSum
+        action lam hlam
+      exact concreteYoungBlockComponent_mem action content F lam
+    have hkill :
+        rightConvolution (S05_averagedHighMatchingElement (n + 1))
+            (component lam) = 0 :=
+      rightConvolution_averagedHigh_eq_zero_of_mem_U1
+        (component lam) hcomponentU1
+    have hscaled : (theta lam) • component lam = 0 := by
+      funext x
+      have hx := congrFun ((hscalar lam).symm.trans hkill) x
+      simpa [Pi.smul_apply, smul_eq_mul] using hx
+    calc
+      theta lam * concreteYoungBlockEnergy action content F lam =
+          permInner (component lam) ((theta lam) • component lam) := by
+        rw [permInner_smul_right]
+        rfl
+      _ = 0 := by rw [hscaled, permInner_zero_right]
+  unfold MatchingAverageScalarityInput
+  rw [htotal]
+  symm
+  apply Finset.sum_subset (Finset.filter_subset _ _)
+  intro lam _hlam hnotmem
+  have hU1shape : IsOneRow lam ∨ IsStandard lam := by
+    have himp : ¬ IsOneRow lam → IsStandard lam := by
+      simpa [nonU1YoungBlocks] using hnotmem
+    by_cases hrow : IsOneRow lam
+    · exact Or.inl hrow
+    · exact Or.inr (himp hrow)
+  exact hU1termZero lam hU1shape
+
+/-- Concrete global weighted matching identity in positive even rank. -/
+theorem S05_matchingAverageScalarity_concrete_even
+    (m : Nat)
+    (action : ∀ lam : YoungDiagram (2 * (m + 1)),
+      YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (2 * (m + 1)),
+      JucysMurphyContentActionData (action lam))
+    (hU1 : U1 (Fin (2 * (m + 1))) =
+      concreteDegreeOneYoungBlockSum action)
+    (hpos : ∀ lam : YoungDiagram (2 * (m + 1)), 0 < tableauDim lam)
+    (F : Perm (Fin (2 * (m + 1))) → ℝ) :
+    MatchingAverageScalarityInput F
+      (concreteYoungBlockEnergy action content F)
+      (fun lam => hEvenTableau (m + 1) lam / tableauDim lam) := by
+  apply matchingAverageScalarityInput_of_concrete_component_scalars
+    action content hU1 F
+  intro lam
+  exact rightConvolution_averagedHigh_concreteYoungBlockComponent_even
+    m action content hpos F lam
+
+/-- Concrete global weighted matching identity in odd rank. -/
+theorem S05_matchingAverageScalarity_concrete_odd
+    (m : Nat)
+    (action : ∀ lam : YoungDiagram (2 * m + 1),
+      YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (2 * m + 1),
+      JucysMurphyContentActionData (action lam))
+    (hU1 : U1 (Fin (2 * m + 1)) =
+      concreteDegreeOneYoungBlockSum action)
+    (hpos : ∀ lam : YoungDiagram (2 * m + 1), 0 < tableauDim lam)
+    (F : Perm (Fin (2 * m + 1)) → ℝ) :
+    MatchingAverageScalarityInput F
+      (concreteYoungBlockEnergy action content F)
+      (fun lam => hOddTableau m lam / tableauDim lam) := by
+  apply matchingAverageScalarityInput_of_concrete_component_scalars
+    action content hU1 F
+  intro lam
+  exact rightConvolution_averagedHigh_concreteYoungBlockComponent_odd
+    m action content hpos F lam
+
 /-- Scalarity of the averaged high-matching convolution on an explicitly
 synthesized element of one Young matrix-coefficient block. -/
 theorem rightConvolution_averagedHigh_youngBlockSynthesis
@@ -2062,14 +2330,13 @@ theorem S05_Lem5_19_u1_identification {n : Nat}
 explicit classical Appendix A ingredients.
 
 This theorem contains no new representation-theoretic axiom of its own; it
-assembles the precise A.1/A.2/A.3 component inputs and the Section 5
-scalarity bridge input into the compact `SpectralBlockModelInputWithDim`
-interface consumed by Section 5. -/
+assembles the precise A.1/A.2/A.3 component inputs and the internally proved
+concrete weighted matching identity into the compact
+`SpectralBlockModelInputWithDim` interface consumed by Section 5. -/
 theorem spectralBlockModelInputWithDim_even_from_appA_inputs
     (hA1 : AppA_ThmA_01_YoungOrthogonalRealizationStatement)
     (hA2 : AppA_ThmA_02_JucysMurphyContentSpectrumStatement)
     (hA3 : AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement)
-    (hScalarity : S05_MatchingAverageScalarityFromYoungModelStatement)
     (m : Nat) (hm : 2 <= m) :
     SpectralBlockModelInputWithDim
       (fun lam : YoungDiagram (2 * m) => tableauDim lam)
@@ -2102,9 +2369,14 @@ theorem spectralBlockModelInputWithDim_even_from_appA_inputs
             (fun lam : YoungDiagram (2 * Nat.succ m) =>
               hEvenTableau (Nat.succ m) lam)
             F energy.blockEnergy :=
-        { theta := traceData.theta
-          scalarity := hScalarity traceData
-          trace_value := traceData.trace_value }
+        { theta := fun lam =>
+            hEvenTableau (Nat.succ m) lam / tableauDim lam
+          scalarity :=
+            S05_matchingAverageScalarity_concrete_even
+              m action content (hA3 action)
+                (fun lam => (traceData.trace_value lam).1) F
+          trace_value := fun lam =>
+            ⟨(traceData.trace_value lam).1, rfl⟩ }
       exact ⟨energy, ⟨scalar⟩⟩
 
 /-- Appendix A spectral-block model input for the tableau-count even route. -/
@@ -2117,7 +2389,6 @@ theorem spectralBlockModelInputWithDim_even_from_appendixA
     AppA_ThmA_01_youngOrthogonalRealization
     AppA_ThmA_02_jucysMurphyContentSpectrum
     AppA_LemA_03_degreeOneYoungBlockIdentification
-    S05_matchingAverageScalarity_from_young_model_input
     m hm
 
 /-- Lemma 5.19 assembly theorem for the tableau-count odd route, from the
@@ -2130,7 +2401,6 @@ theorem spectralBlockModelInputWithDim_odd_from_appA_inputs
     (hA1 : AppA_ThmA_01_YoungOrthogonalRealizationStatement)
     (hA2 : AppA_ThmA_02_JucysMurphyContentSpectrumStatement)
     (hA3 : AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement)
-    (hScalarity : S05_MatchingAverageScalarityFromYoungModelStatement)
     (m : Nat) (hm : 2 <= m) :
     SpectralBlockModelInputWithDim
       (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)
@@ -2158,9 +2428,13 @@ theorem spectralBlockModelInputWithDim_odd_from_appA_inputs
         (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)
         (fun lam : YoungDiagram (2 * m + 1) => hOddTableau m lam)
         F energy.blockEnergy :=
-    { theta := traceData.theta
-      scalarity := hScalarity traceData
-      trace_value := traceData.trace_value }
+    { theta := fun lam => hOddTableau m lam / tableauDim lam
+      scalarity :=
+        S05_matchingAverageScalarity_concrete_odd
+          m action content (hA3 action)
+            (fun lam => (traceData.trace_value lam).1) F
+      trace_value := fun lam =>
+        ⟨(traceData.trace_value lam).1, rfl⟩ }
   exact ⟨energy, ⟨scalar⟩⟩
 
 /-- Appendix A spectral-block model input for the tableau-count odd route. -/
@@ -2173,7 +2447,6 @@ theorem spectralBlockModelInputWithDim_odd_from_appendixA
     AppA_ThmA_01_youngOrthogonalRealization
     AppA_ThmA_02_jucysMurphyContentSpectrum
     AppA_LemA_03_degreeOneYoungBlockIdentification
-    S05_matchingAverageScalarity_from_young_model_input
     m hm
 
 end DictatorshipTesting

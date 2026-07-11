@@ -2767,27 +2767,20 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Spectral bridge",
       "kind": "paper",
       "importance": "major",
-      "status": "external",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_17_BlockScalarOfTheAveragedRejection.lean",
       "wrappers": [
-        "S05_matchingAverageScalarity_from_young_model_input",
         "S05_Lem5_17_scalar_eq_trace_div_dimension",
         "S05_Lem5_17_even_scalar_eq_hEven_div_dim",
-        "averagedHigh_youngBlockScalar_even",
-        "averagedHigh_youngBlockScalar_odd"
+        "S05_Lem5_17_odd_scalar_eq_hOdd_div_dim"
       ],
       "deps": [
-        "AppA_02",
         "S05_L13",
         "S05_L16"
       ],
-      "summary": "Concrete one-block scalarity and h/d values are proved; the active global weighted identity still uses the named Section 5 input.",
-      "statement": "Lemma 5.17's trace-divided-by-dimension algebra is proved, and Lemma 5.19 proves the actual averaged operator is scalar with the stated even and odd values on every concrete matrix-coefficient block supplied by faithful Young action/content data. The global weighted block identity remains the named scalarity input.",
+      "summary": "Trace-divided-by-dimension algebra is proved; Lemma 5.19 proves the concrete block action and global weighted identity.",
+      "statement": "Lemma 5.17 proves the trace-divided-by-dimension algebra. Lemma 5.19 proves that the actual averaged operator has the stated even and odd scalar values on every concrete matrix-coefficient block and proves the resulting global weighted identity.",
       "terms": [
-        {
-          "text": "Jucys-Murphy content spectrum",
-          "target": "AppA_02"
-        },
         {
           "text": "Trace of one local truncation",
           "target": "S05_L13"
@@ -2802,16 +2795,16 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "Let $\\cA=\\E_M(I-P_M)$.  On $\\mathcal H_\\lambda$, the operator $\\cA$ acts as the\nscalar\n\\begin{equation}\\label{eq:A-eigenvalue-even}\n  \\frac{h_m(\\lambda)}{d_\\lambda}\n  \\qquad(n=2m),\n\\end{equation}\nand as the scalar\n\\begin{equation}\\label{eq:A-eigenvalue-odd}\n  \\frac{h_m^{\\mathrm{odd}}(\\lambda)}{d_\\lambda}\n  \\qquad(n=2m+1).\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S05_matchingAverageScalarity_from_young_model_input",
-          "line": 50
-        },
-        {
           "name": "S05_Lem5_17_scalar_eq_trace_div_dimension",
-          "line": 124
+          "line": 108
         },
         {
           "name": "S05_Lem5_17_even_scalar_eq_hEven_div_dim",
-          "line": 131
+          "line": 115
+        },
+        {
+          "name": "S05_Lem5_17_odd_scalar_eq_hOdd_div_dim",
+          "line": 125
         }
       ]
     },
@@ -2935,6 +2928,8 @@ window.DICT_DEPENDENCY_DATA = {
         "concreteYoungBlockComponent",
         "concreteYoungBlockEnergy",
         "l2DistSqToU1_eq_sum_concreteYoungBlockEnergy",
+        "S05_matchingAverageScalarity_concrete_even",
+        "S05_matchingAverageScalarity_concrete_odd",
         "spectralBlockModelInputWithDim_even_from_appendixA",
         "spectralBlockModelInputWithDim_odd_from_appendixA"
       ],
@@ -2947,8 +2942,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_L17",
         "S05_L02"
       ],
-      "summary": "Concrete block decomposition, Parseval, and the faithful A.3 complementary-energy distance identity are proved; global weighted scalarity remains external.",
-      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, the internal tableau sum-of-squares and coefficient-index cardinality theorems, unconditional spanning and basis constructions, concrete block components and energies, pairwise orthogonality, Parseval, the exact l2DistSqToU1 complementary-energy identity from faithful A.3, right-convolution scalarity, the h/d block scalar, and the matching-error quadratic form. The active spectral-model wrappers still consume the named global scalarity input.",
+      "summary": "Concrete block decomposition, faithful A.3 distance identity, and both global weighted matching identities are proved; only Appendix A.1-A.3 remain external.",
+      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, internal tableau sum-of-squares and coefficient-index cardinality, unconditional spanning and basis constructions, concrete block components and energies, Parseval, the exact l2DistSqToU1 complementary-energy identity from faithful A.3, U1 annihilation by averaged high convolution, the h/d component action, and the even/odd global weighted matching identities. Its active spectral-model wrappers consume only faithful Appendix A.1-A.3.",
       "terms": [
         {
           "text": "Young-block energy profile",
@@ -2971,7 +2966,7 @@ window.DICT_DEPENDENCY_DATA = {
           "target": "AppA_03"
         },
         {
-          "text": "matching-average scalarity bridge",
+          "text": "Block scalar of averaged rejection",
           "target": "S05_L17"
         },
         {
@@ -2985,51 +2980,59 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "weightedEnergyIdentity_of_pairwiseOrthogonal_components",
-          "line": 54
+          "line": 55
         },
         {
           "name": "matchingMeanProjectionError_eq_inner_averagedHighConvolution",
-          "line": 141
+          "line": 142
         },
         {
           "name": "youngMatrixCoefficient_orthogonality_same_shape",
-          "line": 653
+          "line": 694
         },
         {
           "name": "youngMatrixCoefficient_orthogonality_distinct_shapes",
-          "line": 1056
+          "line": 1097
         },
         {
           "name": "globalYoungMatrixCoefficient_linearIndependent",
-          "line": 1149
+          "line": 1190
         },
         {
           "name": "card_YoungMatrixCoefficientIndex_eq_perm",
-          "line": 1198
+          "line": 1239
         },
         {
           "name": "globalYoungMatrixCoefficient_span_all",
-          "line": 1227
+          "line": 1268
         },
         {
           "name": "regularYoungMatrixCoefficientBasis",
-          "line": 1238
+          "line": 1279
         },
         {
           "name": "permInner_self_eq_sum_concreteYoungBlockEnergy",
-          "line": 1519
+          "line": 1560
         },
         {
           "name": "l2DistSqToU1_eq_sum_concreteYoungBlockEnergy",
-          "line": 1567
+          "line": 1608
+        },
+        {
+          "name": "S05_matchingAverageScalarity_concrete_even",
+          "line": 2254
+        },
+        {
+          "name": "S05_matchingAverageScalarity_concrete_odd",
+          "line": 2274
         },
         {
           "name": "spectralBlockModelInputWithDim_even_from_appendixA",
-          "line": 2111
+          "line": 2383
         },
         {
           "name": "spectralBlockModelInputWithDim_odd_from_appendixA",
-          "line": 2167
+          "line": 2441
         }
       ]
     },

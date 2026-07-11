@@ -1,5 +1,4 @@
 import DictatorshipTesting.Paper.S05_Lem5_13_TraceOfOneLocalTruncationOnOneYoungBlock
-import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum
 
 /-
 Direct reverse imports:
@@ -13,9 +12,9 @@ Direct reverse imports:
 Paper statement: Lemma 5.17 (`lem:centralization-matchings`)
 Title in paper: Block scalar of the averaged rejection.
 
-Status: external: Section 5 scalarity bridge input.  Finite-dimensional
-trace-divided-by-dimension algebra is proved here; matching-average scalarity is
-isolated as `S05_matchingAverageScalarity_from_young_model_input`.
+Status: proven.  This file proves the finite-dimensional
+trace-divided-by-dimension algebra.  Lemma 5.19 proves the concrete block action
+and the resulting global weighted matching identity.
 -/
 
 /-!
@@ -26,29 +25,14 @@ scalarity and the trace identity are known:
 
 `theta = tr(A|H_lambda) / dim(H_lambda) = h_m(lambda) / d_lambda`.
 
-That trace-divided-by-dimension calculation is proved here.  The
-representation-theoretic claim that the averaged operator is scalar on each
-Young block still belongs to the final spectral-decomposition input.
+That trace-divided-by-dimension calculation is proved here.  The concrete
+Young-block scalar action and its global orthogonal assembly are proved in
+Lemma 5.19 from the faithful Appendix A interfaces.
 -/
 
 noncomputable section
 
 namespace DictatorshipTesting
-
-/-- Section 5 scalarity bridge input.  Given the trace/scalar data from the
-Young model, the averaged matching rejection is scalar on each Young block with
-scalar `theta`.  Tableau connectedness is already internal Lemma 5.3. -/
-def S05_MatchingAverageScalarityFromYoungModelStatement : Prop :=
-  ∀ {n : Nat} {dim height : YoungDiagram n -> ℝ}
-    {F : Perm (Fin n) -> ℝ}
-    {energy : AppA_YoungBlockEnergyData F}
-    (traceData : AppA_TraceScalarDataWithDim dim height energy),
-    MatchingAverageScalarityInput F energy.blockEnergy traceData.theta
-
-/-- Section 5 input isolating the still-external bridge from Young-model trace
-data to matching-average scalarity. -/
-axiom S05_matchingAverageScalarity_from_young_model_input :
-    S05_MatchingAverageScalarityFromYoungModelStatement
 
 /-- If a scalar operator on a block of dimension `d^2` has trace `d * h`, then
 its scalar is `h / d`.  This is the trace-divided-by-dimension calculation in

@@ -14,6 +14,5 @@ Their paper-facing declarations remain explicit external inputs while internal
 formalizations are developed.
 
 Standard-tableau connectedness is no longer part of this external layer.  It is
-proved internally as Section 5 Lemma 5.3.  Matching-average scalarity remains
-isolated separately as the Section 5 input
-`S05_matchingAverageScalarity_from_young_model_input`.
+proved internally as Section 5 Lemma 5.3.  Matching-average scalarity and its
+global concrete weighted-energy identity are proved internally in Lemma 5.19.

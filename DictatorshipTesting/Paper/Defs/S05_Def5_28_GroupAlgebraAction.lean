@@ -12,9 +12,8 @@ Paper statement: Definition 5.28 (`def:group-algebra-action-interface`)
 Title in paper: Group-algebra action interface.
 
 Status: definition/interface.  This file adds the finite group-algebra and
-representation-action vocabulary needed to state the remaining averaged
-matching-rejection instantiation problem.  It does not assert scalarity and does
-not replace the named Section 5 scalarity input.
+representation-action vocabulary used to construct and analyze the averaged
+matching-rejection operator.  It does not assert scalarity.
 -/
 
 noncomputable section
