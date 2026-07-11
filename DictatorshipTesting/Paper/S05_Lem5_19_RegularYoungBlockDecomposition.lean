@@ -8,6 +8,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_29_AveragedHighMatchingElement
 import DictatorshipTesting.Paper.S05_Lem5_13_TraceOfOneLocalTruncationOnOneYoungBlock
 import DictatorshipTesting.Paper.S05_Lem5_17_BlockScalarOfTheAveragedRejection
 import DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular
+import Mathlib.LinearAlgebra.Basis.Basic
 import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
 import DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum
 import DictatorshipTesting.Paper.AppA_LemA_03_DegreeOneYoungBlockIdentification
@@ -1268,6 +1269,206 @@ theorem globalYoungMatrixCoefficient_span_all_of_card_eq
   exact (Module.finrank_pi ℝ :
     Module.finrank ℝ (Perm (Fin (n + 1)) → ℝ) =
       Fintype.card (Perm (Fin (n + 1)))).symm
+
+/-- The concrete global matrix-coefficient basis obtained once the explicit
+sum-of-squares cardinality equality is supplied. -/
+noncomputable def regularYoungMatrixCoefficientBasis
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (hcard :
+      Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
+        Fintype.card (Perm (Fin (n + 1)))) :
+    Module.Basis (YoungMatrixCoefficientIndex (n + 1)) ℝ
+      (Perm (Fin (n + 1)) → ℝ) :=
+  Module.Basis.mk
+    (globalYoungMatrixCoefficient_linearIndependent action content) (by
+    rw [globalYoungMatrixCoefficient_span_all_of_card_eq
+      action content hcard])
+
+/-- The actual component of a group function in one concrete Young
+matrix-coefficient block. -/
+noncomputable def concreteYoungBlockComponent
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (hcard :
+      Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
+        Fintype.card (Perm (Fin (n + 1))))
+    (F : Perm (Fin (n + 1)) → ℝ)
+    (lam : YoungDiagram (n + 1)) :
+    Perm (Fin (n + 1)) → ℝ :=
+  ∑ ST : StandardYoungTableau lam × StandardYoungTableau lam,
+    (regularYoungMatrixCoefficientBasis action content hcard).repr F
+        ⟨lam, ST⟩ •
+      globalYoungMatrixCoefficient action ⟨lam, ST⟩
+
+/-- The concrete Young-block components sum to the original group function. -/
+theorem sum_concreteYoungBlockComponent
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (hcard :
+      Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
+        Fintype.card (Perm (Fin (n + 1))))
+    (F : Perm (Fin (n + 1)) → ℝ) :
+    (∑ lam : YoungDiagram (n + 1),
+      concreteYoungBlockComponent action content hcard F lam) = F := by
+  unfold concreteYoungBlockComponent
+  simpa [Fintype.sum_sigma, regularYoungMatrixCoefficientBasis,
+    Module.Basis.mk_apply] using
+    (regularYoungMatrixCoefficientBasis action content hcard).sum_repr F
+
+/-- The normalized inner product on group functions is symmetric. -/
+theorem permInner_symm
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (F H : Perm α → ℝ) :
+    permInner F H = permInner H F := by
+  unfold permInner
+  congr 1
+  apply Finset.sum_congr rfl
+  intro π _hπ
+  ring
+
+/-- `permInner` is linear in a finite sum in its second argument. -/
+theorem permInner_fintype_sum_smul_right
+    {ι α : Type*} [Fintype ι] [Fintype α] [DecidableEq α]
+    (c : ι → ℝ) (F : ι → Perm α → ℝ) (H : Perm α → ℝ) :
+    permInner H (∑ i : ι, c i • F i) =
+      ∑ i : ι, c i * permInner H (F i) := by
+  calc
+    permInner H (∑ i : ι, c i • F i) =
+        permInner (∑ i : ι, c i • F i) H :=
+      permInner_symm _ _
+    _ = ∑ i : ι, c i * permInner (F i) H :=
+      permInner_fintype_sum_smul_left c F H
+    _ = ∑ i : ι, c i * permInner H (F i) := by
+      apply Finset.sum_congr rfl
+      intro i _hi
+      rw [permInner_symm]
+
+/-- Concrete components belonging to distinct Young shapes are orthogonal. -/
+theorem concreteYoungBlockComponent_orthogonal
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (hcard :
+      Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
+        Fintype.card (Perm (Fin (n + 1))))
+    (F : Perm (Fin (n + 1)) → ℝ)
+    {lam mu : YoungDiagram (n + 1)} (hshape : lam ≠ mu) :
+    permInner (concreteYoungBlockComponent action content hcard F lam)
+        (concreteYoungBlockComponent action content hcard F mu) = 0 := by
+  unfold concreteYoungBlockComponent
+  rw [permInner_fintype_sum_smul_left]
+  apply Finset.sum_eq_zero
+  intro ST _hST
+  rw [permInner_fintype_sum_smul_right]
+  have hinner :
+      (∑ UV : StandardYoungTableau mu × StandardYoungTableau mu,
+        ((regularYoungMatrixCoefficientBasis action content hcard).repr F)
+            ⟨mu, UV⟩ *
+          permInner (globalYoungMatrixCoefficient action ⟨lam, ST⟩)
+            (globalYoungMatrixCoefficient action ⟨mu, UV⟩)) = 0 := by
+    apply Finset.sum_eq_zero
+    intro UV _hUV
+    change
+      ((regularYoungMatrixCoefficientBasis action content hcard).repr F)
+          ⟨mu, UV⟩ *
+        permInner (youngMatrixCoefficient (action lam) ST.1 ST.2)
+          (youngMatrixCoefficient (action mu) UV.1 UV.2) = 0
+    rw [youngMatrixCoefficient_orthogonality_distinct_shapes
+      hshape (action lam) (content lam) (action mu) (content mu)
+        ST.1 ST.2 UV.1 UV.2]
+    ring
+  rw [hinner]
+  ring
+
+/-- Squared norm of the actual component in one concrete Young block. -/
+noncomputable def concreteYoungBlockEnergy
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (hcard :
+      Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
+        Fintype.card (Perm (Fin (n + 1))))
+    (F : Perm (Fin (n + 1)) → ℝ)
+    (lam : YoungDiagram (n + 1)) : ℝ :=
+  permInner (concreteYoungBlockComponent action content hcard F lam)
+    (concreteYoungBlockComponent action content hcard F lam)
+
+/-- Concrete Young-block energies are nonnegative. -/
+theorem concreteYoungBlockEnergy_nonnegative
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (hcard :
+      Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
+        Fintype.card (Perm (Fin (n + 1))))
+    (F : Perm (Fin (n + 1)) → ℝ)
+    (lam : YoungDiagram (n + 1)) :
+    0 ≤ concreteYoungBlockEnergy action content hcard F lam := by
+  unfold concreteYoungBlockEnergy permInner
+  apply div_nonneg
+  · apply Finset.sum_nonneg
+    intro π _hπ
+    exact mul_self_nonneg _
+  · positivity
+
+/-- Parseval decomposition for the actual concrete Young-block components. -/
+theorem permInner_self_eq_sum_concreteYoungBlockEnergy
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (hcard :
+      Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
+        Fintype.card (Perm (Fin (n + 1))))
+    (F : Perm (Fin (n + 1)) → ℝ) :
+    permInner F F =
+      ∑ lam : YoungDiagram (n + 1),
+        concreteYoungBlockEnergy action content hcard F lam := by
+  let component := concreteYoungBlockComponent action content hcard F
+  have hsum : (∑ lam : YoungDiagram (n + 1), component lam) = F :=
+    sum_concreteYoungBlockComponent action content hcard F
+  calc
+    permInner F F =
+        permInner (∑ lam : YoungDiagram (n + 1), component lam)
+          (∑ mu : YoungDiagram (n + 1), component mu) := by
+      rw [hsum]
+    _ = ∑ lam : YoungDiagram (n + 1),
+        permInner (component lam)
+          (∑ mu : YoungDiagram (n + 1), component mu) := by
+      simpa using
+        permInner_fintype_sum_smul_left
+          (fun _lam : YoungDiagram (n + 1) => (1 : ℝ)) component
+          (∑ mu : YoungDiagram (n + 1), component mu)
+    _ = ∑ lam : YoungDiagram (n + 1),
+        ∑ mu : YoungDiagram (n + 1),
+          permInner (component lam) (component mu) := by
+      apply Finset.sum_congr rfl
+      intro lam _hlam
+      simpa using
+        permInner_fintype_sum_smul_right
+          (fun _mu : YoungDiagram (n + 1) => (1 : ℝ)) component
+          (component lam)
+    _ = ∑ lam : YoungDiagram (n + 1),
+        permInner (component lam) (component lam) := by
+      apply Finset.sum_congr rfl
+      intro lam _hlam
+      rw [Fintype.sum_eq_single lam]
+      intro mu hmulam
+      exact concreteYoungBlockComponent_orthogonal
+        action content hcard F (Ne.symm hmulam)
+    _ = ∑ lam : YoungDiagram (n + 1),
+        concreteYoungBlockEnergy action content hcard F lam := by
+      rfl
 
 @[simp] theorem youngMatrixCoefficient_apply
     {n : Nat} {lam : YoungDiagram (n + 1)}
