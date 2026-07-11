@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks
+import DictatorshipTesting.Paper.S05_Int_DegreeOneYoungBlock
 
 /-
 Direct reverse imports:
@@ -11,10 +11,10 @@ Direct reverse imports:
 Paper statement: Lemma A.3 (`lem:app-u1-young-blocks`)
 Title in paper: Degree-one Young-block identification.
 
-Status: external: Appendix A representation-theoretic input.  The axiom below
-states the faithful equality between `U1` and the concrete one-row plus
-standard matrix-coefficient blocks.  The numerical distance identity is
-derived later from this equality and the internal orthogonal decomposition.
+Status: proven internally.  The theorem below identifies `U1` with the
+concrete one-row plus standard matrix-coefficient blocks.  The numerical
+distance identity is derived later from this equality and the internal
+orthogonal decomposition.
 -/
 
 noncomputable section
@@ -29,9 +29,12 @@ def AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement : Prop :=
     (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam),
     U1 (Fin (n + 1)) = concreteDegreeOneYoungBlockSum action
 
-/-- External input Lemma A.3: degree-one Young-block identification. -/
-axiom AppA_LemA_03_degreeOneYoungBlockIdentification :
-    AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement
+/-- Lemma A.3: degree-one Young-block identification, proved through the
+explicit permutation-coordinate decomposition. -/
+theorem AppA_LemA_03_degreeOneYoungBlockIdentification :
+    AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement := by
+  intro n action
+  exact U1_eq_concreteDegreeOneYoungBlockSum action
 
 /-- Faithful A.3 equality for a fixed family of concrete Young actions. -/
 theorem AppA_LemA_03_U1_eq_concreteDegreeOneYoungBlockSum

@@ -2,6 +2,7 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungRow
 
 /-
 Direct reverse imports:
+- `DictatorshipTesting.Paper.S05_Int_DegreeOneYoungBlock`
 - `DictatorshipTesting.Paper.S05_Lem5_23_WeightZeroEntriesAreNeverAMajority`
 - `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
 - `DictatorshipTesting.Paper.S05_Lem5_27_OddCertificate`

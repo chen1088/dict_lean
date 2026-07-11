@@ -124,14 +124,15 @@ Detailed maps:
   upward tableau-dimension recursion, tableau sum-of-squares identity, and
   coefficient-index cardinality theorem are now proved internally.  Thus the
   concrete basis, block components, energies, and Parseval are unconditional.
-  The faithful A.3 subspace equality now gives the exact `l2DistSqToU1`
-  complementary-energy identity by an internal `sInf` argument.
+  The faithful A.3 subspace equality is now proved internally and gives the
+  exact `l2DistSqToU1` complementary-energy identity by an internal `sInf`
+  argument.
 - A.1 now has the faithful Young-action axiom type.  A.2 supplies faithful
-  content-action data together with its trace/scalar payload.  A.3 now has the
-  faithful one-row-plus-standard subspace-equality type.  Lemma 5.19 now proves
-  the final global weighted matching identity in both parity cases.
-- Appendix A exposes explicit marker axioms for A.1, A.2, and A.3.  Lemma 5.19
-  consumes those markers and the internally proved scalarity identities to
+  content-action data together with its trace/scalar payload.  A.3 proves the
+  faithful one-row-plus-standard subspace equality internally.  Lemma 5.19 now
+  proves the final global weighted matching identity in both parity cases.
+- Appendix A exposes explicit marker axioms for A.1 and A.2.  Lemma 5.19
+  combines those markers with internal A.3 and the proved scalarity identities to
   produce the even/odd spectral-model theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.
@@ -174,7 +175,8 @@ Detailed maps:
   the A.3 complementary-energy formula for `l2DistSqToU1`.  It also proves
   `S05_matchingAverageScalarity_concrete_even` and
   `S05_matchingAverageScalarity_concrete_odd`; its active paper wrappers now
-  assemble Appendix A.1--A.3 directly into `SpectralBlockModelInputWithDim`.
+  assemble external Appendix A.1--A.2 and internal A.3 into
+  `SpectralBlockModelInputWithDim`.
 - Lemmas 5.20 and 5.21 prove the even and odd algebraic spectral bridges from
   explicit spectral-block-model hypotheses plus finite certificates.
 - Lemmas 5.23, 5.25, and 5.27 prove the finite `z`, even `h`, and odd `h`
@@ -187,20 +189,22 @@ theorems:
 
 - A.1 Young orthogonal realization.
 - A.2 Jucys--Murphy content spectrum.
-- A.3 Degree-one Young-block identification.
+
+A.3 degree-one Young-block identification is proved internally in
+`S05_Int_DegreeOneYoungBlock.lean`.
 
 Standard-tableaux connectedness is proved internally as Lemma 5.3 in
 `S05_Lem5_03_ConnectednessOfStandardTableaux.lean`.
 
-The Appendix A files add only the A.1/A.2/A.3 external marker axioms.  Lemma
-5.19 proves matching-average scalarity internally and assembles those three
-external ingredients into the spectral model wrappers.  The current Section 5
+The Appendix A files add only the A.1/A.2 external marker axioms.  Lemma 5.19
+proves matching-average scalarity internally and assembles those two external
+ingredients together with internal A.3 into the spectral model wrappers.  The current Section 5
 tableau-count dimension route also no longer registers the older `youngDim`
 dimension-branching instances.
 
 For the concrete route, the coefficient-index cardinality equality and the
 standard-tableau sum-of-squares identity are proved internally from the
-Young-lattice differential relation.  A.3 now states the faithful concrete
+Young-lattice differential relation.  A.3 now proves the faithful concrete
 subspace equality, and its exact distance consequence is proved internally.
 The even and odd weighted matching-energy identities are also proved internally;
-the remaining external representation boundary is exactly A.1--A.3.
+the remaining external representation boundary is exactly A.1--A.2.

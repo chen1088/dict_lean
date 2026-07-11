@@ -28,10 +28,10 @@ Direct reverse imports:
 Paper statement: Lemma 5.19 (`lem:regular-young-block-decomposition`)
 Title in paper: Regular Young-block decomposition.
 
-Status: assembly from external inputs.  A.1, A.2, and A.3 are the named
-representation-theoretic inputs; this file proves the concrete weighted
-matching identities and assembles those inputs into the dimension-parameterized
-spectral-block model consumed by the active Theorem 4.8 path.
+Status: assembly from external A.1/A.2 and internally proved A.3.  This file
+proves the concrete weighted matching identities and assembles those results
+into the dimension-parameterized spectral-block model consumed by the active
+Theorem 4.8 path.
 -/
 
 noncomputable section
@@ -2330,8 +2330,8 @@ theorem S05_Lem5_19_u1_identification {n : Nat}
 explicit classical Appendix A ingredients.
 
 This theorem contains no new representation-theoretic axiom of its own; it
-assembles the precise A.1/A.2/A.3 component inputs and the internally proved
-concrete weighted matching identity into the compact
+assembles the precise A.1/A.2 component inputs, the internally proved A.3
+equality, and the concrete weighted matching identity into the compact
 `SpectralBlockModelInputWithDim` interface consumed by Section 5. -/
 theorem spectralBlockModelInputWithDim_even_from_appA_inputs
     (hA1 : AppA_ThmA_01_YoungOrthogonalRealizationStatement)

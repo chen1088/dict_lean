@@ -46,9 +46,10 @@ The scaffold contains real Lean proofs for the elementary Boolean-cube,
 matching-cube, and averaging steps that have been formalized so far.  A small
 number of hard results are intentionally isolated behind named declarations or
 named external axioms.  There are no remaining `sorry` declarations.  The named
-external axioms are the two Section 2 Filmus inputs, the three Appendix A
-representation-theory ingredient markers A.1, A.2, and A.3.  Standard-tableaux swap
-connectedness is proved internally as Lemma 5.3.  Lemma 5.19 now proves the
+external axioms are the two Section 2 Filmus inputs and the two Appendix A
+representation-theory ingredient markers A.1 and A.2.  Standard-tableaux swap
+connectedness is proved internally as Lemma 5.3, and A.3 is proved internally
+by the explicit permutation-coordinate decomposition.  Lemma 5.19 now proves the
 concrete Young matrix-coefficient construction, same- and distinct-shape
 orthogonality, global linear independence, right-convolution scalarity, the
   `h / d` block scalar, and the matching-error quadratic-form identity.  The
@@ -56,7 +57,7 @@ orthogonality, global linear independence, right-convolution scalarity, the
   one-box Young-lattice differential recurrence, so the concrete global
   matrix-coefficient family is an unconditional basis and its block components,
   energies, orthogonality, and Parseval decomposition are unconditional.  A.3
-  now has the faithful subspace-equality type, and Lemma 5.19 derives the exact
+  now has a proved faithful subspace-equality theorem, and Lemma 5.19 derives the exact
   `l2DistSqToU1` complementary-energy identity from it and the current `sInf`
   definition.  It also proves the concrete even and odd global weighted matching
   identities and constructs the active spectral models without a separate
@@ -292,9 +293,10 @@ Generic commutant infrastructure for Lemma 5.16:
 
 The A.1 axiom now has the faithful Young-action type.  The A.2 axiom supplies
 the faithful Jucys--Murphy content action together with the trace/scalar payload
-used by the active matching calculation.  A.3 is the faithful equality between
-`U_1` and the concrete one-row plus standard block sum.  The sum-of-squares
-completeness theorem and the resulting A.3 distance adapter are internal.
+used by the active matching calculation.  A.3 is proved internally as the
+faithful equality between `U_1` and the concrete one-row plus standard block
+sum.  The sum-of-squares completeness theorem and the resulting A.3 distance
+adapter are also internal.
 Lemma 5.13 identifies the trace
 of the concrete fixed-matching operator with `hEvenTableau` or `hOddTableau`
   from the labeled matching eigenbasis in its paper statement. The positive-size
@@ -367,7 +369,8 @@ External standard inputs:
   through Lemma 5.19 theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.  Those wrappers are
-  produced by Lemma 5.19 from the explicit A.1/A.2/A.3 marker axioms.  The
+  produced by Lemma 5.19 from the explicit A.1/A.2 marker axioms and the
+  internally proved A.3 equality.  The
   concrete matrix-coefficient, completeness, one-block scalarity, faithful A.3
   distance adapter, and global weighted-energy assembly are internal.
 
@@ -429,8 +432,9 @@ Section 5 spectral-bridge files make the missing representation theory explicit
 through Lemma 5.19 theorem wrappers:
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.  The remaining axiom
-declarations used by this bridge are exactly the Appendix A.1/A.2/A.3 marker
-inputs; Lemma 5.19 consumes them through assembly theorems.
+declarations used by this bridge are exactly the Appendix A.1/A.2 marker
+inputs; Lemma 5.19 combines them with the internal A.3 theorem through its
+assembly theorems.
 
 The coefficient-index cardinality theorem
 `card_YoungMatrixCoefficientIndex_eq_perm` is now proved internally.  Its core

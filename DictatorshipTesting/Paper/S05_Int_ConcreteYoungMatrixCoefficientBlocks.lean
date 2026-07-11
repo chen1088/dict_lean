@@ -4,6 +4,7 @@ import DictatorshipTesting.Paper.Defs.AppA_DefA_01_YoungOrthogonalActionData
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.AppA_LemA_03_DegreeOneYoungBlockIdentification`
+- `DictatorshipTesting.Paper.S05_Int_DegreeOneYoungBlock`
 - `DictatorshipTesting.Paper.S05_Lem5_19_RegularYoungBlockDecomposition`
 -/
 

@@ -71,17 +71,17 @@ window.DICT_DEPENDENCY_DATA = {
       "label": "App A.3",
       "title": "Degree-one Young-block identification",
       "section": "Appendix A",
-      "kind": "external",
+      "kind": "paper",
       "importance": "normal",
-      "status": "external",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/AppA_LemA_03_DegreeOneYoungBlockIdentification.lean",
       "wrappers": [
         "AppA_LemA_03_degreeOneYoungBlockIdentification",
         "AppA_LemA_03_U1_eq_concreteDegreeOneYoungBlockSum"
       ],
-      "deps": [],
-      "summary": "External faithful equality of U1 with the one-row plus standard concrete blocks.",
-      "statement": "App A.3 states that U1 is exactly the concrete sum of the one-row and standard (n-1,1) matrix-coefficient blocks. Lemma 5.19 internally derives the complementary-energy formula for l2DistSqToU1 from this equality.",
+      "deps": ["S05_L01"],
+      "summary": "Internally proved faithful equality of U1 with the one-row plus standard concrete blocks.",
+      "statement": "App A.3 proves that U1 is exactly the concrete sum of the one-row and standard (n-1,1) matrix-coefficient blocks via an explicit permutation-coordinate decomposition. Lemma 5.19 derives the complementary-energy formula for l2DistSqToU1 from this equality.",
       "terms": [
         {
           "text": "Young block",
@@ -94,11 +94,11 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "AppA_LemA_03_degreeOneYoungBlockIdentification",
-          "line": 33
+          "line": 34
         },
         {
           "name": "AppA_LemA_03_U1_eq_concreteDegreeOneYoungBlockSum",
-          "line": 37
+          "line": 40
         }
       ]
     },
@@ -2942,8 +2942,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_L17",
         "S05_L02"
       ],
-      "summary": "Concrete block decomposition, faithful A.3 distance identity, and both global weighted matching identities are proved; only Appendix A.1-A.3 remain external.",
-      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, internal tableau sum-of-squares and coefficient-index cardinality, unconditional spanning and basis constructions, concrete block components and energies, Parseval, the exact l2DistSqToU1 complementary-energy identity from faithful A.3, U1 annihilation by averaged high convolution, the h/d component action, and the even/odd global weighted matching identities. Its active spectral-model wrappers consume only faithful Appendix A.1-A.3.",
+      "summary": "Concrete block decomposition, faithful A.3 distance identity, and both global weighted matching identities are proved; only Appendix A.1-A.2 remain external.",
+      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, internal tableau sum-of-squares and coefficient-index cardinality, unconditional spanning and basis constructions, concrete block components and energies, Parseval, the exact l2DistSqToU1 complementary-energy identity from faithful A.3, U1 annihilation by averaged high convolution, the h/d component action, and the even/odd global weighted matching identities. Its active spectral-model wrappers consume external faithful Appendix A.1-A.2 and internal A.3.",
       "terms": [
         {
           "text": "Young-block energy profile",
