@@ -12,7 +12,7 @@ This file records the definition-file refactor inventory. Definition modules now
 | `IsDictator` | def | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S02_Def2_06_IsDictator.lean` | 2.6 | Import the split file directly. | moved |
 | `hammingDist` | def | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S02_Def2_07_HammingDist.lean` | 2.7 | Import the split file directly. | moved |
 | `distToDictators` | def | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S02_Def2_08_DistToDictators.lean` | 2.8 | Import the split file directly. | moved |
-| `OracleTester` | structure | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S01_Def1_01_OracleTester.lean` | 1.1 interface | Import the split file directly. | moved |
+| `OracleTester` | structure | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S01_Def1_01_OracleTester.lean` | 1.1 interface | Operational finite-seed query schedule and decision rule, used by `S01_Thm1_01_MainIntro.lean`. | proven |
 | `oneCosetReal` | def | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S02_Def2_09_OneCosetReal.lean` | 2.9 | Import the split file directly. | moved |
 | `U1` | def | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S02_Def2_10_U1.lean` | 2.10 | Import the split file directly. | moved |
 | `l2DistSq` | def | `old root aggregate` | `DictatorshipTesting/Paper/Defs/S02_Def2_11_L2DistSq.lean` | 2.11 | Import the split file directly. | moved |

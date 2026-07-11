@@ -78,9 +78,10 @@ Thm1_1_MainIntro
 The Boolean `U_1` classification theorem is not a direct dependency of this
 active Lean chain.  This is not currently a paper/Lean mismatch: the FKN input
 used by Lemma 4.11 is already stated in the distance-to-dictators form needed
-for soundness.  The Section 3 completeness lemmas are proved separately; the
-current Theorem 1.1 wrapper goes through the abstract tester-amplification
-interface rather than reusing those lemmas directly.
+for soundness.  Theorem 1.1 now constructs the operational four-query trial,
+uses Lemma 3.2 for semantic one-sidedness, proves the exact rejection
+probability under independent repetition, and amplifies the one-trial bound.
+Ranks below four are handled by a uniformly bounded exhaustive tester.
 
 ## Current Section 5 Route Summary
 

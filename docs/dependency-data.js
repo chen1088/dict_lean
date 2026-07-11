@@ -3436,11 +3436,16 @@ window.DICT_DEPENDENCY_DATA = {
         "Thm1_1_MainIntro"
       ],
       "deps": [
+        "S03_02",
         "L4_11"
       ],
-      "summary": "Main theorem wrapper, proved from one-trial soundness.",
-      "statement": "Thm 1.1: Main theorem wrapper, proved from one-trial soundness.",
+      "summary": "Operational four-query tester amplified from one-trial soundness, with exhaustive handling of ranks below four.",
+      "statement": "Thm 1.1: The matching-cube trial is one-sided and independent repetition gives rejection probability at least $2/3$ using $O(\\epsilon^{-2})$ queries.",
       "terms": [
+        {
+          "text": "Perfect completeness",
+          "target": "S03_02"
+        },
         {
           "text": "One-trial soundness",
           "target": "L4_11"
@@ -3452,7 +3457,7 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "Thm1_1_MainIntro",
-          "line": 59
+          "line": 476
         }
       ]
     },

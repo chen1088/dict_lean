@@ -493,8 +493,9 @@ Elementary files:
 
 Paper-numbered highlights:
 
-- `S01_Thm1_01_MainIntro.lean`: main tester statement, currently routed through the
-  abstract tester-amplification interface.
+- `S01_Thm1_01_MainIntro.lean`: operational four-query matching tester,
+  independent repetition, exhaustive handling of `n < 4`, and the resulting
+  dimension-free amplification theorem.
 - `S02_Thm2_01_BooleanU1Classification.lean`: Boolean degree-one structural input.
 - `S02_Thm2_02_FKNStability.lean`: FKN/stability input.
 - `S02_Lem2_03_*`: cube-character orthonormality, Fourier expansion, and
