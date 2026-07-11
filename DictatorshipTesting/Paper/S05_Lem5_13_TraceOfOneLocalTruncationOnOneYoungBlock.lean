@@ -7,6 +7,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_30_TableauOperatorTrace
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_17_BlockScalarOfTheAveragedRejection`
+- `DictatorshipTesting.Paper.S05_Lem5_19_RegularYoungBlockDecomposition`
 -/
 
 

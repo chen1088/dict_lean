@@ -60,6 +60,23 @@ theorem tableauDim_nonneg {n : Nat} (lam : YoungDiagram n) :
     0 <= tableauDim lam := by
   simp [tableauDim]
 
+/-- A named standard tableau witnesses strict positivity of the tableau-count
+dimension. -/
+theorem tableauDim_pos_of_tableau {n : Nat} {lam : YoungDiagram n}
+    (T : StandardYoungTableau lam) :
+    0 < tableauDim lam := by
+  have hcard : 0 < Fintype.card (StandardYoungTableau lam) :=
+    Fintype.card_pos_iff.mpr ⟨T⟩
+  change (0 : ℝ) < (Fintype.card (StandardYoungTableau lam) : ℝ)
+  exact_mod_cast hcard
+
+/-- A named standard tableau witnesses that the tableau-count dimension is
+nonzero. -/
+theorem tableauDim_ne_zero_of_tableau {n : Nat} {lam : YoungDiagram n}
+    (T : StandardYoungTableau lam) :
+    tableauDim lam ≠ 0 :=
+  ne_of_gt (tableauDim_pos_of_tableau T)
+
 theorem card_tableaux_maxAt_deletedCorner_eq_child
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
     (h : IsOneBoxChild lam mu) {r : Nat}
