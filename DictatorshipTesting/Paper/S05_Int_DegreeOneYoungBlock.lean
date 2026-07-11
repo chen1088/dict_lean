@@ -1,12 +1,12 @@
 import DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks
 import DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis
-import DictatorshipTesting.Paper.Defs.S05_Def5_26_CertificateSpecialDiagrams
+import DictatorshipTesting.Paper.Defs.S05_Def5_13a_CertificateSpecialDiagrams
 import Mathlib.GroupTheory.Perm.Sign
 import Mathlib.Data.Finset.Sort
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.AppA_LemA_03_DegreeOneYoungBlockIdentification`
+- `DictatorshipTesting.Paper.S05_Lem5_12_DegreeOneYoungBlockIdentification`
 -/
 
 /-!
@@ -15,7 +15,7 @@ Direct reverse imports:
 This internal file identifies the coefficient space of the permutation
 coordinate representation with the concrete one-row and standard Young
 matrix-coefficient blocks.  It supplies the faithful subspace equality used by
-Appendix A.3.
+Section 5.3.
 -/
 
 noncomputable section
@@ -1322,12 +1322,12 @@ theorem degreeOneFinVector_sum_eq_zero {n : Nat} (k : Fin n) :
 coordinate swap. -/
 theorem permutationCoordinateRho_adjacent_degreeOneFinVector {n : Nat}
     (a k : Fin n) :
-    permutationCoordinateRho (appA_adjacentTransposition a)
+    permutationCoordinateRho (s05_adjacentTransposition a)
         (degreeOneFinVector k) =
       fun j : Fin (n + 1) =>
         natAdjacentCoordinateSwap a (degreeOneCoordinateVector k) j := by
   funext j
-  simp only [permutationCoordinateRho, appA_adjacentTransposition]
+  simp only [permutationCoordinateRho, s05_adjacentTransposition]
   by_cases hja : j = Fin.castSucc a
   · subst j
     simp [degreeOneFinVector, natAdjacentCoordinateSwap]
@@ -1415,7 +1415,7 @@ theorem standardCoordinateMap_youngAdjacentOperator_basis {n : Nat}
     standardCoordinateMap hstd
         (youngAdjacentOperator a
           (tableauBasisVec (standardTableauOfIndex hstd k))) =
-      permutationCoordinateRho (appA_adjacentTransposition a)
+      permutationCoordinateRho (s05_adjacentTransposition a)
         (standardCoordinateMap hstd
           (tableauBasisVec (standardTableauOfIndex hstd k))) := by
   let T := standardTableauOfIndex hstd k
@@ -1575,7 +1575,7 @@ theorem standardCoordinateMap_youngAdjacentOperator {n : Nat}
     {lam : YoungDiagram (n + 1)} (hstd : IsStandard lam)
     (a : Fin n) (f : TableauSpace lam) :
     standardCoordinateMap hstd (youngAdjacentOperator a f) =
-      permutationCoordinateRho (appA_adjacentTransposition a)
+      permutationCoordinateRho (s05_adjacentTransposition a)
         (standardCoordinateMap hstd f) := by
   have hexp : f = ∑ T : StandardYoungTableau lam,
       f T • tableauBasisVec T := by
@@ -1584,7 +1584,7 @@ theorem standardCoordinateMap_youngAdjacentOperator {n : Nat}
     simpa [Finset.sum_apply, Pi.smul_apply, smul_eq_mul] using hS
   let L := (standardCoordinateMap hstd).comp (youngAdjacentLinearMap a)
   let R := (permutationCoordinateLinearMap
-      (appA_adjacentTransposition a)).comp (standardCoordinateMap hstd)
+      (s05_adjacentTransposition a)).comp (standardCoordinateMap hstd)
   change L f = R f
   rw [hexp, map_sum, map_sum]
   apply Finset.sum_congr rfl
@@ -1620,19 +1620,19 @@ theorem standardCoordinateMap_intertwines_youngAction {n : Nat}
         rw [action.rep.map_mul, hs, ht]
         exact ((permutationCoordinateRepresentation (Fin (n + 1))).map_mul
           sigma tau (standardCoordinateMap hstd g)).symm }
-  have hgen : Set.range (fun a : Fin n => appA_adjacentTransposition a) ⊆ M := by
+  have hgen : Set.range (fun a : Fin n => s05_adjacentTransposition a) ⊆ M := by
     rintro _ ⟨a, rfl⟩ g
     rw [action.rho_adjacent]
     exact standardCoordinateMap_youngAdjacentOperator hstd a g
   have hclosure : Submonoid.closure
-      (Set.range (fun a : Fin n => appA_adjacentTransposition a)) ≤ M :=
+      (Set.range (fun a : Fin n => s05_adjacentTransposition a)) ≤ M :=
     Submonoid.closure_le.2 hgen
   have htop : Submonoid.closure
-      (Set.range (fun a : Fin n => appA_adjacentTransposition a)) = ⊤ := by
-    simpa [appA_adjacentTransposition] using
+      (Set.range (fun a : Fin n => s05_adjacentTransposition a)) = ⊤ := by
+    simpa [s05_adjacentTransposition] using
       Equiv.Perm.mclosure_swap_castSucc_succ n
   have hpi : pi ∈ Submonoid.closure
-      (Set.range (fun a : Fin n => appA_adjacentTransposition a)) := by
+      (Set.range (fun a : Fin n => s05_adjacentTransposition a)) := by
     rw [htop]
     trivial
   exact hclosure hpi f
@@ -1905,19 +1905,19 @@ theorem youngAction_fix_tableauBasis_of_isOneRow {n : Nat}
         change action.rep.rho tau (tableauBasisVec T) =
           tableauBasisVec T at ht
         rw [action.rep.map_mul, ht, hs] }
-  have hgen : Set.range (fun a : Fin n => appA_adjacentTransposition a) ⊆ M := by
+  have hgen : Set.range (fun a : Fin n => s05_adjacentTransposition a) ⊆ M := by
     rintro _ ⟨a, rfl⟩
-    change action.rep.rho (appA_adjacentTransposition a)
+    change action.rep.rho (s05_adjacentTransposition a)
       (tableauBasisVec T) = tableauBasisVec T
     rw [action.rho_adjacent]
     exact youngAdjacentOperator_basis_sameRow T a
       (adjacentSameRow_of_isOneRow hrow T a)
   have hclosure : Submonoid.closure
-      (Set.range (fun a : Fin n => appA_adjacentTransposition a)) ≤ M :=
+      (Set.range (fun a : Fin n => s05_adjacentTransposition a)) ≤ M :=
     Submonoid.closure_le.2 hgen
   have htop : Submonoid.closure
-      (Set.range (fun a : Fin n => appA_adjacentTransposition a)) = ⊤ := by
-    simpa [appA_adjacentTransposition] using
+      (Set.range (fun a : Fin n => s05_adjacentTransposition a)) = ⊤ := by
+    simpa [s05_adjacentTransposition] using
       Equiv.Perm.mclosure_swap_castSucc_succ n
   apply hclosure
   rw [htop]
@@ -2287,7 +2287,7 @@ theorem U1_le_concreteDegreeOneYoungBlockSum {n : Nat}
   exact oneCosetReal_mem_concreteDegreeOneYoungBlockSum
     action ij.1 ij.2
 
-/-- Faithful Appendix A.3: the degree-one permutation-coordinate coefficient
+/-- Faithful Section 5.3: the degree-one permutation-coordinate coefficient
 space is exactly the sum of the concrete one-row and standard Young blocks. -/
 theorem U1_eq_concreteDegreeOneYoungBlockSum {n : Nat}
     (action : ∀ lam : YoungDiagram (n + 1),

@@ -3,12 +3,16 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_IsStandard
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_06a_YoungBlock`
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_U1CompatibleYoungBlockProfile`
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungBasisScalarCommutantInput`
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungBlockEnergyProfile`
+- `DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks`
+- `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeFromCertificates`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_06_YoungBlock`
-- `DictatorshipTesting.Paper.S05_Lem5_16_YoungBasisScalarCommutant`
-- `DictatorshipTesting.Paper.S05_Lem5_19_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_08_YoungBasisScalarCommutant`
+- `DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction`
 -/
 
 
@@ -17,7 +21,7 @@ Direct reverse imports:
 
 This file contains compatibility interface objects for the original `youngDim`
 spectral bridge.  The current paper route uses the dimension-parametric
-`tableauDim` bridge in Lemmas 5.18--5.21.
+`tableauDim` bridge in Lemmas 5.27--5.29.
 -/
 
 noncomputable section

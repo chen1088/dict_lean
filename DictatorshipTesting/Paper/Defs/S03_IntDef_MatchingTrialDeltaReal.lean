@@ -1,0 +1,25 @@
+import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingTrialDelta
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_Def2_02a_CubeLowDegreeOnePart`
+-/
+
+
+/-!
+Definition file for `matchingTrialDeltaReal`.
+-/
+
+noncomputable section
+
+open scoped BigOperators
+
+namespace DictatorshipTesting
+
+/-- The real-valued mixed second difference queried by one matching-cube trial. -/
+def matchingTrialDeltaReal {α : Type*} [DecidableEq α]
+    (F : Perm α → ℝ) (M : OrderedMatching α) (π : Perm α)
+    (c : CubeDirectionColor M.edgeCount) : ℝ :=
+  cubeDelta (fun x : Cube M.edgeCount => F (π * M.tau x))
+    (cubeZero M.edgeCount) (cubeColorU c) (cubeColorV c)
+
+end DictatorshipTesting

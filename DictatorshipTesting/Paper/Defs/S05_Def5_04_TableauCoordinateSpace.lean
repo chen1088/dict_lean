@@ -3,7 +3,8 @@ import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_Def5_30_TableauOperatorTrace`
+- `DictatorshipTesting`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_12d_TableauOperatorTrace`
 -/
 
 

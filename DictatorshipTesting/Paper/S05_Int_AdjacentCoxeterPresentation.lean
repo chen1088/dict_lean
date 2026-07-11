@@ -1,9 +1,10 @@
 import DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis
-import DictatorshipTesting.Paper.Defs.AppA_DefA_01_YoungOrthogonalActionData
+import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungOrthogonalActionData
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization`
+- `DictatorshipTesting.Paper.S05_Lem5_02_TypeAAdjacentWordPresentation`
+- `DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction`
 -/
 
 /-!
@@ -437,22 +438,22 @@ theorem adjacentWordPerm_complete {n : Nat} {w v : AdjacentWord n}
         (Relation.EqvGen.trans _ _ _ hmiddle (Relation.EqvGen.symm _ _ hv))
 
 /-- The concrete permutation shadow of a generator is the literal adjacent
-transposition used by the Appendix A interface. -/
-theorem adjacentSwapPerm_eq_appA_adjacentTransposition {n : Nat} (i : Fin n) :
-    adjacentSwapPerm i = appA_adjacentTransposition i := by
+transposition used by the Section 5 interface. -/
+theorem adjacentSwapPerm_eq_s05_adjacentTransposition {n : Nat} (i : Fin n) :
+    adjacentSwapPerm i = s05_adjacentTransposition i := by
   ext x
   have hhi : adjacentEntryHi i = i.succ := Fin.ext rfl
   simp [adjacentSwapPerm_apply, adjacentSwapValue,
-    appA_adjacentTransposition, adjacentEntryLo, hhi, Equiv.swap_apply_def]
+    s05_adjacentTransposition, adjacentEntryLo, hhi, Equiv.swap_apply_def]
 
 /-- Every finite permutation is represented by an adjacent word. -/
 theorem adjacentWordPerm_surjective {n : Nat} :
     Function.Surjective (@adjacentWordPerm n) := by
   intro σ
   have hmem : σ ∈ Submonoid.closure
-      (Set.range fun i : Fin n => appA_adjacentTransposition i) := by
+      (Set.range fun i : Fin n => s05_adjacentTransposition i) := by
     rw [show
-      (Set.range fun i : Fin n => appA_adjacentTransposition i) =
+      (Set.range fun i : Fin n => s05_adjacentTransposition i) =
         Set.range (fun i : Fin n => Equiv.swap i.castSucc i.succ) by rfl]
     rw [Equiv.Perm.mclosure_swap_castSucc_succ]
     trivial
@@ -461,7 +462,7 @@ theorem adjacentWordPerm_surjective {n : Nat} :
     (fun τ hτ => by
       rcases hτ with ⟨i, rfl⟩
       refine ⟨[i], ?_⟩
-      simp [adjacentSwapPerm_eq_appA_adjacentTransposition])
+      simp [adjacentSwapPerm_eq_s05_adjacentTransposition])
     ⟨[], rfl⟩
     (fun τ υ _ _ hτ hυ => by
       rcases hτ with ⟨w, rfl⟩
@@ -575,13 +576,13 @@ theorem youngPermutationOperator_mul {n : Nat}
 
 theorem youngPermutationOperator_adjacent {n : Nat}
     {lam : YoungDiagram (n + 1)} (i : Fin n) (f : TableauSpace lam) :
-    youngPermutationOperator (appA_adjacentTransposition i) f =
+    youngPermutationOperator (s05_adjacentTransposition i) f =
       youngAdjacentOperator i f := by
   have hperm : adjacentWordPerm
-      (adjacentWordOfPerm (appA_adjacentTransposition i)) =
+      (adjacentWordOfPerm (s05_adjacentTransposition i)) =
       adjacentWordPerm ([i] : AdjacentWord n) := by
     rw [adjacentWordPerm_adjacentWordOfPerm]
-    simp [adjacentSwapPerm_eq_appA_adjacentTransposition]
+    simp [adjacentSwapPerm_eq_s05_adjacentTransposition]
   have hcox := adjacentWordPerm_complete hperm
   have hop := youngAdjacentWordOperator_respects_coxeter_equiv
     (lam := lam) hcox
@@ -598,7 +599,7 @@ noncomputable def youngOrthogonalActionData {n : Nat}
       map_one := youngPermutationOperator_one }
   rho_adjacent := youngPermutationOperator_adjacent
 
-/-- Internal construction of the action asserted by Appendix A.1. -/
+/-- Internal construction of the action asserted by Section 5.1. -/
 theorem youngOrthogonalActionData_nonempty {n : Nat}
     (lam : YoungDiagram (n + 1)) : Nonempty (YoungOrthogonalActionData lam) :=
   ⟨youngOrthogonalActionData lam⟩

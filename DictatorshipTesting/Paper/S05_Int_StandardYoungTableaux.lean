@@ -2,11 +2,11 @@ import DictatorshipTesting.Paper.S05_Int_YoungDiagramCorners
 
 /-
 Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_Def5_03_StandardTableaux`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_09_OneBoxDeletionSpaces`
 - `DictatorshipTesting.Paper.S05_Int_TableauDimension`
 - `DictatorshipTesting.Paper.S05_Int_YoungAdjacentEntries`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_03_StandardTableaux`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_12_OneBoxDeletionSpaces`
-- `DictatorshipTesting.Paper.S05_Lem5_05_OneBoxCornerDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_14_OneBoxCornerDecomposition`
 -/
 
 
@@ -86,7 +86,7 @@ def TableauMaxAt {n : Nat} {lam : YoungDiagram (n + 1)}
   T.entry u = Fin.last n
 
 /-- Set-level version of the one-box deletion space: tableaux whose maximum
-entry lies in `u`. The Hilbert-space span will be added later. -/
+entry lies in `u`. -/
 def OneBoxDeletionTableaux {n : Nat} (lam : YoungDiagram (n + 1))
     (u : YoungCell lam) : Set (StandardYoungTableau lam) :=
   {T | TableauMaxAt T u}

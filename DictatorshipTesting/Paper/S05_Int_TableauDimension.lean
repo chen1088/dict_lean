@@ -4,13 +4,15 @@ import DictatorshipTesting.Paper.S05_Int_YoungDiagramCorners
 
 /-
 Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_Def5_04_TableauCoordinateSpace`
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_TableauEvenHeight`
+- `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
 - `DictatorshipTesting.Paper.S05_Int_YoungOrthogonal`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_04_TableauCoordinateSpace`
-- `DictatorshipTesting.Paper.S05_Lem5_04_TwoBoxTableauBranching`
-- `DictatorshipTesting.Paper.S05_Lem5_08_TwoBoxDimensionRecursion`
-- `DictatorshipTesting.Paper.S05_Lem5_09_OneBoxDimensionRecursion`
-- `DictatorshipTesting.Paper.S05_Lem5_19_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Int_YoungTableauSumOfSquares`
+- `DictatorshipTesting.Paper.S05_Lem5_13_SignedTwoBoxOrthogonalBranching`
+- `DictatorshipTesting.Paper.S05_Lem5_17_TwoBoxDimensionRecursion`
+- `DictatorshipTesting.Paper.S05_Lem5_18_OneBoxDimensionRecursion`
 -/
 
 

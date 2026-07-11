@@ -2,7 +2,9 @@ import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_11_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_11b_IsMatchingEigenvectorEven`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_11c_IsMatchingEigenvectorOdd`
+- `DictatorshipTesting.Paper.S05_Lem5_20_MatchingSubgroupEigenbasis`
 -/
 
 

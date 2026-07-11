@@ -1,11 +1,11 @@
-import DictatorshipTesting.Paper.Defs.S02_Def2_14_CubeChar
+import DictatorshipTesting.Paper.Defs.S02_IntDef_CubeChar
 
 /-
 Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_Def5_11a_MatchingCharacters`
 - `DictatorshipTesting.Paper.S02_Int_CubeFourierTranslate`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_15_MatchingCharacters`
 -/
 
 

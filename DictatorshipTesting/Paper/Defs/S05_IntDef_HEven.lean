@@ -1,11 +1,11 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_ZEven
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_Def5_13_EvenSignPatternMultiset`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_18_MatchingRestrictionEvenInput`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_HOdd`
-- `DictatorshipTesting.Paper.S05_Lem5_22_CountingOneMoreMatchingEdge`
-- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_MatchingRestrictionEvenInput`
+- `DictatorshipTesting.Paper.S05_Lem5_30_CountingOneMoreMatchingEdge`
+- `DictatorshipTesting.Paper.S05_Lem5_33_EvenCertificate`
 -/
 
 

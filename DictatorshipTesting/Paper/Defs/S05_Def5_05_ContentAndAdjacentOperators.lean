@@ -2,7 +2,8 @@ import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.AppA_DefA_01_YoungOrthogonalActionData`
+- `DictatorshipTesting`
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungOrthogonalActionData`
 -/
 
 

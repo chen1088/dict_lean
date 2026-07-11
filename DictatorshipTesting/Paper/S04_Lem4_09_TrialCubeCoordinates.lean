@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs.S03_Def3_09_MatchingTrialDelta
+import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingTrialDelta
 import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
 
 /-
@@ -16,7 +16,7 @@ This is `lem:trial-cube-coordinates` from `dictatorship_testing_soda27_latest.te
 namespace DictatorshipTesting
 
 /-- Lemma 4.9, `lem:trial-cube-coordinates`: one trial in cube coordinates. -/
-theorem L4_11_TrialCubeCoordinates {α : Type*} [Fintype α] [DecidableEq α]
+theorem S04_Lem4_09_TrialCubeCoordinates {α : Type*} [Fintype α] [DecidableEq α]
     (f : BoolFn α) (M : OrderedMatching α) (π : Perm α)
     (x : Cube M.edgeCount) (c : CubeDirectionColor M.edgeCount) :
     matchingTrialDelta f M (π * M.tau x) c =

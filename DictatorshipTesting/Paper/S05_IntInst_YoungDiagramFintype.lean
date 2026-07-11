@@ -1,3 +1,8 @@
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungRow`
+-/
+
 import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungDiagram
 
 /-!

@@ -1,0 +1,24 @@
+import DictatorshipTesting.Paper.Defs.S03_IntDef_OrderedMatchingEdgeSwap
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S03_IntDef_OrderedMatchingTau`
+-/
+
+
+/-!
+Definition file for `OrderedMatching.edgePerm`.
+-/
+
+noncomputable section
+
+open scoped BigOperators
+
+namespace DictatorshipTesting
+
+/-- The `r`th matching transposition if the cube bit is on, otherwise identity. -/
+def OrderedMatching.edgePerm {α : Type*} [DecidableEq α]
+    (M : OrderedMatching α) (x : Cube M.edgeCount) (r : Fin M.edgeCount) :
+    Perm α :=
+  if x r then M.edgeSwap r else 1
+
+end DictatorshipTesting

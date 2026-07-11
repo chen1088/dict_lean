@@ -123,7 +123,7 @@ theorem oneTrialDeltaSqExpectation_ge_matchingMeanProjectionError
             (32 / 9 : ℝ) * matchingLocalProjectionError F M.toOrdered
                 =
                 (32 / 9 : ℝ) * matchingLocalHighDegreeEnergy F M.toOrdered := by
-                  rw [L4_6_LocalHighDegreeErrorFormula]
+                  rw [S04_Lem4_04_LocalHighDegreeErrorFormula]
             _ =
                 (∑ π : Perm (Fin n),
                   (32 / 9 : ℝ) *
@@ -142,7 +142,7 @@ theorem oneTrialDeltaSqExpectation_ge_matchingMeanProjectionError
                   apply div_le_div_of_nonneg_right ?_ (le_of_lt hPpos)
                   apply Finset.sum_le_sum
                   intro π _hπ
-                  exact L4_1_CubeSquare (n / 2)
+                  exact S04_Lem4_01_CubeSquare (n / 2)
                     (fun x : Cube (n / 2) => F (π * M.toOrdered.tau x))
             _ =
                 (∑ π : Perm (Fin n),
@@ -153,13 +153,13 @@ theorem oneTrialDeltaSqExpectation_ge_matchingMeanProjectionError
                   rw [sum_perm_cubeSquareEnergy_eq_sum_perm_trialDelta]
 
 /-- Proposition 4.10: square energy controls global degree. -/
-theorem Prop4_12_SquareEnergyControlsGlobalDegree
+theorem S04_Prop4_10_SquareEnergyControlsGlobalDegree
     (n : ℕ) (hn : 4 ≤ n)
     (F : Perm (Fin n) → ℝ) :
     (16 / 27 : ℝ) * l2DistSqToU1 F ≤ oneTrialDeltaSqExpectation F := by
   have hgap :
       (1 / 6 : ℝ) * l2DistSqToU1 F ≤ matchingMeanProjectionError F :=
-    (Thm4_10_MatchingGap n hn F).1
+    (S04_Thm4_08_MatchingGap n hn F).1
   have htrial :
       (32 / 9 : ℝ) * matchingMeanProjectionError F ≤
         oneTrialDeltaSqExpectation F :=

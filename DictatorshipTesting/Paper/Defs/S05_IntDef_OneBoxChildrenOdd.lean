@@ -1,8 +1,8 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_VerticalTwoStripChildrenEven
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_Def5_11_OneBoxRemovals`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_27_CertificateExceptionalPredicates`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_07c_OneBoxRemovals`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_13b_CertificateExceptionalPredicates`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_ZEven`
 - `DictatorshipTesting.Paper.S05_Int_TableauDimension`
 -/

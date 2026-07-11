@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs.S02_Def2_12_L2DistSqToU1
+import DictatorshipTesting.Paper.Defs.S02_IntDef_L2DistSqToU1
 
 /-
 Direct reverse imports:
@@ -18,7 +18,7 @@ Status: external: Filmus FKN/stability theorem.
 # Stability input for Theorem 2.2
 
 This file isolates the imported FKN/stability theorem used by the active
-soundness proof.  Lemma 4.11 consumes exactly the wrapper `Thm2_2_FKNInput`.
+soundness proof.  Lemma 4.11 consumes exactly the wrapper `S02_Thm2_02_FKNStability`.
 -/
 
 namespace DictatorshipTesting
@@ -36,8 +36,8 @@ axiom fknStability_input :
           l2DistSqToU1 (boolFnToReal f)
 
 /-- Theorem 2.2, `thm:fkn-input`: imported FKN/stability input.  This preserves
-the old theorem name while keeping the assumption in the paper-numbered file. -/
-theorem Thm2_2_FKNInput :
+the paper-facing theorem while keeping the assumption in the paper-numbered file. -/
+theorem S02_Thm2_02_FKNStability :
     ∃ cFKN : ℝ, 0 < cFKN ∧
       ∀ n : ℕ, 4 ≤ n → ∀ f : BoolFn (Fin n),
         cFKN * (distToDictators f) ^ (2 : ℕ) ≤

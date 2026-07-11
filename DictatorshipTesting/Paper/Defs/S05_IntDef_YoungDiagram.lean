@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs.S03_Def3_27_MatchingHighConvolution
+import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingHighConvolution
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_IntInst_YoungDiagramFintype`

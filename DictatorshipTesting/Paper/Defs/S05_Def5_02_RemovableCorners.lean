@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.S05_Int_YoungDiagramCorners
 
 /-
 Direct reverse imports:
-- none
+- `DictatorshipTesting`
 -/
 
 

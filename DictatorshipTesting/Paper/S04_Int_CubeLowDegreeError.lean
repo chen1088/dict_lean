@@ -6,10 +6,10 @@ import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection`
-- `DictatorshipTesting.Paper.S05_Int_PMConvolution`
 - `DictatorshipTesting.Paper.S04_Lem4_04_LocalHighDegreeErrorFormula`
 - `DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular`
-- `DictatorshipTesting.Paper.S05_Lem5_12_LocalTruncationOnAMatchingCharacter`
+- `DictatorshipTesting.Paper.S05_Int_PMConvolution`
+- `DictatorshipTesting.Paper.S05_Lem5_21_LocalTruncationOnAMatchingCharacter`
 -/
 
 
@@ -37,7 +37,7 @@ theorem cubeHighDegreeEnergy_cubeChar_eq_zero_of_card_le_one {m : ℕ}
     have : T.card ≤ 1 := by simpa [h] using hS
     omega
   unfold cubeFourierCoeff
-  rw [L2_3_cubeChar_orthonormality]
+  rw [S02_Lem2_03_cubeChar_orthonormality]
   simp [hne]
 
 /-- Any finite linear combination of degree-at-most-one characters has zero
@@ -100,7 +100,7 @@ theorem cubeLowDegreeOnePart_eq_self_of_cubeHighDegreeEnergy_eq_zero {m : ℕ}
               cubeFourierCoeff_eq_zero_of_cubeHighDegreeEnergy_eq_zero hg hhigh
             simp [hlow, hcoeff]
     _ = g x := by
-          exact (L2_3_cubeFourier_expansion m g x).symm
+          exact (S02_Lem2_03_cubeFourier_expansion m g x).symm
 
 /-- The degree-at-most-one truncation is idempotent. -/
 theorem cubeLowDegreeOnePart_idempotent {m : ℕ} (g : Cube m → ℝ) :
@@ -127,7 +127,7 @@ theorem cubeFourierCoeff_cubeChar {m : ℕ} (S T : Finset (Fin m)) :
     cubeFourierCoeff (fun x : Cube m => cubeChar S x) T =
       if S = T then 1 else 0 := by
   unfold cubeFourierCoeff
-  rw [L2_3_cubeChar_orthonormality]
+  rw [S02_Lem2_03_cubeChar_orthonormality]
 
 /-- The degree-at-most-one part preserves exactly the coefficients of degree at
 most one. -/
@@ -218,7 +218,7 @@ theorem cubeExpectation_sq_sub_cubeLowDegreeOnePart_eq_highDegreeEnergy
     cubeExpectation
         (fun x : Cube m => (g x - cubeLowDegreeOnePart g x) ^ (2 : ℕ)) =
       cubeHighDegreeEnergy g := by
-  rw [L2_3_cubeParseval_identity]
+  rw [S02_Lem2_03_cubeParseval_identity]
   unfold cubeHighDegreeEnergy
   rw [Finset.sum_filter]
   apply Finset.sum_congr rfl

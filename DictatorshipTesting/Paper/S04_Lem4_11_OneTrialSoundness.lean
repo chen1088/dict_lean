@@ -152,11 +152,11 @@ theorem oneTrialRejectProbability_ge_deltaSqExpectation
                               f M.toOrdered π c]
 
 /-- Lemma 4.11, `lem:one-trial-soundness`: one-trial soundness. -/
-theorem L4_13_OneTrialSoundness :
+theorem S04_Lem4_11_OneTrialSoundness :
     ∃ c0 : ℝ, 0 < c0 ∧
       ∀ n : ℕ, 4 ≤ n → ∀ f : BoolFn (Fin n),
         c0 * (distToDictators f) ^ (2 : ℕ) ≤ oneTrialRejectProbability f := by
-  rcases Thm2_2_FKNInput with ⟨cFKN, hcFKN_pos, hFKN⟩
+  rcases S02_Thm2_02_FKNStability with ⟨cFKN, hcFKN_pos, hFKN⟩
   refine ⟨(4 / 27 : ℝ) * cFKN, ?_, ?_⟩
   · nlinarith
   · intro n hn f
@@ -167,7 +167,7 @@ theorem L4_13_OneTrialSoundness :
     have hsquare :
         (16 / 27 : ℝ) * l2DistSqToU1 (boolFnToReal f) ≤
           oneTrialDeltaSqExpectation (boolFnToReal f) :=
-      Prop4_12_SquareEnergyControlsGlobalDegree n hn (boolFnToReal f)
+      S04_Prop4_10_SquareEnergyControlsGlobalDegree n hn (boolFnToReal f)
     have hreject :
         (1 / 4 : ℝ) * oneTrialDeltaSqExpectation (boolFnToReal f) ≤
           oneTrialRejectProbability f :=

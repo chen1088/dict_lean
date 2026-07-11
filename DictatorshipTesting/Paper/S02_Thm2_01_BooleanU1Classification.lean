@@ -1,5 +1,5 @@
-import DictatorshipTesting.Paper.Defs.S02_Def2_06_IsDictator
-import DictatorshipTesting.Paper.Defs.S02_Def2_10_U1
+import DictatorshipTesting.Paper.Defs.S02_IntDef_IsDictator
+import DictatorshipTesting.Paper.Defs.S02_IntDef_U1
 
 /-
 Direct reverse imports:
@@ -159,9 +159,9 @@ axiom booleanU1_dictator_classification_input (n : ℕ) (hn : 3 ≤ n)
     boolFnToReal f ∈ U1 (Fin n) → IsDictator f
 
 /-- Theorem 2.1, `thm:boolean-u1`: Boolean functions in `U₁` are exactly
-dictators.  This preserves the old theorem name while keeping the proof
-boundary in the paper-numbered file. -/
-theorem Thm2_1_BooleanU1 (n : ℕ) (hn : 1 ≤ n) (f : BoolFn (Fin n)) :
+dictators. The literature assumption remains isolated in this paper-numbered
+file. -/
+theorem S02_Thm2_01_BooleanU1Classification (n : ℕ) (hn : 1 ≤ n) (f : BoolFn (Fin n)) :
     boolFnToReal f ∈ U1 (Fin n) ↔ IsDictator f := by
   constructor
   · intro hf

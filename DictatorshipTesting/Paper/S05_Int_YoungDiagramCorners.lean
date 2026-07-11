@@ -2,10 +2,11 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_IsOneBoxChild
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Int_StandardYoungTableaux`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_02_RemovableCorners`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_09_TwoBoxRemovals`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_11_OneBoxRemovals`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_07a_TwoBoxRemovals`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_07c_OneBoxRemovals`
+- `DictatorshipTesting.Paper.S05_Int_StandardYoungTableaux`
+- `DictatorshipTesting.Paper.S05_Int_TableauDimension`
 -/
 
 

@@ -1,40 +1,30 @@
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.S05_Lem5_17_BlockScalarOfTheAveragedRejection
+import DictatorshipTesting.Paper.S05_Lem5_25_BlockScalarOfTheAveragedRejection
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
-- `DictatorshipTesting.Paper.S05_Lem5_18_BlockLowerBoundImpliesTheGap`
-- `DictatorshipTesting.Paper.S05_Lem5_20_EvenSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Lem5_21_OddSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_27_BlockLowerBoundImpliesTheGap`
+- `DictatorshipTesting.Paper.S05_Lem5_28_EvenSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_29_OddSpectralBridge`
 -/
 
 
 /-!
-Helper for paper statements: Lemmas 5.18--5.21 (`lem:block-lower-bound-gap`,
-`lem:spectral-certificate-even`, `lem:spectral-certificate-odd`)
-Title in paper: Spectral bridge from the finite certificate.
-
-Status: the algebraic block-scalar implication is proved below.  The remaining
-inputs are exactly the representation-theoretic construction of Young-block
-energies and scalars from the regular representation, the identification of the
-`U_1` summand, and Schur-lemma scalarity of the averaged matching operator.
+Internal algebra for Lemmas 5.27--5.29 (`lem:block-lower-bound-gap`,
+`lem:spectral-certificate-even`, and `lem:spectral-certificate-odd`).
 -/
 
 /-!
 # Spectral gap from certificate inequalities
 
-This file separates the final Section 5 bridge into two layers.
-
-The proved layer is finite algebra: if the `U_1`-orthogonal energy of `F`
+If the `U_1`-orthogonal energy of `F`
 decomposes as a finite sum of nonnegative Young-block energies, and the matching
 projection error is the same sum weighted by block scalars bounded below by
 `c`, then the matching spectral gap with constant `c` follows.
 
-The unproved layer is representation theory: constructing those block energies
-and scalars from the Young-block decomposition of `L^2(S_n)`, identifying the
-two `U_1` blocks `(n)` and `(n-1,1)`, and proving scalarity of the averaged
-matching operator by Schur's lemma.
+The concrete block energies and scalar identities are supplied by Lemmas 5.11,
+5.12, 5.25, and 5.26.
 -/
 
 noncomputable section
@@ -61,7 +51,7 @@ theorem blockScalar_lower_bound_of_traceScalarFormula {n : ℕ}
   exact (le_div_iff₀ hdim_pos).mpr (hcert lam hnot_row hnot_std)
 
 /-- Dimension positivity plus the block trace identity imply the trace/scalar
-value formula.  This is part of the algebraic helper for Lemmas 5.18--5.21. -/
+value formula. This is part of the algebraic helper for Lemmas 5.27--5.29. -/
 theorem traceScalarValue_of_blockTraceIdentity {n : ℕ}
     {height theta : YoungDiagram n → ℝ}
     (hdim : YoungDimensionPositiveInput n)
@@ -105,7 +95,7 @@ theorem SpectralGapFromBlockScalars {n : ℕ} (c : ℝ)
 
 /-- Spectral gap from scalar lower bounds on every non-`U_1` Young block.
 
-This is the purely algebraic wrapper for Lemma 5.13: once the block energies,
+This is the purely algebraic wrapper for Lemma 5.27: once the block energies,
 `U_1` identification, matching-average scalarity, and scalar lower bounds are
 available, no representation theory remains. -/
 theorem SpectralGapFromBlockScalarLowerBounds {n : ℕ} (c : ℝ)
@@ -178,7 +168,7 @@ theorem matchingSpectralGap_of_odd_young_certificate (m : ℕ) (hm : 2 ≤ m) (c
 /-- Spectral certificate using explicit representation-theoretic spectral-block
 model hypotheses.  The theorem name is preserved for compatibility with
 existing imports. -/
-theorem L5_2_SpectralCertificate (m : ℕ) (hm : 2 ≤ m) (c : ℝ)
+theorem S05_Int_SpectralCertificate (m : ℕ) (hm : 2 ≤ m) (c : ℝ)
     (hevenModel : SpectralBlockModelInput
       (fun lam : YoungDiagram (2 * m) => hEven m lam))
     (hoddModel : SpectralBlockModelInput

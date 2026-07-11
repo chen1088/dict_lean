@@ -1,15 +1,16 @@
 const graphData = window.DICT_DEPENDENCY_DATA;
 const nodeById = new Map(graphData.nodes.map((node) => [node.id, node]));
 
-const section5DefinitionRoots = Array.from({ length: 27 }, (_, index) =>
+const section5DefinitionRoots = Array.from({ length: 13 }, (_, index) =>
   `S05_D${String(index + 1).padStart(2, "0")}`
 );
-const section5LemmaRoots = Array.from({ length: 26 }, (_, index) =>
-  `S05_L${String(index + 1).padStart(2, "0")}`
-);
-const section5Roots = section5LemmaRoots;
+const section5Roots = Array.from({ length: 35 }, (_, index) => {
+  const number = index + 1;
+  const kind = number === 3 || number === 5 ? "T" : "L";
+  return `S05_${kind}${String(number).padStart(2, "0")}`;
+});
 const paperResultRoots = graphData.nodes
-  .filter((node) => !section5DefinitionRoots.includes(node.id))
+  .filter((node) => node.kind === "paper")
   .map((node) => node.id);
 
 function collectTransitiveDeps(rootIds) {
@@ -37,32 +38,27 @@ const rootViews = {
   paper: {
     label: "Paper map",
     roots: paperResultRoots,
-    open: ["Thm1_1", "Thm4_8", "S05_L20", "S05_L21", "S05_L19"],
+    open: ["S01_T01", "S04_T08", "S05_L28", "S05_L29", "S05_L26"],
   },
   main: {
     label: "Main theorem",
-    roots: ["Thm1_1"],
-    open: collectTransitiveDeps(["Thm1_1"]),
+    roots: ["S01_T01"],
+    open: collectTransitiveDeps(["S01_T01"]),
   },
   spectral: {
     label: "Spectral bridge",
-    roots: ["Thm4_8"],
-    open: collectTransitiveDeps(["Thm4_8"]),
+    roots: ["S04_T08"],
+    open: collectTransitiveDeps(["S04_T08"]),
   },
   section5: {
     label: "Section 5",
     roots: section5Roots,
-    open: ["S05_L20", "S05_L21", "S05_L19", "S05_L18", "S05_L11", "S05_L01"],
+    open: ["S05_L28", "S05_L29", "S05_L26", "S05_L20", "S05_L11", "S05_T03"],
   },
   certificates: {
     label: "Finite certificates",
-    roots: ["S05_L25", "S05_L27", "S05_L23", "S05_L22"],
-    open: ["S05_L25", "S05_L27", "S05_L23", "S05_L22"],
-  },
-  appendix: {
-    label: "Appendix A boundary",
-    roots: ["AppA_01", "AppA_02", "AppA_03"],
-    open: ["AppA_01", "AppA_02", "AppA_03"],
+    roots: ["S05_L33", "S05_L35", "S05_L31", "S05_L30"],
+    open: ["S05_L33", "S05_L35", "S05_L31", "S05_L30"],
   },
 };
 
@@ -70,7 +66,7 @@ const state = {
   view: "main",
   query: "",
   status: "all",
-  selectedId: "Thm1_1",
+  selectedId: "S01_T01",
   expanded: new Set(rootViews.main.open),
 };
 
@@ -581,7 +577,7 @@ function renderInlineDetails(node, depCount) {
   const wrappers = leanLinks.length
     ? leanLinks
         .map((link) =>
-          `<a class="decl-link" href="${sourceLineUrl(node.file, link.line)}" target="_blank" rel="noreferrer"><code>${escapeHtml(link.name)}</code>${link.line ? `<span>L${link.line}</span>` : ""}</a>`
+          `<a class="decl-link" href="${sourceLineUrl(link.file || node.file, link.line)}" target="_blank" rel="noreferrer"><code>${escapeHtml(link.name)}</code>${link.line ? `<span>L${link.line}</span>` : ""}</a>`
         )
         .join(" ")
     : "<span class=\"muted\">No wrapper listed.</span>";
@@ -637,7 +633,7 @@ function openOverlay(id) {
         <dt>Lean file</dt>
         <dd><a href="${sourceUrl(node.file)}" target="_blank" rel="noreferrer">${escapeHtml(node.file)}</a></dd>
         <dt>Wrappers</dt>
-        <dd>${leanLinks.length ? leanLinks.map((link) => `<a class="decl-link" href="${sourceLineUrl(node.file, link.line)}" target="_blank" rel="noreferrer"><code>${escapeHtml(link.name)}</code>${link.line ? `<span>L${link.line}</span>` : ""}</a>`).join(" ") : "No wrapper listed."}</dd>
+        <dd>${leanLinks.length ? leanLinks.map((link) => `<a class="decl-link" href="${sourceLineUrl(link.file || node.file, link.line)}" target="_blank" rel="noreferrer"><code>${escapeHtml(link.name)}</code>${link.line ? `<span>L${link.line}</span>` : ""}</a>`).join(" ") : "No wrapper listed."}</dd>
       </dl>
     </section>
   `;

@@ -1,14 +1,15 @@
-import DictatorshipTesting.Paper.S05_Lem5_02_DiagonalContentEigenspaces
-import DictatorshipTesting.Paper.Defs.AppA_DefA_02_JucysMurphyContentActionData
+import DictatorshipTesting.Paper.S05_Lem5_06_DiagonalContentEigenspaces
+import DictatorshipTesting.Paper.Defs.S05_IntDef_JucysMurphyContentActionData
 import Mathlib.Algebra.Group.End
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.AppA_ThmA_02_JucysMurphyContentSpectrum`
+- `DictatorshipTesting.Paper.S05_Lem5_04_JucysMurphyRecurrences`
+- `DictatorshipTesting.Paper.S05_Thm5_05_JucysMurphyContentAction`
 -/
 
 /-!
-Internal proof of the faithful Appendix A.2 content action.  The argument first
+Internal proof of the faithful Section 5.2 content action.  The argument first
 proves the type-A Jucys--Murphy recurrence at the coefficient-function level,
 then proves its matching recurrence for the concrete tableau operators.
 -/
@@ -21,21 +22,21 @@ namespace DictatorshipTesting
 
 /-- Conjugating a transposition ending at `a+1` by the adjacent swap `s_a`
 moves that endpoint down to `a`. -/
-theorem appA_adjacent_conjugate_swap_hi_to_lo {n : Nat}
+theorem s05_adjacent_conjugate_swap_hi_to_lo {n : Nat}
     (a : Fin n) {i : Fin (n + 1)} (hi : i < a.castSucc) :
-    appA_adjacentTransposition a * Equiv.swap i a.succ *
-        appA_adjacentTransposition a =
+    s05_adjacentTransposition a * Equiv.swap i a.succ *
+        s05_adjacentTransposition a =
       Equiv.swap i a.castSucc := by
-  let s := appA_adjacentTransposition a
+  let s := s05_adjacentTransposition a
   have hi_ne_lo : i ≠ a.castSucc := ne_of_lt hi
   have hi_ne_hi : i ≠ a.succ :=
     ne_of_lt (lt_trans hi (by simp))
   have hs_inv : s⁻¹ = s := by
-    simp [s, appA_adjacentTransposition]
+    simp [s, s05_adjacentTransposition]
   have hsi : s i = i := by
     exact Equiv.swap_apply_of_ne_of_ne hi_ne_lo hi_ne_hi
   have hshi : s a.succ = a.castSucc := by
-    simp [s, appA_adjacentTransposition]
+    simp [s, s05_adjacentTransposition]
   change s * Equiv.swap i a.succ * s = Equiv.swap i a.castSucc
   calc
     s * Equiv.swap i a.succ * s =
@@ -45,12 +46,12 @@ theorem appA_adjacent_conjugate_swap_hi_to_lo {n : Nat}
     _ = Equiv.swap i a.castSucc := by rw [hsi, hshi]
 
 /-- Conjugation by one adjacent transposition is an involution. -/
-theorem appA_adjacent_conjugation_involutive {n : Nat} (a : Fin n) :
+theorem s05_adjacent_conjugation_involutive {n : Nat} (a : Fin n) :
     Function.Involutive
       (fun g : Perm (Fin (n + 1)) =>
-        appA_adjacentTransposition a * g * appA_adjacentTransposition a) := by
+        s05_adjacentTransposition a * g * s05_adjacentTransposition a) := by
   intro g
-  simp [appA_adjacentTransposition, mul_assoc]
+  simp [s05_adjacentTransposition, mul_assoc]
 
 /-- Equality with `(i,a+1)` is equivalent to equality with `(i,a)` after
 conjugation by the adjacent swap `s_a`. -/
@@ -58,30 +59,30 @@ theorem eq_swap_hi_iff_adjacent_conjugate_eq_swap_lo {n : Nat}
     (a : Fin n) {i : Fin (n + 1)} (hi : i < a.castSucc)
     (g : Perm (Fin (n + 1))) :
     g = Equiv.swap i a.succ ↔
-      appA_adjacentTransposition a * g * appA_adjacentTransposition a =
+      s05_adjacentTransposition a * g * s05_adjacentTransposition a =
         Equiv.swap i a.castSucc := by
   let conj : Perm (Fin (n + 1)) -> Perm (Fin (n + 1)) :=
-    fun h => appA_adjacentTransposition a * h * appA_adjacentTransposition a
+    fun h => s05_adjacentTransposition a * h * s05_adjacentTransposition a
   have hconj : conj (Equiv.swap i a.succ) = Equiv.swap i a.castSucc :=
-    appA_adjacent_conjugate_swap_hi_to_lo a hi
+    s05_adjacent_conjugate_swap_hi_to_lo a hi
   constructor
   · intro hg
     simpa [hg] using hconj
   · intro hg
-    apply (appA_adjacent_conjugation_involutive a).injective
+    apply (s05_adjacent_conjugation_involutive a).injective
     exact hg.trans hconj.symm
 
 /-- Coefficient-function form of `J_(a+1) = s_a J_a s_a + s_a`. -/
-theorem appA_jucysMurphyElement_succ_recurrence {n : Nat}
+theorem s05_jucysMurphyElement_succ_recurrence {n : Nat}
     (a : Fin n) (g : Perm (Fin (n + 1))) :
-    appA_jucysMurphyElement a.succ g =
-      appA_jucysMurphyElement a.castSucc
-          (appA_adjacentTransposition a * g * appA_adjacentTransposition a) +
-        if g = appA_adjacentTransposition a then 1 else 0 := by
+    s05_jucysMurphyElement a.succ g =
+      s05_jucysMurphyElement a.castSucc
+          (s05_adjacentTransposition a * g * s05_adjacentTransposition a) +
+        if g = s05_adjacentTransposition a then 1 else 0 := by
   classical
   let lo : Fin (n + 1) := a.castSucc
   let hi : Fin (n + 1) := a.succ
-  let s : Perm (Fin (n + 1)) := appA_adjacentTransposition a
+  let s : Perm (Fin (n + 1)) := s05_adjacentTransposition a
   have hfilter :
       Finset.univ.filter (fun i : Fin (n + 1) => i < hi) =
         insert lo (Finset.univ.filter fun i : Fin (n + 1) => i < lo) := by
@@ -121,10 +122,10 @@ theorem appA_jucysMurphyElement_succ_recurrence {n : Nat}
     have hil : i < lo := (Finset.mem_filter.mp hi_mem).2
     have hiff := eq_swap_hi_iff_adjacent_conjugate_eq_swap_lo a hil g
     change (if g = Equiv.swap i a.succ then (1 : Real) else 0) =
-      if appA_adjacentTransposition a * g * appA_adjacentTransposition a =
+      if s05_adjacentTransposition a * g * s05_adjacentTransposition a =
           Equiv.swap i a.castSucc then (1 : Real) else 0
     exact if_congr hiff rfl rfl
-  unfold appA_jucysMurphyElement
+  unfold s05_jucysMurphyElement
   change
     (∑ i ∈ Finset.univ.filter (fun i : Fin (n + 1) => i < hi),
       if g = Equiv.swap i hi then (1 : Real) else 0) = _
@@ -135,56 +136,56 @@ theorem appA_jucysMurphyElement_succ_recurrence {n : Nat}
           if g = Equiv.swap i hi then (1 : Real) else 0) = _
   rw [hsum]
   simp only [lo, hi, s]
-  rw [show Equiv.swap a.castSucc a.succ = appA_adjacentTransposition a by rfl]
+  rw [show Equiv.swap a.castSucc a.succ = s05_adjacentTransposition a by rfl]
   ring
 
-/-- The coefficient recurrence transported through any supplied A.1
+/-- The coefficient recurrence transported through any supplied Theorem 5.3
 representation. -/
 theorem represented_jucysMurphy_succ_recurrence {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (action : YoungOrthogonalActionData lam) (a : Fin n)
     (f : TableauSpace lam) :
     (∑ g : Perm (Fin (n + 1)),
-        appA_jucysMurphyElement a.succ g • action.rep.rho g f) =
-      action.rep.rho (appA_adjacentTransposition a)
+        s05_jucysMurphyElement a.succ g • action.rep.rho g f) =
+      action.rep.rho (s05_adjacentTransposition a)
           (∑ g : Perm (Fin (n + 1)),
-            appA_jucysMurphyElement a.castSucc g •
+            s05_jucysMurphyElement a.castSucc g •
               action.rep.rho g
-                (action.rep.rho (appA_adjacentTransposition a) f)) +
-        action.rep.rho (appA_adjacentTransposition a) f := by
+                (action.rep.rho (s05_adjacentTransposition a) f)) +
+        action.rep.rho (s05_adjacentTransposition a) f := by
   classical
-  let s : Perm (Fin (n + 1)) := appA_adjacentTransposition a
+  let s : Perm (Fin (n + 1)) := s05_adjacentTransposition a
   let conjEquiv : Perm (Fin (n + 1)) ≃ Perm (Fin (n + 1)) :=
     { toFun := fun g => s * g * s
       invFun := fun g => s * g * s
-      left_inv := appA_adjacent_conjugation_involutive a
-      right_inv := appA_adjacent_conjugation_involutive a }
+      left_inv := s05_adjacent_conjugation_involutive a
+      right_inv := s05_adjacent_conjugation_involutive a }
   have hconjSum :
       (∑ g : Perm (Fin (n + 1)),
-        appA_jucysMurphyElement a.castSucc (s * g * s) •
+        s05_jucysMurphyElement a.castSucc (s * g * s) •
           action.rep.rho g f) =
       ∑ g : Perm (Fin (n + 1)),
-        appA_jucysMurphyElement a.castSucc g •
+        s05_jucysMurphyElement a.castSucc g •
           action.rep.rho (s * g * s) f := by
     have hsum := Equiv.sum_comp conjEquiv
       (fun g : Perm (Fin (n + 1)) =>
-        appA_jucysMurphyElement a.castSucc (s * g * s) •
+        s05_jucysMurphyElement a.castSucc (s * g * s) •
           action.rep.rho g f)
     calc
       (∑ g : Perm (Fin (n + 1)),
-          appA_jucysMurphyElement a.castSucc (s * g * s) •
+          s05_jucysMurphyElement a.castSucc (s * g * s) •
             action.rep.rho g f) =
           ∑ g : Perm (Fin (n + 1)),
-            appA_jucysMurphyElement a.castSucc
+            s05_jucysMurphyElement a.castSucc
                 (s * (s * g * s) * s) •
               action.rep.rho (s * g * s) f := hsum.symm
       _ = ∑ g : Perm (Fin (n + 1)),
-          appA_jucysMurphyElement a.castSucc g •
+          s05_jucysMurphyElement a.castSucc g •
             action.rep.rho (s * g * s) f := by
         apply Finset.sum_congr rfl
         intro g _hg
         rw [show s * (s * g * s) * s = g by
-          exact appA_adjacent_conjugation_involutive a g]
+          exact s05_adjacent_conjugation_involutive a g]
   have hrep (g : Perm (Fin (n + 1))) :
       action.rep.rho (s * g * s) f =
         action.rep.rho s (action.rep.rho g (action.rep.rho s f)) := by
@@ -198,16 +199,16 @@ theorem represented_jucysMurphy_succ_recurrence {n : Nat}
         rw [action.rep.map_mul g s f]
   calc
     (∑ g : Perm (Fin (n + 1)),
-        appA_jucysMurphyElement a.succ g • action.rep.rho g f) =
+        s05_jucysMurphyElement a.succ g • action.rep.rho g f) =
         ∑ g : Perm (Fin (n + 1)),
-          (appA_jucysMurphyElement a.castSucc (s * g * s) +
+          (s05_jucysMurphyElement a.castSucc (s * g * s) +
               if g = s then 1 else 0) • action.rep.rho g f := by
       apply Finset.sum_congr rfl
       intro g _hg
-      rw [appA_jucysMurphyElement_succ_recurrence a g]
+      rw [s05_jucysMurphyElement_succ_recurrence a g]
     _ =
         (∑ g : Perm (Fin (n + 1)),
-          appA_jucysMurphyElement a.castSucc (s * g * s) •
+          s05_jucysMurphyElement a.castSucc (s * g * s) •
             action.rep.rho g f) +
         ∑ g : Perm (Fin (n + 1)),
           (if g = s then (1 : Real) else 0) • action.rep.rho g f := by
@@ -217,14 +218,14 @@ theorem represented_jucysMurphy_succ_recurrence {n : Nat}
       rw [add_smul]
     _ =
         (∑ g : Perm (Fin (n + 1)),
-          appA_jucysMurphyElement a.castSucc g •
+          s05_jucysMurphyElement a.castSucc g •
             action.rep.rho (s * g * s) f) +
           action.rep.rho s f := by
       rw [hconjSum]
       simp
     _ =
         (∑ g : Perm (Fin (n + 1)),
-          appA_jucysMurphyElement a.castSucc g •
+          s05_jucysMurphyElement a.castSucc g •
             action.rep.rho s
               (action.rep.rho g (action.rep.rho s f))) +
           action.rep.rho s f := by
@@ -234,18 +235,18 @@ theorem represented_jucysMurphy_succ_recurrence {n : Nat}
       rw [hrep]
     _ = action.rep.rho s
           (∑ g : Perm (Fin (n + 1)),
-            appA_jucysMurphyElement a.castSucc g •
+            s05_jucysMurphyElement a.castSucc g •
               action.rep.rho g (action.rep.rho s f)) +
         action.rep.rho s f := by
       apply congrArg (fun x => x + action.rep.rho s f)
       change
         (∑ g : Perm (Fin (n + 1)),
-          appA_jucysMurphyElement a.castSucc g •
+          s05_jucysMurphyElement a.castSucc g •
             action.rep.linearMap s
               (action.rep.rho g (action.rep.rho s f))) =
           action.rep.linearMap s
             (∑ g : Perm (Fin (n + 1)),
-              appA_jucysMurphyElement a.castSucc g •
+              s05_jucysMurphyElement a.castSucc g •
                 action.rep.rho g (action.rep.rho s f))
       rw [map_sum]
       apply Finset.sum_congr rfl
@@ -299,7 +300,7 @@ theorem youngAdjacent_content_intertwining_basis {n : Nat}
       youngAdjacentOperator_smul,
       youngAdjacentOperator_basis_sameRow T a hrow]
     have hcInt :=
-      S05_Lem5_02_entryContent_adjacent_hi_eq_lo_add_one_of_sameRow
+      S05_Lem5_06_entryContent_adjacent_hi_eq_lo_add_one_of_sameRow
         T a hrow
     have hc : (entryContent T a.succ : Real) =
         (entryContent T a.castSucc : Real) + 1 := by
@@ -317,7 +318,7 @@ theorem youngAdjacent_content_intertwining_basis {n : Nat}
         youngAdjacentOperator_smul,
         youngAdjacentOperator_basis_sameCol T a hcol]
       have hcInt :=
-        S05_Lem5_02_entryContent_adjacent_hi_eq_lo_sub_one_of_sameCol
+        S05_Lem5_06_entryContent_adjacent_hi_eq_lo_sub_one_of_sameCol
           T a hcol
       have hc : (entryContent T a.succ : Real) =
           (entryContent T a.castSucc : Real) - 1 := by
@@ -571,21 +572,21 @@ theorem entryContent_zero {n : Nat}
   simp [entryContent, YoungCell.content, hrow, hcol]
 
 /-- The zeroth Jucys--Murphy coefficient function vanishes. -/
-theorem appA_jucysMurphyElement_zero {n : Nat}
+theorem s05_jucysMurphyElement_zero {n : Nat}
     (g : Perm (Fin (n + 1))) :
-    appA_jucysMurphyElement (0 : Fin (n + 1)) g = 0 := by
-  simp [appA_jucysMurphyElement]
+    s05_jucysMurphyElement (0 : Fin (n + 1)) g = 0 := by
+  simp [s05_jucysMurphyElement]
 
 /-- The represented zeroth Jucys--Murphy element is the zero operator. -/
 theorem represented_jucysMurphy_zero {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (action : YoungOrthogonalActionData lam) (f : TableauSpace lam) :
     (∑ g : Perm (Fin (n + 1)),
-      appA_jucysMurphyElement (0 : Fin (n + 1)) g •
+      s05_jucysMurphyElement (0 : Fin (n + 1)) g •
         action.rep.rho g f) = 0 := by
   apply Finset.sum_eq_zero
   intro g _hg
-  rw [appA_jucysMurphyElement_zero]
+  rw [s05_jucysMurphyElement_zero]
   exact zero_smul Real (action.rep.rho g f)
 
 /-- The zeroth content operator is the zero operator. -/
@@ -602,7 +603,7 @@ theorem represented_jucysMurphy_eq_diagonal {n : Nat}
     (action : YoungOrthogonalActionData lam)
     (a : Fin (n + 1)) (f : TableauSpace lam) :
     (∑ g : Perm (Fin (n + 1)),
-      appA_jucysMurphyElement a g • action.rep.rho g f) =
+      s05_jucysMurphyElement a g • action.rep.rho g f) =
         jucysMurphyDiagonalOperator a f := by
   induction a using Fin.induction generalizing f with
   | zero =>
@@ -610,21 +611,21 @@ theorem represented_jucysMurphy_eq_diagonal {n : Nat}
         jucysMurphyDiagonalOperator_zero f]
   | succ a ih =>
       rw [represented_jucysMurphy_succ_recurrence action a f]
-      rw [ih (action.rep.rho (appA_adjacentTransposition a) f)]
+      rw [ih (action.rep.rho (s05_adjacentTransposition a) f)]
       rw [action.rho_adjacent a
         (jucysMurphyDiagonalOperator a.castSucc
-          (action.rep.rho (appA_adjacentTransposition a) f))]
+          (action.rep.rho (s05_adjacentTransposition a) f))]
       rw [action.rho_adjacent a f]
       exact youngAdjacent_content_succ_recurrence a f
 
-/-- The internally constructed faithful Appendix A.2 content-action data. -/
+/-- The internally constructed faithful Section 5.2 content-action data. -/
 theorem internalJucysMurphyContentActionData {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (action : YoungOrthogonalActionData lam) :
     JucysMurphyContentActionData action where
   rho_content := represented_jucysMurphy_eq_diagonal action
 
-/-- Appendix A.2's faithful content-action interface is inhabited for every
+/-- Section 5.2's faithful content-action interface is inhabited for every
 concrete Young orthogonal action. -/
 theorem jucysMurphyContentActionData_nonempty {n : Nat}
     {lam : YoungDiagram (n + 1)}

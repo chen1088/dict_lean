@@ -22,7 +22,7 @@ namespace DictatorshipTesting
 
 /-- Lemma 2.3, `lem:cube-parseval`: cube characters are orthonormal and give
 Fourier expansion plus Parseval. -/
-theorem L2_3_CubeParseval (m : ℕ) :
+theorem S02_Lem2_03_CubeParseval (m : ℕ) :
     (∀ S T : Finset (Fin m),
       cubeExpectation (fun x : Cube m => cubeChar S x * cubeChar T x) =
         if S = T then 1 else 0) ∧
@@ -31,7 +31,7 @@ theorem L2_3_CubeParseval (m : ℕ) :
     (∀ g : Cube m → ℝ,
       cubeExpectation (fun x : Cube m => g x ^ (2 : ℕ)) =
         ∑ S : Finset (Fin m), (cubeFourierCoeff g S) ^ (2 : ℕ)) := by
-  exact ⟨L2_3_cubeChar_orthonormality m, L2_3_cubeFourier_expansion m,
-    L2_3_cubeParseval_identity m⟩
+  exact ⟨S02_Lem2_03_cubeChar_orthonormality m, S02_Lem2_03_cubeFourier_expansion m,
+    S02_Lem2_03_cubeParseval_identity m⟩
 
 end DictatorshipTesting

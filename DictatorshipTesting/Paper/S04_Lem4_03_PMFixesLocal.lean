@@ -17,7 +17,7 @@ This is `lem:PM-fixes-local` from `dictatorship_testing_soda27_latest.tex`.
 namespace DictatorshipTesting
 
 /-- Lemma 4.3, `lem:PM-fixes-local`: `P_M` keeps exactly local degree-one functions. -/
-theorem L4_5_PMFixesLocal {α : Type*} [Fintype α] [DecidableEq α]
+theorem S04_Lem4_03_PMFixesLocal {α : Type*} [Fintype α] [DecidableEq α]
     (F : Perm α → ℝ) (M : OrderedMatching α) :
     IsMatchingLocalDegreeOne (matchingLocalProjection M F) M ∧
       ∀ H : Perm α → ℝ,

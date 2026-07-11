@@ -1,15 +1,15 @@
-import DictatorshipTesting.Paper.Defs.S03_Def3_17_MatchingLocalProjection
+import DictatorshipTesting.Paper.Defs.S04_Def4_02a_MatchingLocalProjection
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
 import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
 import DictatorshipTesting.Paper.S04_Lem4_02_PMIndependentOfRepresentatives
 
 /-
 Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents`
 - `DictatorshipTesting.Paper.S04_Lem4_03_PMFixesLocal`
 - `DictatorshipTesting.Paper.S04_Lem4_04_LocalHighDegreeErrorFormula`
 - `DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_22_MatchingIdempotents`
-- `DictatorshipTesting.Paper.S05_Lem5_12_LocalTruncationOnAMatchingCharacter`
+- `DictatorshipTesting.Paper.S05_Lem5_21_LocalTruncationOnAMatchingCharacter`
 -/
 
 
@@ -39,7 +39,7 @@ theorem matchingLocalProjection_apply_mul_tau {α : Type*} [Fintype α]
     rw [mul_assoc, orderedMatching_tau_mul]
   rw [hfun]
   simpa [cubeXor_zero] using
-    (L4_4_PMIndependentOfRepresentatives
+    (S04_Lem4_02_PMIndependentOfRepresentatives
       (g := fun y : Cube M.edgeCount => F (π * M.tau y))
       (z := x) (x := cubeZero M.edgeCount))
 

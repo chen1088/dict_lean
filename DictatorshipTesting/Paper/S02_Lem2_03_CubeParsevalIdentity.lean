@@ -3,8 +3,8 @@ import DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval`
+- `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare`
 -/
 
@@ -22,7 +22,7 @@ open scoped BigOperators
 namespace DictatorshipTesting
 
 /-- The Parseval part of Lemma 2.3, `lem:cube-parseval`. -/
-theorem L2_3_cubeParseval_identity (m : ℕ) :
+theorem S02_Lem2_03_cubeParseval_identity (m : ℕ) :
     ∀ g : Cube m → ℝ,
       cubeExpectation (fun x : Cube m => g x ^ (2 : ℕ)) =
         ∑ S : Finset (Fin m), (cubeFourierCoeff g S) ^ (2 : ℕ) := by
@@ -37,7 +37,7 @@ theorem L2_3_cubeParseval_identity (m : ℕ) :
             g x * (∑ S : Finset (Fin m), cubeFourierCoeff g S * cubeChar S x)) := by
           congr
           ext x
-          rw [← L2_3_cubeFourier_expansion m g x]
+          rw [← S02_Lem2_03_cubeFourier_expansion m g x]
           ring
     _ = ∑ S : Finset (Fin m), cubeFourierCoeff g S *
           cubeExpectation (fun x : Cube m => g x * cubeChar S x) := by

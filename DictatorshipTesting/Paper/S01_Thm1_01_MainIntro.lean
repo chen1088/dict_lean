@@ -1,13 +1,14 @@
-import DictatorshipTesting.Paper.Defs.S01_Def1_01_OracleTester
-import DictatorshipTesting.Paper.Defs.S02_Def2_06_IsDictator
-import DictatorshipTesting.Paper.Defs.S02_Def2_08_DistToDictators
-import DictatorshipTesting.Paper.Defs.S03_Def3_25_OneTrialRejectProbability
+import DictatorshipTesting.Paper.Defs.S02_Def2_01_FiniteSeedTester
+import DictatorshipTesting.Paper.Defs.S02_IntDef_IsDictator
+import DictatorshipTesting.Paper.Defs.S02_IntDef_DistToDictators
+import DictatorshipTesting.Paper.Defs.S03_IntDef_OneTrialRejectProbability
 import DictatorshipTesting.Paper.S03_Lem3_02_PerfectCompleteness
 import DictatorshipTesting.Paper.S04_Lem4_11_OneTrialSoundness
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S04_Lem4_12_IndependentRepetitionAndAmplification`
 -/
 
 
@@ -114,7 +115,7 @@ theorem matchingTrialTester_oneSided (n : Nat) :
     (matchingTrialTester n).oneSided := by
   intro f hf seed
   rw [matchingTrialTester_run_eq_decide_delta]
-  simp [L3_2_PerfectCompleteness f hf seed.1.toOrdered seed.2.1 seed.2.2]
+  simp [S03_Lem3_02_PerfectCompleteness f hf seed.1.toOrdered seed.2.1 seed.2.2]
 
 /-- Independent repetition, accepting exactly when every trial accepts. -/
 def repeatTester {α : Type*} [Fintype α] [DecidableEq α]
@@ -473,7 +474,7 @@ theorem exists_dimensionFreeTester_of_oneTrialSoundness
 
 /-- Theorem 1.1, `thm:main-intro`: a dimension-free one-sided tester exists,
 using the one-trial soundness theorem. -/
-theorem Thm1_1_MainIntro :
+theorem S01_Thm1_01_MainIntro :
     ∃ C : ℝ, 0 < C ∧
       ∀ n : ℕ, ∀ ε : ℝ, 0 < ε → ε < 1 →
         ∃ tester : OracleTester (Fin n),
@@ -485,6 +486,6 @@ theorem Thm1_1_MainIntro :
             ε ≤ distToDictators f →
               tester.rejectsWithProbabilityAtLeast f ((2 : ℝ) / 3)) := by
   exact exists_dimensionFreeTester_of_oneTrialSoundness
-    L4_13_OneTrialSoundness
+    S04_Lem4_11_OneTrialSoundness
 
 end DictatorshipTesting

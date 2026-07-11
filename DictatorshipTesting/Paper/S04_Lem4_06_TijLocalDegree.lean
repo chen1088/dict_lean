@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs.S03_Def3_15_IsMatchingLocalDegreeOne
+import DictatorshipTesting.Paper.Defs.S04_Def4_01a_IsMatchingLocalDegreeOne
 import DictatorshipTesting.Paper.S02_Int_CubeCharFlip
 import DictatorshipTesting.Paper.S02_Int_CubeFlipInvolutive
 import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
@@ -97,7 +97,7 @@ theorem cubeHighDegreeEnergy_boolToReal_eq_zero_of_oneJunta {m : ℕ}
     simp [cubeFourierCoeff_bool_juntaAt_eq_zero_of_two_le_card g hr hcard]
 
 /-- Lemma 4.6, `lem:tij-local-degree`: basic indicators have local degree at most one. -/
-theorem L4_8_TijLocalDegree {α : Type*} [Fintype α] [DecidableEq α]
+theorem S04_Lem4_06_TijLocalDegree {α : Type*} [Fintype α] [DecidableEq α]
     (M : OrderedMatching α) (i j : α) :
     IsMatchingLocalDegreeOne (oneCosetReal i j) M := by
   intro π
@@ -107,7 +107,7 @@ theorem L4_8_TijLocalDegree {α : Type*} [Fintype α] [DecidableEq α]
     intro ρ
     rfl
   have hjunta : IsCubeOneJunta (matchingCubeRestriction f M π) :=
-    L3_1_ImageDictatorToJunta f hf M π
+    S03_Lem3_01_ImageDictatorToJunta f hf M π
   have henergy :
       cubeHighDegreeEnergy
           (fun x => boolToReal (matchingCubeRestriction f M π x)) = 0 :=

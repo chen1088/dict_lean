@@ -5,6 +5,7 @@ import DictatorshipTesting.Paper.S04_Lem4_06_TijLocalDegree
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
 -/
 
 
@@ -50,7 +51,7 @@ theorem IsMatchingLocalDegreeOne_smul {α : Type*} [Fintype α] [DecidableEq α]
     cubeHighDegreeEnergy_smul_eq_zero a (hF π)
 
 /-- Corollary 4.7, `cor:U1-local`: `U_1` is contained in each local degree-one space. -/
-theorem Cor4_9_U1Local {α : Type*} [Fintype α] [DecidableEq α]
+theorem S04_Cor4_07_U1Local {α : Type*} [Fintype α] [DecidableEq α]
     (M : OrderedMatching α) (F : Perm α → ℝ) (hF : F ∈ U1 α) :
     IsMatchingLocalDegreeOne F M ∧ matchingLocalProjection M F = F := by
   have hlocal : IsMatchingLocalDegreeOne F M := by
@@ -60,12 +61,12 @@ theorem Cor4_9_U1Local {α : Type*} [Fintype α] [DecidableEq α]
       ?mem ?zero ?add ?smul hF
     · intro G hG
       rcases hG with ⟨ij, rfl⟩
-      exact L4_8_TijLocalDegree M ij.1 ij.2
+      exact S04_Lem4_06_TijLocalDegree M ij.1 ij.2
     · exact IsMatchingLocalDegreeOne_zero M
     · intro G H _hGmem _hHmem hG hH
       exact IsMatchingLocalDegreeOne_add hG hH
     · intro a G _hGmem hG
       exact IsMatchingLocalDegreeOne_smul a hG
-  exact ⟨hlocal, (L4_5_PMFixesLocal F M).2 F hlocal⟩
+  exact ⟨hlocal, (S04_Lem4_03_PMFixesLocal F M).2 F hlocal⟩
 
 end DictatorshipTesting

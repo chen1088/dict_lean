@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_IsOneRow
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_Def5_27_CertificateExceptionalPredicates`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_13b_CertificateExceptionalPredicates`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_IsYoungSubdiagram`
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs`
 -/

@@ -1,9 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungDimNat
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_Def5_18_MatchingRestrictionEvenInput`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_19_MatchingRestrictionOddInput`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_IsOneRow`
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_MatchingRestrictionEvenInput`
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_MatchingRestrictionOddInput`
 -/
 
 

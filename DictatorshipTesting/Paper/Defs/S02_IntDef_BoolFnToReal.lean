@@ -1,0 +1,22 @@
+import DictatorshipTesting.Paper.Defs.S02_IntDef_BoolToReal
+/-
+Direct reverse imports:
+- `DictatorshipTesting.Paper.Defs.S02_IntDef_IsImageDictator`
+-/
+
+
+/-!
+Definition file for `boolFnToReal`.
+-/
+
+noncomputable section
+
+open scoped BigOperators
+
+namespace DictatorshipTesting
+
+/-- View a Boolean function as a real-valued `{0,1}` function. -/
+def boolFnToReal {α : Type*} (f : BoolFn α) : Perm α → ℝ :=
+  fun π => boolToReal (f π)
+
+end DictatorshipTesting

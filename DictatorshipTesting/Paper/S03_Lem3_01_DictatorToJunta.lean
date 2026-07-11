@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs.S03_Def3_05_MatchingCubeRestriction
+import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingCubeRestriction
 import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauDepends
 
 /-
@@ -18,7 +18,7 @@ This is `lem:dictator-to-junta` from `dictatorship_testing_soda27_latest.tex`.
 namespace DictatorshipTesting
 
 /-- Image-dictator half of Lemma 3.1. -/
-theorem L3_1_ImageDictatorToJunta {α : Type*} [Fintype α] [DecidableEq α]
+theorem S03_Lem3_01_ImageDictatorToJunta {α : Type*} [Fintype α] [DecidableEq α]
     (f : BoolFn α) (hf : IsImageDictator f)
     (M : OrderedMatching α) (π : Perm α) :
     IsCubeOneJunta (matchingCubeRestriction f M π) := by
@@ -50,12 +50,12 @@ theorem L3_1_ImageDictatorToJunta {α : Type*} [Fintype α] [DecidableEq α]
       orderedMatching_tau_apply_of_unmatched M y hleft hright]
 
 /-- Lemma 3.1, `lem:dictator-to-junta`: completeness on matching cubes. -/
-theorem L3_1_DictatorToJunta {α : Type*} [Fintype α] [DecidableEq α]
+theorem S03_Lem3_01_DictatorToJunta {α : Type*} [Fintype α] [DecidableEq α]
     (f : BoolFn α) (hf : IsDictator f)
     (M : OrderedMatching α) (π : Perm α) :
     IsCubeOneJunta (matchingCubeRestriction f M π) := by
   rcases hf with himage | hpreimage
-  · exact L3_1_ImageDictatorToJunta f himage M π
+  · exact S03_Lem3_01_ImageDictatorToJunta f himage M π
   · rcases hpreimage with ⟨j, h, hfj⟩
     let a : α := π.symm j
     by_cases hmatch : ∃ r : Fin M.edgeCount, M.InEdge r a

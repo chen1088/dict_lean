@@ -1,9 +1,9 @@
-import DictatorshipTesting.Paper.Defs.S03_Def3_12_CubeHighDegreeEnergy
+import DictatorshipTesting.Paper.Defs.S02_Def2_02b_CubeHighDegreeEnergy
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.S04_Cor4_07_U1Local`
+- `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare`
 -/
 

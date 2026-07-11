@@ -1,11 +1,11 @@
-import DictatorshipTesting.Paper.Defs.S03_Def3_27_MatchingHighConvolution
+import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingHighConvolution
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
 import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_Def5_22_MatchingIdempotents`
-- `DictatorshipTesting.Paper.S05_Lem5_14_LocalTruncationAsConvolution`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents`
+- `DictatorshipTesting.Paper.S05_Lem5_23_LocalTruncationAsConvolution`
 -/
 
 
@@ -20,7 +20,7 @@ namespace DictatorshipTesting
 
 /-- Local-projection convolution identity.  The theorem name is preserved for
 compatibility with existing imports. -/
-theorem L5_1_PMConvolution {α : Type*} [Fintype α] [DecidableEq α]
+theorem S05_Int_PMConvolution {α : Type*} [Fintype α] [DecidableEq α]
     (M : OrderedMatching α) (F : Perm α → ℝ) :
     matchingLocalProjection M F = matchingLowConvolution M F ∧
       (fun π => F π - matchingLocalProjection M F π) =
@@ -41,7 +41,7 @@ theorem L5_1_PMConvolution {α : Type*} [Fintype α] [DecidableEq α]
             cubeFourierCoeff
                 (fun x : Cube M.edgeCount => g x - cubeLowDegreeOnePart g x) S *
               cubeChar S (cubeZero M.edgeCount) := by
-      exact L2_3_cubeFourier_expansion M.edgeCount
+      exact S02_Lem2_03_cubeFourier_expansion M.edgeCount
         (fun x : Cube M.edgeCount => g x - cubeLowDegreeOnePart g x)
         (cubeZero M.edgeCount)
     unfold matchingHighConvolution

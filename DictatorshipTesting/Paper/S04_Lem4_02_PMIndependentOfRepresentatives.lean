@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs.S03_Def3_11_CubeLowDegreeOnePart
+import DictatorshipTesting.Paper.Defs.S02_Def2_02a_CubeLowDegreeOnePart
 import DictatorshipTesting.Paper.S02_Int_CubeFourierTranslate
 
 /-
@@ -17,7 +17,7 @@ noncomputable section
 namespace DictatorshipTesting
 
 /-- Lemma 4.2: the definition of `P_M` is independent of representatives. -/
-theorem L4_4_PMIndependentOfRepresentatives {m : ℕ}
+theorem S04_Lem4_02_PMIndependentOfRepresentatives {m : ℕ}
     (g : Cube m → ℝ) (z x : Cube m) :
     cubeLowDegreeOnePart (fun y => g (cubeXor z y)) x =
       cubeLowDegreeOnePart g (cubeXor z x) := by

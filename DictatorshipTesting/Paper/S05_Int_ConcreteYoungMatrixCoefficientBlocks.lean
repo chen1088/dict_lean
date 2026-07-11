@@ -1,18 +1,17 @@
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.Defs.AppA_DefA_01_YoungOrthogonalActionData
+import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungOrthogonalActionData
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.AppA_LemA_03_DegreeOneYoungBlockIdentification`
 - `DictatorshipTesting.Paper.S05_Int_DegreeOneYoungBlock`
-- `DictatorshipTesting.Paper.S05_Lem5_19_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
 -/
 
 /-!
 # Concrete Young matrix-coefficient blocks
 
 This internal file contains the reusable definitions needed to state the
-faithful Appendix A.3 subspace identification without importing the full
+faithful Section 5.3 subspace identification without importing the full
 regular-block decomposition.
 -/
 

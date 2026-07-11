@@ -9,7 +9,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Basic.Aux_PswapSelfLeft`
 - `DictatorshipTesting.Basic.Aux_PswapSelfRight`
 - `DictatorshipTesting.Basic.Aux_RowDictAsCosetSumEqRowDict`
-- `DictatorshipTesting.Paper.Defs`
+- `DictatorshipTesting.Paper.Defs.S02_IntDef_BoolFn`
 -/
 
 

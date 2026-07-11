@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs.S03_Def3_18_MatchingLocalProjectionError
+import DictatorshipTesting.Paper.Defs.S04_Def4_02b_MatchingLocalProjectionError
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
 import DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection
 import DictatorshipTesting.Paper.S04_Int_PermCubeAverage
@@ -7,7 +7,7 @@ import DictatorshipTesting.Paper.S04_Lem4_03_PMFixesLocal
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_19_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
 -/
 
 
@@ -35,7 +35,7 @@ theorem cubeExpectation_mul_eq_sum_fourierCoeff {m : ℕ}
               cubeFourierCoeff h S * cubeChar S x)) := by
           congr
           ext x
-          rw [← L2_3_cubeFourier_expansion m h x]
+          rw [← S02_Lem2_03_cubeFourier_expansion m h x]
     _ = ∑ S : Finset (Fin m), cubeFourierCoeff h S *
           cubeExpectation (fun x : Cube m => g x * cubeChar S x) := by
           calc
@@ -109,7 +109,7 @@ theorem cubeExpectation_lowDegreeResidual_mul_of_highDegreeEnergy_eq_zero
   · simp [cubeFourierCoeff_lowDegreeResidual, hhigh]
 
 /-- Lemma 4.5, `lem:PM-perpendicular`: high local degrees are perpendicular to local degree one. -/
-theorem L4_7_PMPerpendicular {α : Type*} [Fintype α] [DecidableEq α]
+theorem S04_Lem4_05_PMPerpendicular {α : Type*} [Fintype α] [DecidableEq α]
     (F H : Perm α → ℝ) (M : OrderedMatching α)
     (hH : IsMatchingLocalDegreeOne H M) :
     permInner (fun π => F π - matchingLocalProjection M F π) H = 0 ∧
@@ -158,7 +158,7 @@ theorem L4_7_PMPerpendicular {α : Type*} [Fintype α] [DecidableEq α]
     simp [hsum]
   constructor
   · exact horth H hH
-  · have hP : IsMatchingLocalDegreeOne P M := (L4_5_PMFixesLocal F M).1
+  · have hP : IsMatchingLocalDegreeOne P M := (S04_Lem4_03_PMFixesLocal F M).1
     have hRP : permInner R P = 0 := horth P hP
     have hN : (Fintype.card (Perm α) : ℝ) ≠ 0 := by
       exact_mod_cast (Fintype.card_ne_zero : Fintype.card (Perm α) ≠ 0)

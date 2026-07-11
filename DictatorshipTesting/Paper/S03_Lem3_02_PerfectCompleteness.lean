@@ -1,9 +1,10 @@
-import DictatorshipTesting.Paper.Defs.S03_Def3_09_MatchingTrialDelta
+import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingTrialDelta
 import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
 -/
 
 
@@ -69,13 +70,13 @@ theorem cubeColor_directionsDisjoint {m : ℕ} (c : CubeDirectionColor m) :
 
 /-- Lemma 3.2, `lem:perfect-completeness`: dictators are accepted by one
 matching-cube square trial. -/
-theorem L3_2_PerfectCompleteness {α : Type*} [Fintype α] [DecidableEq α]
+theorem S03_Lem3_02_PerfectCompleteness {α : Type*} [Fintype α] [DecidableEq α]
     (f : BoolFn α) (hf : IsDictator f)
     (M : OrderedMatching α) (π : Perm α) (c : CubeDirectionColor M.edgeCount) :
     matchingTrialDelta f M π c = 0 := by
   unfold matchingTrialDelta
   exact cubeOneJunta_square_zero (matchingCubeRestriction f M π)
-    (L3_1_DictatorToJunta f hf M π)
+    (S03_Lem3_01_DictatorToJunta f hf M π)
     (x := cubeZero M.edgeCount)
     (u := cubeColorU c) (v := cubeColorV c)
     (cubeColor_directionsDisjoint c)

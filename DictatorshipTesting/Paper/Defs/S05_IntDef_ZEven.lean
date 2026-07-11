@@ -1,9 +1,9 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_OneBoxChildrenOdd
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_Def5_24_TableauEvenHeight`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_HEven`
-- `DictatorshipTesting.Paper.S05_Lem5_23_WeightZeroEntriesAreNeverAMajority`
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_TableauEvenHeight`
+- `DictatorshipTesting.Paper.S05_Lem5_31_WeightZeroEntriesAreNeverAMajority`
 -/
 
 

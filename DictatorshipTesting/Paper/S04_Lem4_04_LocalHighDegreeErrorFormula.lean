@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs.S03_Def3_18_MatchingLocalProjectionError
+import DictatorshipTesting.Paper.Defs.S04_Def4_02b_MatchingLocalProjectionError
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
 import DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection
 import DictatorshipTesting.Paper.S04_Int_PermCubeAverage
@@ -19,7 +19,7 @@ This is the lemma containing equation `eq:PM-error-formula`.
 namespace DictatorshipTesting
 
 /-- Lemma 4.4: local high-degree error formula for `P_M`. -/
-theorem L4_6_LocalHighDegreeErrorFormula {α : Type*} [Fintype α] [DecidableEq α]
+theorem S04_Lem4_04_LocalHighDegreeErrorFormula {α : Type*} [Fintype α] [DecidableEq α]
     (F : Perm α → ℝ) (M : OrderedMatching α) :
     matchingLocalProjectionError F M = matchingLocalHighDegreeEnergy F M := by
   classical

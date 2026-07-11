@@ -1,12 +1,12 @@
-import DictatorshipTesting.Paper.Defs.S02_Def2_17_CubeFourierCoeff
+import DictatorshipTesting.Paper.Defs.S02_IntDef_CubeFourierCoeff
 import DictatorshipTesting.Paper.S02_Int_CubeCharMulSelf
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity`
+- `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 -/
 
 
@@ -111,7 +111,7 @@ theorem cubeChar_kernel {m : ℕ} (x y : Cube m) :
     simp [hxy, hsum]
 
 /-- The Fourier expansion part of Lemma 2.3, `lem:cube-parseval`. -/
-theorem L2_3_cubeFourier_expansion (m : ℕ) :
+theorem S02_Lem2_03_cubeFourier_expansion (m : ℕ) :
     ∀ g : Cube m → ℝ, ∀ x : Cube m,
       g x = ∑ S : Finset (Fin m), cubeFourierCoeff g S * cubeChar S x := by
   intro g x

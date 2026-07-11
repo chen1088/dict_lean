@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs.S02_Def2_16_CubeExpectation
+import DictatorshipTesting.Paper.Defs.S02_IntDef_CubeExpectation
 import DictatorshipTesting.Paper.S02_Int_CubeCharFlip
 import DictatorshipTesting.Paper.S02_Int_CubeCharMulSelf
 import DictatorshipTesting.Paper.S02_Int_CubeFlipInvolutive
@@ -6,8 +6,8 @@ import DictatorshipTesting.Paper.S02_Int_CubeFlipInvolutive
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval`
+- `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 -/
 
 
@@ -36,7 +36,7 @@ theorem cubeChar_cubeFlip_of_not_mem {m : ℕ} (S : Finset (Fin m)) (r : Fin m)
   simp [cubeFlip, hqr]
 
 /-- The orthonormality part of Lemma 2.3, `lem:cube-parseval`. -/
-theorem L2_3_cubeChar_orthonormality (m : ℕ) :
+theorem S02_Lem2_03_cubeChar_orthonormality (m : ℕ) :
     ∀ S T : Finset (Fin m),
       cubeExpectation (fun x : Cube m => cubeChar S x * cubeChar T x) =
         if S = T then 1 else 0 := by

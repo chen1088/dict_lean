@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs.S03_Def3_13_CubeSquareEnergy
+import DictatorshipTesting.Paper.Defs.S03_IntDef_CubeSquareEnergy
 import DictatorshipTesting.Paper.S02_Int_CubeFourierTranslate
 import DictatorshipTesting.Paper.S04_Int_CubeHighDegreeLinear
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
@@ -101,7 +101,7 @@ theorem cubeDelta_parseval {m : ℕ} (g : Cube m → ℝ) (u v : Cube m) :
         =
         ∑ S : Finset (Fin m),
           (cubeFourierCoeff (fun x : Cube m => cubeDelta g x u v) S) ^ (2 : ℕ) := by
-          exact L2_3_cubeParseval_identity m (fun x : Cube m => cubeDelta g x u v)
+          exact S02_Lem2_03_cubeParseval_identity m (fun x : Cube m => cubeDelta g x u v)
     _ =
         ∑ S : Finset (Fin m),
           (cubeFourierCoeff g S * (1 - cubeChar S u) *
@@ -506,7 +506,7 @@ theorem cubeColorMultiplierAverage_lower_of_two_le_card {m : ℕ}
   nlinarith
 
 /-- Lemma 4.1, `lem:cube-square`: square tests detect high Fourier weight. -/
-theorem L4_1_CubeSquare (m : ℕ) (g : Cube m → ℝ) :
+theorem S04_Lem4_01_CubeSquare (m : ℕ) (g : Cube m → ℝ) :
     (32 / 9 : ℝ) * cubeHighDegreeEnergy g ≤ cubeSquareEnergy g := by
   rw [cubeSquareEnergy_spectral_formula]
   unfold cubeHighDegreeEnergy
