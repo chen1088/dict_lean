@@ -15,8 +15,8 @@ window.DICT_DEPENDENCY_DATA = {
         "AppA_ThmA_01_youngOrthogonalRealization"
       ],
       "deps": [],
-      "summary": "Faithful Young action interface defined; the existing axiom still has its old numerical-shadow type.",
-      "statement": "App A.1 now has a faithful operator statement type supplying YoungOrthogonalActionData: a linear multiplicative symmetric-group action whose adjacent generators are the explicit Young operators. The existing axiom declaration is still the older block-energy shadow because the regular-decomposition adapter is not proved.",
+      "summary": "External axiom in faithful Young-action form.",
+      "statement": "App A.1 supplies YoungOrthogonalActionData: a linear multiplicative symmetric-group action whose adjacent generators are the explicit Young operators. The active concrete block decomposition consumes this faithful action directly.",
       "terms": [],
       "paperLabel": "thm:app-young-orthogonal",
       "paperEnv": "theorem",
@@ -24,11 +24,11 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "AppA_ThmA_01_YoungOrthogonalActionStatement",
-          "line": 31
+          "line": 30
         },
         {
           "name": "AppA_ThmA_01_youngOrthogonalRealization",
-          "line": 52
+          "line": 48
         }
       ]
     },
@@ -43,13 +43,14 @@ window.DICT_DEPENDENCY_DATA = {
       "file": "DictatorshipTesting/Paper/AppA_ThmA_02_JucysMurphyContentSpectrum.lean",
       "wrappers": [
         "AppA_ThmA_02_JucysMurphyContentActionStatement",
+        "AppA_ThmA_02_TraceScalarStatement",
         "AppA_ThmA_02_jucysMurphyContentSpectrum"
       ],
       "deps": [
         "AppA_01"
       ],
-      "summary": "Faithful JM/content interface defined; the existing axiom still has its old trace/scalar-shadow type.",
-      "statement": "App A.2 now has a faithful operator statement type supplying JucysMurphyContentActionData for the same A.1 action and the actual coefficient element J_k. The existing axiom declaration is still the older trace/scalar shadow because the concrete fixed-block trace theorem is not proved.",
+      "summary": "External faithful JM/content action with its trace-scalar payload.",
+      "statement": "App A.2 supplies JucysMurphyContentActionData for the same A.1 action and the actual coefficient element J_k, bundled with the even/odd trace-scalar payload consumed by the active matching calculation.",
       "terms": [],
       "paperLabel": "thm:app-jucys-murphy-content",
       "paperEnv": "theorem",
@@ -61,7 +62,7 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "name": "AppA_ThmA_02_jucysMurphyContentSpectrum",
-          "line": 68
+          "line": 72
         }
       ]
     },
@@ -75,11 +76,12 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "external",
       "file": "DictatorshipTesting/Paper/AppA_LemA_03_DegreeOneYoungBlockIdentification.lean",
       "wrappers": [
-        "AppA_LemA_03_degreeOneYoungBlockIdentification"
+        "AppA_LemA_03_degreeOneYoungBlockIdentification",
+        "AppA_LemA_03_U1_eq_concreteDegreeOneYoungBlockSum"
       ],
       "deps": [],
-      "summary": "External marker identifying the degree-one Young blocks.",
-      "statement": "App A.3: External marker identifying the degree-one Young blocks.",
+      "summary": "External faithful equality of U1 with the one-row plus standard concrete blocks.",
+      "statement": "App A.3 states that U1 is exactly the concrete sum of the one-row and standard (n-1,1) matrix-coefficient blocks. Lemma 5.19 internally derives the complementary-energy formula for l2DistSqToU1 from this equality.",
       "terms": [
         {
           "text": "Young block",
@@ -92,7 +94,11 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "AppA_LemA_03_degreeOneYoungBlockIdentification",
-          "line": 31
+          "line": 33
+        },
+        {
+          "name": "AppA_LemA_03_U1_eq_concreteDegreeOneYoungBlockSum",
+          "line": 37
         }
       ]
     },
@@ -2928,6 +2934,7 @@ window.DICT_DEPENDENCY_DATA = {
         "regularYoungMatrixCoefficientBasis",
         "concreteYoungBlockComponent",
         "concreteYoungBlockEnergy",
+        "l2DistSqToU1_eq_sum_concreteYoungBlockEnergy",
         "spectralBlockModelInputWithDim_even_from_appendixA",
         "spectralBlockModelInputWithDim_odd_from_appendixA"
       ],
@@ -2940,8 +2947,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_L17",
         "S05_L02"
       ],
-      "summary": "Concrete matrix coefficients, orthogonality, Young-lattice sum-of-squares completeness, the unconditional basis, convolution scalarity, and block components are proved; the faithful U1 adapter remains.",
-      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, the internal tableau sum-of-squares and coefficient-index cardinality theorems, unconditional spanning and basis constructions, concrete block components and energies, pairwise orthogonality, Parseval, right-convolution scalarity, the h/d block scalar, and the matching-error quadratic form. The faithful A.3 U1 adapter remains, and the active spectral-model wrappers still consume the named scalarity input.",
+      "summary": "Concrete block decomposition, Parseval, and the faithful A.3 complementary-energy distance identity are proved; global weighted scalarity remains external.",
+      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, the internal tableau sum-of-squares and coefficient-index cardinality theorems, unconditional spanning and basis constructions, concrete block components and energies, pairwise orthogonality, Parseval, the exact l2DistSqToU1 complementary-energy identity from faithful A.3, right-convolution scalarity, the h/d block scalar, and the matching-error quadratic form. The active spectral-model wrappers still consume the named global scalarity input.",
       "terms": [
         {
           "text": "Young-block energy profile",
@@ -2978,47 +2985,51 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "weightedEnergyIdentity_of_pairwiseOrthogonal_components",
-          "line": 53
+          "line": 54
         },
         {
           "name": "matchingMeanProjectionError_eq_inner_averagedHighConvolution",
-          "line": 140
+          "line": 141
         },
         {
           "name": "youngMatrixCoefficient_orthogonality_same_shape",
-          "line": 710
+          "line": 653
         },
         {
           "name": "youngMatrixCoefficient_orthogonality_distinct_shapes",
-          "line": 1113
+          "line": 1056
         },
         {
           "name": "globalYoungMatrixCoefficient_linearIndependent",
-          "line": 1206
+          "line": 1149
         },
         {
           "name": "card_YoungMatrixCoefficientIndex_eq_perm",
-          "line": 1255
+          "line": 1198
         },
         {
           "name": "globalYoungMatrixCoefficient_span_all",
-          "line": 1284
+          "line": 1227
         },
         {
           "name": "regularYoungMatrixCoefficientBasis",
-          "line": 1295
+          "line": 1238
         },
         {
           "name": "permInner_self_eq_sum_concreteYoungBlockEnergy",
-          "line": 1426
+          "line": 1519
+        },
+        {
+          "name": "l2DistSqToU1_eq_sum_concreteYoungBlockEnergy",
+          "line": 1567
         },
         {
           "name": "spectralBlockModelInputWithDim_even_from_appendixA",
-          "line": 1793
+          "line": 2111
         },
         {
           "name": "spectralBlockModelInputWithDim_odd_from_appendixA",
-          "line": 1838
+          "line": 2167
         }
       ]
     },

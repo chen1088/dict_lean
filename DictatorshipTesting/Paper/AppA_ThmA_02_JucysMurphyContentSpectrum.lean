@@ -43,9 +43,8 @@ structure AppA_TraceScalarDataWithDim {n : Nat}
   theta : YoungDiagram n -> ℝ
   trace_value : TraceScalarValueInputWithDim dim height theta
 
-/-- Old numerical A.2 shadow used by the active global spectral assembly.
-This is not the faithful operator-level statement above. -/
-def AppA_ThmA_02_JucysMurphyContentSpectrumStatement : Prop :=
+/-- Trace/scalar payload of A.2 used by the active matching calculation. -/
+def AppA_ThmA_02_TraceScalarStatement : Prop :=
   (∀ (m : Nat) (_hm : 2 <= m)
       {F : Perm (Fin (2 * m)) -> ℝ}
       (energy : AppA_YoungBlockEnergyData F),
@@ -63,8 +62,13 @@ def AppA_ThmA_02_JucysMurphyContentSpectrumStatement : Prop :=
           (fun lam : YoungDiagram (2 * m + 1) => hOddTableau m lam)
           energy))
 
-/-- Existing external A.2 input.  Its numerical type is retained until the
-concrete operator trace can be connected to the global Young-block assembly. -/
+/-- Faithful A.2 content action together with its trace/scalar consequence. -/
+def AppA_ThmA_02_JucysMurphyContentSpectrumStatement : Prop :=
+  AppA_ThmA_02_JucysMurphyContentActionStatement ∧
+    AppA_ThmA_02_TraceScalarStatement
+
+/-- External A.2 input in faithful content-action form, bundled with the trace
+payload used by the matching spectral calculation. -/
 axiom AppA_ThmA_02_jucysMurphyContentSpectrum :
     AppA_ThmA_02_JucysMurphyContentSpectrumStatement
 

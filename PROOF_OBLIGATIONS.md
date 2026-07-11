@@ -25,15 +25,16 @@ Current classification:
   now proves matrix-coefficient orthogonality, linear independence,
   right-convolution scalarity, the matching-error quadratic form, the internal
   coefficient-index cardinality theorem, and unconditional concrete block
-  components/Parseval.
-- Appendix A bridge boundary: the remaining representation-theoretic obligation
-  is the faithful A.1--A.3 connection to the concrete block model consumed by
-  Section 5.  Standard-tableaux swap connectedness is proved internally as
-  Lemma 5.3.  The Young-tableau sum-of-squares completeness equality is now
-  proved internally from the one-box Young-lattice differential recurrence.
-  The faithful concrete A.3 `U_1` adapter is the next internal bridge;
-  matching-average scalarity remains tracked separately as the Section 5
-  scalarity bridge input.
+  components/Parseval and the exact complementary-energy formula for
+  `l2DistSqToU1`.
+- Appendix A bridge boundary: A.1 now supplies the faithful Young action, A.2
+  supplies the faithful content action together with its trace/scalar payload,
+  and A.3 states the faithful concrete `U_1` subspace equality.  From A.3, Lean
+  proves the numerical distance identity internally using orthogonality and the
+  defining `sInf`.  Standard-tableaux swap connectedness is internal Lemma 5.3,
+  and Young-tableau sum-of-squares completeness is internal.  The remaining
+  Section 5 bridge obligation is the global weighted matching identity isolated
+  by `S05_matchingAverageScalarity_from_young_model_input`.
 - Old `youngDim` dimension axiom instances are gone.  The older `youngDim`
   wrappers remain only as theorems with explicit typeclass hypotheses, and no
   instance is registered for those hypotheses.
@@ -202,15 +203,13 @@ Remaining Section 5/AppA bridge boundary:
   `representedHighMatchingElement_apply_eigenvector` proves that the actual
   fixed high element acts by `1` on high character eigenvectors and by `0` on
   low ones.
-- The exact remaining operator-layer blocker is now the Appendix A interface:
-  the faithful statement definitions
+- The Appendix A interface now uses the faithful statement definitions
   `AppA_ThmA_01_YoungOrthogonalActionStatement` and
-  `AppA_ThmA_02_JucysMurphyContentActionStatement` are now present, and their
-  data constructs the concrete `rho_lambda(q)` and proves one-block scalarity.
-  The existing A.1/A.2 axiom declarations still return only
-  `AppA_YoungBlockEnergyData` and `AppA_TraceScalarDataWithDim`; their types have
-  not yet been replaced because the active global route has no internal source
-  for those numerical packages.
+  `AppA_ThmA_02_JucysMurphyContentActionStatement`.  The A.1 axiom supplies the
+  former.  The A.2 axiom supplies the latter together with its trace/scalar
+  payload.  Their data constructs the concrete `rho_lambda(q)` and proves
+  one-block scalarity.  Concrete energies are now built internally rather than
+  returned by an arbitrary A.1 numerical package.
 - Definition 5.30 proves that the explicit tableau-basis trace is Mathlib's
   basis-independent linear-map trace, proves scalar equals trace divided by
   nonzero tableau dimension, and proves linearity across the matching average.
@@ -531,17 +530,19 @@ trace formula identifies those scalars as
 Current internal proof: the finite weighted-sum comparison, concrete Young
 matrix coefficients, their right-convolution law, actual one-block scalarity,
 the even/odd trace scalar values, same- and distinct-shape orthogonality, global
-  linear independence, matching-error quadratic-form identity, tableau-count
-  dimension positivity, Young-tableau sum-of-squares, and coefficient-index
-  cardinality are proved.  Lean unconditionally constructs the full basis,
-  concrete block components and energies, orthogonality, and Parseval.
+linear independence, matching-error quadratic-form identity, Young-tableau
+sum-of-squares, and coefficient-index cardinality are proved.  Lean
+unconditionally constructs the full basis, concrete block components and
+energies, orthogonality, and Parseval.  From faithful A.3 it also proves
+`l2DistSqToU1 F` equals the sum of all complementary concrete block energies.
 
 The sum-of-squares/cardinality obstruction is closed by
 `sum_tableauDimNat_sq_eq_factorial` and
 `card_YoungMatrixCoefficientIndex_eq_perm`, proved without an RSK axiom.  The
-exact remaining obstruction is the faithful concrete A.3 identification of
-`U_1` with the one-row and standard blocks; the final weighted-energy adapter
-then has to be assembled and the named matching-average scalarity input removed.
+faithful concrete A.3 equality and its distance consequence are now wired into
+the active model.  The exact remaining obstruction is the full weighted
+matching identity for the concrete components, currently isolated as
+`S05_matchingAverageScalarity_from_young_model_input`.
 
 Citation target if external: regular representation/Specht decomposition and
 Schur's lemma from standard finite-group representation theory; the

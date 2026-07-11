@@ -8,6 +8,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_29_AveragedHighMatchingElement
 import DictatorshipTesting.Paper.S05_Lem5_13_TraceOfOneLocalTruncationOnOneYoungBlock
 import DictatorshipTesting.Paper.S05_Lem5_17_BlockScalarOfTheAveragedRejection
 import DictatorshipTesting.Paper.S05_Int_YoungTableauSumOfSquares
+import DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks
 import DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular
 import Mathlib.LinearAlgebra.Basis.Basic
 import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
@@ -189,64 +190,6 @@ theorem matchingMeanProjectionError_eq_inner_averagedHighConvolution
       intro π _hπ
       rw [← Finset.mul_sum]
       ring
-
-/-- The real matrix coefficient of a faithful Young action in the standard
-tableau coordinate basis. -/
-def youngMatrixCoefficient {n : Nat} {lam : YoungDiagram (n + 1)}
-    (action : YoungOrthogonalActionData lam)
-    (S T : StandardYoungTableau lam) :
-    Perm (Fin (n + 1)) → ℝ :=
-  fun π =>
-    tableauInner (tableauBasisVec S)
-      (action.rep.rho π (tableauBasisVec T))
-
-/-- A finite linear combination of all matrix coefficients of one Young
-action.  No injectivity, orthogonality, or spanning assertion is built into
-this definition. -/
-def youngBlockSynthesis {n : Nat} {lam : YoungDiagram (n + 1)}
-    (action : YoungOrthogonalActionData lam)
-    (coeff : StandardYoungTableau lam × StandardYoungTableau lam → ℝ) :
-    Perm (Fin (n + 1)) → ℝ :=
-  fun π =>
-    ∑ ST : StandardYoungTableau lam × StandardYoungTableau lam,
-      coeff ST * youngMatrixCoefficient action ST.1 ST.2 π
-
-/-- The concrete matrix-coefficient block of one supplied Young action.  It is
-the linear span of the actual group functions `youngMatrixCoefficient` for
-that shape. -/
-def youngMatrixCoefficientBlock {n : Nat} {lam : YoungDiagram (n + 1)}
-    (action : YoungOrthogonalActionData lam) :
-    Submodule ℝ (Perm (Fin (n + 1)) → ℝ) :=
-  Submodule.span ℝ
-    (Set.range fun ST :
-      StandardYoungTableau lam × StandardYoungTableau lam =>
-        youngMatrixCoefficient action ST.1 ST.2)
-
-/-- Every explicitly synthesized matrix-coefficient combination lies in the
-concrete block span. -/
-theorem youngBlockSynthesis_mem_youngMatrixCoefficientBlock
-    {n : Nat} {lam : YoungDiagram (n + 1)}
-    (action : YoungOrthogonalActionData lam)
-    (coeff : StandardYoungTableau lam × StandardYoungTableau lam → ℝ) :
-    youngBlockSynthesis action coeff ∈
-      youngMatrixCoefficientBlock action := by
-  classical
-  have hsum :
-      (∑ ST : StandardYoungTableau lam × StandardYoungTableau lam,
-        coeff ST • youngMatrixCoefficient action ST.1 ST.2) ∈
-          youngMatrixCoefficientBlock action := by
-    apply Submodule.sum_mem
-    intro ST _hST
-    apply Submodule.smul_mem
-    exact Submodule.subset_span ⟨ST, rfl⟩
-  have hsynthesis :
-      youngBlockSynthesis action coeff =
-        ∑ ST : StandardYoungTableau lam × StandardYoungTableau lam,
-          coeff ST • youngMatrixCoefficient action ST.1 ST.2 := by
-    funext π
-    simp [youngBlockSynthesis, Finset.sum_apply, Pi.smul_apply, smul_eq_mul]
-  rw [hsynthesis]
-  exact hsum
 
 /-- The coordinate rank-one operator `|T><V|` on one tableau space. -/
 def tableauRankOne {n : Nat} {lam : YoungDiagram n}
@@ -1318,6 +1261,23 @@ noncomputable def concreteYoungBlockComponent
         ⟨lam, ST⟩ •
       globalYoungMatrixCoefficient action ⟨lam, ST⟩
 
+/-- A concrete shape component belongs to its matrix-coefficient block. -/
+theorem concreteYoungBlockComponent_mem
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (F : Perm (Fin (n + 1)) -> Real)
+    (lam : YoungDiagram (n + 1)) :
+    concreteYoungBlockComponent action content F lam ∈
+      youngMatrixCoefficientBlock (action lam) := by
+  classical
+  unfold concreteYoungBlockComponent
+  apply Submodule.sum_mem
+  intro ST _hST
+  apply Submodule.smul_mem
+  exact Submodule.subset_span ⟨ST, rfl⟩
+
 /-- The concrete Young-block components sum to the original group function. -/
 theorem sum_concreteYoungBlockComponent
     {n : Nat}
@@ -1343,6 +1303,104 @@ theorem permInner_symm
   intro π _hπ
   ring
 
+@[simp] theorem permInner_zero_left
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (F : Perm α -> Real) :
+    permInner 0 F = 0 := by
+  simp [permInner]
+
+@[simp] theorem permInner_zero_right
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (F : Perm α -> Real) :
+    permInner F 0 = 0 := by
+  simp [permInner]
+
+theorem permInner_add_left
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (F G H : Perm α -> Real) :
+    permInner (F + G) H = permInner F H + permInner G H := by
+  unfold permInner
+  simp only [Pi.add_apply, add_mul, Finset.sum_add_distrib]
+  ring
+
+theorem permInner_add_right
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (F G H : Perm α -> Real) :
+    permInner F (G + H) = permInner F G + permInner F H := by
+  rw [permInner_symm, permInner_add_left]
+  rw [permInner_symm F G, permInner_symm F H]
+
+theorem permInner_smul_left
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (c : Real) (F G : Perm α -> Real) :
+    permInner (c • F) G = c * permInner F G := by
+  unfold permInner
+  simp only [Pi.smul_apply, smul_eq_mul]
+  calc
+    (∑ pi : Perm α, c * F pi * G pi) /
+        (Fintype.card (Perm α) : Real) =
+        (c * ∑ pi : Perm α, F pi * G pi) /
+          (Fintype.card (Perm α) : Real) := by
+      congr 1
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro pi _hpi
+      ring
+    _ = c * ((∑ pi : Perm α, F pi * G pi) /
+          (Fintype.card (Perm α) : Real)) := by
+      ring
+
+theorem permInner_smul_right
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (c : Real) (F G : Perm α -> Real) :
+    permInner F (c • G) = c * permInner F G := by
+  rw [permInner_symm, permInner_smul_left, permInner_symm G F]
+
+theorem permInner_sub_left
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (F G H : Perm α -> Real) :
+    permInner (F - G) H = permInner F H - permInner G H := by
+  unfold permInner
+  simp only [Pi.sub_apply, sub_mul, Finset.sum_sub_distrib]
+  ring
+
+theorem permInner_sub_right
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (F G H : Perm α -> Real) :
+    permInner F (G - H) = permInner F G - permInner F H := by
+  rw [permInner_symm, permInner_sub_left]
+  rw [permInner_symm G F, permInner_symm H F]
+
+/-- Squared distance is the normalized inner product of the difference with
+itself. -/
+theorem l2DistSq_eq_permInner_sub
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (F G : Perm α -> Real) :
+    l2DistSq F G = permInner (F - G) (F - G) := by
+  unfold l2DistSq permInner
+  congr 1
+  apply Finset.sum_congr rfl
+  intro pi _hpi
+  simp only [Pi.sub_apply]
+  ring
+
+/-- The normalized inner product of a real function with itself is
+nonnegative. -/
+theorem permInner_self_nonnegative
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (F : Perm α -> Real) :
+    0 ≤ permInner F F := by
+  unfold permInner
+  apply div_nonneg
+  · apply Finset.sum_nonneg
+    intro pi _hpi
+    exact mul_self_nonneg (F pi)
+  · have hcard : 0 < (Fintype.card (Perm α) : Real) := by
+      exact_mod_cast
+        (Fintype.card_pos_iff.mpr
+          ⟨(1 : Perm α)⟩ : 0 < Fintype.card (Perm α))
+    exact hcard.le
+
 /-- `permInner` is linear in a finite sum in its second argument. -/
 theorem permInner_fintype_sum_smul_right
     {ι α : Type*} [Fintype ι] [Fintype α] [DecidableEq α]
@@ -1359,6 +1417,41 @@ theorem permInner_fintype_sum_smul_right
       apply Finset.sum_congr rfl
       intro i _hi
       rw [permInner_symm]
+
+/-- Concrete matrix-coefficient blocks of distinct Young shapes are
+orthogonal. -/
+theorem youngMatrixCoefficientBlock_orthogonal
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (hshape : lam ≠ mu)
+    (actionLam : YoungOrthogonalActionData lam)
+    (contentLam : JucysMurphyContentActionData actionLam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (contentMu : JucysMurphyContentActionData actionMu)
+    {F G : Perm (Fin (n + 1)) -> Real}
+    (hF : F ∈ youngMatrixCoefficientBlock actionLam)
+    (hG : G ∈ youngMatrixCoefficientBlock actionMu) :
+    permInner F G = 0 := by
+  refine Submodule.span_induction
+    (p := fun F _ => permInner F G = 0) ?_ ?_ ?_ ?_ hF
+  · rintro _ ⟨ST, rfl⟩
+    refine Submodule.span_induction
+      (p := fun G _ =>
+        permInner (youngMatrixCoefficient actionLam ST.1 ST.2) G = 0)
+      ?_ ?_ ?_ ?_ hG
+    · rintro _ ⟨UV, rfl⟩
+      exact youngMatrixCoefficient_orthogonality_distinct_shapes
+        hshape actionLam contentLam actionMu contentMu
+          ST.1 ST.2 UV.1 UV.2
+    · exact permInner_zero_right _
+    · intro G₁ G₂ _hG₁ _hG₂ h₁ h₂
+      rw [permInner_add_right, h₁, h₂, add_zero]
+    · intro c G _hG h
+      rw [permInner_smul_right, h, mul_zero]
+  · exact permInner_zero_left _
+  · intro F₁ F₂ _hF₁ _hF₂ h₁ h₂
+    rw [permInner_add_left, h₁, h₂, add_zero]
+  · intro c F _hF h
+    rw [permInner_smul_left, h, mul_zero]
 
 /-- Concrete components belonging to distinct Young shapes are orthogonal. -/
 theorem concreteYoungBlockComponent_orthogonal
@@ -1467,6 +1560,214 @@ theorem permInner_self_eq_sum_concreteYoungBlockEnergy
     _ = ∑ lam : YoungDiagram (n + 1),
         concreteYoungBlockEnergy action content F lam := by
       rfl
+
+/-- The faithful A.3 subspace equality and the concrete orthogonal Young
+decomposition identify squared distance to `U_1` with the energy in all other
+Young blocks. -/
+theorem l2DistSqToU1_eq_sum_concreteYoungBlockEnergy
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (hU1 : U1 (Fin (n + 1)) = concreteDegreeOneYoungBlockSum action)
+    (F : Perm (Fin (n + 1)) -> Real) :
+    l2DistSqToU1 F =
+      (nonU1YoungBlocks (n + 1)).sum
+        (concreteYoungBlockEnergy action content F) := by
+  classical
+  let isU1Shape : YoungDiagram (n + 1) -> Prop :=
+    fun lam => IsOneRow lam ∨ IsStandard lam
+  let component := concreteYoungBlockComponent action content F
+  let u1Part : Perm (Fin (n + 1)) -> Real :=
+    ∑ lam : {lam : YoungDiagram (n + 1) // isU1Shape lam}, component lam.1
+  let otherPart : Perm (Fin (n + 1)) -> Real :=
+    ∑ lam : {lam : YoungDiagram (n + 1) // ¬ isU1Shape lam}, component lam.1
+  have hsplit := Fintype.sum_subtype_add_sum_subtype isU1Shape component
+  have hdecomp : u1Part + otherPart = F := by
+    calc
+      u1Part + otherPart =
+          ∑ lam : YoungDiagram (n + 1), component lam := by
+        simpa [u1Part, otherPart] using hsplit
+      _ = F := sum_concreteYoungBlockComponent action content F
+  have hu1Concrete : u1Part ∈ concreteDegreeOneYoungBlockSum action := by
+    dsimp [u1Part]
+    apply Submodule.sum_mem
+    intro lam _hlam
+    apply youngMatrixCoefficientBlock_le_concreteDegreeOneYoungBlockSum
+      action lam.1 lam.2
+    exact concreteYoungBlockComponent_mem action content F lam.1
+  have hu1 : u1Part ∈ U1 (Fin (n + 1)) := by
+    rw [hU1]
+    exact hu1Concrete
+  have hother_orthogonal :
+      ∀ G : Perm (Fin (n + 1)) -> Real,
+        G ∈ concreteDegreeOneYoungBlockSum action ->
+          permInner otherPart G = 0 := by
+    intro G hG
+    unfold concreteDegreeOneYoungBlockSum at hG
+    refine Submodule.iSup_induction
+      (fun lam : YoungDiagram (n + 1) =>
+        ⨆ (_h : IsOneRow lam ∨ IsStandard lam),
+          youngMatrixCoefficientBlock (action lam))
+      (motive := fun G => permInner otherPart G = 0) hG ?_ ?_ ?_
+    · intro lam G hGlam
+      refine Submodule.iSup_induction
+        (fun _h : IsOneRow lam ∨ IsStandard lam =>
+          youngMatrixCoefficientBlock (action lam))
+        (motive := fun G => permInner otherPart G = 0) hGlam ?_ ?_ ?_
+      · intro hlam G hGblock
+        calc
+          permInner otherPart G =
+              ∑ mu : {mu : YoungDiagram (n + 1) // ¬ isU1Shape mu},
+                permInner (component mu.1) G := by
+            simpa [otherPart] using
+              permInner_fintype_sum_smul_left
+                (fun _mu : {mu : YoungDiagram (n + 1) // ¬ isU1Shape mu} =>
+                  (1 : Real))
+                (fun mu => component mu.1) G
+          _ = 0 := by
+            apply Finset.sum_eq_zero
+            intro mu _hmu
+            have hshape : mu.1 ≠ lam := by
+              intro heq
+              apply mu.2
+              dsimp [isU1Shape]
+              simpa [heq] using hlam
+            exact youngMatrixCoefficientBlock_orthogonal
+              hshape (action mu.1) (content mu.1)
+                (action lam) (content lam)
+                (concreteYoungBlockComponent_mem action content F mu.1)
+                hGblock
+      · exact permInner_zero_right otherPart
+      · intro G₁ G₂ h₁ h₂
+        rw [permInner_add_right, h₁, h₂, add_zero]
+    · exact permInner_zero_right otherPart
+    · intro G₁ G₂ h₁ h₂
+      rw [permInner_add_right, h₁, h₂, add_zero]
+  have hotherNorm :
+      permInner otherPart otherPart =
+        (nonU1YoungBlocks (n + 1)).sum
+          (concreteYoungBlockEnergy action content F) := by
+    calc
+      permInner otherPart otherPart =
+          ∑ lam : {lam : YoungDiagram (n + 1) // ¬ isU1Shape lam},
+            permInner (component lam.1) otherPart := by
+        simpa [otherPart] using
+          permInner_fintype_sum_smul_left
+            (fun _lam : {lam : YoungDiagram (n + 1) // ¬ isU1Shape lam} =>
+              (1 : Real))
+            (fun lam => component lam.1) otherPart
+      _ = ∑ lam : {lam : YoungDiagram (n + 1) // ¬ isU1Shape lam},
+          ∑ mu : {mu : YoungDiagram (n + 1) // ¬ isU1Shape mu},
+            permInner (component lam.1) (component mu.1) := by
+        apply Finset.sum_congr rfl
+        intro lam _hlam
+        simpa [otherPart] using
+          permInner_fintype_sum_smul_right
+            (fun _mu : {mu : YoungDiagram (n + 1) // ¬ isU1Shape mu} =>
+              (1 : Real))
+            (fun mu => component mu.1) (component lam.1)
+      _ = ∑ lam : {lam : YoungDiagram (n + 1) // ¬ isU1Shape lam},
+          permInner (component lam.1) (component lam.1) := by
+        apply Finset.sum_congr rfl
+        intro lam _hlam
+        rw [Fintype.sum_eq_single lam]
+        intro mu hmulam
+        apply concreteYoungBlockComponent_orthogonal action content F
+        intro hshape
+        apply hmulam
+        exact Subtype.ext hshape.symm
+      _ = ∑ lam : {lam : YoungDiagram (n + 1) // ¬ isU1Shape lam},
+          concreteYoungBlockEnergy action content F lam.1 := by
+        rfl
+      _ = (nonU1YoungBlocks (n + 1)).sum
+          (concreteYoungBlockEnergy action content F) := by
+        symm
+        apply Finset.sum_subtype
+        intro lam
+        simp [nonU1YoungBlocks, isU1Shape]
+  have hpythagoras
+      (G : Perm (Fin (n + 1)) -> Real) (hG : G ∈ U1 (Fin (n + 1))) :
+      l2DistSq F G =
+        (nonU1YoungBlocks (n + 1)).sum
+            (concreteYoungBlockEnergy action content F) +
+          l2DistSq u1Part G := by
+    have hu1_sub_G : u1Part - G ∈ U1 (Fin (n + 1)) :=
+      Submodule.sub_mem _ hu1 hG
+    have hu1_sub_G_concrete :
+        u1Part - G ∈ concreteDegreeOneYoungBlockSum action := by
+      rw [← hU1]
+      exact hu1_sub_G
+    have horth : permInner otherPart (u1Part - G) = 0 :=
+      hother_orthogonal (u1Part - G) hu1_sub_G_concrete
+    have horth' : permInner (u1Part - G) otherPart = 0 := by
+      rw [permInner_symm]
+      exact horth
+    have hdiff : F - G = otherPart + (u1Part - G) := by
+      rw [← hdecomp]
+      abel
+    rw [l2DistSq_eq_permInner_sub, l2DistSq_eq_permInner_sub, hdiff]
+    calc
+      permInner (otherPart + (u1Part - G))
+          (otherPart + (u1Part - G)) =
+          permInner otherPart otherPart +
+            permInner otherPart (u1Part - G) +
+            permInner (u1Part - G) otherPart +
+            permInner (u1Part - G) (u1Part - G) := by
+        rw [permInner_add_left, permInner_add_right, permInner_add_right]
+        ring
+      _ = permInner otherPart otherPart +
+          permInner (u1Part - G) (u1Part - G) := by
+        rw [horth, horth']
+        ring
+      _ = (nonU1YoungBlocks (n + 1)).sum
+            (concreteYoungBlockEnergy action content F) +
+          permInner (u1Part - G) (u1Part - G) := by
+        rw [hotherNorm]
+  let distances : Set Real :=
+    {d : Real | ∃ G : Perm (Fin (n + 1)) -> Real,
+      G ∈ U1 (Fin (n + 1)) ∧ d = l2DistSq F G}
+  let otherEnergy : Real :=
+    (nonU1YoungBlocks (n + 1)).sum
+      (concreteYoungBlockEnergy action content F)
+  have hotherEnergy_mem : otherEnergy ∈ distances := by
+    refine ⟨u1Part, hu1, ?_⟩
+    have h := hpythagoras u1Part hu1
+    simpa [otherEnergy, l2DistSq] using h.symm
+  have hdistances_nonempty : distances.Nonempty :=
+    ⟨otherEnergy, hotherEnergy_mem⟩
+  have hdistances_bddBelow : BddBelow distances := by
+    refine ⟨0, ?_⟩
+    intro d hd
+    rcases hd with ⟨G, _hG, rfl⟩
+    unfold l2DistSq
+    positivity
+  have hotherEnergy_lower : ∀ d ∈ distances, otherEnergy ≤ d := by
+    intro d hd
+    rcases hd with ⟨G, hG, rfl⟩
+    rw [hpythagoras G hG]
+    dsimp [otherEnergy]
+    apply le_add_of_nonneg_right
+    unfold l2DistSq
+    positivity
+  unfold l2DistSqToU1
+  change sInf distances = otherEnergy
+  exact le_antisymm
+    (csInf_le hdistances_bddBelow hotherEnergy_mem)
+    (le_csInf hdistances_nonempty hotherEnergy_lower)
+
+/-- Lemma A.3 numerical consequence for the concrete Young-block energies. -/
+theorem AppA_LemA_03_l2DistSqToU1_eq_nonU1_sum
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (F : Perm (Fin (n + 1)) -> Real) :
+    l2DistSqToU1 F =
+      (AppA_LemA_03_nonU1YoungBlocks (n + 1)).sum
+        (concreteYoungBlockEnergy action content F) := by
+  exact l2DistSqToU1_eq_sum_concreteYoungBlockEnergy action content
+    (AppA_LemA_03_U1_eq_concreteDegreeOneYoungBlockSum action) F
 
 @[simp] theorem youngMatrixCoefficient_apply
     {n : Nat} {lam : YoungDiagram (n + 1)}
@@ -1615,7 +1916,8 @@ theorem rightConvolution_averagedHigh_on_youngMatrixCoefficient
 
 /-- In even size, the scalar of the concrete averaged Young operator is the
 tableau-count certificate divided by the tableau dimension.  This uses the
-completed fixed-trace theorem, not the old numerical A.2 shadow. -/
+completed internal fixed-trace theorem rather than the global A.2 trace
+payload. -/
 theorem averagedHigh_youngBlockScalar_even
     (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
     (action : YoungOrthogonalActionData lam)
@@ -1772,22 +2074,38 @@ theorem spectralBlockModelInputWithDim_even_from_appA_inputs
     SpectralBlockModelInputWithDim
       (fun lam : YoungDiagram (2 * m) => tableauDim lam)
       (fun lam : YoungDiagram (2 * m) => hEvenTableau m lam) := by
-  intro F
-  rcases hA1 F with ⟨energyData⟩
-  rcases hA2.1 m hm energyData with ⟨traceData⟩
-  let energy : YoungBlockEnergyModel F :=
-    { blockEnergy := energyData.blockEnergy
-      nonneg := energyData.nonneg
-      u1_identification := hA3 energyData }
-  let scalar :
-      MatchingAverageScalarModelWithDim
-        (fun lam : YoungDiagram (2 * m) => tableauDim lam)
-        (fun lam : YoungDiagram (2 * m) => hEvenTableau m lam)
-        F energy.blockEnergy :=
-    { theta := traceData.theta
-      scalarity := hScalarity traceData
-      trace_value := traceData.trace_value }
-  exact ⟨energy, ⟨scalar⟩⟩
+  cases m with
+  | zero => omega
+  | succ m =>
+      intro F
+      let action :
+          ∀ lam : YoungDiagram (2 * Nat.succ m),
+            YoungOrthogonalActionData lam :=
+        fun lam => Classical.choice (hA1 lam)
+      let content :
+          ∀ lam : YoungDiagram (2 * Nat.succ m),
+            JucysMurphyContentActionData (action lam) :=
+        fun lam => Classical.choice (hA2.1 (action lam))
+      let energyData : AppA_YoungBlockEnergyData F :=
+        { blockEnergy := concreteYoungBlockEnergy action content F
+          nonneg := concreteYoungBlockEnergy_nonnegative action content F }
+      rcases hA2.2.1 (Nat.succ m) hm energyData with ⟨traceData⟩
+      let energy : YoungBlockEnergyModel F :=
+        { blockEnergy := energyData.blockEnergy
+          nonneg := energyData.nonneg
+          u1_identification :=
+            l2DistSqToU1_eq_sum_concreteYoungBlockEnergy action content
+              (hA3 action) F }
+      let scalar :
+          MatchingAverageScalarModelWithDim
+            (fun lam : YoungDiagram (2 * Nat.succ m) => tableauDim lam)
+            (fun lam : YoungDiagram (2 * Nat.succ m) =>
+              hEvenTableau (Nat.succ m) lam)
+            F energy.blockEnergy :=
+        { theta := traceData.theta
+          scalarity := hScalarity traceData
+          trace_value := traceData.trace_value }
+      exact ⟨energy, ⟨scalar⟩⟩
 
 /-- Appendix A spectral-block model input for the tableau-count even route. -/
 theorem spectralBlockModelInputWithDim_even_from_appendixA
@@ -1818,12 +2136,23 @@ theorem spectralBlockModelInputWithDim_odd_from_appA_inputs
       (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)
       (fun lam : YoungDiagram (2 * m + 1) => hOddTableau m lam) := by
   intro F
-  rcases hA1 F with ⟨energyData⟩
-  rcases hA2.2 m hm energyData with ⟨traceData⟩
+  let action :
+      ∀ lam : YoungDiagram (2 * m + 1), YoungOrthogonalActionData lam :=
+    fun lam => Classical.choice (hA1 lam)
+  let content :
+      ∀ lam : YoungDiagram (2 * m + 1),
+        JucysMurphyContentActionData (action lam) :=
+    fun lam => Classical.choice (hA2.1 (action lam))
+  let energyData : AppA_YoungBlockEnergyData F :=
+    { blockEnergy := concreteYoungBlockEnergy action content F
+      nonneg := concreteYoungBlockEnergy_nonnegative action content F }
+  rcases hA2.2.2 m hm energyData with ⟨traceData⟩
   let energy : YoungBlockEnergyModel F :=
     { blockEnergy := energyData.blockEnergy
       nonneg := energyData.nonneg
-      u1_identification := hA3 energyData }
+      u1_identification :=
+        l2DistSqToU1_eq_sum_concreteYoungBlockEnergy action content
+          (hA3 action) F }
   let scalar :
       MatchingAverageScalarModelWithDim
         (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)

@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.AppA_ThmA_01_YoungOrthogonalRealization
+import DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks
 
 /-
 Direct reverse imports:
@@ -11,30 +11,34 @@ Direct reverse imports:
 Paper statement: Lemma A.3 (`lem:app-u1-young-blocks`)
 Title in paper: Degree-one Young-block identification.
 
-Status: external: Appendix A representation-theoretic input.  The current Lean
-scaffold records this identification as the interface
-`U1YoungBlockIdentificationInput` inside the spectral-block model.
+Status: external: Appendix A representation-theoretic input.  The axiom below
+states the faithful equality between `U1` and the concrete one-row plus
+standard matrix-coefficient blocks.  The numerical distance identity is
+derived later from this equality and the internal orthogonal decomposition.
 -/
 
 noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Lemma A.3 interface: the Young-block energy data from Theorem A.1 identifies
-the distance to `U_1` as the sum of all non-`U_1` block energies. -/
+/-- Faithful Lemma A.3 statement: for every supplied Young orthogonal action,
+`U_1` is exactly the concrete sum of the one-row and standard `(n-1,1)`
+matrix-coefficient blocks. -/
 def AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement : Prop :=
-  ∀ {n : Nat} {F : Perm (Fin n) -> ℝ}
-    (energy : AppA_YoungBlockEnergyData F),
-    U1YoungBlockIdentificationInput F energy.blockEnergy
+  ∀ {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam),
+    U1 (Fin (n + 1)) = concreteDegreeOneYoungBlockSum action
 
 /-- External input Lemma A.3: degree-one Young-block identification. -/
 axiom AppA_LemA_03_degreeOneYoungBlockIdentification :
     AppA_LemA_03_DegreeOneYoungBlockIdentificationStatement
 
-/-- Current Lean interface for the `U_1` Young-block identification. -/
-abbrev AppA_LemA_03_U1YoungBlockIdentification {n : Nat}
-    (F : Perm (Fin n) -> ℝ) (blockEnergy : YoungDiagram n -> ℝ) : Prop :=
-  U1YoungBlockIdentificationInput F blockEnergy
+/-- Faithful A.3 equality for a fixed family of concrete Young actions. -/
+theorem AppA_LemA_03_U1_eq_concreteDegreeOneYoungBlockSum
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam) :
+    U1 (Fin (n + 1)) = concreteDegreeOneYoungBlockSum action :=
+  AppA_LemA_03_degreeOneYoungBlockIdentification action
 
 /-- The Young blocks outside `U_1`, represented in row-language. -/
 abbrev AppA_LemA_03_nonU1YoungBlocks (n : Nat) : Finset (YoungDiagram n) :=
@@ -45,14 +49,5 @@ theorem AppA_LemA_03_mem_nonU1YoungBlocks_iff {n : Nat} (lam : YoungDiagram n) :
     lam ∈ AppA_LemA_03_nonU1YoungBlocks n ↔
       ¬ IsOneRow lam ∧ ¬ IsStandard lam := by
   simp [AppA_LemA_03_nonU1YoungBlocks, nonU1YoungBlocks]
-
-/-- Lemma A.3 interface projection: the distance to `U_1` is the sum of the
-block energies outside the one-row and standard blocks. -/
-theorem AppA_LemA_03_l2DistSqToU1_eq_nonU1_sum {n : Nat}
-    {F : Perm (Fin n) -> ℝ} {blockEnergy : YoungDiagram n -> ℝ}
-    (h : AppA_LemA_03_U1YoungBlockIdentification F blockEnergy) :
-    l2DistSqToU1 F =
-      (AppA_LemA_03_nonU1YoungBlocks n).sum blockEnergy := by
-  exact h
 
 end DictatorshipTesting
