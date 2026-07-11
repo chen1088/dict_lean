@@ -31,6 +31,87 @@ noncomputable section
 
 namespace DictatorshipTesting
 
+open scoped BigOperators
+
+/-- Pairwise orthogonal finite-coordinate components have no cross terms in
+the quadratic form of an operator that is scalar on each component.
+
+This is the elementary linear-algebra identity used by the regular Young-block
+decomposition.  It deliberately takes the components and their orthogonality
+as hypotheses; no representation-theoretic decomposition is hidden in the
+statement. -/
+theorem weightedEnergyIdentity_of_pairwiseOrthogonal_components
+    {ι α : Type*} [Fintype ι] [Fintype α]
+    (component : ι → α → ℝ) (theta : ι → ℝ)
+    (horth : ∀ i j : ι, i ≠ j →
+      (∑ x : α, component i x * component j x) = 0) :
+    (∑ x : α,
+        (∑ i : ι, component i x) *
+          (∑ j : ι, theta j * component j x)) =
+      ∑ j : ι, theta j * ∑ x : α, (component j x) ^ 2 := by
+  classical
+  have hcomponent (j : ι) :
+      (∑ x : α, (∑ i : ι, component i x) * component j x) =
+        ∑ x : α, (component j x) ^ 2 := by
+    calc
+      (∑ x : α, (∑ i : ι, component i x) * component j x) =
+          ∑ i : ι, ∑ x : α, component i x * component j x := by
+        simp_rw [Finset.sum_mul]
+        rw [Finset.sum_comm]
+      _ = ∑ x : α, component j x * component j x := by
+        rw [Fintype.sum_eq_single j]
+        intro i hij
+        exact horth i j hij
+      _ = ∑ x : α, (component j x) ^ 2 := by
+        apply Finset.sum_congr rfl
+        intro x _hx
+        ring
+  calc
+    (∑ x : α,
+        (∑ i : ι, component i x) *
+          (∑ j : ι, theta j * component j x)) =
+        ∑ x : α, ∑ j : ι,
+          theta j * ((∑ i : ι, component i x) * component j x) := by
+      apply Finset.sum_congr rfl
+      intro x _hx
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro j _hj
+      ring
+    _ = ∑ j : ι, theta j *
+        ∑ x : α, (∑ i : ι, component i x) * component j x := by
+      rw [Finset.sum_comm]
+      apply Finset.sum_congr rfl
+      intro j _hj
+      rw [Finset.mul_sum]
+    _ = ∑ j : ι, theta j * ∑ x : α, (component j x) ^ 2 := by
+      apply Finset.sum_congr rfl
+      intro j _hj
+      rw [hcomponent]
+
+/-- Normalized version of
+`weightedEnergyIdentity_of_pairwiseOrthogonal_components`, matching the
+uniform inner product used for functions on a finite symmetric group. -/
+theorem weightedEnergyIdentity_of_pairwiseOrthogonal_components_normalized
+    {ι α : Type*} [Fintype ι] [Fintype α]
+    (component : ι → α → ℝ) (theta : ι → ℝ)
+    (horth : ∀ i j : ι, i ≠ j →
+      (∑ x : α, component i x * component j x) = 0) :
+    (∑ x : α,
+        (∑ i : ι, component i x) *
+          (∑ j : ι, theta j * component j x)) /
+          (Fintype.card α : ℝ) =
+      ∑ j : ι,
+        theta j *
+          ((∑ x : α, (component j x) ^ 2) /
+            (Fintype.card α : ℝ)) := by
+  rw [weightedEnergyIdentity_of_pairwiseOrthogonal_components
+    component theta horth]
+  rw [Finset.sum_div]
+  apply Finset.sum_congr rfl
+  intro j _hj
+  ring
+
 /-- Lemma 5.19 model projection: each Young-block energy is nonnegative. -/
 theorem S05_Lem5_19_blockEnergy_nonnegative {n : Nat}
     {F : Perm (Fin n) → ℝ}
