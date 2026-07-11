@@ -658,6 +658,548 @@ theorem youngMatrixCoefficient_orthogonality_same_shape
     · simp [hTV, tableauBasisVec]
   · simp [hSU, tableauBasisVec]
 
+/-- A rank-one map between two tableau spaces of the same symmetric-group
+size. -/
+def tableauRankOneBetween
+    {n : Nat} {lam mu : YoungDiagram n}
+    (T : StandardYoungTableau lam) (V : StandardYoungTableau mu) :
+    TableauSpace mu → TableauSpace lam :=
+  fun f U => f V * tableauBasisVec T U
+
+/-- Conjugate a cross-shape rank-one map by two supplied Young actions. -/
+def youngConjugatedRankOneBetween
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (T : StandardYoungTableau lam) (V : StandardYoungTableau mu)
+    (g : Perm (Fin (n + 1))) :
+    TableauSpace mu → TableauSpace lam :=
+  fun f =>
+    actionLam.rep.rho g
+      (tableauRankOneBetween T V (actionMu.rep.rho g.symm f))
+
+/-- Uniform conjugation average of a cross-shape rank-one map. -/
+def youngAveragedRankOneBetween
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (T : StandardYoungTableau lam) (V : StandardYoungTableau mu) :
+    TableauSpace mu → TableauSpace lam :=
+  fun f =>
+    (Fintype.card (Perm (Fin (n + 1))) : ℝ)⁻¹ •
+      ∑ g : Perm (Fin (n + 1)),
+        youngConjugatedRankOneBetween actionLam actionMu T V g f
+
+theorem youngConjugatedRankOneBetween_map_add
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (T : StandardYoungTableau lam) (V : StandardYoungTableau mu)
+    (g : Perm (Fin (n + 1))) (f h : TableauSpace mu) :
+    youngConjugatedRankOneBetween actionLam actionMu T V g (f + h) =
+      youngConjugatedRankOneBetween actionLam actionMu T V g f +
+        youngConjugatedRankOneBetween actionLam actionMu T V g h := by
+  have hrank :
+      tableauRankOneBetween T V (actionMu.rep.rho g.symm (f + h)) =
+        tableauRankOneBetween T V (actionMu.rep.rho g.symm f) +
+          tableauRankOneBetween T V (actionMu.rep.rho g.symm h) := by
+    funext U
+    rw [actionMu.rep.map_add]
+    simp [tableauRankOneBetween]
+    ring
+  unfold youngConjugatedRankOneBetween
+  rw [hrank, actionLam.rep.map_add]
+
+theorem youngConjugatedRankOneBetween_map_smul
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (T : StandardYoungTableau lam) (V : StandardYoungTableau mu)
+    (g : Perm (Fin (n + 1))) (c : ℝ) (f : TableauSpace mu) :
+    youngConjugatedRankOneBetween actionLam actionMu T V g (c • f) =
+      c • youngConjugatedRankOneBetween actionLam actionMu T V g f := by
+  have hrank :
+      tableauRankOneBetween T V (actionMu.rep.rho g.symm (c • f)) =
+        c • tableauRankOneBetween T V (actionMu.rep.rho g.symm f) := by
+    funext U
+    rw [actionMu.rep.map_smul]
+    simp [tableauRankOneBetween]
+    ring
+  unfold youngConjugatedRankOneBetween
+  rw [hrank, actionLam.rep.map_smul]
+
+theorem youngAveragedRankOneBetween_map_add
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (T : StandardYoungTableau lam) (V : StandardYoungTableau mu)
+    (f h : TableauSpace mu) :
+    youngAveragedRankOneBetween actionLam actionMu T V (f + h) =
+      youngAveragedRankOneBetween actionLam actionMu T V f +
+        youngAveragedRankOneBetween actionLam actionMu T V h := by
+  classical
+  unfold youngAveragedRankOneBetween
+  simp_rw [youngConjugatedRankOneBetween_map_add
+    actionLam actionMu T V]
+  rw [Finset.sum_add_distrib, smul_add]
+
+theorem youngAveragedRankOneBetween_map_smul
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (T : StandardYoungTableau lam) (V : StandardYoungTableau mu)
+    (c : ℝ) (f : TableauSpace mu) :
+    youngAveragedRankOneBetween actionLam actionMu T V (c • f) =
+      c • youngAveragedRankOneBetween actionLam actionMu T V f := by
+  classical
+  unfold youngAveragedRankOneBetween
+  simp_rw [youngConjugatedRankOneBetween_map_smul
+    actionLam actionMu T V]
+  funext U
+  simp only [Pi.smul_apply, Finset.sum_apply, smul_eq_mul]
+  rw [← Finset.mul_sum]
+  ring
+
+def youngAveragedRankOneBetweenLinearMap
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (T : StandardYoungTableau lam) (V : StandardYoungTableau mu) :
+    TableauSpace mu →ₗ[ℝ] TableauSpace lam where
+  toFun := youngAveragedRankOneBetween actionLam actionMu T V
+  map_add' := youngAveragedRankOneBetween_map_add actionLam actionMu T V
+  map_smul' := youngAveragedRankOneBetween_map_smul actionLam actionMu T V
+
+theorem youngConjugatedRankOneBetween_mul_left
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (T : StandardYoungTableau lam) (V : StandardYoungTableau mu)
+    (h g : Perm (Fin (n + 1))) (f : TableauSpace mu) :
+    youngConjugatedRankOneBetween actionLam actionMu T V (h * g)
+        (actionMu.rep.rho h f) =
+      actionLam.rep.rho h
+        (youngConjugatedRankOneBetween actionLam actionMu T V g f) := by
+  have hinverse :
+      actionMu.rep.rho (h * g).symm (actionMu.rep.rho h f) =
+        actionMu.rep.rho g.symm f := by
+    rw [show (h * g).symm = g.symm * h.symm by rfl]
+    rw [actionMu.rep.map_mul]
+    rw [actionMu.rho_leftInverse]
+  unfold youngConjugatedRankOneBetween
+  rw [hinverse]
+  rw [actionLam.rep.map_mul]
+
+theorem youngAveragedRankOneBetween_commutes_rho
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (T : StandardYoungTableau lam) (V : StandardYoungTableau mu)
+    (h : Perm (Fin (n + 1))) (f : TableauSpace mu) :
+    youngAveragedRankOneBetween actionLam actionMu T V
+        (actionMu.rep.rho h f) =
+      actionLam.rep.rho h
+        (youngAveragedRankOneBetween actionLam actionMu T V f) := by
+  classical
+  let leftMul : Perm (Fin (n + 1)) ≃ Perm (Fin (n + 1)) := Equiv.mulLeft h
+  have hsum :
+      (∑ g : Perm (Fin (n + 1)),
+        youngConjugatedRankOneBetween actionLam actionMu T V g
+          (actionMu.rep.rho h f)) =
+        actionLam.rep.rho h
+          (∑ g : Perm (Fin (n + 1)),
+            youngConjugatedRankOneBetween actionLam actionMu T V g f) := by
+    calc
+      (∑ g : Perm (Fin (n + 1)),
+        youngConjugatedRankOneBetween actionLam actionMu T V g
+          (actionMu.rep.rho h f)) =
+          ∑ g : Perm (Fin (n + 1)),
+            youngConjugatedRankOneBetween actionLam actionMu T V (h * g)
+              (actionMu.rep.rho h f) := by
+        exact (Equiv.sum_comp leftMul
+          (fun g : Perm (Fin (n + 1)) =>
+            youngConjugatedRankOneBetween actionLam actionMu T V g
+              (actionMu.rep.rho h f))).symm
+      _ = ∑ g : Perm (Fin (n + 1)),
+          actionLam.rep.rho h
+            (youngConjugatedRankOneBetween actionLam actionMu T V g f) := by
+        apply Finset.sum_congr rfl
+        intro g _hg
+        exact youngConjugatedRankOneBetween_mul_left
+          actionLam actionMu T V h g f
+      _ = actionLam.rep.rho h
+          (∑ g : Perm (Fin (n + 1)),
+            youngConjugatedRankOneBetween actionLam actionMu T V g f) := by
+        change
+          (∑ g : Perm (Fin (n + 1)),
+            (actionLam.rep.linearMap h)
+              (youngConjugatedRankOneBetween actionLam actionMu T V g f)) =
+            (actionLam.rep.linearMap h)
+              (∑ g : Perm (Fin (n + 1)),
+                youngConjugatedRankOneBetween actionLam actionMu T V g f)
+        exact
+          (map_sum (actionLam.rep.linearMap h)
+            (fun g : Perm (Fin (n + 1)) =>
+              youngConjugatedRankOneBetween actionLam actionMu T V g f)
+            Finset.univ).symm
+  unfold youngAveragedRankOneBetween
+  rw [hsum]
+  rw [actionLam.rep.map_smul]
+
+theorem youngAveragedRankOneBetween_commutes_repOfGroupAlgebra
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (T : StandardYoungTableau lam) (V : StandardYoungTableau mu)
+    (a : GroupAlgebraElement (Perm (Fin (n + 1))))
+    (f : TableauSpace mu) :
+    youngAveragedRankOneBetween actionLam actionMu T V
+        (repOfGroupAlgebraElement actionMu.rep a f) =
+      repOfGroupAlgebraElement actionLam.rep a
+        (youngAveragedRankOneBetween actionLam actionMu T V f) := by
+  classical
+  unfold repOfGroupAlgebraElement
+  change
+    (youngAveragedRankOneBetweenLinearMap actionLam actionMu T V)
+        (∑ g : Perm (Fin (n + 1)), a g • actionMu.rep.rho g f) =
+      ∑ g : Perm (Fin (n + 1)),
+        a g • actionLam.rep.rho g
+          (youngAveragedRankOneBetween actionLam actionMu T V f)
+  calc
+    (youngAveragedRankOneBetweenLinearMap actionLam actionMu T V)
+        (∑ g : Perm (Fin (n + 1)), a g • actionMu.rep.rho g f) =
+        ∑ g : Perm (Fin (n + 1)),
+          (youngAveragedRankOneBetweenLinearMap actionLam actionMu T V)
+            (a g • actionMu.rep.rho g f) := by
+      exact map_sum
+        (youngAveragedRankOneBetweenLinearMap actionLam actionMu T V)
+        (fun g : Perm (Fin (n + 1)) => a g • actionMu.rep.rho g f)
+        Finset.univ
+    _ = ∑ g : Perm (Fin (n + 1)),
+        a g • youngAveragedRankOneBetween actionLam actionMu T V
+          (actionMu.rep.rho g f) := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      exact
+        (youngAveragedRankOneBetweenLinearMap actionLam actionMu T V).map_smul
+          (a g) (actionMu.rep.rho g f)
+    _ = ∑ g : Perm (Fin (n + 1)),
+        a g • actionLam.rep.rho g
+          (youngAveragedRankOneBetween actionLam actionMu T V f) := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      rw [youngAveragedRankOneBetween_commutes_rho]
+
+/-- The cross-shape conjugation average intertwines the two concrete diagonal
+content actions. -/
+theorem youngAveragedRankOneBetween_intertwines_content
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (contentLam : JucysMurphyContentActionData actionLam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (contentMu : JucysMurphyContentActionData actionMu)
+    (T : StandardYoungTableau lam) (V : StandardYoungTableau mu)
+    (a : Fin (n + 1)) (f : TableauSpace mu) :
+    youngAveragedRankOneBetween actionLam actionMu T V
+        (jucysMurphyDiagonalOperator a f) =
+      jucysMurphyDiagonalOperator a
+        (youngAveragedRankOneBetween actionLam actionMu T V f) := by
+  calc
+    youngAveragedRankOneBetween actionLam actionMu T V
+        (jucysMurphyDiagonalOperator a f) =
+        youngAveragedRankOneBetween actionLam actionMu T V
+          (repOfGroupAlgebraElement actionMu.rep
+            (appA_jucysMurphyElement a) f) := by
+      simpa [repOfGroupAlgebraElement] using
+        congrArg (youngAveragedRankOneBetween actionLam actionMu T V)
+          (contentMu.rho_content a f).symm
+    _ = repOfGroupAlgebraElement actionLam.rep
+        (appA_jucysMurphyElement a)
+          (youngAveragedRankOneBetween actionLam actionMu T V f) := by
+      exact youngAveragedRankOneBetween_commutes_repOfGroupAlgebra
+        actionLam actionMu T V (appA_jucysMurphyElement a) f
+    _ = jucysMurphyDiagonalOperator a
+        (youngAveragedRankOneBetween actionLam actionMu T V f) := by
+      simpa [repOfGroupAlgebraElement] using
+        contentLam.rho_content a
+          (youngAveragedRankOneBetween actionLam actionMu T V f)
+
+/-- A cross-shape averaged rank-one image of a source basis vector is a common
+content eigenvector with the source tableau's content sequence. -/
+theorem youngAveragedRankOneBetween_basis_content_eigen
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (contentLam : JucysMurphyContentActionData actionLam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (contentMu : JucysMurphyContentActionData actionMu)
+    (T : StandardYoungTableau lam) (V U : StandardYoungTableau mu)
+    (a : Fin (n + 1)) :
+    jucysMurphyDiagonalOperator a
+        (youngAveragedRankOneBetween actionLam actionMu T V
+          (tableauBasisVec U)) =
+      fun S => (entryContent U a : ℝ) *
+        youngAveragedRankOneBetween actionLam actionMu T V
+          (tableauBasisVec U) S := by
+  rw [← youngAveragedRankOneBetween_intertwines_content
+    actionLam contentLam actionMu contentMu T V a]
+  rw [jucysMurphyDiagonalOperator_basis_eigen]
+  exact youngAveragedRankOneBetween_map_smul
+    actionLam actionMu T V (entryContent U a : ℝ) (tableauBasisVec U)
+
+/-- If a target coordinate has the wrong content eigenvalue, that coordinate
+of a cross-shape eigenvector vanishes. -/
+theorem diagonalContent_external_eigen_coordinate_zero
+    {n : Nat} {lam : YoungDiagram n}
+    (S : StandardYoungTableau lam) (f : TableauSpace lam)
+    (a : Fin n) (c : Int)
+    (hf : jucysMurphyDiagonalOperator a f = fun W => (c : ℝ) * f W)
+    (hne : entryContent S a ≠ c) :
+    f S = 0 := by
+  have hcoord := congrFun hf S
+  change (entryContent S a : ℝ) * f S = (c : ℝ) * f S at hcoord
+  have hcoeff : (entryContent S a : ℝ) - (c : ℝ) ≠ 0 := by
+    apply sub_ne_zero.mpr
+    exact_mod_cast hne
+  have hzero : ((entryContent S a : ℝ) - (c : ℝ)) * f S = 0 := by
+    nlinarith
+  exact (mul_eq_zero.mp hzero).resolve_left hcoeff
+
+/-- Tableaux of distinct shapes differ in at least one entry content. -/
+theorem exists_entryContent_ne_of_shape_ne
+    {n : Nat} {lam mu : YoungDiagram n}
+    (hshape : lam ≠ mu)
+    (S : StandardYoungTableau lam) (U : StandardYoungTableau mu) :
+    ∃ a : Fin n, entryContent S a ≠ entryContent U a := by
+  by_contra hnone
+  apply hshape
+  apply tableauContentSequence_determines_shape S U
+  funext a
+  by_contra hne
+  exact hnone ⟨a, by simpa [tableauContentSequence] using hne⟩
+
+/-- A cross-shape averaged rank-one map vanishes on each source basis vector
+when the two Young shapes are distinct. -/
+theorem youngAveragedRankOneBetween_basis_eq_zero_of_shape_ne
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (hshape : lam ≠ mu)
+    (actionLam : YoungOrthogonalActionData lam)
+    (contentLam : JucysMurphyContentActionData actionLam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (contentMu : JucysMurphyContentActionData actionMu)
+    (T : StandardYoungTableau lam) (V U : StandardYoungTableau mu) :
+    youngAveragedRankOneBetween actionLam actionMu T V
+        (tableauBasisVec U) = 0 := by
+  funext S
+  rcases exists_entryContent_ne_of_shape_ne hshape S U with ⟨a, hne⟩
+  exact diagonalContent_external_eigen_coordinate_zero S
+    (youngAveragedRankOneBetween actionLam actionMu T V (tableauBasisVec U))
+    a (entryContent U a)
+    (youngAveragedRankOneBetween_basis_content_eigen
+      actionLam contentLam actionMu contentMu T V U a)
+    hne
+
+theorem youngConjugatedRankOneBetween_basis_coordinate
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (S T : StandardYoungTableau lam)
+    (U V : StandardYoungTableau mu)
+    (g : Perm (Fin (n + 1))) :
+    youngConjugatedRankOneBetween actionLam actionMu T V g
+        (tableauBasisVec U) S =
+      youngMatrixCoefficient actionLam S T g *
+        youngMatrixCoefficient actionMu U V g := by
+  unfold youngConjugatedRankOneBetween tableauRankOneBetween
+  change actionLam.rep.rho g
+      (actionMu.rep.rho g.symm (tableauBasisVec U) V • tableauBasisVec T) S = _
+  rw [actionLam.rep.map_smul]
+  rw [rho_symm_basis_coordinate]
+  simp only [Pi.smul_apply, smul_eq_mul]
+  unfold youngMatrixCoefficient
+  rw [tableauInner_left_basis, tableauInner_left_basis]
+  ring
+
+theorem permInner_youngMatrixCoefficient_eq_averagedRankOneBetween_coordinate
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (actionLam : YoungOrthogonalActionData lam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (S T : StandardYoungTableau lam)
+    (U V : StandardYoungTableau mu) :
+    permInner (youngMatrixCoefficient actionLam S T)
+        (youngMatrixCoefficient actionMu U V) =
+      youngAveragedRankOneBetween actionLam actionMu T V
+        (tableauBasisVec U) S := by
+  classical
+  unfold permInner youngAveragedRankOneBetween
+  simp only [Pi.smul_apply, Finset.sum_apply, smul_eq_mul]
+  simp_rw [youngConjugatedRankOneBetween_basis_coordinate
+    actionLam actionMu S T U V]
+  rw [div_eq_mul_inv]
+  ring
+
+/-- Matrix-coefficient blocks attached to distinct Young shapes are
+orthogonal. -/
+theorem youngMatrixCoefficient_orthogonality_distinct_shapes
+    {n : Nat} {lam mu : YoungDiagram (n + 1)}
+    (hshape : lam ≠ mu)
+    (actionLam : YoungOrthogonalActionData lam)
+    (contentLam : JucysMurphyContentActionData actionLam)
+    (actionMu : YoungOrthogonalActionData mu)
+    (contentMu : JucysMurphyContentActionData actionMu)
+    (S T : StandardYoungTableau lam)
+    (U V : StandardYoungTableau mu) :
+    permInner (youngMatrixCoefficient actionLam S T)
+        (youngMatrixCoefficient actionMu U V) = 0 := by
+  rw [permInner_youngMatrixCoefficient_eq_averagedRankOneBetween_coordinate]
+  rw [youngAveragedRankOneBetween_basis_eq_zero_of_shape_ne
+    hshape actionLam contentLam actionMu contentMu T V U]
+  rfl
+
+/-- Index type for all Young matrix coefficients at one symmetric-group
+size. -/
+abbrev YoungMatrixCoefficientIndex (n : Nat) :=
+  Sigma fun lam : YoungDiagram n =>
+    StandardYoungTableau lam × StandardYoungTableau lam
+
+/-- The global family of matrix coefficients supplied by one faithful Young
+action for each shape. -/
+def globalYoungMatrixCoefficient
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (i : YoungMatrixCoefficientIndex (n + 1)) :
+    Perm (Fin (n + 1)) → ℝ :=
+  youngMatrixCoefficient (action i.1) i.2.1 i.2.2
+
+/-- Orthogonality formula for the global matrix-coefficient family, combining
+the same-shape and distinct-shape arguments. -/
+theorem globalYoungMatrixCoefficient_orthogonality
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (i j : YoungMatrixCoefficientIndex (n + 1)) :
+    permInner (globalYoungMatrixCoefficient action i)
+        (globalYoungMatrixCoefficient action j) =
+      if i = j then 1 / tableauDim i.1 else 0 := by
+  rcases i with ⟨lam, ⟨S, T⟩⟩
+  rcases j with ⟨mu, ⟨U, V⟩⟩
+  dsimp [globalYoungMatrixCoefficient]
+  by_cases hshape : lam = mu
+  · subst mu
+    rw [youngMatrixCoefficient_orthogonality_same_shape
+      (action lam) (content lam) S T U V]
+    by_cases hS : S = U
+    · subst U
+      by_cases hT : T = V
+      · subst V
+        simp
+      · simp [hT]
+    · simp [hS]
+  · rw [youngMatrixCoefficient_orthogonality_distinct_shapes
+      hshape (action lam) (content lam) (action mu) (content mu) S T U V]
+    simp [hshape]
+
+/-- `permInner` is linear in a finite sum in its first argument. -/
+theorem permInner_fintype_sum_smul_left
+    {ι α : Type*} [Fintype ι] [Fintype α] [DecidableEq α]
+    (c : ι → ℝ) (F : ι → Perm α → ℝ) (H : Perm α → ℝ) :
+    permInner (∑ i : ι, c i • F i) H =
+      ∑ i : ι, c i * permInner (F i) H := by
+  classical
+  unfold permInner
+  simp only [Finset.sum_apply, Pi.smul_apply, smul_eq_mul]
+  calc
+    (∑ π : Perm α, (∑ i : ι, c i * F i π) * H π) /
+        (Fintype.card (Perm α) : ℝ) =
+        (∑ i : ι, c i * ∑ π : Perm α, F i π * H π) /
+          (Fintype.card (Perm α) : ℝ) := by
+      congr 1
+      simp_rw [Finset.sum_mul]
+      rw [Finset.sum_comm]
+      apply Finset.sum_congr rfl
+      intro i _hi
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro π _hπ
+      ring
+    _ = ∑ i : ι,
+        c i * ((∑ π : Perm α, F i π * H π) /
+          (Fintype.card (Perm α) : ℝ)) := by
+      rw [Finset.sum_div]
+      apply Finset.sum_congr rfl
+      intro i _hi
+      ring
+
+/-- The global Young matrix coefficients are linearly independent.  This is
+already stronger than a within-block statement and uses no dimension count. -/
+theorem globalYoungMatrixCoefficient_linearIndependent
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam)) :
+    LinearIndependent ℝ (globalYoungMatrixCoefficient action) := by
+  classical
+  rw [Fintype.linearIndependent_iff]
+  intro c hc x
+  have hinner := congrArg
+    (fun F => permInner F (globalYoungMatrixCoefficient action x)) hc
+  rw [permInner_fintype_sum_smul_left] at hinner
+  have hzero :
+      permInner (0 : Perm (Fin (n + 1)) → ℝ)
+        (globalYoungMatrixCoefficient action x) = 0 := by
+    simp [permInner]
+  rw [hzero] at hinner
+  simp_rw [globalYoungMatrixCoefficient_orthogonality action content] at hinner
+  have hsingle :
+      (∑ i : YoungMatrixCoefficientIndex (n + 1),
+        c i * (if i = x then 1 / tableauDim i.1 else 0)) =
+          c x * (1 / tableauDim x.1) := by
+    rw [Fintype.sum_eq_single x]
+    · simp
+    · intro i hix
+      simp [hix]
+  rw [hsingle] at hinner
+  have hdim : tableauDim x.1 ≠ 0 :=
+    tableauDim_ne_zero_of_tableau x.2.1
+  have hfactor : (1 / tableauDim x.1 : ℝ) ≠ 0 :=
+    div_ne_zero one_ne_zero hdim
+  exact (mul_eq_zero.mp hinner).resolve_right hfactor
+
+/-- Cardinality of the global coefficient index is the sum of the squared
+tableau dimensions. -/
+theorem card_youngMatrixCoefficientIndex
+    (n : Nat) :
+    Fintype.card (YoungMatrixCoefficientIndex n) =
+      ∑ lam : YoungDiagram n, (tableauDimNat lam) ^ 2 := by
+  classical
+  rw [Fintype.card_sigma]
+  apply Finset.sum_congr rfl
+  intro lam _hlam
+  rw [Fintype.card_prod]
+  rw [tableauDimNat_eq_card]
+  ring
+
+/-- An explicit sum-of-squares cardinality identity would make the global
+matrix-coefficient family a basis of all group functions.  The theorem keeps
+that remaining combinatorial obligation visible as an equality, rather than
+packaging it as a decomposition assumption. -/
+theorem globalYoungMatrixCoefficient_span_all_of_card_eq
+    {n : Nat}
+    (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam)
+    (content : ∀ lam : YoungDiagram (n + 1),
+      JucysMurphyContentActionData (action lam))
+    (hcard :
+      Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
+        Fintype.card (Perm (Fin (n + 1)))) :
+    Submodule.span ℝ
+        (Set.range (globalYoungMatrixCoefficient action)) = ⊤ := by
+  apply
+    (globalYoungMatrixCoefficient_linearIndependent action content).span_eq_top_of_card_eq_finrank'
+  rw [hcard]
+  exact (Module.finrank_pi ℝ :
+    Module.finrank ℝ (Perm (Fin (n + 1)) → ℝ) =
+      Fintype.card (Perm (Fin (n + 1)))).symm
+
 @[simp] theorem youngMatrixCoefficient_apply
     {n : Nat} {lam : YoungDiagram (n + 1)}
     (action : YoungOrthogonalActionData lam)

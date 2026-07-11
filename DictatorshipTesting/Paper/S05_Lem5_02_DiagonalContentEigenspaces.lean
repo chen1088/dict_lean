@@ -125,6 +125,39 @@ theorem deletedCornerCellOfOneBoxChildRow_eq_of_same_row_form
   · rfl
   · rfl
 
+/-- The content of a deleted corner is the child row length minus its row
+index. -/
+theorem deletedCornerCell_content
+    {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}
+    (h : IsOneBoxChild lam mu) {r : Nat}
+    (hr :
+      youngRow lam r = youngRow mu r + 1 ∧
+      ∀ t : Nat, t ≠ r → youngRow lam t = youngRow mu t) :
+    YoungCell.content (deletedCornerCellOfOneBoxChildRow h hr) =
+      (youngRow mu r : Int) - (r : Int) := by
+  unfold YoungCell.content
+  rw [deletedCornerCell_col, deletedCornerCell_row]
+
+/-- For a fixed child diagram, the possible added-corner contents strictly
+distinguish their row indices. -/
+theorem childRow_sub_row_injective {n : Nat} (mu : YoungDiagram n)
+    {r s : Nat}
+    (h : (youngRow mu r : Int) - (r : Int) =
+      (youngRow mu s : Int) - (s : Int)) :
+    r = s := by
+  rcases lt_trichotomy r s with hrs | hrs | hrs
+  · have hrow : youngRow mu s ≤ youngRow mu r :=
+      youngRow_le_of_le mu (Nat.le_of_lt hrs)
+    have hrowInt : (youngRow mu s : Int) ≤ (youngRow mu r : Int) := by
+      exact_mod_cast hrow
+    omega
+  · exact hrs
+  · have hrow : youngRow mu r ≤ youngRow mu s :=
+      youngRow_le_of_le mu (Nat.le_of_lt hrs)
+    have hrowInt : (youngRow mu r : Int) ≤ (youngRow mu s : Int) := by
+      exact_mod_cast hrow
+    omega
+
 /-- The content sequence of a standard tableau determines the tableau. -/
 theorem tableauContentSequence_injective {n : Nat} {lam : YoungDiagram n}
     {T U : StandardYoungTableau lam}
@@ -228,8 +261,131 @@ theorem tableauContentSequence_injective {n : Nat} {lam : YoungDiagram n}
               rw [hDU]
         _ = U := by
               simpa [DU] using
-                insertMax_deleteMaxAsStandardYoungTableauOfOneBoxChildRow
-                  hchild hr U huU
+                 insertMax_deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+                   hchild hr U huU
+
+/-- The full entry-content sequence determines not only a tableau inside a
+fixed shape, but also the shape itself. -/
+theorem tableauContentSequence_determines_shape
+    {n : Nat} {lam mu : YoungDiagram n}
+    (T : StandardYoungTableau lam) (U : StandardYoungTableau mu)
+    (h : tableauContentSequence T = tableauContentSequence U) :
+    lam = mu := by
+  induction n with
+  | zero =>
+      apply youngDiagram_ext_youngRow
+      intro i
+      simp [youngRow]
+  | succ n ih =>
+      let rT : RemovableRow lam := maxRemovableRow T
+      let childT : YoungDiagram n := removableRowToOneBoxChild lam rT
+      let hchildT : IsOneBoxChild lam childT :=
+        removableRowToOneBoxChild_isOneBoxChild lam rT
+      let hrT :
+          youngRow lam rT.1 = youngRow childT rT.1 + 1 ∧
+            ∀ s : Nat, s ≠ rT.1 →
+              youngRow lam s = youngRow childT s :=
+        row_form_deleteRemovableRowDiagram lam rT.2
+      let uT : YoungCell lam :=
+        deletedCornerCellOfOneBoxChildRow hchildT hrT
+      have huT : TableauMaxAt T uT := by
+        change TableauMaxAt T
+          (deletedCornerCellOfOneBoxChildRow
+            (removableRowToOneBoxChild_isOneBoxChild lam (maxRemovableRow T))
+            (row_form_deleteRemovableRowDiagram lam (maxRemovableRow T).2))
+        exact tableauMaxAt_deletedCorner_maxRemovableRow T
+      let DT : StandardYoungTableau childT :=
+        deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+          hchildT hrT uT (deletedCornerCell_row hchildT hrT)
+          (deletedCornerCell_col hchildT hrT) T huT
+
+      let rU : RemovableRow mu := maxRemovableRow U
+      let childU : YoungDiagram n := removableRowToOneBoxChild mu rU
+      let hchildU : IsOneBoxChild mu childU :=
+        removableRowToOneBoxChild_isOneBoxChild mu rU
+      let hrU :
+          youngRow mu rU.1 = youngRow childU rU.1 + 1 ∧
+            ∀ s : Nat, s ≠ rU.1 →
+              youngRow mu s = youngRow childU s :=
+        row_form_deleteRemovableRowDiagram mu rU.2
+      let uU : YoungCell mu :=
+        deletedCornerCellOfOneBoxChildRow hchildU hrU
+      have huU : TableauMaxAt U uU := by
+        change TableauMaxAt U
+          (deletedCornerCellOfOneBoxChildRow
+            (removableRowToOneBoxChild_isOneBoxChild mu (maxRemovableRow U))
+            (row_form_deleteRemovableRowDiagram mu (maxRemovableRow U).2))
+        exact tableauMaxAt_deletedCorner_maxRemovableRow U
+      let DU : StandardYoungTableau childU :=
+        deleteMaxAsStandardYoungTableauOfOneBoxChildRow
+          hchildU hrU uU (deletedCornerCell_row hchildU hrU)
+          (deletedCornerCell_col hchildU hrU) U huU
+
+      have hdelete_seq :
+          tableauContentSequence DT = tableauContentSequence DU := by
+        funext a
+        have hTdel :
+            entryContent DT a = entryContent T (Fin.castSucc a) := by
+          simpa [DT] using
+            deleteMax_entryContent hchildT hrT uT
+              (deletedCornerCell_row hchildT hrT)
+              (deletedCornerCell_col hchildT hrT) T huT a
+        have hUdel :
+            entryContent DU a = entryContent U (Fin.castSucc a) := by
+          simpa [DU] using
+            deleteMax_entryContent hchildU hrU uU
+              (deletedCornerCell_row hchildU hrU)
+              (deletedCornerCell_col hchildU hrU) U huU a
+        have hparent := congrFun h (Fin.castSucc a)
+        calc
+          tableauContentSequence DT a = entryContent DT a := rfl
+          _ = entryContent T (Fin.castSucc a) := hTdel
+          _ = entryContent U (Fin.castSucc a) := by
+            simpa [tableauContentSequence] using hparent
+          _ = entryContent DU a := hUdel.symm
+          _ = tableauContentSequence DU a := rfl
+      have hchildren : childT = childU := ih DT DU hdelete_seq
+      have hlast :
+          entryContent T (Fin.last n) = entryContent U (Fin.last n) := by
+        have hfun := congrFun h (Fin.last n)
+        simpa [tableauContentSequence] using hfun
+      have hcellT : cellOfEntry T (Fin.last n) = uT :=
+        cellOfEntry_eq_of_entry T huT
+      have hcellU : cellOfEntry U (Fin.last n) = uU :=
+        cellOfEntry_eq_of_entry U huU
+      have hcornerContent : YoungCell.content uT = YoungCell.content uU := by
+        simpa [entryContent, hcellT, hcellU] using hlast
+      have hrowContent :
+          (youngRow childT rT.1 : Int) - (rT.1 : Int) =
+            (youngRow childU rU.1 : Int) - (rU.1 : Int) := by
+        calc
+          (youngRow childT rT.1 : Int) - (rT.1 : Int) =
+              YoungCell.content uT :=
+            (deletedCornerCell_content hchildT hrT).symm
+          _ = YoungCell.content uU := hcornerContent
+          _ = (youngRow childU rU.1 : Int) - (rU.1 : Int) :=
+            deletedCornerCell_content hchildU hrU
+      rw [hchildren] at hrowContent
+      have hrows : rT.1 = rU.1 :=
+        childRow_sub_row_injective childU hrowContent
+      apply youngDiagram_ext_youngRow
+      intro i
+      by_cases hi : i = rT.1
+      · calc
+          youngRow lam i = youngRow childT rT.1 + 1 := by
+            rw [hi, hrT.1]
+          _ = youngRow childU rU.1 + 1 := by
+            rw [hchildren, hrows]
+          _ = youngRow mu i := by
+            rw [hi, hrows, hrU.1]
+      · have hiU : i ≠ rU.1 := by
+          intro hi'
+          apply hi
+          rw [hi', ← hrows]
+        calc
+          youngRow lam i = youngRow childT i := hrT.2 i hi
+          _ = youngRow childU i := by rw [hchildren]
+          _ = youngRow mu i := (hrU.2 i hiU).symm
 
 /-- Lemma 5.2 paper-facing injectivity component: the entry-content sequence
 determines a standard tableau. -/
