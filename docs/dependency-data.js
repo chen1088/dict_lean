@@ -2766,15 +2766,17 @@ window.DICT_DEPENDENCY_DATA = {
       "wrappers": [
         "S05_matchingAverageScalarity_from_young_model_input",
         "S05_Lem5_17_scalar_eq_trace_div_dimension",
-        "S05_Lem5_17_even_scalar_eq_hEven_div_dim"
+        "S05_Lem5_17_even_scalar_eq_hEven_div_dim",
+        "averagedHigh_youngBlockScalar_even",
+        "averagedHigh_youngBlockScalar_odd"
       ],
       "deps": [
         "AppA_02",
         "S05_L13",
         "S05_L16"
       ],
-      "summary": "Section 5 scalarity bridge input plus trace-divided-by-dimension algebra.",
-      "statement": "Lemma 5.17 isolates matching-average scalarity as a Section 5 input and proves the trace-divided-by-dimension algebra.",
+      "summary": "Concrete one-block scalarity and h/d values are proved; the active global weighted identity still uses the named Section 5 input.",
+      "statement": "Lemma 5.17's trace-divided-by-dimension algebra is proved, and Lemma 5.19 proves the actual averaged operator is scalar with the stated even and odd values on every concrete matrix-coefficient block supplied by faithful Young action/content data. The global weighted block identity remains the named scalarity input.",
       "terms": [
         {
           "text": "Jucys-Murphy content spectrum",
@@ -2916,6 +2918,14 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "external",
       "file": "DictatorshipTesting/Paper/S05_Lem5_19_RegularYoungBlockDecomposition.lean",
       "wrappers": [
+        "weightedEnergyIdentity_of_pairwiseOrthogonal_components",
+        "matchingMeanProjectionError_eq_inner_averagedHighConvolution",
+        "youngMatrixCoefficient_orthogonality_same_shape",
+        "youngMatrixCoefficient_orthogonality_distinct_shapes",
+        "globalYoungMatrixCoefficient_linearIndependent",
+        "regularYoungMatrixCoefficientBasis",
+        "concreteYoungBlockComponent",
+        "concreteYoungBlockEnergy",
         "spectralBlockModelInputWithDim_even_from_appendixA",
         "spectralBlockModelInputWithDim_odd_from_appendixA"
       ],
@@ -2928,8 +2938,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_L17",
         "S05_L02"
       ],
-      "summary": "Assembles Appendix A markers plus the Section 5 scalarity input into the dimension-parameterized spectral-block model.",
-      "statement": "Lemma 5.19 assembles Appendix A ingredients and the Section 5 scalarity bridge into the regular Young-block spectral model.",
+      "summary": "Concrete matrix coefficients, orthogonality, independence, convolution scalarity, and block components under an explicit cardinality equality are proved; RSK completeness and the faithful U1 adapter remain.",
+      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, right-convolution scalarity, the h/d block scalar, and the matching-error quadratic form. An explicit coefficient-index cardinality equality yields a basis, concrete block components and energies, pairwise orthogonality, and Parseval. The first missing theorem is the RSK sum-of-squares equality; the active spectral-model wrappers still consume the named scalarity input.",
       "terms": [
         {
           "text": "Young-block energy profile",
@@ -2965,12 +2975,40 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "Over $\\mathbb C$, the Specht modules $S^\\lambda$, $\\lambda\\vdash n$, form a\ncomplete set of irreducible representations of $S_n$.  For each $\\lambda$, let\n$d_\\lambda=\\dim S^\\lambda$ and define the matrix-coefficient space\n\\begin{equation*}\n  \\mathcal H_\\lambda\n  =\\spanop\\{\\pi\\mapsto\\langle e_S,\\rho^\\lambda(\\pi)e_T\\rangle:\n      S,T\\in\\SYT(\\lambda)\\}\\subseteq L^2(S_n;\\mathbb C).\n\\end{equation*}\nThen the spaces $\\mathcal H_\\lambda$ are mutually orthogonal, span\n$L^2(S_n;\\mathbb C)$, and have dimension $d_\\lambda^2$.",
       "leanLinks": [
         {
+          "name": "weightedEnergyIdentity_of_pairwiseOrthogonal_components",
+          "line": 52
+        },
+        {
+          "name": "matchingMeanProjectionError_eq_inner_averagedHighConvolution",
+          "line": 139
+        },
+        {
+          "name": "youngMatrixCoefficient_orthogonality_same_shape",
+          "line": 709
+        },
+        {
+          "name": "youngMatrixCoefficient_orthogonality_distinct_shapes",
+          "line": 1112
+        },
+        {
+          "name": "globalYoungMatrixCoefficient_linearIndependent",
+          "line": 1205
+        },
+        {
+          "name": "regularYoungMatrixCoefficientBasis",
+          "line": 1275
+        },
+        {
+          "name": "permInner_self_eq_sum_concreteYoungBlockEnergy",
+          "line": 1425
+        },
+        {
           "name": "spectralBlockModelInputWithDim_even_from_appendixA",
-          "line": 85
+          "line": 1795
         },
         {
           "name": "spectralBlockModelInputWithDim_odd_from_appendixA",
-          "line": 130
+          "line": 1840
         }
       ]
     },

@@ -50,9 +50,16 @@ external axioms are the two Section 2 Filmus inputs, the three Appendix A
 representation-theory ingredient markers A.1, A.2, and A.3, and the Section 5
 matching-average scalarity bridge input
 `S05_matchingAverageScalarity_from_young_model_input`.  Standard-tableaux swap
-connectedness is proved internally as Lemma 5.3.  Lemma 5.19 is an assembly
-theorem from the three Appendix inputs and the scalarity bridge input.  The theorem wrappers
-consumed by the active Theorem 4.8 path are
+connectedness is proved internally as Lemma 5.3.  Lemma 5.19 now proves the
+concrete Young matrix-coefficient construction, same- and distinct-shape
+orthogonality, global linear independence, right-convolution scalarity, the
+`h / d` block scalar, and the matching-error quadratic-form identity.  It also
+constructs concrete block components, energies, and Parseval decomposition from
+an explicit cardinality equality.  The first missing internal theorem is the
+Young-tableau sum-of-squares identity
+`sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!`, equivalently the RSK
+completeness bijection.  Until that identity and the faithful `U_1` adapter are
+proved, the active Theorem 4.8 path still consumes the theorem wrappers
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.
 
@@ -284,15 +291,17 @@ Generic commutant infrastructure for Lemma 5.16:
 
 The existing A.1/A.2 axiom declarations still have their old numerical-shadow
 types.  They were not silently changed: replacing them now would break the
-active Theorem 4.8 route because the repository does not yet construct the
-regular Young-block energy decomposition.  Lemma 5.13 now identifies the trace
+active Theorem 4.8 route because the repository does not yet prove the
+sum-of-squares completeness of the concrete regular Young-block family or its
+faithful `U_1` identification.  Lemma 5.13 now identifies the trace
 of the concrete fixed-matching operator with `hEvenTableau` or `hOddTableau`
   from the labeled matching eigenbasis in its paper statement. The positive-size
   even trace and full Young-block trace are now instantiated unconditionally
   from the arbitrary-perfect-matching basis. The odd tableau and full-block
   traces are likewise instantiated from the arbitrary near-perfect-matching
-  basis. The
-  final global weighted scalarity axiom therefore remains.
+  basis.  Lemma 5.19 proves concrete block components and Parseval once the
+  explicit sum-of-squares cardinality equality is supplied.  The final global
+  weighted scalarity axiom therefore remains.
 
 Proven Lemma 5.18 trace-model-to-gap algebra:
 
@@ -346,20 +355,21 @@ External standard inputs:
   matching basis recursively, proves its simultaneous eigenvalue equations,
   and proves exact label-multiset equality with
   `S05_evenSignPatternMultiset`. Arbitrary-perfect-matching transport is also
-  proved by an explicit endpoint permutation and represented isometry. The odd
-  near-perfect matching basis remains.
+  proved by an explicit endpoint permutation and represented isometry.  The
+  canonical and arbitrary near-perfect-matching odd bases, including exact odd
+  label multiplicities, are proved as well.
 - Lemmas 5.18--5.21, especially
   `S05_Lem5_19_RegularYoungBlockDecomposition.lean`,
   `S05_Lem5_20_EvenSpectralBridge.lean`, and
-  `S05_Lem5_21_OddSpectralBridge.lean`: the external Specht/Pieri/Schur
-  spectral bridge is consumed through Lemma 5.19 theorem wrappers
+  `S05_Lem5_21_OddSpectralBridge.lean`: the active spectral bridge is consumed
+  through Lemma 5.19 theorem wrappers
   `spectralBlockModelInputWithDim_even_from_appendixA` and
   `spectralBlockModelInputWithDim_odd_from_appendixA`.  Those wrappers are
   produced by Lemma 5.19 from the explicit A.1/A.2/A.3 marker axioms and
-  `S05_matchingAverageScalarity_from_young_model_input`, citing the regular
-  Specht decomposition, Littlewood-Richardson restriction to Young subgroups,
-  Pieri two-strip specializations, and Schur's lemma for the tableauDim
-  spectral model.
+  `S05_matchingAverageScalarity_from_young_model_input`.  The concrete
+  matrix-coefficient and one-block Schur-orthogonality calculations are now
+  internal; removing the scalarity input first requires the RSK/sum-of-squares
+  completeness theorem and a faithful A.3 block-subspace adapter.
 
 Internal bridge components proven:
 
@@ -371,11 +381,17 @@ Internal bridge components proven:
   `SpectralGapFromBlockScalars`, `SpectralGapFromBlockScalarLowerBounds`,
   `EvenSpectralGapFromCertificates`, `OddSpectralGapFromCertificates`, and the
   dimension-parameterized `SpectralGapFromBlockModelWithDim` route are proved.
-- `S05_Lem5_19_RegularYoungBlockDecomposition.lean`: the main-text assembly
-  lemma turning the external Appendix A.1/A.2/A.3 inputs and
-  `S05_matchingAverageScalarity_from_young_model_input` into
-  the even and odd `SpectralBlockModelInputWithDim` theorem wrappers consumed
-  by Theorem 4.8.
+- `S05_Lem5_19_RegularYoungBlockDecomposition.lean`: proves the generic
+  orthogonal-component weighted-energy identity, concrete Young matrix
+  coefficients and their right-convolution law, scalarity of the actual
+  averaged element on each concrete block, the even/odd `h / tableauDim`
+  scalar formulas, same- and distinct-shape matrix-coefficient orthogonality,
+  global linear independence, and the matching-error quadratic-form identity.
+  Given the explicit cardinality equality for the global coefficient index, it
+  additionally constructs a basis, concrete block components and energies,
+  their pairwise orthogonality, and Parseval.  Its existing assembly wrappers
+  still use `S05_matchingAverageScalarity_from_young_model_input` for the active
+  Theorem 4.8 route.
 - `S05_Lem5_20_EvenSpectralBridge.lean` and
   `S05_Lem5_21_OddSpectralBridge.lean`: the tableau-count spectral bridges are
   proved from explicit `SpectralBlockModelInputWithDim` hypotheses; Lemma 5.19
@@ -414,6 +430,20 @@ through Lemma 5.19 theorem wrappers:
 declarations used by this bridge are the Appendix A.1/A.2/A.3 marker inputs and
 `S05_matchingAverageScalarity_from_young_model_input`; Lemma 5.19 consumes them
 through assembly theorems.
+
+The first exact internal blocker to replacing the scalarity input is:
+
+```text
+Fintype.card (YoungMatrixCoefficientIndex (n + 1))
+  = Fintype.card (Perm (Fin (n + 1)))
+```
+
+By `card_youngMatrixCoefficientIndex`, this is precisely
+`sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!`.  An RSK equivalence between
+permutations and pairs of standard tableaux of common shape would discharge it.
+No such RSK implementation or ready-to-use Mathlib theorem is currently present
+in the repository.  The faithful concrete A.3 `U_1` block identification and
+the final global weighted identity remain after this completeness step.
 
 - The explicit spectral-block-model theorem wrappers supply the actual Young-block
   energies of `F`, the `U_1` energy identification, and the matching-average

@@ -21,11 +21,17 @@ Current classification:
   `AppA_LemA_03_degreeOneYoungBlockIdentification`; and the Section 5 scalarity
   bridge input
   `S05_matchingAverageScalarity_from_young_model_input`.  Lemma 5.19 is an
-  assembly theorem from these named inputs.
+  active assembly theorem from these named inputs.  Its internal concrete route
+  now proves matrix-coefficient orthogonality, linear independence,
+  right-convolution scalarity, the matching-error quadratic form, and concrete
+  block components/Parseval from an explicit cardinality equality.
 - Appendix A bridge boundary: the remaining representation-theoretic obligation
-  is the spectral-block model input consumed by Section 5.  Standard-tableaux
-  swap connectedness is proved internally as Lemma 5.3; matching-average
-  scalarity is tracked separately as the Section 5 scalarity bridge input.
+  is the faithful A.1--A.3 connection to the concrete block model consumed by
+  Section 5.  Standard-tableaux swap connectedness is proved internally as
+  Lemma 5.3.  The first missing theorem on the concrete route is the
+  RSK/sum-of-squares completeness equality
+  `sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!`; matching-average scalarity
+  remains tracked separately as the Section 5 scalarity bridge input.
 - Old `youngDim` dimension axiom instances are gone.  The older `youngDim`
   wrappers remain only as theorems with explicit typeclass hypotheses, and no
   instance is registered for those hypotheses.
@@ -121,6 +127,14 @@ Internal Section 5 assembly:
   `spectralBlockModelInputWithDim_odd_from_appA_inputs` are proved from the
   external A.1/A.2/A.3 ingredients and
   `S05_matchingAverageScalarity_from_young_model_input`.
+  Independently of those assembly wrappers, the same file proves concrete
+  Young matrix coefficients, their normalized same- and distinct-shape
+  orthogonality, global linear independence, right-convolution scalarity on
+  every concrete shape block, and the scalar values `hEvenTableau / tableauDim`
+  and `hOddTableau / tableauDim`.  It also proves that matching projection error
+  is the quadratic form of convolution by the actual averaged element.
+  Supplying only the explicit global cardinality equality constructs a basis,
+  concrete shape components and energies, pairwise orthogonality, and Parseval.
 
 Remaining Section 5/AppA bridge boundary:
 
@@ -130,11 +144,17 @@ Remaining Section 5/AppA bridge boundary:
 - Lemma 5.19 supplies the `SpectralBlockModelInputWithDim` / spectral-block
   model input for the paper application from Appendix A ingredients plus the
   Section 5 scalarity bridge input.
-- Appendix A representation theory supplies the intended bridge: regular
-  Specht-block decomposition, `U_1` identification, trace/scalar value, and the
-  matching-restriction data needed to instantiate the spectral-block model.
-  Matching-average scalarity is now a named Section 5 bridge input from the
-  trace/scalar data; connectedness is discharged internally by Lemma 5.3.
+- The first exact missing theorem for the concrete decomposition is
+  `Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
+  Fintype.card (Perm (Fin (n + 1)))`.  By the proved index-cardinality theorem,
+  this is exactly `sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!`.
+  An RSK bijection would prove it; no RSK implementation or suitable Mathlib
+  theorem was found.  After completeness, the faithful concrete A.3 `U_1`
+  identification and final global weighted-energy assembly remain.
+- Appendix A representation theory still supplies A.1--A.3 for the active
+  paper route.  Matching-average scalarity remains a named Section 5 bridge
+  input; connectedness, one-block scalarity, trace/scalar identification, and
+  matrix-coefficient orthogonality are discharged internally.
 - The concrete Lemma 5.11 matching-cube operator/character/projection algebra
   is proved. Its signed two-box child embeddings are explicit and their
   isometry, final-edge sign, earlier-edge intertwining, pairwise orthogonality,
@@ -505,14 +525,22 @@ trace formula identifies those scalars as
 `hEvenTableau m lambda / tableauDim lambda` in the even case and
 `hOddTableau m lambda / tableauDim lambda` in the odd case.
 
-Why it is external or why it should be proven: the finite weighted-sum
-comparison and trace-divided-by-dimension algebra are formalized, but the
-actual Young-block decomposition of `L^2(S_n)`, compatibility of those energies
-with `U_1`, the connection between the concrete Young action and the global
-block model, tableau-count dimension positivity inside the spectral model, and
-the trace/scalar identification require the unformalized Specht-block model,
-Schur's lemma, and matching-restriction theorem.  Conjugation covariance and
-coefficient centrality of the averaged high matching element are now proved.
+Current internal proof: the finite weighted-sum comparison, concrete Young
+matrix coefficients, their right-convolution law, actual one-block scalarity,
+the even/odd trace scalar values, same- and distinct-shape orthogonality, global
+linear independence, matching-error quadratic-form identity, and tableau-count
+dimension positivity are proved.  Given the explicit coefficient-index
+cardinality equality, Lean also constructs the full basis, concrete block
+components and energies, orthogonality, and Parseval.
+
+Exact remaining obstruction: prove
+`Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
+Fintype.card (Perm (Fin (n + 1)))`, equivalently
+`sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!`.  This is the RSK
+sum-of-squares theorem.  The repository and Mathlib currently contain no RSK
+equivalence that can discharge it.  Once completeness is available, the
+faithful concrete A.3 identification of `U_1` with the one-row and standard
+blocks and the final weighted-energy adapter still have to be assembled.
 
 Citation target if external: regular representation/Specht decomposition and
 Schur's lemma from standard finite-group representation theory; the

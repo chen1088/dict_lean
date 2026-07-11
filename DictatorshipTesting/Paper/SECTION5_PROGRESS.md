@@ -117,10 +117,16 @@ Detailed maps:
 - Lemmas 5.18--5.21 expose the active tableauDim spectral-bridge route used by
   Theorem 4.8.
 - Lemmas 5.11 and 5.13 are now complete for the intended matching sizes in both
-  parity cases. The next representation-theoretic frontier is the regular
-  orthogonal Young-block decomposition and global weighted energy identity.
-  Those steps are still required. The old numerical A.1/A.2 axiom types and the final
-  matching-average scalarity input therefore remain unchanged.
+  parity cases.  Lemma 5.19 now proves the concrete Young matrix-coefficient
+  family, same- and distinct-shape orthogonality, global linear independence,
+  right-convolution scalarity, the `h / d` values, and the matching-error
+  quadratic-form identity.  From an explicit global cardinality equality it
+  constructs concrete block components, energies, and Parseval.
+- The first exact remaining theorem is the RSK/sum-of-squares identity
+  `sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!`.  The faithful A.3 `U_1`
+  adapter and final global weighted identity remain after completeness.  The
+  old numerical A.1/A.2 axiom types and the matching-average scalarity input
+  therefore remain unchanged.
 - Appendix A exposes explicit marker axioms for A.1, A.2, and A.3.  Lemma 5.19
   consumes those markers together with
   `S05_matchingAverageScalarity_from_young_model_input` to produce the even/odd
@@ -143,8 +149,9 @@ Detailed maps:
 - Lemma 5.11 proves the concrete matching-cube action, sign-projection wrappers,
   the full signed-child orthogonal decomposition, and the recursive canonical
   even labeled eigenbasis with exact label multiplicities. Arbitrary perfect
-  matching transport is proved by explicit conjugation and isometry. The odd
-  basis remains.
+  matching transport is proved by explicit conjugation and isometry.  The
+  canonical and arbitrary near-perfect-matching odd bases and their exact label
+  multiplicities are proved as well.
 - Lemma 5.12 proves the matching-character local truncation calculation.
 - Definition 5.22 proves the low/high matching idempotent algebra.
 - Lemma 5.14 proves local truncation as convolution.
@@ -153,8 +160,17 @@ Detailed maps:
   matching element plus one-block scalarity for a supplied Young action model.
 - Lemma 5.18 proves weighted-sum spectral-gap algebra from block scalar lower
   bounds.
-- Lemma 5.19 assembles Appendix A inputs plus the Section 5 scalarity bridge
-  input into `SpectralBlockModelInputWithDim`.
+- Lemma 5.19 proves the finite orthogonal-component weighted-energy identity;
+  concrete Young matrix coefficients and synthesis blocks; right convolution
+  on matrix coefficients; scalarity of the actual averaged element on each
+  concrete block; even/odd `h / tableauDim` scalar formulas; normalized
+  same- and distinct-shape orthogonality; global linear independence; and the
+  matching projection error as the averaged-convolution quadratic form.
+  Assuming only the explicit global coefficient-index cardinality equality, it
+  constructs a concrete basis, block components and energies, their pairwise
+  orthogonality, and Parseval.  Its active paper wrappers still assemble
+  Appendix A inputs plus the Section 5 scalarity bridge input into
+  `SpectralBlockModelInputWithDim`.
 - Lemmas 5.20 and 5.21 prove the even and odd algebraic spectral bridges from
   explicit spectral-block-model hypotheses plus finite certificates.
 - Lemmas 5.23, 5.25, and 5.27 prove the finite `z`, even `h`, and odd `h`
@@ -178,3 +194,10 @@ Matching-average scalarity is isolated separately as the Section 5 input
 those ingredients into the spectral model wrappers.  The current Section 5
 tableau-count dimension route also no longer registers the older `youngDim`
 dimension-branching instances.
+
+For the concrete route, the first blocker is not an unnamed representation
+assumption: it is the explicit cardinality equality
+`Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
+Fintype.card (Perm (Fin (n + 1)))`, equivalent to the standard-tableau
+sum-of-squares identity and therefore to RSK completeness.  No RSK formalization
+or suitable Mathlib theorem was found.
