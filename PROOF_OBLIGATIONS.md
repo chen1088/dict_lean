@@ -23,15 +23,17 @@ Current classification:
   `S05_matchingAverageScalarity_from_young_model_input`.  Lemma 5.19 is an
   active assembly theorem from these named inputs.  Its internal concrete route
   now proves matrix-coefficient orthogonality, linear independence,
-  right-convolution scalarity, the matching-error quadratic form, and concrete
-  block components/Parseval from an explicit cardinality equality.
+  right-convolution scalarity, the matching-error quadratic form, the internal
+  coefficient-index cardinality theorem, and unconditional concrete block
+  components/Parseval.
 - Appendix A bridge boundary: the remaining representation-theoretic obligation
   is the faithful A.1--A.3 connection to the concrete block model consumed by
   Section 5.  Standard-tableaux swap connectedness is proved internally as
-  Lemma 5.3.  The first missing theorem on the concrete route is the
-  RSK/sum-of-squares completeness equality
-  `sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!`; matching-average scalarity
-  remains tracked separately as the Section 5 scalarity bridge input.
+  Lemma 5.3.  The Young-tableau sum-of-squares completeness equality is now
+  proved internally from the one-box Young-lattice differential recurrence.
+  The faithful concrete A.3 `U_1` adapter is the next internal bridge;
+  matching-average scalarity remains tracked separately as the Section 5
+  scalarity bridge input.
 - Old `youngDim` dimension axiom instances are gone.  The older `youngDim`
   wrappers remain only as theorems with explicit typeclass hypotheses, and no
   instance is registered for those hypotheses.
@@ -132,9 +134,12 @@ Internal Section 5 assembly:
   orthogonality, global linear independence, right-convolution scalarity on
   every concrete shape block, and the scalar values `hEvenTableau / tableauDim`
   and `hOddTableau / tableauDim`.  It also proves that matching projection error
-  is the quadratic form of convolution by the actual averaged element.
-  Supplying only the explicit global cardinality equality constructs a basis,
-  concrete shape components and energies, pairwise orthogonality, and Parseval.
+  is the quadratic form of convolution by the actual averaged element.  The
+  same file imports the internal Young-lattice proof of
+  `sum_tableauDimNat_sq_eq_factorial`, proves
+  `card_YoungMatrixCoefficientIndex_eq_perm`, and unconditionally constructs a
+  basis, concrete shape components and energies, pairwise orthogonality, and
+  Parseval.
 
 Remaining Section 5/AppA bridge boundary:
 
@@ -144,13 +149,11 @@ Remaining Section 5/AppA bridge boundary:
 - Lemma 5.19 supplies the `SpectralBlockModelInputWithDim` / spectral-block
   model input for the paper application from Appendix A ingredients plus the
   Section 5 scalarity bridge input.
-- The first exact missing theorem for the concrete decomposition is
-  `Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
-  Fintype.card (Perm (Fin (n + 1)))`.  By the proved index-cardinality theorem,
-  this is exactly `sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!`.
-  An RSK bijection would prove it; no RSK implementation or suitable Mathlib
-  theorem was found.  After completeness, the faithful concrete A.3 `U_1`
-  identification and final global weighted-energy assembly remain.
+- The concrete coefficient-index cardinality theorem and the equivalent
+  `sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!` identity are proved
+  internally by a Young-lattice differential recurrence.  The faithful
+  concrete A.3 `U_1` identification and final global weighted-energy assembly
+  remain.
 - Appendix A representation theory still supplies A.1--A.3 for the active
   paper route.  Matching-average scalarity remains a named Section 5 bridge
   input; connectedness, one-block scalarity, trace/scalar identification, and
@@ -528,19 +531,17 @@ trace formula identifies those scalars as
 Current internal proof: the finite weighted-sum comparison, concrete Young
 matrix coefficients, their right-convolution law, actual one-block scalarity,
 the even/odd trace scalar values, same- and distinct-shape orthogonality, global
-linear independence, matching-error quadratic-form identity, and tableau-count
-dimension positivity are proved.  Given the explicit coefficient-index
-cardinality equality, Lean also constructs the full basis, concrete block
-components and energies, orthogonality, and Parseval.
+  linear independence, matching-error quadratic-form identity, tableau-count
+  dimension positivity, Young-tableau sum-of-squares, and coefficient-index
+  cardinality are proved.  Lean unconditionally constructs the full basis,
+  concrete block components and energies, orthogonality, and Parseval.
 
-Exact remaining obstruction: prove
-`Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
-Fintype.card (Perm (Fin (n + 1)))`, equivalently
-`sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!`.  This is the RSK
-sum-of-squares theorem.  The repository and Mathlib currently contain no RSK
-equivalence that can discharge it.  Once completeness is available, the
-faithful concrete A.3 identification of `U_1` with the one-row and standard
-blocks and the final weighted-energy adapter still have to be assembled.
+The sum-of-squares/cardinality obstruction is closed by
+`sum_tableauDimNat_sq_eq_factorial` and
+`card_YoungMatrixCoefficientIndex_eq_perm`, proved without an RSK axiom.  The
+exact remaining obstruction is the faithful concrete A.3 identification of
+`U_1` with the one-row and standard blocks; the final weighted-energy adapter
+then has to be assembled and the named matching-average scalarity input removed.
 
 Citation target if external: regular representation/Specht decomposition and
 Schur's lemma from standard finite-group representation theory; the

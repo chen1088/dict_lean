@@ -53,13 +53,15 @@ matching-average scalarity bridge input
 connectedness is proved internally as Lemma 5.3.  Lemma 5.19 now proves the
 concrete Young matrix-coefficient construction, same- and distinct-shape
 orthogonality, global linear independence, right-convolution scalarity, the
-`h / d` block scalar, and the matching-error quadratic-form identity.  It also
-constructs concrete block components, energies, and Parseval decomposition from
-an explicit cardinality equality.  The first missing internal theorem is the
-Young-tableau sum-of-squares identity
-`sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!`, equivalently the RSK
-completeness bijection.  Until that identity and the faithful `U_1` adapter are
-proved, the active Theorem 4.8 path still consumes the theorem wrappers
+  `h / d` block scalar, and the matching-error quadratic-form identity.  The
+  Young-tableau sum-of-squares identity is now proved internally from the
+  one-box Young-lattice differential recurrence, so the concrete global
+  matrix-coefficient family is an unconditional basis and its block components,
+  energies, orthogonality, and Parseval decomposition are unconditional.  The
+  next internal bridge is the faithful A.3 identification of `U_1` with the
+  one-row and standard concrete Young blocks.  Until that adapter and the final
+  scalarity assembly are proved, the active Theorem 4.8 path still consumes the
+  theorem wrappers
 `spectralBlockModelInputWithDim_even_from_appendixA` and
 `spectralBlockModelInputWithDim_odd_from_appendixA`.
 
@@ -291,17 +293,17 @@ Generic commutant infrastructure for Lemma 5.16:
 
 The existing A.1/A.2 axiom declarations still have their old numerical-shadow
 types.  They were not silently changed: replacing them now would break the
-active Theorem 4.8 route because the repository does not yet prove the
-sum-of-squares completeness of the concrete regular Young-block family or its
-faithful `U_1` identification.  Lemma 5.13 now identifies the trace
+  active Theorem 4.8 route because the repository does not yet prove the
+  faithful `U_1` identification for the concrete regular Young-block family.
+  The sum-of-squares completeness theorem is now internal.  Lemma 5.13 identifies the trace
 of the concrete fixed-matching operator with `hEvenTableau` or `hOddTableau`
   from the labeled matching eigenbasis in its paper statement. The positive-size
   even trace and full Young-block trace are now instantiated unconditionally
   from the arbitrary-perfect-matching basis. The odd tableau and full-block
   traces are likewise instantiated from the arbitrary near-perfect-matching
-  basis.  Lemma 5.19 proves concrete block components and Parseval once the
-  explicit sum-of-squares cardinality equality is supplied.  The final global
-  weighted scalarity axiom therefore remains.
+  basis.  Lemma 5.19 now proves the coefficient-index cardinality theorem and
+  constructs concrete block components and Parseval unconditionally.  The final
+  global weighted scalarity axiom therefore remains.
 
 Proven Lemma 5.18 trace-model-to-gap algebra:
 
@@ -367,9 +369,9 @@ External standard inputs:
   `spectralBlockModelInputWithDim_odd_from_appendixA`.  Those wrappers are
   produced by Lemma 5.19 from the explicit A.1/A.2/A.3 marker axioms and
   `S05_matchingAverageScalarity_from_young_model_input`.  The concrete
-  matrix-coefficient and one-block Schur-orthogonality calculations are now
-  internal; removing the scalarity input first requires the RSK/sum-of-squares
-  completeness theorem and a faithful A.3 block-subspace adapter.
+  matrix-coefficient, completeness, and one-block Schur-orthogonality
+  calculations are now internal; removing the scalarity input requires a
+  faithful A.3 block-subspace adapter and the final weighted-energy assembly.
 
 Internal bridge components proven:
 
@@ -386,10 +388,10 @@ Internal bridge components proven:
   coefficients and their right-convolution law, scalarity of the actual
   averaged element on each concrete block, the even/odd `h / tableauDim`
   scalar formulas, same- and distinct-shape matrix-coefficient orthogonality,
-  global linear independence, and the matching-error quadratic-form identity.
-  Given the explicit cardinality equality for the global coefficient index, it
-  additionally constructs a basis, concrete block components and energies,
-  their pairwise orthogonality, and Parseval.  Its existing assembly wrappers
+  global linear independence, the internal Young-tableau sum-of-squares and
+  coefficient-index cardinality theorems, and the matching-error quadratic-form
+  identity.  It unconditionally constructs a basis, concrete block components
+  and energies, their pairwise orthogonality, and Parseval.  Its existing assembly wrappers
   still use `S05_matchingAverageScalarity_from_young_model_input` for the active
   Theorem 4.8 route.
 - `S05_Lem5_20_EvenSpectralBridge.lean` and
@@ -431,19 +433,14 @@ declarations used by this bridge are the Appendix A.1/A.2/A.3 marker inputs and
 `S05_matchingAverageScalarity_from_young_model_input`; Lemma 5.19 consumes them
 through assembly theorems.
 
-The first exact internal blocker to replacing the scalarity input is:
-
-```text
-Fintype.card (YoungMatrixCoefficientIndex (n + 1))
-  = Fintype.card (Perm (Fin (n + 1)))
-```
-
-By `card_youngMatrixCoefficientIndex`, this is precisely
-`sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!`.  An RSK equivalence between
-permutations and pairs of standard tableaux of common shape would discharge it.
-No such RSK implementation or ready-to-use Mathlib theorem is currently present
-in the repository.  The faithful concrete A.3 `U_1` block identification and
-the final global weighted identity remain after this completeness step.
+The coefficient-index cardinality theorem
+`card_YoungMatrixCoefficientIndex_eq_perm` is now proved internally.  Its core
+combinatorial theorem, `sum_tableauDimNat_sq_eq_factorial`, uses the one-box
+Young-lattice differential recurrence rather than an external RSK input.  The
+first exact internal blocker to replacing the scalarity input is now the
+faithful concrete A.3 identification of `U_1` with the one-row and standard
+Young blocks; the final global weighted identity must then be assembled from
+those concrete components.
 
 - The explicit spectral-block-model theorem wrappers supply the actual Young-block
   energies of `F`, the `U_1` energy identification, and the matching-average

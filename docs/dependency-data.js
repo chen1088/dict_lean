@@ -2923,6 +2923,8 @@ window.DICT_DEPENDENCY_DATA = {
         "youngMatrixCoefficient_orthogonality_same_shape",
         "youngMatrixCoefficient_orthogonality_distinct_shapes",
         "globalYoungMatrixCoefficient_linearIndependent",
+        "card_YoungMatrixCoefficientIndex_eq_perm",
+        "globalYoungMatrixCoefficient_span_all",
         "regularYoungMatrixCoefficientBasis",
         "concreteYoungBlockComponent",
         "concreteYoungBlockEnergy",
@@ -2938,8 +2940,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_L17",
         "S05_L02"
       ],
-      "summary": "Concrete matrix coefficients, orthogonality, independence, convolution scalarity, and block components under an explicit cardinality equality are proved; RSK completeness and the faithful U1 adapter remain.",
-      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, right-convolution scalarity, the h/d block scalar, and the matching-error quadratic form. An explicit coefficient-index cardinality equality yields a basis, concrete block components and energies, pairwise orthogonality, and Parseval. The first missing theorem is the RSK sum-of-squares equality; the active spectral-model wrappers still consume the named scalarity input.",
+      "summary": "Concrete matrix coefficients, orthogonality, Young-lattice sum-of-squares completeness, the unconditional basis, convolution scalarity, and block components are proved; the faithful U1 adapter remains.",
+      "statement": "Lemma 5.19 proves the concrete Young matrix-coefficient family, normalized same- and distinct-shape orthogonality, global linear independence, the internal tableau sum-of-squares and coefficient-index cardinality theorems, unconditional spanning and basis constructions, concrete block components and energies, pairwise orthogonality, Parseval, right-convolution scalarity, the h/d block scalar, and the matching-error quadratic form. The faithful A.3 U1 adapter remains, and the active spectral-model wrappers still consume the named scalarity input.",
       "terms": [
         {
           "text": "Young-block energy profile",
@@ -2976,39 +2978,47 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "weightedEnergyIdentity_of_pairwiseOrthogonal_components",
-          "line": 52
+          "line": 53
         },
         {
           "name": "matchingMeanProjectionError_eq_inner_averagedHighConvolution",
-          "line": 139
+          "line": 140
         },
         {
           "name": "youngMatrixCoefficient_orthogonality_same_shape",
-          "line": 709
+          "line": 710
         },
         {
           "name": "youngMatrixCoefficient_orthogonality_distinct_shapes",
-          "line": 1112
+          "line": 1113
         },
         {
           "name": "globalYoungMatrixCoefficient_linearIndependent",
-          "line": 1205
+          "line": 1206
+        },
+        {
+          "name": "card_YoungMatrixCoefficientIndex_eq_perm",
+          "line": 1255
+        },
+        {
+          "name": "globalYoungMatrixCoefficient_span_all",
+          "line": 1284
         },
         {
           "name": "regularYoungMatrixCoefficientBasis",
-          "line": 1275
+          "line": 1295
         },
         {
           "name": "permInner_self_eq_sum_concreteYoungBlockEnergy",
-          "line": 1425
+          "line": 1426
         },
         {
           "name": "spectralBlockModelInputWithDim_even_from_appendixA",
-          "line": 1795
+          "line": 1793
         },
         {
           "name": "spectralBlockModelInputWithDim_odd_from_appendixA",
-          "line": 1840
+          "line": 1838
         }
       ]
     },

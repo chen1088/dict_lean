@@ -120,13 +120,14 @@ Detailed maps:
   parity cases.  Lemma 5.19 now proves the concrete Young matrix-coefficient
   family, same- and distinct-shape orthogonality, global linear independence,
   right-convolution scalarity, the `h / d` values, and the matching-error
-  quadratic-form identity.  From an explicit global cardinality equality it
-  constructs concrete block components, energies, and Parseval.
-- The first exact remaining theorem is the RSK/sum-of-squares identity
-  `sum lambda, tableauDimNat lambda ^ 2 = (n + 1)!`.  The faithful A.3 `U_1`
-  adapter and final global weighted identity remain after completeness.  The
-  old numerical A.1/A.2 axiom types and the matching-average scalarity input
-  therefore remain unchanged.
+  quadratic-form identity.  The one-box Young-lattice differential recurrence,
+  upward tableau-dimension recursion, tableau sum-of-squares identity, and
+  coefficient-index cardinality theorem are now proved internally.  Thus the
+  concrete basis, block components, energies, and Parseval are unconditional.
+- The first exact remaining internal bridge is the faithful A.3 `U_1` adapter,
+  followed by the final global weighted identity.  The old numerical A.1/A.2
+  axiom types and the matching-average scalarity input therefore remain
+  unchanged.
 - Appendix A exposes explicit marker axioms for A.1, A.2, and A.3.  Lemma 5.19
   consumes those markers together with
   `S05_matchingAverageScalarity_from_young_model_input` to produce the even/odd
@@ -165,10 +166,11 @@ Detailed maps:
   on matrix coefficients; scalarity of the actual averaged element on each
   concrete block; even/odd `h / tableauDim` scalar formulas; normalized
   same- and distinct-shape orthogonality; global linear independence; and the
-  matching projection error as the averaged-convolution quadratic form.
-  Assuming only the explicit global coefficient-index cardinality equality, it
-  constructs a concrete basis, block components and energies, their pairwise
-  orthogonality, and Parseval.  Its active paper wrappers still assemble
+  matching projection error as the averaged-convolution quadratic form.  Its
+  internal Young-lattice proof gives the exact global coefficient-index
+  cardinality equality, so it unconditionally constructs a concrete basis,
+  block components and energies, their pairwise orthogonality, and Parseval.
+  Its active paper wrappers still assemble
   Appendix A inputs plus the Section 5 scalarity bridge input into
   `SpectralBlockModelInputWithDim`.
 - Lemmas 5.20 and 5.21 prove the even and odd algebraic spectral bridges from
@@ -195,9 +197,8 @@ those ingredients into the spectral model wrappers.  The current Section 5
 tableau-count dimension route also no longer registers the older `youngDim`
 dimension-branching instances.
 
-For the concrete route, the first blocker is not an unnamed representation
-assumption: it is the explicit cardinality equality
-`Fintype.card (YoungMatrixCoefficientIndex (n + 1)) =
-Fintype.card (Perm (Fin (n + 1)))`, equivalent to the standard-tableau
-sum-of-squares identity and therefore to RSK completeness.  No RSK formalization
-or suitable Mathlib theorem was found.
+For the concrete route, the coefficient-index cardinality equality and the
+standard-tableau sum-of-squares identity are now proved internally from the
+Young-lattice differential relation.  The next blocker is the faithful concrete
+A.3 identification of `U_1` with the one-row and standard Young blocks, followed
+by the final weighted-energy assembly.
