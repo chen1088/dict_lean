@@ -1089,4 +1089,216 @@ theorem youngLattice_up_down_sum {n : Nat}
     ← sum_youngDownUpPath_eq_coverSums mu f]
   exact youngLattice_upDown_path_sum mu f
 
+private def emptyYoungDiagramForSquareSum : YoungDiagram 0 where
+  row := Fin.elim0
+  nonincreasing := by intro i; exact Fin.elim0 i
+  sum_rows := by simp
+
+private theorem card_youngDiagram_rank_zero :
+    Fintype.card (YoungDiagram 0) = 1 := by
+  have hsub : Subsingleton (YoungDiagram 0) := by
+    constructor
+    intro mu nu
+    cases mu
+    cases nu
+    congr
+    funext i
+    exact Fin.elim0 i
+  rw [Fintype.card_eq_one_iff]
+  refine ⟨emptyYoungDiagramForSquareSum, ?_⟩
+  intro lam
+  exact @Subsingleton.elim _ hsub lam emptyYoungDiagramForSquareSum
+
+private noncomputable def emptyStandardYoungTableauForSquareSum
+    (lam : YoungDiagram 0) : StandardYoungTableau lam where
+  entry := fun u => Fin.elim0 u.1.1
+  bijective := by
+    constructor
+    · intro u
+      exact Fin.elim0 u.1.1
+    · intro a
+      exact Fin.elim0 a
+  row_strict := by
+    intro u
+    exact Fin.elim0 u.1.1
+  col_strict := by
+    intro u
+    exact Fin.elim0 u.1.1
+
+@[simp] theorem tableauDimNat_rank_zero (lam : YoungDiagram 0) :
+    tableauDimNat lam = 1 := by
+  rw [tableauDimNat, Fintype.card_eq_one_iff]
+  refine ⟨emptyStandardYoungTableauForSquareSum lam, ?_⟩
+  intro T
+  apply standardYoungTableau_ext_entry
+  intro u
+  exact Fin.elim0 u.1.1
+
+@[simp] theorem tableauDimNat_rank_one (lam : YoungDiagram 1) :
+    tableauDimNat lam = 1 := by
+  have hrow : youngRow lam 0 = 1 := by
+    have h := lam.sum_rows
+    rw [Fin.sum_univ_one] at h
+    unfold youngRow
+    norm_num
+    simpa using h
+  let r0 : RemovableRow lam := ⟨0, by
+    change youngRow lam 1 < youngRow lam 0
+    rw [hrow]
+    simp [youngRow]⟩
+  have hcard : Fintype.card (RemovableRow lam) = 1 := by
+    rw [Fintype.card_eq_one_iff]
+    refine ⟨r0, ?_⟩
+    intro r
+    apply Subtype.ext
+    have hr := removableRow_lt_size r.2
+    change r.1 = (r0 : Nat)
+    simp only [r0]
+    omega
+  rw [tableauDimNat_eq_sum_lowerCovers]
+  rw [← sum_removableRows_eq_sum_lowerCovers]
+  calc
+    (∑ r : RemovableRow lam,
+        tableauDimNat (removableRowToOneBoxChild lam r)) =
+        ∑ _r : RemovableRow lam, 1 := by
+      apply Fintype.sum_congr
+      intro r
+      exact tableauDimNat_rank_zero _
+    _ = 1 := by simp [hcard]
+
+private theorem card_addableRows_rank_zero (mu : YoungDiagram 0) :
+    Fintype.card (AddableRow mu) = 1 := by
+  rw [Fintype.card_eq_one_iff]
+  refine ⟨⟨0, Or.inl rfl⟩, ?_⟩
+  intro r
+  apply Subtype.ext
+  exact Fin.eq_zero r.1
+
+/-- Upward branching for tableau counts, derived from the Young-lattice
+differential relation and downward tableau deletion. -/
+theorem sum_tableauDimNat_upperCovers (n : Nat) (mu : YoungDiagram n) :
+    (youngUpperCovers mu).sum tableauDimNat =
+      (n + 1) * tableauDimNat mu := by
+  induction n with
+  | zero =>
+      calc
+        (youngUpperCovers mu).sum tableauDimNat =
+            ∑ a : AddableRow mu,
+              tableauDimNat (addAddableRowDiagram mu a) :=
+          (sum_addableRows_eq_sum_upperCovers mu tableauDimNat).symm
+        _ = ∑ _a : AddableRow mu, 1 := by
+          apply Fintype.sum_congr
+          intro a
+          exact tableauDimNat_rank_one _
+        _ = 1 := by simp [card_addableRows_rank_zero mu]
+        _ = (0 + 1) * tableauDimNat mu := by
+          simp
+  | succ n ih =>
+      calc
+        (youngUpperCovers mu).sum tableauDimNat =
+            (youngUpperCovers mu).sum (fun lam =>
+              (youngLowerCovers lam).sum tableauDimNat) := by
+          apply Finset.sum_congr rfl
+          intro lam hlam
+          exact tableauDimNat_eq_sum_lowerCovers lam
+        _ = tableauDimNat mu +
+            (youngLowerCovers mu).sum (fun kap =>
+              (youngUpperCovers kap).sum tableauDimNat) := by
+          exact youngLattice_up_down_sum mu tableauDimNat
+        _ = tableauDimNat mu +
+            (youngLowerCovers mu).sum (fun kap =>
+              (n + 1) * tableauDimNat kap) := by
+          apply congrArg (tableauDimNat mu + ·)
+          apply Finset.sum_congr rfl
+          intro kap hkap
+          exact ih kap
+        _ = tableauDimNat mu +
+            (n + 1) * (youngLowerCovers mu).sum tableauDimNat := by
+          rw [Finset.mul_sum]
+        _ = tableauDimNat mu + (n + 1) * tableauDimNat mu := by
+          rw [← tableauDimNat_eq_sum_lowerCovers mu]
+        _ = (Nat.succ n + 1) * tableauDimNat mu := by
+          simp [Nat.succ_eq_add_one, add_mul, add_comm]
+
+/-- Double-counting one-box incidences exchanges lower-cover and upper-cover
+summation. -/
+theorem sum_lowerCovers_eq_sum_upperCovers {n : Nat}
+    (f : YoungDiagram (n + 1) → YoungDiagram n → Nat) :
+    (∑ lam : YoungDiagram (n + 1),
+        (youngLowerCovers lam).sum (fun mu => f lam mu)) =
+      ∑ mu : YoungDiagram n,
+        (youngUpperCovers mu).sum (fun lam => f lam mu) := by
+  classical
+  simp only [youngLowerCovers, oneBoxChildrenSized, youngUpperCovers,
+    Finset.sum_filter]
+  rw [Finset.sum_comm]
+
+/-- Sum of squared standard-tableau counts over all shapes of rank `n`. -/
+def youngTableauSquareSum (n : Nat) : Nat :=
+  ∑ lam : YoungDiagram n, tableauDimNat lam ^ 2
+
+@[simp] theorem youngTableauSquareSum_zero :
+    youngTableauSquareSum 0 = 1 := by
+  unfold youngTableauSquareSum
+  calc
+    (∑ lam : YoungDiagram 0, tableauDimNat lam ^ 2) =
+        ∑ _lam : YoungDiagram 0, 1 := by
+      apply Fintype.sum_congr
+      intro lam
+      simp
+    _ = 1 := by simp [card_youngDiagram_rank_zero]
+
+theorem youngTableauSquareSum_succ (n : Nat) :
+    youngTableauSquareSum (n + 1) =
+      (n + 1) * youngTableauSquareSum n := by
+  unfold youngTableauSquareSum
+  calc
+    (∑ lam : YoungDiagram (n + 1), tableauDimNat lam ^ 2) =
+        ∑ lam : YoungDiagram (n + 1),
+          tableauDimNat lam *
+            (youngLowerCovers lam).sum tableauDimNat := by
+      apply Fintype.sum_congr
+      intro lam
+      rw [← tableauDimNat_eq_sum_lowerCovers lam]
+      simp [pow_two]
+    _ = ∑ lam : YoungDiagram (n + 1),
+          (youngLowerCovers lam).sum (fun mu =>
+            tableauDimNat lam * tableauDimNat mu) := by
+      apply Fintype.sum_congr
+      intro lam
+      rw [Finset.mul_sum]
+    _ = ∑ mu : YoungDiagram n,
+          (youngUpperCovers mu).sum (fun lam =>
+            tableauDimNat lam * tableauDimNat mu) := by
+      exact sum_lowerCovers_eq_sum_upperCovers
+        (fun lam mu => tableauDimNat lam * tableauDimNat mu)
+    _ = ∑ mu : YoungDiagram n,
+          (youngUpperCovers mu).sum tableauDimNat * tableauDimNat mu := by
+      apply Fintype.sum_congr
+      intro mu
+      rw [Finset.sum_mul]
+    _ = ∑ mu : YoungDiagram n,
+          ((n + 1) * tableauDimNat mu) * tableauDimNat mu := by
+      apply Fintype.sum_congr
+      intro mu
+      rw [sum_tableauDimNat_upperCovers n mu]
+    _ = ∑ mu : YoungDiagram n,
+          (n + 1) * tableauDimNat mu ^ 2 := by
+      apply Fintype.sum_congr
+      intro mu
+      simp [pow_two, mul_assoc]
+    _ = (n + 1) * ∑ mu : YoungDiagram n,
+          tableauDimNat mu ^ 2 := by
+      rw [Finset.mul_sum]
+
+/-- The tableau sum-of-squares identity, proved internally from the
+differential Young-lattice recurrence. -/
+theorem sum_tableauDimNat_sq_eq_factorial (n : Nat) :
+    (∑ lam : YoungDiagram n, tableauDimNat lam ^ 2) = Nat.factorial n := by
+  change youngTableauSquareSum n = Nat.factorial n
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      rw [youngTableauSquareSum_succ, ih, Nat.factorial_succ]
+
 end DictatorshipTesting
