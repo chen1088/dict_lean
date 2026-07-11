@@ -42,6 +42,23 @@ theorem mem_youngLowerCovers_iff_mem_youngUpperCovers {n : Nat}
     mu ∈ youngLowerCovers lam ↔ lam ∈ youngUpperCovers mu := by
   simp
 
+/-- Summing over removable rows is the same as summing over lower covers. -/
+theorem sum_removableRows_eq_sum_lowerCovers {n : Nat}
+    (lam : YoungDiagram (n + 1)) (f : YoungDiagram n → Nat) :
+    (∑ r : RemovableRow lam, f (removableRowToOneBoxChild lam r)) =
+      (youngLowerCovers lam).sum f := by
+  classical
+  have hsumSubtype :
+      (∑ mu : {mu : YoungDiagram n // mu ∈ youngLowerCovers lam}, f mu.1) =
+        (youngLowerCovers lam).sum f := by
+    rw [Finset.univ_eq_attach]
+    exact Finset.sum_attach (youngLowerCovers lam) f
+  exact (Fintype.sum_equiv
+    (removableRowsEquivOneBoxChildren lam)
+    (fun r : RemovableRow lam => f (removableRowToOneBoxChild lam r))
+    (fun mu : {mu : YoungDiagram n // mu ∈ youngLowerCovers lam} => f mu.1)
+    (fun _ => rfl)).trans hsumSubtype
+
 /-- Natural-number form of the generic one-box tableau-deletion recursion. -/
 theorem tableauDimNat_eq_sum_lowerCovers {n : Nat}
     (lam : YoungDiagram (n + 1)) :
@@ -54,19 +71,7 @@ theorem tableauDimNat_eq_sum_lowerCovers {n : Nat}
     (∑ r : RemovableRow lam,
       tableauDimNat (removableRowToOneBoxChild lam r)) =
       (youngLowerCovers lam).sum (fun mu => tableauDimNat mu)
-  have hsum_subtype :
-      (∑ mu : {mu : YoungDiagram n // mu ∈ youngLowerCovers lam},
-        tableauDimNat mu.1) =
-        (youngLowerCovers lam).sum (fun mu => tableauDimNat mu) := by
-    rw [Finset.univ_eq_attach]
-    exact Finset.sum_attach (youngLowerCovers lam) (fun mu => tableauDimNat mu)
-  exact (Fintype.sum_equiv
-    (removableRowsEquivOneBoxChildren lam)
-    (fun r : RemovableRow lam =>
-      tableauDimNat (removableRowToOneBoxChild lam r))
-    (fun mu : {mu : YoungDiagram n // mu ∈ youngLowerCovers lam} =>
-      tableauDimNat mu.1)
-    (fun _ => rfl)).trans hsum_subtype
+  exact sum_removableRows_eq_sum_lowerCovers lam tableauDimNat
 
 /-- Row `r` is addable when increasing it by one preserves weak decrease.
 The bound on `r` is carried separately by `AddableRow`. -/
@@ -303,6 +308,24 @@ noncomputable def addableRowsEquivUpperCovers {n : Nat}
     apply Subtype.ext
     exact addAddableRowDiagram_upperCoverToAddableRow mu lam
 
+/-- Summing over addable rows is the same as summing over upper covers. -/
+theorem sum_addableRows_eq_sum_upperCovers {n : Nat}
+    (mu : YoungDiagram n) (f : YoungDiagram (n + 1) → Nat) :
+    (∑ r : AddableRow mu, f (addAddableRowDiagram mu r)) =
+      (youngUpperCovers mu).sum f := by
+  classical
+  have hsumSubtype :
+      (∑ lam : {lam : YoungDiagram (n + 1) // lam ∈ youngUpperCovers mu},
+        f lam.1) = (youngUpperCovers mu).sum f := by
+    rw [Finset.univ_eq_attach]
+    exact Finset.sum_attach (youngUpperCovers mu) f
+  exact (Fintype.sum_equiv
+    (addableRowsEquivUpperCovers mu)
+    (fun r : AddableRow mu => f (addAddableRowDiagram mu r))
+    (fun lam : {lam : YoungDiagram (n + 1) // lam ∈ youngUpperCovers mu} =>
+      f lam.1)
+    (fun _ => rfl)).trans hsumSubtype
+
 /-- Except for the new top row, addable rows are obtained by shifting a
 removable row down by one. -/
 noncomputable def addableRowToOptionRemovableRow {n : Nat}
@@ -394,5 +417,676 @@ theorem card_youngUpperCovers_eq_card_youngLowerCovers_add_one {n : Nat}
   rw [card_youngUpperCovers_eq_card_addableRows,
     card_addableRows_eq_card_removableRows_add_one,
     card_youngLowerCovers_eq_card_removableRows]
+
+/-- Deleting the box just added in row `r` recovers the original diagram. -/
+theorem delete_addAddableRowDiagram_same {n : Nat}
+    (mu : YoungDiagram n) (r : AddableRow mu) :
+    deleteRemovableRowDiagram (addAddableRowDiagram mu r) r
+        (addableRow_isRemovable_after_add mu r) = mu := by
+  apply youngDiagram_ext_youngRow
+  intro i
+  rw [youngRow_deleteRemovableRowDiagram]
+  by_cases hir : i = (r : Nat)
+  · rw [if_pos hir, youngRow_addAddableRowDiagram]
+    simp
+    subst i
+    omega
+  · rw [if_neg hir, youngRow_addAddableRowDiagram]
+    simp [hir]
+
+/-- The deleted row is addable in the resulting child. -/
+def removedRowToAddableRow {n : Nat} (mu : YoungDiagram (n + 1))
+    (s : RemovableRow mu) :
+    AddableRow (removableRowToOneBoxChild mu s) := by
+  have hslt : s.1 < n + 1 := removableRow_lt_size s.2
+  refine ⟨⟨s.1, hslt⟩, ?_⟩
+  unfold IsAddableRow
+  by_cases hs0 : s.1 = 0
+  · exact Or.inl hs0
+  · right
+    have hmono : youngRow mu s.1 ≤ youngRow mu (s.1 - 1) :=
+      youngRow_le_of_le mu (by omega)
+    have hpos : 0 < youngRow mu s.1 := removableRow_pos s.2
+    change
+      youngRow (deleteRemovableRowDiagram mu s.1 s.2) s.1 <
+        youngRow (deleteRemovableRowDiagram mu s.1 s.2) (s.1 - 1)
+    rw [youngRow_deleteRemovableRowDiagram,
+      youngRow_deleteRemovableRowDiagram]
+    have hprev : s.1 - 1 ≠ s.1 := by omega
+    rw [if_pos rfl, if_neg hprev]
+    omega
+
+/-- Adding back the box deleted in row `s` recovers the original diagram. -/
+theorem add_removedRowToOneBoxChild_same {n : Nat}
+    (mu : YoungDiagram (n + 1)) (s : RemovableRow mu) :
+    addAddableRowDiagram (removableRowToOneBoxChild mu s)
+        (removedRowToAddableRow mu s) = mu := by
+  apply youngDiagram_ext_youngRow
+  intro i
+  rw [youngRow_addAddableRowDiagram]
+  change
+    (if i = s.1 then
+      youngRow (deleteRemovableRowDiagram mu s.1 s.2) s.1 + 1
+    else youngRow (deleteRemovableRowDiagram mu s.1 s.2) i) =
+      youngRow mu i
+  by_cases his : i = s.1
+  · rw [if_pos his, youngRow_deleteRemovableRowDiagram]
+    rw [if_pos rfl]
+    have hpos : 0 < youngRow mu s.1 := removableRow_pos s.2
+    subst i
+    omega
+  · rw [if_neg his, youngRow_deleteRemovableRowDiagram]
+    rw [if_neg his]
+
+/-- A removable row distinct from the added row was already removable before
+the addition. -/
+theorem isRemovableRow_before_add_of_ne {n : Nat}
+    (mu : YoungDiagram n) (a : AddableRow mu) {s : Nat}
+    (hs : IsRemovableRow (addAddableRowDiagram mu a) s)
+    (hsa : s ≠ (a : Nat)) :
+    IsRemovableRow mu s := by
+  unfold IsRemovableRow at hs ⊢
+  rw [youngRow_addAddableRowDiagram,
+    youngRow_addAddableRowDiagram] at hs
+  by_cases hsucc : s + 1 = (a : Nat)
+  · rw [if_pos hsucc, if_neg hsa] at hs
+    have haeq : youngRow mu (a : Nat) = youngRow mu (s + 1) :=
+      congrArg (youngRow mu) hsucc.symm
+    omega
+  · rw [if_neg hsucc, if_neg hsa] at hs
+    exact hs
+
+/-- If an added diagram has a removable row other than the added row, then the
+added row was not the new out-of-range last row. -/
+theorem addableRow_lt_size_of_other_removable {n : Nat}
+    (mu : YoungDiagram (n + 1)) (a : AddableRow mu) {s : Nat}
+    (hs : IsRemovableRow (addAddableRowDiagram mu a) s)
+    (hsa : s ≠ (a : Nat)) :
+    (a : Nat) < n + 1 := by
+  by_contra ha
+  have haeq : (a : Nat) = n + 1 := by omega
+  have ha0 : (a : Nat) ≠ 0 := by omega
+  have hadd : youngRow mu a < youngRow mu ((a : Nat) - 1) :=
+    a.2.resolve_left ha0
+  have hlast_pos : 0 < youngRow mu n := by
+    have hzero : youngRow mu (n + 1) = 0 := by
+      simp [youngRow]
+    rw [haeq, hzero] at hadd
+    have hpred : n + 1 - 1 = n := by omega
+    rw [hpred] at hadd
+    omega
+  have hs_bound : s < n + 1 := by
+    have hslt : s < n + 2 := removableRow_lt_size hs
+    omega
+  have hs_two : 1 < youngRow mu s := by
+    have hs' := hs
+    unfold IsRemovableRow at hs'
+    rw [youngRow_addAddableRowDiagram,
+      youngRow_addAddableRowDiagram] at hs'
+    by_cases hsucc : s + 1 = (a : Nat)
+    · rw [if_pos hsucc, if_neg hsa] at hs'
+      have haeqrow : youngRow mu (a : Nat) = 0 := by
+        rw [haeq]
+        simp [youngRow]
+      omega
+    · rw [if_neg hsucc, if_neg hsa] at hs'
+      have hs_succ_le_n : s + 1 ≤ n := by omega
+      have hnext_ge_last : youngRow mu n ≤ youngRow mu (s + 1) :=
+        youngRow_le_of_le mu hs_succ_le_n
+      omega
+  have hle :
+      ∀ i ∈ Finset.range (n + 1), 1 ≤ youngRow mu i := by
+    intro i hi
+    have hin : i ≤ n := by
+      have := Finset.mem_range.mp hi
+      omega
+    have hrow : youngRow mu n ≤ youngRow mu i :=
+      youngRow_le_of_le mu hin
+    omega
+  have hex :
+      ∃ i ∈ Finset.range (n + 1), 1 < youngRow mu i :=
+    ⟨s, Finset.mem_range.mpr hs_bound, hs_two⟩
+  have hsum_lt := Finset.sum_lt_sum hle hex
+  have hsum := youngRow_sum_range mu
+  simp at hsum_lt
+  omega
+
+/-- In a non-diagonal up-down path, the added row remains addable after
+deleting the other removable row. -/
+def addableRowAfterDeletingOther {n : Nat}
+    (mu : YoungDiagram (n + 1)) (a : AddableRow mu) {s : Nat}
+    (hs : IsRemovableRow (addAddableRowDiagram mu a) s)
+    (hsa : s ≠ (a : Nat)) :
+    AddableRow
+      (deleteRemovableRowDiagram mu s
+        (isRemovableRow_before_add_of_ne mu a hs hsa)) := by
+  let hs_mu := isRemovableRow_before_add_of_ne mu a hs hsa
+  have halt := addableRow_lt_size_of_other_removable mu a hs hsa
+  refine ⟨⟨(a : Nat), halt⟩, ?_⟩
+  unfold IsAddableRow
+  by_cases ha0 : (a : Nat) = 0
+  · exact Or.inl ha0
+  · right
+    have hadd : youngRow mu a < youngRow mu ((a : Nat) - 1) :=
+      a.2.resolve_left ha0
+    change
+      youngRow (deleteRemovableRowDiagram mu s hs_mu) (a : Nat) <
+        youngRow (deleteRemovableRowDiagram mu s hs_mu) ((a : Nat) - 1)
+    rw [youngRow_deleteRemovableRowDiagram,
+      youngRow_deleteRemovableRowDiagram]
+    have has : (a : Nat) ≠ s := Ne.symm hsa
+    rw [if_neg has]
+    by_cases hprev : (a : Nat) - 1 = s
+    · rw [if_pos hprev]
+      have hs' := hs
+      unfold IsRemovableRow at hs'
+      rw [youngRow_addAddableRowDiagram,
+        youngRow_addAddableRowDiagram] at hs'
+      have hsucc : s + 1 = (a : Nat) := by omega
+      rw [if_pos hsucc, if_neg hsa] at hs'
+      have hpos : 0 < youngRow mu s := removableRow_pos hs_mu
+      omega
+    · rw [if_neg hprev]
+      exact hadd
+
+/-- Distinct one-box addition and deletion operations commute. -/
+theorem delete_after_add_comm_of_ne {n : Nat}
+    (mu : YoungDiagram (n + 1)) (a : AddableRow mu) {s : Nat}
+    (hs : IsRemovableRow (addAddableRowDiagram mu a) s)
+    (hsa : s ≠ (a : Nat)) :
+    deleteRemovableRowDiagram (addAddableRowDiagram mu a) s hs =
+      addAddableRowDiagram
+        (deleteRemovableRowDiagram mu s
+          (isRemovableRow_before_add_of_ne mu a hs hsa))
+        (addableRowAfterDeletingOther mu a hs hsa) := by
+  let hs_mu := isRemovableRow_before_add_of_ne mu a hs hsa
+  apply youngDiagram_ext_youngRow
+  intro i
+  rw [youngRow_deleteRemovableRowDiagram
+    (addAddableRowDiagram mu a) hs i]
+  rw [youngRow_addAddableRowDiagram mu a s,
+    youngRow_addAddableRowDiagram mu a i]
+  rw [youngRow_addAddableRowDiagram
+    (deleteRemovableRowDiagram mu s hs_mu)
+    (addableRowAfterDeletingOther mu a hs hsa) i]
+  have haval :
+      (addableRowAfterDeletingOther mu a hs hsa : Nat) = (a : Nat) := rfl
+  rw [haval]
+  rw [youngRow_deleteRemovableRowDiagram mu hs_mu (a : Nat),
+    youngRow_deleteRemovableRowDiagram mu hs_mu i]
+  by_cases his : i = s
+  · rw [if_pos his]
+    have hia : i ≠ (a : Nat) := by omega
+    simp [his, hsa]
+  · rw [if_neg his]
+    by_cases hia : i = (a : Nat)
+    · simp [hia, Ne.symm hsa]
+    · simp [hia, his]
+
+/-- In a non-diagonal down-up path, an addable row of the child was already
+addable before deleting the other row. -/
+def addableRowBeforeDelete {n : Nat}
+    (mu : YoungDiagram (n + 1)) (s : RemovableRow mu)
+    (b : AddableRow (removableRowToOneBoxChild mu s))
+    (hbs : (b : Nat) ≠ s.1) : AddableRow mu := by
+  refine ⟨⟨(b : Nat), by omega⟩, ?_⟩
+  unfold IsAddableRow
+  by_cases hb0 : (b : Nat) = 0
+  · exact Or.inl hb0
+  · right
+    have hbadd :
+        youngRow (removableRowToOneBoxChild mu s) b <
+          youngRow (removableRowToOneBoxChild mu s) ((b : Nat) - 1) :=
+      b.2.resolve_left hb0
+    change youngRow mu b < youngRow mu ((b : Nat) - 1)
+    change
+      youngRow (deleteRemovableRowDiagram mu s.1 s.2) b <
+        youngRow (deleteRemovableRowDiagram mu s.1 s.2) ((b : Nat) - 1)
+      at hbadd
+    rw [youngRow_deleteRemovableRowDiagram,
+      youngRow_deleteRemovableRowDiagram] at hbadd
+    rw [if_neg hbs] at hbadd
+    by_cases hprev : (b : Nat) - 1 = s.1
+    · rw [if_pos hprev] at hbadd
+      have hrowprev :
+          youngRow mu ((b : Nat) - 1) = youngRow mu s.1 :=
+        congrArg (youngRow mu) hprev
+      omega
+    · rw [if_neg hprev] at hbadd
+      exact hbadd
+
+/-- After commuting a distinct down-up path, the deleted row is removable in
+the diagram obtained by adding the other row first. -/
+theorem removableRowAfterAddingOther {n : Nat}
+    (mu : YoungDiagram (n + 1)) (s : RemovableRow mu)
+    (b : AddableRow (removableRowToOneBoxChild mu s))
+    (hbs : (b : Nat) ≠ s.1) :
+    IsRemovableRow (addAddableRowDiagram mu
+      (addableRowBeforeDelete mu s b hbs)) s.1 := by
+  let a := addableRowBeforeDelete mu s b hbs
+  have haval : (a : Nat) = (b : Nat) := rfl
+  unfold IsRemovableRow
+  rw [youngRow_addAddableRowDiagram,
+    youngRow_addAddableRowDiagram]
+  have hsa : s.1 ≠ (a : Nat) := by simpa [haval] using Ne.symm hbs
+  rw [if_neg hsa]
+  by_cases hsucc : s.1 + 1 = (a : Nat)
+  · rw [if_pos hsucc]
+    have hb0 : (b : Nat) ≠ 0 := by omega
+    have hbadd :
+        youngRow (removableRowToOneBoxChild mu s) b <
+          youngRow (removableRowToOneBoxChild mu s) ((b : Nat) - 1) :=
+      b.2.resolve_left hb0
+    change
+      youngRow (deleteRemovableRowDiagram mu s.1 s.2) b <
+        youngRow (deleteRemovableRowDiagram mu s.1 s.2) ((b : Nat) - 1)
+      at hbadd
+    rw [youngRow_deleteRemovableRowDiagram,
+      youngRow_deleteRemovableRowDiagram] at hbadd
+    have hbat : (b : Nat) ≠ s.1 := hbs
+    have hprev : (b : Nat) - 1 = s.1 := by omega
+    rw [if_neg hbat, if_pos hprev] at hbadd
+    have hpos : 0 < youngRow mu s.1 := removableRow_pos s.2
+    have hrowprev :
+        youngRow mu ((b : Nat) - 1) = youngRow mu s.1 :=
+      congrArg (youngRow mu) hprev
+    have hrowab : youngRow mu a = youngRow mu b :=
+      congrArg (youngRow mu) haval
+    have hrowdirect :
+        youngRow mu (addableRowBeforeDelete mu s b hbs) = youngRow mu b := rfl
+    omega
+  · rw [if_neg hsucc]
+    exact s.2
+
+theorem addableRowAfterDeletingOther_addableRowBeforeDelete {n : Nat}
+    (mu : YoungDiagram (n + 1)) (s : RemovableRow mu)
+    (b : AddableRow (removableRowToOneBoxChild mu s))
+    (hbs : (b : Nat) ≠ s.1) :
+    addableRowAfterDeletingOther mu
+        (addableRowBeforeDelete mu s b hbs)
+        (removableRowAfterAddingOther mu s b hbs)
+        (by
+          change s.1 ≠ (b : Nat)
+          exact Ne.symm hbs) = b := by
+  apply Subtype.ext
+  apply Fin.ext
+  rfl
+
+theorem addableRowBeforeDelete_addableRowAfterDeletingOther {n : Nat}
+    (mu : YoungDiagram (n + 1)) (a : AddableRow mu) {s : Nat}
+    (hs : IsRemovableRow (addAddableRowDiagram mu a) s)
+    (hsa : s ≠ (a : Nat)) :
+    addableRowBeforeDelete mu
+        ⟨s, isRemovableRow_before_add_of_ne mu a hs hsa⟩
+        (addableRowAfterDeletingOther mu a hs hsa)
+        (by
+          change (a : Nat) ≠ s
+          exact Ne.symm hsa) = a := by
+  apply Subtype.ext
+  apply Fin.ext
+  rfl
+
+/-- A path that first adds and then removes one box. -/
+abbrev YoungUpDownPath {n : Nat} (mu : YoungDiagram (n + 1)) :=
+  Sigma fun a : AddableRow mu => RemovableRow (addAddableRowDiagram mu a)
+
+/-- A path that first removes and then adds one box. -/
+abbrev YoungDownUpPath {n : Nat} (mu : YoungDiagram (n + 1)) :=
+  Sigma fun s : RemovableRow mu =>
+    AddableRow (removableRowToOneBoxChild mu s)
+
+def youngUpDownEndpoint {n : Nat} (mu : YoungDiagram (n + 1))
+    (p : YoungUpDownPath mu) : YoungDiagram (n + 1) :=
+  deleteRemovableRowDiagram (addAddableRowDiagram mu p.1)
+    p.2.1 p.2.2
+
+def youngDownUpEndpoint {n : Nat} (mu : YoungDiagram (n + 1))
+    (p : YoungDownUpPath mu) : YoungDiagram (n + 1) :=
+  addAddableRowDiagram (removableRowToOneBoxChild mu p.1) p.2
+
+theorem youngUpDownEndpoint_eq_self_of_same_row {n : Nat}
+    (mu : YoungDiagram (n + 1)) (a : AddableRow mu)
+    (s : RemovableRow (addAddableRowDiagram mu a))
+    (hsa : s.1 = (a : Nat)) :
+    youngUpDownEndpoint mu ⟨a, s⟩ = mu := by
+  have hs : s =
+      ⟨(a : Nat), addableRow_isRemovable_after_add mu a⟩ := by
+    apply Subtype.ext
+    exact hsa
+  subst s
+  exact delete_addAddableRowDiagram_same mu a
+
+theorem youngDownUpEndpoint_eq_self_of_same_row {n : Nat}
+    (mu : YoungDiagram (n + 1)) (s : RemovableRow mu)
+    (b : AddableRow (removableRowToOneBoxChild mu s))
+    (hbs : (b : Nat) = s.1) :
+    youngDownUpEndpoint mu ⟨s, b⟩ = mu := by
+  have hb : b = removedRowToAddableRow mu s := by
+    apply Subtype.ext
+    apply Fin.ext
+    exact hbs
+  subst b
+  exact add_removedRowToOneBoxChild_same mu s
+
+abbrev YoungUpDownOffDiagonalPath {n : Nat}
+    (mu : YoungDiagram (n + 1)) :=
+  {p : YoungUpDownPath mu // youngUpDownEndpoint mu p ≠ mu}
+
+abbrev YoungDownUpOffDiagonalPath {n : Nat}
+    (mu : YoungDiagram (n + 1)) :=
+  {p : YoungDownUpPath mu // youngDownUpEndpoint mu p ≠ mu}
+
+noncomputable def upDownOffDiagonalToDownUp {n : Nat}
+    (mu : YoungDiagram (n + 1)) :
+    YoungUpDownOffDiagonalPath mu → YoungDownUpOffDiagonalPath mu := fun p => by
+  rcases p with ⟨⟨a, s⟩, hp⟩
+  have hsa : s.1 ≠ (a : Nat) := by
+    intro h
+    exact hp (youngUpDownEndpoint_eq_self_of_same_row mu a s h)
+  let hs_mu := isRemovableRow_before_add_of_ne mu a s.2 hsa
+  let s_mu : RemovableRow mu := ⟨s.1, hs_mu⟩
+  let b := addableRowAfterDeletingOther mu a s.2 hsa
+  let q : YoungDownUpPath mu := ⟨s_mu, b⟩
+  refine ⟨q, ?_⟩
+  intro hq
+  have hcomm := delete_after_add_comm_of_ne mu a s.2 hsa
+  apply hp
+  simpa [youngUpDownEndpoint, youngDownUpEndpoint, q, s_mu, b]
+    using hcomm.trans hq
+
+noncomputable def downUpOffDiagonalToUpDown {n : Nat}
+    (mu : YoungDiagram (n + 1)) :
+    YoungDownUpOffDiagonalPath mu → YoungUpDownOffDiagonalPath mu := fun q => by
+  rcases q with ⟨⟨s, b⟩, hq⟩
+  have hbs : (b : Nat) ≠ s.1 := by
+    intro h
+    exact hq (youngDownUpEndpoint_eq_self_of_same_row mu s b h)
+  let a := addableRowBeforeDelete mu s b hbs
+  let hs := removableRowAfterAddingOther mu s b hbs
+  let p : YoungUpDownPath mu := ⟨a, ⟨s.1, hs⟩⟩
+  refine ⟨p, ?_⟩
+  intro hp
+  have hsa : s.1 ≠ (a : Nat) := by
+    change s.1 ≠ (b : Nat)
+    exact Ne.symm hbs
+  have hcomm := delete_after_add_comm_of_ne mu a hs hsa
+  have hb :=
+    addableRowAfterDeletingOther_addableRowBeforeDelete mu s b hbs
+  rw [hb] at hcomm
+  apply hq
+  simpa [youngUpDownEndpoint, youngDownUpEndpoint, p, a, hs,
+    removableRowToOneBoxChild]
+    using hcomm.symm.trans hp
+
+theorem downUpOffDiagonalToUpDown_upDownOffDiagonalToDownUp {n : Nat}
+    (mu : YoungDiagram (n + 1)) (p : YoungUpDownOffDiagonalPath mu) :
+    downUpOffDiagonalToUpDown mu (upDownOffDiagonalToDownUp mu p) = p := by
+  rcases p with ⟨⟨a, s⟩, hp⟩
+  apply Subtype.ext
+  apply Sigma.ext
+  · apply Subtype.ext
+    apply Fin.ext
+    rfl
+  · apply heq_of_eq
+    apply Subtype.ext
+    rfl
+
+theorem upDownOffDiagonalToDownUp_downUpOffDiagonalToUpDown {n : Nat}
+    (mu : YoungDiagram (n + 1)) (p : YoungDownUpOffDiagonalPath mu) :
+    upDownOffDiagonalToDownUp mu (downUpOffDiagonalToUpDown mu p) = p := by
+  rcases p with ⟨⟨s, b⟩, hp⟩
+  apply Subtype.ext
+  apply Sigma.ext
+  · apply Subtype.ext
+    rfl
+  · apply heq_of_eq
+    apply Subtype.ext
+    apply Fin.ext
+    rfl
+
+/-- Non-diagonal up-down and down-up Young-lattice paths are in bijection. -/
+noncomputable def youngUpDownOffDiagonalEquivDownUp {n : Nat}
+    (mu : YoungDiagram (n + 1)) :
+    YoungUpDownOffDiagonalPath mu ≃ YoungDownUpOffDiagonalPath mu where
+  toFun := upDownOffDiagonalToDownUp mu
+  invFun := downUpOffDiagonalToUpDown mu
+  left_inv := downUpOffDiagonalToUpDown_upDownOffDiagonalToDownUp mu
+  right_inv := upDownOffDiagonalToDownUp_downUpOffDiagonalToUpDown mu
+
+/-- The off-diagonal path equivalence preserves the terminal diagram. -/
+theorem youngUpDownOffDiagonalEquivDownUp_endpoint {n : Nat}
+    (mu : YoungDiagram (n + 1)) (p : YoungUpDownOffDiagonalPath mu) :
+    youngDownUpEndpoint mu
+        ((youngUpDownOffDiagonalEquivDownUp mu p).1) =
+      youngUpDownEndpoint mu p.1 := by
+  rcases p with ⟨⟨a, s⟩, hp⟩
+  have hsa : s.1 ≠ (a : Nat) := by
+    intro h
+    exact hp (youngUpDownEndpoint_eq_self_of_same_row mu a s h)
+  exact (delete_after_add_comm_of_ne mu a s.2 hsa).symm
+
+theorem upDown_same_row_of_endpoint_eq_self {n : Nat}
+    (mu : YoungDiagram (n + 1)) (a : AddableRow mu)
+    (s : RemovableRow (addAddableRowDiagram mu a))
+    (hendpoint : youngUpDownEndpoint mu ⟨a, s⟩ = mu) :
+    s.1 = (a : Nat) := by
+  have hsform := row_form_deleteRemovableRowDiagram
+    (addAddableRowDiagram mu a) s.2
+  change
+    youngRow (addAddableRowDiagram mu a) s.1 =
+        youngRow (youngUpDownEndpoint mu ⟨a, s⟩) s.1 + 1 ∧
+      ∀ t : Nat, t ≠ s.1 →
+        youngRow (addAddableRowDiagram mu a) t =
+          youngRow (youngUpDownEndpoint mu ⟨a, s⟩) t at hsform
+  rw [hendpoint] at hsform
+  have haform := row_form_addAddableRowDiagram mu a
+  rcases existsUnique_row_of_oneBoxChild
+      (addAddableRowDiagram_isOneBoxChild mu a) with
+    ⟨r, _hr, huniq⟩
+  exact (huniq s.1 hsform).trans (huniq (a : Nat) haform).symm
+
+theorem downUp_same_row_of_endpoint_eq_self {n : Nat}
+    (mu : YoungDiagram (n + 1)) (s : RemovableRow mu)
+    (b : AddableRow (removableRowToOneBoxChild mu s))
+    (hendpoint : youngDownUpEndpoint mu ⟨s, b⟩ = mu) :
+    (b : Nat) = s.1 := by
+  have hbform := row_form_addAddableRowDiagram
+    (removableRowToOneBoxChild mu s) b
+  change
+    youngRow (youngDownUpEndpoint mu ⟨s, b⟩) b =
+        youngRow (removableRowToOneBoxChild mu s) b + 1 ∧
+      ∀ t : Nat, t ≠ (b : Nat) →
+        youngRow (youngDownUpEndpoint mu ⟨s, b⟩) t =
+          youngRow (removableRowToOneBoxChild mu s) t at hbform
+  rw [hendpoint] at hbform
+  have hsform := row_form_deleteRemovableRowDiagram mu s.2
+  rcases existsUnique_row_of_oneBoxChild
+      (removableRowToOneBoxChild_isOneBoxChild mu s) with
+    ⟨r, _hr, huniq⟩
+  exact (huniq (b : Nat) hbform).trans (huniq s.1 hsform).symm
+
+abbrev YoungUpDownDiagonalPath {n : Nat}
+    (mu : YoungDiagram (n + 1)) :=
+  {p : YoungUpDownPath mu // youngUpDownEndpoint mu p = mu}
+
+abbrev YoungDownUpDiagonalPath {n : Nat}
+    (mu : YoungDiagram (n + 1)) :=
+  {p : YoungDownUpPath mu // youngDownUpEndpoint mu p = mu}
+
+noncomputable def addableRowsEquivUpDownDiagonalPaths {n : Nat}
+    (mu : YoungDiagram (n + 1)) :
+    AddableRow mu ≃ YoungUpDownDiagonalPath mu where
+  toFun a :=
+    ⟨⟨a, ⟨(a : Nat), addableRow_isRemovable_after_add mu a⟩⟩,
+      delete_addAddableRowDiagram_same mu a⟩
+  invFun p := p.1.1
+  left_inv a := rfl
+  right_inv p := by
+    rcases p with ⟨⟨a, s⟩, hp⟩
+    apply Subtype.ext
+    apply Sigma.ext
+    · rfl
+    · apply heq_of_eq
+      apply Subtype.ext
+      exact (upDown_same_row_of_endpoint_eq_self mu a s hp).symm
+
+noncomputable def removableRowsEquivDownUpDiagonalPaths {n : Nat}
+    (mu : YoungDiagram (n + 1)) :
+    RemovableRow mu ≃ YoungDownUpDiagonalPath mu where
+  toFun s :=
+    ⟨⟨s, removedRowToAddableRow mu s⟩,
+      add_removedRowToOneBoxChild_same mu s⟩
+  invFun p := p.1.1
+  left_inv s := rfl
+  right_inv p := by
+    rcases p with ⟨⟨s, b⟩, hp⟩
+    apply Subtype.ext
+    apply Sigma.ext
+    · rfl
+    · apply heq_of_eq
+      apply Subtype.ext
+      apply Fin.ext
+      exact (downUp_same_row_of_endpoint_eq_self mu s b hp).symm
+
+/-- Weighted differential relation for one-box paths in the Young lattice. -/
+theorem youngLattice_upDown_path_sum {n : Nat}
+    (mu : YoungDiagram (n + 1)) (f : YoungDiagram (n + 1) → Nat) :
+    (∑ p : YoungUpDownPath mu, f (youngUpDownEndpoint mu p)) =
+      f mu + ∑ p : YoungDownUpPath mu, f (youngDownUpEndpoint mu p) := by
+  classical
+  have hupDiagonal :
+      (∑ p : YoungUpDownDiagonalPath mu,
+          f (youngUpDownEndpoint mu p.1)) =
+        Fintype.card (AddableRow mu) * f mu := by
+    have hreindex := Fintype.sum_equiv
+      (addableRowsEquivUpDownDiagonalPaths mu)
+      (fun _a : AddableRow mu => f mu)
+      (fun p : YoungUpDownDiagonalPath mu =>
+        f (youngUpDownEndpoint mu p.1))
+      (fun a => by rw [(addableRowsEquivUpDownDiagonalPaths mu a).2])
+    calc
+      (∑ p : YoungUpDownDiagonalPath mu,
+          f (youngUpDownEndpoint mu p.1)) =
+          ∑ _a : AddableRow mu, f mu := hreindex.symm
+      _ = Fintype.card (AddableRow mu) * f mu := by simp
+  have hdownDiagonal :
+      (∑ p : YoungDownUpDiagonalPath mu,
+          f (youngDownUpEndpoint mu p.1)) =
+        Fintype.card (RemovableRow mu) * f mu := by
+    have hreindex := Fintype.sum_equiv
+      (removableRowsEquivDownUpDiagonalPaths mu)
+      (fun _s : RemovableRow mu => f mu)
+      (fun p : YoungDownUpDiagonalPath mu =>
+        f (youngDownUpEndpoint mu p.1))
+      (fun s => by rw [(removableRowsEquivDownUpDiagonalPaths mu s).2])
+    calc
+      (∑ p : YoungDownUpDiagonalPath mu,
+          f (youngDownUpEndpoint mu p.1)) =
+          ∑ _s : RemovableRow mu, f mu := hreindex.symm
+      _ = Fintype.card (RemovableRow mu) * f mu := by simp
+  have hdiagonal :
+      (∑ p : YoungUpDownDiagonalPath mu,
+          f (youngUpDownEndpoint mu p.1)) =
+        f mu + ∑ p : YoungDownUpDiagonalPath mu,
+          f (youngDownUpEndpoint mu p.1) := by
+    rw [hupDiagonal, hdownDiagonal,
+      card_addableRows_eq_card_removableRows_add_one]
+    simp [add_mul, add_comm]
+  have hoffDiagonal :
+      (∑ p : YoungUpDownOffDiagonalPath mu,
+          f (youngUpDownEndpoint mu p.1)) =
+        ∑ p : YoungDownUpOffDiagonalPath mu,
+          f (youngDownUpEndpoint mu p.1) := by
+    exact Fintype.sum_equiv
+      (youngUpDownOffDiagonalEquivDownUp mu)
+      (fun p : YoungUpDownOffDiagonalPath mu =>
+        f (youngUpDownEndpoint mu p.1))
+      (fun p : YoungDownUpOffDiagonalPath mu =>
+        f (youngDownUpEndpoint mu p.1))
+      (fun p => congrArg f
+        (youngUpDownOffDiagonalEquivDownUp_endpoint mu p).symm)
+  have hupSplit := Fintype.sum_subtype_add_sum_subtype
+    (fun p : YoungUpDownPath mu => youngUpDownEndpoint mu p = mu)
+    (fun p : YoungUpDownPath mu => f (youngUpDownEndpoint mu p))
+  have hdownSplit := Fintype.sum_subtype_add_sum_subtype
+    (fun p : YoungDownUpPath mu => youngDownUpEndpoint mu p = mu)
+    (fun p : YoungDownUpPath mu => f (youngDownUpEndpoint mu p))
+  calc
+    (∑ p : YoungUpDownPath mu, f (youngUpDownEndpoint mu p)) =
+        (∑ p : YoungUpDownDiagonalPath mu,
+          f (youngUpDownEndpoint mu p.1)) +
+        ∑ p : YoungUpDownOffDiagonalPath mu,
+          f (youngUpDownEndpoint mu p.1) := hupSplit.symm
+    _ = (f mu + ∑ p : YoungDownUpDiagonalPath mu,
+          f (youngDownUpEndpoint mu p.1)) +
+        ∑ p : YoungDownUpOffDiagonalPath mu,
+          f (youngDownUpEndpoint mu p.1) := by
+      rw [hdiagonal, hoffDiagonal]
+    _ = f mu +
+        ((∑ p : YoungDownUpDiagonalPath mu,
+            f (youngDownUpEndpoint mu p.1)) +
+          ∑ p : YoungDownUpOffDiagonalPath mu,
+            f (youngDownUpEndpoint mu p.1)) := by
+      rw [add_assoc]
+    _ = f mu + ∑ p : YoungDownUpPath mu,
+          f (youngDownUpEndpoint mu p) := by
+      rw [hdownSplit]
+
+theorem sum_youngUpDownPath_eq_coverSums {n : Nat}
+    (mu : YoungDiagram (n + 1)) (f : YoungDiagram (n + 1) → Nat) :
+    (∑ p : YoungUpDownPath mu, f (youngUpDownEndpoint mu p)) =
+      (youngUpperCovers mu).sum (fun lam =>
+        (youngLowerCovers lam).sum f) := by
+  classical
+  rw [Fintype.sum_sigma]
+  calc
+    (∑ a : AddableRow mu,
+        ∑ s : RemovableRow (addAddableRowDiagram mu a),
+          f (youngUpDownEndpoint mu ⟨a, s⟩)) =
+        ∑ a : AddableRow mu,
+          (youngLowerCovers (addAddableRowDiagram mu a)).sum f := by
+      apply Fintype.sum_congr
+      intro a
+      simpa [youngUpDownEndpoint, removableRowToOneBoxChild] using
+        sum_removableRows_eq_sum_lowerCovers
+          (addAddableRowDiagram mu a) f
+    _ = (youngUpperCovers mu).sum (fun lam =>
+          (youngLowerCovers lam).sum f) := by
+      exact sum_addableRows_eq_sum_upperCovers mu
+        (fun lam => (youngLowerCovers lam).sum f)
+
+theorem sum_youngDownUpPath_eq_coverSums {n : Nat}
+    (mu : YoungDiagram (n + 1)) (f : YoungDiagram (n + 1) → Nat) :
+    (∑ p : YoungDownUpPath mu, f (youngDownUpEndpoint mu p)) =
+      (youngLowerCovers mu).sum (fun kap =>
+        (youngUpperCovers kap).sum f) := by
+  classical
+  rw [Fintype.sum_sigma]
+  calc
+    (∑ s : RemovableRow mu,
+        ∑ a : AddableRow (removableRowToOneBoxChild mu s),
+          f (youngDownUpEndpoint mu ⟨s, a⟩)) =
+        ∑ s : RemovableRow mu,
+          (youngUpperCovers (removableRowToOneBoxChild mu s)).sum f := by
+      apply Fintype.sum_congr
+      intro s
+      simpa [youngDownUpEndpoint] using
+        sum_addableRows_eq_sum_upperCovers
+          (removableRowToOneBoxChild mu s) f
+    _ = (youngLowerCovers mu).sum (fun kap =>
+          (youngUpperCovers kap).sum f) := by
+      exact sum_removableRows_eq_sum_lowerCovers mu
+        (fun kap => (youngUpperCovers kap).sum f)
+
+/-- The weighted local differential relation for the Young lattice. -/
+theorem youngLattice_up_down_sum {n : Nat}
+    (mu : YoungDiagram (n + 1)) (f : YoungDiagram (n + 1) → Nat) :
+    (youngUpperCovers mu).sum (fun lam =>
+        (youngLowerCovers lam).sum f) =
+      f mu + (youngLowerCovers mu).sum (fun kap =>
+        (youngUpperCovers kap).sum f) := by
+  rw [← sum_youngUpDownPath_eq_coverSums mu f,
+    ← sum_youngDownUpPath_eq_coverSums mu f]
+  exact youngLattice_upDown_path_sum mu f
 
 end DictatorshipTesting
