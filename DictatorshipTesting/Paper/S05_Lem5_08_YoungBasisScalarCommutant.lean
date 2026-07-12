@@ -1,4 +1,3 @@
-import DictatorshipTesting.Paper.S05_Lem5_20_CentralAveragedRejection
 import DictatorshipTesting.Paper.S05_Lem5_06_DiagonalContentEigenspaces
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
 import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungBasisScalarCommutantInput
@@ -8,6 +7,9 @@ import DictatorshipTesting.Paper.S05_Lem5_07_ConnectednessOfStandardTableaux
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_12b_GroupAlgebraAction`
+- `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_09_YoungMatrixCoefficientOrthogonality`
+- `DictatorshipTesting.Paper.S05_Lem5_21_BlockScalarOfTheAveragedRejection`
 -/
 
 

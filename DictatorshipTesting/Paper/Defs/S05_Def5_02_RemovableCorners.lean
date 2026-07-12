@@ -1,9 +1,12 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_OneBoxChildren
 import DictatorshipTesting.Paper.S05_Int_YoungDiagramCorners
+import DictatorshipTesting.Paper.Defs.S05_Def5_01_YoungDiagramsAndBoxes
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_07a_TwoBoxRemovals`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_09_OneBoxDeletionSpaces`
 -/
 
 

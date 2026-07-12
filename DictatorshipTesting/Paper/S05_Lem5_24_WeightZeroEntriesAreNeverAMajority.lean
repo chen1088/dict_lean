@@ -2,6 +2,8 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_ZEven
 import DictatorshipTesting.Paper.S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities
 import DictatorshipTesting.Paper.Defs.S05_IntDef_CertificateSpecialDiagrams
 import DictatorshipTesting.Paper.Defs.S05_IntDef_CertificateExceptionalPredicates
+import DictatorshipTesting.Paper.S05_Lem5_23_CountingOneMoreMatchingEdge
+import DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset
 
 /-
 Direct reverse imports:

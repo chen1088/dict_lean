@@ -1,12 +1,16 @@
 import DictatorshipTesting.Paper.S05_Int_OneBoxDimensionRecursion
 import DictatorshipTesting.Paper.S05_Int_SignPatternCardinalities
 import DictatorshipTesting.Paper.S05_Int_TwoBoxDimensionRecursion
+import DictatorshipTesting.Paper.S05_Lem5_13_SignedTwoBoxOrthogonalBranching
+import DictatorshipTesting.Paper.S05_Lem5_14_OneBoxDecompositionAndDeletion
+import DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
 - `DictatorshipTesting.Paper.S05_Lem5_24_WeightZeroEntriesAreNeverAMajority`
+- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
 - `DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate`
 -/
 

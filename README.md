@@ -4,6 +4,11 @@ Lean 4 + Mathlib formalization accompanying the dictatorship-testing paper.
 Paper-facing modules are numbered from the compiled paper; implementation
 machinery lives in `S##_Int_*` and `Defs/S##_IntDef_*` modules.
 
+Each edge between numbered nodes in `docs/dependency-data.js` is mirrored by a
+direct import in the corresponding paper-facing Lean module. Large proof bodies
+may remain in internal modules, but the numbered imports expose the paper's
+logical route explicitly.
+
 ## Build
 
 ```bash

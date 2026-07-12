@@ -1,9 +1,11 @@
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S05_Lem5_11_RegularYoungBlockDecomposition`
 -/
 
-import DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition
+import DictatorshipTesting.Paper.S05_Int_YoungTableauSumOfSquares
+import DictatorshipTesting.Paper.Defs.S05_Def5_07a_TwoBoxRemovals
 
 /-!
 Paper statement: Lemma 5.10 (`lem:young-tableau-sum-of-squares`).

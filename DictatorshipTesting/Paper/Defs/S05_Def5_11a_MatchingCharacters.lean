@@ -1,6 +1,8 @@
 import DictatorshipTesting.Paper.Defs.S02_IntDef_CubeChar
 import DictatorshipTesting.Paper.S02_Int_CubeCharMulSelf
 import DictatorshipTesting.Paper.S02_Int_CubeCharXor
+import DictatorshipTesting.Paper.Defs.S05_Def5_05_ContentAndAdjacentOperators
+import DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset
 
 /-
 Direct reverse imports:

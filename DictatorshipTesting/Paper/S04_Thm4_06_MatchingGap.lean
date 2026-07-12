@@ -3,6 +3,8 @@ import DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
 import DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate
 import DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate
+import DictatorshipTesting.Paper.S04_Cor4_05_U1Local
+import DictatorshipTesting.Paper.S05_Lem5_22_GlobalWeightedMatchingIdentity
 
 /-
 Direct reverse imports:

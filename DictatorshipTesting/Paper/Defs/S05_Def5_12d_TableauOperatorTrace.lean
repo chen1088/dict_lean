@@ -22,11 +22,9 @@ open scoped BigOperators
 
 namespace DictatorshipTesting
 
-/-- Trace of an operator on a tableau coordinate space, computed in the
-standard-tableau basis. -/
-def tableauOperatorTrace {n : Nat} {lam : YoungDiagram n}
-    (op : TableauSpace lam -> TableauSpace lam) : Real :=
-  ∑ T : StandardYoungTableau lam, op (tableauBasisVec T) T
+/-- Definition 5.12(d) exposes the coordinate trace introduced with the
+tableau coordinate space in Definition 5.4. -/
+abbrev S05_Def5_12d_tableauOperatorTrace := @tableauOperatorTrace
 
 /-- The matrix-coefficient-block trace of an operator acting on the right
 tableau index.  The left tableau index is free and contributes one identical
@@ -175,44 +173,6 @@ theorem fixedMatchingYoungBlockTrace_eq_tableauDim_mul_repTrace
         tableauOperatorTrace
           (S05_fixedMatchingRejectionYoungOperator action M) := by
   exact youngBlockTrace_eq_tableauDim_mul_repTrace _
-
-/-- A scalar operator on the tableau basis has trace equal to the tableau
-dimension times its scalar. -/
-theorem tableauOperatorTrace_eq_tableauDim_mul_of_scalar_on_basis
-    {n : Nat} {lam : YoungDiagram n}
-    (op : TableauSpace lam -> TableauSpace lam) (c : Real)
-    (hscalar :
-      ∀ T : StandardYoungTableau lam,
-        op (tableauBasisVec T) =
-          fun U => c * tableauBasisVec T U) :
-    tableauOperatorTrace op = tableauDim lam * c := by
-  classical
-  unfold tableauOperatorTrace
-  calc
-    (∑ T : StandardYoungTableau lam, op (tableauBasisVec T) T) =
-        ∑ _T : StandardYoungTableau lam, c := by
-      apply Finset.sum_congr rfl
-      intro T _hT
-      rw [hscalar T]
-      simp [tableauBasisVec]
-    _ = (Fintype.card (StandardYoungTableau lam) : Real) * c := by
-      simp
-    _ = tableauDim lam * c := by
-      rw [tableauDim, tableauDimNat_eq_card]
-
-/-- If the tableau dimension is nonzero, the scalar of a scalar-on-basis
-operator is its trace divided by the tableau dimension. -/
-theorem scalar_eq_tableauOperatorTrace_div_tableauDim
-    {n : Nat} {lam : YoungDiagram n}
-    (op : TableauSpace lam -> TableauSpace lam) (c : Real)
-    (hdim : tableauDim lam ≠ 0)
-    (hscalar :
-      ∀ T : StandardYoungTableau lam,
-        op (tableauBasisVec T) =
-          fun U => c * tableauBasisVec T U) :
-    c = tableauOperatorTrace op / tableauDim lam := by
-  rw [tableauOperatorTrace_eq_tableauDim_mul_of_scalar_on_basis op c hscalar]
-  field_simp
 
 /-- The concrete averaged rejection operator obtained from faithful Theorems 5.3 and 5.5
 data has trace equal to its one-block scalar times the tableau dimension. -/

@@ -1,9 +1,11 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingTrialDelta
 import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
+import DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S04_Prop4_08_SquareEnergyControlsGlobalDegree`
 -/
 
 

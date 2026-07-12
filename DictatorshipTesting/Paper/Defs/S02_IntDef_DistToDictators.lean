@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Defs.S02_IntDef_HammingDist
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S02_Def2_01_FiniteSeedTester`
-- `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
+- `DictatorshipTesting.Paper.S04_Lem4_10_IndependentRepetitionAndAmplification`
 -/
 
 

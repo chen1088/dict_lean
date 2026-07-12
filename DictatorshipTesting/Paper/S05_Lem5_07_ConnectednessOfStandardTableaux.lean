@@ -1,6 +1,7 @@
 import Mathlib.Data.List.Pairwise
 import Mathlib.Data.List.FinRange
 import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
+import DictatorshipTesting.Paper.Defs.S05_Def5_03_StandardTableaux
 
 /-
 Direct reverse imports:

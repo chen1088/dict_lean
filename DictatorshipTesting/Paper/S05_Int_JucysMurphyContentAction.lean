@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S05_Lem5_06_DiagonalContentEigenspaces
+import DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis
 import DictatorshipTesting.Paper.Defs.S05_IntDef_JucysMurphyContentActionData
 import Mathlib.Algebra.Group.End
 
@@ -300,7 +300,7 @@ theorem youngAdjacent_content_intertwining_basis {n : Nat}
       youngAdjacentOperator_smul,
       youngAdjacentOperator_basis_sameRow T a hrow]
     have hcInt :=
-      S05_Lem5_06_entryContent_adjacent_hi_eq_lo_add_one_of_sameRow
+      adjacent_content_hi_eq_lo_add_one_of_sameRow
         T a hrow
     have hc : (entryContent T a.succ : Real) =
         (entryContent T a.castSucc : Real) + 1 := by
@@ -318,7 +318,7 @@ theorem youngAdjacent_content_intertwining_basis {n : Nat}
         youngAdjacentOperator_smul,
         youngAdjacentOperator_basis_sameCol T a hcol]
       have hcInt :=
-        S05_Lem5_06_entryContent_adjacent_hi_eq_lo_sub_one_of_sameCol
+        adjacent_content_hi_eq_lo_sub_one_of_sameCol
           T a hcol
       have hc : (entryContent T a.succ : Real) =
           (entryContent T a.castSucc : Real) - 1 := by

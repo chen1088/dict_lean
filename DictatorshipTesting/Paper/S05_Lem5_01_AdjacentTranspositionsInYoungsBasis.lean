@@ -1,11 +1,16 @@
 import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
+import DictatorshipTesting.Paper.Defs.S05_Def5_05_ContentAndAdjacentOperators
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Int_AdjacentCoxeterPresentation`
 - `DictatorshipTesting.Paper.S05_Int_DegreeOneYoungBlock`
+- `DictatorshipTesting.Paper.S05_Int_JucysMurphyContentAction`
+- `DictatorshipTesting.Paper.S05_Lem5_02_TypeAAdjacentWordPresentation`
+- `DictatorshipTesting.Paper.S05_Lem5_04_JucysMurphyRecurrences`
 - `DictatorshipTesting.Paper.S05_Lem5_06_DiagonalContentEigenspaces`
+- `DictatorshipTesting.Paper.S05_Lem5_14_OneBoxDecompositionAndDeletion`
 -/
 
 

@@ -2,10 +2,14 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_07b_SignedTwoBoxRemovals
 import DictatorshipTesting.Paper.S05_Int_TableauDimension
 import DictatorshipTesting.Paper.S05_Int_OneBoxDeletionUnitary
 import DictatorshipTesting.Paper.S05_Int_OneBoxDeletionIntertwining
+import DictatorshipTesting.Paper.Defs.S05_Def5_07a_TwoBoxRemovals
+import DictatorshipTesting.Paper.Defs.S05_Def5_03_StandardTableaux
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_08_SignedTwoBoxExtensionSpaces`
+- `DictatorshipTesting.Paper.S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities`
 - `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
 -/
 

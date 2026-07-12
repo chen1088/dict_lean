@@ -2,7 +2,7 @@ import DictatorshipTesting.Paper.Defs.S03_IntDef_OneTrialDeltaSqExpectation
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingLowConvolution`
-- `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
+- `DictatorshipTesting.Paper.S04_Lem4_10_IndependentRepetitionAndAmplification`
 -/
 
 

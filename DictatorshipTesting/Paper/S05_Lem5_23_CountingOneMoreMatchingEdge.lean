@@ -1,8 +1,11 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_HEven
+import DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S05_Lem5_24_WeightZeroEntriesAreNeverAMajority`
+- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
 -/
 
 

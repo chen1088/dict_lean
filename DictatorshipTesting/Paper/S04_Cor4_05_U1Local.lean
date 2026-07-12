@@ -1,11 +1,14 @@
 import DictatorshipTesting.Paper.S04_Int_CubeHighDegreeLinear
 import DictatorshipTesting.Paper.S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection
 import DictatorshipTesting.Paper.S04_Lem4_04_TijLocalDegree
+import DictatorshipTesting.Paper.Defs.S04_Def4_01a_IsMatchingLocalDegreeOne
+import DictatorshipTesting.Paper.Defs.S04_Def4_02a_MatchingLocalProjection
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S04_Thm4_06_MatchingGap`
+- `DictatorshipTesting.Paper.S05_Lem5_22_GlobalWeightedMatchingIdentity`
 -/
 
 

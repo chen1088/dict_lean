@@ -2,10 +2,13 @@ import DictatorshipTesting.Paper.Defs.S03_IntDef_CubeSquareEnergy
 import DictatorshipTesting.Paper.S02_Int_CubeFourierTranslate
 import DictatorshipTesting.Paper.S04_Int_CubeHighDegreeLinear
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval
+import DictatorshipTesting.Paper.Defs.S02_Def2_02a_CubeLowDegreeOnePart
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S04_Lem4_07_TrialCubeCoordinates`
 - `DictatorshipTesting.Paper.S04_Prop4_08_SquareEnergyControlsGlobalDegree`
 -/
 

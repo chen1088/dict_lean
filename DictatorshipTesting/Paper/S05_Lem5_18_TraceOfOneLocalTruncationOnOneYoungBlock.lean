@@ -2,11 +2,12 @@ import DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis
 import DictatorshipTesting.Paper.Defs.S05_IntDef_TraceLocalTruncationEvenInput
 import DictatorshipTesting.Paper.Defs.S05_IntDef_TraceLocalTruncationOddInput
 import DictatorshipTesting.Paper.Defs.S05_Def5_12d_TableauOperatorTrace
+import DictatorshipTesting.Paper.S05_Lem5_17_LocalTruncationOnAMatchingCharacter
+import DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.S05_Lem5_21_BlockScalarOfTheAveragedRejection`
 -/
 

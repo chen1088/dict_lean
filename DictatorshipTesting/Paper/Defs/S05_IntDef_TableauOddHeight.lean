@@ -2,9 +2,9 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_TableauEvenHeight
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.S05_Int_SignPatternCardinalities`
 - `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_22_GlobalWeightedMatchingIdentity`
 - `DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate`
 -/
 

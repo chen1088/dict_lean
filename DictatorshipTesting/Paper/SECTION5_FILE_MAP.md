@@ -2,6 +2,11 @@
 
 The compiled paper has separate definition and theorem-like counters.
 
+Dependency convention: every numbered predecessor shown in the dependency
+viewer is imported directly by the corresponding paper-facing module. Internal
+modules may retain reusable proof machinery, but they do not replace the
+visible numbered dependency chain.
+
 ## Definitions
 
 | Statement | Title | Lean file(s) |

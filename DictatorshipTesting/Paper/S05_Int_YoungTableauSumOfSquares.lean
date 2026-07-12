@@ -1,6 +1,7 @@
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_10_YoungTableauSumOfSquares`
 -/
 
 import DictatorshipTesting.Paper.S05_Int_TableauDimension

@@ -4,6 +4,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S02_IntDef_OneCosetReal`
 - `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
+- `DictatorshipTesting.Paper.S04_Lem4_10_IndependentRepetitionAndAmplification`
 -/
 
 

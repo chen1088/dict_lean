@@ -1,8 +1,11 @@
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
+import DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S05_Lem5_09_YoungMatrixCoefficientOrthogonality`
+- `DictatorshipTesting.Paper.S05_Lem5_11_RegularYoungBlockDecomposition`
 -/
 
 

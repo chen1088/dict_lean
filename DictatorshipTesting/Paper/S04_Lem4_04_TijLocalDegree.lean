@@ -2,6 +2,7 @@ import DictatorshipTesting.Paper.Defs.S04_Def4_01a_IsMatchingLocalDegreeOne
 import DictatorshipTesting.Paper.S02_Int_CubeCharFlip
 import DictatorshipTesting.Paper.S02_Int_CubeFlipInvolutive
 import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval
 
 /-
 Direct reverse imports:

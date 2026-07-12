@@ -1,9 +1,12 @@
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S05_Thm5_05_JucysMurphyContentAction`
 -/
 
 import DictatorshipTesting.Paper.S05_Int_JucysMurphyContentAction
+import DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis
+import DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction
 
 /-!
 Paper statement: Lemma 5.4 (`lem:jucys-murphy-recurrence`).

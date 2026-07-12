@@ -1,10 +1,16 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_VerticalTwoStripChildren
 import DictatorshipTesting.Paper.S05_Int_YoungDiagramCorners
+import DictatorshipTesting.Paper.Defs.S05_Def5_02_RemovableCorners
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_07b_SignedTwoBoxRemovals`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_08_SignedTwoBoxExtensionSpaces`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset`
+- `DictatorshipTesting.Paper.S05_Lem5_10_YoungTableauSumOfSquares`
+- `DictatorshipTesting.Paper.S05_Lem5_13_SignedTwoBoxOrthogonalBranching`
+- `DictatorshipTesting.Paper.S05_Lem5_14_OneBoxDecompositionAndDeletion`
 -/
 
 

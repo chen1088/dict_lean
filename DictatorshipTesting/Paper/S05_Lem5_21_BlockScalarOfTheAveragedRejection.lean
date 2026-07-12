@@ -1,9 +1,12 @@
 import DictatorshipTesting.Paper.S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock
+import DictatorshipTesting.Paper.S05_Lem5_08_YoungBasisScalarCommutant
+import DictatorshipTesting.Paper.S05_Lem5_20_CentralAveragedRejection
+import DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_22_GlobalWeightedMatchingIdentity`
 -/
 
 
@@ -129,5 +132,57 @@ theorem S05_Lem5_21_odd_scalar_eq_hOdd_div_dim
         youngDim lam * hOdd m lam) :
     theta = hOdd m lam / youngDim lam := by
   exact centralizationBridge_odd_scalar_eq_hOdd_div_dim m lam theta hdim htrace
+
+
+/-- In even size, the scalar of the concrete averaged Young operator is the
+tableau-count certificate divided by the tableau dimension.  This uses the
+completed internal fixed-trace theorem rather than the global Theorem 5.5 trace
+payload. -/
+theorem averagedHigh_youngBlockScalar_even
+    (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action)
+    (T0 : StandardYoungTableau lam) :
+    (AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
+        (S05_averagedRejectionYoungOperatorData_from_section5
+          action content)).basisScalar T0 =
+      hEvenTableau (m + 1) lam / tableauDim lam := by
+  have hdim : tableauDim lam ≠ 0 := tableauDim_ne_zero_of_tableau T0
+  rw [S05_averagedRejectionYoungOperator_scalar_eq_trace_div_tableauDim
+    action content T0 hdim]
+  congr 1
+  rw [S05_averagedRejectionYoungOperator_trace_eq_average_fixed]
+  simp_rw [S05_Lem5_18_fixedMatching_tableauTrace_even m lam action]
+  rw [Finset.sum_const, Finset.card_univ]
+  simp only [nsmul_eq_mul]
+  have hcard :
+      (Fintype.card (NearPerfectMatching (2 * (m + 1))) : ℝ) ≠ 0 := by
+    exact_mod_cast Fintype.card_ne_zero
+  field_simp [Nat.mul_add]
+
+/-- In odd size, the scalar of the concrete averaged Young operator is the
+tableau-count certificate divided by the tableau dimension. -/
+theorem averagedHigh_youngBlockScalar_odd
+    (m : Nat) (lam : YoungDiagram (2 * m + 1))
+    (action : YoungOrthogonalActionData lam)
+    (content : JucysMurphyContentActionData action)
+    (T0 : StandardYoungTableau lam) :
+    (AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
+        (S05_averagedRejectionYoungOperatorData_from_section5
+          action content)).basisScalar T0 =
+      hOddTableau m lam / tableauDim lam := by
+  have hdim : tableauDim lam ≠ 0 := tableauDim_ne_zero_of_tableau T0
+  rw [S05_averagedRejectionYoungOperator_scalar_eq_trace_div_tableauDim
+    action content T0 hdim]
+  congr 1
+  rw [S05_averagedRejectionYoungOperator_trace_eq_average_fixed]
+  simp_rw [S05_Lem5_18_fixedMatching_tableauTrace_odd m lam action]
+  rw [Finset.sum_const, Finset.card_univ]
+  simp only [nsmul_eq_mul]
+  have hcard :
+      (Fintype.card (NearPerfectMatching (2 * m + 1)) : ℝ) ≠ 0 := by
+    exact_mod_cast Fintype.card_ne_zero
+  field_simp
+
 
 end DictatorshipTesting

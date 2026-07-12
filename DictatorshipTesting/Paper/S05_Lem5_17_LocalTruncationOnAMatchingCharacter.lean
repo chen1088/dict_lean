@@ -1,10 +1,12 @@
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
 import DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection
 import DictatorshipTesting.Paper.Defs.S05_Def5_11a_MatchingCharacters
+import DictatorshipTesting.Paper.Defs.S04_Def4_02a_MatchingLocalProjection
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock`
 -/
 
 

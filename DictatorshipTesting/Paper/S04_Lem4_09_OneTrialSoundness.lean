@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.S02_Thm2_02_FKNStability
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
+- `DictatorshipTesting.Paper.S04_Lem4_10_IndependentRepetitionAndAmplification`
 -/
 
 

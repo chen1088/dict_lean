@@ -1,9 +1,13 @@
 import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
+import DictatorshipTesting.Paper.Defs.S05_Def5_04_TableauCoordinateSpace
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_11a_MatchingCharacters`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungOrthogonalActionData`
+- `DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis`
+- `DictatorshipTesting.Paper.S05_Lem5_06_DiagonalContentEigenspaces`
 -/
 
 

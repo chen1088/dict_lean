@@ -1,9 +1,17 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_HEven
+import DictatorshipTesting.Paper.Defs.S05_Def5_07a_TwoBoxRemovals
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_10b_OddSignPatternMultiset`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_11a_MatchingCharacters`
+- `DictatorshipTesting.Paper.S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities`
+- `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_23_CountingOneMoreMatchingEdge`
+- `DictatorshipTesting.Paper.S05_Lem5_24_WeightZeroEntriesAreNeverAMajority`
+- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate`
 -/
 
 

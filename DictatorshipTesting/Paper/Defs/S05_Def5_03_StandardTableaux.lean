@@ -1,8 +1,13 @@
 import DictatorshipTesting.Paper.S05_Int_StandardYoungTableaux
+import DictatorshipTesting.Paper.Defs.S05_Def5_01_YoungDiagramsAndBoxes
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_04_TableauCoordinateSpace`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_09_OneBoxDeletionSpaces`
+- `DictatorshipTesting.Paper.S05_Lem5_07_ConnectednessOfStandardTableaux`
+- `DictatorshipTesting.Paper.S05_Lem5_13_SignedTwoBoxOrthogonalBranching`
 -/
 
 

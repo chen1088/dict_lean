@@ -1,9 +1,12 @@
 import DictatorshipTesting.Paper.S05_Lem5_19_LocalTruncationAsConvolution
+import DictatorshipTesting.Paper.S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection
+import DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_08_YoungBasisScalarCommutant`
+- `DictatorshipTesting.Paper.S05_Lem5_21_BlockScalarOfTheAveragedRejection`
+- `DictatorshipTesting.Paper.S05_Lem5_22_GlobalWeightedMatchingIdentity`
 -/
 
 
@@ -69,5 +72,20 @@ theorem S05_Lem5_20_matchingMeanProjectionError_eq_high_idempotent_average
   intro M _hM
   exact S05_Lem5_20_matchingLocalProjectionError_eq_high_idempotent_l2DistSq
     F M.toOrdered
+
+
+/-- One local projection error is the quadratic form of its concrete high
+matching idempotent. -/
+theorem matchingLocalProjectionError_eq_permInner_highIdempotent
+    {α : Type*} [Fintype α] [DecidableEq α]
+    (F : Perm α → ℝ) (M : OrderedMatching α) :
+    matchingLocalProjectionError F M =
+      permInner F (S05_matchingHighIdempotent M F) := by
+  have hlocal :=
+    (S04_Prop4_03_perpendicular F (matchingLocalProjection M F) M
+      (S04_Prop4_03_fixedSpace F M).1).2
+  rw [S05_Lem5_19_residual_eq_high_idempotent M F] at hlocal
+  exact hlocal.symm
+
 
 end DictatorshipTesting

@@ -1,9 +1,11 @@
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction`
 -/
 
 import DictatorshipTesting.Paper.S05_Int_AdjacentCoxeterPresentation
+import DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis
 
 /-!
 Paper statement: Lemma 5.2 (`lem:type-A-adjacent-word-presentation`).

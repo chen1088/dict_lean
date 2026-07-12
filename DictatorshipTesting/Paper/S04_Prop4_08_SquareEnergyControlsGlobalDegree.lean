@@ -3,6 +3,8 @@ import DictatorshipTesting.Paper.S04_Int_PermCubeAverage
 import DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare
 import DictatorshipTesting.Paper.S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection
 import DictatorshipTesting.Paper.S04_Thm4_06_MatchingGap
+import DictatorshipTesting.Paper.S04_Lem4_07_TrialCubeCoordinates
+import DictatorshipTesting.Paper.Defs.S04_Def4_02a_MatchingLocalProjection
 
 /-
 Direct reverse imports:

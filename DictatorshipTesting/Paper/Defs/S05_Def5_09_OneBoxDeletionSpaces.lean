@@ -1,8 +1,11 @@
 import DictatorshipTesting.Paper.S05_Int_StandardYoungTableaux
+import DictatorshipTesting.Paper.Defs.S05_Def5_02_RemovableCorners
+import DictatorshipTesting.Paper.Defs.S05_Def5_03_StandardTableaux
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S05_Lem5_14_OneBoxDecompositionAndDeletion`
 -/
 
 

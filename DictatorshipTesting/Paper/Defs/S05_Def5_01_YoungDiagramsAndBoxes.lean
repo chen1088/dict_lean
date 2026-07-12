@@ -3,6 +3,8 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungCells
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_02_RemovableCorners`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_03_StandardTableaux`
 -/
 
 

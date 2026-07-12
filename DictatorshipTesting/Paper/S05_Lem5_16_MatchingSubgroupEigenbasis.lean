@@ -1,4 +1,6 @@
 import DictatorshipTesting.Paper.S05_Int_YoungMatchingOperators
+import DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction
+import DictatorshipTesting.Paper.Defs.S05_Def5_08_SignedTwoBoxExtensionSpaces
 import DictatorshipTesting.Paper.Defs.S05_Def5_11a_MatchingCharacters
 import DictatorshipTesting.Paper.Defs.S05_Def5_11b_IsMatchingEigenvectorEven
 import DictatorshipTesting.Paper.Defs.S05_Def5_11c_IsMatchingEigenvectorOdd
@@ -10,11 +12,11 @@ import DictatorshipTesting.Paper.S05_Lem5_15_BranchingDimensionsAndSignPatternCa
 import DictatorshipTesting.Paper.Defs.S05_IntDef_TableauOddHeight
 import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungOrthogonalActionData
 import DictatorshipTesting.Paper.Defs.S05_Def5_12c_AveragedHighMatchingElement
+import DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_08_SignedTwoBoxExtensionSpaces`
 - `DictatorshipTesting.Paper.S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock`
 -/
 
@@ -71,16 +73,6 @@ local instance S05_adjacentSameColDecidable
     (T : StandardYoungTableau lam) (a : Fin n) :
     Decidable (adjacentSameCol T a) :=
   Classical.propDecidable _
-
-/-- Extend tableau coordinates from one ordered two-box child fiber to the
-parent tableau space, with zero coordinates off that fiber. -/
-noncomputable def S05_twoStepExtensionEmbedding
-    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
-    (p : TwoStepRemovableRows lam) :
-    TableauSpace (deleteTwoRemovableRowsDiagram lam p) -> TableauSpace lam :=
-  fun f T =>
-    ∑ U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p),
-      f U * tableauBasisVec (S05_Lem5_13_twoBoxExtensionTableau lam p U) T
 
 /-- The ordered two-box extension sends a child basis vector to its explicit
 parent extension basis vector. -/
@@ -464,24 +456,6 @@ theorem S05_twoStepExtensionEmbedding_operator_expansion
   intro U _hU
   rw [youngAdjacentOperator_smul]
 
-/-- The sign attached to an ordered two-step removal.  Under the existing
-equivalence with `TaggedTwoStripChildrenSized`, weakly increasing deletion rows
-are the positive/horizontal summand and decreasing rows are the
-negative/vertical summand. -/
-def S05_signedTwoBoxRemovalSign
-    {n : Nat} {lam : YoungDiagram ((n + 1) + 1)}
-    (p : TwoStepRemovableRows lam) : Real :=
-  if p.first.1 <= p.second.1 then 1 else -1
-
-/-- The diagonal coefficient of the final adjacent block, written directly
-from the two fixed deleted corners. -/
-noncomputable def S05_twoBoxFinalDiagCoeff
-    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
-    (p : TwoStepRemovableRows lam) : Real :=
-  ((YoungCell.content (firstDeletedCornerOfTwoStep lam p) -
-    YoungCell.content (secondDeletedCornerOfTwoStepInParent lam p) : Int) :
-      Real)⁻¹
-
 /-- The final diagonal coefficient of every extension in a fixed two-box fiber
 is the corner-defined coefficient above. -/
 theorem S05_twoBoxExtension_final_diagCoeff
@@ -503,56 +477,6 @@ theorem S05_twoBoxExtension_final_diagCoeff
   rw [S05_Lem5_13_twoBoxExtensionTableau_final_hiCell,
     S05_Lem5_13_twoBoxExtensionTableau_final_loCell]
   rfl
-
-/-- A positive/horizontal ordered removal cannot put the final labels in one
-column. -/
-theorem S05_twoBoxExtension_not_sameCol_of_positive
-    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
-    (p : TwoStepRemovableRows lam)
-    (hpos : p.first.1 <= p.second.1)
-    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
-    ¬ adjacentSameCol (S05_Lem5_13_twoBoxExtensionTableau lam p U)
-      (Fin.last n) := by
-  intro hcol
-  have hlt := adjacent_row_lt_of_sameCol
-    (S05_Lem5_13_twoBoxExtensionTableau lam p U) (Fin.last n) hcol
-  rw [S05_Lem5_13_twoBoxExtensionTableau_final_loCell_row,
-    S05_Lem5_13_twoBoxExtensionTableau_final_hiCell_row] at hlt
-  omega
-
-/-- A negative/vertical ordered removal has distinct deletion rows, so its
-final labels cannot lie in one row. -/
-theorem S05_twoBoxExtension_not_sameRow_of_negative
-    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
-    (p : TwoStepRemovableRows lam)
-    (hneg : ¬ p.first.1 <= p.second.1)
-    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
-    ¬ adjacentSameRow (S05_Lem5_13_twoBoxExtensionTableau lam p U)
-      (Fin.last n) := by
-  rw [S05_Lem5_13_twoBoxExtensionTableau_final_sameRow_iff]
-  omega
-
-/-- The normalized `+1` eigenvector in a swappable Young two-by-two block. -/
-noncomputable def S05_normalizedAdjacentPlusVector
-    {n : Nat} {lam : YoungDiagram (n + 1)}
-    (T : StandardYoungTableau lam) (a : Fin n)
-    (_hrow : ¬ adjacentSameRow T a) (_hcol : ¬ adjacentSameCol T a) :
-    TableauSpace lam :=
-  let d := youngAdjacentDiagCoeff T a
-  fun S => (Real.sqrt (2 * (1 + d)))⁻¹ *
-    (tableauBasisVec T S +
-      youngAdjacentOperator a (tableauBasisVec T) S)
-
-/-- The normalized `-1` eigenvector in a swappable Young two-by-two block. -/
-noncomputable def S05_normalizedAdjacentMinusVector
-    {n : Nat} {lam : YoungDiagram (n + 1)}
-    (T : StandardYoungTableau lam) (a : Fin n)
-    (_hrow : ¬ adjacentSameRow T a) (_hcol : ¬ adjacentSameCol T a) :
-    TableauSpace lam :=
-  let d := youngAdjacentDiagCoeff T a
-  fun S => (Real.sqrt (2 * (1 - d)))⁻¹ *
-    (tableauBasisVec T S -
-      youngAdjacentOperator a (tableauBasisVec T) S)
 
 /-- The normalized positive vector has final-edge eigenvalue `+1`. -/
 theorem S05_normalizedAdjacentPlusVector_eigen
@@ -592,27 +516,6 @@ theorem S05_normalizedAdjacentMinusVector_eigen
   funext S
   simp [Pi.smul_apply]
   ring
-
-/-- The signed unit vector associated to one child basis tableau. -/
-noncomputable def S05_signedTwoBoxExtensionBasisVector
-    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
-    (p : TwoStepRemovableRows lam)
-    (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
-    TableauSpace lam :=
-  let T := S05_Lem5_13_twoBoxExtensionTableau lam p U
-  let a := Fin.last n
-  if hpos : p.first.1 <= p.second.1 then
-    if hrow : adjacentSameRow T a then
-      tableauBasisVec T
-    else
-      S05_normalizedAdjacentPlusVector T a hrow
-        (S05_twoBoxExtension_not_sameCol_of_positive lam p hpos U)
-  else
-    have hrow := S05_twoBoxExtension_not_sameRow_of_negative lam p hpos U
-    if hcol : adjacentSameCol T a then
-      tableauBasisVec T
-    else
-      S05_normalizedAdjacentMinusVector T a hrow hcol
 
 /-- In the disconnected positive case, the signed extension vector is the
 normalized `+1` spectral projection of the raw extension basis vector. -/
@@ -704,95 +607,6 @@ theorem S05_signedTwoBoxExtensionBasisVector_finalOperator
       rw [S05_normalizedAdjacentMinusVector_eigen
         (S05_Lem5_13_twoBoxExtensionTableau lam p U) (Fin.last n) hrow hcol]
       simp [S05_signedTwoBoxRemovalSign, hpos]
-
-theorem S05_tableauInner_add_left {n : Nat} {lam : YoungDiagram n}
-    (f g h : TableauSpace lam) :
-    tableauInner (fun T => f T + g T) h =
-      tableauInner f h + tableauInner g h := by
-  classical
-  unfold tableauInner
-  rw [← Finset.sum_add_distrib]
-  apply Finset.sum_congr rfl
-  intro T _hT
-  ring
-
-theorem S05_tableauInner_add_right {n : Nat} {lam : YoungDiagram n}
-    (f g h : TableauSpace lam) :
-    tableauInner f (fun T => g T + h T) =
-      tableauInner f g + tableauInner f h := by
-  classical
-  unfold tableauInner
-  rw [← Finset.sum_add_distrib]
-  apply Finset.sum_congr rfl
-  intro T _hT
-  ring
-
-theorem S05_tableauInner_mul_left {n : Nat} {lam : YoungDiagram n}
-    (c : Real) (f g : TableauSpace lam) :
-    tableauInner (fun T => c * f T) g = c * tableauInner f g := by
-  classical
-  unfold tableauInner
-  rw [Finset.mul_sum]
-  apply Finset.sum_congr rfl
-  intro T _hT
-  ring
-
-theorem S05_tableauInner_mul_right {n : Nat} {lam : YoungDiagram n}
-    (c : Real) (f g : TableauSpace lam) :
-    tableauInner f (fun T => c * g T) = c * tableauInner f g := by
-  classical
-  unfold tableauInner
-  rw [Finset.mul_sum]
-  apply Finset.sum_congr rfl
-  intro T _hT
-  ring
-
-/-- The tableau-coordinate inner product is symmetric over the reals. -/
-theorem S05_tableauInner_symm {n : Nat} {lam : YoungDiagram n}
-    (f g : TableauSpace lam) :
-    tableauInner f g = tableauInner g f := by
-  classical
-  unfold tableauInner
-  apply Finset.sum_congr rfl
-  intro T _hT
-  ring
-
-/-- The concrete Young adjacent operator is self-adjoint for the tableau
-coordinate inner product. -/
-theorem S05_tableauInner_youngAdjacentOperator_selfAdjoint
-    {n : Nat} {lam : YoungDiagram (n + 1)}
-    (a : Fin n) (f g : TableauSpace lam) :
-    tableauInner (youngAdjacentOperator a f) g =
-      tableauInner f (youngAdjacentOperator a g) := by
-  classical
-  unfold tableauInner youngAdjacentOperator
-  simp_rw [Finset.sum_mul, Finset.mul_sum]
-  rw [Finset.sum_comm]
-  apply Finset.sum_congr rfl
-  intro T _hT
-  apply Finset.sum_congr rfl
-  intro U _hU
-  rw [youngAdjacentMatrixCoeff_symmetric]
-  ring
-
-/-- Eigenvectors of a self-adjoint Young adjacent operator with distinct real
-eigenvalues are orthogonal. -/
-theorem S05_tableauInner_eq_zero_of_distinct_adjacent_eigenvalues
-    {n : Nat} {lam : YoungDiagram (n + 1)}
-    (a : Fin n) (f g : TableauSpace lam) (x y : Real)
-    (hf : youngAdjacentOperator a f = x • f)
-    (hg : youngAdjacentOperator a g = y • g)
-    (hxy : x ≠ y) :
-    tableauInner f g = 0 := by
-  have hadj := S05_tableauInner_youngAdjacentOperator_selfAdjoint a f g
-  rw [hf, hg] at hadj
-  change tableauInner (fun T => x * f T) g =
-    tableauInner f (fun T => y * g T) at hadj
-  rw [S05_tableauInner_mul_left, S05_tableauInner_mul_right] at hadj
-  have hmul : (x - y) * tableauInner f g = 0 := by
-    nlinarith
-  exact (mul_eq_zero.mp hmul).resolve_left (sub_ne_zero.mpr hxy)
-
 /-- The squared norm of a two-basis-vector combination with disjoint support. -/
 theorem S05_tableauInner_twoBasis_self {n : Nat} {lam : YoungDiagram n}
     {T U : StandardYoungTableau lam} (hTU : T ≠ U) (x y : Real) :
@@ -1797,16 +1611,6 @@ theorem S05_signedTwoBoxExtensionBasisVector_inner
           TU TV (Fin.last n) hrowU hcolU hrowV hcolV hTU_TV
             hTU_swapV hswapU_TV hswapU_swapV
 
-/-- The explicit coordinate embedding associated to one signed two-box child.
-Its basis images are the signed extension vectors above. -/
-noncomputable def S05_signedTwoBoxChildEmbedding
-    {n : Nat} (lam : YoungDiagram ((n + 1) + 1))
-    (p : TwoStepRemovableRows lam) :
-    TableauSpace (deleteTwoRemovableRowsDiagram lam p) -> TableauSpace lam :=
-  fun f T =>
-    ∑ U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p),
-      f U * S05_signedTwoBoxExtensionBasisVector lam p U T
-
 /-- In the positive same-row case, the signed embedding is the raw ordered
 extension embedding. -/
 theorem S05_signedTwoBoxChildEmbedding_eq_raw_of_positive_sameRow
@@ -2302,12 +2106,6 @@ theorem S05_signedTwoBoxChildEmbedding_ranges_orthogonal
         lam p q f g
         (S05_signedTwoBoxExtensionBasisVector_inner_of_distinct_negative
           lam hpq hposP hposQ)
-
-/-- The global finite index of signed-child tableau basis vectors. -/
-abbrev S05_SignedTwoBoxBasisIndex
-    {n : Nat} (lam : YoungDiagram ((n + 1) + 1)) :=
-  Sigma fun p : TwoStepRemovableRows lam =>
-    StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)
 
 local instance S05_signedTwoBoxBasisIndexDecidableEq
     {n : Nat} (lam : YoungDiagram ((n + 1) + 1)) :
@@ -3779,114 +3577,6 @@ theorem S05_canonicalOddMatchingBasis_character_action
     ((S05_Lem5_16_canonicalOddMatchingEigenbasis m lam).2.2.1 i) x
 
 /-! ## Transport from the canonical perfect matching -/
-
-/-- One concrete Young adjacent operator preserves the tableau-coordinate
-inner product. -/
-theorem S05_youngAdjacentOperator_inner
-    {n : Nat} {lam : YoungDiagram (n + 1)}
-    (a : Fin n) (f g : TableauSpace lam) :
-    tableauInner (youngAdjacentOperator a f) (youngAdjacentOperator a g) =
-      tableauInner f g := by
-  calc
-    tableauInner (youngAdjacentOperator a f) (youngAdjacentOperator a g) =
-        tableauInner f
-          (youngAdjacentOperator a (youngAdjacentOperator a g)) :=
-      S05_tableauInner_youngAdjacentOperator_selfAdjoint a f
-        (youngAdjacentOperator a g)
-    _ = tableauInner f g := by rw [youngAdjacentOperator_sq]
-
-/-- The represented inverse permutation is a left inverse on tableau
-coordinates. -/
-theorem YoungOrthogonalActionData.rho_leftInverse
-    {n : Nat} {lam : YoungDiagram (n + 1)}
-    (action : YoungOrthogonalActionData lam)
-    (σ : Perm (Fin (n + 1))) (f : TableauSpace lam) :
-    action.rep.rho σ.symm (action.rep.rho σ f) = f := by
-  have hσ : σ.symm * σ = 1 := by
-    ext x
-    simp
-  calc
-    action.rep.rho σ.symm (action.rep.rho σ f) =
-        action.rep.rho (σ.symm * σ) f :=
-      (action.rep.map_mul σ.symm σ f).symm
-    _ = action.rep.rho 1 f := by rw [hσ]
-    _ = f := action.rep.map_one f
-
-/-- The represented inverse permutation is a right inverse on tableau
-coordinates. -/
-theorem YoungOrthogonalActionData.rho_rightInverse
-    {n : Nat} {lam : YoungDiagram (n + 1)}
-    (action : YoungOrthogonalActionData lam)
-    (σ : Perm (Fin (n + 1))) (f : TableauSpace lam) :
-    action.rep.rho σ (action.rep.rho σ.symm f) = f := by
-  have hσ : σ * σ.symm = 1 := by
-    ext x
-    simp
-  calc
-    action.rep.rho σ (action.rep.rho σ.symm f) =
-        action.rep.rho (σ * σ.symm) f :=
-      (action.rep.map_mul σ σ.symm f).symm
-    _ = action.rep.rho 1 f := by rw [hσ]
-    _ = f := action.rep.map_one f
-
-/-- Every represented permutation acts bijectively on tableau coordinates. -/
-theorem YoungOrthogonalActionData.rho_bijective
-    {n : Nat} {lam : YoungDiagram (n + 1)}
-    (action : YoungOrthogonalActionData lam)
-    (σ : Perm (Fin (n + 1))) :
-    Function.Bijective (action.rep.rho σ) :=
-  ⟨Function.LeftInverse.injective (action.rho_leftInverse σ),
-    Function.RightInverse.surjective (action.rho_rightInverse σ)⟩
-
-/-- A represented permutation, packaged with its represented inverse as a
-linear equivalence. -/
-noncomputable def YoungOrthogonalActionData.rhoLinearEquiv
-    {n : Nat} {lam : YoungDiagram (n + 1)}
-    (action : YoungOrthogonalActionData lam)
-    (σ : Perm (Fin (n + 1))) :
-    TableauSpace lam ≃ₗ[Real] TableauSpace lam :=
-  LinearEquiv.mk (action.rep.linearMap σ) (action.rep.rho σ.symm)
-    (action.rho_leftInverse σ) (action.rho_rightInverse σ)
-
-/-- Every represented permutation preserves the tableau-coordinate inner
-product. This follows from the adjacent-generator formula and Mathlib's theorem
-that adjacent transpositions generate the finite symmetric group. -/
-theorem YoungOrthogonalActionData.rho_inner
-    {n : Nat} {lam : YoungDiagram (n + 1)}
-    (action : YoungOrthogonalActionData lam)
-    (σ : Perm (Fin (n + 1))) (f g : TableauSpace lam) :
-    tableauInner (action.rep.rho σ f) (action.rep.rho σ g) =
-      tableauInner f g := by
-  have hmem :
-      σ ∈ Submonoid.closure
-        (Set.range fun a : Fin n => s05_adjacentTransposition a) := by
-    rw [show
-      (Set.range fun a : Fin n => s05_adjacentTransposition a) =
-        Set.range (fun a : Fin n => Equiv.swap a.castSucc a.succ) by rfl]
-    rw [Equiv.Perm.mclosure_swap_castSucc_succ]
-    trivial
-  exact Submonoid.closure_induction
-    (motive := fun τ _ => ∀ u v : TableauSpace lam,
-      tableauInner (action.rep.rho τ u) (action.rep.rho τ v) =
-        tableauInner u v)
-    (fun τ hτ => by
-      rcases hτ with ⟨a, rfl⟩
-      intro u v
-      rw [action.rho_adjacent a u, action.rho_adjacent a v]
-      exact S05_youngAdjacentOperator_inner a u v)
-    (by
-      intro u v
-      rw [action.rep.map_one u, action.rep.map_one v])
-    (fun τ υ _ _ hτ hυ => by
-      intro u v
-      rw [action.rep.map_mul τ υ u, action.rep.map_mul τ υ v]
-      calc
-        tableauInner (action.rep.rho τ (action.rep.rho υ u))
-            (action.rep.rho τ (action.rep.rho υ v)) =
-            tableauInner (action.rep.rho υ u) (action.rep.rho υ v) :=
-          hτ _ _
-        _ = tableauInner u v := hυ _ _)
-    hmem f g
 
 /-- The canonical endpoint encoding `(r,b) ↦ 2*r+b`. -/
 def S05_canonicalMatchingEndpointEquiv (m : Nat) :

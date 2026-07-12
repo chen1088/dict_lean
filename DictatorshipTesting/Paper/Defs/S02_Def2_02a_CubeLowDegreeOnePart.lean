@@ -1,8 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingTrialDeltaReal
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S02_Def2_02b_CubeHighDegreeEnergy`
+- `DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare`
 - `DictatorshipTesting.Paper.S04_Lem4_02_PMIndependentOfRepresentatives`
 -/
 

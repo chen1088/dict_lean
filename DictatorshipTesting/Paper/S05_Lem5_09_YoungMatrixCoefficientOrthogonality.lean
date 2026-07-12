@@ -1,9 +1,14 @@
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
+- `DictatorshipTesting.Paper.S05_Lem5_11_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_22_GlobalWeightedMatchingIdentity`
 -/
 
 import DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition
+import DictatorshipTesting.Paper.S05_Lem5_08_YoungBasisScalarCommutant
+import DictatorshipTesting.Paper.S05_Thm5_05_JucysMurphyContentAction
+import DictatorshipTesting.Paper.Defs.S05_Def5_06a_YoungBlock
 
 /-!
 Paper statement: Lemma 5.9 (`lem:young-matrix-coefficient-orthogonality`).

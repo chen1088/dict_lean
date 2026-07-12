@@ -1,9 +1,13 @@
 import DictatorshipTesting.Paper.S05_Int_JucysMurphyContentAction
+import DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction
+import DictatorshipTesting.Paper.S05_Lem5_04_JucysMurphyRecurrences
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_06_DiagonalContentEigenspaces`
+- `DictatorshipTesting.Paper.S05_Lem5_09_YoungMatrixCoefficientOrthogonality`
 -/
 
 /-!

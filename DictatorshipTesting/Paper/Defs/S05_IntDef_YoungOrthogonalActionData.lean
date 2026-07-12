@@ -19,6 +19,8 @@ block energies, trace values, or scalarity fields.
 
 noncomputable section
 
+open scoped BigOperators
+
 namespace DictatorshipTesting
 
 /-- A real finite group-algebra element, represented by its coefficient
@@ -63,5 +65,88 @@ structure YoungOrthogonalActionData {n : Nat}
   rho_adjacent :
     forall a : Fin n, forall f : TableauSpace lam,
       rep.rho (s05_adjacentTransposition a) f = youngAdjacentOperator a f
+
+
+/-- The operator `rho(a) = sum_g a(g) rho(g)` attached to a finite
+group-algebra element. -/
+def repOfGroupAlgebraElement {G V : Type*} [Fintype G] [Group G]
+    [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData G V)
+    (a : GroupAlgebraElement G) : V -> V :=
+  fun v => ∑ g : G, a g • rep.rho g v
+
+/-- The group-algebra action is additive in the vector. -/
+theorem repOfGroupAlgebraElement_map_add {G V : Type*}
+    [Fintype G] [Group G] [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData G V)
+    (a : GroupAlgebraElement G) (v w : V) :
+    repOfGroupAlgebraElement rep a (v + w) =
+      repOfGroupAlgebraElement rep a v +
+        repOfGroupAlgebraElement rep a w := by
+  simp [repOfGroupAlgebraElement, rep.map_add, smul_add,
+    Finset.sum_add_distrib]
+
+/-- The group-algebra action is homogeneous in the vector. -/
+theorem repOfGroupAlgebraElement_map_smul {G V : Type*}
+    [Fintype G] [Group G] [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData G V)
+    (a : GroupAlgebraElement G) (c : Real) (v : V) :
+    repOfGroupAlgebraElement rep a (c • v) =
+      c • repOfGroupAlgebraElement rep a v := by
+  rw [repOfGroupAlgebraElement, repOfGroupAlgebraElement]
+  calc
+    (∑ g : G, a g • rep.rho g (c • v))
+        = ∑ g : G, a g • (c • rep.rho g v) := by
+            simp [rep.map_smul]
+    _ = ∑ g : G, c • (a g • rep.rho g v) := by
+            apply Finset.sum_congr rfl
+            intro g hg
+            simp [smul_smul, mul_comm]
+    _ = c • ∑ g : G, a g • rep.rho g v := by
+            rw [Finset.smul_sum]
+
+/-- The represented group-algebra element, packaged as a linear map. -/
+def repOfGroupAlgebraElementLinearMap {G V : Type*}
+    [Fintype G] [Group G] [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData G V)
+    (a : GroupAlgebraElement G) : V →ₗ[Real] V where
+  toFun := repOfGroupAlgebraElement rep a
+  map_add' := repOfGroupAlgebraElement_map_add rep a
+  map_smul' := repOfGroupAlgebraElement_map_smul rep a
+
+/-- Representing a coefficientwise finite average gives the corresponding
+finite average of the represented operators. -/
+theorem repOfGroupAlgebraElement_fintypeAverage
+    {G V ι : Type*} [Fintype G] [Group G]
+    [Fintype ι] [AddCommMonoid V] [Module Real V]
+    (rep : GroupRepresentationActionData G V)
+    (a : ι -> GroupAlgebraElement G) (v : V) :
+    repOfGroupAlgebraElement rep
+        (fun g => (∑ i : ι, a i g) / (Fintype.card ι : Real)) v =
+      (Fintype.card ι : Real)⁻¹ •
+        ∑ i : ι, repOfGroupAlgebraElement rep (a i) v := by
+  classical
+  unfold repOfGroupAlgebraElement
+  calc
+    (∑ g : G,
+      ((∑ i : ι, a i g) / (Fintype.card ι : Real)) • rep.rho g v) =
+        ∑ g : G, ∑ i : ι,
+          (Fintype.card ι : Real)⁻¹ • (a i g • rep.rho g v) := by
+      apply Finset.sum_congr rfl
+      intro g _hg
+      rw [← Finset.smul_sum, ← Finset.sum_smul]
+      simp [div_eq_mul_inv, smul_smul, mul_comm]
+    _ = ∑ i : ι, ∑ g : G,
+          (Fintype.card ι : Real)⁻¹ • (a i g • rep.rho g v) := by
+      rw [Finset.sum_comm]
+    _ = ∑ i : ι, (Fintype.card ι : Real)⁻¹ •
+          ∑ g : G, a i g • rep.rho g v := by
+      apply Finset.sum_congr rfl
+      intro i _hi
+      rw [Finset.smul_sum]
+    _ = (Fintype.card ι : Real)⁻¹ •
+        ∑ i : ι, ∑ g : G, a i g • rep.rho g v := by
+      rw [Finset.smul_sum]
+
 
 end DictatorshipTesting

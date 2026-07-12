@@ -2,13 +2,17 @@ import DictatorshipTesting.Paper.Defs.S04_Def4_02b_MatchingLocalProjectionError
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
 import DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection
 import DictatorshipTesting.Paper.S04_Int_PermCubeAverage
+import DictatorshipTesting.Paper.S04_Lem4_02_PMIndependentOfRepresentatives
+import DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval
+import DictatorshipTesting.Paper.Defs.S04_Def4_01a_IsMatchingLocalDegreeOne
+import DictatorshipTesting.Paper.Defs.S04_Def4_02a_MatchingLocalProjection
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S04_Cor4_05_U1Local`
 - `DictatorshipTesting.Paper.S04_Prop4_08_SquareEnergyControlsGlobalDegree`
-- `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_20_CentralAveragedRejection`
 -/
 
 /-!

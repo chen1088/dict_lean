@@ -1,12 +1,16 @@
 import DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection
 import DictatorshipTesting.Paper.S05_Int_PMConvolution
 import DictatorshipTesting.Paper.Defs.S05_Def5_11a_MatchingCharacters
+import DictatorshipTesting.Paper.Defs.S04_Def4_02a_MatchingLocalProjection
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_12c_AveragedHighMatchingElement`
+- `DictatorshipTesting.Paper.S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock`
 - `DictatorshipTesting.Paper.S05_Lem5_19_LocalTruncationAsConvolution`
+- `DictatorshipTesting.Paper.S05_Lem5_20_CentralAveragedRejection`
+- `DictatorshipTesting.Paper.S05_Lem5_21_BlockScalarOfTheAveragedRejection`
 -/
 
 

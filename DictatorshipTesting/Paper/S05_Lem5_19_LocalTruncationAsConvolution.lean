@@ -1,5 +1,6 @@
 import DictatorshipTesting.Paper.S05_Int_PMConvolution
 import DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents
+import DictatorshipTesting.Paper.Defs.S04_Def4_02a_MatchingLocalProjection
 
 /-
 Direct reverse imports:

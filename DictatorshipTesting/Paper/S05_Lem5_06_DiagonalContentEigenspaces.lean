@@ -1,10 +1,12 @@
 import DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis
+import DictatorshipTesting.Paper.S05_Thm5_05_JucysMurphyContentAction
+import DictatorshipTesting.Paper.Defs.S05_Def5_05_ContentAndAdjacentOperators
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Int_JucysMurphyContentAction`
 - `DictatorshipTesting.Paper.S05_Int_OneBoxDeletionIntertwining`
+- `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.S05_Lem5_08_YoungBasisScalarCommutant`
 -/
 

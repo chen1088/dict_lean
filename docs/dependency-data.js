@@ -15,19 +15,18 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S02_D01",
-        "S03_L02",
-        "S04_L09"
+        "S04_L10"
       ],
       "summary": "Thm 1.1: Main theorem.",
       "statement": "Thm 1.1: Main theorem.",
       "terms": [
         {
-          "text": "Perfect completeness",
-          "target": "S03_L02"
+          "text": "finite-seed tester",
+          "target": "S02_D01"
         },
         {
-          "text": "One-trial soundness",
-          "target": "S04_L09"
+          "text": "dimension-free amplification",
+          "target": "S04_L10"
         }
       ],
       "paperLabel": "thm:main-intro",
@@ -37,7 +36,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S01_Thm1_01_MainIntro",
           "file": "DictatorshipTesting/Paper/S01_Thm1_01_MainIntro.lean",
-          "line": 477
+          "line": 24
         }
       ]
     },
@@ -68,12 +67,27 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "OracleTester",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 22
+          "line": 23
         },
         {
           "name": "OracleTester.run",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 33
+          "line": 34
+        },
+        {
+          "name": "OracleTester.acceptanceProbability",
+          "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
+          "line": 39
+        },
+        {
+          "name": "OracleTester.rejectionProbability",
+          "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
+          "line": 47
+        },
+        {
+          "name": "OracleTester.oneSided",
+          "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
+          "line": 73
         }
       ]
     },
@@ -98,9 +112,9 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "For $i,j\\in[n]$, let $\\mathcal T_{ij}:=\\{\\pi\\in S_n:\\pi(i)=j\\}$ and $t_{ij}:=\\mathbf 1_{\\mathcal T_{ij}}$. The degree-one space is $U_1=\\spanop\\{t_{ij}:i,j\\in[n]\\}\\subseteq L^2(S_n)$. The dictator class $\\D$ consists of the Boolean functions depending only on one value $\\pi(i)$ or one inverse value $\\pi^{-1}(j)$, including the constants.",
       "leanLinks": [
         {
-          "name": "U1",
-          "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_U1.lean",
-          "line": 20
+          "name": "IsDictator",
+          "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_IsDictator.lean",
+          "line": 21
         },
         {
           "name": "oneCosetReal",
@@ -108,9 +122,9 @@ window.DICT_DEPENDENCY_DATA = {
           "line": 19
         },
         {
-          "name": "IsDictator",
-          "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_IsDictator.lean",
-          "line": 21
+          "name": "U1",
+          "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_U1.lean",
+          "line": 20
         }
       ]
     },
@@ -176,7 +190,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "cubeLowDegreeOnePart",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_02a_CubeLowDegreeOnePart.lean",
-          "line": 21
+          "line": 23
         },
         {
           "name": "cubeHighDegreeEnergy",
@@ -198,7 +212,9 @@ window.DICT_DEPENDENCY_DATA = {
         "S02_Thm2_01_BooleanU1Classification",
         "booleanU1_dictator_classification_input"
       ],
-      "deps": [],
+      "deps": [
+        "S02_N01"
+      ],
       "summary": "Thm 2.1: Boolean U1 classification.",
       "statement": "Thm 2.1: Boolean U1 classification.",
       "terms": [
@@ -279,7 +295,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S02_Lem2_03_CubeParseval",
           "file": "DictatorshipTesting/Paper/S02_Lem2_03_CubeParseval.lean",
-          "line": 25
+          "line": 32
         }
       ]
     },
@@ -387,7 +403,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "IsMatchingLocalDegreeOne",
           "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01a_IsMatchingLocalDegreeOne.lean",
-          "line": 21
+          "line": 25
         },
         {
           "name": "matchingLocalHighDegreeEnergy",
@@ -432,7 +448,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "matchingLocalProjection",
           "file": "DictatorshipTesting/Paper/Defs/S04_Def4_02a_MatchingLocalProjection.lean",
-          "line": 24
+          "line": 33
         },
         {
           "name": "matchingLocalProjectionError",
@@ -472,7 +488,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Lem4_01_CubeSquare",
           "file": "DictatorshipTesting/Paper/S04_Lem4_01_CubeSquare.lean",
-          "line": 509
+          "line": 512
         }
       ]
     },
@@ -489,6 +505,7 @@ window.DICT_DEPENDENCY_DATA = {
         "S04_Lem4_02_PMIndependentOfRepresentatives"
       ],
       "deps": [
+        "S02_D02",
         "S02_L03",
         "S04_D02"
       ],
@@ -507,7 +524,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Lem4_02_PMIndependentOfRepresentatives",
           "file": "DictatorshipTesting/Paper/S04_Lem4_02_PMIndependentOfRepresentatives.lean",
-          "line": 20
+          "line": 23
         }
       ]
     },
@@ -559,22 +576,22 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection",
           "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-          "line": 289
+          "line": 293
         },
         {
           "name": "S04_Prop4_03_fixedSpace",
           "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-          "line": 24
+          "line": 28
         },
         {
           "name": "S04_Prop4_03_errorFormula",
           "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-          "line": 52
+          "line": 56
         },
         {
           "name": "S04_Prop4_03_perpendicular",
           "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-          "line": 189
+          "line": 193
         }
       ]
     },
@@ -614,7 +631,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Lem4_04_TijLocalDegree",
           "file": "DictatorshipTesting/Paper/S04_Lem4_04_TijLocalDegree.lean",
-          "line": 100
+          "line": 101
         }
       ]
     },
@@ -655,7 +672,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Cor4_05_U1Local",
           "file": "DictatorshipTesting/Paper/S04_Cor4_05_U1Local.lean",
-          "line": 54
+          "line": 57
         }
       ]
     },
@@ -696,7 +713,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Thm4_06_MatchingGap",
           "file": "DictatorshipTesting/Paper/S04_Thm4_06_MatchingGap.lean",
-          "line": 89
+          "line": 91
         }
       ]
     },
@@ -730,7 +747,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Lem4_07_TrialCubeCoordinates",
           "file": "DictatorshipTesting/Paper/S04_Lem4_07_TrialCubeCoordinates.lean",
-          "line": 19
+          "line": 21
         }
       ]
     },
@@ -784,7 +801,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Prop4_08_SquareEnergyControlsGlobalDegree",
           "file": "DictatorshipTesting/Paper/S04_Prop4_08_SquareEnergyControlsGlobalDegree.lean",
-          "line": 156
+          "line": 158
         }
       ]
     },
@@ -843,6 +860,7 @@ window.DICT_DEPENDENCY_DATA = {
         "S04_Lem4_10_dimension_free_amplification"
       ],
       "deps": [
+        "S02_D01",
         "S04_L09",
         "S03_L02"
       ],
@@ -852,12 +870,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Lem4_10_repetition_rejection_probability",
           "file": "DictatorshipTesting/Paper/S04_Lem4_10_IndependentRepetitionAndAmplification.lean",
-          "line": 14
+          "line": 477
         },
         {
           "name": "S04_Lem4_10_dimension_free_amplification",
           "file": "DictatorshipTesting/Paper/S04_Lem4_10_IndependentRepetitionAndAmplification.lean",
-          "line": 21
+          "line": 484
         }
       ],
       "paperLabel": "lem:independent-repetition",
@@ -888,17 +906,17 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Def5_01_YoungDiagram",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean",
-          "line": 22
+          "line": 24
         },
         {
           "name": "S05_Def5_01_youngRow",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean",
-          "line": 25
+          "line": 27
         },
         {
           "name": "S05_Def5_01_youngCells",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean",
-          "line": 29
+          "line": 31
         }
       ]
     },
@@ -936,7 +954,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel",
           "file": "DictatorshipTesting/Paper/S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean",
-          "line": 1600
+          "line": 1605
         }
       ]
     },
@@ -977,22 +995,22 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Def5_02_IsYoungSubdiagram",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-          "line": 23
+          "line": 26
         },
         {
           "name": "S05_Def5_02_IsOneBoxChild",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-          "line": 28
+          "line": 31
         },
         {
           "name": "S05_Def5_02_oneBoxChildren",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-          "line": 33
+          "line": 36
         },
         {
           "name": "S05_Def5_02_IsRemovableRow",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-          "line": 37
+          "line": 40
         }
       ]
     },
@@ -1019,7 +1037,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_02_typeA_adjacentWord_presentation",
           "file": "DictatorshipTesting/Paper/S05_Lem5_02_TypeAAdjacentWordPresentation.lean",
-          "line": 16
+          "line": 18
         }
       ],
       "paperLabel": "lem:type-A-adjacent-word-presentation",
@@ -1057,17 +1075,17 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Def5_03_StandardYoungTableau",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_03_StandardTableaux.lean",
-          "line": 22
+          "line": 27
         },
         {
           "name": "S05_Def5_03_cellOfEntry",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_03_StandardTableaux.lean",
-          "line": 26
+          "line": 31
         },
         {
           "name": "S05_Def5_03_TableauMaxAt",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_03_StandardTableaux.lean",
-          "line": 31
+          "line": 36
         }
       ]
     },
@@ -1081,7 +1099,13 @@ window.DICT_DEPENDENCY_DATA = {
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
       "wrappers": [
-        "S05_Thm5_03_youngOrthogonalAction"
+        "S05_Thm5_03_youngOrthogonalAction",
+        "S05_youngAdjacentOperator_inner",
+        "YoungOrthogonalActionData.rho_leftInverse",
+        "YoungOrthogonalActionData.rho_rightInverse",
+        "YoungOrthogonalActionData.rho_bijective",
+        "YoungOrthogonalActionData.rhoLinearEquiv",
+        "YoungOrthogonalActionData.rho_inner"
       ],
       "deps": [
         "S05_L02"
@@ -1096,7 +1120,37 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Thm5_03_youngOrthogonalAction",
           "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
-          "line": 27
+          "line": 33
+        },
+        {
+          "name": "S05_youngAdjacentOperator_inner",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
+          "line": 131
+        },
+        {
+          "name": "YoungOrthogonalActionData.rho_leftInverse",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
+          "line": 146
+        },
+        {
+          "name": "YoungOrthogonalActionData.rho_rightInverse",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
+          "line": 163
+        },
+        {
+          "name": "YoungOrthogonalActionData.rho_bijective",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
+          "line": 179
+        },
+        {
+          "name": "YoungOrthogonalActionData.rhoLinearEquiv",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
+          "line": 189
+        },
+        {
+          "name": "YoungOrthogonalActionData.rho_inner",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
+          "line": 200
         }
       ]
     },
@@ -1140,17 +1194,17 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Def5_04_tableauDim",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_04_TableauCoordinateSpace.lean",
-          "line": 24
+          "line": 27
         },
         {
           "name": "S05_Def5_04_TableauSpace",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_04_TableauCoordinateSpace.lean",
-          "line": 28
+          "line": 31
         },
         {
           "name": "S05_Def5_04_tableauBasisVec",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_04_TableauCoordinateSpace.lean",
-          "line": 32
+          "line": 35
         }
       ]
     },
@@ -1179,12 +1233,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_04_jucysMurphyElement_succ_recurrence",
           "file": "DictatorshipTesting/Paper/S05_Lem5_04_JucysMurphyRecurrences.lean",
-          "line": 15
+          "line": 18
         },
         {
           "name": "S05_Lem5_04_tableauContent_succ_recurrence",
           "file": "DictatorshipTesting/Paper/S05_Lem5_04_JucysMurphyRecurrences.lean",
-          "line": 24
+          "line": 27
         }
       ],
       "paperLabel": "lem:jucys-murphy-recurrence",
@@ -1223,22 +1277,22 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Def5_05_cellContent",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-          "line": 23
+          "line": 27
         },
         {
           "name": "S05_Def5_05_entryContent",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-          "line": 28
+          "line": 32
         },
         {
           "name": "S05_Def5_05_youngAdjacentOperator",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-          "line": 33
+          "line": 37
         },
         {
           "name": "S05_Def5_05_diagonalContentOperator",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-          "line": 38
+          "line": 42
         }
       ]
     },
@@ -1268,7 +1322,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Thm5_05_jucysMurphyContentAction",
           "file": "DictatorshipTesting/Paper/S05_Thm5_05_JucysMurphyContentAction.lean",
-          "line": 25
+          "line": 29
         }
       ]
     },
@@ -1312,6 +1366,7 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S05_D05",
+        "S05_L01",
         "S05_T05"
       ],
       "summary": "Lem 5.6: Diagonal content eigenspaces.",
@@ -1320,6 +1375,10 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Contents and adjacent operators",
           "target": "S05_D05"
+        },
+        {
+          "text": "Adjacent transpositions",
+          "target": "S05_L01"
         },
         {
           "text": "Jucys-Murphy content spectrum",
@@ -1333,7 +1392,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_06_diagonalContentEigenspaces",
           "file": "DictatorshipTesting/Paper/S05_Lem5_06_DiagonalContentEigenspaces.lean",
-          "line": 648
+          "line": 650
         }
       ]
     },
@@ -1401,7 +1460,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_07_standardTableauxSwapConnectedness",
           "file": "DictatorshipTesting/Paper/S05_Lem5_07_ConnectednessOfStandardTableaux.lean",
-          "line": 549
+          "line": 550
         }
       ]
     },
@@ -1420,7 +1479,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Def5_08_signedTwoBoxExtensionBasisVector"
       ],
       "deps": [
-        "S05_D07"
+        "S05_D07",
+        "S05_L13"
       ],
       "summary": "Def 5.8: Signed two-box extension spaces.",
       "statement": "Def 5.8: Signed two-box extension spaces.",
@@ -1428,7 +1488,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Def5_08_signedTwoBoxExtensionBasisVector",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_08_SignedTwoBoxExtensionSpaces.lean",
-          "line": 18
+          "line": 158
         }
       ],
       "paperLabel": "def:signed-two-box-extension-spaces",
@@ -1473,7 +1533,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_08_youngModelOperator_scalar_on_basis",
           "file": "DictatorshipTesting/Paper/S05_Lem5_08_YoungBasisScalarCommutant.lean",
-          "line": 145
+          "line": 147
         }
       ]
     },
@@ -1538,12 +1598,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_09_same_shape",
           "file": "DictatorshipTesting/Paper/S05_Lem5_09_YoungMatrixCoefficientOrthogonality.lean",
-          "line": 22
+          "line": 27
         },
         {
           "name": "S05_Lem5_09_distinct_shapes",
           "file": "DictatorshipTesting/Paper/S05_Lem5_09_YoungMatrixCoefficientOrthogonality.lean",
-          "line": 33
+          "line": 38
         }
       ],
       "paperLabel": "lem:young-matrix-coefficient-orthogonality",
@@ -1606,7 +1666,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_10_youngTableau_sum_of_squares",
           "file": "DictatorshipTesting/Paper/S05_Lem5_10_YoungTableauSumOfSquares.lean",
-          "line": 14
+          "line": 16
         }
       ],
       "paperLabel": "lem:young-tableau-sum-of-squares",
@@ -1623,6 +1683,7 @@ window.DICT_DEPENDENCY_DATA = {
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_11a_MatchingCharacters.lean",
       "wrappers": [],
       "deps": [
+        "S02_N02",
         "S05_D05",
         "S05_D10"
       ],
@@ -1705,17 +1766,17 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_11_globalYoungMatrixCoefficient_linearIndependent",
           "file": "DictatorshipTesting/Paper/S05_Lem5_11_RegularYoungBlockDecomposition.lean",
-          "line": 14
+          "line": 20
         },
         {
           "name": "S05_Lem5_11_globalYoungMatrixCoefficient_span_all",
           "file": "DictatorshipTesting/Paper/S05_Lem5_11_RegularYoungBlockDecomposition.lean",
-          "line": 22
+          "line": 28
         },
         {
           "name": "S05_Lem5_11_parseval",
           "file": "DictatorshipTesting/Paper/S05_Lem5_11_RegularYoungBlockDecomposition.lean",
-          "line": 40
+          "line": 46
         }
       ]
     },
@@ -1785,7 +1846,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_12_degreeOneYoungBlockIdentification",
           "file": "DictatorshipTesting/Paper/S05_Lem5_12_DegreeOneYoungBlockIdentification.lean",
-          "line": 26
+          "line": 28
         }
       ]
     },
@@ -1824,7 +1885,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_13_twoStepDeletionTableauxEquivChildTableaux",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_SignedTwoBoxOrthogonalBranching.lean",
-          "line": 434
+          "line": 438
         }
       ]
     },
@@ -1879,22 +1940,22 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_14_tableau_unique_removable_corner",
           "file": "DictatorshipTesting/Paper/S05_Lem5_14_OneBoxDecompositionAndDeletion.lean",
-          "line": 150
+          "line": 154
         },
         {
           "name": "S05_Lem5_14_deleteMaxEntry_bijective",
           "file": "DictatorshipTesting/Paper/S05_Lem5_14_OneBoxDecompositionAndDeletion.lean",
-          "line": 158
+          "line": 162
         },
         {
           "name": "S05_Lem5_14_deletionCoordinateMap_inner",
           "file": "DictatorshipTesting/Paper/S05_Lem5_14_OneBoxDecompositionAndDeletion.lean",
-          "line": 166
+          "line": 170
         },
         {
           "name": "S05_Lem5_14_deletionCoordinateMap_youngAdjacentOperator_intertwines",
           "file": "DictatorshipTesting/Paper/S05_Lem5_14_OneBoxDecompositionAndDeletion.lean",
-          "line": 180
+          "line": 184
         }
       ]
     },
@@ -1965,22 +2026,22 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_15_tableauDim_twoStrip_branching_sized",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 23
+          "line": 27
         },
         {
           "name": "S05_Lem5_15_tableauDim_oneBox_branching",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 31
+          "line": 35
         },
         {
           "name": "S05_Lem5_15_evenSignPatternMultiset_card",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 38
+          "line": 42
         },
         {
           "name": "S05_Lem5_15_oddSignPatternMultiset_card",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 44
+          "line": 48
         }
       ]
     },
@@ -2016,7 +2077,6 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_arbitraryOddMatchingBasis_toOrdered_character_action",
         "S05_arbitraryOddMatchingLabelMultiset_eq",
         "S05_perfectMatchingRelabeling",
-        "YoungOrthogonalActionData.rho_inner",
         "S05_Lem5_16_matchingSignProjectionEven_isMatchingEigenvector",
         "S05_Lem5_16_matchingSignProjectionOdd_isMatchingEigenvector",
         "S05_Lem5_16_highLabelCount_of_evenSignPatternMultiset",
@@ -2024,6 +2084,7 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S05_T03",
+        "S05_D08",
         "S05_D10",
         "S05_D11",
         "S05_L13",
@@ -2069,137 +2130,132 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_signedTwoBoxChild_orthogonal_decomposition",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2409
+          "line": 2207
         },
         {
           "name": "S05_signedTwoBoxChildEmbedding_isometry",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2044
+          "line": 1848
         },
         {
           "name": "S05_signedTwoBoxChildEmbedding_finalOperator",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2113
+          "line": 1917
         },
         {
           "name": "S05_signedTwoBoxChildEmbedding_intertwinesEarlierAdjacent",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2148
+          "line": 1952
         },
         {
           "name": "S05_signedTwoBoxChildEmbedding_ranges_orthogonal",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2269
+          "line": 2073
         },
         {
           "name": "S05_signedTwoBoxChildEmbeddings_span",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2393
+          "line": 2191
         },
         {
           "name": "S05_Lem5_16_canonicalEvenMatchingEigenbasis",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 3031
+          "line": 2829
         },
         {
           "name": "S05_canonicalEvenEigenbasisLabelMultiset_eq",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2683
+          "line": 2481
         },
         {
           "name": "S05_canonicalEvenEigenbasisVector_inner",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2726
+          "line": 2524
         },
         {
           "name": "S05_canonicalEvenEigenbasisVector_span",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2803
+          "line": 2601
         },
         {
           "name": "S05_canonicalEvenEigenbasisVector_isMatchingEigenvector",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2932
+          "line": 2730
         },
         {
           "name": "S05_canonicalEvenMatchingBasis_character_action",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 3058
+          "line": 2856
         },
         {
           "name": "S05_Lem5_16_arbitraryEvenMatchingEigenbasis_toOrdered",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4528
+          "line": 4218
         },
         {
           "name": "S05_arbitraryEvenMatchingBasis_toOrdered_character_action",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4494
+          "line": 4184
         },
         {
           "name": "S05_arbitraryEvenMatchingLabelMultiset_eq",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4446
+          "line": 4136
         },
         {
           "name": "S05_Lem5_16_canonicalOddMatchingEigenbasis",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 3742
+          "line": 3540
         },
         {
           "name": "S05_nearPerfectMatchingUnmatchedPoint",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4675
+          "line": 4365
         },
         {
           "name": "S05_nearPerfectMatchingRelabeling",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4838
+          "line": 4528
         },
         {
           "name": "S05_Lem5_16_arbitraryOddMatchingEigenbasis_toOrdered",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 5215
+          "line": 4905
         },
         {
           "name": "S05_arbitraryOddMatchingBasis_toOrdered_character_action",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 5182
+          "line": 4872
         },
         {
           "name": "S05_arbitraryOddMatchingLabelMultiset_eq",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 5135
+          "line": 4825
         },
         {
           "name": "S05_perfectMatchingRelabeling",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4072
-        },
-        {
-          "name": "YoungOrthogonalActionData.rho_inner",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 3854
+          "line": 3762
         },
         {
           "name": "S05_Lem5_16_matchingSignProjectionEven_isMatchingEigenvector",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 5564
+          "line": 5254
         },
         {
           "name": "S05_Lem5_16_matchingSignProjectionOdd_isMatchingEigenvector",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 5572
+          "line": 5262
         },
         {
           "name": "S05_Lem5_16_highLabelCount_of_evenSignPatternMultiset",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 5712
+          "line": 5402
         },
         {
           "name": "S05_Lem5_16_highLabelCount_of_oddSignPatternMultiset",
           "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 5724
+          "line": 5414
         }
       ]
     },
@@ -2235,12 +2291,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_17_matchingLocalProjection_preserves_low_matchingCharacter",
           "file": "DictatorshipTesting/Paper/S05_Lem5_17_LocalTruncationOnAMatchingCharacter.lean",
-          "line": 121
+          "line": 123
         },
         {
           "name": "S05_Lem5_17_matchingLocalProjection_kills_high_matchingCharacter",
           "file": "DictatorshipTesting/Paper/S05_Lem5_17_LocalTruncationOnAMatchingCharacter.lean",
-          "line": 133
+          "line": 135
         }
       ]
     },
@@ -2293,52 +2349,52 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_18_fixedMatching_tableauTrace_even_of_eigenbasis",
           "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 72
+          "line": 73
         },
         {
           "name": "S05_Lem5_18_fixedMatching_tableauTrace_odd_of_eigenbasis",
           "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 97
+          "line": 98
         },
         {
           "name": "S05_Lem5_18_fixedMatching_youngBlockTrace_even_of_eigenbasis",
           "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 121
+          "line": 122
         },
         {
           "name": "S05_Lem5_18_fixedMatching_youngBlockTrace_odd_of_eigenbasis",
           "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 145
+          "line": 146
         },
         {
           "name": "S05_Lem5_18_fixedMatching_tableauTrace_even",
           "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 169
+          "line": 170
         },
         {
           "name": "S05_Lem5_18_fixedMatching_youngBlockTrace_even",
           "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 186
+          "line": 187
         },
         {
           "name": "S05_Lem5_18_fixedMatching_tableauTrace_odd",
           "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 198
+          "line": 199
         },
         {
           "name": "S05_Lem5_18_fixedMatching_youngBlockTrace_odd",
           "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 215
+          "line": 216
         },
         {
           "name": "traceLocalTruncation_even_from_restriction",
           "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 227
+          "line": 228
         },
         {
           "name": "traceLocalTruncation_odd_from_restriction",
           "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 235
+          "line": 236
         }
       ]
     },
@@ -2377,7 +2433,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_19_local_truncation_as_convolution",
           "file": "DictatorshipTesting/Paper/S05_Lem5_19_LocalTruncationAsConvolution.lean",
-          "line": 25
+          "line": 26
         }
       ]
     },
@@ -2394,12 +2450,17 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Lem5_20_matchingMeanProjectionError_eq_high_idempotent_average"
       ],
       "deps": [
+        "S04_P03",
         "S05_D12",
         "S05_L19"
       ],
       "summary": "Lem 5.20: Central averaged rejection.",
       "statement": "Lem 5.20: Central averaged rejection.",
       "terms": [
+        {
+          "text": "matching-local projection",
+          "target": "S04_P03"
+        },
         {
           "text": "Local truncation as convolution",
           "target": "S05_L19"
@@ -2424,7 +2485,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_20_matchingMeanProjectionError_eq_high_idempotent_average",
           "file": "DictatorshipTesting/Paper/S05_Lem5_20_CentralAveragedRejection.lean",
-          "line": 60
+          "line": 63
         }
       ]
     },
@@ -2467,17 +2528,17 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_21_scalar_eq_trace_div_dimension",
           "file": "DictatorshipTesting/Paper/S05_Lem5_21_BlockScalarOfTheAveragedRejection.lean",
-          "line": 107
+          "line": 110
         },
         {
           "name": "S05_Lem5_21_even_scalar_eq_hEven_div_dim",
           "file": "DictatorshipTesting/Paper/S05_Lem5_21_BlockScalarOfTheAveragedRejection.lean",
-          "line": 114
+          "line": 117
         },
         {
           "name": "S05_Lem5_21_odd_scalar_eq_hOdd_div_dim",
           "file": "DictatorshipTesting/Paper/S05_Lem5_21_BlockScalarOfTheAveragedRejection.lean",
-          "line": 124
+          "line": 127
         }
       ]
     },
@@ -2510,12 +2571,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_22_global_weighted_matching_identity_even",
           "file": "DictatorshipTesting/Paper/S05_Lem5_22_GlobalWeightedMatchingIdentity.lean",
-          "line": 14
+          "line": 790
         },
         {
           "name": "S05_Lem5_22_global_weighted_matching_identity_odd",
           "file": "DictatorshipTesting/Paper/S05_Lem5_22_GlobalWeightedMatchingIdentity.lean",
-          "line": 28
+          "line": 804
         }
       ],
       "paperLabel": "lem:global-weighted-matching-identity",
@@ -2555,7 +2616,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_23_CountingOneMoreMatchingEdge",
           "file": "DictatorshipTesting/Paper/S05_Lem5_23_CountingOneMoreMatchingEdge.lean",
-          "line": 25
+          "line": 28
         }
       ]
     },
@@ -2595,7 +2656,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_24_tableau_weightZeroEntries_never_majority",
           "file": "DictatorshipTesting/Paper/S05_Lem5_24_WeightZeroEntriesAreNeverAMajority.lean",
-          "line": 2539
+          "line": 2541
         }
       ]
     },
@@ -2648,7 +2709,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_25_tableau_even_certificate",
           "file": "DictatorshipTesting/Paper/S05_Lem5_25_EvenCertificate.lean",
-          "line": 4491
+          "line": 4494
         }
       ]
     },
@@ -2696,7 +2757,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_26_tableau_odd_certificate",
           "file": "DictatorshipTesting/Paper/S05_Lem5_26_OddCertificate.lean",
-          "line": 811
+          "line": 812
         }
       ]
     }
