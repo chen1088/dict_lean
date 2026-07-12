@@ -8,7 +8,6 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_TableauEvenHeight`
 - `DictatorshipTesting.Paper.S05_Int_OneBoxDimensionRecursion`
 - `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
-- `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
 - `DictatorshipTesting.Paper.S05_Int_TwoBoxDimensionRecursion`
 - `DictatorshipTesting.Paper.S05_Int_YoungOrthogonal`
 - `DictatorshipTesting.Paper.S05_Int_YoungTableauSumOfSquares`

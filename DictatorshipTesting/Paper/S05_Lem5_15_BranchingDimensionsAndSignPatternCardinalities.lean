@@ -7,7 +7,6 @@ Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
 - `DictatorshipTesting.Paper.S05_Lem5_24_WeightZeroEntriesAreNeverAMajority`
-- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
 - `DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate`
 -/
 

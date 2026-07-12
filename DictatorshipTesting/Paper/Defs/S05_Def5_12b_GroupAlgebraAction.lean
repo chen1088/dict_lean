@@ -1,5 +1,5 @@
-import DictatorshipTesting.Paper.S05_Int_AveragedRejectionYoungOperator
 import DictatorshipTesting.Paper.Defs.S05_IntDef_JucysMurphyContentActionData
+import DictatorshipTesting.Paper.S05_Lem5_08_YoungBasisScalarCommutant
 
 /-
 Direct reverse imports:
@@ -19,6 +19,52 @@ matching-rejection operator.  It does not assert scalarity.
 noncomputable section
 
 namespace DictatorshipTesting
+
+/-- Operator-level data for the averaged matching rejection on one
+tableau-coordinate Young block.  Linearity and commutation are the exact data
+needed to apply Lemma 5.8. -/
+structure AveragedRejectionYoungOperatorData {n : Nat}
+    (lam : YoungDiagram (n + 1)) where
+  operator : TableauSpace lam -> TableauSpace lam
+  map_add :
+    forall f g : TableauSpace lam,
+      operator (fun T => f T + g T) = fun T => operator f T + operator g T
+  map_smul :
+    forall (c : Real) (f : TableauSpace lam),
+      operator (fun T => c * f T) = fun T => c * operator f T
+  commutes_adjacent :
+    forall (a : Fin n) (f : TableauSpace lam),
+      operator (youngAdjacentOperator a f) =
+        youngAdjacentOperator a (operator f)
+  commutes_content :
+    forall (a : Fin (n + 1)) (f : TableauSpace lam),
+      operator (jucysMurphyDiagonalOperator a f) =
+        jucysMurphyDiagonalOperator a (operator f)
+
+/-- Convert averaged-rejection operator data to the generic commutation
+package used by Lemma 5.8. -/
+def AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (data : AveragedRejectionYoungOperatorData lam) :
+    YoungModelOperatorCommutationData lam where
+  op := data.operator
+  map_add := data.map_add
+  map_smul := data.map_smul
+  commutes_adjacent := data.commutes_adjacent
+  commutes_content := data.commutes_content
+
+/-- Lemma 5.8 makes every averaged-rejection operator satisfying the interface
+scalar on the tableau basis. -/
+theorem averagedRejectionYoungOperator_scalar_on_basis
+    {n : Nat} {lam : YoungDiagram (n + 1)}
+    (data : AveragedRejectionYoungOperatorData lam)
+    (T0 T : StandardYoungTableau lam) :
+    data.operator (tableauBasisVec T) =
+      fun U =>
+        data.toYoungModelOperatorCommutationData.basisScalar T0 *
+          tableauBasisVec T U := by
+  exact S05_Lem5_08_youngModelOperator_scalar_on_basis
+    data.toYoungModelOperatorCommutationData T0 T
 
 /-- Right convolution by a finite group-algebra element:
 `(C_a F)(x) = sum_g a(g) F(xg)`. -/

@@ -2,8 +2,7 @@ import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S04_Int_LocalHighDegreeErrorFormula`
-- `DictatorshipTesting.Paper.S04_Int_PMPerpendicular`
+- `DictatorshipTesting.Paper.S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection`
 - `DictatorshipTesting.Paper.S04_Prop4_08_SquareEnergyControlsGlobalDegree`
 -/
 

@@ -22,19 +22,11 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-/-- Faithful operator-level statement of Theorem 5.3: every tableau shape has
-a Young orthogonal symmetric-group action realizing the explicit adjacent
-operators. -/
-def S05_Thm5_03_YoungOrthogonalActionStatement : Prop :=
-  ∀ {n : Nat} (lam : YoungDiagram (n + 1)),
-    Nonempty (YoungOrthogonalActionData lam)
-
 /-- The faithful Young action, constructed from the complete type-A Coxeter
 presentation and the adjacent Young operators of Lemma 5.1. -/
-theorem S05_Thm5_03_youngOrthogonalAction :
-    S05_Thm5_03_YoungOrthogonalActionStatement := by
-  unfold S05_Thm5_03_YoungOrthogonalActionStatement
-  intro n lam
+theorem S05_Thm5_03_youngOrthogonalAction
+    {n : Nat} (lam : YoungDiagram (n + 1)) :
+    Nonempty (YoungOrthogonalActionData lam) := by
   exact youngOrthogonalActionData_nonempty lam
 
 end DictatorshipTesting

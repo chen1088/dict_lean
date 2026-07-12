@@ -4,8 +4,6 @@ import DictatorshipTesting.Paper.S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoung
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
-- `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
-- `DictatorshipTesting.Paper.S05_Int_SpectralBridgeFromCertificates`
 -/
 
 

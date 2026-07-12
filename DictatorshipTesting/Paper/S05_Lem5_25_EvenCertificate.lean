@@ -7,8 +7,7 @@ import DictatorshipTesting.Paper.S05_Lem5_24_WeightZeroEntriesAreNeverAMajority
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Int_EvenSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Int_WhereTheInductionCanFail`
+- `DictatorshipTesting.Paper.S04_Thm4_06_MatchingGap`
 - `DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate`
 -/
 

@@ -20,8 +20,7 @@ import DictatorshipTesting.Paper.S05_Lem5_12_DegreeOneYoungBlockIdentification
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_06b_YoungMatrixCoefficients`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_06c_YoungBlockComponentsAndEnergies`
-- `DictatorshipTesting.Paper.S05_Int_EvenSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Int_OddSpectralBridge`
+- `DictatorshipTesting.Paper.S04_Thm4_06_MatchingGap`
 - `DictatorshipTesting.Paper.S05_Lem5_09_YoungMatrixCoefficientOrthogonality`
 - `DictatorshipTesting.Paper.S05_Lem5_10_YoungTableauSumOfSquares`
 - `DictatorshipTesting.Paper.S05_Lem5_11_RegularYoungBlockDecomposition`
@@ -1808,10 +1807,10 @@ theorem S05_Lem5_12_l2DistSqToU1_eq_nonU1_sum
       JucysMurphyContentActionData (action lam))
     (F : Perm (Fin (n + 1)) -> Real) :
     l2DistSqToU1 F =
-      (S05_Lem5_12_nonU1YoungBlocks (n + 1)).sum
+      (nonU1YoungBlocks (n + 1)).sum
         (concreteYoungBlockEnergy action content F) := by
   exact l2DistSqToU1_eq_sum_concreteYoungBlockEnergy action content
-    (S05_Lem5_12_U1_eq_concreteDegreeOneYoungBlockSum action) F
+    (S05_Lem5_12_degreeOneYoungBlockIdentification action) F
 
 @[simp] theorem youngMatrixCoefficient_apply
     {n : Nat} {lam : YoungDiagram (n + 1)}
@@ -2337,9 +2336,14 @@ assembles the precise Theorems 5.3 and 5.5 component inputs, the internally prov
 equality, and the concrete weighted matching identity into the compact
 `SpectralBlockModelInputWithDim` interface consumed by Section 5. -/
 theorem spectralBlockModelInputWithDim_even_from_s05_inputs
-    (hA1 : S05_Thm5_03_YoungOrthogonalActionStatement)
-    (hA2 : S05_Thm5_05_JucysMurphyContentActionStatement)
-    (hA3 : S05_Lem5_12_DegreeOneYoungBlockIdentificationStatement)
+    (hA1 : ∀ {n : Nat} (lam : YoungDiagram (n + 1)),
+      Nonempty (YoungOrthogonalActionData lam))
+    (hA2 : ∀ {n : Nat} {lam : YoungDiagram (n + 1)}
+      (action : YoungOrthogonalActionData lam),
+      Nonempty (JucysMurphyContentActionData action))
+    (hA3 : ∀ {n : Nat}
+      (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam),
+      U1 (Fin (n + 1)) = concreteDegreeOneYoungBlockSum action)
     (m : Nat) (hm : 2 <= m) :
     SpectralBlockModelInputWithDim
       (fun lam : YoungDiagram (2 * m) => tableauDim lam)
@@ -2397,9 +2401,14 @@ This is the odd analogue of
 `spectralBlockModelInputWithDim_even_from_section5`, with block dimension
 `tableauDim` and height `hOddTableau`. -/
 theorem spectralBlockModelInputWithDim_odd_from_s05_inputs
-    (hA1 : S05_Thm5_03_YoungOrthogonalActionStatement)
-    (hA2 : S05_Thm5_05_JucysMurphyContentActionStatement)
-    (hA3 : S05_Lem5_12_DegreeOneYoungBlockIdentificationStatement)
+    (hA1 : ∀ {n : Nat} (lam : YoungDiagram (n + 1)),
+      Nonempty (YoungOrthogonalActionData lam))
+    (hA2 : ∀ {n : Nat} {lam : YoungDiagram (n + 1)}
+      (action : YoungOrthogonalActionData lam),
+      Nonempty (JucysMurphyContentActionData action))
+    (hA3 : ∀ {n : Nat}
+      (action : ∀ lam : YoungDiagram (n + 1), YoungOrthogonalActionData lam),
+      U1 (Fin (n + 1)) = concreteDegreeOneYoungBlockSum action)
     (m : Nat) (_hm : 2 <= m) :
     SpectralBlockModelInputWithDim
       (fun lam : YoungDiagram (2 * m + 1) => tableauDim lam)

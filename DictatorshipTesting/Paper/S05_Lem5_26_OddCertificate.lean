@@ -8,8 +8,7 @@ import DictatorshipTesting.Paper.S05_Lem5_15_BranchingDimensionsAndSignPatternCa
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Int_OddExceptionalChildren`
-- `DictatorshipTesting.Paper.S05_Int_OddSpectralBridge`
+- `DictatorshipTesting.Paper.S04_Thm4_06_MatchingGap`
 -/
 
 

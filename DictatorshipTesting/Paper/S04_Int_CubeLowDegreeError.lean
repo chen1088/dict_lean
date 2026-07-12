@@ -5,9 +5,8 @@ import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S04_Int_LocalHighDegreeErrorFormula`
 - `DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection`
-- `DictatorshipTesting.Paper.S04_Int_PMPerpendicular`
+- `DictatorshipTesting.Paper.S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection`
 - `DictatorshipTesting.Paper.S05_Int_PMConvolution`
 - `DictatorshipTesting.Paper.S05_Lem5_17_LocalTruncationOnAMatchingCharacter`
 -/

@@ -7,7 +7,7 @@ import DictatorshipTesting.Paper.S05_Lem5_07_ConnectednessOfStandardTableaux
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Int_AveragedRejectionYoungOperator`
+- `DictatorshipTesting.Paper.Defs.S05_Def5_12b_GroupAlgebraAction`
 -/
 
 

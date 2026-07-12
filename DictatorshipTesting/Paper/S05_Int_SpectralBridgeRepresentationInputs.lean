@@ -7,10 +7,9 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_U1CompatibleYoungBlockProfile`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungBasisScalarCommutantInput`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungBlockEnergyProfile`
+- `DictatorshipTesting.Paper.S04_Thm4_06_MatchingGap`
 - `DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks`
 - `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
-- `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
-- `DictatorshipTesting.Paper.S05_Int_SpectralBridgeFromCertificates`
 - `DictatorshipTesting.Paper.S05_Lem5_08_YoungBasisScalarCommutant`
 - `DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction`
 -/

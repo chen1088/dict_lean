@@ -73,7 +73,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "OracleTester.run",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 34
+          "line": 33
         }
       ]
     },
@@ -437,7 +437,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "matchingLocalProjectionError",
           "file": "DictatorshipTesting/Paper/Defs/S04_Def4_02b_MatchingLocalProjectionError.lean",
-          "line": 22
+          "line": 21
         }
       ]
     },
@@ -559,22 +559,22 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection",
           "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-          "line": 46
+          "line": 289
         },
         {
           "name": "S04_Prop4_03_fixedSpace",
           "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-          "line": 23
+          "line": 24
         },
         {
           "name": "S04_Prop4_03_errorFormula",
           "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-          "line": 31
+          "line": 52
         },
         {
           "name": "S04_Prop4_03_perpendicular",
           "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-          "line": 37
+          "line": 189
         }
       ]
     },
@@ -696,7 +696,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Thm4_06_MatchingGap",
           "file": "DictatorshipTesting/Paper/S04_Thm4_06_MatchingGap.lean",
-          "line": 40
+          "line": 89
         }
       ]
     },
@@ -1096,7 +1096,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Thm5_03_youngOrthogonalAction",
           "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
-          "line": 34
+          "line": 27
         }
       ]
     },
@@ -1268,7 +1268,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Thm5_05_jucysMurphyContentAction",
           "file": "DictatorshipTesting/Paper/S05_Thm5_05_JucysMurphyContentAction.lean",
-          "line": 33
+          "line": 25
         }
       ]
     },
@@ -1785,7 +1785,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_12_degreeOneYoungBlockIdentification",
           "file": "DictatorshipTesting/Paper/S05_Lem5_12_DegreeOneYoungBlockIdentification.lean",
-          "line": 34
+          "line": 26
         }
       ]
     },
@@ -1965,22 +1965,22 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_15_tableauDim_twoStrip_branching_sized",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 24
+          "line": 23
         },
         {
           "name": "S05_Lem5_15_tableauDim_oneBox_branching",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 32
+          "line": 31
         },
         {
           "name": "S05_Lem5_15_evenSignPatternMultiset_card",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 39
+          "line": 38
         },
         {
           "name": "S05_Lem5_15_oddSignPatternMultiset_card",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 45
+          "line": 44
         }
       ]
     },
@@ -2467,17 +2467,17 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_21_scalar_eq_trace_div_dimension",
           "file": "DictatorshipTesting/Paper/S05_Lem5_21_BlockScalarOfTheAveragedRejection.lean",
-          "line": 109
+          "line": 107
         },
         {
           "name": "S05_Lem5_21_even_scalar_eq_hEven_div_dim",
           "file": "DictatorshipTesting/Paper/S05_Lem5_21_BlockScalarOfTheAveragedRejection.lean",
-          "line": 116
+          "line": 114
         },
         {
           "name": "S05_Lem5_21_odd_scalar_eq_hOdd_div_dim",
           "file": "DictatorshipTesting/Paper/S05_Lem5_21_BlockScalarOfTheAveragedRejection.lean",
-          "line": 126
+          "line": 124
         }
       ]
     },
@@ -2648,7 +2648,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_25_tableau_even_certificate",
           "file": "DictatorshipTesting/Paper/S05_Lem5_25_EvenCertificate.lean",
-          "line": 4492
+          "line": 4491
         }
       ]
     },
@@ -2696,7 +2696,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_26_tableau_odd_certificate",
           "file": "DictatorshipTesting/Paper/S05_Lem5_26_OddCertificate.lean",
-          "line": 812
+          "line": 811
         }
       ]
     }

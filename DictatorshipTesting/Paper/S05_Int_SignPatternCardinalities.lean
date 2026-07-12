@@ -6,7 +6,7 @@ import DictatorshipTesting.Paper.S05_Int_OneBoxDimensionRecursion
 
 /-
 Direct reverse imports:
-- None.
+- `DictatorshipTesting.Paper.S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities`
 -/
 
 

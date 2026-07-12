@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.S03_IntInst_NearPerfectMatchingNonempty
+import DictatorshipTesting.Paper.Defs.S03_IntDef_NearPerfectMatching
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingMeanProjectionError`
