@@ -4,7 +4,7 @@ const nodeById = new Map(graphData.nodes.map((node) => [node.id, node]));
 const definitionRoots = graphData.nodes
   .filter((node) => node.kind === "definition")
   .map((node) => node.id);
-const section5Roots = Array.from({ length: 35 }, (_, index) => {
+const section5Roots = Array.from({ length: 26 }, (_, index) => {
   const number = index + 1;
   const kind = number === 3 || number === 5 ? "T" : "L";
   return `S05_${kind}${String(number).padStart(2, "0")}`;
@@ -38,27 +38,17 @@ const rootViews = {
   paper: {
     label: "Paper map",
     roots: paperResultRoots,
-    open: ["S01_T01", "S04_T08", "S05_L28", "S05_L29", "S05_L26"],
+    open: ["S01_T01", "S04_T06", "S05_L22", "S05_L25", "S05_L26"],
   },
   main: {
     label: "Main theorem",
     roots: ["S01_T01"],
     open: collectTransitiveDeps(["S01_T01"]),
   },
-  spectral: {
-    label: "Spectral bridge",
-    roots: ["S04_T08"],
-    open: collectTransitiveDeps(["S04_T08"]),
-  },
   section5: {
     label: "Section 5",
     roots: section5Roots,
-    open: ["S05_L28", "S05_L29", "S05_L26", "S05_L20", "S05_L11", "S05_T03"],
-  },
-  certificates: {
-    label: "Finite certificates",
-    roots: ["S05_L33", "S05_L35", "S05_L31", "S05_L30"],
-    open: ["S05_L33", "S05_L35", "S05_L31", "S05_L30"],
+    open: ["S05_L22", "S05_L25", "S05_L26", "S05_L16", "S05_L11", "S05_T03"],
   },
 };
 
@@ -420,7 +410,7 @@ function escapedTermPattern(escapedTerm) {
 }
 
 function highlightStatementTerms(text, terms, used) {
-  let html = escapeHtml(text);
+  let html = escapeHtml(text).replace(/\\emph\{([^{}]*)\}/g, "<em>$1</em>");
   terms.forEach((term, index) => {
     const key = term.text.toLowerCase();
     const escaped = escapeHtml(term.text);
