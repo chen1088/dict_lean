@@ -14,6 +14,7 @@ window.DICT_DEPENDENCY_DATA = {
         "S01_Thm1_01_MainIntro"
       ],
       "deps": [
+        "S02_D01",
         "S03_L02",
         "S04_L11"
       ],
@@ -41,6 +42,150 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
+      "id": "S02_D01",
+      "label": "Def 2.1",
+      "title": "Finite-seed nonadaptive oracle tester",
+      "section": "Section 2 definitions",
+      "kind": "definition",
+      "importance": "minor",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
+      "wrappers": [
+        "OracleTester",
+        "OracleTester.run",
+        "OracleTester.acceptanceProbability",
+        "OracleTester.rejectionProbability",
+        "OracleTester.oneSided"
+      ],
+      "deps": [],
+      "summary": "Def 2.1: Operational finite-seed nonadaptive oracle tester.",
+      "statement": "Def 2.1: Operational finite-seed nonadaptive oracle tester.",
+      "terms": [],
+      "paperLabel": "def:finite-seed-tester",
+      "paperEnv": "definition",
+      "paperStatementLatex": "A finite-seed tester for functions $f:S_n\\to\\{0,1\\}$ consists of a finite nonempty seed set $\\Omega$, a query count $Q$, a query schedule $q:\\Omega\\times[Q]\\to S_n$, and a Boolean decision rule $D:\\Omega\\times\\{0,1\\}^{Q}\\to\\{\\mathrm{accept},\\mathrm{reject}\\}$. On seed $\\omega$, the tester reads the answer vector $(f(q(\\omega,1)),\\ldots,f(q(\\omega,Q)))$ and applies $D$. The seed is uniform. This model is nonadaptive because the entire query schedule depends only on the seed. It is one-sided for a property $\\mathcal P$ if every $f\\in\\mathcal P$ is accepted for every seed. Acceptance and rejection probabilities are the corresponding uniform fractions of seeds.",
+      "leanLinks": [
+        {
+          "name": "OracleTester",
+          "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
+          "line": 22
+        },
+        {
+          "name": "OracleTester.run",
+          "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "id": "S02_N01",
+      "label": "Notation",
+      "title": "Dictators, 1-cosets, and the degree-one space",
+      "section": "Section 2 notation",
+      "kind": "notation",
+      "importance": "minor",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_U1.lean",
+      "wrappers": [
+        "IsDictator",
+        "oneCosetReal",
+        "U1"
+      ],
+      "deps": [],
+      "summary": "The dictator class, 1-coset indicators, and their linear span U1.",
+      "statement": "The dictator class, 1-coset indicators, and their linear span U1.",
+      "terms": [],
+      "paperStatementLatex": "For $i,j\\in[n]$, let $\\mathcal T_{ij}:=\\{\\pi\\in S_n:\\pi(i)=j\\}$ and $t_{ij}:=\\mathbf 1_{\\mathcal T_{ij}}$. The degree-one space is $U_1=\\spanop\\{t_{ij}:i,j\\in[n]\\}\\subseteq L^2(S_n)$. The dictator class $\\D$ consists of the Boolean functions depending only on one value $\\pi(i)$ or one inverse value $\\pi^{-1}(j)$, including the constants.",
+      "leanLinks": [
+        {
+          "name": "U1",
+          "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_U1.lean",
+          "line": 20
+        },
+        {
+          "name": "oneCosetReal",
+          "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_OneCosetReal.lean",
+          "line": 19
+        },
+        {
+          "name": "IsDictator",
+          "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_IsDictator.lean",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "id": "S02_N02",
+      "label": "Notation",
+      "title": "Boolean-cube Fourier notation",
+      "section": "Section 2 notation",
+      "kind": "notation",
+      "importance": "minor",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_CubeChar.lean",
+      "wrappers": [
+        "cubeChar",
+        "cubeFourierCoeff"
+      ],
+      "deps": [],
+      "summary": "Boolean-cube characters and Fourier coefficients.",
+      "statement": "Boolean-cube characters and Fourier coefficients.",
+      "terms": [],
+      "paperStatementLatex": "For $S\\subseteq[m]$, define $\\chi_S(x)=(-1)^{\\sum_{r\\in S}x_r}$. For $g:\\{0,1\\}^m\\to\\mathbb R$, define $\\widehat g(S)=\\E_x g(x)\\chi_S(x)$.",
+      "leanLinks": [
+        {
+          "name": "cubeChar",
+          "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_CubeChar.lean",
+          "line": 21
+        },
+        {
+          "name": "cubeFourierCoeff",
+          "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_CubeFourierCoeff.lean",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "id": "S02_D02",
+      "label": "Def 2.2",
+      "title": "Low-degree truncation on one cube",
+      "section": "Section 2 definitions",
+      "kind": "definition",
+      "importance": "minor",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/Defs/S02_Def2_02a_CubeLowDegreeOnePart.lean",
+      "wrappers": [
+        "cubeLowDegreeOnePart",
+        "cubeHighDegreeEnergy"
+      ],
+      "deps": [
+        "S02_L03"
+      ],
+      "summary": "Def 2.2: Degree-at-most-one Fourier truncation and high-degree energy.",
+      "statement": "Def 2.2: Degree-at-most-one Fourier truncation and high-degree energy.",
+      "terms": [
+        {
+          "text": "Boolean-cube Fourier notation",
+          "target": "S02_N02"
+        }
+      ],
+      "paperLabel": "def:cube-low-degree-truncation",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For $g:\\{0,1\\}^m\\to\\mathbb R$, define $P_{\\le 1}g(x)=\\sum_{S\\subseteq[m],\\ |S|\\le1}\\widehat g(S)\\chi_S(x)$. Thus $P_{\\le1}g$ keeps only the constant Fourier coefficient and the level-one coefficients, and $\\|g-P_{\\le1}g\\|^2=\\sum_{S\\subseteq[m],\\ |S|\\ge2}\\widehat g(S)^2$.",
+      "leanLinks": [
+        {
+          "name": "cubeLowDegreeOnePart",
+          "file": "DictatorshipTesting/Paper/Defs/S02_Def2_02a_CubeLowDegreeOnePart.lean",
+          "line": 21
+        },
+        {
+          "name": "cubeHighDegreeEnergy",
+          "file": "DictatorshipTesting/Paper/Defs/S02_Def2_02b_CubeHighDegreeEnergy.lean",
+          "line": 21
+        }
+      ]
+    },
+    {
       "id": "S02_T01",
       "label": "Thm 2.1",
       "title": "Boolean U1 classification",
@@ -59,7 +204,7 @@ window.DICT_DEPENDENCY_DATA = {
       "terms": [
         {
           "text": "U1",
-          "target": "S05_D06"
+          "target": "S02_N01"
         }
       ],
       "paperLabel": "thm:boolean-u1",
@@ -212,6 +357,91 @@ window.DICT_DEPENDENCY_DATA = {
       ]
     },
     {
+      "id": "S04_D01",
+      "label": "Def 4.1",
+      "title": "Local degree-one space",
+      "section": "Section 4 definitions",
+      "kind": "definition",
+      "importance": "minor",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01a_IsMatchingLocalDegreeOne.lean",
+      "wrappers": [
+        "IsMatchingLocalDegreeOne",
+        "matchingLocalHighDegreeEnergy"
+      ],
+      "deps": [
+        "S02_L03"
+      ],
+      "summary": "Def 4.1: Matching-local degree-one space and high-degree energy.",
+      "statement": "Def 4.1: Matching-local degree-one space and high-degree energy.",
+      "terms": [
+        {
+          "text": "Cube Fourier facts",
+          "target": "S02_L03"
+        }
+      ],
+      "paperLabel": "def:local-degree-one-space",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For a fixed matching $M$, let $\\mathcal W_M\\subseteq L^2(S_n)$ be the set of functions $F:S_n\\to\\mathbb R$ such that, on every coset $C$, the cube function $F_{C,M}(x):=F(\\rho_C\\tau_x)$ has Fourier coefficients only at weights $0$ and $1$. Equivalently, every coefficient indexed by $S\\subseteq[m]$ with $|S|\\ge2$ is zero.",
+      "leanLinks": [
+        {
+          "name": "IsMatchingLocalDegreeOne",
+          "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01a_IsMatchingLocalDegreeOne.lean",
+          "line": 21
+        },
+        {
+          "name": "matchingLocalHighDegreeEnergy",
+          "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01b_MatchingLocalHighDegreeEnergy.lean",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "id": "S04_D02",
+      "label": "Def 4.2",
+      "title": "Matching-local truncation",
+      "section": "Section 4 definitions",
+      "kind": "definition",
+      "importance": "minor",
+      "status": "proven",
+      "file": "DictatorshipTesting/Paper/Defs/S04_Def4_02a_MatchingLocalProjection.lean",
+      "wrappers": [
+        "matchingLocalProjection",
+        "matchingLocalProjectionError"
+      ],
+      "deps": [
+        "S02_L03",
+        "S04_D01"
+      ],
+      "summary": "Def 4.2: Matching-local Fourier truncation and its squared error.",
+      "statement": "Def 4.2: Matching-local Fourier truncation and its squared error.",
+      "terms": [
+        {
+          "text": "Local degree-one space",
+          "target": "S04_D01"
+        },
+        {
+          "text": "Cube Fourier facts",
+          "target": "S02_L03"
+        }
+      ],
+      "paperLabel": "def:PM-local-truncation",
+      "paperEnv": "definition",
+      "paperStatementLatex": "For $\\omega\\in S_n$, define the matching-local truncation by $(P_M f)(\\omega)=\\sum_{S\\subseteq[m],\\ |S|\\le1}\\widehat f_{C_M(\\omega),M}(S)\\,\\chi_S(x_{C_M(\\omega)}(\\omega))$. Equivalently, on a fixed coset $C$, $(P_Mf)(\\rho_C\\tau_x)=\\sum_{S\\subseteq[m],\\ |S|\\le1}\\widehat f_{C,M}(S)\\chi_S(x)$. Thus $P_M$ keeps exactly the constant and singleton Fourier coefficients on each matching cube.",
+      "leanLinks": [
+        {
+          "name": "matchingLocalProjection",
+          "file": "DictatorshipTesting/Paper/Defs/S04_Def4_02a_MatchingLocalProjection.lean",
+          "line": 24
+        },
+        {
+          "name": "matchingLocalProjectionError",
+          "file": "DictatorshipTesting/Paper/Defs/S04_Def4_02b_MatchingLocalProjectionError.lean",
+          "line": 22
+        }
+      ]
+    },
+    {
       "id": "S04_L01",
       "label": "Lem 4.1",
       "title": "Cube square test",
@@ -224,7 +454,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S04_Lem4_01_CubeSquare"
       ],
       "deps": [
-        "S02_L03"
+        "S02_L03",
+        "S02_D02"
       ],
       "summary": "Lem 4.1: Cube square test.",
       "statement": "Lem 4.1: Cube square test.",
@@ -258,7 +489,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S04_Lem4_02_PMIndependentOfRepresentatives"
       ],
       "deps": [
-        "S02_L03"
+        "S02_L03",
+        "S04_D02"
       ],
       "summary": "Lem 4.2: P_M independent of representatives.",
       "statement": "Lem 4.2: P_M independent of representatives.",
@@ -292,7 +524,9 @@ window.DICT_DEPENDENCY_DATA = {
         "S04_Lem4_03_PMFixesLocal"
       ],
       "deps": [
-        "S04_L02"
+        "S04_L02",
+        "S04_D01",
+        "S04_D02"
       ],
       "summary": "Lem 4.3: P_M fixes local degree one.",
       "statement": "Lem 4.3: P_M fixes local degree one.",
@@ -327,7 +561,8 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S04_L02",
-        "S02_L03"
+        "S02_L03",
+        "S04_D02"
       ],
       "summary": "Lem 4.4: Local high-degree error formula.",
       "statement": "Lem 4.4: Local high-degree error formula.",
@@ -366,7 +601,9 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S04_L03",
-        "S02_L03"
+        "S02_L03",
+        "S04_D01",
+        "S04_D02"
       ],
       "summary": "Lem 4.5: P_M perpendicular.",
       "statement": "Lem 4.5: P_M perpendicular.",
@@ -405,7 +642,8 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S03_L01",
-        "S02_L03"
+        "S02_L03",
+        "S04_D01"
       ],
       "summary": "Lem 4.6: Basic indicators have local degree at most one.",
       "statement": "Lem 4.6: Basic indicators have local degree at most one.",
@@ -444,7 +682,9 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S04_L03",
-        "S04_L06"
+        "S04_L06",
+        "S04_D01",
+        "S04_D02"
       ],
       "summary": "Cor 4.7: U_1 is local.",
       "statement": "Cor 4.7: U_1 is local.",
@@ -483,7 +723,8 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S05_L28",
-        "S05_L29"
+        "S05_L29",
+        "S04_D02"
       ],
       "summary": "Thm 4.8: Matching-cube spectral gap.",
       "statement": "Thm 4.8: Matching-cube spectral gap.",
@@ -574,7 +815,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S04_L01",
         "S04_L04",
         "S04_L09",
-        "S04_T08"
+        "S04_T08",
+        "S04_D02"
       ],
       "summary": "Prop 4.10: Square energy controls global degree.",
       "statement": "Prop 4.10: Square energy controls global degree.",
@@ -597,7 +839,7 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "U1",
-          "target": "S05_D06"
+          "target": "S02_N01"
         }
       ],
       "paperLabel": "prop:square-energy-controls-global-degree",
@@ -1581,7 +1823,8 @@ window.DICT_DEPENDENCY_DATA = {
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_12a_MatchingIdempotents.lean",
       "wrappers": [],
       "deps": [
-        "S05_D11"
+        "S05_D11",
+        "S04_D02"
       ],
       "summary": "Def 5.12: Matching idempotents and averaged rejection.",
       "statement": "Def 5.12: Matching idempotents and averaged rejection.",
@@ -2251,7 +2494,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_Lem5_21_matchingLocalProjection_kills_high_matchingCharacter"
       ],
       "deps": [
-        "S05_D11"
+        "S05_D11",
+        "S04_D02"
       ],
       "summary": "Lem 5.21: Local truncation on a matching character.",
       "statement": "Lem 5.21: Local truncation on a matching character.",
@@ -2300,7 +2544,8 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S05_L20",
-        "S05_L21"
+        "S05_L21",
+        "S04_D02"
       ],
       "summary": "Lem 5.22: Trace of one local truncation on one Young block.",
       "statement": "Lem 5.22: Trace of one local truncation on one Young block.",
@@ -2388,7 +2633,8 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S05_L21",
-        "S05_D12"
+        "S05_D12",
+        "S04_D02"
       ],
       "summary": "Lem 5.23: Local truncation as convolution.",
       "statement": "Lem 5.23: Local truncation as convolution.",
@@ -2529,7 +2775,8 @@ window.DICT_DEPENDENCY_DATA = {
       "deps": [
         "S05_L11",
         "S05_L12",
-        "S05_L25"
+        "S05_L25",
+        "S04_D02"
       ],
       "summary": "Lem 5.26: Global weighted matching identity.",
       "statement": "Lem 5.26: Global weighted matching identity.",

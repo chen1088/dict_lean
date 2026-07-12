@@ -1,9 +1,9 @@
 const graphData = window.DICT_DEPENDENCY_DATA;
 const nodeById = new Map(graphData.nodes.map((node) => [node.id, node]));
 
-const section5DefinitionRoots = Array.from({ length: 13 }, (_, index) =>
-  `S05_D${String(index + 1).padStart(2, "0")}`
-);
+const definitionRoots = graphData.nodes
+  .filter((node) => node.kind === "definition")
+  .map((node) => node.id);
 const section5Roots = Array.from({ length: 35 }, (_, index) => {
   const number = index + 1;
   const kind = number === 3 || number === 5 ? "T" : "L";
@@ -97,6 +97,17 @@ function escapeHtml(value) {
 }
 
 const definitionTextLinks = [
+  { text: "finite-seed tester", target: "S02_D01" },
+  { text: "nonadaptive oracle tester", target: "S02_D01" },
+  { text: "low-degree truncation", target: "S02_D02" },
+  { text: "degree-at-most-one truncation", target: "S02_D02" },
+  { text: "dictator", target: "S02_N01" },
+  { text: "dictators", target: "S02_N01" },
+  { text: "degree-one space", target: "S02_N01" },
+  { text: "Boolean-cube character", target: "S02_N02" },
+  { text: "Fourier coefficient", target: "S02_N02" },
+  { text: "local degree-one space", target: "S04_D01" },
+  { text: "matching-local truncation", target: "S04_D02" },
   { text: "Young diagram", target: "S05_D01" },
   { text: "box", target: "S05_D01" },
   { text: "removable corner", target: "S05_D02" },
@@ -109,34 +120,30 @@ const definitionTextLinks = [
   { text: "adjacent operators", target: "S05_D05" },
   { text: "Young orthogonal", target: "S05_D05" },
   { text: "Young block", target: "S05_D06" },
-  { text: "Young-block energy profile", target: "S05_D07" },
-  { text: "U_1-compatible", target: "S05_D08" },
-  { text: "two-box removal", target: "S05_D09" },
-  { text: "two-box removals", target: "S05_D09" },
-  { text: "signed two-box removals", target: "S05_D10" },
-  { text: "one-box child", target: "S05_D11" },
-  { text: "one-box removals", target: "S05_D11" },
-  { text: "deletion map", target: "S05_D12" },
-  { text: "one-box deletion", target: "S05_D12" },
-  { text: "even sign-pattern multiset", target: "S05_D13" },
-  { text: "odd sign-pattern multiset", target: "S05_D14" },
-  { text: "matching characters", target: "S05_D15" },
-  { text: "even matching eigenvector", target: "S05_D16" },
-  { text: "odd matching eigenvector", target: "S05_D17" },
-  { text: "even matching-restriction input", target: "S05_D18" },
-  { text: "odd matching-restriction input", target: "S05_D19" },
-  { text: "even local-truncation trace input", target: "S05_D20" },
-  { text: "odd local-truncation trace input", target: "S05_D21" },
-  { text: "right convolution", target: "S05_D22" },
-  { text: "Young-basis scalar commutant input", target: "S05_D23" },
-  { text: "tableau-count even height", target: "S05_D24" },
-  { text: "h_m^{\\mathrm{tab}}", target: "S05_D24" },
-  { text: "tableau-count odd height", target: "S05_D25" },
-  { text: "h_m^{\\mathrm{odd,tab}}", target: "S05_D25" },
-  { text: "special diagrams", target: "S05_D26" },
-  { text: "canonical special diagrams", target: "S05_D26" },
-  { text: "exceptional shapes", target: "S05_D27" },
-  { text: "exceptional predicates", target: "S05_D27" },
+  { text: "Young matrix coefficients", target: "S05_D06" },
+  { text: "Young-block energy profile", target: "S05_D06" },
+  { text: "branching data", target: "S05_D07" },
+  { text: "two-box removal", target: "S05_D07" },
+  { text: "two-box removals", target: "S05_D07" },
+  { text: "signed two-box removals", target: "S05_D07" },
+  { text: "one-box child", target: "S05_D07" },
+  { text: "one-box removals", target: "S05_D07" },
+  { text: "signed two-box extension spaces", target: "S05_D08" },
+  { text: "deletion map", target: "S05_D09" },
+  { text: "one-box deletion", target: "S05_D09" },
+  { text: "one-box deletion spaces", target: "S05_D09" },
+  { text: "even sign-pattern multiset", target: "S05_D10" },
+  { text: "odd sign-pattern multiset", target: "S05_D10" },
+  { text: "matching characters", target: "S05_D11" },
+  { text: "matching eigenvector", target: "S05_D11" },
+  { text: "matching idempotents", target: "S05_D12" },
+  { text: "averaged rejection", target: "S05_D12" },
+  { text: "right convolution", target: "S05_D12" },
+  { text: "certificate vocabulary", target: "S05_D13" },
+  { text: "special diagrams", target: "S05_D13" },
+  { text: "canonical special diagrams", target: "S05_D13" },
+  { text: "exceptional shapes", target: "S05_D13" },
+  { text: "exceptional predicates", target: "S05_D13" },
 ];
 
 function termRefs(node) {
@@ -163,9 +170,9 @@ function normalizePaperLatex(value) {
     .replace(/\\end\{equation\*?\}/g, "\\]")
     .replace(/\\begin\{align\*?\}/g, "\\[\\begin{aligned}")
     .replace(/\\end\{align\*?\}/g, "\\end{aligned}\\]")
-    .replace(/\\begin\{enumerate\}/g, "\n")
+    .replace(/\\begin\{enumerate\}(?:\[[^\]]*\])?/g, "\n")
     .replace(/\\end\{enumerate\}/g, "\n")
-    .replace(/\\item\s+/g, "\n- ")
+    .replace(/\\item(?:\\label(?:\[[^\]]*\])?\{[^}]*\})?\s*/g, "\n- ")
     .replace(/\\[Cc]ref\{[^}]*\}/g, "the referenced statement")
     .replace(/\\eqref\{[^}]*\}/g, "the displayed equation");
 }
@@ -190,27 +197,53 @@ function splitLatexSegments(value) {
 
 const mathSymbolLinks = [
   {
-    target: "S05_D20",
+    target: "S02_N01",
     patterns: [
-      /\\operatorname\{tr\}\\bigl\(\(I-P_M\)\|_\{\\mathcal\s+H_\{?\\lambda\}?\}\\bigr\)\s*=\s*d_\{?\\lambda\}?\s*h_m\(\\lambda\)/g,
+      /P_\{U_1\}/g,
+      /U_1/g,
+      /\\mathcal\s+D/g,
+      /\\D/g,
+      /\\mathcal\s+T_\{?ij\}?/g,
+      /t_\{?ij\}?/g,
     ],
   },
   {
-    target: "S05_D21",
+    target: "S02_D01",
+    patterns: [/\\Omega/g, /\bQ\b/g],
+  },
+  {
+    target: "S02_D02",
     patterns: [
-      /\\operatorname\{tr\}\\bigl\(\(I-P_M\)\|_\{\\mathcal\s+H_\{?\\lambda\}?\}\\bigr\)\s*=\s*d_\{?\\lambda\}?\s*h_m\^\{\\mathrm\{odd\}\}\(\\lambda\)/g,
+      /P_(?:\{\\le\s*1\}|\\le\s*1)/g,
     ],
   },
   {
-    target: "S05_D16",
+    target: "S02_N02",
     patterns: [
-      /\\rho\^\{?\\lambda\}?\(\\tau_x\)v\s*=\s*\\chi_R\(\\tau_x\)v/g,
+      /\\chi_\{?[ST]\}?\(x\)/g,
+      /\\widehat\s*[gf]_\{?[CST](?:,M)?\}?\([^)]*\)/g,
+      /\\widehat\s*g\([^)]+\)/g,
     ],
   },
   {
-    target: "S05_D17",
+    target: "S04_D01",
+    patterns: [/\\mathcal\s+W_M/g],
+  },
+  {
+    target: "S04_D02",
     patterns: [
-      /\\tau_x\\in A_M/g,
+      /P_M/g,
+      /\\widehat\s*f_\{C,M\}\([^)]+\)/g,
+    ],
+  },
+  {
+    target: "S05_T03",
+    patterns: [/\\rho\^(?:\{\\lambda\}|\\lambda)/g],
+  },
+  {
+    target: "S05_D11",
+    patterns: [
+      /\\chi_\{?[RT](?:_a)?\}?\(\\tau_x\)/g,
     ],
   },
   {
@@ -240,19 +273,17 @@ const mathSymbolLinks = [
   {
     target: "S05_D04",
     patterns: [
-      /d_\{?(?:\\lambda|\\mu|\\nu)\}?/g,
-      /V\^\{?(?:\\mu_u|\\lambda|\\mu)\}?/g,
-      /e_[ST](?![A-Za-z0-9_'])/g,
-      /e_\{[ST]'?\}/g,
-      /e_\{s_iT\}/g,
-      /s_\{?[ik]\}?/g,
+      /d_(?:\{\\(?:lambda|mu|nu)\}|\\(?:lambda|mu|nu))/g,
+      /V\^(?:\{\\(?:lambda|mu)\}|\{\\mu_u\}|\\(?:lambda|mu))/g,
+      /e_(?:\{(?:S|T|T'|U|s_iT)\}|[STU])(?![A-Za-z0-9_'])/g,
+      /s_(?:\{(?:i|j|k|i\+1|N-1|N-2)\}|[ijk])(?![A-Za-z0-9_])/g,
     ],
   },
   {
     target: "S05_D05",
     patterns: [
-      /S_\{?[ik]\}?\^\{?(?:\\mu_u|\\lambda|\\mu)\}?/g,
-      /C_k\^\{?\\lambda\}?/g,
+      /S_(?:\{(?:i|j|k|N-1|2r-1)\}|[ijk])\^(?:\{\\(?:lambda|mu)\}|\\(?:lambda|mu))/g,
+      /C_k\^(?:\{\\lambda\}|\\lambda)/g,
       /c_T\([^)]+\)/g,
       /c\(u\)/g,
     ],
@@ -260,87 +291,33 @@ const mathSymbolLinks = [
   {
     target: "S05_D06",
     patterns: [
-      /\\mathcal\s+H_\{?\\lambda\}?/g,
-      /\\mathcal\s+H_\{[^}]+\}/g,
-      /\\rho\^\{?\\lambda\}?/g,
+      /\\Phi_\{S,T\}\^\\lambda/g,
+      /\\mathcal\s+H_(?:\{[^}]+\}|\\lambda)/g,
+      /F_\\lambda/g,
+      /E_F\(\\lambda\)/g,
     ],
   },
   {
     target: "S05_D07",
     patterns: [
-      /E\(\\lambda\)/g,
-      /\\Pi_\{?\\lambda\}?/g,
+      /\\mathsf\s*[HV]_2/g,
+      /\\mathsf\s*B_2/g,
+      /\\varepsilon_\+/g,
+      /\\varepsilon_-/g,
+      /\\nearrow/g,
     ],
   },
   {
     target: "S05_D08",
     patterns: [
-      /U_1/g,
-      /P_\{U_1\}/g,
+      /E_U/g,
+      /\\eta_\{U,(?:\\sigma|\+|-)\}/g,
+      /W_\{\\mu,\\sigma\}/g,
+      /D_\{\\mu,\\sigma\}/g,
     ],
   },
   {
     target: "S05_D09",
-    patterns: [/\\mathsf\s+[HV]_2/g],
-  },
-  {
-    target: "S05_D10",
-    patterns: [
-      /\\mathsf\s+B_2/g,
-      /\\varepsilon_\+/g,
-      /\\varepsilon_-/g,
-    ],
-  },
-  {
-    target: "S05_D13",
-    patterns: [
-      /\\mathsf\s+X_(?:1|m|\{m-1\})(?!\^\{\\mathrm\{odd\}\})/g,
-      /z_(?:m|\{m-1\})/g,
-      /h_(?:m|\{m-1\})(?!\^\{\\mathrm\{odd\}\})/g,
-    ],
-  },
-  {
-    target: "S05_D14",
-    patterns: [
-      /\\mathsf\s+X_m\^\{\\mathrm\{odd\}\}/g,
-      /h_m\^\{\\mathrm\{odd\}\}/g,
-    ],
-  },
-  {
-    target: "S05_D15",
-    patterns: [
-      /A_M/g,
-      /\\tau_r/g,
-      /\\tau_x/g,
-      /\\chi_\{?R(?:_a)?\}?/g,
-      /\\chi_T/g,
-    ],
-  },
-  {
-    target: "S05_D18",
-    patterns: [
-      /R_1,\\ldots,R_\{d_\{?\\lambda\}?\}\s+of\s+\\mathsf\s+X_m\(\\lambda\)/g,
-    ],
-  },
-  {
-    target: "S05_D19",
-    patterns: [
-      /R_1,\\ldots,R_\{d_\{?\\lambda\}?\}\s+of\s+\\mathsf\s+X_m\^\{\\mathrm\{odd\}\}\(\\lambda\)/g,
-    ],
-  },
-  {
-    target: "S05_D22",
-    patterns: [
-      /e_R\^M/g,
-      /p_M/g,
-      /q_M/g,
-      /C_a/g,
-      /C_q/g,
-      /P_M/g,
-    ],
-  },
-  {
-    target: "S05_D12",
     patterns: [
       /\\mu_u/g,
       /W_u/g,
@@ -349,15 +326,40 @@ const mathSymbolLinks = [
     ],
   },
   {
-    target: "S05_D11",
-    patterns: [/\\nearrow/g],
+    target: "S05_D10",
+    patterns: [
+      /\\mathsf\s*X_m\^\{\\mathrm\{odd\}\}/g,
+      /h_m\^\{\\mathrm\{odd\}\}/g,
+      /\\mathsf\s*X_(?:1|m|\{m-1\})(?!\^\{\\mathrm\{odd\}\})/g,
+      /z_(?:m|\{m-1\})/g,
+      /h_(?:m|\{m-1\})(?!\^\{\\mathrm\{odd\}\})/g,
+    ],
   },
   {
-    target: "S05_D23",
+    target: "S05_D11",
     patterns: [
-      /\\theta_\{?\\lambda\}?/g,
+      /A_M/g,
+      /\\tau_r/g,
+      /\\tau_x/g,
+      /\\chi_\{?R(?:_a)?\}?/g,
+      /\\chi_T(?=\(\\tau_x\))/g,
+    ],
+  },
+  {
+    target: "S05_D12",
+    patterns: [
+      /e_R\^M/g,
+      /p_M/g,
+      /q_M/g,
+      /C_a/g,
+      /C_q/g,
       /\\cA/g,
-      /\\E_M/g,
+    ],
+  },
+  {
+    target: "S05_D13",
+    patterns: [
+      /\\mathsf\s*E_m\^\{\\mathrm\{(?:even|odd)\}\}/g,
     ],
   },
 ];
@@ -471,7 +473,7 @@ function getDeps(node) {
   return (node.deps || [])
     .map((id) => nodeById.get(id))
     .filter(Boolean)
-    .filter((dep) => !section5DefinitionRoots.includes(dep.id))
+    .filter((dep) => !definitionRoots.includes(dep.id) && dep.kind !== "notation")
     .sort((a, b) => nodeWeight(a) - nodeWeight(b) || a.label.localeCompare(b.label));
 }
 
@@ -702,7 +704,7 @@ function renderStats() {
     <span><strong>${counts.total}</strong> nodes</span>
     <span><strong>${counts.proven || 0}</strong> proven</span>
     <span><strong>${counts.external || 0}</strong> external</span>
-    <span><strong>${section5DefinitionRoots.length}</strong> definition popovers</span>
+    <span><strong>${definitionRoots.length}</strong> numbered definition popovers</span>
   `;
 }
 
