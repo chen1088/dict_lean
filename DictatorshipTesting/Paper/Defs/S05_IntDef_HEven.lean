@@ -4,8 +4,8 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_HOdd`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_MatchingRestrictionEvenInput`
-- `DictatorshipTesting.Paper.S05_Lem5_30_CountingOneMoreMatchingEdge`
-- `DictatorshipTesting.Paper.S05_Lem5_33_EvenCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_23_CountingOneMoreMatchingEdge`
+- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
 -/
 
 

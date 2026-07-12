@@ -6,7 +6,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_11a_MatchingCharacters
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_12c_AveragedHighMatchingElement`
-- `DictatorshipTesting.Paper.S05_Lem5_23_LocalTruncationAsConvolution`
+- `DictatorshipTesting.Paper.S05_Lem5_19_LocalTruncationAsConvolution`
 -/
 
 

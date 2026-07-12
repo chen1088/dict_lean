@@ -6,14 +6,14 @@ import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Prop4_10_SquareEnergyControlsGlobalDegree`
+- `DictatorshipTesting.Paper.S04_Prop4_08_SquareEnergyControlsGlobalDegree`
 -/
 
 
 /-!
 # Lemma 4.1: Square test detects Fourier weight at least two
 
-This is `lem:cube-square` from `dictatorship_testing_soda27_latest.tex`.
+This is `lem:cube-square` from `dictatorship_testing_stoc27_latest.tex`.
 The dedicated spectral-formula and color-counting helpers are kept here because
 this paper lemma is their only direct user.
 -/

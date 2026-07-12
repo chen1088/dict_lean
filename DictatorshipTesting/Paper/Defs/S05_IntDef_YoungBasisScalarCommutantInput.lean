@@ -8,7 +8,7 @@ Direct reverse imports:
 /-!
 
 Status: definition/interface. This names the exact scalarity predicate used by
-the spectral bridge; Lemma 5.26 proves it for the concrete Young components.
+the spectral bridge; Lemma 5.22 proves it for the concrete Young components.
 -/
 
 noncomputable section

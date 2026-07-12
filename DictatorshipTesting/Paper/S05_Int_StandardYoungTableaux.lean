@@ -6,7 +6,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_09_OneBoxDeletionSpaces`
 - `DictatorshipTesting.Paper.S05_Int_TableauDimension`
 - `DictatorshipTesting.Paper.S05_Int_YoungAdjacentEntries`
-- `DictatorshipTesting.Paper.S05_Lem5_14_OneBoxCornerDecomposition`
+- `DictatorshipTesting.Paper.S05_Lem5_14_OneBoxDecompositionAndDeletion`
 -/
 
 

@@ -3,12 +3,12 @@ import DictatorshipTesting.Paper.Defs.S02_IntDef_IsDictator
 import DictatorshipTesting.Paper.Defs.S02_IntDef_DistToDictators
 import DictatorshipTesting.Paper.Defs.S03_IntDef_OneTrialRejectProbability
 import DictatorshipTesting.Paper.S03_Lem3_02_PerfectCompleteness
-import DictatorshipTesting.Paper.S04_Lem4_11_OneTrialSoundness
+import DictatorshipTesting.Paper.S04_Lem4_09_OneTrialSoundness
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Lem4_12_IndependentRepetitionAndAmplification`
+- `DictatorshipTesting.Paper.S04_Lem4_10_IndependentRepetitionAndAmplification`
 -/
 
 
@@ -486,6 +486,6 @@ theorem S01_Thm1_01_MainIntro :
             ε ≤ distToDictators f →
               tester.rejectsWithProbabilityAtLeast f ((2 : ℝ) / 3)) := by
   exact exists_dimensionFreeTester_of_oneTrialSoundness
-    S04_Lem4_11_OneTrialSoundness
+    S04_Lem4_09_OneTrialSoundness
 
 end DictatorshipTesting

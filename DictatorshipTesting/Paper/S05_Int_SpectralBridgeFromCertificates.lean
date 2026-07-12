@@ -1,18 +1,18 @@
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.S05_Lem5_25_BlockScalarOfTheAveragedRejection
+import DictatorshipTesting.Paper.S05_Lem5_21_BlockScalarOfTheAveragedRejection
 
 /-
 Direct reverse imports:
+- `DictatorshipTesting.Paper.S05_Int_BlockLowerBoundImpliesGap`
+- `DictatorshipTesting.Paper.S05_Int_EvenSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Int_OddSpectralBridge`
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeAlgebra`
-- `DictatorshipTesting.Paper.S05_Lem5_27_BlockLowerBoundImpliesTheGap`
-- `DictatorshipTesting.Paper.S05_Lem5_28_EvenSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Lem5_29_OddSpectralBridge`
 -/
 
 
 /-!
-Internal algebra for Lemmas 5.27--5.29 (`lem:block-lower-bound-gap`,
-`lem:spectral-certificate-even`, and `lem:spectral-certificate-odd`).
+Internal algebra for the unnumbered Section 5 reduction to block lower bounds
+and the proof of Theorem 4.6.
 -/
 
 /-!
@@ -24,7 +24,7 @@ projection error is the same sum weighted by block scalars bounded below by
 `c`, then the matching spectral gap with constant `c` follows.
 
 The concrete block energies and scalar identities are supplied by Lemmas 5.11,
-5.12, 5.25, and 5.26.
+5.12, 5.21, and 5.22.
 -/
 
 noncomputable section
@@ -51,7 +51,7 @@ theorem blockScalar_lower_bound_of_traceScalarFormula {n : ℕ}
   exact (le_div_iff₀ hdim_pos).mpr (hcert lam hnot_row hnot_std)
 
 /-- Dimension positivity plus the block trace identity imply the trace/scalar
-value formula. This is part of the algebraic helper for Lemmas 5.27--5.29. -/
+value formula. This is part of the algebraic helper for Theorem 4.6. -/
 theorem traceScalarValue_of_blockTraceIdentity {n : ℕ}
     {height theta : YoungDiagram n → ℝ}
     (hdim : YoungDimensionPositiveInput n)
@@ -95,7 +95,8 @@ theorem SpectralGapFromBlockScalars {n : ℕ} (c : ℝ)
 
 /-- Spectral gap from scalar lower bounds on every non-`U_1` Young block.
 
-This is the purely algebraic wrapper for Lemma 5.27: once the block energies,
+This is the purely algebraic wrapper for the unnumbered block-lower-bound
+reduction: once the block energies,
 `U_1` identification, matching-average scalarity, and scalar lower bounds are
 available, no representation theory remains. -/
 theorem SpectralGapFromBlockScalarLowerBounds {n : ℕ} (c : ℝ)

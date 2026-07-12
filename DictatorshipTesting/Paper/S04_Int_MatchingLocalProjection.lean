@@ -6,10 +6,10 @@ import DictatorshipTesting.Paper.S04_Lem4_02_PMIndependentOfRepresentatives
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents`
-- `DictatorshipTesting.Paper.S04_Lem4_03_PMFixesLocal`
-- `DictatorshipTesting.Paper.S04_Lem4_04_LocalHighDegreeErrorFormula`
-- `DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular`
-- `DictatorshipTesting.Paper.S05_Lem5_21_LocalTruncationOnAMatchingCharacter`
+- `DictatorshipTesting.Paper.S04_Int_LocalHighDegreeErrorFormula`
+- `DictatorshipTesting.Paper.S04_Int_PMFixesLocal`
+- `DictatorshipTesting.Paper.S04_Int_PMPerpendicular`
+- `DictatorshipTesting.Paper.S05_Lem5_17_LocalTruncationOnAMatchingCharacter`
 -/
 
 

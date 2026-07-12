@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.S05_IntInst_YoungDiagramFintype
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_Def5_13a_CertificateSpecialDiagrams`
+- `DictatorshipTesting.Paper.Defs.S05_IntDef_CertificateSpecialDiagrams`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungCells`
 -/
 

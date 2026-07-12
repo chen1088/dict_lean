@@ -5,10 +5,10 @@ import DictatorshipTesting.Paper.S05_Int_TableauDimension
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_04_TableauCoordinateSpace`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_05_ContentAndAdjacentOperators`
+- `DictatorshipTesting.Paper.S05_Int_OneBoxDeletionUnitary`
 - `DictatorshipTesting.Paper.S05_Int_YoungMatchingOperators`
 - `DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis`
 - `DictatorshipTesting.Paper.S05_Lem5_07_ConnectednessOfStandardTableaux`
-- `DictatorshipTesting.Paper.S05_Lem5_15_OneBoxDeletionIsUnitary`
 -/
 
 

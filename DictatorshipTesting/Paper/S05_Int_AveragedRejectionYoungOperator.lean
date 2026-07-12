@@ -6,7 +6,7 @@ Direct reverse imports:
 -/
 
 /-!
-Preparatory interface below Lemma 5.25.
+Preparatory interface below Lemma 5.21.
 
 This file names the operator-level object needed to turn the generic
 Young-basis scalar commutant theorem into the matching-average scalarity

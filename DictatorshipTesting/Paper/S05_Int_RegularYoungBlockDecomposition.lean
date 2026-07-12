@@ -5,12 +5,12 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_U1CompatibleYoungBlockProfile
 import DictatorshipTesting.Paper.Defs.S05_IntDef_TableauEvenHeight
 import DictatorshipTesting.Paper.Defs.S05_IntDef_TableauOddHeight
 import DictatorshipTesting.Paper.Defs.S05_Def5_12c_AveragedHighMatchingElement
-import DictatorshipTesting.Paper.S05_Lem5_22_TraceOfOneLocalTruncationOnOneYoungBlock
-import DictatorshipTesting.Paper.S05_Lem5_25_BlockScalarOfTheAveragedRejection
+import DictatorshipTesting.Paper.S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock
+import DictatorshipTesting.Paper.S05_Lem5_21_BlockScalarOfTheAveragedRejection
 import DictatorshipTesting.Paper.S05_Int_YoungTableauSumOfSquares
 import DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks
-import DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular
-import DictatorshipTesting.Paper.S04_Cor4_07_U1Local
+import DictatorshipTesting.Paper.S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection
+import DictatorshipTesting.Paper.S04_Cor4_05_U1Local
 import Mathlib.LinearAlgebra.Basis.Basic
 import DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction
 import DictatorshipTesting.Paper.S05_Thm5_05_JucysMurphyContentAction
@@ -20,12 +20,12 @@ import DictatorshipTesting.Paper.S05_Lem5_12_DegreeOneYoungBlockIdentification
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_06b_YoungMatrixCoefficients`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_06c_YoungBlockComponentsAndEnergies`
+- `DictatorshipTesting.Paper.S05_Int_EvenSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Int_OddSpectralBridge`
 - `DictatorshipTesting.Paper.S05_Lem5_09_YoungMatrixCoefficientOrthogonality`
 - `DictatorshipTesting.Paper.S05_Lem5_10_YoungTableauSumOfSquares`
 - `DictatorshipTesting.Paper.S05_Lem5_11_RegularYoungBlockDecomposition`
-- `DictatorshipTesting.Paper.S05_Lem5_26_GlobalWeightedMatchingIdentity`
-- `DictatorshipTesting.Paper.S05_Lem5_28_EvenSpectralBridge`
-- `DictatorshipTesting.Paper.S05_Lem5_29_OddSpectralBridge`
+- `DictatorshipTesting.Paper.S05_Lem5_22_GlobalWeightedMatchingIdentity`
 -/
 
 
@@ -135,9 +135,9 @@ theorem matchingLocalProjectionError_eq_permInner_highIdempotent
     matchingLocalProjectionError F M =
       permInner F (S05_matchingHighIdempotent M F) := by
   have hlocal :=
-    (S04_Lem4_05_PMPerpendicular F (matchingLocalProjection M F) M
-      (S04_Lem4_03_PMFixesLocal F M).1).2
-  rw [S05_Lem5_23_residual_eq_high_idempotent M F] at hlocal
+    (S04_Prop4_03_perpendicular F (matchingLocalProjection M F) M
+      (S04_Prop4_03_fixedSpace F M).1).2
+  rw [S05_Lem5_19_residual_eq_high_idempotent M F] at hlocal
   exact hlocal.symm
 
 /-- The averaged matching projection error is the quadratic form of right
@@ -148,7 +148,7 @@ theorem matchingMeanProjectionError_eq_inner_averagedHighConvolution
       permInner F
         (rightConvolution (S05_averagedHighMatchingElement n) F) := by
   classical
-  rw [S05_Lem5_24_matchingMeanProjectionError_eq_average]
+  rw [S05_Lem5_20_matchingMeanProjectionError_eq_average]
   simp_rw [matchingLocalProjectionError_eq_permInner_highIdempotent F]
   rw [S05_averagedHighMatchingElement_rightConvolution]
   unfold permInner
@@ -202,7 +202,7 @@ theorem matchingHighIdempotent_eq_zero_of_mem_U1
     (hF : F ∈ U1 α) :
     S05_matchingHighIdempotent M F = 0 := by
   change matchingHighConvolution M F = 0
-  rw [← (S05_Int_PMConvolution M F).2, (S04_Cor4_07_U1Local M F hF).2]
+  rw [← (S05_Int_PMConvolution M F).2, (S04_Cor4_05_U1Local M F hF).2]
   funext pi
   simp
 
@@ -1976,7 +1976,7 @@ theorem averagedHigh_youngBlockScalar_even
     action content T0 hdim]
   congr 1
   rw [S05_averagedRejectionYoungOperator_trace_eq_average_fixed]
-  simp_rw [S05_Lem5_22_fixedMatching_tableauTrace_even m lam action]
+  simp_rw [S05_Lem5_18_fixedMatching_tableauTrace_even m lam action]
   rw [Finset.sum_const, Finset.card_univ]
   simp only [nsmul_eq_mul]
   have hcard :
@@ -2000,7 +2000,7 @@ theorem averagedHigh_youngBlockScalar_odd
     action content T0 hdim]
   congr 1
   rw [S05_averagedRejectionYoungOperator_trace_eq_average_fixed]
-  simp_rw [S05_Lem5_22_fixedMatching_tableauTrace_odd m lam action]
+  simp_rw [S05_Lem5_18_fixedMatching_tableauTrace_odd m lam action]
   rw [Finset.sum_const, Finset.card_univ]
   simp only [nsmul_eq_mul]
   have hcard :

@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_HEven
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_TraceLocalTruncationEvenInput`
-- `DictatorshipTesting.Paper.S05_Lem5_20_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
 -/
 
 /-!

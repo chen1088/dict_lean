@@ -20,8 +20,8 @@ Direct reverse imports:
 # Spectral bridge representation inputs
 
 This file contains compatibility interface objects for the original `youngDim`
-spectral bridge.  The current paper route uses the dimension-parametric
-`tableauDim` bridge in Lemmas 5.27--5.29.
+spectral bridge. The current paper route uses the dimension-parametric
+`tableauDim` bridge in the proof of Theorem 4.6.
 -/
 
 noncomputable section

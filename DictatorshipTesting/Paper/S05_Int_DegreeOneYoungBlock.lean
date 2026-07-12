@@ -1,6 +1,6 @@
 import DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks
 import DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis
-import DictatorshipTesting.Paper.Defs.S05_Def5_13a_CertificateSpecialDiagrams
+import DictatorshipTesting.Paper.Defs.S05_IntDef_CertificateSpecialDiagrams
 import Mathlib.GroupTheory.Perm.Sign
 import Mathlib.Data.Finset.Sort
 

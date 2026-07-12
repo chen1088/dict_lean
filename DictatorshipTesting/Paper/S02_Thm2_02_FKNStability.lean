@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Defs.S02_IntDef_L2DistSqToU1
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Lem4_11_OneTrialSoundness`
+- `DictatorshipTesting.Paper.S04_Lem4_09_OneTrialSoundness`
 -/
 
 
@@ -18,7 +18,7 @@ Status: external: Filmus FKN/stability theorem.
 # Stability input for Theorem 2.2
 
 This file isolates the imported FKN/stability theorem used by the active
-soundness proof.  Lemma 4.11 consumes exactly the wrapper `S02_Thm2_02_FKNStability`.
+soundness proof.  Lemma 4.7 consumes exactly the wrapper `S02_Thm2_02_FKNStability`.
 -/
 
 namespace DictatorshipTesting

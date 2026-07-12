@@ -3,8 +3,8 @@ import DictatorshipTesting.Paper.Defs.S04_Def4_02a_MatchingLocalProjection
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S03_IntDef_NearPerfectMatching`
-- `DictatorshipTesting.Paper.S04_Lem4_04_LocalHighDegreeErrorFormula`
-- `DictatorshipTesting.Paper.S04_Lem4_05_PMPerpendicular`
+- `DictatorshipTesting.Paper.S04_Int_LocalHighDegreeErrorFormula`
+- `DictatorshipTesting.Paper.S04_Int_PMPerpendicular`
 -/
 
 

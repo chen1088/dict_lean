@@ -5,7 +5,7 @@ import DictatorshipTesting.Paper.S05_Int_TableauDimension
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_TableauOddHeight`
 - `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
-- `DictatorshipTesting.Paper.S05_Lem5_33_EvenCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
 -/
 
 /-!

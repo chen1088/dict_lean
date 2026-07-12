@@ -15,7 +15,7 @@ Focused builds use the module target, for example:
 
 ```bash
 lake build +DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction:olean
-lake build +DictatorshipTesting.Paper.S05_Lem5_26_GlobalWeightedMatchingIdentity:olean
+lake build +DictatorshipTesting.Paper.S05_Lem5_22_GlobalWeightedMatchingIdentity:olean
 ```
 
 ## Paper Maps
@@ -28,7 +28,7 @@ lake build +DictatorshipTesting.Paper.S05_Lem5_26_GlobalWeightedMatchingIdentity
 - `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`
 - `DictatorshipTesting/Paper/DEFINITION_FILE_MAP.md`
 
-Section 5 contains 13 numbered definitions and 35 numbered results. Grouped
+Section 5 contains 12 numbered definitions and 26 numbered results. Grouped
 paper definitions use letter-suffixed files, such as `S05_Def5_07a_*` through
 `S05_Def5_07c_*`, while retaining one paper definition number.
 
@@ -39,9 +39,13 @@ The representation-theory results are part of Section 5:
 - Lemma 5.12 identifies the degree-one Young blocks.
 
 The concrete regular block decomposition and global weighted matching identity
-are proved internally and exposed as Lemmas 5.11 and 5.26. The operational
+are proved internally and exposed as Lemmas 5.11 and 5.22. The operational
 finite-seed tester, independent repetition, small-rank exhaustive tester, and
 dimension-free amplification are also formalized.
+
+The compiled paper contains 16 numbered definitions and 42 theorem-like
+statements. Proposition 4.3 collects the three matching-local projection facts;
+the corresponding proof components remain in internal modules.
 
 ## Assumptions
 

@@ -5,7 +5,7 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_JucysMurphyContentActionData`
 - `DictatorshipTesting.Paper.S05_Int_AdjacentCoxeterPresentation`
 - `DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks`
-- `DictatorshipTesting.Paper.S05_Lem5_20_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
 - `DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction`
 -/
 

@@ -6,9 +6,9 @@ import DictatorshipTesting.Paper.S02_Int_CubeCharXor
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents`
-- `DictatorshipTesting.Paper.S05_Lem5_19_SizesOfTheSignPatternMultisets`
-- `DictatorshipTesting.Paper.S05_Lem5_20_MatchingSubgroupEigenbasis`
-- `DictatorshipTesting.Paper.S05_Lem5_21_LocalTruncationOnAMatchingCharacter`
+- `DictatorshipTesting.Paper.S05_Int_SignPatternCardinalities`
+- `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_17_LocalTruncationOnAMatchingCharacter`
 -/
 
 

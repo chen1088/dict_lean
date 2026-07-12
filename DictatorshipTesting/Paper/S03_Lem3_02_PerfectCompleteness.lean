@@ -12,7 +12,7 @@ Direct reverse imports:
 # Lemma 3.2: Perfect completeness
 
 This is the cube-level cancellation used in `lem:perfect-completeness` from
-`dictatorship_testing_soda27_latest.tex`.
+`dictatorship_testing_stoc27_latest.tex`.
 -/
 
 namespace DictatorshipTesting

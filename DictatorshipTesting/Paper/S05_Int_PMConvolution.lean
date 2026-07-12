@@ -5,7 +5,7 @@ import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents`
-- `DictatorshipTesting.Paper.S05_Lem5_23_LocalTruncationAsConvolution`
+- `DictatorshipTesting.Paper.S05_Lem5_19_LocalTruncationAsConvolution`
 -/
 
 

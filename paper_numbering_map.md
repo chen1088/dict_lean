@@ -11,10 +11,10 @@ paper numbers.
 | 1 | 0 | 1 | `DictatorshipTesting/Paper/SECTION1_FILE_MAP.md` |
 | 2 | 2 | 3 | `DictatorshipTesting/Paper/SECTION2_FILE_MAP.md` |
 | 3 | 0 | 2 | `DictatorshipTesting/Paper/SECTION3_FILE_MAP.md` |
-| 4 | 2 | 12 | `DictatorshipTesting/Paper/SECTION4_FILE_MAP.md` |
-| 5 | 13 | 35 | `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md` |
+| 4 | 2 | 10 | `DictatorshipTesting/Paper/SECTION4_FILE_MAP.md` |
+| 5 | 12 | 26 | `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md` |
 
-Totals: 17 numbered definitions and 53 theorem-like statements.
+Totals: 16 numbered definitions and 42 theorem-like statements.
 
 The complete grouped-definition module map is
 `DictatorshipTesting/Paper/DEFINITION_FILE_MAP.md`. Internal modules named

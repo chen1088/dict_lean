@@ -1,12 +1,12 @@
 import DictatorshipTesting.Paper.Defs.S05_Def5_07b_SignedTwoBoxRemovals
 import DictatorshipTesting.Paper.S05_Int_TableauDimension
-import DictatorshipTesting.Paper.S05_Lem5_15_OneBoxDeletionIsUnitary
-import DictatorshipTesting.Paper.S05_Lem5_16_OneBoxDeletionIntertwinesEarlierSwaps
+import DictatorshipTesting.Paper.S05_Int_OneBoxDeletionUnitary
+import DictatorshipTesting.Paper.S05_Int_OneBoxDeletionIntertwining
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_20_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
 -/
 
 
@@ -105,7 +105,7 @@ theorem S05_Lem5_13_first_deletion_tableauContentSequence
     (a : Fin (n + 1)) :
     tableauContentSequence (S05_Lem5_13_deleteFirstMaxAsTableau h hr T hu) a =
       tableauContentSequence T (Fin.castSucc a) := by
-  exact S05_Lem5_16_deleteMax_tableauContentSequence
+  exact S05_oneBoxIntertwining_deleteMax_tableauContentSequence
     h hr (deletedCornerCellOfOneBoxChildRow h hr)
     (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) T hu a
 
@@ -125,7 +125,7 @@ theorem S05_Lem5_13_first_deletion_childCellToParent_cellOfEntry
       (cellOfEntry (S05_Lem5_13_deleteFirstMaxAsTableau h hr T hu) a)
       =
     cellOfEntry T (Fin.castSucc a) := by
-  exact S05_Lem5_16_childCellToParent_cellOfEntry_deleteMax
+  exact S05_oneBoxIntertwining_childCellToParent_cellOfEntry_deleteMax
     h hr (deletedCornerCellOfOneBoxChildRow h hr)
     (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) T hu a
 
@@ -145,7 +145,7 @@ theorem S05_Lem5_13_first_deletion_cellOfEntry_row
       (cellOfEntry (S05_Lem5_13_deleteFirstMaxAsTableau h hr T hu) a)
       =
     YoungCell.row (cellOfEntry T (Fin.castSucc a)) := by
-  exact S05_Lem5_16_deleteMax_cellOfEntry_row
+  exact S05_oneBoxIntertwining_deleteMax_cellOfEntry_row
     h hr (deletedCornerCellOfOneBoxChildRow h hr)
     (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) T hu a
 
@@ -165,7 +165,7 @@ theorem S05_Lem5_13_first_deletion_cellOfEntry_col
       (cellOfEntry (S05_Lem5_13_deleteFirstMaxAsTableau h hr T hu) a)
       =
     YoungCell.col (cellOfEntry T (Fin.castSucc a)) := by
-  exact S05_Lem5_16_deleteMax_cellOfEntry_col
+  exact S05_oneBoxIntertwining_deleteMax_cellOfEntry_col
     h hr (deletedCornerCellOfOneBoxChildRow h hr)
     (deletedCornerCell_row h hr) (deletedCornerCell_col h hr) T hu a
 
@@ -219,7 +219,7 @@ theorem S05_Lem5_13_second_deletion_tableauContentSequence
       =
     tableauContentSequence
         (S05_Lem5_13_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) (Fin.castSucc a) := by
-  exact S05_Lem5_16_deleteMax_tableauContentSequence
+  exact S05_oneBoxIntertwining_deleteMax_tableauContentSequence
     h₂ hr₂ (deletedCornerCellOfOneBoxChildRow h₂ hr₂)
     (deletedCornerCell_row h₂ hr₂) (deletedCornerCell_col h₂ hr₂)
     (S05_Lem5_13_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) hu₂ a
@@ -249,7 +249,7 @@ theorem S05_Lem5_13_second_deletion_childCellToParent_cellOfEntry
       =
     cellOfEntry
       (S05_Lem5_13_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) (Fin.castSucc a) := by
-  exact S05_Lem5_16_childCellToParent_cellOfEntry_deleteMax
+  exact S05_oneBoxIntertwining_childCellToParent_cellOfEntry_deleteMax
     h₂ hr₂ (deletedCornerCellOfOneBoxChildRow h₂ hr₂)
     (deletedCornerCell_row h₂ hr₂) (deletedCornerCell_col h₂ hr₂)
     (S05_Lem5_13_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) hu₂ a
@@ -280,7 +280,7 @@ theorem S05_Lem5_13_second_deletion_cellOfEntry_row
     YoungCell.row
       (cellOfEntry
         (S05_Lem5_13_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) (Fin.castSucc a)) := by
-  exact S05_Lem5_16_deleteMax_cellOfEntry_row
+  exact S05_oneBoxIntertwining_deleteMax_cellOfEntry_row
     h₂ hr₂ (deletedCornerCellOfOneBoxChildRow h₂ hr₂)
     (deletedCornerCell_row h₂ hr₂) (deletedCornerCell_col h₂ hr₂)
     (S05_Lem5_13_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) hu₂ a
@@ -311,7 +311,7 @@ theorem S05_Lem5_13_second_deletion_cellOfEntry_col
     YoungCell.col
       (cellOfEntry
         (S05_Lem5_13_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) (Fin.castSucc a)) := by
-  exact S05_Lem5_16_deleteMax_cellOfEntry_col
+  exact S05_oneBoxIntertwining_deleteMax_cellOfEntry_col
     h₂ hr₂ (deletedCornerCellOfOneBoxChildRow h₂ hr₂)
     (deletedCornerCell_row h₂ hr₂) (deletedCornerCell_col h₂ hr₂)
     (S05_Lem5_13_deleteFirstMaxAsTableau h₁ hr₁ T hu₁) hu₂ a
@@ -454,10 +454,10 @@ theorem S05_Lem5_13_twoBoxExtensionTableau_eq_insertMax_twice
     (p : TwoStepRemovableRows lam)
     (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
     S05_Lem5_13_twoBoxExtensionTableau lam p U =
-      S05_Lem5_15_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+      S05_oneBoxDeletion_insertMaxAsStandardYoungTableauOfOneBoxChildRow
         (twoStepFirstChild_isOneBoxChild lam p)
         (twoStepFirstChild_row_form lam p)
-        (S05_Lem5_15_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+        (S05_oneBoxDeletion_insertMaxAsStandardYoungTableauOfOneBoxChildRow
           (twoStepSecondChild_isOneBoxChild lam p)
           (twoStepSecondChild_row_form lam p) U) := by
   rfl
@@ -473,8 +473,8 @@ theorem S05_Lem5_13_twoBoxExtensionTableau_earlier_sameRow_iff
         (Fin.castSucc (Fin.castSucc a)) ↔
       adjacentSameRow U a := by
   rw [S05_Lem5_13_twoBoxExtensionTableau_eq_insertMax_twice]
-  rw [S05_Lem5_16_insertMax_adjacentSameRow_iff,
-    S05_Lem5_16_insertMax_adjacentSameRow_iff]
+  rw [S05_oneBoxIntertwining_insertMax_adjacentSameRow_iff,
+    S05_oneBoxIntertwining_insertMax_adjacentSameRow_iff]
 
 /-- Two-box extension preserves the same-column test for every adjacent pair
 that belongs to the child tableau. -/
@@ -487,8 +487,8 @@ theorem S05_Lem5_13_twoBoxExtensionTableau_earlier_sameCol_iff
         (Fin.castSucc (Fin.castSucc a)) ↔
       adjacentSameCol U a := by
   rw [S05_Lem5_13_twoBoxExtensionTableau_eq_insertMax_twice]
-  rw [S05_Lem5_16_insertMax_adjacentSameCol_iff,
-    S05_Lem5_16_insertMax_adjacentSameCol_iff]
+  rw [S05_oneBoxIntertwining_insertMax_adjacentSameCol_iff,
+    S05_oneBoxIntertwining_insertMax_adjacentSameCol_iff]
 
 /-- Two-box extension preserves the diagonal Young coefficient for every
 adjacent pair that belongs to the child tableau. -/
@@ -503,15 +503,15 @@ theorem S05_Lem5_13_twoBoxExtensionTableau_earlier_diagCoeff
   rw [S05_Lem5_13_twoBoxExtensionTableau_eq_insertMax_twice]
   calc
     _ = youngAdjacentDiagCoeff
-        (S05_Lem5_15_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+        (S05_oneBoxDeletion_insertMaxAsStandardYoungTableauOfOneBoxChildRow
           (twoStepSecondChild_isOneBoxChild lam p)
           (twoStepSecondChild_row_form lam p) U)
         (Fin.castSucc a) :=
-      (S05_Lem5_16_insertMax_youngAdjacentDiagCoeff
+      (S05_oneBoxIntertwining_insertMax_youngAdjacentDiagCoeff
         (twoStepFirstChild_isOneBoxChild lam p)
         (twoStepFirstChild_row_form lam p) _ (Fin.castSucc a)).symm
     _ = youngAdjacentDiagCoeff U a :=
-      (S05_Lem5_16_insertMax_youngAdjacentDiagCoeff
+      (S05_oneBoxIntertwining_insertMax_youngAdjacentDiagCoeff
         (twoStepSecondChild_isOneBoxChild lam p)
         (twoStepSecondChild_row_form lam p) U a).symm
 
@@ -528,15 +528,15 @@ theorem S05_Lem5_13_twoBoxExtensionTableau_earlier_offCoeff
   rw [S05_Lem5_13_twoBoxExtensionTableau_eq_insertMax_twice]
   calc
     _ = youngAdjacentOffCoeff
-        (S05_Lem5_15_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+        (S05_oneBoxDeletion_insertMaxAsStandardYoungTableauOfOneBoxChildRow
           (twoStepSecondChild_isOneBoxChild lam p)
           (twoStepSecondChild_row_form lam p) U)
         (Fin.castSucc a) :=
-      (S05_Lem5_16_insertMax_youngAdjacentOffCoeff
+      (S05_oneBoxIntertwining_insertMax_youngAdjacentOffCoeff
         (twoStepFirstChild_isOneBoxChild lam p)
         (twoStepFirstChild_row_form lam p) _ (Fin.castSucc a)).symm
     _ = youngAdjacentOffCoeff U a :=
-      (S05_Lem5_16_insertMax_youngAdjacentOffCoeff
+      (S05_oneBoxIntertwining_insertMax_youngAdjacentOffCoeff
         (twoStepSecondChild_isOneBoxChild lam p)
         (twoStepSecondChild_row_form lam p) U a).symm
 
@@ -562,53 +562,53 @@ theorem S05_Lem5_13_twoBoxExtensionTableau_earlier_swap
           exact hcol
             ((S05_Lem5_13_twoBoxExtensionTableau_earlier_sameCol_iff
               lam p U a).1 hp)) := by
-  let U1 := S05_Lem5_15_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+  let U1 := S05_oneBoxDeletion_insertMaxAsStandardYoungTableauOfOneBoxChildRow
     (twoStepSecondChild_isOneBoxChild lam p)
     (twoStepSecondChild_row_form lam p) U
   have hrow1 : ¬ adjacentSameRow U1 (Fin.castSucc a) := by
     intro hp
-    exact hrow ((S05_Lem5_16_insertMax_adjacentSameRow_iff
+    exact hrow ((S05_oneBoxIntertwining_insertMax_adjacentSameRow_iff
       (twoStepSecondChild_isOneBoxChild lam p)
       (twoStepSecondChild_row_form lam p) U a).1 hp)
   have hcol1 : ¬ adjacentSameCol U1 (Fin.castSucc a) := by
     intro hp
-    exact hcol ((S05_Lem5_16_insertMax_adjacentSameCol_iff
+    exact hcol ((S05_oneBoxIntertwining_insertMax_adjacentSameCol_iff
       (twoStepSecondChild_isOneBoxChild lam p)
       (twoStepSecondChild_row_form lam p) U a).1 hp)
-  have hsecond := S05_Lem5_16_insertMax_adjacentSwapTableau
+  have hsecond := S05_oneBoxIntertwining_insertMax_adjacentSwapTableau
     (twoStepSecondChild_isOneBoxChild lam p)
     (twoStepSecondChild_row_form lam p) U a hrow hcol
-  have hfirst := S05_Lem5_16_insertMax_adjacentSwapTableau
+  have hfirst := S05_oneBoxIntertwining_insertMax_adjacentSwapTableau
     (twoStepFirstChild_isOneBoxChild lam p)
     (twoStepFirstChild_row_form lam p) U1 (Fin.castSucc a) hrow1 hcol1
   calc
     S05_Lem5_13_twoBoxExtensionTableau lam p
         (adjacentSwapTableau U a hrow hcol) =
-      S05_Lem5_15_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+      S05_oneBoxDeletion_insertMaxAsStandardYoungTableauOfOneBoxChildRow
         (twoStepFirstChild_isOneBoxChild lam p)
         (twoStepFirstChild_row_form lam p)
-        (S05_Lem5_15_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+        (S05_oneBoxDeletion_insertMaxAsStandardYoungTableauOfOneBoxChildRow
           (twoStepSecondChild_isOneBoxChild lam p)
           (twoStepSecondChild_row_form lam p)
           (adjacentSwapTableau U a hrow hcol)) :=
       S05_Lem5_13_twoBoxExtensionTableau_eq_insertMax_twice lam p _
-    _ = S05_Lem5_15_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+    _ = S05_oneBoxDeletion_insertMaxAsStandardYoungTableauOfOneBoxChildRow
         (twoStepFirstChild_isOneBoxChild lam p)
         (twoStepFirstChild_row_form lam p)
         (adjacentSwapTableau U1 (Fin.castSucc a) hrow1 hcol1) := by
       exact congrArg
-        (S05_Lem5_15_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+        (S05_oneBoxDeletion_insertMaxAsStandardYoungTableauOfOneBoxChildRow
           (twoStepFirstChild_isOneBoxChild lam p)
           (twoStepFirstChild_row_form lam p)) hsecond
     _ = adjacentSwapTableau
-        (S05_Lem5_15_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+        (S05_oneBoxDeletion_insertMaxAsStandardYoungTableauOfOneBoxChildRow
           (twoStepFirstChild_isOneBoxChild lam p)
           (twoStepFirstChild_row_form lam p) U1)
         (Fin.castSucc (Fin.castSucc a)) _ _ := hfirst
     _ = adjacentSwapTableau (S05_Lem5_13_twoBoxExtensionTableau lam p U)
         (Fin.castSucc (Fin.castSucc a)) _ _ := by
       have hbase :
-          S05_Lem5_15_insertMaxAsStandardYoungTableauOfOneBoxChildRow
+          S05_oneBoxDeletion_insertMaxAsStandardYoungTableauOfOneBoxChildRow
               (twoStepFirstChild_isOneBoxChild lam p)
               (twoStepFirstChild_row_form lam p) U1 =
             S05_Lem5_13_twoBoxExtensionTableau lam p U := by

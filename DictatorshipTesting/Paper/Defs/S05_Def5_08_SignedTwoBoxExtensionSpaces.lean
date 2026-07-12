@@ -3,7 +3,7 @@ Direct reverse imports:
 - `DictatorshipTesting`
 -/
 
-import DictatorshipTesting.Paper.S05_Lem5_20_MatchingSubgroupEigenbasis
+import DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis
 
 /-!
 Paper statement: Definition 5.8 `def:signed-two-box-extension-spaces`
