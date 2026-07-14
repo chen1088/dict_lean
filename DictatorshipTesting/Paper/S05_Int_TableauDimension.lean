@@ -11,10 +11,8 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_TwoBoxDimensionRecursion`
 - `DictatorshipTesting.Paper.S05_Int_YoungOrthogonal`
 - `DictatorshipTesting.Paper.S05_Int_YoungTableauSumOfSquares`
-- `DictatorshipTesting.Paper.S05_Lem5_13_SignedTwoBoxOrthogonalBranching`
+- `DictatorshipTesting.Paper.S05_Lem5_10_SignedTwoBoxOrthogonalBranching`
 -/
-
-
 /-!
 # Tableau-count dimension
 

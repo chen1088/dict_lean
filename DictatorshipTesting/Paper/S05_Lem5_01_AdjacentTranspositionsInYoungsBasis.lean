@@ -7,13 +7,11 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_AdjacentCoxeterPresentation`
 - `DictatorshipTesting.Paper.S05_Int_DegreeOneYoungBlock`
 - `DictatorshipTesting.Paper.S05_Int_JucysMurphyContentAction`
-- `DictatorshipTesting.Paper.S05_Lem5_02_TypeAAdjacentWordPresentation`
-- `DictatorshipTesting.Paper.S05_Lem5_04_JucysMurphyRecurrences`
-- `DictatorshipTesting.Paper.S05_Lem5_06_DiagonalContentEigenspaces`
-- `DictatorshipTesting.Paper.S05_Lem5_14_OneBoxDecompositionAndDeletion`
+- `DictatorshipTesting.Paper.S05_Lem5_04_ContentSeparationAndTableauConnectivity`
+- `DictatorshipTesting.Paper.S05_Lem5_11_OneBoxDecompositionAndDeletion`
+- `DictatorshipTesting.Paper.S05_Thm5_02_YoungOrthogonalAction`
+- `DictatorshipTesting.Paper.S05_Thm5_03_JucysMurphyContentAction`
 -/
-
-
 /-!
 Paper statement: Lemma 5.1 (`lem:young-adjacent-matrices`)
 Title in paper: Tableau Coxeter model for adjacent transpositions.

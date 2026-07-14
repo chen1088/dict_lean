@@ -8,12 +8,10 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_07b_SignedTwoBoxRemovals`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_08_SignedTwoBoxExtensionSpaces`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset`
-- `DictatorshipTesting.Paper.S05_Lem5_10_YoungTableauSumOfSquares`
-- `DictatorshipTesting.Paper.S05_Lem5_13_SignedTwoBoxOrthogonalBranching`
-- `DictatorshipTesting.Paper.S05_Lem5_14_OneBoxDecompositionAndDeletion`
+- `DictatorshipTesting.Paper.S05_Lem5_07_YoungTableauSumOfSquares`
+- `DictatorshipTesting.Paper.S05_Lem5_10_SignedTwoBoxOrthogonalBranching`
+- `DictatorshipTesting.Paper.S05_Lem5_11_OneBoxDecompositionAndDeletion`
 -/
-
-
 /-!
 Paper statement: Definition 5.7 part (a) `def:branching-data`
 Title in paper: Branching data.

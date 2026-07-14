@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.S05_Int_YoungMatchingOperators
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_13_MatchingSubgroupEigenbasis`
 -/
 
 /-!

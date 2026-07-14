@@ -1,4 +1,4 @@
-import DictatorshipTesting.Paper.Defs.S04_Def4_02b_MatchingLocalProjectionError
+import DictatorshipTesting.Paper.Defs.S04_Def4_01_MatchingLocalDegreeOneAndProjection
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S03_IntDef_NearPerfectMatchingToOrdered`

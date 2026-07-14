@@ -4,7 +4,6 @@ import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
 Direct reverse imports:
 - none
 -/
-
 /-!
 
 Status: definition/interface. This is the numerical interface saying that the

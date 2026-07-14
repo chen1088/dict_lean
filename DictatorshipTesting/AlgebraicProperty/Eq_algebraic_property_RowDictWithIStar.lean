@@ -4,8 +4,6 @@ import DictatorshipTesting.AlgebraicProperty.Eq_algebraic_property_RowDict
 Direct reverse imports:
 - `DictatorshipTesting.AlgebraicProperty`
 -/
-
-
 open scoped BigOperators
 
 namespace DictatorshipTesting

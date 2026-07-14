@@ -1,12 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S02_Def2_01_FiniteSeedTester
-import DictatorshipTesting.Paper.S04_Lem4_10_IndependentRepetitionAndAmplification
+import DictatorshipTesting.Paper.S04_Lem4_07_IndependentRepetition
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 -/
-
-
 /-!
 # Theorem 1.1: Main theorem
 
@@ -32,7 +30,7 @@ theorem S01_Thm1_01_MainIntro :
           (∀ f : BoolFn (Fin n),
             ε ≤ distToDictators f →
               tester.rejectsWithProbabilityAtLeast f ((2 : ℝ) / 3)) := by
-  exact S04_Lem4_10_dimension_free_amplification
-    S04_Lem4_09_OneTrialSoundness
+  exact S04_Lem4_07_dimension_free_amplification
+    S04_Lem4_06_OneTrialSoundness
 
 end DictatorshipTesting

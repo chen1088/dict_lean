@@ -3,12 +3,10 @@ import DictatorshipTesting.Paper.S05_Int_TableauDimension
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_SignPatternCardinalities`
-- `DictatorshipTesting.Paper.S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities`
+- `DictatorshipTesting.Paper.S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities`
 -/
-
-
 /-!
-Internal proof of the one-box part of Lemma 5.15.
+Internal proof of the one-box part of Lemma 5.12.
 
 Status: proven. The paper-facing Section 5 route uses the assumption-free
 `tableauDim` one-box recursion proved below.  The older `youngDim` wrapper is

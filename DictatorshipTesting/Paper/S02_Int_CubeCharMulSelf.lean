@@ -7,8 +7,6 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality`
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion`
 -/
-
-
 namespace DictatorshipTesting
 
 /-- A Boolean-cube character squares to `1`. -/

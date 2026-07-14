@@ -4,10 +4,8 @@ import DictatorshipTesting.Paper.S02_Int_CubeCharXor
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare`
-- `DictatorshipTesting.Paper.S04_Lem4_02_PMIndependentOfRepresentatives`
+- `DictatorshipTesting.Paper.S04_Prop4_02_CosetwiseDescriptionOfPM`
 -/
-
-
 /-!
 # Fourier coefficients under cube translations
 -/

@@ -12,8 +12,8 @@ The Section 5 Young action, Jucys--Murphy content action, degree-one block
 identification, matching spectral bridge, finite certificates, and tester
 amplification are ordinary Lean theorems.
 
-The paper-facing inventory matches the compiled STOC 2027 source: 16 numbered
-definitions and 42 theorem-like statements.
+The paper-facing inventory matches the shortened STOC 2027 source: 15 numbered
+definitions and 33 theorem-like statements.
 
 Verification commands:
 

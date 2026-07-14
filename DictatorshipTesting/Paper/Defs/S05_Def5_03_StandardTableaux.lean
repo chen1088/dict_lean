@@ -6,11 +6,9 @@ Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_04_TableauCoordinateSpace`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_09_OneBoxDeletionSpaces`
-- `DictatorshipTesting.Paper.S05_Lem5_07_ConnectednessOfStandardTableaux`
-- `DictatorshipTesting.Paper.S05_Lem5_13_SignedTwoBoxOrthogonalBranching`
+- `DictatorshipTesting.Paper.S05_Lem5_04_ContentSeparationAndTableauConnectivity`
+- `DictatorshipTesting.Paper.S05_Lem5_10_SignedTwoBoxOrthogonalBranching`
 -/
-
-
 /-!
 Paper statement: Definition 5.3 (`def:standard-tableaux`)
 Title in paper: Standard Young tableaux and occupation notation.

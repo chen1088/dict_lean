@@ -11,8 +11,6 @@ Direct reverse imports:
 - `DictatorshipTesting.Basic.Aux_RowDictAsCosetSumEqRowDict`
 - `DictatorshipTesting.Paper.Defs.S02_IntDef_BoolFn`
 -/
-
-
 /-!
 # Basic objects for dictatorship testing over `S_n`
 

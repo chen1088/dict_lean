@@ -9,8 +9,6 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_12d_TableauOperatorTrace`
 - `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
 -/
-
-
 /-!
 Paper statement: Definition 5.4 (`def:tableau-coordinate-space`)
 Title in paper: Tableau coordinate space.

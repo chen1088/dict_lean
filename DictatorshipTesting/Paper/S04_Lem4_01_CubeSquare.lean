@@ -8,15 +8,12 @@ import DictatorshipTesting.Paper.Defs.S02_Def2_02a_CubeLowDegreeOnePart
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Lem4_07_TrialCubeCoordinates`
-- `DictatorshipTesting.Paper.S04_Prop4_08_SquareEnergyControlsGlobalDegree`
+- `DictatorshipTesting.Paper.S04_Prop4_05_SquareEnergyControlsGlobalDegree`
 -/
-
-
 /-!
 # Lemma 4.1: Square test detects Fourier weight at least two
 
-This is `lem:cube-square` from `dictatorship_testing_stoc27_latest.tex`.
+This is `lem:cube-square` from `dictatorship_testing_stoc27_shortened.tex`.
 The dedicated spectral-formula and color-counting helpers are kept here because
 this paper lemma is their only direct user.
 -/

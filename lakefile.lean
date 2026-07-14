@@ -1,4 +1,9 @@
 import Lake
+
+/-
+Direct reverse imports:
+- none
+-/
 open Lake DSL
 
 package «dict_lean» where

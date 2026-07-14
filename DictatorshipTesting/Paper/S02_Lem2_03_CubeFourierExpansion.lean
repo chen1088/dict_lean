@@ -8,8 +8,6 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity`
 - `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 -/
-
-
 /-!
 # Lemma 2.3: cube Fourier expansion
 

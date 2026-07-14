@@ -3,7 +3,7 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_07a_TwoBoxRemovals
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_13_SignedTwoBoxOrthogonalBranching`
+- `DictatorshipTesting.Paper.S05_Lem5_10_SignedTwoBoxOrthogonalBranching`
 -/
 
 
@@ -12,7 +12,7 @@ Paper statement: Definition 5.7 part (b) `def:branching-data`
 Title in paper: Branching data.
 
 Status: definition/interface. The two signed branches are represented by the
-horizontal and vertical two-strip child sets used by Lemma 5.13.
+horizontal and vertical two-strip child sets used by Lemma 5.10.
 -/
 
 noncomputable section

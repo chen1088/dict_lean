@@ -3,11 +3,10 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_OneBoxChildrenOdd
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_24_WeightZeroEntriesAreNeverAMajority`
-- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
-- `DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_18_WeightZeroEntriesAreNeverAMajority`
+- `DictatorshipTesting.Paper.S05_Lem5_19_EvenCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_20_OddCertificate`
 -/
-
 /-!
 Internal predicates naming the finite-certificate child obstructions and
 exceptional shapes used in Lemmas 5.23--5.26.

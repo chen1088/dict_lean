@@ -4,28 +4,26 @@ import DictatorshipTesting.Paper.S05_Int_YoungTableauSumOfSquares
 import DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks
 import DictatorshipTesting.Paper.Defs.S05_Def5_04_TableauCoordinateSpace
 import Mathlib.LinearAlgebra.Basis.Basic
-import DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction
-import DictatorshipTesting.Paper.S05_Thm5_05_JucysMurphyContentAction
-import DictatorshipTesting.Paper.S05_Lem5_06_DiagonalContentEigenspaces
-import DictatorshipTesting.Paper.S05_Lem5_08_YoungBasisScalarCommutant
+import DictatorshipTesting.Paper.S05_Thm5_02_YoungOrthogonalAction
+import DictatorshipTesting.Paper.S05_Thm5_03_JucysMurphyContentAction
+import DictatorshipTesting.Paper.S05_Lem5_04_ContentSeparationAndTableauConnectivity
+import DictatorshipTesting.Paper.S05_Lem5_05_YoungBasisScalarCommutant
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_06b_YoungMatrixCoefficients`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_06c_YoungBlockComponentsAndEnergies`
-- `DictatorshipTesting.Paper.S04_Thm4_06_MatchingGap`
-- `DictatorshipTesting.Paper.S05_Lem5_09_YoungMatrixCoefficientOrthogonality`
-- `DictatorshipTesting.Paper.S05_Lem5_11_RegularYoungBlockDecomposition`
-- `DictatorshipTesting.Paper.S05_Lem5_22_GlobalWeightedMatchingIdentity`
+- `DictatorshipTesting.Paper.S04_Thm4_04_MatchingGap`
+- `DictatorshipTesting.Paper.S05_Lem5_06_YoungMatrixCoefficientOrthogonality`
+- `DictatorshipTesting.Paper.S05_Lem5_08_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Prop5_16_AveragedRejectionOnYoungBlocks`
 -/
-
-
 /-!
 
 Internal regular-representation machinery for Lemmas 5.9--5.11. This file
 proves matrix-coefficient orthogonality and constructs the concrete Young-block
 decomposition. The later `U1` and matching-weighted arguments live in their
-numbered Lemma 5.12 and Lemma 5.22 modules, so this implementation module has
+numbered Lemma 5.9 and Proposition 5.16 modules, so this implementation module has
 no forward dependency on them.
 -/
 
@@ -435,7 +433,7 @@ theorem youngAveragedRankOne_scalar_on_basis
       fun W =>
         (youngAveragedRankOneCommutationData action content T V).basisScalar T0 *
           tableauBasisVec U W := by
-  exact S05_Lem5_08_youngModelOperator_scalar_on_basis
+  exact S05_Lem5_05_youngModelOperator_scalar_on_basis
     (youngAveragedRankOneCommutationData action content T V) T0 U
 
 /-- The trace determines the scalar of the conjugation-averaged rank-one

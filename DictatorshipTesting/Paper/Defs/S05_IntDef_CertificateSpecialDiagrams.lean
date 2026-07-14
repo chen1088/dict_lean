@@ -3,11 +3,10 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungRow
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_DegreeOneYoungBlock`
-- `DictatorshipTesting.Paper.S05_Lem5_24_WeightZeroEntriesAreNeverAMajority`
-- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
-- `DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_18_WeightZeroEntriesAreNeverAMajority`
+- `DictatorshipTesting.Paper.S05_Lem5_19_EvenCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_20_OddCertificate`
 -/
-
 /-!
 Internal canonical Young diagrams used by the finite-certificate checks in
 Lemmas 5.23--5.26.

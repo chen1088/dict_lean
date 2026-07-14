@@ -6,15 +6,11 @@ import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S02_Def2_02a_CubeLowDegreeOnePart`
-- `DictatorshipTesting.Paper.Defs.S04_Def4_01a_IsMatchingLocalDegreeOne`
-- `DictatorshipTesting.Paper.Defs.S04_Def4_02a_MatchingLocalProjection`
+- `DictatorshipTesting.Paper.Defs.S04_Def4_01_MatchingLocalDegreeOneAndProjection`
 - `DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare`
-- `DictatorshipTesting.Paper.S04_Lem4_02_PMIndependentOfRepresentatives`
-- `DictatorshipTesting.Paper.S04_Lem4_04_TijLocalDegree`
-- `DictatorshipTesting.Paper.S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection`
+- `DictatorshipTesting.Paper.S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne`
+- `DictatorshipTesting.Paper.S04_Prop4_02_CosetwiseDescriptionOfPM`
 -/
-
-
 /-!
 # Lemma 2.3: Orthonormality and Parseval on the cube
 

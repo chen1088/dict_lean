@@ -3,13 +3,11 @@ import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_OneBoxDeletionIntertwining`
-- `DictatorshipTesting.Paper.S05_Lem5_13_SignedTwoBoxOrthogonalBranching`
-- `DictatorshipTesting.Paper.S05_Lem5_14_OneBoxDecompositionAndDeletion`
+- `DictatorshipTesting.Paper.S05_Lem5_10_SignedTwoBoxOrthogonalBranching`
+- `DictatorshipTesting.Paper.S05_Lem5_11_OneBoxDecompositionAndDeletion`
 -/
-
-
 /-!
-Internal proof of Lemma 5.14(b). In the concrete coordinate model, deletion gives a
+Internal proof of Lemma 5.11(b). In the concrete coordinate model, deletion gives a
 set-level bijection on the deleted tableau basis, and the induced coordinate
 map preserves the finite coordinate inner product.
 -/
@@ -20,7 +18,7 @@ namespace DictatorshipTesting
 
 open scoped BigOperators
 
-/-- Lemma 5.14 set-level component: deleting the maximum-entry cell gives a
+/-- Lemma 5.11 set-level component: deleting the maximum-entry cell gives a
 bijection from the remaining cells to `Fin n`. -/
 theorem S05_oneBoxDeletion_deleteMaxEntry_bijective {n : Nat}
     {lam : YoungDiagram (n + 1)}
@@ -37,7 +35,7 @@ theorem S05_oneBox_deleteMaxEntry_bijective {n : Nat}
     Function.Bijective (tableauDeleteMaxEntry T hu) := by
   exact S05_oneBoxDeletion_deleteMaxEntry_bijective T hu
 
-/-- Lemma 5.14 set-level component: deleted entries remain row-strict. -/
+/-- Lemma 5.11 set-level component: deleted entries remain row-strict. -/
 theorem S05_oneBoxDeletion_deleteMaxEntry_row_strict {n : Nat}
     {lam : YoungDiagram (n + 1)}
     (T : StandardYoungTableau lam) {u : YoungCell lam}
@@ -345,7 +343,7 @@ def S05_oneBoxDeletion_deletionCoordinateMap
     f ((S05_oneBoxDeletion_oneBoxDeletionTableauxEquivChildTableauxOfOneBoxChildRow
       h hr).symm S)
 
-/-- Lemma 5.14 coordinate form: the deletion equivalence preserves the finite
+/-- Lemma 5.11 coordinate form: the deletion equivalence preserves the finite
 coordinate inner product. -/
 theorem S05_oneBoxDeletion_deletionCoordinateMap_inner
     {n : Nat} {lam : YoungDiagram (n + 1)} {mu : YoungDiagram n}

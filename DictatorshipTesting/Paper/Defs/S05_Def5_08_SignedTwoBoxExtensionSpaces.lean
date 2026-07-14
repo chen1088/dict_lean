@@ -1,11 +1,10 @@
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_13_MatchingSubgroupEigenbasis`
 -/
-
 import DictatorshipTesting.Paper.Defs.S05_Def5_07a_TwoBoxRemovals
-import DictatorshipTesting.Paper.S05_Lem5_13_SignedTwoBoxOrthogonalBranching
+import DictatorshipTesting.Paper.S05_Lem5_10_SignedTwoBoxOrthogonalBranching
 
 /-!
 Paper statement: Definition 5.8 `def:signed-two-box-extension-spaces`
@@ -41,7 +40,7 @@ noncomputable def S05_twoStepExtensionEmbedding
     TableauSpace (deleteTwoRemovableRowsDiagram lam p) -> TableauSpace lam :=
   fun f T =>
     ∑ U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p),
-      f U * tableauBasisVec (S05_Lem5_13_twoBoxExtensionTableau lam p U) T
+      f U * tableauBasisVec (S05_Lem5_10_twoBoxExtensionTableau lam p U) T
 
 
 /-- The sign attached to an ordered two-step removal.  Under the existing
@@ -70,13 +69,13 @@ theorem S05_twoBoxExtension_not_sameCol_of_positive
     (p : TwoStepRemovableRows lam)
     (hpos : p.first.1 <= p.second.1)
     (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
-    ¬ adjacentSameCol (S05_Lem5_13_twoBoxExtensionTableau lam p U)
+    ¬ adjacentSameCol (S05_Lem5_10_twoBoxExtensionTableau lam p U)
       (Fin.last n) := by
   intro hcol
   have hlt := adjacent_row_lt_of_sameCol
-    (S05_Lem5_13_twoBoxExtensionTableau lam p U) (Fin.last n) hcol
-  rw [S05_Lem5_13_twoBoxExtensionTableau_final_loCell_row,
-    S05_Lem5_13_twoBoxExtensionTableau_final_hiCell_row] at hlt
+    (S05_Lem5_10_twoBoxExtensionTableau lam p U) (Fin.last n) hcol
+  rw [S05_Lem5_10_twoBoxExtensionTableau_final_loCell_row,
+    S05_Lem5_10_twoBoxExtensionTableau_final_hiCell_row] at hlt
   omega
 
 /-- A negative/vertical ordered removal has distinct deletion rows, so its
@@ -86,9 +85,9 @@ theorem S05_twoBoxExtension_not_sameRow_of_negative
     (p : TwoStepRemovableRows lam)
     (hneg : ¬ p.first.1 <= p.second.1)
     (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
-    ¬ adjacentSameRow (S05_Lem5_13_twoBoxExtensionTableau lam p U)
+    ¬ adjacentSameRow (S05_Lem5_10_twoBoxExtensionTableau lam p U)
       (Fin.last n) := by
-  rw [S05_Lem5_13_twoBoxExtensionTableau_final_sameRow_iff]
+  rw [S05_Lem5_10_twoBoxExtensionTableau_final_sameRow_iff]
   omega
 
 
@@ -121,7 +120,7 @@ noncomputable def S05_signedTwoBoxExtensionBasisVector
     (p : TwoStepRemovableRows lam)
     (U : StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)) :
     TableauSpace lam :=
-  let T := S05_Lem5_13_twoBoxExtensionTableau lam p U
+  let T := S05_Lem5_10_twoBoxExtensionTableau lam p U
   let a := Fin.last n
   if hpos : p.first.1 <= p.second.1 then
     if hrow : adjacentSameRow T a then

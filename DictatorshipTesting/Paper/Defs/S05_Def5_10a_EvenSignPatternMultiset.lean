@@ -6,15 +6,13 @@ Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_10b_OddSignPatternMultiset`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_11a_MatchingCharacters`
-- `DictatorshipTesting.Paper.S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities`
-- `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
-- `DictatorshipTesting.Paper.S05_Lem5_23_CountingOneMoreMatchingEdge`
-- `DictatorshipTesting.Paper.S05_Lem5_24_WeightZeroEntriesAreNeverAMajority`
-- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
-- `DictatorshipTesting.Paper.S05_Lem5_26_OddCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities`
+- `DictatorshipTesting.Paper.S05_Lem5_13_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_17_CountingOneMoreMatchingEdge`
+- `DictatorshipTesting.Paper.S05_Lem5_18_WeightZeroEntriesAreNeverAMajority`
+- `DictatorshipTesting.Paper.S05_Lem5_19_EvenCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_20_OddCertificate`
 -/
-
-
 /-!
 Paper statement: Definition 5.10 part (a) `def:matching-sign-patterns`
 Title in paper: Matching sign-pattern multisets and heights.

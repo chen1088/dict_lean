@@ -3,10 +3,8 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungOrthogonalActionData
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_02_TypeAAdjacentWordPresentation`
-- `DictatorshipTesting.Paper.S05_Thm5_03_YoungOrthogonalAction`
+- `DictatorshipTesting.Paper.S05_Thm5_02_YoungOrthogonalAction`
 -/
-
 /-!
 The type-A Coxeter presentation needed to turn the adjacent Young operators
 from Lemma 5.1 into an action of the full symmetric group.  The proof uses an

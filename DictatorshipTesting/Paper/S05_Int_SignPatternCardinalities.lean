@@ -6,12 +6,10 @@ import DictatorshipTesting.Paper.S05_Int_OneBoxDimensionRecursion
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities`
+- `DictatorshipTesting.Paper.S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities`
 -/
-
-
 /-!
-Internal proof of the sign-pattern-cardinality part of Lemma 5.15. This file
+Internal proof of the sign-pattern-cardinality part of Lemma 5.12. This file
 proves the assumption-free `tableauDim`
 cardinalities, identifies their zero and high multiplicities with `zEven`,
 `hEvenTableau`, and `hOddTableau`, and connects any finite label enumeration to
@@ -354,14 +352,14 @@ theorem S05_signPatternCardinality_highLabelCount_of_oddSignPatternMultiset
   rw [S05_signPatternCardinality_highLabelSum_eq_multiplicity, hlabels]
   exact S05_signPatternCardinality_oddSignPatternMultiset_highMultiplicity m lam
 
-/-- Lemma 5.15 scalar-size base case: the empty even diagram has one
+/-- Lemma 5.12 scalar-size base case: the empty even diagram has one
 zero-weight entry. -/
 theorem S05_signPatternCardinality_evenZeroSignPatternCount_zero
     (lam : YoungDiagram (2 * 0)) :
     S05_evenZeroSignPatternCount 0 lam = 1 := by
   exact S05_evenZeroSignPatternCount_zero lam
 
-/-- Lemma 5.15 scalar-size component: the even zero-weight count has the
+/-- Lemma 5.12 scalar-size component: the even zero-weight count has the
 horizontal two-strip recursion. -/
 theorem S05_signPatternCardinality_evenZeroSignPatternCount_succ
     (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :
@@ -370,14 +368,14 @@ theorem S05_signPatternCardinality_evenZeroSignPatternCount_succ
         (fun mu => S05_evenZeroSignPatternCount m mu) := by
   exact S05_evenZeroSignPatternCount_succ m lam
 
-/-- Lemma 5.15 scalar-size base case: the empty even diagram has no high-weight
+/-- Lemma 5.12 scalar-size base case: the empty even diagram has no high-weight
 entries. -/
 theorem S05_signPatternCardinality_evenHighSignPatternCount_zero
     (lam : YoungDiagram (2 * 0)) :
     S05_evenHighSignPatternCount 0 lam = 0 := by
   exact S05_evenHighSignPatternCount_zero lam
 
-/-- Lemma 5.15 scalar-size component: the even high-weight count has the
+/-- Lemma 5.12 scalar-size component: the even high-weight count has the
 horizontal-plus-vertical recursion. -/
 theorem S05_signPatternCardinality_evenHighSignPatternCount_succ
     (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :
@@ -388,7 +386,7 @@ theorem S05_signPatternCardinality_evenHighSignPatternCount_succ
           (fun mu => youngDim mu - S05_evenZeroSignPatternCount m mu) := by
   exact S05_evenHighSignPatternCount_succ m lam
 
-/-- Lemma 5.15 scalar-size component: the odd high-weight count is the sum of
+/-- Lemma 5.12 scalar-size component: the odd high-weight count is the sum of
 even high-weight counts over one-box removals. -/
 theorem S05_signPatternCardinality_oddHighSignPatternCount_eq_evenHigh_sum
     (m : Nat) (lam : YoungDiagram (2 * m + 1)) :
@@ -397,7 +395,7 @@ theorem S05_signPatternCardinality_oddHighSignPatternCount_eq_evenHigh_sum
         (fun mu => S05_evenHighSignPatternCount m mu) := by
   exact S05_oddHighSignPatternCount_eq_evenHigh_sum m lam
 
-/-- Lemma 5.15 dimension-size component: the even two-strip dimension size
+/-- Lemma 5.12 dimension-size component: the even two-strip dimension size
 recursion, supplied by the named branching input. -/
 theorem S05_signPatternCardinality_youngDim_twoStrip_size
     [TwoStripDimensionBranchingAssumption] (m : Nat) (hm : 2 <= m)
@@ -407,7 +405,7 @@ theorem S05_signPatternCardinality_youngDim_twoStrip_size
         (verticalTwoStripChildrenEven m lam).sum (fun mu => youngDim mu) := by
   exact youngDim_twoStrip_branching_input m hm lam
 
-/-- Lemma 5.15 dimension-size component: the odd one-box dimension size
+/-- Lemma 5.12 dimension-size component: the odd one-box dimension size
 recursion, supplied by the named branching input except in the proved small
 cases. -/
 theorem S05_signPatternCardinality_youngDim_oneBox_size
@@ -416,7 +414,7 @@ theorem S05_signPatternCardinality_youngDim_oneBox_size
     youngDim lam = (oneBoxChildrenOdd m lam).sum (fun mu => youngDim mu) := by
   exact youngDim_oneBox_branching_input m lam
 
-/-- Lemma 5.15 tableau-count component: the assumption-free two-strip size
+/-- Lemma 5.12 tableau-count component: the assumption-free two-strip size
 recursion for standard-tableau counts. -/
 theorem S05_signPatternCardinality_tableauDim_twoStrip_size
     {n : Nat} (lam : YoungDiagram ((n + 1) + 1)) :
@@ -425,7 +423,7 @@ theorem S05_signPatternCardinality_tableauDim_twoStrip_size
         (verticalTwoStripChildrenSized lam).sum (fun mu => tableauDim mu) := by
   exact S05_twoBoxDimension_tableauDim_twoStrip_branching_sized lam
 
-/-- Lemma 5.15 tableau-count component: the assumption-free even two-strip size
+/-- Lemma 5.12 tableau-count component: the assumption-free even two-strip size
 recursion in the indexed Section 5 notation. -/
 theorem S05_signPatternCardinality_tableauDim_twoStripChildrenEven_size_succ
     (m : Nat) (lam : YoungDiagram (2 * (m + 1))) :
@@ -436,7 +434,7 @@ theorem S05_signPatternCardinality_tableauDim_twoStripChildrenEven_size_succ
           (fun mu => tableauDim mu) := by
   exact S05_twoBoxDimension_tableauDim_twoStripChildrenEven_branching_succ m lam
 
-/-- Lemma 5.15 tableau-count component: the assumption-free one-box size
+/-- Lemma 5.12 tableau-count component: the assumption-free one-box size
 recursion for standard-tableau counts. -/
 theorem S05_signPatternCardinality_tableauDim_oneBox_size
     {n : Nat} (lam : YoungDiagram (n + 1)) :
@@ -444,7 +442,7 @@ theorem S05_signPatternCardinality_tableauDim_oneBox_size
       (oneBoxChildrenSized lam).sum (fun mu => tableauDim mu) := by
   exact S05_oneBoxDimension_tableauDim_oneBox_branching lam
 
-/-- Lemma 5.15 tableau-count component: the assumption-free odd one-box size
+/-- Lemma 5.12 tableau-count component: the assumption-free odd one-box size
 recursion in the indexed Section 5 notation. -/
 theorem S05_signPatternCardinality_tableauDim_oneBoxChildrenOdd_size
     (m : Nat) (lam : YoungDiagram (2 * m + 1)) :

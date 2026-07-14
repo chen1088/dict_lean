@@ -7,10 +7,8 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_11a_MatchingCharacters`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungOrthogonalActionData`
 - `DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis`
-- `DictatorshipTesting.Paper.S05_Lem5_06_DiagonalContentEigenspaces`
+- `DictatorshipTesting.Paper.S05_Lem5_04_ContentSeparationAndTableauConnectivity`
 -/
-
-
 /-!
 Paper statement: Definition 5.5 (`def:content-adjacent-operators`)
 Title in paper: Contents and adjacent operators.

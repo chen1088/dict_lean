@@ -7,8 +7,7 @@ use letter-suffixed Lean modules without creating additional paper numbers.
 | --- | --- |
 | 2.1 | `Defs/S02_Def2_01_FiniteSeedTester.lean` |
 | 2.2 | `Defs/S02_Def2_02a_CubeLowDegreeOnePart.lean`, `Defs/S02_Def2_02b_CubeHighDegreeEnergy.lean` |
-| 4.1 | `Defs/S04_Def4_01a_IsMatchingLocalDegreeOne.lean`, `Defs/S04_Def4_01b_MatchingLocalHighDegreeEnergy.lean` |
-| 4.2 | `Defs/S04_Def4_02a_MatchingLocalProjection.lean`, `Defs/S04_Def4_02b_MatchingLocalProjectionError.lean` |
+| 4.1 | `Defs/S04_Def4_01_MatchingLocalDegreeOneAndProjection.lean` |
 | 5.1--5.5 | `Defs/S05_Def5_01_*` through `Defs/S05_Def5_05_*` |
 | 5.6 | `Defs/S05_Def5_06a_*`, `Defs/S05_Def5_06b_*`, `Defs/S05_Def5_06c_*` |
 | 5.7 | `Defs/S05_Def5_07a_*`, `Defs/S05_Def5_07b_*`, `Defs/S05_Def5_07c_*` |

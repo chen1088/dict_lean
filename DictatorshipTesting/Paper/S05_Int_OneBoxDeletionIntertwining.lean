@@ -1,15 +1,13 @@
 import DictatorshipTesting.Paper.S05_Int_OneBoxDeletionUnitary
-import DictatorshipTesting.Paper.S05_Lem5_06_DiagonalContentEigenspaces
+import DictatorshipTesting.Paper.S05_Lem5_04_ContentSeparationAndTableauConnectivity
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_13_SignedTwoBoxOrthogonalBranching`
-- `DictatorshipTesting.Paper.S05_Lem5_14_OneBoxDecompositionAndDeletion`
+- `DictatorshipTesting.Paper.S05_Lem5_10_SignedTwoBoxOrthogonalBranching`
+- `DictatorshipTesting.Paper.S05_Lem5_11_OneBoxDecompositionAndDeletion`
 -/
-
-
 /-!
-Internal proof of Lemma 5.14(c) for the concrete deletion-fiber coordinate model. This file
+Internal proof of Lemma 5.11(c) for the concrete deletion-fiber coordinate model. This file
 proves basis-level content preservation, row/column and matrix-coefficient
 preservation for earlier adjacent pairs under one-box insertion, and the
 coordinate-level intertwining with both the explicit Young-adjacent operators
@@ -667,7 +665,7 @@ def S05_oneBoxIntertwining_deletionFiberYoungAdjacentOperator
         TableauMaxAt T (deletedCornerCellOfOneBoxChildRow h hr)},
       youngAdjacentMatrixCoeff (Fin.castSucc a) S.1 T.1 * f T
 
-/-- Lemma 5.14 coordinate component: deleting the maximum entry intertwines
+/-- Lemma 5.11 coordinate component: deleting the maximum entry intertwines
 the child adjacent operator with the parent earlier-adjacent operator restricted
 to the one-box deletion fiber. -/
 theorem S05_oneBoxIntertwining_deletionCoordinateMap_youngAdjacentOperator_intertwines

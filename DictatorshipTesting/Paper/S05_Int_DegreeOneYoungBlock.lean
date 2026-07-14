@@ -6,9 +6,8 @@ import Mathlib.Data.Finset.Sort
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_12_DegreeOneYoungBlockIdentification`
+- `DictatorshipTesting.Paper.S05_Lem5_09_DegreeOneYoungBlockIdentification`
 -/
-
 /-!
 # The concrete degree-one Young blocks
 

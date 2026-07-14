@@ -1,12 +1,11 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_JucysMurphyContentActionData
-import DictatorshipTesting.Paper.S05_Lem5_08_YoungBasisScalarCommutant
+import DictatorshipTesting.Paper.S05_Lem5_05_YoungBasisScalarCommutant
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_12c_AveragedHighMatchingElement`
 -/
-
 /-!
 Paper statement: Definition 5.12 part (b) `def:matching-idempotents`
 Title in paper: Matching idempotents and averaged rejection.
@@ -22,7 +21,7 @@ namespace DictatorshipTesting
 
 /-- Operator-level data for the averaged matching rejection on one
 tableau-coordinate Young block.  Linearity and commutation are the exact data
-needed to apply Lemma 5.8. -/
+needed to apply Lemma 5.5. -/
 structure AveragedRejectionYoungOperatorData {n : Nat}
     (lam : YoungDiagram (n + 1)) where
   operator : TableauSpace lam -> TableauSpace lam
@@ -42,7 +41,7 @@ structure AveragedRejectionYoungOperatorData {n : Nat}
         jucysMurphyDiagonalOperator a (operator f)
 
 /-- Convert averaged-rejection operator data to the generic commutation
-package used by Lemma 5.8. -/
+package used by Lemma 5.5. -/
 def AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
     {n : Nat} {lam : YoungDiagram (n + 1)}
     (data : AveragedRejectionYoungOperatorData lam) :
@@ -53,7 +52,7 @@ def AveragedRejectionYoungOperatorData.toYoungModelOperatorCommutationData
   commutes_adjacent := data.commutes_adjacent
   commutes_content := data.commutes_content
 
-/-- Lemma 5.8 makes every averaged-rejection operator satisfying the interface
+/-- Lemma 5.5 makes every averaged-rejection operator satisfying the interface
 scalar on the tableau basis. -/
 theorem averagedRejectionYoungOperator_scalar_on_basis
     {n : Nat} {lam : YoungDiagram (n + 1)}
@@ -63,7 +62,7 @@ theorem averagedRejectionYoungOperator_scalar_on_basis
       fun U =>
         data.toYoungModelOperatorCommutationData.basisScalar T0 *
           tableauBasisVec T U := by
-  exact S05_Lem5_08_youngModelOperator_scalar_on_basis
+  exact S05_Lem5_05_youngModelOperator_scalar_on_basis
     data.toYoungModelOperatorCommutationData T0 T
 
 /-- Right convolution by a finite group-algebra element:
@@ -210,7 +209,7 @@ structure YoungRepresentationActionData {n : Nat}
       repOfGroupAlgebraElement rep (jucysMurphyElement a) f =
         jucysMurphyDiagonalOperator a f
 
-/-- Combine the faithful Theorem 5.3 action and Theorem 5.5 content-action data into the
+/-- Combine the faithful Theorem 5.2 action and Theorem 5.3 content-action data into the
 Section 5 representation interface used by the averaged matching element. -/
 def YoungRepresentationActionData.ofYoungActions
     {n : Nat} {lam : YoungDiagram (n + 1)}

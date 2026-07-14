@@ -8,8 +8,6 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_StandardYoungTableaux`
 - `DictatorshipTesting.Paper.S05_Int_TableauDimension`
 -/
-
-
 /-!
 # One-box removals and Young-diagram rows
 

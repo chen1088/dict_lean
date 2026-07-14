@@ -15,7 +15,7 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S02_D01",
-        "S04_L10"
+        "S04_L07"
       ],
       "summary": "Thm 1.1: Main theorem.",
       "statement": "Thm 1.1: Main theorem.",
@@ -26,7 +26,7 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "dimension-free amplification",
-          "target": "S04_L10"
+          "target": "S04_L07"
         }
       ],
       "paperLabel": "thm:main-intro",
@@ -36,7 +36,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S01_Thm1_01_MainIntro",
           "file": "DictatorshipTesting/Paper/S01_Thm1_01_MainIntro.lean",
-          "line": 24
+          "line": 22
         }
       ]
     },
@@ -57,37 +57,37 @@ window.DICT_DEPENDENCY_DATA = {
         "OracleTester.oneSided"
       ],
       "deps": [],
-      "summary": "Def 2.1: Operational finite-seed nonadaptive oracle tester.",
-      "statement": "Def 2.1: Operational finite-seed nonadaptive oracle tester.",
+      "summary": "Def 2.1: Finite-seed nonadaptive oracle tester.",
+      "statement": "Def 2.1: Finite-seed nonadaptive oracle tester.",
       "terms": [],
       "paperLabel": "def:finite-seed-tester",
       "paperEnv": "definition",
-      "paperStatementLatex": "A finite-seed tester for functions $f:S_n\\to\\{0,1\\}$ consists of a finite nonempty seed set $\\Omega$, a query count $Q$, a query schedule $q:\\Omega\\times[Q]\\to S_n$, and a Boolean decision rule $D:\\Omega\\times\\{0,1\\}^{Q}\\to\\{\\mathrm{accept},\\mathrm{reject}\\}$. On seed $\\omega$, the tester reads the answer vector $(f(q(\\omega,1)),\\ldots,f(q(\\omega,Q)))$ and applies $D$. The seed is uniform. This model is nonadaptive because the entire query schedule depends only on the seed. It is one-sided for a property $\\mathcal P$ if every $f\\in\\mathcal P$ is accepted for every seed. Acceptance and rejection probabilities are the corresponding uniform fractions of seeds.",
+      "paperStatementLatex": "A finite-seed tester for functions $f:S_n\\to\\{0,1\\}$ consists of a finite\nnonempty seed set $\\Omega$, a query count $Q$, a query schedule\n\\[\n  q:\\Omega\\times[Q]\\to S_n,\n\\]\nand a Boolean decision rule\n\\[\n  D:\\Omega\\times\\{0,1\\}^{Q}\\to\\{\\textsc{accept},\\textsc{reject}\\}.\n\\]\nOn seed $\\omega$, the tester reads the answer vector\n$(f(q(\\omega,1)),\\ldots,f(q(\\omega,Q)))$ and applies $D$.  The seed is uniform.\nThis model is nonadaptive because the entire query schedule depends only on the\nseed.  It is one-sided for a property $\\mathcal P$ if every $f\\in\\mathcal P$ is\naccepted for every seed.  Acceptance and rejection probabilities are the\ncorresponding uniform fractions of seeds.",
       "leanLinks": [
         {
           "name": "OracleTester",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 23
+          "line": 21
         },
         {
           "name": "OracleTester.run",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 34
+          "line": 32
         },
         {
           "name": "OracleTester.acceptanceProbability",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 39
+          "line": 37
         },
         {
           "name": "OracleTester.rejectionProbability",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 47
+          "line": 45
         },
         {
           "name": "OracleTester.oneSided",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 73
+          "line": 71
         }
       ]
     },
@@ -114,7 +114,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "IsDictator",
           "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_IsDictator.lean",
-          "line": 21
+          "line": 19
         },
         {
           "name": "oneCosetReal",
@@ -175,8 +175,8 @@ window.DICT_DEPENDENCY_DATA = {
       "deps": [
         "S02_L03"
       ],
-      "summary": "Def 2.2: Degree-at-most-one Fourier truncation and high-degree energy.",
-      "statement": "Def 2.2: Degree-at-most-one Fourier truncation and high-degree energy.",
+      "summary": "Def 2.2: Low-degree truncation on one cube.",
+      "statement": "Def 2.2: Low-degree truncation on one cube.",
       "terms": [
         {
           "text": "Boolean-cube Fourier notation",
@@ -185,12 +185,12 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "def:cube-low-degree-truncation",
       "paperEnv": "definition",
-      "paperStatementLatex": "For $g:\\{0,1\\}^m\\to\\mathbb R$, define $P_{\\le 1}g(x)=\\sum_{S\\subseteq[m],\\ |S|\\le1}\\widehat g(S)\\chi_S(x)$. Thus $P_{\\le1}g$ keeps only the constant Fourier coefficient and the level-one coefficients, and $\\|g-P_{\\le1}g\\|^2=\\sum_{S\\subseteq[m],\\ |S|\\ge2}\\widehat g(S)^2$.",
+      "paperStatementLatex": "For $g:\\{0,1\\}^m\\to\\mathbb R$, define\n\\[\n  P_{\\le 1}g(x)=\\sum_{\\substack{S\\subseteq[m]\\\\ |S|\\le1}}\\widehat g(S)\\chi_S(x).\n\\]\nThus $P_{\\le1}g$ keeps only the constant Fourier coefficient and the $m$\nlevel-one Fourier coefficients.  By \\eqref{eq:cube-fourier-expansion} and\n\\eqref{eq:cube-parseval-identity},\n\\begin{equation}\n  \\norm{g-P_{\\le1}g}^2\n  =\\sum_{\\substack{S\\subseteq[m]\\\\ |S|\\ge2}}\\widehat g(S)^2.\n\\end{equation}",
       "leanLinks": [
         {
           "name": "cubeLowDegreeOnePart",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_02a_CubeLowDegreeOnePart.lean",
-          "line": 23
+          "line": 21
         },
         {
           "name": "cubeHighDegreeEnergy",
@@ -202,11 +202,11 @@ window.DICT_DEPENDENCY_DATA = {
     {
       "id": "S02_T01",
       "label": "Thm 2.1",
-      "title": "Boolean U1 classification",
+      "title": "Structural input: Boolean degree-one functions on S_n",
       "section": "External inputs",
       "kind": "paper",
       "importance": "normal",
-      "status": "external",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/S02_Thm2_01_BooleanU1Classification.lean",
       "wrappers": [
         "S02_Thm2_01_BooleanU1Classification",
@@ -215,8 +215,8 @@ window.DICT_DEPENDENCY_DATA = {
       "deps": [
         "S02_N01"
       ],
-      "summary": "Thm 2.1: Boolean U1 classification.",
-      "statement": "Thm 2.1: Boolean U1 classification.",
+      "summary": "Thm 2.1: Structural input: Boolean degree-one functions on S_n.",
+      "statement": "Thm 2.1: Structural input: Boolean degree-one functions on S_n.",
       "terms": [
         {
           "text": "U1",
@@ -230,31 +230,31 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S02_Thm2_01_BooleanU1Classification",
           "file": "DictatorshipTesting/Paper/S02_Thm2_01_BooleanU1Classification.lean",
-          "line": 164
+          "line": 162
         },
         {
           "name": "booleanU1_dictator_classification_input",
           "file": "DictatorshipTesting/Paper/S02_Thm2_01_BooleanU1Classification.lean",
-          "line": 157
+          "line": 155
         }
       ]
     },
     {
       "id": "S02_T02",
       "label": "Thm 2.2",
-      "title": "FKN/stability input",
+      "title": "FKN/stability input on S_n",
       "section": "External inputs",
       "kind": "paper",
       "importance": "major",
-      "status": "external",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/S02_Thm2_02_FKNStability.lean",
       "wrappers": [
         "S02_Thm2_02_FKNStability",
         "fknStability_input"
       ],
       "deps": [],
-      "summary": "Thm 2.2: FKN/stability input.",
-      "statement": "Thm 2.2: FKN/stability input.",
+      "summary": "Thm 2.2: FKN/stability input on S_n.",
+      "statement": "Thm 2.2: FKN/stability input on S_n.",
       "terms": [],
       "paperLabel": "thm:fkn-input",
       "paperEnv": "theorem",
@@ -263,19 +263,19 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S02_Thm2_02_FKNStability",
           "file": "DictatorshipTesting/Paper/S02_Thm2_02_FKNStability.lean",
-          "line": 40
+          "line": 38
         },
         {
           "name": "fknStability_input",
           "file": "DictatorshipTesting/Paper/S02_Thm2_02_FKNStability.lean",
-          "line": 32
+          "line": 30
         }
       ]
     },
     {
       "id": "S02_L03",
       "label": "Lem 2.3",
-      "title": "Cube Fourier facts",
+      "title": "Orthonormality and Parseval on the cube",
       "section": "Section 2",
       "kind": "paper",
       "importance": "normal",
@@ -285,17 +285,17 @@ window.DICT_DEPENDENCY_DATA = {
         "S02_Lem2_03_CubeParseval"
       ],
       "deps": [],
-      "summary": "Lem 2.3: Cube Fourier facts.",
-      "statement": "Lem 2.3: Cube Fourier facts.",
+      "summary": "Lem 2.3: Orthonormality and Parseval on the cube.",
+      "statement": "Lem 2.3: Orthonormality and Parseval on the cube.",
       "terms": [],
       "paperLabel": "lem:cube-parseval",
       "paperEnv": "lemma",
-      "paperStatementLatex": "For $S,T\\subseteq[m]$,\n\\begin{equation}\\label{eq:cube-character-orthonormality}\n  \\E_x\\chi_S(x)\\chi_T(x)\n  =\n  \\begin{cases}\n    1, & S=T,\\\\\n    0, & S\\ne T.\n  \\end{cases}\n\\end{equation}\nConsequently, every $g:\\{0,1\\}^m\\to\\mathbb R$ has the expansion\n\\begin{equation}\\label{eq:cube-fourier-expansion}\n  g(x)=\\sum_{S\\subseteq[m]}\\widehat g(S)\\chi_S(x),\n\\end{equation}\nand Parseval's identity holds:\n\\begin{equation}\\label{eq:cube-parseval-identity}\n  \\E_x[g(x)^2]=\\sum_{S\\subseteq[m]}\\widehat g(S)^2.\n\\end{equation}",
+      "paperStatementLatex": "For $S,T\\subseteq[m]$,\n\\begin{equation}\n  \\E_x\\chi_S(x)\\chi_T(x)\n  =\n  \\begin{cases}\n    1, & S=T,\\\\\n    0, & S\\ne T.\n  \\end{cases}\n\\end{equation}\nConsequently, every $g:\\{0,1\\}^m\\to\\mathbb R$ has the expansion\n\\begin{equation}\n  g(x)=\\sum_{S\\subseteq[m]}\\widehat g(S)\\chi_S(x),\n\\end{equation}\nand Parseval's identity holds:\n\\begin{equation}\n  \\E_x[g(x)^2]=\\sum_{S\\subseteq[m]}\\widehat g(S)^2.\n\\end{equation}",
       "leanLinks": [
         {
           "name": "S02_Lem2_03_CubeParseval",
           "file": "DictatorshipTesting/Paper/S02_Lem2_03_CubeParseval.lean",
-          "line": 32
+          "line": 28
         }
       ]
     },
@@ -323,12 +323,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S03_Lem3_01_DictatorToJunta",
           "file": "DictatorshipTesting/Paper/S03_Lem3_01_DictatorToJunta.lean",
-          "line": 53
+          "line": 51
         },
         {
           "name": "S03_Lem3_01_ImageDictatorToJunta",
           "file": "DictatorshipTesting/Paper/S03_Lem3_01_DictatorToJunta.lean",
-          "line": 21
+          "line": 19
         }
       ]
     },
@@ -363,104 +363,75 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S03_Lem3_02_PerfectCompleteness",
           "file": "DictatorshipTesting/Paper/S03_Lem3_02_PerfectCompleteness.lean",
-          "line": 73
+          "line": 71
         },
         {
           "name": "cubeOneJunta_square_zero",
           "file": "DictatorshipTesting/Paper/S03_Lem3_02_PerfectCompleteness.lean",
-          "line": 22
+          "line": 20
         }
       ]
     },
     {
       "id": "S04_D01",
       "label": "Def 4.1",
-      "title": "Local degree-one space",
+      "title": "Matching-local degree one and its projection",
       "section": "Section 4 definitions",
       "kind": "definition",
       "importance": "minor",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01a_IsMatchingLocalDegreeOne.lean",
+      "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01_MatchingLocalDegreeOneAndProjection.lean",
       "wrappers": [
         "IsMatchingLocalDegreeOne",
-        "matchingLocalHighDegreeEnergy"
-      ],
-      "deps": [
-        "S02_L03"
-      ],
-      "summary": "Def 4.1: Matching-local degree-one space and high-degree energy.",
-      "statement": "Def 4.1: Matching-local degree-one space and high-degree energy.",
-      "terms": [
-        {
-          "text": "Cube Fourier facts",
-          "target": "S02_L03"
-        }
-      ],
-      "paperLabel": "def:local-degree-one-space",
-      "paperEnv": "definition",
-      "paperStatementLatex": "For a fixed matching $M$, let $\\mathcal W_M\\subseteq L^2(S_n)$ be the set of functions $F:S_n\\to\\mathbb R$ such that, on every coset $C$, the cube function $F_{C,M}(x):=F(\\rho_C\\tau_x)$ has Fourier coefficients only at weights $0$ and $1$. Equivalently, every coefficient indexed by $S\\subseteq[m]$ with $|S|\\ge2$ is zero.",
-      "leanLinks": [
-        {
-          "name": "IsMatchingLocalDegreeOne",
-          "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01a_IsMatchingLocalDegreeOne.lean",
-          "line": 25
-        },
-        {
-          "name": "matchingLocalHighDegreeEnergy",
-          "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01b_MatchingLocalHighDegreeEnergy.lean",
-          "line": 20
-        }
-      ]
-    },
-    {
-      "id": "S04_D02",
-      "label": "Def 4.2",
-      "title": "Matching-local truncation",
-      "section": "Section 4 definitions",
-      "kind": "definition",
-      "importance": "minor",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/Defs/S04_Def4_02a_MatchingLocalProjection.lean",
-      "wrappers": [
+        "matchingLocalHighDegreeEnergy",
         "matchingLocalProjection",
         "matchingLocalProjectionError"
       ],
       "deps": [
-        "S02_L03",
-        "S04_D01"
+        "S02_L03"
       ],
-      "summary": "Def 4.2: Matching-local Fourier truncation and its squared error.",
-      "statement": "Def 4.2: Matching-local Fourier truncation and its squared error.",
+      "summary": "Def 4.1: Matching-local degree one and its projection.",
+      "statement": "Def 4.1: Matching-local degree one and its projection.",
       "terms": [
-        {
-          "text": "Local degree-one space",
-          "target": "S04_D01"
-        },
         {
           "text": "Cube Fourier facts",
           "target": "S02_L03"
+        },
+        {
+          "text": "Local degree-one space",
+          "target": "S04_D01"
         }
       ],
-      "paperLabel": "def:PM-local-truncation",
+      "paperLabel": "def:local-degree-one-space",
       "paperEnv": "definition",
-      "paperStatementLatex": "For $\\omega\\in S_n$, define the matching-local truncation by $(P_M f)(\\omega)=\\sum_{S\\subseteq[m],\\ |S|\\le1}\\widehat f_{C_M(\\omega),M}(S)\\,\\chi_S(x_{C_M(\\omega)}(\\omega))$. Equivalently, on a fixed coset $C$, $(P_Mf)(\\rho_C\\tau_x)=\\sum_{S\\subseteq[m],\\ |S|\\le1}\\widehat f_{C,M}(S)\\chi_S(x)$. Thus $P_M$ keeps exactly the constant and singleton Fourier coefficients on each matching cube.",
+      "paperStatementLatex": "Let $\\mathcal W_M\\subseteq L^2(S_n)$ be the subspace of functions whose\nrestriction to every right coset of $A_M$ has cube Fourier degree at most $1$.\nLet $P_M$ be the orthogonal projection onto $\\mathcal W_M$.",
       "leanLinks": [
         {
+          "name": "IsMatchingLocalDegreeOne",
+          "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01_MatchingLocalDegreeOneAndProjection.lean",
+          "line": 29
+        },
+        {
+          "name": "matchingLocalHighDegreeEnergy",
+          "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01_MatchingLocalDegreeOneAndProjection.lean",
+          "line": 34
+        },
+        {
           "name": "matchingLocalProjection",
-          "file": "DictatorshipTesting/Paper/Defs/S04_Def4_02a_MatchingLocalProjection.lean",
-          "line": 33
+          "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01_MatchingLocalDegreeOneAndProjection.lean",
+          "line": 43
         },
         {
           "name": "matchingLocalProjectionError",
-          "file": "DictatorshipTesting/Paper/Defs/S04_Def4_02b_MatchingLocalProjectionError.lean",
-          "line": 21
+          "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01_MatchingLocalDegreeOneAndProjection.lean",
+          "line": 50
         }
       ]
     },
     {
       "id": "S04_L01",
       "label": "Lem 4.1",
-      "title": "Cube square test",
+      "title": "Square test detects Fourier weight at least two",
       "section": "Section 4",
       "kind": "paper",
       "importance": "normal",
@@ -473,8 +444,8 @@ window.DICT_DEPENDENCY_DATA = {
         "S02_L03",
         "S02_D02"
       ],
-      "summary": "Lem 4.1: Cube square test.",
-      "statement": "Lem 4.1: Cube square test.",
+      "summary": "Lem 4.1: Square test detects Fourier weight at least two.",
+      "statement": "Lem 4.1: Square test detects Fourier weight at least two.",
       "terms": [
         {
           "text": "Cube Fourier facts",
@@ -483,137 +454,100 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "lem:cube-square",
       "paperEnv": "lemma",
-      "paperStatementLatex": "Choose $u,v\\in\\{0,1\\}^m$ by the following coordinate-by-coordinate rule: independently for each $r\\in[m]$, the pair $(u_r,v_r)$ is uniformly distributed over $(0,0),(1,0),(0,1)$. Then, for\nevery $g:\\{0,1\\}^m\\to\\mathbb R$,\n\\[\n  \\E_{x,u,v}\\bigl[\\Delta_{u,v}g(x)^2\\bigr]\n  \\ge \\frac{32}{9}\\norm{g-P_{\\le1}g}^2.\n\\]",
+      "paperStatementLatex": "For every $g:\\{0,1\\}^m\\to\\mathbb R$,\n\\begin{equation}\n  \\E_{x,u,v}[\\Delta_{u,v}g(x)^2]\n  =4\\sum_{S\\subseteq[m]}\n   \\bigl(1-2\\cdot3^{-|S|}+(-3)^{-|S|}\\bigr)\\widehat g(S)^2.\n\\end{equation}\nConsequently,\n\\begin{equation}\n  \\E_{x,u,v}[\\Delta_{u,v}g(x)^2]\n  \\ge\\frac{32}{9}\\norm{g-P_{\\le1}g}^2.\n\\end{equation}",
       "leanLinks": [
         {
           "name": "S04_Lem4_01_CubeSquare",
           "file": "DictatorshipTesting/Paper/S04_Lem4_01_CubeSquare.lean",
-          "line": 512
+          "line": 509
         }
       ]
     },
     {
-      "id": "S04_L02",
-      "label": "Lem 4.2",
-      "title": "P_M independent of representatives",
+      "id": "S04_P02",
+      "label": "Prop 4.2",
+      "title": "Cosetwise description of P_M",
       "section": "Section 4",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Lem4_02_PMIndependentOfRepresentatives.lean",
+      "file": "DictatorshipTesting/Paper/S04_Prop4_02_CosetwiseDescriptionOfPM.lean",
       "wrappers": [
-        "S04_Lem4_02_PMIndependentOfRepresentatives"
+        "S04_Prop4_02_PMIndependentOfRepresentatives",
+        "S04_Prop4_02_CosetwiseDescriptionOfPM",
+        "S04_Prop4_02_fixedSpace",
+        "S04_Prop4_02_errorFormula",
+        "S04_Prop4_02_perpendicular"
       ],
       "deps": [
         "S02_D02",
         "S02_L03",
-        "S04_D02"
+        "S04_D01"
       ],
-      "summary": "Lem 4.2: P_M independent of representatives.",
-      "statement": "Lem 4.2: P_M independent of representatives.",
+      "summary": "Prop 4.2: Cosetwise description of P_M.",
+      "statement": "Prop 4.2: Cosetwise description of P_M.",
       "terms": [
         {
           "text": "Cube Fourier facts",
           "target": "S02_L03"
-        }
-      ],
-      "paperLabel": "lem:PM-independent-representatives",
-      "paperEnv": "lemma",
-      "paperStatementLatex": "The value in \\eqref{eq:PM-formula} does not depend on the chosen representative\nof the coset containing $\\omega$.",
-      "leanLinks": [
-        {
-          "name": "S04_Lem4_02_PMIndependentOfRepresentatives",
-          "file": "DictatorshipTesting/Paper/S04_Lem4_02_PMIndependentOfRepresentatives.lean",
-          "line": 23
-        }
-      ]
-    },
-    {
-      "id": "S04_P03",
-      "label": "Prop 4.3",
-      "title": "Matching-local truncation is an orthogonal projection",
-      "section": "Section 4",
-      "kind": "paper",
-      "importance": "normal",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-      "wrappers": [
-        "S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection",
-        "S04_Prop4_03_fixedSpace",
-        "S04_Prop4_03_errorFormula",
-        "S04_Prop4_03_perpendicular"
-      ],
-      "deps": [
-        "S04_L02",
-        "S04_D01",
-        "S04_D02",
-        "S02_L03"
-      ],
-      "summary": "Prop 4.3: Matching-local truncation is an orthogonal projection.",
-      "statement": "Prop 4.3: Matching-local truncation is an orthogonal projection.",
-      "terms": [
-        {
-          "text": "P_M independent of representatives",
-          "target": "S04_L02"
         },
         {
           "text": "P_M independent of representatives",
-          "target": "S04_L02"
-        },
-        {
-          "text": "Cube Fourier facts",
-          "target": "S02_L03"
-        },
-        {
-          "text": "Cube Fourier facts",
-          "target": "S02_L03"
+          "target": "S04_P02"
         }
       ],
       "paperLabel": "prop:PM-orthogonal-projection",
       "paperEnv": "proposition",
-      "paperStatementLatex": "For every $f:S_n\\to\\mathbb R$: (a) $P_Mf\\in\\mathcal W_M$, and $P_MH=H$ for every $H\\in\\mathcal W_M$; (b)\n\\[\n\\|(I-P_M)f\\|^2=\\mathbb E_{C\\sim\\mathcal C_M}\\sum_{|S|\\ge2}\\widehat f_{C,M}(S)^2\n=\\mathbb E_{C\\sim\\mathcal C_M}\\|g_{C,M}-P_{\\le1}g_{C,M}\\|^2;\n\\]\n(c) for every $H\\in\\mathcal W_M$, $\\langle f-P_Mf,H\\rangle=0$, and consequently $\\langle f,(I-P_M)f\\rangle=\\|(I-P_M)f\\|^2$.",
+      "paperStatementLatex": "For every choice of coset representatives and every $C\\in\\mathcal C_M$,\n\\begin{equation}\n  (P_Mf)(\\rho_C\\tau_x)=(P_{\\le1}g_{C,M})(x).\n\\end{equation}\nConsequently,\n\\begin{equation}\n  \\norm{(I-P_M)f}^2\n  =\\E_{C\\in\\mathcal C_M}\\norm{g_{C,M}-P_{\\le1}g_{C,M}}^2\n  =\\E_C\\sum_{|S|\\ge2}\\widehat g_{C,M}(S)^2,\n\\end{equation}\n$P_MH=H$ for $H\\in\\mathcal W_M$, and\n\\begin{equation}\n  \\langle f,(I-P_M)f\\rangle=\\norm{(I-P_M)f}^2.\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection",
-          "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-          "line": 293
+          "name": "S04_Prop4_02_PMIndependentOfRepresentatives",
+          "file": "DictatorshipTesting/Paper/S04_Prop4_02_CosetwiseDescriptionOfPM.lean",
+          "line": 30
         },
         {
-          "name": "S04_Prop4_03_fixedSpace",
-          "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-          "line": 28
+          "name": "S04_Prop4_02_CosetwiseDescriptionOfPM",
+          "file": "DictatorshipTesting/Paper/S04_Prop4_02_CosetwiseDescriptionOfPM.lean",
+          "line": 325
         },
         {
-          "name": "S04_Prop4_03_errorFormula",
-          "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-          "line": 56
+          "name": "S04_Prop4_02_fixedSpace",
+          "file": "DictatorshipTesting/Paper/S04_Prop4_02_CosetwiseDescriptionOfPM.lean",
+          "line": 60
         },
         {
-          "name": "S04_Prop4_03_perpendicular",
-          "file": "DictatorshipTesting/Paper/S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection.lean",
-          "line": 193
+          "name": "S04_Prop4_02_errorFormula",
+          "file": "DictatorshipTesting/Paper/S04_Prop4_02_CosetwiseDescriptionOfPM.lean",
+          "line": 88
+        },
+        {
+          "name": "S04_Prop4_02_perpendicular",
+          "file": "DictatorshipTesting/Paper/S04_Prop4_02_CosetwiseDescriptionOfPM.lean",
+          "line": 225
         }
       ]
     },
     {
-      "id": "S04_L04",
-      "label": "Lem 4.4",
-      "title": "A basic indicator has local degree at most one",
+      "id": "S04_L03",
+      "label": "Lem 4.3",
+      "title": "Global degree one is locally degree one",
       "section": "Section 4",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Lem4_04_TijLocalDegree.lean",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne.lean",
       "wrappers": [
-        "S04_Lem4_04_TijLocalDegree"
+        "S04_Lem4_03_TijLocalDegree",
+        "S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne"
       ],
       "deps": [
         "S03_L01",
         "S02_L03",
-        "S04_D01"
+        "S04_D01",
+        "S04_P02"
       ],
-      "summary": "Lem 4.4: A basic indicator has local degree at most one.",
-      "statement": "Lem 4.4: A basic indicator has local degree at most one.",
+      "summary": "Lem 4.3: Global degree one is locally degree one.",
+      "statement": "Lem 4.3: Global degree one is locally degree one.",
       "terms": [
         {
           "text": "Completeness on matching cubes",
@@ -622,84 +556,56 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Cube Fourier facts",
           "target": "S02_L03"
+        },
+        {
+          "text": "P_M fixes local degree one",
+          "target": "S04_P02"
+        },
+        {
+          "text": "Basic indicators have local degree at most one",
+          "target": "S04_L03"
         }
       ],
       "paperLabel": "lem:tij-local-degree",
       "paperEnv": "lemma",
-      "paperStatementLatex": "Fix a matching $M=\\{e_1,\\ldots,e_m\\}$, a coset $C\\in\\cC_M$, and a representative\n$\\rho_C\\in C$.  For every $i,j\\in[n]$, define\n\\begin{equation*}\n  g_{ij,C,M}(x):=t_{ij}(\\rho_C\\tau_x),\n  \\qquad x\\in\\{0,1\\}^m.\n\\end{equation*}\nThen $g_{ij,C,M}$ has Fourier coefficients only at weights $0$ and $1$.",
+      "paperStatementLatex": "For every matching $M$,\n\\begin{equation}\n  U_1\\subseteq\\mathcal W_M,\n  \\qquad\\text{and hence}\\qquad\n  P_MH=H\\quad(H\\in U_1).\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S04_Lem4_04_TijLocalDegree",
-          "file": "DictatorshipTesting/Paper/S04_Lem4_04_TijLocalDegree.lean",
-          "line": 101
-        }
-      ]
-    },
-    {
-      "id": "S04_C05",
-      "label": "Cor 4.5",
-      "title": "U1 is contained in every local degree-one space",
-      "section": "Section 4",
-      "kind": "paper",
-      "importance": "normal",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Cor4_05_U1Local.lean",
-      "wrappers": [
-        "S04_Cor4_05_U1Local"
-      ],
-      "deps": [
-        "S04_P03",
-        "S04_L04",
-        "S04_D01",
-        "S04_D02"
-      ],
-      "summary": "Cor 4.5: U1 is contained in every local degree-one space.",
-      "statement": "Cor 4.5: U1 is contained in every local degree-one space.",
-      "terms": [
-        {
-          "text": "P_M fixes local degree one",
-          "target": "S04_P03"
+          "name": "S04_Lem4_03_TijLocalDegree",
+          "file": "DictatorshipTesting/Paper/S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne.lean",
+          "line": 104
         },
         {
-          "text": "Basic indicators have local degree at most one",
-          "target": "S04_L04"
-        }
-      ],
-      "paperLabel": "cor:U1-local",
-      "paperEnv": "corollary",
-      "paperStatementLatex": "For every matching $M$, we have\n\\begin{equation}\\label{eq:U1-contained-local-space}\n  U_1\\subseteq\\mathcal W_M.\n\\end{equation}\nConsequently,\n\\begin{equation}\\label{eq:PM-fixes-U1}\n  P_Mh=h\n  \\qquad\\text{for every }h\\in U_1.\n\\end{equation}",
-      "leanLinks": [
-        {
-          "name": "S04_Cor4_05_U1Local",
-          "file": "DictatorshipTesting/Paper/S04_Cor4_05_U1Local.lean",
-          "line": 57
+          "name": "S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne",
+          "file": "DictatorshipTesting/Paper/S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne.lean",
+          "line": 158
         }
       ]
     },
     {
-      "id": "S04_T06",
-      "label": "Thm 4.6",
+      "id": "S04_T04",
+      "label": "Thm 4.4",
       "title": "Matching-cube spectral gap",
-      "section": "Main spine",
+      "section": "Section 4",
       "kind": "paper",
       "importance": "hero",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Thm4_06_MatchingGap.lean",
+      "file": "DictatorshipTesting/Paper/S04_Thm4_04_MatchingGap.lean",
       "wrappers": [
-        "S04_Thm4_06_MatchingGap"
+        "S04_Thm4_04_MatchingGap"
       ],
       "deps": [
-        "S04_C05",
-        "S05_L22",
-        "S05_L25",
-        "S05_L26"
+        "S04_L03",
+        "S05_P16",
+        "S05_L19",
+        "S05_L20"
       ],
-      "summary": "Thm 4.6: Matching-cube spectral gap.",
-      "statement": "Thm 4.6: Matching-cube spectral gap.",
+      "summary": "Thm 4.4: Matching-cube spectral gap.",
+      "statement": "Thm 4.4: Matching-cube spectral gap.",
       "terms": [
         {
           "text": "Section 5 spectral-model inputs",
-          "target": "S05_L11"
+          "target": "S05_L08"
         },
         {
           "text": "tableauDim",
@@ -708,70 +614,36 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "thm:matching-gap",
       "paperEnv": "theorem",
-      "paperStatementLatex": "For every $n\\ge4$ and every $f:S_n\\to\\mathbb R$,\n\\begin{equation}\\label{eq:matching-gap-statement}\n  \\E_M\\norm{(I-P_M)f}^2\n  \\ge \\frac16\\norm{f-P_{U_1}f}^2,\n\\end{equation}\nwhere $M$ is a uniformly random near-perfect matching.  If $n$ is even, the\nconstant $1/6$ in \\eqref{eq:matching-gap-statement} can be replaced by $1/5$.",
+      "paperStatementLatex": "For every $n\\ge4$ and every $f:S_n\\to\\mathbb R$,\n\\begin{equation}\n  \\E_M\\norm{(I-P_M)f}^2\n  \\ge\\frac16\\norm{f-P_{U_1}f}^2,\n\\end{equation}\nwhere $M$ is uniformly random among near-perfect matchings.  For even $n$, the\nconstant can be replaced by $1/5$.",
       "leanLinks": [
         {
-          "name": "S04_Thm4_06_MatchingGap",
-          "file": "DictatorshipTesting/Paper/S04_Thm4_06_MatchingGap.lean",
-          "line": 91
+          "name": "S04_Thm4_04_MatchingGap",
+          "file": "DictatorshipTesting/Paper/S04_Thm4_04_MatchingGap.lean",
+          "line": 89
         }
       ]
     },
     {
-      "id": "S04_L07",
-      "label": "Lem 4.7",
-      "title": "One trial in cube coordinates",
-      "section": "Section 4",
-      "kind": "paper",
-      "importance": "normal",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Lem4_07_TrialCubeCoordinates.lean",
-      "wrappers": [
-        "S04_Lem4_07_TrialCubeCoordinates"
-      ],
-      "deps": [
-        "S04_L01"
-      ],
-      "summary": "Lem 4.7: One trial in cube coordinates.",
-      "statement": "Lem 4.7: One trial in cube coordinates.",
-      "terms": [
-        {
-          "text": "Cube square test",
-          "target": "S04_L01"
-        }
-      ],
-      "paperLabel": "lem:trial-cube-coordinates",
-      "paperEnv": "lemma",
-      "paperStatementLatex": "One execution of \\cref{alg:matching-trial} can be described equivalently as\nfollows.  First sample $M$ uniformly.  Then sample a coset $C\\in\\cC_M$ uniformly,\na cube point $x\\in\\{0,1\\}^m$ uniformly, and directions $u,v\\in\\{0,1\\}^m$ by the\ncoordinate-by-coordinate rule of \\Cref{lem:cube-square}.  If\n\\begin{equation*}\n  g_{C,M}(y)=f(\\rho_C\\tau_y),\n  \\qquad y\\in\\{0,1\\}^m,\n\\end{equation*}\nthen the four queried values are\n\\begin{equation}\\label{eq:trial-four-cube-values}\n  g_{C,M}(x),\\qquad g_{C,M}(x+u),\\qquad\n  g_{C,M}(x+v),\\qquad g_{C,M}(x+u+v),\n\\end{equation}\nand the algorithm rejects exactly when\n\\begin{equation}\\label{eq:trial-rejects-iff-delta-nonzero}\n  \\Delta_{u,v}g_{C,M}(x)\\neq0.\n\\end{equation}",
-      "leanLinks": [
-        {
-          "name": "S04_Lem4_07_TrialCubeCoordinates",
-          "file": "DictatorshipTesting/Paper/S04_Lem4_07_TrialCubeCoordinates.lean",
-          "line": 21
-        }
-      ]
-    },
-    {
-      "id": "S04_P08",
-      "label": "Prop 4.8",
+      "id": "S04_P05",
+      "label": "Prop 4.5",
       "title": "Square energy controls global degree",
-      "section": "Main spine",
+      "section": "Section 4",
       "kind": "paper",
       "importance": "major",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Prop4_08_SquareEnergyControlsGlobalDegree.lean",
+      "file": "DictatorshipTesting/Paper/S04_Prop4_05_SquareEnergyControlsGlobalDegree.lean",
       "wrappers": [
-        "S04_Prop4_08_SquareEnergyControlsGlobalDegree"
+        "S04_Prop4_05_TrialCubeCoordinates",
+        "S04_Prop4_05_SquareEnergyControlsGlobalDegree"
       ],
       "deps": [
         "S04_L01",
-        "S04_P03",
-        "S04_L07",
-        "S04_T06",
-        "S04_D02"
+        "S04_P02",
+        "S04_T04",
+        "S04_D01"
       ],
-      "summary": "Prop 4.8: Square energy controls global degree.",
-      "statement": "Prop 4.8: Square energy controls global degree.",
+      "summary": "Prop 4.5: Square energy controls global degree.",
+      "statement": "Prop 4.5: Square energy controls global degree.",
       "terms": [
         {
           "text": "Cube square test",
@@ -779,15 +651,15 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "Local high-degree error formula",
-          "target": "S04_P03"
+          "target": "S04_P02"
         },
         {
           "text": "Trial cube coordinates",
-          "target": "S04_L07"
+          "target": "S04_P05"
         },
         {
           "text": "Matching-cube spectral gap",
-          "target": "S04_T06"
+          "target": "S04_T04"
         },
         {
           "text": "U1",
@@ -796,33 +668,38 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "prop:square-energy-controls-global-degree",
       "paperEnv": "proposition",
-      "paperStatementLatex": "Let $\\Delta$ denote the alternating sum of the four queried values in one\nexecution of \\cref{alg:matching-trial}.  Then for every $f:S_n\\to\\mathbb R$,\n\\begin{equation}\\label{eq:square-energy-global-bound}\n  \\E[\\Delta^2]\n  \\ge\n  \\frac{16}{27}\\norm{f-P_{U_1}f}^2.\n\\end{equation}",
+      "paperStatementLatex": "Let $\\Delta$ be the alternating sum of the four queried values in one execution\nof \\cref{alg:matching-trial}.  Then, for every $f:S_n\\to\\mathbb R$,\n\\begin{equation}\n  \\E[\\Delta^2]\\ge\\frac{16}{27}\\norm{f-P_{U_1}f}^2.\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S04_Prop4_08_SquareEnergyControlsGlobalDegree",
-          "file": "DictatorshipTesting/Paper/S04_Prop4_08_SquareEnergyControlsGlobalDegree.lean",
-          "line": 158
+          "name": "S04_Prop4_05_TrialCubeCoordinates",
+          "file": "DictatorshipTesting/Paper/S04_Prop4_05_SquareEnergyControlsGlobalDegree.lean",
+          "line": 26
+        },
+        {
+          "name": "S04_Prop4_05_SquareEnergyControlsGlobalDegree",
+          "file": "DictatorshipTesting/Paper/S04_Prop4_05_SquareEnergyControlsGlobalDegree.lean",
+          "line": 166
         }
       ]
     },
     {
-      "id": "S04_L09",
-      "label": "Lem 4.9",
+      "id": "S04_L06",
+      "label": "Lem 4.6",
       "title": "One-trial soundness",
-      "section": "Main spine",
+      "section": "Section 4",
       "kind": "paper",
       "importance": "major",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S04_Lem4_09_OneTrialSoundness.lean",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_06_OneTrialSoundness.lean",
       "wrappers": [
-        "S04_Lem4_09_OneTrialSoundness"
+        "S04_Lem4_06_OneTrialSoundness"
       ],
       "deps": [
         "S02_T02",
-        "S04_P08"
+        "S04_P05"
       ],
-      "summary": "Lem 4.9: One-trial soundness.",
-      "statement": "Lem 4.9: One-trial soundness.",
+      "summary": "Lem 4.6: One-trial soundness.",
+      "statement": "Lem 4.6: One-trial soundness.",
       "terms": [
         {
           "text": "FKN/stability input",
@@ -830,52 +707,52 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "Square energy controls global degree",
-          "target": "S04_P08"
+          "target": "S04_P05"
         }
       ],
       "paperLabel": "lem:one-trial-soundness",
       "paperEnv": "lemma",
-      "paperStatementLatex": "There is an absolute constant $c_0>0$ such that one execution of\n\\cref{alg:matching-trial} rejects every Boolean $f:S_n\\to\\{0,1\\}$ with\nprobability at least\n\\begin{equation}\\label{eq:one-trial-soundness-bound}\n  c_0\\,\\dist(f,\\D)^2.\n\\end{equation}",
+      "paperStatementLatex": "There is an absolute constant $c_0>0$ such that one execution of\n\\cref{alg:matching-trial} rejects every Boolean $f:S_n\\to\\{0,1\\}$ with\nprobability at least\n\\begin{equation}\n  c_0\\,\\dist(f,\\mathcal D)^2.\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S04_Lem4_09_OneTrialSoundness",
-          "file": "DictatorshipTesting/Paper/S04_Lem4_09_OneTrialSoundness.lean",
-          "line": 155
+          "name": "S04_Lem4_06_OneTrialSoundness",
+          "file": "DictatorshipTesting/Paper/S04_Lem4_06_OneTrialSoundness.lean",
+          "line": 153
         }
       ]
     },
     {
-      "id": "S04_L10",
+      "id": "S04_L07",
       "section": "Section 4",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
       "terms": [],
-      "paperStatementLatex": "Let a one-sided finite-seed tester make $Q$ queries and reject a fixed function\nwith probability $p$.  Repeating it independently $k$ times and rejecting if\nany copy rejects gives a one-sided nonadaptive tester with $kQ$ queries and\nrejection probability\n\\begin{equation}\\label{eq:repetition-rejection-formula}\n  1-(1-p)^k.\n\\end{equation}\nMoreover, for $0\\le p\\le1$,\n\\begin{equation}\\label{eq:reciprocal-amplification-bound}\n  (1-p)^k\\le \\frac{1}{1+kp}.\n\\end{equation}\nConsequently, if $kp\\ge2$, the repeated tester rejects with probability at\nleast $2/3$.",
-      "label": "Lem 4.10",
-      "title": "Independent repetition and amplification",
-      "file": "DictatorshipTesting/Paper/S04_Lem4_10_IndependentRepetitionAndAmplification.lean",
+      "paperStatementLatex": "If a one-sided $Q$-query tester rejects a fixed function with probability $p$,\nthen $k$ independent repetitions, rejecting if any copy rejects, use $kQ$\nqueries and reject with probability\n\\begin{equation}\n  1-(1-p)^k.\n\\end{equation}\nMoreover,\n\\begin{equation}\n  (1-p)^k\\le\\frac1{1+kp};\n\\end{equation}\nhence $kp\\ge2$ gives rejection probability at least $2/3$.",
+      "label": "Lem 4.7",
+      "title": "Independent repetition",
+      "file": "DictatorshipTesting/Paper/S04_Lem4_07_IndependentRepetition.lean",
       "wrappers": [
-        "S04_Lem4_10_repetition_rejection_probability",
-        "S04_Lem4_10_dimension_free_amplification"
+        "S04_Lem4_07_repetition_rejection_probability",
+        "S04_Lem4_07_dimension_free_amplification"
       ],
       "deps": [
         "S02_D01",
-        "S04_L09",
+        "S04_L06",
         "S03_L02"
       ],
-      "summary": "Lem 4.10: Independent repetition and amplification.",
-      "statement": "Lem 4.10: Independent repetition and amplification.",
+      "summary": "Lem 4.7: Independent repetition.",
+      "statement": "Lem 4.7: Independent repetition.",
       "leanLinks": [
         {
-          "name": "S04_Lem4_10_repetition_rejection_probability",
-          "file": "DictatorshipTesting/Paper/S04_Lem4_10_IndependentRepetitionAndAmplification.lean",
-          "line": 477
+          "name": "S04_Lem4_07_repetition_rejection_probability",
+          "file": "DictatorshipTesting/Paper/S04_Lem4_07_IndependentRepetition.lean",
+          "line": 476
         },
         {
-          "name": "S04_Lem4_10_dimension_free_amplification",
-          "file": "DictatorshipTesting/Paper/S04_Lem4_10_IndependentRepetitionAndAmplification.lean",
-          "line": 484
+          "name": "S04_Lem4_07_dimension_free_amplification",
+          "file": "DictatorshipTesting/Paper/S04_Lem4_07_IndependentRepetition.lean",
+          "line": 483
         }
       ],
       "paperLabel": "lem:independent-repetition",
@@ -888,7 +765,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Section 5 definitions",
       "kind": "definition",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean",
       "wrappers": [
         "S05_Def5_01_YoungDiagram",
@@ -906,17 +783,17 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Def5_01_YoungDiagram",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean",
-          "line": 24
+          "line": 22
         },
         {
           "name": "S05_Def5_01_youngRow",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean",
-          "line": 27
+          "line": 25
         },
         {
           "name": "S05_Def5_01_youngCells",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean",
-          "line": 31
+          "line": 29
         }
       ]
     },
@@ -949,12 +826,12 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "lem:young-adjacent-matrices",
       "paperEnv": "lemma",
-      "paperStatementLatex": "The operators $S_k^\\lambda$ have the displayed same-row, same-column, and\n$2\\times2$ Young-orthogonal local form.  Moreover they satisfy the type-$A$\nCoxeter relations\n\\begin{equation}\\label{eq:young-coxeter-relations}\n  (S_i^\\lambda)^2=I,\\qquad\n  S_i^\\lambda S_j^\\lambda=S_j^\\lambda S_i^\\lambda\\quad(|i-j|>1),\n  \\qquad\n  S_i^\\lambda S_{i+1}^\\lambda S_i^\\lambda\n  =S_{i+1}^\\lambda S_i^\\lambda S_{i+1}^\\lambda .\n\\end{equation}",
+      "paperStatementLatex": "The operators $S_k^\\lambda$ have the displayed same-row, same-column, and\n$2\\times2$ Young-orthogonal local form.  Moreover they satisfy the type-$A$\nCoxeter relations\n\\begin{equation}\n  (S_i^\\lambda)^2=I,\\qquad\n  S_i^\\lambda S_j^\\lambda=S_j^\\lambda S_i^\\lambda\\quad(|i-j|>1),\n  \\qquad\n  S_i^\\lambda S_{i+1}^\\lambda S_i^\\lambda\n  =S_{i+1}^\\lambda S_i^\\lambda S_{i+1}^\\lambda .\n\\end{equation}",
       "leanLinks": [
         {
           "name": "S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel",
           "file": "DictatorshipTesting/Paper/S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean",
-          "line": 1605
+          "line": 1603
         }
       ]
     },
@@ -965,7 +842,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Section 5 definitions",
       "kind": "definition",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
       "wrappers": [
         "S05_Def5_02_IsYoungSubdiagram",
@@ -995,53 +872,95 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Def5_02_IsYoungSubdiagram",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-          "line": 26
+          "line": 24
         },
         {
           "name": "S05_Def5_02_IsOneBoxChild",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-          "line": 31
+          "line": 29
         },
         {
           "name": "S05_Def5_02_oneBoxChildren",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-          "line": 36
+          "line": 34
         },
         {
           "name": "S05_Def5_02_IsRemovableRow",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-          "line": 40
+          "line": 38
         }
       ]
     },
     {
-      "id": "S05_L02",
-      "section": "Section 5",
+      "id": "S05_T02",
+      "label": "Thm 5.2",
+      "title": "Young orthogonal action",
+      "section": "Tableau operators",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "terms": [],
-      "paperStatementLatex": "Let words in the generators $s_1,\\ldots,s_{N-1}$ be identified under the\nrelations $s_i^2=1$, $s_is_j=s_js_i$ for $|i-j|>1$, and\n$s_is_{i+1}s_i=s_{i+1}s_is_{i+1}$.  Two adjacent words represent the same\npermutation in $S_N$ if and only if they are equivalent under these relations.",
-      "label": "Lem 5.2",
-      "title": "Type-A adjacent-word presentation",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_02_TypeAAdjacentWordPresentation.lean",
+      "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
       "wrappers": [
-        "S05_Lem5_02_typeA_adjacentWord_presentation"
+        "S05_Thm5_02_typeA_adjacentWord_presentation",
+        "S05_Thm5_02_youngOrthogonalAction",
+        "S05_youngAdjacentOperator_inner",
+        "YoungOrthogonalActionData.rho_leftInverse",
+        "YoungOrthogonalActionData.rho_rightInverse",
+        "YoungOrthogonalActionData.rho_bijective",
+        "YoungOrthogonalActionData.rhoLinearEquiv",
+        "YoungOrthogonalActionData.rho_inner"
       ],
       "deps": [
         "S05_L01"
       ],
-      "summary": "Lem 5.2: Type-A adjacent-word presentation.",
-      "statement": "Lem 5.2: Type-A adjacent-word presentation.",
+      "summary": "Thm 5.2: Young orthogonal action.",
+      "statement": "Thm 5.2: Young orthogonal action.",
+      "terms": [],
+      "paperLabel": "thm:young-orthogonal-action",
+      "paperEnv": "theorem",
+      "paperStatementLatex": "For every $\\lambda\\vdash N$, there is an orthogonal representation\n\\[\n  \\rho^\\lambda:S_N\\to\\operatorname{GL}(V^\\lambda)\n\\]\nsatisfying $\\rho^\\lambda(s_i)=S_i^\\lambda$ for every adjacent transposition.",
       "leanLinks": [
         {
-          "name": "S05_Lem5_02_typeA_adjacentWord_presentation",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_02_TypeAAdjacentWordPresentation.lean",
-          "line": 18
+          "name": "S05_Thm5_02_typeA_adjacentWord_presentation",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
+          "line": 29
+        },
+        {
+          "name": "S05_Thm5_02_youngOrthogonalAction",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
+          "line": 39
+        },
+        {
+          "name": "S05_youngAdjacentOperator_inner",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
+          "line": 137
+        },
+        {
+          "name": "YoungOrthogonalActionData.rho_leftInverse",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
+          "line": 152
+        },
+        {
+          "name": "YoungOrthogonalActionData.rho_rightInverse",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
+          "line": 169
+        },
+        {
+          "name": "YoungOrthogonalActionData.rho_bijective",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
+          "line": 185
+        },
+        {
+          "name": "YoungOrthogonalActionData.rhoLinearEquiv",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
+          "line": 195
+        },
+        {
+          "name": "YoungOrthogonalActionData.rho_inner",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
+          "line": 206
         }
-      ],
-      "paperLabel": "lem:type-A-adjacent-word-presentation",
-      "paperEnv": "lemma"
+      ]
     },
     {
       "id": "S05_D03",
@@ -1050,7 +969,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Section 5 definitions",
       "kind": "definition",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_03_StandardTableaux.lean",
       "wrappers": [
         "S05_Def5_03_StandardYoungTableau",
@@ -1075,82 +994,17 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Def5_03_StandardYoungTableau",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_03_StandardTableaux.lean",
-          "line": 27
+          "line": 25
         },
         {
           "name": "S05_Def5_03_cellOfEntry",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_03_StandardTableaux.lean",
-          "line": 31
+          "line": 29
         },
         {
           "name": "S05_Def5_03_TableauMaxAt",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_03_StandardTableaux.lean",
-          "line": 36
-        }
-      ]
-    },
-    {
-      "id": "S05_T03",
-      "label": "Thm 5.3",
-      "title": "Young orthogonal action",
-      "section": "Section 5",
-      "kind": "paper",
-      "importance": "normal",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
-      "wrappers": [
-        "S05_Thm5_03_youngOrthogonalAction",
-        "S05_youngAdjacentOperator_inner",
-        "YoungOrthogonalActionData.rho_leftInverse",
-        "YoungOrthogonalActionData.rho_rightInverse",
-        "YoungOrthogonalActionData.rho_bijective",
-        "YoungOrthogonalActionData.rhoLinearEquiv",
-        "YoungOrthogonalActionData.rho_inner"
-      ],
-      "deps": [
-        "S05_L02"
-      ],
-      "summary": "Thm 5.3: Young orthogonal action.",
-      "statement": "Thm 5.3: Young orthogonal action.",
-      "terms": [],
-      "paperLabel": "thm:young-orthogonal-action",
-      "paperEnv": "theorem",
-      "paperStatementLatex": "For every $\\lambda\\vdash N$, there is an orthogonal representation\n\\[\n  \\rho^\\lambda:S_N\\to\\operatorname{GL}(V^\\lambda)\n\\]\nsuch that $\\rho^\\lambda(s_i)=S_i^\\lambda$ for every adjacent transposition.",
-      "leanLinks": [
-        {
-          "name": "S05_Thm5_03_youngOrthogonalAction",
-          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
-          "line": 33
-        },
-        {
-          "name": "S05_youngAdjacentOperator_inner",
-          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
-          "line": 131
-        },
-        {
-          "name": "YoungOrthogonalActionData.rho_leftInverse",
-          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
-          "line": 146
-        },
-        {
-          "name": "YoungOrthogonalActionData.rho_rightInverse",
-          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
-          "line": 163
-        },
-        {
-          "name": "YoungOrthogonalActionData.rho_bijective",
-          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
-          "line": 179
-        },
-        {
-          "name": "YoungOrthogonalActionData.rhoLinearEquiv",
-          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
-          "line": 189
-        },
-        {
-          "name": "YoungOrthogonalActionData.rho_inner",
-          "file": "DictatorshipTesting/Paper/S05_Thm5_03_YoungOrthogonalAction.lean",
-          "line": 200
+          "line": 34
         }
       ]
     },
@@ -1161,7 +1015,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Section 5 definitions",
       "kind": "definition",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_04_TableauCoordinateSpace.lean",
       "wrappers": [
         "S05_Def5_04_tableauDim",
@@ -1194,55 +1048,61 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Def5_04_tableauDim",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_04_TableauCoordinateSpace.lean",
-          "line": 27
+          "line": 25
         },
         {
           "name": "S05_Def5_04_TableauSpace",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_04_TableauCoordinateSpace.lean",
-          "line": 31
+          "line": 29
         },
         {
           "name": "S05_Def5_04_tableauBasisVec",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_04_TableauCoordinateSpace.lean",
-          "line": 35
+          "line": 33
         }
       ]
     },
     {
-      "id": "S05_L04",
-      "section": "Section 5",
+      "id": "S05_T03",
+      "label": "Thm 5.3",
+      "title": "Jucys--Murphy content action",
+      "section": "Tableau operators",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "terms": [],
-      "paperStatementLatex": "Let $J_1=0$ and $J_k=\\sum_{i<k}(i,k)$ for $2\\le k\\le N$.  Then\n\\begin{equation}\\label{eq:jucys-murphy-recurrence}\n  J_{k+1}=s_kJ_ks_k+s_k.\n\\end{equation}\nThe tableau content operators satisfy the matching recurrence\n\\begin{equation}\\label{eq:tableau-content-recurrence}\n  C_{k+1}^\\lambda\n  =S_k^\\lambda C_k^\\lambda S_k^\\lambda+S_k^\\lambda.\n\\end{equation}",
-      "label": "Lem 5.4",
-      "title": "Jucys--Murphy recurrences",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_04_JucysMurphyRecurrences.lean",
+      "file": "DictatorshipTesting/Paper/S05_Thm5_03_JucysMurphyContentAction.lean",
       "wrappers": [
-        "S05_Lem5_04_jucysMurphyElement_succ_recurrence",
-        "S05_Lem5_04_tableauContent_succ_recurrence"
+        "S05_Thm5_03_jucysMurphyElement_succ_recurrence",
+        "S05_Thm5_03_tableauContent_succ_recurrence",
+        "S05_Thm5_03_jucysMurphyContentAction"
       ],
       "deps": [
         "S05_L01",
-        "S05_T03"
+        "S05_T02"
       ],
-      "summary": "Lem 5.4: Jucys--Murphy recurrences.",
-      "statement": "Lem 5.4: Jucys--Murphy recurrences.",
+      "summary": "Thm 5.3: Jucys--Murphy content action.",
+      "statement": "Thm 5.3: Jucys--Murphy content action.",
+      "terms": [],
+      "paperLabel": "thm:jucys-murphy-content",
+      "paperEnv": "theorem",
+      "paperStatementLatex": "Let $J_1=0$ and $J_k=\\sum_{i<k}(i,k)$ for $2\\le k\\le N$.  Then, for every\n$T\\in\\SYT(\\lambda)$,\n\\begin{equation}\n  \\rho^\\lambda(J_k)e_T=C_k^\\lambda e_T=c_T(k)e_T.\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S05_Lem5_04_jucysMurphyElement_succ_recurrence",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_04_JucysMurphyRecurrences.lean",
-          "line": 18
+          "name": "S05_Thm5_03_jucysMurphyElement_succ_recurrence",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_03_JucysMurphyContentAction.lean",
+          "line": 25
         },
         {
-          "name": "S05_Lem5_04_tableauContent_succ_recurrence",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_04_JucysMurphyRecurrences.lean",
-          "line": 27
+          "name": "S05_Thm5_03_tableauContent_succ_recurrence",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_03_JucysMurphyContentAction.lean",
+          "line": 34
+        },
+        {
+          "name": "S05_Thm5_03_jucysMurphyContentAction",
+          "file": "DictatorshipTesting/Paper/S05_Thm5_03_JucysMurphyContentAction.lean",
+          "line": 46
         }
-      ],
-      "paperLabel": "lem:jucys-murphy-recurrence",
-      "paperEnv": "lemma"
+      ]
     },
     {
       "id": "S05_D05",
@@ -1251,7 +1111,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Section 5 definitions",
       "kind": "definition",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
       "wrappers": [
         "S05_Def5_05_cellContent",
@@ -1272,57 +1132,27 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "def:content-adjacent-operators",
       "paperEnv": "definition",
-      "paperStatementLatex": "For a box $u$, set $c(u)=\\col(u)-\\row(u)$.  If $T\\in\\SYT(\\lambda)$ and\n$a\\in[N]$, set $c_T(a):=c(u_T(a))$.\n\nFor each adjacent index $k$, define a concrete operator\n$S_k^\\lambda\\in\\End(V^\\lambda)$ as follows.  If $k$ and $k+1$ lie in the same\nrow of $T$, set $S_k^\\lambda e_T=e_T$.  If they lie in the same column, set\n$S_k^\\lambda e_T=-e_T$.  Otherwise let $T'=s_kT$ be the tableau obtained by\nswapping the entries $k$ and $k+1$; in this case $T'$ is standard.  On the span\nof $e_T$ and $e_{T'}$, set\n\\begin{equation}\\label{eq:young-orthogonal-two-by-two}\n  S_k^\\lambda\\big|_{\\spanop\\{e_T,e_{T'}\\}}\n  =\n  \\begin{pmatrix}\n    a & b\\\\\n    b & -a\n  \\end{pmatrix},\n  \\qquad\n  a=\\frac{1}{c_T(k+1)-c_T(k)},\n  \\qquad\n  b=\\sqrt{1-a^2},\n\\end{equation}\nwith respect to the ordered basis $(e_T,e_{T'})$.  The formula is independent\nof the choice of representative of the unordered pair $\\{T,T'\\}$, since the\naxial distance changes sign after the swap.\n\nFor $1\\le k\\le N$, define the diagonal content operator\n$C_k^\\lambda\\in\\End(V^\\lambda)$ by\n\\begin{equation}\\label{eq:content-diagonal-operator}\n  C_k^\\lambda e_T=c_T(k)e_T.\n\\end{equation}",
+      "paperStatementLatex": "For a box $u$, set $c(u)=\\col(u)-\\row(u)$.  If $T\\in\\SYT(\\lambda)$ and\n$a\\in[N]$, set $c_T(a):=c(u_T(a))$.\n\nFor each adjacent index $k$, define a concrete operator\n$S_k^\\lambda\\in\\End(V^\\lambda)$ as follows.  If $k$ and $k+1$ lie in the same\nrow of $T$, set $S_k^\\lambda e_T=e_T$.  If they lie in the same column, set\n$S_k^\\lambda e_T=-e_T$.  Otherwise let $T'=s_kT$ be the tableau obtained by\nswapping the entries $k$ and $k+1$; in this case $T'$ is standard.  On the span\nof $e_T$ and $e_{T'}$, set\n\\begin{equation}\n  S_k^\\lambda\\big|_{\\spanop\\{e_T,e_{T'}\\}}\n  =\n  \\begin{pmatrix}\n    a & b\\\\\n    b & -a\n  \\end{pmatrix},\n  \\qquad\n  a=\\frac{1}{c_T(k+1)-c_T(k)},\n  \\qquad\n  b=\\sqrt{1-a^2},\n\\end{equation}\nwith respect to the ordered basis $(e_T,e_{T'})$.  The formula is independent\nof the choice of representative of the unordered pair $\\{T,T'\\}$, since the\naxial distance changes sign after the swap.\n\nFor $1\\le k\\le N$, define the diagonal content operator\n$C_k^\\lambda\\in\\End(V^\\lambda)$ by\n\\begin{equation}\n  C_k^\\lambda e_T=c_T(k)e_T.\n\\end{equation}",
       "leanLinks": [
         {
           "name": "S05_Def5_05_cellContent",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-          "line": 27
+          "line": 25
         },
         {
           "name": "S05_Def5_05_entryContent",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-          "line": 32
+          "line": 30
         },
         {
           "name": "S05_Def5_05_youngAdjacentOperator",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-          "line": 37
+          "line": 35
         },
         {
           "name": "S05_Def5_05_diagonalContentOperator",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-          "line": 42
-        }
-      ]
-    },
-    {
-      "id": "S05_T05",
-      "label": "Thm 5.5",
-      "title": "Jucys--Murphy content action",
-      "section": "Section 5",
-      "kind": "paper",
-      "importance": "normal",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Thm5_05_JucysMurphyContentAction.lean",
-      "wrappers": [
-        "S05_Thm5_05_jucysMurphyContentAction"
-      ],
-      "deps": [
-        "S05_T03",
-        "S05_L04"
-      ],
-      "summary": "Thm 5.5: Jucys--Murphy content action.",
-      "statement": "Thm 5.5: Jucys--Murphy content action.",
-      "terms": [],
-      "paperLabel": "thm:jucys-murphy-content",
-      "paperEnv": "theorem",
-      "paperStatementLatex": "For every $\\lambda\\vdash N$, every $1\\le k\\le N$, and every\n$T\\in\\SYT(\\lambda)$,\n\\begin{equation}\\label{eq:jucys-murphy-diagonal}\n  \\rho^\\lambda(J_k)e_T=C_k^\\lambda e_T=c_T(k)e_T.\n\\end{equation}",
-      "leanLinks": [
-        {
-          "name": "S05_Thm5_05_jucysMurphyContentAction",
-          "file": "DictatorshipTesting/Paper/S05_Thm5_05_JucysMurphyContentAction.lean",
-          "line": 29
+          "line": 40
         }
       ]
     },
@@ -1333,11 +1163,11 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Section 5 definitions",
       "kind": "definition",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_06a_YoungBlock.lean",
       "wrappers": [],
       "deps": [
-        "S05_T03"
+        "S05_T02"
       ],
       "summary": "Def 5.6: Young matrix coefficients, blocks, and energies.",
       "statement": "Def 5.6: Young matrix coefficients, blocks, and energies.",
@@ -1349,28 +1179,30 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "def:young-block",
       "paperEnv": "definition",
-      "paperStatementLatex": "For $\\lambda\\vdash n$ and $S,T\\in\\SYT(\\lambda)$, define\n\\[\n  \\Phi_{S,T}^\\lambda(\\pi)\n  :=\\langle e_S,\\rho^\\lambda(\\pi)e_T\\rangle.\n\\]\nThe Young matrix-coefficient block is\n\\begin{equation}\\label{eq:regular-young-decomposition}\n  \\mathcal H_\\lambda\n  :=\\spanop\\{\\Phi_{S,T}^\\lambda:S,T\\in\\SYT(\\lambda)\\}\n  \\subseteq L^2(S_n;\\mathbb C).\n\\end{equation}\nLet $F_\\lambda$ denote the orthogonal projection of $F$ onto\n$\\mathcal H_\\lambda$, and set\n\\[\n  E_F(\\lambda):=\\|F_\\lambda\\|_2^2.\n\\]",
+      "paperStatementLatex": "For $\\lambda\\vdash n$ and $S,T\\in\\SYT(\\lambda)$, define\n\\[\n  \\Phi_{S,T}^\\lambda(\\pi)\n  :=\\langle e_S,\\rho^\\lambda(\\pi)e_T\\rangle.\n\\]\nThe Young matrix-coefficient block is\n\\begin{equation}\n  \\mathcal H_\\lambda\n  :=\\spanop\\{\\Phi_{S,T}^\\lambda:S,T\\in\\SYT(\\lambda)\\}\n  \\subseteq L^2(S_n;\\mathbb C).\n\\end{equation}\nLet $F_\\lambda$ denote the orthogonal projection of $F$ onto\n$\\mathcal H_\\lambda$, and set\n\\[\n  E_F(\\lambda):=\\|F_\\lambda\\|_2^2.\n\\]",
       "leanLinks": []
     },
     {
-      "id": "S05_L06",
-      "label": "Lem 5.6",
-      "title": "Diagonal content eigenspaces",
+      "id": "S05_L04",
+      "label": "Lem 5.4",
+      "title": "Content separation and tableau connectivity",
       "section": "Tableau operators",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_06_DiagonalContentEigenspaces.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_04_ContentSeparationAndTableauConnectivity.lean",
       "wrappers": [
-        "S05_Lem5_06_diagonalContentEigenspaces"
+        "S05_Lem5_04_diagonalContentEigenspaces",
+        "S05_Lem5_04_standardTableauxSwapConnectedness"
       ],
       "deps": [
         "S05_D05",
         "S05_L01",
-        "S05_T05"
+        "S05_T03",
+        "S05_D03"
       ],
-      "summary": "Lem 5.6: Diagonal content eigenspaces.",
-      "statement": "Lem 5.6: Diagonal content eigenspaces.",
+      "summary": "Lem 5.4: Content separation and tableau connectivity.",
+      "statement": "Lem 5.4: Content separation and tableau connectivity.",
       "terms": [
         {
           "text": "Contents and adjacent operators",
@@ -1382,17 +1214,26 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "Jucys-Murphy content spectrum",
-          "target": "S05_T05"
+          "target": "S05_T03"
+        },
+        {
+          "text": "standard tableaux",
+          "target": "S05_D03"
         }
       ],
-      "paperLabel": "lem:jucys-murphy-eigenbasis",
+      "paperLabel": "lem:tableau-separation-connectivity",
       "paperEnv": "lemma",
-      "paperStatementLatex": "The common eigenspaces of $C_1^\\lambda,\\ldots,C_N^\\lambda$ are exactly\nthe lines $\\mathbb C e_T$, $T\\in\\SYT(\\lambda)$.",
+      "paperStatementLatex": "For a fixed shape $\\lambda$:\n\\begin{enumerate}[label=\\textup{(\\alph*)},itemsep=2pt,topsep=2pt]\n  \\item the common eigenspaces of $C_1^\\lambda,\\ldots,C_N^\\lambda$ are the\n  lines $\\mathbb C e_T$, $T\\in\\SYT(\\lambda)$;\n  \\item the graph on $\\SYT(\\lambda)$ joining $T$ to $s_iT$ whenever the latter\n  is standard is connected.\n\\end{enumerate}",
       "leanLinks": [
         {
-          "name": "S05_Lem5_06_diagonalContentEigenspaces",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_06_DiagonalContentEigenspaces.lean",
-          "line": 650
+          "name": "S05_Lem5_04_diagonalContentEigenspaces",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_04_ContentSeparationAndTableauConnectivity.lean",
+          "line": 648
+        },
+        {
+          "name": "S05_Lem5_04_standardTableauxSwapConnectedness",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_04_ContentSeparationAndTableauConnectivity.lean",
+          "line": 1180
         }
       ]
     },
@@ -1403,7 +1244,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Section 5 definitions",
       "kind": "definition",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_07a_TwoBoxRemovals.lean",
       "wrappers": [],
       "deps": [
@@ -1417,59 +1258,21 @@ window.DICT_DEPENDENCY_DATA = {
           "target": "S05_D02"
         },
         {
-          "text": "Removable corners and one-box removals",
-          "target": "S05_D02"
-        },
-        {
           "text": "one-box children",
           "target": "S05_D02"
         }
       ],
       "paperLabel": "def:branching-data",
       "paperEnv": "definition",
-      "paperStatementLatex": "Let $\\lambda\\vdash N$.\n\\begin{enumerate}[label=(\\alph*)]\n\\item\\label[definition]{def:two-box-removals}\nIf $N\\ge2$, define\n\\begin{align*}\n  \\mathsf H_2(\\lambda)\n  &:=\\{\\mu\\vdash N-2:\\lambda\\setminus\\mu\n      \\text{ has two boxes and no two lie in the same column}\\},\\\\\n  \\mathsf V_2(\\lambda)\n  &:=\\{\\mu\\vdash N-2:\\lambda\\setminus\\mu\n      \\text{ has two boxes and no two lie in the same row}\\}.\n\\end{align*}\nA disconnected two-box removal belongs to both sets.\n\n\\item\\label[definition]{def:signed-two-box-removals}\nSet\n\\[\n  \\mathsf B_2(\\lambda)\n  :=\\{(\\mu,+):\\mu\\in\\mathsf H_2(\\lambda)\\}\n    \\uplus\n    \\{(\\mu,-):\\mu\\in\\mathsf V_2(\\lambda)\\},\n  \\qquad\n  \\varepsilon_+=1,\n  \\quad\n  \\varepsilon_-=-1.\n\\]\nThe union is a disjoint union of signed occurrences, so a disconnected removal\nappears once with each sign.\n\n\\item\\label[definition]{def:one-box-removals}\nFor $\\mu\\vdash N-1$, write $\\mu\\nearrow\\lambda$ when\n$[\\mu]=[\\lambda]\\setminus\\{u\\}$ for some $u\\in\\Rem(\\lambda)$.\n\\end{enumerate}",
+      "paperStatementLatex": "Let $\\lambda\\vdash N$.\n\\begin{enumerate}[label=(\\alph*)]\n\\item\nIf $N\\ge2$, define\n\\begin{align*}\n  \\mathsf H_2(\\lambda)\n  &:=\\{\\mu\\vdash N-2:\\lambda\\setminus\\mu\n      \\text{ has two boxes and no two lie in the same column}\\},\\\\\n  \\mathsf V_2(\\lambda)\n  &:=\\{\\mu\\vdash N-2:\\lambda\\setminus\\mu\n      \\text{ has two boxes and no two lie in the same row}\\}.\n\\end{align*}\nA disconnected two-box removal belongs to both sets.\n\n\\item\nSet\n\\[\n  \\mathsf B_2(\\lambda)\n  :=\\{(\\mu,+):\\mu\\in\\mathsf H_2(\\lambda)\\}\n    \\uplus\n    \\{(\\mu,-):\\mu\\in\\mathsf V_2(\\lambda)\\},\n  \\qquad\n  \\varepsilon_+=1,\n  \\quad\n  \\varepsilon_-=-1.\n\\]\nThe union is a disjoint union of signed occurrences, so a disconnected removal\nappears once with each sign.\n\n\\item\nFor $\\mu\\vdash N-1$, write $\\mu\\nearrow\\lambda$ when\n$[\\mu]=[\\lambda]\\setminus\\{u\\}$ for some $u\\in\\Rem(\\lambda)$.\n\\end{enumerate}",
       "leanLinks": []
-    },
-    {
-      "id": "S05_L07",
-      "label": "Lem 5.7",
-      "title": "Connectedness of standard tableaux",
-      "section": "Tableau operators",
-      "kind": "paper",
-      "importance": "normal",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_07_ConnectednessOfStandardTableaux.lean",
-      "wrappers": [
-        "S05_Lem5_07_standardTableauxSwapConnectedness"
-      ],
-      "deps": [
-        "S05_D03"
-      ],
-      "summary": "Lem 5.7: Connectedness of standard tableaux.",
-      "statement": "Lem 5.7: Connectedness of standard tableaux.",
-      "terms": [
-        {
-          "text": "standard tableaux",
-          "target": "S05_D03"
-        }
-      ],
-      "paperLabel": "lem:tableau-swap-connected",
-      "paperEnv": "lemma",
-      "paperStatementLatex": "For a fixed Young diagram $\\lambda$, the graph on $\\SYT(\\lambda)$ in which\n$T$ is adjacent to $s_iT$ whenever $s_iT$ is again standard is connected.",
-      "leanLinks": [
-        {
-          "name": "S05_Lem5_07_standardTableauxSwapConnectedness",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_07_ConnectednessOfStandardTableaux.lean",
-          "line": 550
-        }
-      ]
     },
     {
       "id": "S05_D08",
       "section": "Section 5 definitions",
       "kind": "definition",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "terms": [],
       "paperStatementLatex": "Fix $(\\mu,\\sigma)\\in\\mathsf B_2(\\lambda)$ and write\n$B=[\\lambda]\\setminus[\\mu]$.  For $U\\in\\SYT(\\mu)$, let $E_U$ be the span of\nthe standard extensions obtained by placing $N-1,N$ in $B$.  If $B$ lies in\none row or one column, let $\\eta_{U,\\sigma}$ be the unique unit extension with\nthe corresponding sign.  If the two boxes are in different rows and columns,\nlet $\\eta_{U,+}$ and $\\eta_{U,-}$ be the normalized $+1$ and $-1$\neigenvectors of $S_{N-1}^\\lambda$ in the two-dimensional space $E_U$.\nDefine\n\\[\n  W_{\\mu,\\sigma}\n  :=\\spanop\\{\\eta_{U,\\sigma}:U\\in\\SYT(\\mu)\\},\n  \\qquad\n  D_{\\mu,\\sigma}(\\eta_{U,\\sigma}):=e_U.\n\\]",
       "label": "Def 5.8",
@@ -1480,7 +1283,7 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "deps": [
         "S05_D07",
-        "S05_L13"
+        "S05_L10"
       ],
       "summary": "Def 5.8: Signed two-box extension spaces.",
       "statement": "Def 5.8: Signed two-box extension spaces.",
@@ -1488,42 +1291,41 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Def5_08_signedTwoBoxExtensionBasisVector",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_08_SignedTwoBoxExtensionSpaces.lean",
-          "line": 158
+          "line": 157
         }
       ],
       "paperLabel": "def:signed-two-box-extension-spaces",
       "paperEnv": "definition"
     },
     {
-      "id": "S05_L08",
-      "label": "Lem 5.8",
+      "id": "S05_L05",
+      "label": "Lem 5.5",
       "title": "Young-basis scalar commutant",
-      "section": "Matching algebra",
+      "section": "Tableau operators",
       "kind": "paper",
       "importance": "major",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_08_YoungBasisScalarCommutant.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_05_YoungBasisScalarCommutant.lean",
       "wrappers": [
-        "S05_Lem5_08_youngModelOperator_scalar_on_basis"
+        "S05_Lem5_05_youngModelOperator_scalar_on_basis"
       ],
       "deps": [
-        "S05_L06",
-        "S05_L07"
+        "S05_L04"
       ],
-      "summary": "Lem 5.8: Young-basis scalar commutant.",
-      "statement": "Lem 5.8: Young-basis scalar commutant.",
+      "summary": "Lem 5.5: Young-basis scalar commutant.",
+      "statement": "Lem 5.5: Young-basis scalar commutant.",
       "terms": [
         {
           "text": "Central averaged rejection",
-          "target": "S05_L20"
+          "target": "S05_P16"
         },
         {
           "text": "Standard tableaux connectedness",
-          "target": "S05_L07"
+          "target": "S05_L04"
         },
         {
           "text": "Diagonal content eigenspaces",
-          "target": "S05_L06"
+          "target": "S05_L04"
         }
       ],
       "paperLabel": "lem:young-basis-scalar-commutant",
@@ -1531,9 +1333,9 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "Let $B\\in\\End(V^\\lambda)$.  If $B$ commutes with every content operator\n$C_k^\\lambda$ and every adjacent operator $S_i^\\lambda$, then\n\\[\n  B=\\frac{\\operatorname{tr}B}{d_\\lambda}I.\n\\]",
       "leanLinks": [
         {
-          "name": "S05_Lem5_08_youngModelOperator_scalar_on_basis",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_08_YoungBasisScalarCommutant.lean",
-          "line": 147
+          "name": "S05_Lem5_05_youngModelOperator_scalar_on_basis",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_05_YoungBasisScalarCommutant.lean",
+          "line": 144
         }
       ]
     },
@@ -1544,7 +1346,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Section 5 definitions",
       "kind": "definition",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_09_OneBoxDeletionSpaces.lean",
       "wrappers": [],
       "deps": [
@@ -1564,7 +1366,7 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "one-box deletion",
-          "target": "S05_L14"
+          "target": "S05_L11"
         }
       ],
       "paperLabel": "def:one-box-deletion-spaces",
@@ -1573,37 +1375,37 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": []
     },
     {
-      "id": "S05_L09",
+      "id": "S05_L06",
       "section": "Section 5",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
       "terms": [],
-      "paperStatementLatex": "For partitions $\\lambda,\\mu\\vdash n$ and tableaux of the indicated shapes,\n\\begin{equation}\\label{eq:young-matrix-coefficient-orthogonality}\n  \\left\\langle\\Phi_{S,T}^\\lambda,\\Phi_{U,V}^\\mu\\right\\rangle\n  =\\begin{cases}\n    d_\\lambda^{-1},&\\lambda=\\mu,\\ S=U,\\ T=V,\\\\\n    0,&\\text{otherwise}.\n  \\end{cases}\n\\end{equation}",
-      "label": "Lem 5.9",
+      "paperStatementLatex": "For partitions $\\lambda,\\mu\\vdash n$ and tableaux of the indicated shapes,\n\\begin{equation}\n  \\left\\langle\\Phi_{S,T}^\\lambda,\\Phi_{U,V}^\\mu\\right\\rangle\n  =\\begin{cases}\n    d_\\lambda^{-1},&\\lambda=\\mu,\\ S=U,\\ T=V,\\\\\n    0,&\\text{otherwise}.\n  \\end{cases}\n\\end{equation}",
+      "label": "Lem 5.6",
       "title": "Orthogonality of Young matrix coefficients",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_09_YoungMatrixCoefficientOrthogonality.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_06_YoungMatrixCoefficientOrthogonality.lean",
       "wrappers": [
-        "S05_Lem5_09_same_shape",
-        "S05_Lem5_09_distinct_shapes"
+        "S05_Lem5_06_same_shape",
+        "S05_Lem5_06_distinct_shapes"
       ],
       "deps": [
-        "S05_L08",
-        "S05_T05",
+        "S05_L05",
+        "S05_T03",
         "S05_D06"
       ],
-      "summary": "Lem 5.9: Orthogonality of Young matrix coefficients.",
-      "statement": "Lem 5.9: Orthogonality of Young matrix coefficients.",
+      "summary": "Lem 5.6: Orthogonality of Young matrix coefficients.",
+      "statement": "Lem 5.6: Orthogonality of Young matrix coefficients.",
       "leanLinks": [
         {
-          "name": "S05_Lem5_09_same_shape",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_09_YoungMatrixCoefficientOrthogonality.lean",
-          "line": 27
+          "name": "S05_Lem5_06_same_shape",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_06_YoungMatrixCoefficientOrthogonality.lean",
+          "line": 26
         },
         {
-          "name": "S05_Lem5_09_distinct_shapes",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_09_YoungMatrixCoefficientOrthogonality.lean",
-          "line": 38
+          "name": "S05_Lem5_06_distinct_shapes",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_06_YoungMatrixCoefficientOrthogonality.lean",
+          "line": 37
         }
       ],
       "paperLabel": "lem:young-matrix-coefficient-orthogonality",
@@ -1616,7 +1418,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Section 5 definitions",
       "kind": "definition",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_10a_EvenSignPatternMultiset.lean",
       "wrappers": [],
       "deps": [
@@ -1640,33 +1442,33 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "def:matching-sign-patterns",
       "paperEnv": "definition",
-      "paperStatementLatex": "\\begin{enumerate}[label=(\\alph*)]\n\\item\\label[definition]{def:even-sign-patterns}\nFor $\\lambda\\vdash2m$, define a multiset $\\mathsf X_m(\\lambda)$ of subsets of\n$[m]$ by\n\\[\n  \\mathsf X_1((2))=\\{\\emptyset\\},\n  \\qquad\n  \\mathsf X_1((1,1))=\\{\\{1\\}\\},\n\\]\nand, for $m\\ge2$,\n\\begin{equation}\\label{eq:X-recursion-even}\n\\begin{aligned}\n  \\mathsf X_m(\\lambda)\n  :=&\\biguplus_{\\mu\\in\\mathsf H_2(\\lambda)}\n      \\{R:R\\in\\mathsf X_{m-1}(\\mu)\\}\\\\\n   &\\uplus\n     \\biguplus_{\\mu\\in\\mathsf V_2(\\lambda)}\n      \\{R\\cup\\{m\\}:R\\in\\mathsf X_{m-1}(\\mu)\\}.\n\\end{aligned}\n\\end{equation}\nSet\n\\[\n  z_m(\\lambda):=\\#\\{R\\in\\mathsf X_m(\\lambda):R=\\emptyset\\},\n  \\qquad\n  h_m(\\lambda):=\\#\\{R\\in\\mathsf X_m(\\lambda):|R|\\ge2\\}.\n\\]\n\n\\item\\label[definition]{def:odd-sign-patterns}\nFor $\\lambda\\vdash2m+1$, define\n\\begin{equation}\\label{eq:X-recursion-odd}\n  \\mathsf X_m^{\\mathrm{odd}}(\\lambda)\n  :=\\biguplus_{\\mu\\nearrow\\lambda}\\mathsf X_m(\\mu),\n\\end{equation}\nand\n\\[\n  h_m^{\\mathrm{odd}}(\\lambda)\n  :=\\#\\{R\\in\\mathsf X_m^{\\mathrm{odd}}(\\lambda):|R|\\ge2\\}.\n\\]\n\\end{enumerate}\nAll unions are multiset unions; repeated child shapes retain their\nmultiplicity.",
+      "paperStatementLatex": "\\begin{enumerate}[label=(\\alph*)]\n\\item\nFor $\\lambda\\vdash2m$, define a multiset $\\mathsf X_m(\\lambda)$ of subsets of\n$[m]$ by\n\\[\n  \\mathsf X_1((2))=\\{\\emptyset\\},\n  \\qquad\n  \\mathsf X_1((1,1))=\\{\\{1\\}\\},\n\\]\nand, for $m\\ge2$,\n\\begin{equation}\n\\begin{aligned}\n  \\mathsf X_m(\\lambda)\n  :=&\\biguplus_{\\mu\\in\\mathsf H_2(\\lambda)}\n      \\{R:R\\in\\mathsf X_{m-1}(\\mu)\\}\\\\\n   &\\uplus\n     \\biguplus_{\\mu\\in\\mathsf V_2(\\lambda)}\n      \\{R\\cup\\{m\\}:R\\in\\mathsf X_{m-1}(\\mu)\\}.\n\\end{aligned}\n\\end{equation}\nSet\n\\[\n  z_m(\\lambda):=\\#\\{R\\in\\mathsf X_m(\\lambda):R=\\emptyset\\},\n  \\qquad\n  h_m(\\lambda):=\\#\\{R\\in\\mathsf X_m(\\lambda):|R|\\ge2\\}.\n\\]\n\n\\item\nFor $\\lambda\\vdash2m+1$, define\n\\begin{equation}\n  \\mathsf X_m^{\\mathrm{odd}}(\\lambda)\n  :=\\biguplus_{\\mu\\nearrow\\lambda}\\mathsf X_m(\\mu),\n\\end{equation}\nand\n\\[\n  h_m^{\\mathrm{odd}}(\\lambda)\n  :=\\#\\{R\\in\\mathsf X_m^{\\mathrm{odd}}(\\lambda):|R|\\ge2\\}.\n\\]\n\\end{enumerate}\nAll unions are multiset unions; repeated child shapes retain their\nmultiplicity.",
       "leanLinks": []
     },
     {
-      "id": "S05_L10",
+      "id": "S05_L07",
       "section": "Section 5",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
       "terms": [],
-      "paperStatementLatex": "For every $n\\ge0$,\n\\begin{equation}\\label{eq:young-tableau-sum-of-squares}\n  \\sum_{\\lambda\\vdash n}d_\\lambda^2=n!.\n\\end{equation}",
-      "label": "Lem 5.10",
+      "paperStatementLatex": "For every $n\\ge0$,\n\\begin{equation}\n  \\sum_{\\lambda\\vdash n}d_\\lambda^2=n!.\n\\end{equation}",
+      "label": "Lem 5.7",
       "title": "Young-lattice sum of squares",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_10_YoungTableauSumOfSquares.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_07_YoungTableauSumOfSquares.lean",
       "wrappers": [
-        "S05_Lem5_10_youngTableau_sum_of_squares"
+        "S05_Lem5_07_youngTableau_sum_of_squares"
       ],
       "deps": [
         "S05_D07"
       ],
-      "summary": "Lem 5.10: Young-lattice sum of squares.",
-      "statement": "Lem 5.10: Young-lattice sum of squares.",
+      "summary": "Lem 5.7: Young-lattice sum of squares.",
+      "statement": "Lem 5.7: Young-lattice sum of squares.",
       "leanLinks": [
         {
-          "name": "S05_Lem5_10_youngTableau_sum_of_squares",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_10_YoungTableauSumOfSquares.lean",
-          "line": 16
+          "name": "S05_Lem5_07_youngTableau_sum_of_squares",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_07_YoungTableauSumOfSquares.lean",
+          "line": 15
         }
       ],
       "paperLabel": "lem:young-tableau-sum-of-squares",
@@ -1679,7 +1481,7 @@ window.DICT_DEPENDENCY_DATA = {
       "section": "Section 5 definitions",
       "kind": "definition",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_11a_MatchingCharacters.lean",
       "wrappers": [],
       "deps": [
@@ -1697,38 +1499,34 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "text": "Matching operators",
           "target": "S05_L01"
-        },
-        {
-          "text": "Matching operators",
-          "target": "S05_L01"
         }
       ],
       "paperLabel": "def:matching-characters-and-eigenvectors",
       "paperEnv": "definition",
-      "paperStatementLatex": "Let $M=(\\tau_1,\\ldots,\\tau_m)$ be an ordered matching and put\n\\[\n  A_M:=\\{\\tau_x:x\\in\\{0,1\\}^m\\},\n  \\qquad\n  \\tau_x:=\\prod_{r:x_r=1}\\tau_r,\n  \\qquad\n  \\chi_R(\\tau_x):=(-1)^{\\sum_{r\\in R}x_r}.\n\\]\nThe product is order-independent because the edge transpositions commute.\nA vector $v\\in V^\\lambda$ is an $M$-matching eigenvector with label\n$R\\subseteq[m]$ when\n\\begin{equation}\\label{eq:matching-eigenbasis-definition}\n  \\rho^\\lambda(\\tau_x)v=\\chi_R(\\tau_x)v\n  \\qquad(x\\in\\{0,1\\}^m).\n\\end{equation}\nFor a perfect matching on $[2m]$ this is the even case, and for a near-perfect\nmatching on $[2m+1]$ it is the odd case.",
+      "paperStatementLatex": "Let $M=(\\tau_1,\\ldots,\\tau_m)$ be an ordered matching and put\n\\[\n  A_M:=\\{\\tau_x:x\\in\\{0,1\\}^m\\},\n  \\qquad\n  \\tau_x:=\\prod_{r:x_r=1}\\tau_r,\n  \\qquad\n  \\chi_R(\\tau_x):=(-1)^{\\sum_{r\\in R}x_r}.\n\\]\nThe product is order-independent because the edge transpositions commute.\nA vector $v\\in V^\\lambda$ is an $M$-matching eigenvector with label\n$R\\subseteq[m]$ when\n\\begin{equation}\n  \\rho^\\lambda(\\tau_x)v=\\chi_R(\\tau_x)v\n  \\qquad(x\\in\\{0,1\\}^m).\n\\end{equation}\nFor a perfect matching on $[2m]$ this is the even case, and for a near-perfect\nmatching on $[2m+1]$ it is the odd case.",
       "leanLinks": []
     },
     {
-      "id": "S05_L11",
-      "label": "Lem 5.11",
+      "id": "S05_L08",
+      "label": "Lem 5.8",
       "title": "Regular Young-block decomposition",
-      "section": "Spectral bridge",
+      "section": "Section 5",
       "kind": "paper",
       "importance": "major",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_11_RegularYoungBlockDecomposition.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_08_RegularYoungBlockDecomposition.lean",
       "wrappers": [
-        "S05_Lem5_11_globalYoungMatrixCoefficient_linearIndependent",
-        "S05_Lem5_11_globalYoungMatrixCoefficient_span_all",
-        "S05_Lem5_11_parseval"
+        "S05_Lem5_08_globalYoungMatrixCoefficient_linearIndependent",
+        "S05_Lem5_08_globalYoungMatrixCoefficient_span_all",
+        "S05_Lem5_08_parseval"
       ],
       "deps": [
-        "S05_L09",
-        "S05_L10",
+        "S05_L06",
+        "S05_L07",
         "S05_D06"
       ],
-      "summary": "Lem 5.11: Regular Young-block decomposition.",
-      "statement": "Lem 5.11: Regular Young-block decomposition.",
+      "summary": "Lem 5.8: Regular Young-block decomposition.",
+      "statement": "Lem 5.8: Regular Young-block decomposition.",
       "terms": [
         {
           "text": "Young-block energy profile",
@@ -1740,62 +1538,62 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "Young orthogonal realization",
-          "target": "S05_T03"
+          "target": "S05_T02"
         },
         {
           "text": "Jucys-Murphy content spectrum",
-          "target": "S05_T05"
+          "target": "S05_T03"
         },
         {
           "text": "Degree-one Young-block identification",
-          "target": "S05_L12"
+          "target": "S05_L09"
         },
         {
           "text": "Block scalar of averaged rejection",
-          "target": "S05_L21"
+          "target": "S05_P16"
         },
         {
           "text": "Diagonal content eigenspaces",
-          "target": "S05_L06"
+          "target": "S05_L04"
         }
       ],
       "paperLabel": "lem:regular-young-block-decomposition",
       "paperEnv": "lemma",
-      "paperStatementLatex": "The functions\n\\[\n  \\sqrt{d_\\lambda}\\,\\Phi_{S,T}^\\lambda,\n  \\qquad\n  \\lambda\\vdash n,\\quad S,T\\in\\SYT(\\lambda),\n\\]\nform an orthonormal basis of $L^2(S_n;\\mathbb C)$.  Consequently,\n\\begin{equation}\\label{eq:regular-young-orthogonal-sum}\n  L^2(S_n;\\mathbb C)\n  =\\bigoplus_{\\lambda\\vdash n}\\mathcal H_\\lambda,\n  \\qquad\n  \\dim\\mathcal H_\\lambda=d_\\lambda^2,\n\\end{equation}\nand every $F$ has a unique orthogonal decomposition\n$F=\\sum_{\\lambda\\vdash n}F_\\lambda$ with\n$F_\\lambda\\in\\mathcal H_\\lambda$ and\n\\begin{equation}\\label{eq:young-block-parseval}\n  \\|F\\|_2^2=\\sum_{\\lambda\\vdash n}E_F(\\lambda).\n\\end{equation}",
+      "paperStatementLatex": "The functions\n\\[\n  \\sqrt{d_\\lambda}\\,\\Phi_{S,T}^\\lambda,\n  \\qquad\n  \\lambda\\vdash n,\\quad S,T\\in\\SYT(\\lambda),\n\\]\nform an orthonormal basis of $L^2(S_n;\\mathbb C)$.  Consequently,\n\\begin{equation}\n  L^2(S_n;\\mathbb C)\n  =\\bigoplus_{\\lambda\\vdash n}\\mathcal H_\\lambda,\n  \\qquad\n  \\dim\\mathcal H_\\lambda=d_\\lambda^2,\n\\end{equation}\nand every $F$ has a unique orthogonal decomposition\n$F=\\sum_{\\lambda\\vdash n}F_\\lambda$ with\n$F_\\lambda\\in\\mathcal H_\\lambda$ and\n\\begin{equation}\n  \\|F\\|_2^2=\\sum_{\\lambda\\vdash n}E_F(\\lambda).\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S05_Lem5_11_globalYoungMatrixCoefficient_linearIndependent",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_11_RegularYoungBlockDecomposition.lean",
-          "line": 20
+          "name": "S05_Lem5_08_globalYoungMatrixCoefficient_linearIndependent",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_08_RegularYoungBlockDecomposition.lean",
+          "line": 19
         },
         {
-          "name": "S05_Lem5_11_globalYoungMatrixCoefficient_span_all",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_11_RegularYoungBlockDecomposition.lean",
-          "line": 28
+          "name": "S05_Lem5_08_globalYoungMatrixCoefficient_span_all",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_08_RegularYoungBlockDecomposition.lean",
+          "line": 27
         },
         {
-          "name": "S05_Lem5_11_parseval",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_11_RegularYoungBlockDecomposition.lean",
-          "line": 46
+          "name": "S05_Lem5_08_parseval",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_08_RegularYoungBlockDecomposition.lean",
+          "line": 45
         }
       ]
     },
     {
       "id": "S05_D12",
       "label": "Def 5.12",
-      "title": "Matching idempotents and averaged rejection",
+      "title": "Matching Fourier idempotents and averaged rejection",
       "section": "Section 5 definitions",
       "kind": "definition",
       "importance": "normal",
-      "status": "interface",
+      "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_12a_MatchingIdempotents.lean",
       "wrappers": [],
       "deps": [
         "S05_D11",
-        "S04_D02"
+        "S04_D01"
       ],
-      "summary": "Def 5.12: Matching idempotents and averaged rejection.",
-      "statement": "Def 5.12: Matching idempotents and averaged rejection.",
+      "summary": "Def 5.12: Matching Fourier idempotents and averaged rejection.",
+      "statement": "Def 5.12: Matching Fourier idempotents and averaged rejection.",
       "terms": [
         {
           "text": "Matching characters",
@@ -1803,7 +1601,7 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "Young-basis scalar commutant",
-          "target": "S05_L08"
+          "target": "S05_L05"
         },
         {
           "text": "Tableau coordinate space",
@@ -1812,27 +1610,27 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "def:matching-idempotents",
       "paperEnv": "definition",
-      "paperStatementLatex": "For an ordered matching $M$ with $m$ edges, define\n\\[\n  e_R^M:=2^{-m}\\sum_{x\\in\\{0,1\\}^m}\\chi_R(\\tau_x)\\tau_x,\n  \\qquad\n  p_M:=\\sum_{|R|\\le1}e_R^M,\n  \\qquad\n  q_M:=1-p_M.\n\\]\nFor $a\\in\\mathbb C[S_n]$, let $C_a$ denote right convolution by $a$.  With $M$\nuniform over perfect or near-perfect matchings according to the parity of $n$,\nset\n\\begin{equation}\\label{eq:averaged-high-element-and-operator}\n  q:=\\E_M q_M,\n  \\qquad\n  \\cA:=\\E_M(I-P_M).\n\\end{equation}",
+      "paperStatementLatex": "For an ordered matching $M$ with $m$ edges, define\n\\[\n  e_R^M:=2^{-m}\\sum_{x\\in\\{0,1\\}^m}\\chi_R(\\tau_x)\\tau_x,\n  \\qquad\n  p_M:=\\sum_{|R|\\le1}e_R^M,\n  \\qquad\n  q_M:=1-p_M.\n\\]\nFor $a\\in\\mathbb C[S_n]$, let $C_a$ denote right convolution by $a$.  With $M$\nuniform over perfect or near-perfect matchings according to the parity of $n$,\nset\n\\begin{equation}\n  q:=\\E_Mq_M,\n  \\qquad\n  \\mathcal A:=\\E_M(I-P_M).\n\\end{equation}",
       "leanLinks": []
     },
     {
-      "id": "S05_L12",
-      "label": "Lem 5.12",
+      "id": "S05_L09",
+      "label": "Lem 5.9",
       "title": "Degree-one Young-block identification",
       "section": "Section 5",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_12_DegreeOneYoungBlockIdentification.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_09_DegreeOneYoungBlockIdentification.lean",
       "wrappers": [
-        "S05_Lem5_12_degreeOneYoungBlockIdentification"
+        "S05_Lem5_09_degreeOneYoungBlockIdentification"
       ],
       "deps": [
-        "S05_T03",
-        "S05_L11"
+        "S05_T02",
+        "S05_L08"
       ],
-      "summary": "Lem 5.12: Degree-one Young-block identification.",
-      "statement": "Lem 5.12: Degree-one Young-block identification.",
+      "summary": "Lem 5.9: Degree-one Young-block identification.",
+      "statement": "Lem 5.9: Degree-one Young-block identification.",
       "terms": [
         {
           "text": "Young block",
@@ -1841,33 +1639,33 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "lem:degree-one-young-blocks",
       "paperEnv": "lemma",
-      "paperStatementLatex": "For $n\\ge2$, after complexification,\n\\begin{equation}\\label{eq:U1-young-blocks}\n  U_1\\otimes_{\\mathbb R}\\mathbb C\n  =\\mathcal H_{(n)}\\oplus\\mathcal H_{(n-1,1)}.\n\\end{equation}\nEquivalently, for real-valued $F$,\n\\begin{equation}\\label{eq:U1-complement-young-blocks}\n  \\|F-P_{U_1}F\\|_2^2\n  =\\sum_{\\lambda\\notin\\{(n),(n-1,1)\\}}E_F(\\lambda).\n\\end{equation}\nFor $n=1$, only the one-row block occurs.",
+      "paperStatementLatex": "For $n\\ge2$, after complexification,\n\\begin{equation}\n  U_1\\otimes_{\\mathbb R}\\mathbb C\n  =\\mathcal H_{(n)}\\oplus\\mathcal H_{(n-1,1)}.\n\\end{equation}\nEquivalently, for real-valued $F$,\n\\begin{equation}\n  \\|F-P_{U_1}F\\|_2^2\n  =\\sum_{\\lambda\\notin\\{(n),(n-1,1)\\}}E_F(\\lambda).\n\\end{equation}\nFor $n=1$, only the one-row block occurs.",
       "leanLinks": [
         {
-          "name": "S05_Lem5_12_degreeOneYoungBlockIdentification",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_12_DegreeOneYoungBlockIdentification.lean",
-          "line": 28
+          "name": "S05_Lem5_09_degreeOneYoungBlockIdentification",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_09_DegreeOneYoungBlockIdentification.lean",
+          "line": 26
         }
       ]
     },
     {
-      "id": "S05_L13",
-      "label": "Lem 5.13",
+      "id": "S05_L10",
+      "label": "Lem 5.10",
       "title": "Signed two-box orthogonal branching",
       "section": "Finite tableau data",
       "kind": "paper",
       "importance": "major",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_13_SignedTwoBoxOrthogonalBranching.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_10_SignedTwoBoxOrthogonalBranching.lean",
       "wrappers": [
-        "S05_Lem5_13_twoStepDeletionTableauxEquivChildTableaux"
+        "S05_Lem5_10_twoStepDeletionTableauxEquivChildTableaux"
       ],
       "deps": [
         "S05_D07",
         "S05_D03"
       ],
-      "summary": "Lem 5.13: Signed two-box orthogonal branching.",
-      "statement": "Lem 5.13: Signed two-box orthogonal branching.",
+      "summary": "Lem 5.10: Signed two-box orthogonal branching.",
+      "statement": "Lem 5.10: Signed two-box orthogonal branching.",
       "terms": [
         {
           "text": "Two-box removals",
@@ -1880,37 +1678,37 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "lem:two-box-tableau-branching",
       "paperEnv": "lemma",
-      "paperStatementLatex": "The maps $D_{\\mu,\\sigma}:W_{\\mu,\\sigma}\\to V^\\mu$ are unitary, the signed\nchild spaces are mutually orthogonal, and\n\\begin{equation}\\label{eq:two-box-orthogonal-sum}\n  V^\\lambda\n  =\\bigoplus_{(\\mu,\\sigma)\\in\\mathsf B_2(\\lambda)}W_{\\mu,\\sigma}.\n\\end{equation}\nFor $w\\in W_{\\mu,\\sigma}$,\n\\begin{equation}\\label{eq:two-box-last-transposition}\n  S_{N-1}^\\lambda w=\\varepsilon_\\sigma w,\n\\end{equation}\nand for $1\\le i\\le N-3$,\n\\begin{equation}\\label{eq:two-box-intertwining}\n  D_{\\mu,\\sigma}(S_i^\\lambda w)=S_i^\\mu D_{\\mu,\\sigma}(w).\n\\end{equation}",
+      "paperStatementLatex": "The maps $D_{\\mu,\\sigma}:W_{\\mu,\\sigma}\\to V^\\mu$ are unitary, the signed\nchild spaces are mutually orthogonal, and\n\\begin{equation}\n  V^\\lambda\n  =\\bigoplus_{(\\mu,\\sigma)\\in\\mathsf B_2(\\lambda)}W_{\\mu,\\sigma}.\n\\end{equation}\nFor $w\\in W_{\\mu,\\sigma}$,\n\\begin{equation}\n  S_{N-1}^\\lambda w=\\varepsilon_\\sigma w,\n\\end{equation}\nand for $1\\le i\\le N-3$,\n\\begin{equation}\n  D_{\\mu,\\sigma}(S_i^\\lambda w)=S_i^\\mu D_{\\mu,\\sigma}(w).\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S05_Lem5_13_twoStepDeletionTableauxEquivChildTableaux",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_13_SignedTwoBoxOrthogonalBranching.lean",
-          "line": 438
+          "name": "S05_Lem5_10_twoStepDeletionTableauxEquivChildTableaux",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_10_SignedTwoBoxOrthogonalBranching.lean",
+          "line": 436
         }
       ]
     },
     {
-      "id": "S05_L14",
-      "label": "Lem 5.14",
+      "id": "S05_L11",
+      "label": "Lem 5.11",
       "title": "One-box decomposition and deletion",
       "section": "Finite tableau data",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_14_OneBoxDecompositionAndDeletion.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_11_OneBoxDecompositionAndDeletion.lean",
       "wrappers": [
-        "S05_Lem5_14_tableau_unique_removable_corner",
-        "S05_Lem5_14_deleteMaxEntry_bijective",
-        "S05_Lem5_14_deletionCoordinateMap_inner",
-        "S05_Lem5_14_deletionCoordinateMap_youngAdjacentOperator_intertwines"
+        "S05_Lem5_11_tableau_unique_removable_corner",
+        "S05_Lem5_11_deleteMaxEntry_bijective",
+        "S05_Lem5_11_deletionCoordinateMap_inner",
+        "S05_Lem5_11_deletionCoordinateMap_youngAdjacentOperator_intertwines"
       ],
       "deps": [
         "S05_D07",
         "S05_D09",
         "S05_L01"
       ],
-      "summary": "Lem 5.14: One-box decomposition and deletion.",
-      "statement": "Lem 5.14: One-box decomposition and deletion.",
+      "summary": "Lem 5.11: One-box decomposition and deletion.",
+      "statement": "Lem 5.11: One-box decomposition and deletion.",
       "terms": [
         {
           "text": "One-box removals",
@@ -1935,56 +1733,56 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "lem:one-box-corner-decomposition",
       "paperEnv": "lemma",
-      "paperStatementLatex": "Let $\\lambda\\vdash N$ and $u\\in\\operatorname{Rem}(\\lambda)$. Then\n\\[\nV^\\lambda=\\bigoplus_{v\\in\\operatorname{Rem}(\\lambda)}W_v.\n\\]\nThe deletion map $D_u:W_u\\to V^{\\mu_u}$ is unitary, and for $1\\le i\\le N-2$ and $w\\in W_u$,\n\\[\nD_u(S_i^\\lambda w)=S_i^{\\mu_u}D_u(w).\n\\]",
+      "paperStatementLatex": "Let $\\lambda\\vdash N$ and $u\\in\\Rem(\\lambda)$.\n\\begin{enumerate}[label=\\textup{(\\alph*)},itemsep=2pt,topsep=2pt]\n  \\item\n  \\begin{equation}\n    V^\\lambda=\\bigoplus_{v\\in\\Rem(\\lambda)}W_v.\n  \\end{equation}\n  \\item The deletion map $D_u:W_u\\to V^{\\mu_u}$ is unitary.\n  \\item For $1\\le i\\le N-2$ and $w\\in W_u$,\n  \\begin{equation}\n    D_u(S_i^\\lambda w)=S_i^{\\mu_u}D_u(w).\n  \\end{equation}\n\\end{enumerate}",
       "leanLinks": [
         {
-          "name": "S05_Lem5_14_tableau_unique_removable_corner",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_14_OneBoxDecompositionAndDeletion.lean",
-          "line": 154
+          "name": "S05_Lem5_11_tableau_unique_removable_corner",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_11_OneBoxDecompositionAndDeletion.lean",
+          "line": 152
         },
         {
-          "name": "S05_Lem5_14_deleteMaxEntry_bijective",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_14_OneBoxDecompositionAndDeletion.lean",
-          "line": 162
+          "name": "S05_Lem5_11_deleteMaxEntry_bijective",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_11_OneBoxDecompositionAndDeletion.lean",
+          "line": 160
         },
         {
-          "name": "S05_Lem5_14_deletionCoordinateMap_inner",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_14_OneBoxDecompositionAndDeletion.lean",
-          "line": 170
+          "name": "S05_Lem5_11_deletionCoordinateMap_inner",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_11_OneBoxDecompositionAndDeletion.lean",
+          "line": 168
         },
         {
-          "name": "S05_Lem5_14_deletionCoordinateMap_youngAdjacentOperator_intertwines",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_14_OneBoxDecompositionAndDeletion.lean",
-          "line": 184
+          "name": "S05_Lem5_11_deletionCoordinateMap_youngAdjacentOperator_intertwines",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_11_OneBoxDecompositionAndDeletion.lean",
+          "line": 182
         }
       ]
     },
     {
-      "id": "S05_L15",
-      "label": "Lem 5.15",
+      "id": "S05_L12",
+      "label": "Lem 5.12",
       "title": "Branching dimensions and sign-pattern cardinalities",
-      "section": "Finite certificates",
+      "section": "Finite tableau data",
       "kind": "paper",
       "importance": "major",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities.lean",
       "wrappers": [
-        "S05_Lem5_15_tableauDim_twoStrip_branching_sized",
-        "S05_Lem5_15_tableauDim_oneBox_branching",
-        "S05_Lem5_15_evenSignPatternMultiset_card",
-        "S05_Lem5_15_oddSignPatternMultiset_card"
+        "S05_Lem5_12_tableauDim_twoStrip_branching_sized",
+        "S05_Lem5_12_tableauDim_oneBox_branching",
+        "S05_Lem5_12_evenSignPatternMultiset_card",
+        "S05_Lem5_12_oddSignPatternMultiset_card"
       ],
       "deps": [
-        "S05_L13",
-        "S05_L14",
+        "S05_L10",
+        "S05_L11",
         "S05_D10"
       ],
-      "summary": "Lem 5.15: Branching dimensions and sign-pattern cardinalities.",
-      "statement": "Lem 5.15: Branching dimensions and sign-pattern cardinalities.",
+      "summary": "Lem 5.12: Branching dimensions and sign-pattern cardinalities.",
+      "statement": "Lem 5.12: Branching dimensions and sign-pattern cardinalities.",
       "terms": [
         {
           "text": "Two-box tableau branching",
-          "target": "S05_L13"
+          "target": "S05_L10"
         },
         {
           "text": "tableauDim",
@@ -1996,11 +1794,7 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "One-box deletion is unitary",
-          "target": "S05_L14"
-        },
-        {
-          "text": "tableauDim",
-          "target": "S05_D04"
+          "target": "S05_L11"
         },
         {
           "text": "one-box removals",
@@ -2008,7 +1802,7 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "One-box deletion intertwining",
-          "target": "S05_L14"
+          "target": "S05_L11"
         },
         {
           "text": "Even sign-pattern multiset",
@@ -2021,39 +1815,39 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "lem:dimension-two-strip-recurrence",
       "paperEnv": "lemma",
-      "paperStatementLatex": "For $\\lambda\\vdash2m$, $m\\ge2$,\n\\[\nd_\\lambda=\\sum_{\\mu\\in\\mathsf H_2(\\lambda)}d_\\mu+\\sum_{\\mu\\in\\mathsf V_2(\\lambda)}d_\\mu.\n\\]\nFor $\\lambda\\vdash N$, $N\\ge2$,\n\\[\nd_\\lambda=\\sum_{\\mu\\nearrow\\lambda}d_\\mu.\n\\]\nMoreover, $|\\mathsf X_m(\\lambda)|=d_\\lambda$ for $\\lambda\\vdash2m$, and $|\\mathsf X_m^{\\mathrm{odd}}(\\lambda)|=d_\\lambda$ for $\\lambda\\vdash2m+1$.",
+      "paperStatementLatex": "For $\\lambda\\vdash2m$, $m\\ge2$,\n\\begin{equation}\n  d_\\lambda\n  =\\sum_{\\mu\\in\\mathsf H_2(\\lambda)}d_\\mu\n   +\\sum_{\\mu\\in\\mathsf V_2(\\lambda)}d_\\mu.\n\\end{equation}\nFor $\\lambda\\vdash N$, $N\\ge2$,\n\\begin{equation}\n  d_\\lambda=\\sum_{\\mu\\nearrow\\lambda}d_\\mu.\n\\end{equation}\nMoreover,\n\\[\n  |\\mathsf X_m(\\lambda)|=d_\\lambda\n  \\quad(\\lambda\\vdash2m),\n  \\qquad\n  |\\mathsf X_m^{\\mathrm{odd}}(\\lambda)|=d_\\lambda\n  \\quad(\\lambda\\vdash2m+1).\n\\]",
       "leanLinks": [
         {
-          "name": "S05_Lem5_15_tableauDim_twoStrip_branching_sized",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 27
+          "name": "S05_Lem5_12_tableauDim_twoStrip_branching_sized",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities.lean",
+          "line": 26
         },
         {
-          "name": "S05_Lem5_15_tableauDim_oneBox_branching",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 35
+          "name": "S05_Lem5_12_tableauDim_oneBox_branching",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities.lean",
+          "line": 34
         },
         {
-          "name": "S05_Lem5_15_evenSignPatternMultiset_card",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 42
+          "name": "S05_Lem5_12_evenSignPatternMultiset_card",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities.lean",
+          "line": 41
         },
         {
-          "name": "S05_Lem5_15_oddSignPatternMultiset_card",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 48
+          "name": "S05_Lem5_12_oddSignPatternMultiset_card",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities.lean",
+          "line": 47
         }
       ]
     },
     {
-      "id": "S05_L16",
-      "label": "Lem 5.16",
+      "id": "S05_L13",
+      "label": "Lem 5.13",
       "title": "Matching subgroup eigenbasis",
-      "section": "Matching algebra",
+      "section": "Finite tableau data",
       "kind": "paper",
       "importance": "major",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
       "wrappers": [
         "S05_signedTwoBoxChild_orthogonal_decomposition",
         "S05_signedTwoBoxChildEmbedding_isometry",
@@ -2061,38 +1855,38 @@ window.DICT_DEPENDENCY_DATA = {
         "S05_signedTwoBoxChildEmbedding_intertwinesEarlierAdjacent",
         "S05_signedTwoBoxChildEmbedding_ranges_orthogonal",
         "S05_signedTwoBoxChildEmbeddings_span",
-        "S05_Lem5_16_canonicalEvenMatchingEigenbasis",
+        "S05_Lem5_13_canonicalEvenMatchingEigenbasis",
         "S05_canonicalEvenEigenbasisLabelMultiset_eq",
         "S05_canonicalEvenEigenbasisVector_inner",
         "S05_canonicalEvenEigenbasisVector_span",
         "S05_canonicalEvenEigenbasisVector_isMatchingEigenvector",
         "S05_canonicalEvenMatchingBasis_character_action",
-        "S05_Lem5_16_arbitraryEvenMatchingEigenbasis_toOrdered",
+        "S05_Lem5_13_arbitraryEvenMatchingEigenbasis_toOrdered",
         "S05_arbitraryEvenMatchingBasis_toOrdered_character_action",
         "S05_arbitraryEvenMatchingLabelMultiset_eq",
-        "S05_Lem5_16_canonicalOddMatchingEigenbasis",
+        "S05_Lem5_13_canonicalOddMatchingEigenbasis",
         "S05_nearPerfectMatchingUnmatchedPoint",
         "S05_nearPerfectMatchingRelabeling",
-        "S05_Lem5_16_arbitraryOddMatchingEigenbasis_toOrdered",
+        "S05_Lem5_13_arbitraryOddMatchingEigenbasis_toOrdered",
         "S05_arbitraryOddMatchingBasis_toOrdered_character_action",
         "S05_arbitraryOddMatchingLabelMultiset_eq",
         "S05_perfectMatchingRelabeling",
-        "S05_Lem5_16_matchingSignProjectionEven_isMatchingEigenvector",
-        "S05_Lem5_16_matchingSignProjectionOdd_isMatchingEigenvector",
-        "S05_Lem5_16_highLabelCount_of_evenSignPatternMultiset",
-        "S05_Lem5_16_highLabelCount_of_oddSignPatternMultiset"
+        "S05_Lem5_13_matchingSignProjectionEven_isMatchingEigenvector",
+        "S05_Lem5_13_matchingSignProjectionOdd_isMatchingEigenvector",
+        "S05_Lem5_13_highLabelCount_of_evenSignPatternMultiset",
+        "S05_Lem5_13_highLabelCount_of_oddSignPatternMultiset"
       ],
       "deps": [
-        "S05_T03",
+        "S05_T02",
         "S05_D08",
         "S05_D10",
         "S05_D11",
-        "S05_L13",
-        "S05_L14",
-        "S05_L15"
+        "S05_L10",
+        "S05_L11",
+        "S05_L12"
       ],
-      "summary": "Lem 5.16: Matching subgroup eigenbasis.",
-      "statement": "Lem 5.16: Matching subgroup eigenbasis.",
+      "summary": "Lem 5.13: Matching subgroup eigenbasis.",
+      "statement": "Lem 5.13: Matching subgroup eigenbasis.",
       "terms": [
         {
           "text": "Tableau Coxeter model",
@@ -2100,11 +1894,11 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "Two-box tableau branching",
-          "target": "S05_L13"
+          "target": "S05_L10"
         },
         {
           "text": "Sign-pattern multiset sizes",
-          "target": "S05_L15"
+          "target": "S05_L12"
         },
         {
           "text": "Matching characters",
@@ -2129,213 +1923,228 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "S05_signedTwoBoxChild_orthogonal_decomposition",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2207
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 2205
         },
         {
           "name": "S05_signedTwoBoxChildEmbedding_isometry",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 1848
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 1846
         },
         {
           "name": "S05_signedTwoBoxChildEmbedding_finalOperator",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 1917
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 1915
         },
         {
           "name": "S05_signedTwoBoxChildEmbedding_intertwinesEarlierAdjacent",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 1952
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 1950
         },
         {
           "name": "S05_signedTwoBoxChildEmbedding_ranges_orthogonal",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2073
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 2071
         },
         {
           "name": "S05_signedTwoBoxChildEmbeddings_span",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2191
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 2189
         },
         {
-          "name": "S05_Lem5_16_canonicalEvenMatchingEigenbasis",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2829
+          "name": "S05_Lem5_13_canonicalEvenMatchingEigenbasis",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 2827
         },
         {
           "name": "S05_canonicalEvenEigenbasisLabelMultiset_eq",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2481
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 2479
         },
         {
           "name": "S05_canonicalEvenEigenbasisVector_inner",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2524
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 2522
         },
         {
           "name": "S05_canonicalEvenEigenbasisVector_span",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2601
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 2599
         },
         {
           "name": "S05_canonicalEvenEigenbasisVector_isMatchingEigenvector",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2730
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 2728
         },
         {
           "name": "S05_canonicalEvenMatchingBasis_character_action",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 2856
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 2854
         },
         {
-          "name": "S05_Lem5_16_arbitraryEvenMatchingEigenbasis_toOrdered",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4218
+          "name": "S05_Lem5_13_arbitraryEvenMatchingEigenbasis_toOrdered",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 4216
         },
         {
           "name": "S05_arbitraryEvenMatchingBasis_toOrdered_character_action",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4184
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 4182
         },
         {
           "name": "S05_arbitraryEvenMatchingLabelMultiset_eq",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4136
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 4134
         },
         {
-          "name": "S05_Lem5_16_canonicalOddMatchingEigenbasis",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 3540
+          "name": "S05_Lem5_13_canonicalOddMatchingEigenbasis",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 3538
         },
         {
           "name": "S05_nearPerfectMatchingUnmatchedPoint",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4365
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 4363
         },
         {
           "name": "S05_nearPerfectMatchingRelabeling",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4528
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 4526
         },
         {
-          "name": "S05_Lem5_16_arbitraryOddMatchingEigenbasis_toOrdered",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4905
+          "name": "S05_Lem5_13_arbitraryOddMatchingEigenbasis_toOrdered",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 4903
         },
         {
           "name": "S05_arbitraryOddMatchingBasis_toOrdered_character_action",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4872
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 4870
         },
         {
           "name": "S05_arbitraryOddMatchingLabelMultiset_eq",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 4825
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 4823
         },
         {
           "name": "S05_perfectMatchingRelabeling",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 3762
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 3760
         },
         {
-          "name": "S05_Lem5_16_matchingSignProjectionEven_isMatchingEigenvector",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 5254
+          "name": "S05_Lem5_13_matchingSignProjectionEven_isMatchingEigenvector",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 5252
         },
         {
-          "name": "S05_Lem5_16_matchingSignProjectionOdd_isMatchingEigenvector",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 5262
+          "name": "S05_Lem5_13_matchingSignProjectionOdd_isMatchingEigenvector",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 5260
         },
         {
-          "name": "S05_Lem5_16_highLabelCount_of_evenSignPatternMultiset",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 5402
+          "name": "S05_Lem5_13_highLabelCount_of_evenSignPatternMultiset",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 5400
         },
         {
-          "name": "S05_Lem5_16_highLabelCount_of_oddSignPatternMultiset",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_16_MatchingSubgroupEigenbasis.lean",
-          "line": 5414
+          "name": "S05_Lem5_13_highLabelCount_of_oddSignPatternMultiset",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
+          "line": 5412
         }
       ]
     },
     {
-      "id": "S05_L17",
-      "label": "Lem 5.17",
-      "title": "Local truncation on a matching character",
+      "id": "S05_L14",
+      "label": "Lem 5.14",
+      "title": "Matching Fourier projections",
       "section": "Matching algebra",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_17_LocalTruncationOnAMatchingCharacter.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_14_MatchingFourierProjections.lean",
       "wrappers": [
-        "S05_Lem5_17_matchingLocalProjection_preserves_low_matchingCharacter",
-        "S05_Lem5_17_matchingLocalProjection_kills_high_matchingCharacter"
+        "S05_Lem5_14_matchingLocalProjection_preserves_low_matchingCharacter",
+        "S05_Lem5_14_matchingLocalProjection_kills_high_matchingCharacter",
+        "S05_Lem5_14_local_truncation_as_convolution"
       ],
       "deps": [
-        "S04_D02",
-        "S05_D11"
+        "S04_D01",
+        "S05_D11",
+        "S05_D12"
       ],
-      "summary": "Lem 5.17: Local truncation on a matching character.",
-      "statement": "Lem 5.17: Local truncation on a matching character.",
+      "summary": "Lem 5.14: Matching Fourier projections.",
+      "statement": "Lem 5.14: Matching Fourier projections.",
       "terms": [
         {
           "text": "Matching characters",
           "target": "S05_D11"
+        },
+        {
+          "text": "Local truncation on a matching character",
+          "target": "S05_L14"
+        },
+        {
+          "text": "Matching idempotents",
+          "target": "S05_D12"
         }
       ],
       "paperLabel": "lem:PM-character-projection",
       "paperEnv": "lemma",
-      "paperStatementLatex": "Fix a matching $M$ with $m$ edges.  On a right coset $C=\\rho_C A_M$, write\n\\begin{equation}\\label{eq:local-character-expansion-general}\n  F(\\rho_C\\tau_x)=\\sum_{R\\subseteq[m]} a_R(C)\\chi_R(\\tau_x).\n\\end{equation}\nThen\n\\begin{equation}\\label{eq:PM-keeps-small-characters}\n  (P_MF)(\\rho_C\\tau_x)=\\sum_{|R|\\le1}a_R(C)\\chi_R(\\tau_x).\n\\end{equation}\nIn particular, if $F(\\omega\\tau_x)=\\chi_T(\\tau_x)F(\\omega)$ for all $\\omega$ and\n$x$, then\n\\begin{equation*}\n  P_MF=\n  \\begin{cases}\n    F,& |T|\\le1,\\\\\n    0,& |T|\\ge2.\n  \\end{cases}\n\\end{equation*}",
+      "paperStatementLatex": "The elements $e_R^M$ are pairwise orthogonal idempotents and sum to $1$.\nConsequently,\n\\[\n  P_M=C_{p_M},\n  \\qquad\n  I-P_M=C_{q_M},\n\\]\nand $p_M,q_M$ are complementary idempotents.  In particular, if\n$F(\\omega\\tau_x)=\\chi_T(\\tau_x)F(\\omega)$ for all $\\omega,x$, then\n\\[\n  P_MF=\\begin{cases}F,&|T|\\le1,\\\\0,&|T|\\ge2.\\end{cases}\n\\]",
       "leanLinks": [
         {
-          "name": "S05_Lem5_17_matchingLocalProjection_preserves_low_matchingCharacter",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_17_LocalTruncationOnAMatchingCharacter.lean",
-          "line": 123
+          "name": "S05_Lem5_14_matchingLocalProjection_preserves_low_matchingCharacter",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_14_MatchingFourierProjections.lean",
+          "line": 117
         },
         {
-          "name": "S05_Lem5_17_matchingLocalProjection_kills_high_matchingCharacter",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_17_LocalTruncationOnAMatchingCharacter.lean",
-          "line": 135
+          "name": "S05_Lem5_14_matchingLocalProjection_kills_high_matchingCharacter",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_14_MatchingFourierProjections.lean",
+          "line": 129
+        },
+        {
+          "name": "S05_Lem5_14_local_truncation_as_convolution",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_14_MatchingFourierProjections.lean",
+          "line": 141
         }
       ]
     },
     {
-      "id": "S05_L18",
-      "label": "Lem 5.18",
+      "id": "S05_L15",
+      "label": "Lem 5.15",
       "title": "Trace of one local truncation on one Young block",
       "section": "Matching algebra",
       "kind": "paper",
       "importance": "major",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
       "wrappers": [
-        "S05_Lem5_18_fixedMatching_tableauTrace_even_of_eigenbasis",
-        "S05_Lem5_18_fixedMatching_tableauTrace_odd_of_eigenbasis",
-        "S05_Lem5_18_fixedMatching_youngBlockTrace_even_of_eigenbasis",
-        "S05_Lem5_18_fixedMatching_youngBlockTrace_odd_of_eigenbasis",
-        "S05_Lem5_18_fixedMatching_tableauTrace_even",
-        "S05_Lem5_18_fixedMatching_youngBlockTrace_even",
-        "S05_Lem5_18_fixedMatching_tableauTrace_odd",
-        "S05_Lem5_18_fixedMatching_youngBlockTrace_odd",
+        "S05_Lem5_15_fixedMatching_tableauTrace_even_of_eigenbasis",
+        "S05_Lem5_15_fixedMatching_tableauTrace_odd_of_eigenbasis",
+        "S05_Lem5_15_fixedMatching_youngBlockTrace_even_of_eigenbasis",
+        "S05_Lem5_15_fixedMatching_youngBlockTrace_odd_of_eigenbasis",
+        "S05_Lem5_15_fixedMatching_tableauTrace_even",
+        "S05_Lem5_15_fixedMatching_youngBlockTrace_even",
+        "S05_Lem5_15_fixedMatching_tableauTrace_odd",
+        "S05_Lem5_15_fixedMatching_youngBlockTrace_odd",
         "traceLocalTruncation_even_from_restriction",
         "traceLocalTruncation_odd_from_restriction"
       ],
       "deps": [
         "S05_D12",
-        "S05_L16",
-        "S05_L17"
+        "S05_L13",
+        "S05_L14"
       ],
-      "summary": "Lem 5.18: Trace of one local truncation on one Young block.",
-      "statement": "Lem 5.18: Trace of one local truncation on one Young block.",
+      "summary": "Lem 5.15: Trace of one local truncation on one Young block.",
+      "statement": "Lem 5.15: Trace of one local truncation on one Young block.",
       "terms": [
         {
           "text": "Matching subgroup eigenbasis",
-          "target": "S05_L16"
+          "target": "S05_L13"
         },
         {
           "text": "Local truncation on a matching character",
-          "target": "S05_L17"
+          "target": "S05_L14"
         },
         {
           "text": "Young block",
@@ -2344,126 +2153,74 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "lem:PM-trace-young-block",
       "paperEnv": "lemma",
-      "paperStatementLatex": "If $M$ is a perfect matching on $[2m]$ and $\\lambda\\vdash2m$, then\n\\begin{equation}\\label{eq:trace-one-PM-even}\n  \\operatorname{tr}\\bigl((I-P_M)|_{\\mathcal H_\\lambda}\\bigr)\n  =d_\\lambda h_m(\\lambda).\n\\end{equation}\nIf $M$ is a near-perfect matching on $[2m+1]$ and\n$\\lambda\\vdash2m+1$, then\n\\begin{equation}\\label{eq:trace-one-PM-odd}\n  \\operatorname{tr}\\bigl((I-P_M)|_{\\mathcal H_\\lambda}\\bigr)\n  =d_\\lambda h_m^{\\mathrm{odd}}(\\lambda).\n\\end{equation}",
+      "paperStatementLatex": "For a perfect matching on $[2m]$ and $\\lambda\\vdash2m$,\n\\begin{equation}\n  \\operatorname{tr}\\bigl((I-P_M)|_{\\mathcal H_\\lambda}\\bigr)\n  =d_\\lambda h_m(\\lambda).\n\\end{equation}\nFor a near-perfect matching on $[2m+1]$ and $\\lambda\\vdash2m+1$,\n\\begin{equation}\n  \\operatorname{tr}\\bigl((I-P_M)|_{\\mathcal H_\\lambda}\\bigr)\n  =d_\\lambda h_m^{\\mathrm{odd}}(\\lambda).\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S05_Lem5_18_fixedMatching_tableauTrace_even_of_eigenbasis",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 73
+          "name": "S05_Lem5_15_fixedMatching_tableauTrace_even_of_eigenbasis",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
+          "line": 71
         },
         {
-          "name": "S05_Lem5_18_fixedMatching_tableauTrace_odd_of_eigenbasis",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 98
+          "name": "S05_Lem5_15_fixedMatching_tableauTrace_odd_of_eigenbasis",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
+          "line": 96
         },
         {
-          "name": "S05_Lem5_18_fixedMatching_youngBlockTrace_even_of_eigenbasis",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 122
+          "name": "S05_Lem5_15_fixedMatching_youngBlockTrace_even_of_eigenbasis",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
+          "line": 120
         },
         {
-          "name": "S05_Lem5_18_fixedMatching_youngBlockTrace_odd_of_eigenbasis",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 146
+          "name": "S05_Lem5_15_fixedMatching_youngBlockTrace_odd_of_eigenbasis",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
+          "line": 144
         },
         {
-          "name": "S05_Lem5_18_fixedMatching_tableauTrace_even",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 170
+          "name": "S05_Lem5_15_fixedMatching_tableauTrace_even",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
+          "line": 168
         },
         {
-          "name": "S05_Lem5_18_fixedMatching_youngBlockTrace_even",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 187
+          "name": "S05_Lem5_15_fixedMatching_youngBlockTrace_even",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
+          "line": 185
         },
         {
-          "name": "S05_Lem5_18_fixedMatching_tableauTrace_odd",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 199
+          "name": "S05_Lem5_15_fixedMatching_tableauTrace_odd",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
+          "line": 197
         },
         {
-          "name": "S05_Lem5_18_fixedMatching_youngBlockTrace_odd",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 216
+          "name": "S05_Lem5_15_fixedMatching_youngBlockTrace_odd",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
+          "line": 214
         },
         {
           "name": "traceLocalTruncation_even_from_restriction",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 228
+          "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
+          "line": 226
         },
         {
           "name": "traceLocalTruncation_odd_from_restriction",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_18_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 236
+          "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
+          "line": 234
         }
       ]
     },
     {
-      "id": "S05_L19",
-      "label": "Lem 5.19",
-      "title": "Local truncation as convolution",
+      "id": "S05_P16",
       "section": "Matching algebra",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_19_LocalTruncationAsConvolution.lean",
-      "wrappers": [
-        "S05_Lem5_19_local_truncation_as_convolution"
-      ],
-      "deps": [
-        "S04_D02",
-        "S05_D12"
-      ],
-      "summary": "Lem 5.19: Local truncation as convolution.",
-      "statement": "Lem 5.19: Local truncation as convolution.",
-      "terms": [
-        {
-          "text": "Local truncation on a matching character",
-          "target": "S05_L17"
-        },
-        {
-          "text": "Matching idempotents",
-          "target": "S05_D12"
-        }
-      ],
-      "paperLabel": "lem:PM-convolution",
-      "paperEnv": "lemma",
-      "paperStatementLatex": "For every matching $M$,\n\\begin{equation*}\n  P_M=C_{p_M},\n  \\qquad\n  I-P_M=C_{q_M}.\n\\end{equation*}\nMoreover $p_M$ and $q_M$ are complementary idempotents:\n\\begin{equation*}\n  p_M^2=p_M,\n  \\qquad q_M^2=q_M,\n  \\qquad p_Mq_M=q_Mp_M=0,\n  \\qquad p_M+q_M=1.\n\\end{equation*}",
-      "leanLinks": [
-        {
-          "name": "S05_Lem5_19_local_truncation_as_convolution",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_19_LocalTruncationAsConvolution.lean",
-          "line": 26
-        }
-      ]
-    },
-    {
-      "id": "S05_L20",
-      "label": "Lem 5.20",
-      "title": "Central averaged rejection",
-      "section": "Matching algebra",
-      "kind": "paper",
-      "importance": "major",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_20_CentralAveragedRejection.lean",
-      "wrappers": [
-        "S05_Lem5_20_matchingMeanProjectionError_eq_high_idempotent_average"
-      ],
-      "deps": [
-        "S04_P03",
-        "S05_D12",
-        "S05_L19"
-      ],
-      "summary": "Lem 5.20: Central averaged rejection.",
-      "statement": "Lem 5.20: Central averaged rejection.",
       "terms": [
         {
           "text": "matching-local projection",
-          "target": "S04_P03"
+          "target": "S04_P02"
         },
         {
           "text": "Local truncation as convolution",
-          "target": "S05_L19"
+          "target": "S05_L14"
         },
         {
           "text": "Matching idempotents",
@@ -2475,130 +2232,94 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "spectral model",
-          "target": "S05_L11"
-        }
-      ],
-      "paperLabel": "lem:averaged-rejection-central",
-      "paperEnv": "lemma",
-      "paperStatementLatex": "The element $q$ in \\eqref{eq:averaged-high-element-and-operator} is central in\n$\\mathbb C[S_n]$, and\n\\begin{equation}\\label{eq:averaged-rejection-convolution}\n  \\cA=C_q.\n\\end{equation}",
-      "leanLinks": [
-        {
-          "name": "S05_Lem5_20_matchingMeanProjectionError_eq_high_idempotent_average",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_20_CentralAveragedRejection.lean",
-          "line": 63
-        }
-      ]
-    },
-    {
-      "id": "S05_L21",
-      "label": "Lem 5.21",
-      "title": "Block scalar of the averaged rejection",
-      "section": "Spectral bridge",
-      "kind": "paper",
-      "importance": "major",
-      "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_21_BlockScalarOfTheAveragedRejection.lean",
-      "wrappers": [
-        "S05_Lem5_21_scalar_eq_trace_div_dimension",
-        "S05_Lem5_21_even_scalar_eq_hEven_div_dim",
-        "S05_Lem5_21_odd_scalar_eq_hOdd_div_dim"
-      ],
-      "deps": [
-        "S05_D12",
-        "S05_L08",
-        "S05_L18",
-        "S05_L20"
-      ],
-      "summary": "Lem 5.21: Block scalar of the averaged rejection.",
-      "statement": "Lem 5.21: Block scalar of the averaged rejection.",
-      "terms": [
+          "target": "S05_L08"
+        },
         {
           "text": "Trace of one local truncation",
-          "target": "S05_L18"
+          "target": "S05_L15"
         },
         {
           "text": "Young-basis scalar commutant",
-          "target": "S05_L08"
+          "target": "S05_L05"
         }
       ],
-      "paperLabel": "lem:centralization-matchings",
-      "paperEnv": "lemma",
-      "paperStatementLatex": "On $\\mathcal H_\\lambda$, the operator $\\cA$ acts by\n\\begin{equation}\\label{eq:A-eigenvalue-even}\n  \\frac{h_m(\\lambda)}{d_\\lambda}\n  \\qquad(n=2m),\n\\end{equation}\nand by\n\\begin{equation}\\label{eq:A-eigenvalue-odd}\n  \\frac{h_m^{\\mathrm{odd}}(\\lambda)}{d_\\lambda}\n  \\qquad(n=2m+1).\n\\end{equation}",
-      "leanLinks": [
-        {
-          "name": "S05_Lem5_21_scalar_eq_trace_div_dimension",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_21_BlockScalarOfTheAveragedRejection.lean",
-          "line": 110
-        },
-        {
-          "name": "S05_Lem5_21_even_scalar_eq_hEven_div_dim",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_21_BlockScalarOfTheAveragedRejection.lean",
-          "line": 117
-        },
-        {
-          "name": "S05_Lem5_21_odd_scalar_eq_hOdd_div_dim",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_21_BlockScalarOfTheAveragedRejection.lean",
-          "line": 127
-        }
-      ]
-    },
-    {
-      "id": "S05_L22",
-      "section": "Section 5",
-      "kind": "paper",
-      "importance": "normal",
-      "status": "proven",
-      "terms": [],
-      "paperStatementLatex": "Let $F_\\lambda$ and $E_F(\\lambda)$ be the concrete components and energies from\n\\Cref{def:young-block}.  If $n=2m$, then\n\\begin{equation}\\label{eq:global-weighted-matching-even}\n  \\E_M\\|(I-P_M)F\\|_2^2\n  =\\sum_{\\lambda\\notin\\{(2m),(2m-1,1)\\}}\n     \\frac{h_m(\\lambda)}{d_\\lambda}E_F(\\lambda).\n\\end{equation}\nIf $n=2m+1$, then\n\\begin{equation}\\label{eq:global-weighted-matching-odd}\n  \\E_M\\|(I-P_M)F\\|_2^2\n  =\\sum_{\\lambda\\notin\\{(2m+1),(2m,1)\\}}\n     \\frac{h_m^{\\mathrm{odd}}(\\lambda)}{d_\\lambda}E_F(\\lambda).\n\\end{equation}",
-      "label": "Lem 5.22",
-      "title": "Global weighted matching identity",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_22_GlobalWeightedMatchingIdentity.lean",
+      "paperStatementLatex": "The element $q$ is central and $\\mathcal A=C_q$.  On $\\mathcal H_\\lambda$,\n$\\mathcal A$ acts by\n\\begin{equation}\n  \\frac{h_m(\\lambda)}{d_\\lambda}\\quad(n=2m),\n\\end{equation}\nand by\n\\begin{equation}\n  \\frac{h_m^{\\mathrm{odd}}(\\lambda)}{d_\\lambda}\\quad(n=2m+1).\n\\end{equation}\nConsequently,\n\\begin{align}\n  \\E_M\\norm{(I-P_M)F}^2\n  &=\\sum_{\\lambda\\notin\\{(2m),(2m-1,1)\\}}\n    \\frac{h_m(\\lambda)}{d_\\lambda}E_F(\\lambda),\n    &&n=2m,\\\\\n  \\E_M\\norm{(I-P_M)F}^2\n  &=\\sum_{\\lambda\\notin\\{(2m+1),(2m,1)\\}}\n    \\frac{h_m^{\\mathrm{odd}}(\\lambda)}{d_\\lambda}E_F(\\lambda),\n    &&n=2m+1.\n\\end{align}",
+      "label": "Prop 5.16",
+      "title": "Averaged rejection on Young blocks",
+      "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
       "wrappers": [
-        "S05_Lem5_22_global_weighted_matching_identity_even",
-        "S05_Lem5_22_global_weighted_matching_identity_odd"
+        "S05_Prop5_16_matchingMeanProjectionError_eq_high_idempotent_average",
+        "S05_Prop5_16_scalar_eq_trace_div_dimension",
+        "S05_Prop5_16_even_scalar_eq_hEven_div_dim",
+        "S05_Prop5_16_odd_scalar_eq_hOdd_div_dim",
+        "S05_Prop5_16_global_weighted_matching_identity_even",
+        "S05_Prop5_16_global_weighted_matching_identity_odd"
       ],
       "deps": [
-        "S04_C05",
-        "S05_L09",
-        "S05_L11",
-        "S05_L12",
-        "S05_L20",
-        "S05_L21"
+        "S04_P02",
+        "S05_D12",
+        "S05_L14",
+        "S05_L05",
+        "S05_L15",
+        "S04_L03",
+        "S05_L06",
+        "S05_L08",
+        "S05_L09"
       ],
-      "summary": "Lem 5.22: Global weighted matching identity.",
-      "statement": "Lem 5.22: Global weighted matching identity.",
+      "summary": "Prop 5.16: Averaged rejection on Young blocks.",
+      "statement": "Prop 5.16: Averaged rejection on Young blocks.",
       "leanLinks": [
         {
-          "name": "S05_Lem5_22_global_weighted_matching_identity_even",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_22_GlobalWeightedMatchingIdentity.lean",
-          "line": 790
+          "name": "S05_Prop5_16_matchingMeanProjectionError_eq_high_idempotent_average",
+          "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
+          "line": 72
         },
         {
-          "name": "S05_Lem5_22_global_weighted_matching_identity_odd",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_22_GlobalWeightedMatchingIdentity.lean",
-          "line": 804
+          "name": "S05_Prop5_16_scalar_eq_trace_div_dimension",
+          "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
+          "line": 170
+        },
+        {
+          "name": "S05_Prop5_16_even_scalar_eq_hEven_div_dim",
+          "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
+          "line": 177
+        },
+        {
+          "name": "S05_Prop5_16_odd_scalar_eq_hOdd_div_dim",
+          "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
+          "line": 187
+        },
+        {
+          "name": "S05_Prop5_16_global_weighted_matching_identity_even",
+          "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
+          "line": 1004
+        },
+        {
+          "name": "S05_Prop5_16_global_weighted_matching_identity_odd",
+          "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
+          "line": 1018
         }
       ],
-      "paperLabel": "lem:global-weighted-matching-identity",
-      "paperEnv": "lemma"
+      "paperLabel": "lem:averaged-rejection-central",
+      "paperEnv": "proposition"
     },
     {
-      "id": "S05_L23",
-      "label": "Lem 5.23",
+      "id": "S05_L17",
+      "label": "Lem 5.17",
       "title": "Counting one more matching edge",
       "section": "Finite certificates",
       "kind": "paper",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_23_CountingOneMoreMatchingEdge.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_17_CountingOneMoreMatchingEdge.lean",
       "wrappers": [
-        "S05_Lem5_23_CountingOneMoreMatchingEdge"
+        "S05_Lem5_17_CountingOneMoreMatchingEdge"
       ],
       "deps": [
         "S05_D10"
       ],
-      "summary": "Lem 5.23: Counting one more matching edge.",
-      "statement": "Lem 5.23: Counting one more matching edge.",
+      "summary": "Lem 5.17: Counting one more matching edge.",
+      "statement": "Lem 5.17: Counting one more matching edge.",
       "terms": [
         {
           "text": "Even sign-pattern multiset",
@@ -2611,42 +2332,42 @@ window.DICT_DEPENDENCY_DATA = {
       ],
       "paperLabel": "lem:counting-one-more-matching-edge",
       "paperEnv": "lemma",
-      "paperStatementLatex": "For every $\\lambda\\vdash2m$,\n\\begin{equation}\\label{eq:z-recurrence}\n  z_m(\\lambda)\n  =\\sum_{\\mu\\in\\mathsf H_2(\\lambda)}z_{m-1}(\\mu),\n\\end{equation}\nand\n\\begin{equation}\\label{eq:h-recurrence}\n  h_m(\\lambda)\n  =\\sum_{\\mu\\in\\mathsf H_2(\\lambda)}h_{m-1}(\\mu)\n   +\\sum_{\\mu\\in\\mathsf V_2(\\lambda)}\n      \\bigl(d_\\mu-z_{m-1}(\\mu)\\bigr).\n\\end{equation}",
+      "paperStatementLatex": "For every $\\lambda\\vdash2m$,\n\\begin{equation}\n  z_m(\\lambda)\n  =\\sum_{\\mu\\in\\mathsf H_2(\\lambda)}z_{m-1}(\\mu),\n\\end{equation}\nand\n\\begin{equation}\n  h_m(\\lambda)\n  =\\sum_{\\mu\\in\\mathsf H_2(\\lambda)}h_{m-1}(\\mu)\n   +\\sum_{\\mu\\in\\mathsf V_2(\\lambda)}\n      \\bigl(d_\\mu-z_{m-1}(\\mu)\\bigr).\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S05_Lem5_23_CountingOneMoreMatchingEdge",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_23_CountingOneMoreMatchingEdge.lean",
-          "line": 28
+          "name": "S05_Lem5_17_CountingOneMoreMatchingEdge",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_17_CountingOneMoreMatchingEdge.lean",
+          "line": 26
         }
       ]
     },
     {
-      "id": "S05_L24",
-      "label": "Lem 5.24",
+      "id": "S05_L18",
+      "label": "Lem 5.18",
       "title": "Weight-zero entries are never a majority",
       "section": "Finite certificates",
       "kind": "paper",
       "importance": "major",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_24_WeightZeroEntriesAreNeverAMajority.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_18_WeightZeroEntriesAreNeverAMajority.lean",
       "wrappers": [
-        "S05_Lem5_24_tableau_weightZeroEntries_never_majority"
+        "S05_Lem5_18_tableau_weightZeroEntries_never_majority"
       ],
       "deps": [
         "S05_D10",
-        "S05_L15",
-        "S05_L23"
+        "S05_L12",
+        "S05_L17"
       ],
-      "summary": "Lem 5.24: Weight-zero entries are never a majority.",
-      "statement": "Lem 5.24: Weight-zero entries are never a majority.",
+      "summary": "Lem 5.18: Weight-zero entries are never a majority.",
+      "statement": "Lem 5.18: Weight-zero entries are never a majority.",
       "terms": [
         {
           "text": "Two-box dimension recursion",
-          "target": "S05_L15"
+          "target": "S05_L12"
         },
         {
           "text": "Counting one more matching edge",
-          "target": "S05_L23"
+          "target": "S05_L17"
         }
       ],
       "paperLabel": "lem:z-bound-app",
@@ -2654,32 +2375,32 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "If $\\lambda\\vdash2m$ and $\\lambda\\neq(2m)$, then\n\\begin{equation*}\n  z_m(\\lambda)\\le\\frac12d_\\lambda.\n\\end{equation*}",
       "leanLinks": [
         {
-          "name": "S05_Lem5_24_tableau_weightZeroEntries_never_majority",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_24_WeightZeroEntriesAreNeverAMajority.lean",
-          "line": 2541
+          "name": "S05_Lem5_18_tableau_weightZeroEntries_never_majority",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_18_WeightZeroEntriesAreNeverAMajority.lean",
+          "line": 2539
         }
       ]
     },
     {
-      "id": "S05_L25",
-      "label": "Lem 5.25",
+      "id": "S05_L19",
+      "label": "Lem 5.19",
       "title": "Even certificate",
       "section": "Finite certificates",
       "kind": "paper",
       "importance": "hero",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_25_EvenCertificate.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_19_EvenCertificate.lean",
       "wrappers": [
-        "S05_Lem5_25_tableau_even_certificate"
+        "S05_Lem5_19_tableau_even_certificate"
       ],
       "deps": [
         "S05_D10",
-        "S05_L15",
-        "S05_L23",
-        "S05_L24"
+        "S05_L12",
+        "S05_L17",
+        "S05_L18"
       ],
-      "summary": "Lem 5.25: Even certificate.",
-      "statement": "Lem 5.25: Even certificate.",
+      "summary": "Lem 5.19: Even certificate.",
+      "statement": "Lem 5.19: Even certificate.",
       "terms": [
         {
           "text": "Tableau even height",
@@ -2687,51 +2408,51 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "Two-box dimension recursion",
-          "target": "S05_L15"
+          "target": "S05_L12"
         },
         {
           "text": "Counting one more matching edge",
-          "target": "S05_L23"
+          "target": "S05_L17"
         },
         {
           "text": "Weight-zero entries are never a majority",
-          "target": "S05_L24"
+          "target": "S05_L18"
         },
         {
           "text": "Sign-pattern multiset sizes",
-          "target": "S05_L15"
+          "target": "S05_L12"
         }
       ],
       "paperLabel": "lem:h-even-app",
       "paperEnv": "lemma",
-      "paperStatementLatex": "For every $m\\ge2$ and every partition $\\lambda\\vdash2m$ other than $(2m)$ and\n$(2m-1,1)$,\n\\begin{equation}\\label{eq:even-h-fifth}\n  h_m(\\lambda)\\ge\\frac15d_\\lambda.\n\\end{equation}",
+      "paperStatementLatex": "For every $m\\ge2$ and every partition $\\lambda\\vdash2m$ other than $(2m)$ and\n$(2m-1,1)$,\n\\begin{equation}\n  h_m(\\lambda)\\ge\\frac15d_\\lambda.\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S05_Lem5_25_tableau_even_certificate",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_25_EvenCertificate.lean",
-          "line": 4494
+          "name": "S05_Lem5_19_tableau_even_certificate",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_19_EvenCertificate.lean",
+          "line": 4492
         }
       ]
     },
     {
-      "id": "S05_L26",
-      "label": "Lem 5.26",
+      "id": "S05_L20",
+      "label": "Lem 5.20",
       "title": "Odd certificate",
       "section": "Finite certificates",
       "kind": "paper",
       "importance": "hero",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/S05_Lem5_26_OddCertificate.lean",
+      "file": "DictatorshipTesting/Paper/S05_Lem5_20_OddCertificate.lean",
       "wrappers": [
-        "S05_Lem5_26_tableau_odd_certificate"
+        "S05_Lem5_20_tableau_odd_certificate"
       ],
       "deps": [
         "S05_D10",
-        "S05_L15",
-        "S05_L25"
+        "S05_L12",
+        "S05_L19"
       ],
-      "summary": "Lem 5.26: Odd certificate.",
-      "statement": "Lem 5.26: Odd certificate.",
+      "summary": "Lem 5.20: Odd certificate.",
+      "statement": "Lem 5.20: Odd certificate.",
       "terms": [
         {
           "text": "Tableau odd height",
@@ -2739,15 +2460,15 @@ window.DICT_DEPENDENCY_DATA = {
         },
         {
           "text": "One-box dimension recursion",
-          "target": "S05_L15"
+          "target": "S05_L12"
         },
         {
           "text": "Even certificate",
-          "target": "S05_L25"
+          "target": "S05_L19"
         },
         {
           "text": "Sign-pattern multiset sizes",
-          "target": "S05_L15"
+          "target": "S05_L12"
         }
       ],
       "paperLabel": "lem:h-odd-app",
@@ -2755,9 +2476,9 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "For every $m\\ge2$ and every partition $\\lambda\\vdash2m+1$ other than\n$(2m+1)$ and $(2m,1)$,\n\\begin{equation*}\n  h_m^{\\mathrm{odd}}(\\lambda)\\ge\\frac16d_\\lambda.\n\\end{equation*}",
       "leanLinks": [
         {
-          "name": "S05_Lem5_26_tableau_odd_certificate",
-          "file": "DictatorshipTesting/Paper/S05_Lem5_26_OddCertificate.lean",
-          "line": 812
+          "name": "S05_Lem5_20_tableau_odd_certificate",
+          "file": "DictatorshipTesting/Paper/S05_Lem5_20_OddCertificate.lean",
+          "line": 810
         }
       ]
     }

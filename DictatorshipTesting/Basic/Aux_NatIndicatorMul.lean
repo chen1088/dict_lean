@@ -4,8 +4,6 @@ import DictatorshipTesting.Basic
 Direct reverse imports:
 - `DictatorshipTesting.BasicFacts`
 -/
-
-
 namespace DictatorshipTesting
 
 /-- Multiplication of two `{0,1}` indicators is the indicator of conjunction. -/

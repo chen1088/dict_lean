@@ -4,15 +4,13 @@ import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Lem4_10_IndependentRepetitionAndAmplification`
+- `DictatorshipTesting.Paper.S04_Lem4_07_IndependentRepetition`
 -/
-
-
 /-!
 # Lemma 3.2: Perfect completeness
 
 This is the cube-level cancellation used in `lem:perfect-completeness` from
-`dictatorship_testing_stoc27_latest.tex`.
+`dictatorship_testing_stoc27_shortened.tex`.
 -/
 
 namespace DictatorshipTesting

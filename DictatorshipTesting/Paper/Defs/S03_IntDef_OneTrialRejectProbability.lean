@@ -2,10 +2,8 @@ import DictatorshipTesting.Paper.Defs.S03_IntDef_OneTrialDeltaSqExpectation
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingLowConvolution`
-- `DictatorshipTesting.Paper.S04_Lem4_10_IndependentRepetitionAndAmplification`
+- `DictatorshipTesting.Paper.S04_Lem4_07_IndependentRepetition`
 -/
-
-
 /-!
 Definition file for `oneTrialRejectProbability`.
 -/

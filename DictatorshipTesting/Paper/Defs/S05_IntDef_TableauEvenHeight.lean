@@ -4,10 +4,9 @@ import DictatorshipTesting.Paper.S05_Int_TableauDimension
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_TableauOddHeight`
-- `DictatorshipTesting.Paper.S05_Lem5_22_GlobalWeightedMatchingIdentity`
-- `DictatorshipTesting.Paper.S05_Lem5_25_EvenCertificate`
+- `DictatorshipTesting.Paper.S05_Lem5_19_EvenCertificate`
+- `DictatorshipTesting.Paper.S05_Prop5_16_AveragedRejectionOnYoungBlocks`
 -/
-
 /-!
 Definition file for `hEvenTableau`.
 

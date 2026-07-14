@@ -5,14 +5,12 @@ import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauDepends
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S03_Lem3_02_PerfectCompleteness`
-- `DictatorshipTesting.Paper.S04_Lem4_04_TijLocalDegree`
+- `DictatorshipTesting.Paper.S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne`
 -/
-
-
 /-!
 # Lemma 3.1: Completeness on matching cubes
 
-This is `lem:dictator-to-junta` from `dictatorship_testing_stoc27_latest.tex`.
+This is `lem:dictator-to-junta` from `dictatorship_testing_stoc27_shortened.tex`.
 -/
 
 namespace DictatorshipTesting

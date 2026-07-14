@@ -4,10 +4,8 @@ import Mathlib.Algebra.Group.End
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_04_JucysMurphyRecurrences`
-- `DictatorshipTesting.Paper.S05_Thm5_05_JucysMurphyContentAction`
+- `DictatorshipTesting.Paper.S05_Thm5_03_JucysMurphyContentAction`
 -/
-
 /-!
 Internal proof of the faithful Section 5.2 content action.  The argument first
 proves the type-A Jucys--Murphy recurrence at the coefficient-function level,

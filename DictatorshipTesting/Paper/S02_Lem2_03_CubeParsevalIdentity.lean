@@ -7,8 +7,6 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError`
 - `DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare`
 -/
-
-
 /-!
 # Lemma 2.3: cube Parseval identity
 

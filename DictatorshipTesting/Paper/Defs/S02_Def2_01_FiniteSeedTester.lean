@@ -4,10 +4,8 @@ Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S02_IntDef_OneCosetReal`
 - `DictatorshipTesting.Paper.S01_Thm1_01_MainIntro`
-- `DictatorshipTesting.Paper.S04_Lem4_10_IndependentRepetitionAndAmplification`
+- `DictatorshipTesting.Paper.S04_Lem4_07_IndependentRepetition`
 -/
-
-
 /-!
 Definition file for operational finite-seed oracle testers.
 -/

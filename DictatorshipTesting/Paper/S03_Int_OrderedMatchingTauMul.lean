@@ -3,14 +3,10 @@ import DictatorshipTesting.Paper.S02_Int_CubeCharXor
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S04_Int_MatchingLocalProjection`
 - `DictatorshipTesting.Paper.S04_Int_PermCubeAverage`
-- `DictatorshipTesting.Paper.S04_Lem4_07_TrialCubeCoordinates`
-- `DictatorshipTesting.Paper.S04_Prop4_08_SquareEnergyControlsGlobalDegree`
+- `DictatorshipTesting.Paper.S04_Prop4_05_SquareEnergyControlsGlobalDegree`
 - `DictatorshipTesting.Paper.S05_Int_PMConvolution`
 -/
-
-
 /-!
 # Multiplicativity of matching-cube elements
 

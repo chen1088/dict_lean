@@ -7,8 +7,6 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S02_Int_CubeFourierTranslate`
 - `DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul`
 -/
-
-
 /-!
 # Cube characters and xor
 -/

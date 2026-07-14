@@ -2,14 +2,13 @@ import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_11_RegularYoungBlockDecomposition`
-- `DictatorshipTesting.Paper.S05_Lem5_22_GlobalWeightedMatchingIdentity`
+- `DictatorshipTesting.Paper.S05_Lem5_08_RegularYoungBlockDecomposition`
+- `DictatorshipTesting.Paper.S05_Prop5_16_AveragedRejectionOnYoungBlocks`
 -/
-
 /-!
 
 Status: definition/interface. This is the numerical nonnegativity interface
-for Young-block energy profiles used by Lemma 5.11.
+for Young-block energy profiles used by Lemma 5.8.
 -/
 
 noncomputable section

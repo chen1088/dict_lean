@@ -6,8 +6,6 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_02_RemovableCorners`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_03_StandardTableaux`
 -/
-
-
 /-!
 Paper statement: Definition 5.1 (`def:young-diagrams-boxes`)
 Title in paper: Young diagrams and boxes.

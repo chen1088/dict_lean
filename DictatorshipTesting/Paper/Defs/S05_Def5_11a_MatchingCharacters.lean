@@ -9,11 +9,9 @@ Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents`
 - `DictatorshipTesting.Paper.S05_Int_SignPatternCardinalities`
-- `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
-- `DictatorshipTesting.Paper.S05_Lem5_17_LocalTruncationOnAMatchingCharacter`
+- `DictatorshipTesting.Paper.S05_Lem5_13_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_14_MatchingFourierProjections`
 -/
-
-
 /-!
 Paper statement: Definition 5.11 part (a) `def:matching-characters-and-eigenvectors`
 Title in paper: Matching characters and eigenvectors.

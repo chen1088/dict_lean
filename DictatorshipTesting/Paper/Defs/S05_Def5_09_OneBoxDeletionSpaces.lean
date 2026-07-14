@@ -5,10 +5,8 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_03_StandardTableaux
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S05_Lem5_14_OneBoxDecompositionAndDeletion`
+- `DictatorshipTesting.Paper.S05_Lem5_11_OneBoxDecompositionAndDeletion`
 -/
-
-
 /-!
 Paper statement: Definition 5.9 `def:one-box-deletion-spaces`
 Title in paper: One-box deletion spaces.

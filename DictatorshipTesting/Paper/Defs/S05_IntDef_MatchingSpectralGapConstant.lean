@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_HOdd
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S04_Thm4_06_MatchingGap`
+- `DictatorshipTesting.Paper.S04_Thm4_04_MatchingGap`
 - `DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs`
 -/
 

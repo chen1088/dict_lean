@@ -8,8 +8,6 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_07a_TwoBoxRemovals`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_09_OneBoxDeletionSpaces`
 -/
-
-
 /-!
 Paper statement: Definition 5.2 (`def:removable-corners`)
 Title in paper: Removable corners and one-box removals.

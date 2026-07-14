@@ -5,9 +5,8 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_Def5_12b_GroupAlgebraAction`
 - `DictatorshipTesting.Paper.S05_Int_JucysMurphyContentAction`
 -/
-
 /-!
-Section 5 interface definition for Theorem Theorem 5.5.
+Section 5 interface definition for Theorem 5.3.
 
 This file defines the actual Jucys--Murphy coefficient element and records only
 its represented action as the explicit diagonal content operator.  It contains
@@ -28,7 +27,7 @@ def s05_jucysMurphyElement {N : Nat} (a : Fin N) :
     ∑ i ∈ (Finset.univ.filter fun i : Fin N => i < a),
       if g = Equiv.swap i a then (1 : Real) else 0
 
-/-- Faithful Lean data for Section 5.2, tied to a fixed Theorem 5.3 action: each
+/-- Faithful Lean data for Section 5.2, tied to a fixed Theorem 5.2 action: each
 actual Jucys--Murphy element acts as the explicit diagonal content operator. -/
 structure JucysMurphyContentActionData {n : Nat}
     {lam : YoungDiagram (n + 1)}

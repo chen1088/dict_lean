@@ -1,7 +1,7 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_CubeSquareEnergy
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S04_Def4_01a_IsMatchingLocalDegreeOne`
+- `DictatorshipTesting.Paper.Defs.S04_Def4_01_MatchingLocalDegreeOneAndProjection`
 -/
 
 

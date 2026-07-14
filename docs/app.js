@@ -4,9 +4,9 @@ const nodeById = new Map(graphData.nodes.map((node) => [node.id, node]));
 const definitionRoots = graphData.nodes
   .filter((node) => node.kind === "definition")
   .map((node) => node.id);
-const section5Roots = Array.from({ length: 26 }, (_, index) => {
+const section5Roots = Array.from({ length: 20 }, (_, index) => {
   const number = index + 1;
-  const kind = number === 3 || number === 5 ? "T" : "L";
+  const kind = number === 2 || number === 3 ? "T" : number === 16 ? "P" : "L";
   return `S05_${kind}${String(number).padStart(2, "0")}`;
 });
 const paperResultRoots = graphData.nodes
@@ -38,7 +38,7 @@ const rootViews = {
   paper: {
     label: "Paper map",
     roots: paperResultRoots,
-    open: ["S01_T01", "S04_T06", "S05_L22", "S05_L25", "S05_L26"],
+    open: ["S01_T01", "S04_T04", "S05_P16", "S05_L19", "S05_L20"],
   },
   main: {
     label: "Main theorem",
@@ -48,7 +48,7 @@ const rootViews = {
   section5: {
     label: "Section 5",
     roots: section5Roots,
-    open: ["S05_L22", "S05_L25", "S05_L26", "S05_L16", "S05_L11", "S05_T03"],
+    open: ["S05_P16", "S05_L19", "S05_L20", "S05_L13", "S05_L08", "S05_T02"],
   },
 };
 
@@ -97,7 +97,7 @@ const definitionTextLinks = [
   { text: "Boolean-cube character", target: "S02_N02" },
   { text: "Fourier coefficient", target: "S02_N02" },
   { text: "local degree-one space", target: "S04_D01" },
-  { text: "matching-local truncation", target: "S04_D02" },
+  { text: "matching-local truncation", target: "S04_D01" },
   { text: "Young diagram", target: "S05_D01" },
   { text: "box", target: "S05_D01" },
   { text: "removable corner", target: "S05_D02" },
@@ -129,11 +129,6 @@ const definitionTextLinks = [
   { text: "matching idempotents", target: "S05_D12" },
   { text: "averaged rejection", target: "S05_D12" },
   { text: "right convolution", target: "S05_D12" },
-  { text: "certificate vocabulary", target: "S05_D13" },
-  { text: "special diagrams", target: "S05_D13" },
-  { text: "canonical special diagrams", target: "S05_D13" },
-  { text: "exceptional shapes", target: "S05_D13" },
-  { text: "exceptional predicates", target: "S05_D13" },
 ];
 
 function termRefs(node) {
@@ -220,14 +215,14 @@ const mathSymbolLinks = [
     patterns: [/\\mathcal\s+W_M/g],
   },
   {
-    target: "S04_D02",
+    target: "S04_D01",
     patterns: [
       /P_M/g,
       /\\widehat\s*f_\{C,M\}\([^)]+\)/g,
     ],
   },
   {
-    target: "S05_T03",
+    target: "S05_T02",
     patterns: [/\\rho\^(?:\{\\lambda\}|\\lambda)/g],
   },
   {
@@ -344,12 +339,6 @@ const mathSymbolLinks = [
       /C_a/g,
       /C_q/g,
       /\\cA/g,
-    ],
-  },
-  {
-    target: "S05_D13",
-    patterns: [
-      /\\mathsf\s*E_m\^\{\\mathrm\{(?:even|odd)\}\}/g,
     ],
   },
 ];

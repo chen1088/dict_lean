@@ -2,13 +2,13 @@ import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S05_Lem5_08_YoungBasisScalarCommutant`
+- `DictatorshipTesting.Paper.S05_Lem5_05_YoungBasisScalarCommutant`
 -/
 
 /-!
 
 Status: definition/interface. This names the exact scalarity predicate used by
-the spectral bridge; Lemma 5.22 proves it for the concrete Young components.
+the spectral bridge; Proposition 5.16 proves it for the concrete Young components.
 -/
 
 noncomputable section

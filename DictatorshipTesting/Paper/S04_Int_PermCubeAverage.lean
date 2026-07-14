@@ -2,11 +2,9 @@ import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.S04_Prop4_03_MatchingLocalTruncationOrthogonalProjection`
-- `DictatorshipTesting.Paper.S04_Prop4_08_SquareEnergyControlsGlobalDegree`
+- `DictatorshipTesting.Paper.S04_Prop4_02_CosetwiseDescriptionOfPM`
+- `DictatorshipTesting.Paper.S04_Prop4_05_SquareEnergyControlsGlobalDegree`
 -/
-
-
 /-!
 # Averaging over matching-cube translates
 

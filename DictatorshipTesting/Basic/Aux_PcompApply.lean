@@ -5,8 +5,6 @@ Direct reverse imports:
 - `DictatorshipTesting.AlgebraicProperty.Eq_algebraic_property_RowDict`
 - `DictatorshipTesting.BasicFacts`
 -/
-
-
 namespace DictatorshipTesting
 
 variable {α : Type*}

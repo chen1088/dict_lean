@@ -3,10 +3,8 @@ import DictatorshipTesting.Paper.Defs.S02_IntDef_L2DistSqToU1
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.S04_Lem4_09_OneTrialSoundness`
+- `DictatorshipTesting.Paper.S04_Lem4_06_OneTrialSoundness`
 -/
-
-
 /-!
 Paper statement: Theorem 2.2 (`thm:fkn-input`)
 Title in paper: FKN/stability input on S_n.

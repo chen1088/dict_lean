@@ -3,12 +3,10 @@ import DictatorshipTesting.Paper.S05_Int_TableauDimension
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_SignPatternCardinalities`
-- `DictatorshipTesting.Paper.S05_Lem5_15_BranchingDimensionsAndSignPatternCardinalities`
+- `DictatorshipTesting.Paper.S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities`
 -/
-
-
 /-!
-Internal proof of the two-box part of Lemma 5.15. The paper-facing route uses the assumption-free
+Internal proof of the two-box part of Lemma 5.12. The paper-facing route uses the assumption-free
 `tableauDim` two-strip recursion proved below.  The older `youngDim` wrapper is
 kept only as an explicit external-alternative theorem requiring
 `[TwoStripDimensionBranchingAssumption]`; this file no longer provides a

@@ -5,10 +5,9 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_12b_GroupAlgebraAction
 Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.Defs.S05_Def5_12d_TableauOperatorTrace`
-- `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
-- `DictatorshipTesting.Paper.S05_Lem5_22_GlobalWeightedMatchingIdentity`
+- `DictatorshipTesting.Paper.S05_Lem5_13_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Prop5_16_AveragedRejectionOnYoungBlocks`
 -/
-
 /-!
 Paper statement: Definition 5.12 part (c) `def:matching-idempotents`
 Title in paper: Matching idempotents and averaged rejection.
@@ -630,7 +629,7 @@ def S05_averagedRejectionYoungOperatorData_actual {n : Nat}
     (S05_averagedHighMatchingElement (n + 1))
     (S05_averagedHighMatchingElement_central (n + 1))
 
-/-- Faithful Section 5.1/Theorem 5.5 data constructs the concrete averaged rejection
+/-- Faithful Section 5.1/Theorem 5.3 data constructs the concrete averaged rejection
 operator package without any scalarity field in either external input. -/
 def S05_averagedRejectionYoungOperatorData_from_section5
     {n : Nat} {lam : YoungDiagram (n + 1)}

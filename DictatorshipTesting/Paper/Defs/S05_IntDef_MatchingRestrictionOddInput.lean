@@ -4,7 +4,7 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_HOdd
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_TraceLocalTruncationOddInput`
-- `DictatorshipTesting.Paper.S05_Lem5_16_MatchingSubgroupEigenbasis`
+- `DictatorshipTesting.Paper.S05_Lem5_13_MatchingSubgroupEigenbasis`
 -/
 
 /-!

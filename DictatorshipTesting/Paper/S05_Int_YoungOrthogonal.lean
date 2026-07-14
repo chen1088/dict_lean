@@ -8,10 +8,8 @@ Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_OneBoxDeletionUnitary`
 - `DictatorshipTesting.Paper.S05_Int_YoungMatchingOperators`
 - `DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis`
-- `DictatorshipTesting.Paper.S05_Lem5_07_ConnectednessOfStandardTableaux`
+- `DictatorshipTesting.Paper.S05_Lem5_04_ContentSeparationAndTableauConnectivity`
 -/
-
-
 /-!
 Elementary coordinate-space objects for the tableau-basis side of the rewritten
 Section 5 proof.  This file deliberately stops before any Specht-module or
