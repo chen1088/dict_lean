@@ -1,5 +1,6 @@
 import DictatorshipTesting.Paper.Defs.S02_IntDef_IsDictator
 import DictatorshipTesting.Paper.Defs.S02_IntDef_U1
+import Mathlib.Algebra.BigOperators.Pi
 
 open AlgebraicLibrary
 

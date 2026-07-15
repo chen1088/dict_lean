@@ -1,4 +1,7 @@
 import AlgebraicLibrary.Young.IndexedDiagram
+import Mathlib.Algebra.Order.BigOperators.Group.Finset
+import Mathlib.Data.Fintype.BigOperators
+import Lean.Elab.Tactic.Omega
 
 /-!
 # One-box removals and Young-diagram rows

@@ -1,4 +1,8 @@
-import Mathlib
+import Mathlib.Data.Fintype.BigOperators
+import Mathlib.Data.Real.Basic
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.NormNum
+import Mathlib.Tactic.Positivity
 
 /-!
 # Finite-seed nonadaptive oracle testers

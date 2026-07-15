@@ -1,4 +1,7 @@
 import AlgebraicLibrary.Young.TableauDimension
+import Mathlib.Algebra.BigOperators.Fin
+import Mathlib.Tactic.FinCases
+import Mathlib.Tactic.IntervalCases
 
 open AlgebraicLibrary
 

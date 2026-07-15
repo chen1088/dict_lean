@@ -13,8 +13,6 @@ Definition file for `cubeColorU`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- The `A` direction encoded by a square-test coloring. -/

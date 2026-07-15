@@ -10,8 +10,6 @@ Definition file for `BoolFn`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- Boolean functions on a symmetric group. -/

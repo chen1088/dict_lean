@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.Defs.S02_IntDef_HammingDist
+import Mathlib.Algebra.Order.Archimedean.Real.Basic
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S02_Def2_01_FiniteSeedTester`
@@ -9,8 +10,6 @@ Definition file for `distToDictators`.
 -/
 
 noncomputable section
-
-open scoped BigOperators
 
 namespace DictatorshipTesting
 

@@ -1,5 +1,10 @@
 import DictatorshipTesting.Basic
 import AlgebraicLibrary.Combinatorics.OrderedMatching.CubeHom
+import Mathlib.Algebra.BigOperators.Field
+import Mathlib.Data.Fintype.BigOperators
+import Mathlib.Data.Fintype.Perm
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.NormNum
 
 open AlgebraicLibrary
 

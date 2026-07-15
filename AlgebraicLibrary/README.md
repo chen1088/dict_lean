@@ -13,19 +13,22 @@ Nothing under this directory may import a `DictatorshipTesting` module.
 
 ## Build and incremental cache
 
-Build the reusable layer before working on paper modules:
+Fetch Mathlib's cache after dependency changes, then build the target being
+edited:
 
 ```bash
 lake exe cache get
 lake build AlgebraicLibrary
-lake build DictatorshipTesting
+lake build +DictatorshipTesting.Paper.S05_Thm5_02_YoungOrthogonalAction:olean
 ```
 
-Lake stores compiled `.olean` artifacts under `.lake/build`. Because
-`AlgebraicLibrary` is a separate `lean_lib`, an unchanged library is reused by
-later `DictatorshipTesting` and focused-module builds. Lake's reported job count
-includes dependencies it checked; a cached run with no `Built` lines did not
-recompile the library.
+Lake stores compiled `.olean` artifacts under `.lake/build` and caches per
+module, not at the `lean_lib` boundary. The separate `AlgebraicLibrary` target
+expresses the one-way dependency and lets the reusable layer be validated on
+its own. Paper and focused-module builds automatically reuse unchanged library
+modules, so there is no need to run both full-library commands on every edit.
+Lake's reported job count includes dependencies it checked; a cached run with
+no `Built` lines did not recompile those modules.
 
 ## Module map
 

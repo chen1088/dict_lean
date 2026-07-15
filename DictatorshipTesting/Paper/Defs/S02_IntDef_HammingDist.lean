@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.Defs.S02_IntDef_IsDictator
+import Mathlib.Data.Fintype.Perm
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S02_IntDef_DistToDictators`
@@ -10,8 +11,6 @@ Definition file for `hammingDist`.
 -/
 
 noncomputable section
-
-open scoped BigOperators
 
 namespace DictatorshipTesting
 

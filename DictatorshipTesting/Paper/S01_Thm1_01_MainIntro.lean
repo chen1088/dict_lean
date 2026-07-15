@@ -15,8 +15,6 @@ noncomputable section
 
 namespace DictatorshipTesting
 
-open scoped BigOperators
-
 /-- Theorem 1.1, `thm:main-intro`: a dimension-free one-sided tester exists,
 using the one-trial soundness theorem. -/
 theorem S01_Thm1_01_MainIntro :

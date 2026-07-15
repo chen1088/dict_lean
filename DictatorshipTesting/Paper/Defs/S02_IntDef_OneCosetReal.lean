@@ -11,8 +11,6 @@ Definition file for `oneCosetReal`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- Real indicator of the one-coset `T_{ij}`. -/

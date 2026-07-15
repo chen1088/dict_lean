@@ -15,16 +15,16 @@ logical route explicitly.
 
 ```bash
 lake exe cache get
-lake build AlgebraicLibrary
 lake build DictatorshipTesting
 ```
 
-`AlgebraicLibrary` and `DictatorshipTesting` are separate Lake libraries.
-`lake build AlgebraicLibrary` compiles the reusable layer to `.olean` files under
-`.lake/build`. Later `DictatorshipTesting` builds reuse those artifacts unless
-an `AlgebraicLibrary` source or one of its dependencies changed. The job count
-printed by Lake includes checked dependencies; only lines beginning with
-`Built` indicate actual recompilation.
+The first command downloads Mathlib's compiled cache and normally only needs to
+be rerun after dependency changes. Lake caches each compiled module as an
+`.olean` under `.lake/build`; `lake build DictatorshipTesting` automatically
+builds the `AlgebraicLibrary` modules it needs and reuses every unchanged
+artifact. Run `lake build AlgebraicLibrary` separately only when validating the
+whole reusable library. The job count printed by Lake includes dependencies it
+checked; only lines beginning with `Built` indicate actual recompilation.
 
 Focused builds use the module target, for example:
 

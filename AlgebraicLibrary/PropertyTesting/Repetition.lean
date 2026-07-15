@@ -1,4 +1,8 @@
 import AlgebraicLibrary.PropertyTesting.Basic
+import Mathlib.Algebra.BigOperators.Ring.Finset
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Rify
+import Mathlib.Tactic.Ring
 
 /-! Independent repetition of finite-seed oracle testers. -/
 

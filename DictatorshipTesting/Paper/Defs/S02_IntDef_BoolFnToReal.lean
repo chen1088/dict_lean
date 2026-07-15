@@ -14,8 +14,6 @@ Definition file for `boolFnToReal`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- View a Boolean function as a real-valued `{0,1}` function. -/

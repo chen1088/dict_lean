@@ -1,4 +1,5 @@
-import Mathlib
+import Mathlib.Algebra.Group.Action.Defs
+import Mathlib.Data.Real.Basic
 
 /-!
 # Products of indexed operators

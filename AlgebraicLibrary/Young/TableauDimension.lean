@@ -1,6 +1,9 @@
 import AlgebraicLibrary.Young.IndexedDiagram
 import AlgebraicLibrary.Young.StandardTableau
 import AlgebraicLibrary.Young.DiagramCorners
+import Mathlib.Algebra.BigOperators.Ring.Finset
+import Mathlib.Data.Finset.Max
+import Mathlib.Tactic.Linarith
 
 /-!
 # Tableau-count dimension
@@ -167,7 +170,7 @@ theorem youngRow_last_eq_zero_of_removable_lt {n : Nat}
           (fun i => 1 + if i = r then 1 else 0) = n + 2 := by
     rw [Finset.sum_add_distrib]
     have hrle : r <= n := by omega
-    simp [Finset.sum_const, hrle]
+    simp [Finset.sum_const, Nat.lt_succ_iff, hrle]
   rw [hleft, hsum] at hlower
   omega
 

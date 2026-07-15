@@ -1,4 +1,5 @@
 import AlgebraicLibrary.BooleanCube.Basic
+import Mathlib.Algebra.Group.End
 
 /-! Ordered matchings and their associated products of disjoint transpositions. -/
 

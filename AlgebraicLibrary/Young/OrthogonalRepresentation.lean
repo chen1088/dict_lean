@@ -1,5 +1,9 @@
 import AlgebraicLibrary.Young.AdjacentEntries
 import AlgebraicLibrary.Young.TableauDimension
+import Mathlib.Analysis.Real.Sqrt
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
 
 /-!
 Elementary coordinate-space objects for the tableau-basis side of the rewritten

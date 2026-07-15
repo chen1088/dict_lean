@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_CubeSquareEnergy
+import Mathlib.Data.Fintype.Perm
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S04_Def4_01_MatchingLocalDegreeOneAndProjection`

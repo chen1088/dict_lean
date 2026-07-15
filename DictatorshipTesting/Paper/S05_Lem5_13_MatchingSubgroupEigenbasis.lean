@@ -11,6 +11,8 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_TableauOddHeight
 import AlgebraicLibrary.Young.OrthogonalActionData
 import DictatorshipTesting.Paper.Defs.S05_Def5_12c_AveragedHighMatchingElement
 import DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset
+import Mathlib.LinearAlgebra.Basis.Basic
+import Mathlib.LinearAlgebra.FiniteDimensional.Lemmas
 
 open AlgebraicLibrary
 

@@ -13,8 +13,6 @@ Definition file for `cubeColorV`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- The `B` direction encoded by a square-test coloring. -/

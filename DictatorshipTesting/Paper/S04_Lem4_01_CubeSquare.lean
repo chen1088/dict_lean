@@ -4,6 +4,8 @@ import DictatorshipTesting.Paper.S04_Int_CubeHighDegreeLinear
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval
 import AlgebraicLibrary.BooleanCube.LowDegree
+import Mathlib.Algebra.BigOperators.Fin
+import Mathlib.Tactic.Linarith
 
 open AlgebraicLibrary
 

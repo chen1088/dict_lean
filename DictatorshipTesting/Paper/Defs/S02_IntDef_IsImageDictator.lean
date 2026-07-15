@@ -11,8 +11,6 @@ Definition file for `IsImageDictator`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- Image dictators: `f π = h (π i)`. -/

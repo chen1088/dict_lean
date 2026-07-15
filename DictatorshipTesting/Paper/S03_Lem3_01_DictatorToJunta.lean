@@ -1,6 +1,7 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingCubeRestriction
 import AlgebraicLibrary.Combinatorics.OrderedMatching.Dependence
 import DictatorshipTesting.Paper.Defs.S02_IntDef_IsDictator
+import Mathlib.Data.Fintype.Defs
 
 open AlgebraicLibrary
 

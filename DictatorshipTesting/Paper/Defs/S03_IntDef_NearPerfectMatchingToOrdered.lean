@@ -13,8 +13,6 @@ Definition file for `NearPerfectMatching.toOrdered`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- View a near-perfect matching as the generic ordered matching structure. -/

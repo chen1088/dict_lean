@@ -3,6 +3,8 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_11a_MatchingCharacters
 import DictatorshipTesting.Paper.Defs.S05_IntDef_TableauOddHeight
 import DictatorshipTesting.Paper.S05_Int_TwoBoxDimensionRecursion
 import DictatorshipTesting.Paper.S05_Int_OneBoxDimensionRecursion
+import Mathlib.Data.Finset.Card
+import Mathlib.Data.Multiset.Count
 
 open AlgebraicLibrary
 
@@ -240,6 +242,12 @@ theorem S05_signPatternCardinality_evenSignPatternMultiset_highMultiplicity :
       intro lam
       simp [S05_evenSignPatternMultiset, S05_highSignPatternMultiplicity,
         hEvenTableau]
+      change Multiset.countP (fun R : Finset (Fin 0) => 2 <= R.card)
+          (Finset.empty ::ₘ 0) = 0
+      rw [Multiset.countP_cons_of_neg]
+      · rfl
+      · unfold Finset.empty
+        decide
   | succ m ih =>
       intro lam
       calc

@@ -15,8 +15,6 @@ Definition file for `matchingCubeRestriction`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- Restrict a Boolean function on permutations to a matching cube based at `pi`. -/

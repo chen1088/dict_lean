@@ -1,4 +1,9 @@
-import Mathlib
+import Mathlib.Combinatorics.Young.YoungDiagram
+import Mathlib.Data.Fintype.Pi
+import Mathlib.Data.Fintype.Prod
+import Mathlib.Data.Nat.Factorial.Basic
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
 
 /-!
 # Size-indexed Young diagrams

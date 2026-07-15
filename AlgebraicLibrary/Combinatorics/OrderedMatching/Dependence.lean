@@ -1,4 +1,6 @@
 import AlgebraicLibrary.Combinatorics.OrderedMatching.Basic
+import Mathlib.Algebra.BigOperators.Group.List.Basic
+import Mathlib.Data.List.FinRange
 
 /-! Coordinate dependence of matching-cube permutations. -/
 

@@ -14,8 +14,6 @@ Definition file for `MatchingSpectralGapConstant`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- The spectral gap assertion with constant `c`. -/

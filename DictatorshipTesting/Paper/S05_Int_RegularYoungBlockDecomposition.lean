@@ -4,6 +4,7 @@ import AlgebraicLibrary.Young.TableauSumOfSquares
 import DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks
 import AlgebraicLibrary.Young.TableauTrace
 import Mathlib.LinearAlgebra.Basis.Basic
+import Mathlib.LinearAlgebra.FiniteDimensional.Lemmas
 import DictatorshipTesting.Paper.S05_Thm5_02_YoungOrthogonalAction
 import DictatorshipTesting.Paper.S05_Thm5_03_JucysMurphyContentAction
 import DictatorshipTesting.Paper.S05_Lem5_04_ContentSeparationAndTableauConnectivity

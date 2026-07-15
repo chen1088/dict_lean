@@ -1,4 +1,6 @@
 import DictatorshipTesting.Paper.Defs.S02_IntDef_OneCosetReal
+import Mathlib.Algebra.Module.Pi
+import Mathlib.LinearAlgebra.Span.Basic
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S02_IntDef_L2DistSq`
@@ -11,8 +13,6 @@ Definition file for `U1`.
 -/
 
 noncomputable section
-
-open scoped BigOperators
 
 namespace DictatorshipTesting
 

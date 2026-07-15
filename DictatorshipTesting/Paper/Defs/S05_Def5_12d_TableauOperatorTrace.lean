@@ -1,5 +1,6 @@
 import AlgebraicLibrary.Young.TableauTrace
 import DictatorshipTesting.Paper.Defs.S05_Def5_12c_AveragedHighMatchingElement
+import Mathlib.LinearAlgebra.Trace
 
 open AlgebraicLibrary
 

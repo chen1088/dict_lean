@@ -16,8 +16,6 @@ Definition file for `matchingTrialDelta`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- The real mixed second difference queried by one matching-cube trial. -/

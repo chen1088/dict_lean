@@ -11,8 +11,6 @@ Definition file for `CubeDirectionColor`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- The three edge colors used by the square test, encoded as `0`, `1`, `2`. -/

@@ -1,4 +1,4 @@
-import Mathlib
+import Mathlib.Logic.Equiv.Basic
 
 /-
 Direct reverse imports:

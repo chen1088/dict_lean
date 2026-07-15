@@ -1,5 +1,6 @@
 import DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents
 import DictatorshipTesting.Paper.Defs.S05_Def5_12b_GroupAlgebraAction
+import Mathlib.Tactic.Group
 
 open AlgebraicLibrary
 

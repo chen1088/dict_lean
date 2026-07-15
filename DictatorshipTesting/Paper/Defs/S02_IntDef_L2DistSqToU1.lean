@@ -11,8 +11,6 @@ Definition file for `l2DistSqToU1`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- Squared distance from a function to `U₁`, equivalent to `‖f - P_{U₁} f‖²`. -/

@@ -216,7 +216,7 @@ theorem exhaustiveDictatorTester_queryCount_le_six
     (exhaustiveDictatorTester n).queryCount ≤ 6 := by
   change Fintype.card (Perm (Fin n)) ≤ 6
   rw [Fintype.card_perm, Fintype.card_fin]
-  interval_cases n <;> norm_num
+  interval_cases n <;> norm_num [Nat.factorial]
 
 /-- A dictator has distance at most zero from the dictator class. -/
 theorem distToDictators_le_zero_of_dictator

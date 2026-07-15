@@ -11,8 +11,6 @@ Definition file for `IsPreimageDictator`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- Preimage dictators: `f π = h (π⁻¹ j)`. -/

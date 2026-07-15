@@ -11,8 +11,6 @@ Definition file for `IsDictator`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- The paper's dictator class `𝓓`. -/

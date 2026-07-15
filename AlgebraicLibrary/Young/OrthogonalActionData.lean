@@ -1,5 +1,7 @@
 import AlgebraicLibrary.Young.OrthogonalRepresentation
 import AlgebraicLibrary.Algebra.OperatorProduct
+import Mathlib.Algebra.Module.BigOperators
+import Mathlib.GroupTheory.Perm.Sign
 
 /-!
 Section 5 interface definition for Theorem Theorem 5.3.

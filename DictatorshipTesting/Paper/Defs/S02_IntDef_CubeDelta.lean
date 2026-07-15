@@ -12,8 +12,6 @@ Definition file for `cubeDelta`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- The mixed second difference on a Boolean-cube square. -/

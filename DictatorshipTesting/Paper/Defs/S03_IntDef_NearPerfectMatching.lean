@@ -11,8 +11,6 @@ Definition file for `NearPerfectMatching`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- An ordered near-perfect matching on `Fin n`, with `n / 2` ordered edges.

@@ -1,4 +1,5 @@
 import DictatorshipTesting.SetFacts
+import Mathlib.Data.Set.Lattice
 
 /-
 Direct reverse imports:

@@ -1,4 +1,5 @@
-import Mathlib
+import Mathlib.Data.List.Perm.Basic
+import Mathlib.Order.RelClasses
 
 /-!
 # Connectivity of finite linear extensions

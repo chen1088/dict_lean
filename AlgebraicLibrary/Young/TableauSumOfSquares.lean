@@ -1,4 +1,5 @@
 import AlgebraicLibrary.Young.TableauDimension
+import Mathlib.Algebra.BigOperators.Fin
 
 /-!
 # Young-tableau square sums

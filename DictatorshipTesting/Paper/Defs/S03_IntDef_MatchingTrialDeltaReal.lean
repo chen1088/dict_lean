@@ -12,8 +12,6 @@ Definition file for `matchingTrialDeltaReal`.
 
 noncomputable section
 
-open scoped BigOperators
-
 namespace DictatorshipTesting
 
 /-- The real-valued mixed second difference queried by one matching-cube trial. -/

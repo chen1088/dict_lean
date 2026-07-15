@@ -1,4 +1,12 @@
 import AlgebraicLibrary.BooleanCube.Basic
+import Mathlib.Algebra.BigOperators.Field
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Algebra.BigOperators.Ring.Finset
+import Mathlib.Data.Fintype.BigOperators
+import Mathlib.Data.Fintype.Powerset
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.NormNum
+import Mathlib.Tactic.Ring
 
 /-!
 # Walsh--Fourier analysis on Boolean cubes

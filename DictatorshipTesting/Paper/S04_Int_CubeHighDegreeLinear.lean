@@ -1,4 +1,5 @@
 import AlgebraicLibrary.BooleanCube.LowDegree
+import Mathlib.Algebra.Order.BigOperators.Ring.Finset
 
 open AlgebraicLibrary
 
