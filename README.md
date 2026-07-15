@@ -1,8 +1,10 @@
 # Dictatorship Testing on the Symmetric Group
 
 Lean 4 + Mathlib formalization accompanying the dictatorship-testing paper.
-Paper-facing modules are numbered from the compiled paper; implementation
-machinery lives in `S##_Int_*` and `Defs/S##_IntDef_*` modules.
+Reusable foundations live in the separate `AlgebraicLibrary`; paper-facing
+modules remain under `DictatorshipTesting` and are numbered from the compiled
+paper. Paper-specific implementation machinery lives in `S##_Int_*` and
+`Defs/S##_IntDef_*` modules.
 
 Each edge between numbered nodes in `docs/dependency-data.js` is mirrored by a
 direct import in the corresponding paper-facing Lean module. Large proof bodies
@@ -13,8 +15,16 @@ logical route explicitly.
 
 ```bash
 lake exe cache get
+lake build AlgebraicLibrary
 lake build DictatorshipTesting
 ```
+
+`AlgebraicLibrary` and `DictatorshipTesting` are separate Lake libraries.
+`lake build AlgebraicLibrary` compiles the reusable layer to `.olean` files under
+`.lake/build`. Later `DictatorshipTesting` builds reuse those artifacts unless
+an `AlgebraicLibrary` source or one of its dependencies changed. The job count
+printed by Lake includes checked dependencies; only lines beginning with
+`Built` indicate actual recompilation.
 
 Focused builds use the module target, for example:
 
@@ -33,9 +43,11 @@ lake build +DictatorshipTesting.Paper.S05_Prop5_16_AveragedRejectionOnYoungBlock
 - `DictatorshipTesting/Paper/SECTION5_FILE_MAP.md`
 - `DictatorshipTesting/Paper/DEFINITION_FILE_MAP.md`
 
-Section 5 contains 12 numbered definitions and 20 numbered results. Grouped
-paper definitions use letter-suffixed files, such as `S05_Def5_07a_*` through
-`S05_Def5_07c_*`, while retaining one paper definition number.
+Section 5 contains 12 numbered definitions and 20 numbered results. Reusable
+definitions link directly to their `AlgebraicLibrary` modules instead of going
+through paper-side forwarding files. Paper-specific grouped definitions retain
+letter-suffixed files only when those files contain substantive definitions or
+proofs.
 
 The representation-theory results are part of Section 5:
 

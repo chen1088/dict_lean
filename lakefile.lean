@@ -10,7 +10,8 @@ package «dict_lean» where
   -- This project is intended for a standard Lean 4 + mathlib setup.
   -- After installing Lean, run:
   --   lake exe cache get
-  --   lake build
+  --   lake build AlgebraicLibrary
+  --   lake build DictatorshipTesting
 
 require mathlib from git
   "https://github.com/leanprover-community/mathlib4.git"

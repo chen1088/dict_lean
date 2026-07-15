@@ -11,6 +11,22 @@ Mathlib  <-  AlgebraicLibrary  <-  DictatorshipTesting
 
 Nothing under this directory may import a `DictatorshipTesting` module.
 
+## Build and incremental cache
+
+Build the reusable layer before working on paper modules:
+
+```bash
+lake exe cache get
+lake build AlgebraicLibrary
+lake build DictatorshipTesting
+```
+
+Lake stores compiled `.olean` artifacts under `.lake/build`. Because
+`AlgebraicLibrary` is a separate `lean_lib`, an unchanged library is reused by
+later `DictatorshipTesting` and focused-module builds. Lake's reported job count
+includes dependencies it checked; a cached run with no `Built` lines did not
+recompile the library.
+
 ## Module map
 
 - `BooleanCube`: Boolean cubes over an arbitrary coordinate type, XOR/flip

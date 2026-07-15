@@ -19,6 +19,7 @@ Verification commands:
 
 ```bash
 lake exe cache get
+lake build AlgebraicLibrary
 lake build DictatorshipTesting
-rg "^axiom |sorry|opaque|unsafe" DictatorshipTesting
+rg "^axiom |sorry|opaque|unsafe" AlgebraicLibrary DictatorshipTesting
 ```

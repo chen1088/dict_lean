@@ -10,7 +10,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "hero",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S01_Thm1_01_MainIntro.lean",
-      "wrappers": [
+      "declarations": [
         "S01_Thm1_01_MainIntro"
       ],
       "deps": [
@@ -49,7 +49,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "minor",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-      "wrappers": [
+      "declarations": [
         "OracleTester",
         "OracleTester.run",
         "OracleTester.acceptanceProbability",
@@ -67,27 +67,27 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "OracleTester",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 21
+          "line": 18
         },
         {
           "name": "OracleTester.run",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 32
+          "line": 23
         },
         {
           "name": "OracleTester.acceptanceProbability",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 37
+          "line": 27
         },
         {
           "name": "OracleTester.rejectionProbability",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 45
+          "line": 31
         },
         {
           "name": "OracleTester.oneSided",
           "file": "DictatorshipTesting/Paper/Defs/S02_Def2_01_FiniteSeedTester.lean",
-          "line": 71
+          "line": 49
         }
       ]
     },
@@ -100,7 +100,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "minor",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_U1.lean",
-      "wrappers": [
+      "declarations": [
         "IsDictator",
         "oneCosetReal",
         "U1"
@@ -136,8 +136,8 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "notation",
       "importance": "minor",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_CubeChar.lean",
-      "wrappers": [
+      "file": "AlgebraicLibrary/BooleanCube/Fourier.lean",
+      "declarations": [
         "cubeChar",
         "cubeFourierCoeff"
       ],
@@ -149,13 +149,13 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "cubeChar",
-          "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_CubeChar.lean",
-          "line": 21
+          "file": "AlgebraicLibrary/BooleanCube/Fourier.lean",
+          "line": 17
         },
         {
           "name": "cubeFourierCoeff",
-          "file": "DictatorshipTesting/Paper/Defs/S02_IntDef_CubeFourierCoeff.lean",
-          "line": 20
+          "file": "AlgebraicLibrary/BooleanCube/Fourier.lean",
+          "line": 26
         }
       ]
     },
@@ -167,8 +167,8 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "definition",
       "importance": "minor",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/Defs/S02_Def2_02a_CubeLowDegreeOnePart.lean",
-      "wrappers": [
+      "file": "AlgebraicLibrary/BooleanCube/LowDegree.lean",
+      "declarations": [
         "cubeLowDegreeOnePart",
         "cubeHighDegreeEnergy"
       ],
@@ -189,13 +189,13 @@ window.DICT_DEPENDENCY_DATA = {
       "leanLinks": [
         {
           "name": "cubeLowDegreeOnePart",
-          "file": "DictatorshipTesting/Paper/Defs/S02_Def2_02a_CubeLowDegreeOnePart.lean",
-          "line": 21
+          "file": "AlgebraicLibrary/BooleanCube/LowDegree.lean",
+          "line": 19
         },
         {
           "name": "cubeHighDegreeEnergy",
-          "file": "DictatorshipTesting/Paper/Defs/S02_Def2_02b_CubeHighDegreeEnergy.lean",
-          "line": 21
+          "file": "AlgebraicLibrary/BooleanCube/LowDegree.lean",
+          "line": 32
         }
       ]
     },
@@ -208,7 +208,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S02_Thm2_01_BooleanU1Classification.lean",
-      "wrappers": [
+      "declarations": [
         "S02_Thm2_01_BooleanU1Classification",
         "booleanU1_dictator_classification_input"
       ],
@@ -230,12 +230,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S02_Thm2_01_BooleanU1Classification",
           "file": "DictatorshipTesting/Paper/S02_Thm2_01_BooleanU1Classification.lean",
-          "line": 162
+          "line": 164
         },
         {
           "name": "booleanU1_dictator_classification_input",
           "file": "DictatorshipTesting/Paper/S02_Thm2_01_BooleanU1Classification.lean",
-          "line": 155
+          "line": 157
         }
       ]
     },
@@ -248,7 +248,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "major",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S02_Thm2_02_FKNStability.lean",
-      "wrappers": [
+      "declarations": [
         "S02_Thm2_02_FKNStability",
         "fknStability_input"
       ],
@@ -281,7 +281,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S02_Lem2_03_CubeParseval.lean",
-      "wrappers": [
+      "declarations": [
         "S02_Lem2_03_CubeParseval"
       ],
       "deps": [],
@@ -295,7 +295,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S02_Lem2_03_CubeParseval",
           "file": "DictatorshipTesting/Paper/S02_Lem2_03_CubeParseval.lean",
-          "line": 28
+          "line": 29
         }
       ]
     },
@@ -308,7 +308,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S03_Lem3_01_DictatorToJunta.lean",
-      "wrappers": [
+      "declarations": [
         "S03_Lem3_01_DictatorToJunta",
         "S03_Lem3_01_ImageDictatorToJunta"
       ],
@@ -323,12 +323,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S03_Lem3_01_DictatorToJunta",
           "file": "DictatorshipTesting/Paper/S03_Lem3_01_DictatorToJunta.lean",
-          "line": 51
+          "line": 54
         },
         {
           "name": "S03_Lem3_01_ImageDictatorToJunta",
           "file": "DictatorshipTesting/Paper/S03_Lem3_01_DictatorToJunta.lean",
-          "line": 19
+          "line": 22
         }
       ]
     },
@@ -341,7 +341,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S03_Lem3_02_PerfectCompleteness.lean",
-      "wrappers": [
+      "declarations": [
         "S03_Lem3_02_PerfectCompleteness",
         "cubeOneJunta_square_zero"
       ],
@@ -363,12 +363,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S03_Lem3_02_PerfectCompleteness",
           "file": "DictatorshipTesting/Paper/S03_Lem3_02_PerfectCompleteness.lean",
-          "line": 71
+          "line": 73
         },
         {
           "name": "cubeOneJunta_square_zero",
           "file": "DictatorshipTesting/Paper/S03_Lem3_02_PerfectCompleteness.lean",
-          "line": 20
+          "line": 22
         }
       ]
     },
@@ -381,7 +381,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "minor",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01_MatchingLocalDegreeOneAndProjection.lean",
-      "wrappers": [
+      "declarations": [
         "IsMatchingLocalDegreeOne",
         "matchingLocalHighDegreeEnergy",
         "matchingLocalProjection",
@@ -409,22 +409,22 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "IsMatchingLocalDegreeOne",
           "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01_MatchingLocalDegreeOneAndProjection.lean",
-          "line": 29
+          "line": 32
         },
         {
           "name": "matchingLocalHighDegreeEnergy",
           "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01_MatchingLocalDegreeOneAndProjection.lean",
-          "line": 34
+          "line": 37
         },
         {
           "name": "matchingLocalProjection",
           "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01_MatchingLocalDegreeOneAndProjection.lean",
-          "line": 43
+          "line": 46
         },
         {
           "name": "matchingLocalProjectionError",
           "file": "DictatorshipTesting/Paper/Defs/S04_Def4_01_MatchingLocalDegreeOneAndProjection.lean",
-          "line": 50
+          "line": 53
         }
       ]
     },
@@ -437,7 +437,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S04_Lem4_01_CubeSquare.lean",
-      "wrappers": [
+      "declarations": [
         "S04_Lem4_01_CubeSquare"
       ],
       "deps": [
@@ -459,7 +459,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Lem4_01_CubeSquare",
           "file": "DictatorshipTesting/Paper/S04_Lem4_01_CubeSquare.lean",
-          "line": 509
+          "line": 511
         }
       ]
     },
@@ -472,7 +472,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S04_Prop4_02_CosetwiseDescriptionOfPM.lean",
-      "wrappers": [
+      "declarations": [
         "S04_Prop4_02_PMIndependentOfRepresentatives",
         "S04_Prop4_02_CosetwiseDescriptionOfPM",
         "S04_Prop4_02_fixedSpace",
@@ -503,27 +503,27 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Prop4_02_PMIndependentOfRepresentatives",
           "file": "DictatorshipTesting/Paper/S04_Prop4_02_CosetwiseDescriptionOfPM.lean",
-          "line": 30
+          "line": 32
         },
         {
           "name": "S04_Prop4_02_CosetwiseDescriptionOfPM",
           "file": "DictatorshipTesting/Paper/S04_Prop4_02_CosetwiseDescriptionOfPM.lean",
-          "line": 325
+          "line": 327
         },
         {
           "name": "S04_Prop4_02_fixedSpace",
           "file": "DictatorshipTesting/Paper/S04_Prop4_02_CosetwiseDescriptionOfPM.lean",
-          "line": 60
+          "line": 62
         },
         {
           "name": "S04_Prop4_02_errorFormula",
           "file": "DictatorshipTesting/Paper/S04_Prop4_02_CosetwiseDescriptionOfPM.lean",
-          "line": 88
+          "line": 90
         },
         {
           "name": "S04_Prop4_02_perpendicular",
           "file": "DictatorshipTesting/Paper/S04_Prop4_02_CosetwiseDescriptionOfPM.lean",
-          "line": 225
+          "line": 227
         }
       ]
     },
@@ -536,7 +536,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne.lean",
-      "wrappers": [
+      "declarations": [
         "S04_Lem4_03_TijLocalDegree",
         "S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne"
       ],
@@ -573,12 +573,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Lem4_03_TijLocalDegree",
           "file": "DictatorshipTesting/Paper/S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne.lean",
-          "line": 104
+          "line": 106
         },
         {
           "name": "S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne",
           "file": "DictatorshipTesting/Paper/S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne.lean",
-          "line": 158
+          "line": 160
         }
       ]
     },
@@ -591,7 +591,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "hero",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S04_Thm4_04_MatchingGap.lean",
-      "wrappers": [
+      "declarations": [
         "S04_Thm4_04_MatchingGap"
       ],
       "deps": [
@@ -619,7 +619,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Thm4_04_MatchingGap",
           "file": "DictatorshipTesting/Paper/S04_Thm4_04_MatchingGap.lean",
-          "line": 89
+          "line": 91
         }
       ]
     },
@@ -632,7 +632,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "major",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S04_Prop4_05_SquareEnergyControlsGlobalDegree.lean",
-      "wrappers": [
+      "declarations": [
         "S04_Prop4_05_TrialCubeCoordinates",
         "S04_Prop4_05_SquareEnergyControlsGlobalDegree"
       ],
@@ -673,12 +673,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Prop4_05_TrialCubeCoordinates",
           "file": "DictatorshipTesting/Paper/S04_Prop4_05_SquareEnergyControlsGlobalDegree.lean",
-          "line": 26
+          "line": 28
         },
         {
           "name": "S04_Prop4_05_SquareEnergyControlsGlobalDegree",
           "file": "DictatorshipTesting/Paper/S04_Prop4_05_SquareEnergyControlsGlobalDegree.lean",
-          "line": 166
+          "line": 168
         }
       ]
     },
@@ -691,7 +691,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "major",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S04_Lem4_06_OneTrialSoundness.lean",
-      "wrappers": [
+      "declarations": [
         "S04_Lem4_06_OneTrialSoundness"
       ],
       "deps": [
@@ -717,7 +717,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Lem4_06_OneTrialSoundness",
           "file": "DictatorshipTesting/Paper/S04_Lem4_06_OneTrialSoundness.lean",
-          "line": 153
+          "line": 155
         }
       ]
     },
@@ -732,7 +732,7 @@ window.DICT_DEPENDENCY_DATA = {
       "label": "Lem 4.7",
       "title": "Independent repetition",
       "file": "DictatorshipTesting/Paper/S04_Lem4_07_IndependentRepetition.lean",
-      "wrappers": [
+      "declarations": [
         "S04_Lem4_07_repetition_rejection_probability",
         "S04_Lem4_07_dimension_free_amplification"
       ],
@@ -747,12 +747,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S04_Lem4_07_repetition_rejection_probability",
           "file": "DictatorshipTesting/Paper/S04_Lem4_07_IndependentRepetition.lean",
-          "line": 476
+          "line": 401
         },
         {
           "name": "S04_Lem4_07_dimension_free_amplification",
           "file": "DictatorshipTesting/Paper/S04_Lem4_07_IndependentRepetition.lean",
-          "line": 483
+          "line": 408
         }
       ],
       "paperLabel": "lem:independent-repetition",
@@ -766,11 +766,11 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "definition",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean",
-      "wrappers": [
-        "S05_Def5_01_YoungDiagram",
-        "S05_Def5_01_youngRow",
-        "S05_Def5_01_youngCells"
+      "file": "AlgebraicLibrary/Young/IndexedDiagram.lean",
+      "declarations": [
+        "YoungDiagram",
+        "youngRow",
+        "youngCells"
       ],
       "deps": [],
       "summary": "Def 5.1: Young diagrams and boxes.",
@@ -781,19 +781,19 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "Let $\\lambda=(\\lambda_1,\\ldots,\\lambda_\\ell)\\vdash N$.  We identify\n$\\lambda$ with its Young diagram\n\\begin{equation*}\n  [\\lambda]:=\\{(r,c):1\\le r\\le \\ell,\\ 1\\le c\\le \\lambda_r\\},\n\\end{equation*}\nwhere rows and columns are numbered from $1$.  A \\emph{box} of $\\lambda$ is an\nordered pair $u=(r,c)\\in[\\lambda]$; write $\\row(u)=r$ and $\\col(u)=c$.",
       "leanLinks": [
         {
-          "name": "S05_Def5_01_YoungDiagram",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean",
-          "line": 22
+          "name": "YoungDiagram",
+          "file": "AlgebraicLibrary/Young/IndexedDiagram.lean",
+          "line": 30
         },
         {
-          "name": "S05_Def5_01_youngRow",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean",
-          "line": 25
+          "name": "youngRow",
+          "file": "AlgebraicLibrary/Young/IndexedDiagram.lean",
+          "line": 77
         },
         {
-          "name": "S05_Def5_01_youngCells",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean",
-          "line": 29
+          "name": "youngCells",
+          "file": "AlgebraicLibrary/Young/IndexedDiagram.lean",
+          "line": 96
         }
       ]
     },
@@ -806,7 +806,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "major",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel"
       ],
       "deps": [
@@ -831,7 +831,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_01_adjacentTranspositionsInYoungsBasis_coxeterModel",
           "file": "DictatorshipTesting/Paper/S05_Lem5_01_AdjacentTranspositionsInYoungsBasis.lean",
-          "line": 1603
+          "line": 1287
         }
       ]
     },
@@ -843,12 +843,12 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "definition",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-      "wrappers": [
-        "S05_Def5_02_IsYoungSubdiagram",
-        "S05_Def5_02_IsOneBoxChild",
-        "S05_Def5_02_oneBoxChildren",
-        "S05_Def5_02_IsRemovableRow"
+      "file": "AlgebraicLibrary/Young/IndexedDiagram.lean",
+      "declarations": [
+        "IsYoungSubdiagram",
+        "IsOneBoxChild",
+        "oneBoxChildren",
+        "IsRemovableRow"
       ],
       "deps": [
         "S05_D01"
@@ -870,24 +870,24 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "A box $u$ of a Young diagram $\\lambda$ is a \\emph{removable corner} if\n$[\\lambda]\\setminus\\{u\\}$ is again the Young diagram of a partition.  In\ncoordinates this means $u=(r,\\lambda_r)$ and $\\lambda_r>\\lambda_{r+1}$, with\nthe convention $\\lambda_{\\ell+1}=0$.  We write $\\Rem(\\lambda)$ for the set of\nremovable corners.  If $[\\mu]\\subseteq[\\lambda]$, then $\\lambda\\setminus\\mu$\ndenotes the set of boxes $[\\lambda]\\setminus[\\mu]$.  If $u\\in\\Rem(\\lambda)$,\nthen $\\lambda\\setminus\\{u\\}$ denotes the partition whose Young diagram is\n$[\\lambda]\\setminus\\{u\\}$.",
       "leanLinks": [
         {
-          "name": "S05_Def5_02_IsYoungSubdiagram",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-          "line": 24
+          "name": "IsYoungSubdiagram",
+          "file": "AlgebraicLibrary/Young/IndexedDiagram.lean",
+          "line": 126
         },
         {
-          "name": "S05_Def5_02_IsOneBoxChild",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-          "line": 29
+          "name": "IsOneBoxChild",
+          "file": "AlgebraicLibrary/Young/IndexedDiagram.lean",
+          "line": 145
         },
         {
-          "name": "S05_Def5_02_oneBoxChildren",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-          "line": 34
+          "name": "oneBoxChildren",
+          "file": "AlgebraicLibrary/Young/IndexedDiagram.lean",
+          "line": 162
         },
         {
-          "name": "S05_Def5_02_IsRemovableRow",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_02_RemovableCorners.lean",
-          "line": 38
+          "name": "IsRemovableRow",
+          "file": "AlgebraicLibrary/Young/DiagramCorners.lean",
+          "line": 59
         }
       ]
     },
@@ -900,7 +900,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Thm5_02_typeA_adjacentWord_presentation",
         "S05_Thm5_02_youngOrthogonalAction",
         "S05_youngAdjacentOperator_inner",
@@ -923,42 +923,42 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Thm5_02_typeA_adjacentWord_presentation",
           "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
-          "line": 29
+          "line": 30
         },
         {
           "name": "S05_Thm5_02_youngOrthogonalAction",
           "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
-          "line": 39
+          "line": 40
         },
         {
           "name": "S05_youngAdjacentOperator_inner",
           "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
-          "line": 137
+          "line": 138
         },
         {
           "name": "YoungOrthogonalActionData.rho_leftInverse",
           "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
-          "line": 152
+          "line": 153
         },
         {
           "name": "YoungOrthogonalActionData.rho_rightInverse",
           "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
-          "line": 169
+          "line": 170
         },
         {
           "name": "YoungOrthogonalActionData.rho_bijective",
           "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
-          "line": 185
+          "line": 186
         },
         {
           "name": "YoungOrthogonalActionData.rhoLinearEquiv",
           "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
-          "line": 195
+          "line": 196
         },
         {
           "name": "YoungOrthogonalActionData.rho_inner",
           "file": "DictatorshipTesting/Paper/S05_Thm5_02_YoungOrthogonalAction.lean",
-          "line": 206
+          "line": 207
         }
       ]
     },
@@ -970,11 +970,11 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "definition",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_03_StandardTableaux.lean",
-      "wrappers": [
-        "S05_Def5_03_StandardYoungTableau",
-        "S05_Def5_03_cellOfEntry",
-        "S05_Def5_03_TableauMaxAt"
+      "file": "AlgebraicLibrary/Young/StandardTableau.lean",
+      "declarations": [
+        "StandardYoungTableau",
+        "cellOfEntry",
+        "TableauMaxAt"
       ],
       "deps": [
         "S05_D01"
@@ -992,19 +992,19 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "A \\emph{standard Young tableau} of shape $\\lambda$ is a bijection\n$T:[\\lambda]\\to[N]$ such that entries strictly increase along rows and columns:\n\\begin{equation*}\n  T(r,c)<T(r,c+1),\\qquad T(r,c)<T(r+1,c)\n\\end{equation*}\nwhenever the displayed boxes lie in $[\\lambda]$.  Let $\\SYT(\\lambda)$ denote the\nset of standard Young tableaux of shape $\\lambda$.  If $T(u)=a$, we say that\n$a$ occupies the box $u$ and write $u_T(a)=u$.",
       "leanLinks": [
         {
-          "name": "S05_Def5_03_StandardYoungTableau",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_03_StandardTableaux.lean",
-          "line": 25
+          "name": "StandardYoungTableau",
+          "file": "AlgebraicLibrary/Young/StandardTableau.lean",
+          "line": 46
         },
         {
-          "name": "S05_Def5_03_cellOfEntry",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_03_StandardTableaux.lean",
-          "line": 29
+          "name": "cellOfEntry",
+          "file": "AlgebraicLibrary/Young/StandardTableau.lean",
+          "line": 1087
         },
         {
-          "name": "S05_Def5_03_TableauMaxAt",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_03_StandardTableaux.lean",
-          "line": 34
+          "name": "TableauMaxAt",
+          "file": "AlgebraicLibrary/Young/StandardTableau.lean",
+          "line": 74
         }
       ]
     },
@@ -1016,11 +1016,11 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "definition",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_04_TableauCoordinateSpace.lean",
-      "wrappers": [
-        "S05_Def5_04_tableauDim",
-        "S05_Def5_04_TableauSpace",
-        "S05_Def5_04_tableauBasisVec"
+      "file": "AlgebraicLibrary/Young/OrthogonalRepresentation.lean",
+      "declarations": [
+        "tableauDim",
+        "TableauSpace",
+        "tableauBasisVec"
       ],
       "deps": [
         "S05_D03"
@@ -1046,19 +1046,19 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "For $\\lambda\\vdash N$, set\n\\begin{equation*}\n  d_\\lambda:=|\\SYT(\\lambda)|.\n\\end{equation*}\nLet $V^\\lambda$ be the vector space with orthonormal basis\n$\\{e_T:T\\in\\SYT(\\lambda)\\}$.  We write\n\\begin{equation*}\n  s_k=(k,k+1),\\qquad 1\\le k<N.\n\\end{equation*}",
       "leanLinks": [
         {
-          "name": "S05_Def5_04_tableauDim",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_04_TableauCoordinateSpace.lean",
-          "line": 25
+          "name": "tableauDim",
+          "file": "AlgebraicLibrary/Young/TableauDimension.lean",
+          "line": 39
         },
         {
-          "name": "S05_Def5_04_TableauSpace",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_04_TableauCoordinateSpace.lean",
-          "line": 29
+          "name": "TableauSpace",
+          "file": "AlgebraicLibrary/Young/OrthogonalRepresentation.lean",
+          "line": 22
         },
         {
-          "name": "S05_Def5_04_tableauBasisVec",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_04_TableauCoordinateSpace.lean",
-          "line": 33
+          "name": "tableauBasisVec",
+          "file": "AlgebraicLibrary/Young/OrthogonalRepresentation.lean",
+          "line": 26
         }
       ]
     },
@@ -1071,7 +1071,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Thm5_03_JucysMurphyContentAction.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Thm5_03_jucysMurphyElement_succ_recurrence",
         "S05_Thm5_03_tableauContent_succ_recurrence",
         "S05_Thm5_03_jucysMurphyContentAction"
@@ -1090,17 +1090,17 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Thm5_03_jucysMurphyElement_succ_recurrence",
           "file": "DictatorshipTesting/Paper/S05_Thm5_03_JucysMurphyContentAction.lean",
-          "line": 25
+          "line": 27
         },
         {
           "name": "S05_Thm5_03_tableauContent_succ_recurrence",
           "file": "DictatorshipTesting/Paper/S05_Thm5_03_JucysMurphyContentAction.lean",
-          "line": 34
+          "line": 36
         },
         {
           "name": "S05_Thm5_03_jucysMurphyContentAction",
           "file": "DictatorshipTesting/Paper/S05_Thm5_03_JucysMurphyContentAction.lean",
-          "line": 46
+          "line": 48
         }
       ]
     },
@@ -1112,12 +1112,12 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "definition",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-      "wrappers": [
-        "S05_Def5_05_cellContent",
-        "S05_Def5_05_entryContent",
-        "S05_Def5_05_youngAdjacentOperator",
-        "S05_Def5_05_diagonalContentOperator"
+      "file": "AlgebraicLibrary/Young/OrthogonalRepresentation.lean",
+      "declarations": [
+        "YoungCell.content",
+        "entryContent",
+        "youngAdjacentOperator",
+        "jucysMurphyDiagonalOperator"
       ],
       "deps": [
         "S05_D04"
@@ -1135,24 +1135,24 @@ window.DICT_DEPENDENCY_DATA = {
       "paperStatementLatex": "For a box $u$, set $c(u)=\\col(u)-\\row(u)$.  If $T\\in\\SYT(\\lambda)$ and\n$a\\in[N]$, set $c_T(a):=c(u_T(a))$.\n\nFor each adjacent index $k$, define a concrete operator\n$S_k^\\lambda\\in\\End(V^\\lambda)$ as follows.  If $k$ and $k+1$ lie in the same\nrow of $T$, set $S_k^\\lambda e_T=e_T$.  If they lie in the same column, set\n$S_k^\\lambda e_T=-e_T$.  Otherwise let $T'=s_kT$ be the tableau obtained by\nswapping the entries $k$ and $k+1$; in this case $T'$ is standard.  On the span\nof $e_T$ and $e_{T'}$, set\n\\begin{equation}\n  S_k^\\lambda\\big|_{\\spanop\\{e_T,e_{T'}\\}}\n  =\n  \\begin{pmatrix}\n    a & b\\\\\n    b & -a\n  \\end{pmatrix},\n  \\qquad\n  a=\\frac{1}{c_T(k+1)-c_T(k)},\n  \\qquad\n  b=\\sqrt{1-a^2},\n\\end{equation}\nwith respect to the ordered basis $(e_T,e_{T'})$.  The formula is independent\nof the choice of representative of the unordered pair $\\{T,T'\\}$, since the\naxial distance changes sign after the swap.\n\nFor $1\\le k\\le N$, define the diagonal content operator\n$C_k^\\lambda\\in\\End(V^\\lambda)$ by\n\\begin{equation}\n  C_k^\\lambda e_T=c_T(k)e_T.\n\\end{equation}",
       "leanLinks": [
         {
-          "name": "S05_Def5_05_cellContent",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-          "line": 25
+          "name": "YoungCell.content",
+          "file": "AlgebraicLibrary/Young/StandardTableau.lean",
+          "line": 1104
         },
         {
-          "name": "S05_Def5_05_entryContent",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-          "line": 30
+          "name": "entryContent",
+          "file": "AlgebraicLibrary/Young/StandardTableau.lean",
+          "line": 1109
         },
         {
-          "name": "S05_Def5_05_youngAdjacentOperator",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-          "line": 35
+          "name": "youngAdjacentOperator",
+          "file": "AlgebraicLibrary/Young/OrthogonalRepresentation.lean",
+          "line": 1691
         },
         {
-          "name": "S05_Def5_05_diagonalContentOperator",
-          "file": "DictatorshipTesting/Paper/Defs/S05_Def5_05_ContentAndAdjacentOperators.lean",
-          "line": 40
+          "name": "jucysMurphyDiagonalOperator",
+          "file": "AlgebraicLibrary/Young/OrthogonalRepresentation.lean",
+          "line": 4257
         }
       ]
     },
@@ -1164,8 +1164,13 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "definition",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_06a_YoungBlock.lean",
-      "wrappers": [],
+      "file": "DictatorshipTesting/Paper/S05_Int_RegularYoungBlockDecomposition.lean",
+      "declarations": [
+        "YoungMatrixCoefficientIndex",
+        "globalYoungMatrixCoefficient",
+        "concreteYoungBlockComponent",
+        "concreteYoungBlockEnergy"
+      ],
       "deps": [
         "S05_T02"
       ],
@@ -1180,7 +1185,28 @@ window.DICT_DEPENDENCY_DATA = {
       "paperLabel": "def:young-block",
       "paperEnv": "definition",
       "paperStatementLatex": "For $\\lambda\\vdash n$ and $S,T\\in\\SYT(\\lambda)$, define\n\\[\n  \\Phi_{S,T}^\\lambda(\\pi)\n  :=\\langle e_S,\\rho^\\lambda(\\pi)e_T\\rangle.\n\\]\nThe Young matrix-coefficient block is\n\\begin{equation}\n  \\mathcal H_\\lambda\n  :=\\spanop\\{\\Phi_{S,T}^\\lambda:S,T\\in\\SYT(\\lambda)\\}\n  \\subseteq L^2(S_n;\\mathbb C).\n\\end{equation}\nLet $F_\\lambda$ denote the orthogonal projection of $F$ onto\n$\\mathcal H_\\lambda$, and set\n\\[\n  E_F(\\lambda):=\\|F_\\lambda\\|_2^2.\n\\]",
-      "leanLinks": []
+      "leanLinks": [
+        {
+          "name": "YoungMatrixCoefficientIndex",
+          "file": "DictatorshipTesting/Paper/S05_Int_RegularYoungBlockDecomposition.lean",
+          "line": 921
+        },
+        {
+          "name": "globalYoungMatrixCoefficient",
+          "file": "DictatorshipTesting/Paper/S05_Int_RegularYoungBlockDecomposition.lean",
+          "line": 927
+        },
+        {
+          "name": "concreteYoungBlockComponent",
+          "file": "DictatorshipTesting/Paper/S05_Int_RegularYoungBlockDecomposition.lean",
+          "line": 1098
+        },
+        {
+          "name": "concreteYoungBlockEnergy",
+          "file": "DictatorshipTesting/Paper/S05_Int_RegularYoungBlockDecomposition.lean",
+          "line": 1339
+        }
+      ]
     },
     {
       "id": "S05_L04",
@@ -1191,7 +1217,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_04_ContentSeparationAndTableauConnectivity.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_04_diagonalContentEigenspaces",
         "S05_Lem5_04_standardTableauxSwapConnectedness"
       ],
@@ -1228,12 +1254,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_04_diagonalContentEigenspaces",
           "file": "DictatorshipTesting/Paper/S05_Lem5_04_ContentSeparationAndTableauConnectivity.lean",
-          "line": 648
+          "line": 650
         },
         {
           "name": "S05_Lem5_04_standardTableauxSwapConnectedness",
           "file": "DictatorshipTesting/Paper/S05_Lem5_04_ContentSeparationAndTableauConnectivity.lean",
-          "line": 1180
+          "line": 952
         }
       ]
     },
@@ -1245,8 +1271,12 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "definition",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_07a_TwoBoxRemovals.lean",
-      "wrappers": [],
+      "file": "AlgebraicLibrary/Young/IndexedDiagram.lean",
+      "declarations": [
+        "IsHorizontalTwoStripChild",
+        "IsVerticalTwoStripChild",
+        "IsOneBoxChild"
+      ],
       "deps": [
         "S05_D02"
       ],
@@ -1265,7 +1295,23 @@ window.DICT_DEPENDENCY_DATA = {
       "paperLabel": "def:branching-data",
       "paperEnv": "definition",
       "paperStatementLatex": "Let $\\lambda\\vdash N$.\n\\begin{enumerate}[label=(\\alph*)]\n\\item\nIf $N\\ge2$, define\n\\begin{align*}\n  \\mathsf H_2(\\lambda)\n  &:=\\{\\mu\\vdash N-2:\\lambda\\setminus\\mu\n      \\text{ has two boxes and no two lie in the same column}\\},\\\\\n  \\mathsf V_2(\\lambda)\n  &:=\\{\\mu\\vdash N-2:\\lambda\\setminus\\mu\n      \\text{ has two boxes and no two lie in the same row}\\}.\n\\end{align*}\nA disconnected two-box removal belongs to both sets.\n\n\\item\nSet\n\\[\n  \\mathsf B_2(\\lambda)\n  :=\\{(\\mu,+):\\mu\\in\\mathsf H_2(\\lambda)\\}\n    \\uplus\n    \\{(\\mu,-):\\mu\\in\\mathsf V_2(\\lambda)\\},\n  \\qquad\n  \\varepsilon_+=1,\n  \\quad\n  \\varepsilon_-=-1.\n\\]\nThe union is a disjoint union of signed occurrences, so a disconnected removal\nappears once with each sign.\n\n\\item\nFor $\\mu\\vdash N-1$, write $\\mu\\nearrow\\lambda$ when\n$[\\mu]=[\\lambda]\\setminus\\{u\\}$ for some $u\\in\\Rem(\\lambda)$.\n\\end{enumerate}",
-      "leanLinks": []
+      "leanLinks": [
+        {
+          "name": "IsHorizontalTwoStripChild",
+          "file": "AlgebraicLibrary/Young/IndexedDiagram.lean",
+          "line": 131
+        },
+        {
+          "name": "IsVerticalTwoStripChild",
+          "file": "AlgebraicLibrary/Young/IndexedDiagram.lean",
+          "line": 138
+        },
+        {
+          "name": "IsOneBoxChild",
+          "file": "AlgebraicLibrary/Young/IndexedDiagram.lean",
+          "line": 145
+        }
+      ]
     },
     {
       "id": "S05_D08",
@@ -1278,8 +1324,8 @@ window.DICT_DEPENDENCY_DATA = {
       "label": "Def 5.8",
       "title": "Signed two-box extension spaces",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_08_SignedTwoBoxExtensionSpaces.lean",
-      "wrappers": [
-        "S05_Def5_08_signedTwoBoxExtensionBasisVector"
+      "declarations": [
+        "S05_signedTwoBoxExtensionBasisVector"
       ],
       "deps": [
         "S05_D07",
@@ -1289,9 +1335,9 @@ window.DICT_DEPENDENCY_DATA = {
       "statement": "Def 5.8: Signed two-box extension spaces.",
       "leanLinks": [
         {
-          "name": "S05_Def5_08_signedTwoBoxExtensionBasisVector",
+          "name": "S05_signedTwoBoxExtensionBasisVector",
           "file": "DictatorshipTesting/Paper/Defs/S05_Def5_08_SignedTwoBoxExtensionSpaces.lean",
-          "line": 157
+          "line": 120
         }
       ],
       "paperLabel": "def:signed-two-box-extension-spaces",
@@ -1306,7 +1352,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "major",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_05_YoungBasisScalarCommutant.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_05_youngModelOperator_scalar_on_basis"
       ],
       "deps": [
@@ -1335,7 +1381,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_05_youngModelOperator_scalar_on_basis",
           "file": "DictatorshipTesting/Paper/S05_Lem5_05_YoungBasisScalarCommutant.lean",
-          "line": 144
+          "line": 146
         }
       ]
     },
@@ -1347,8 +1393,11 @@ window.DICT_DEPENDENCY_DATA = {
       "kind": "definition",
       "importance": "normal",
       "status": "proven",
-      "file": "DictatorshipTesting/Paper/Defs/S05_Def5_09_OneBoxDeletionSpaces.lean",
-      "wrappers": [],
+      "file": "AlgebraicLibrary/Young/StandardTableau.lean",
+      "declarations": [
+        "OneBoxDeletionTableaux",
+        "TableauMaxAt"
+      ],
       "deps": [
         "S05_D02",
         "S05_D03"
@@ -1372,7 +1421,18 @@ window.DICT_DEPENDENCY_DATA = {
       "paperLabel": "def:one-box-deletion-spaces",
       "paperEnv": "definition",
       "paperStatementLatex": "Let $\\lambda\\vdash N$ and $u\\in\\Rem(\\lambda)$.  Put\n\\begin{equation*}\n  \\mu_u:=\\lambda\\setminus\\{u\\},\n  \\qquad\n  W_u:=\\spanop\\{e_T:T\\in\\SYT(\\lambda),\\ T(u)=N\\}\\subseteq V^\\lambda .\n\\end{equation*}\nDefine the deletion map $D_u:W_u\\rightarrow V^{\\mu_u}$ on basis vectors by\n\\begin{equation*}\n  D_u(e_T):=e_{T|_{[\\mu_u]}} .\n\\end{equation*}",
-      "leanLinks": []
+      "leanLinks": [
+        {
+          "name": "OneBoxDeletionTableaux",
+          "file": "AlgebraicLibrary/Young/StandardTableau.lean",
+          "line": 80
+        },
+        {
+          "name": "TableauMaxAt",
+          "file": "AlgebraicLibrary/Young/StandardTableau.lean",
+          "line": 74
+        }
+      ]
     },
     {
       "id": "S05_L06",
@@ -1385,7 +1445,7 @@ window.DICT_DEPENDENCY_DATA = {
       "label": "Lem 5.6",
       "title": "Orthogonality of Young matrix coefficients",
       "file": "DictatorshipTesting/Paper/S05_Lem5_06_YoungMatrixCoefficientOrthogonality.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_06_same_shape",
         "S05_Lem5_06_distinct_shapes"
       ],
@@ -1400,12 +1460,12 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_06_same_shape",
           "file": "DictatorshipTesting/Paper/S05_Lem5_06_YoungMatrixCoefficientOrthogonality.lean",
-          "line": 26
+          "line": 28
         },
         {
           "name": "S05_Lem5_06_distinct_shapes",
           "file": "DictatorshipTesting/Paper/S05_Lem5_06_YoungMatrixCoefficientOrthogonality.lean",
-          "line": 37
+          "line": 39
         }
       ],
       "paperLabel": "lem:young-matrix-coefficient-orthogonality",
@@ -1420,7 +1480,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_10a_EvenSignPatternMultiset.lean",
-      "wrappers": [],
+      "declarations": [],
       "deps": [
         "S05_D07"
       ],
@@ -1456,7 +1516,7 @@ window.DICT_DEPENDENCY_DATA = {
       "label": "Lem 5.7",
       "title": "Young-lattice sum of squares",
       "file": "DictatorshipTesting/Paper/S05_Lem5_07_YoungTableauSumOfSquares.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_07_youngTableau_sum_of_squares"
       ],
       "deps": [
@@ -1468,7 +1528,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_07_youngTableau_sum_of_squares",
           "file": "DictatorshipTesting/Paper/S05_Lem5_07_YoungTableauSumOfSquares.lean",
-          "line": 15
+          "line": 17
         }
       ],
       "paperLabel": "lem:young-tableau-sum-of-squares",
@@ -1483,7 +1543,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_11a_MatchingCharacters.lean",
-      "wrappers": [],
+      "declarations": [],
       "deps": [
         "S02_N02",
         "S05_D05",
@@ -1515,7 +1575,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "major",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_08_RegularYoungBlockDecomposition.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_08_globalYoungMatrixCoefficient_linearIndependent",
         "S05_Lem5_08_globalYoungMatrixCoefficient_span_all",
         "S05_Lem5_08_parseval"
@@ -1564,17 +1624,17 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_08_globalYoungMatrixCoefficient_linearIndependent",
           "file": "DictatorshipTesting/Paper/S05_Lem5_08_RegularYoungBlockDecomposition.lean",
-          "line": 19
+          "line": 21
         },
         {
           "name": "S05_Lem5_08_globalYoungMatrixCoefficient_span_all",
           "file": "DictatorshipTesting/Paper/S05_Lem5_08_RegularYoungBlockDecomposition.lean",
-          "line": 27
+          "line": 29
         },
         {
           "name": "S05_Lem5_08_parseval",
           "file": "DictatorshipTesting/Paper/S05_Lem5_08_RegularYoungBlockDecomposition.lean",
-          "line": 45
+          "line": 47
         }
       ]
     },
@@ -1587,7 +1647,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/Defs/S05_Def5_12a_MatchingIdempotents.lean",
-      "wrappers": [],
+      "declarations": [],
       "deps": [
         "S05_D11",
         "S04_D01"
@@ -1622,7 +1682,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_09_DegreeOneYoungBlockIdentification.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_09_degreeOneYoungBlockIdentification"
       ],
       "deps": [
@@ -1644,7 +1704,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_09_degreeOneYoungBlockIdentification",
           "file": "DictatorshipTesting/Paper/S05_Lem5_09_DegreeOneYoungBlockIdentification.lean",
-          "line": 26
+          "line": 28
         }
       ]
     },
@@ -1657,7 +1717,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "major",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_10_SignedTwoBoxOrthogonalBranching.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_10_twoStepDeletionTableauxEquivChildTableaux"
       ],
       "deps": [
@@ -1683,7 +1743,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_10_twoStepDeletionTableauxEquivChildTableaux",
           "file": "DictatorshipTesting/Paper/S05_Lem5_10_SignedTwoBoxOrthogonalBranching.lean",
-          "line": 436
+          "line": 437
         }
       ]
     },
@@ -1696,7 +1756,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_11_OneBoxDecompositionAndDeletion.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_11_tableau_unique_removable_corner",
         "S05_Lem5_11_deleteMaxEntry_bijective",
         "S05_Lem5_11_deletionCoordinateMap_inner",
@@ -1738,22 +1798,22 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_11_tableau_unique_removable_corner",
           "file": "DictatorshipTesting/Paper/S05_Lem5_11_OneBoxDecompositionAndDeletion.lean",
-          "line": 152
+          "line": 153
         },
         {
           "name": "S05_Lem5_11_deleteMaxEntry_bijective",
           "file": "DictatorshipTesting/Paper/S05_Lem5_11_OneBoxDecompositionAndDeletion.lean",
-          "line": 160
+          "line": 161
         },
         {
           "name": "S05_Lem5_11_deletionCoordinateMap_inner",
           "file": "DictatorshipTesting/Paper/S05_Lem5_11_OneBoxDecompositionAndDeletion.lean",
-          "line": 168
+          "line": 169
         },
         {
           "name": "S05_Lem5_11_deletionCoordinateMap_youngAdjacentOperator_intertwines",
           "file": "DictatorshipTesting/Paper/S05_Lem5_11_OneBoxDecompositionAndDeletion.lean",
-          "line": 182
+          "line": 183
         }
       ]
     },
@@ -1766,7 +1826,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "major",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_12_tableauDim_twoStrip_branching_sized",
         "S05_Lem5_12_tableauDim_oneBox_branching",
         "S05_Lem5_12_evenSignPatternMultiset_card",
@@ -1820,22 +1880,22 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_12_tableauDim_twoStrip_branching_sized",
           "file": "DictatorshipTesting/Paper/S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 26
+          "line": 28
         },
         {
           "name": "S05_Lem5_12_tableauDim_oneBox_branching",
           "file": "DictatorshipTesting/Paper/S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 34
+          "line": 36
         },
         {
           "name": "S05_Lem5_12_evenSignPatternMultiset_card",
           "file": "DictatorshipTesting/Paper/S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 41
+          "line": 43
         },
         {
           "name": "S05_Lem5_12_oddSignPatternMultiset_card",
           "file": "DictatorshipTesting/Paper/S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities.lean",
-          "line": 47
+          "line": 49
         }
       ]
     },
@@ -1848,7 +1908,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "major",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-      "wrappers": [
+      "declarations": [
         "S05_signedTwoBoxChild_orthogonal_decomposition",
         "S05_signedTwoBoxChildEmbedding_isometry",
         "S05_signedTwoBoxChildEmbedding_finalOperator",
@@ -1984,17 +2044,17 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_13_arbitraryEvenMatchingEigenbasis_toOrdered",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-          "line": 4216
+          "line": 4218
         },
         {
           "name": "S05_arbitraryEvenMatchingBasis_toOrdered_character_action",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-          "line": 4182
+          "line": 4184
         },
         {
           "name": "S05_arbitraryEvenMatchingLabelMultiset_eq",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-          "line": 4134
+          "line": 4136
         },
         {
           "name": "S05_Lem5_13_canonicalOddMatchingEigenbasis",
@@ -2004,27 +2064,27 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_nearPerfectMatchingUnmatchedPoint",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-          "line": 4363
+          "line": 4365
         },
         {
           "name": "S05_nearPerfectMatchingRelabeling",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-          "line": 4526
+          "line": 4528
         },
         {
           "name": "S05_Lem5_13_arbitraryOddMatchingEigenbasis_toOrdered",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-          "line": 4903
+          "line": 4907
         },
         {
           "name": "S05_arbitraryOddMatchingBasis_toOrdered_character_action",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-          "line": 4870
+          "line": 4874
         },
         {
           "name": "S05_arbitraryOddMatchingLabelMultiset_eq",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-          "line": 4823
+          "line": 4827
         },
         {
           "name": "S05_perfectMatchingRelabeling",
@@ -2034,22 +2094,22 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_13_matchingSignProjectionEven_isMatchingEigenvector",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-          "line": 5252
+          "line": 5256
         },
         {
           "name": "S05_Lem5_13_matchingSignProjectionOdd_isMatchingEigenvector",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-          "line": 5260
+          "line": 5264
         },
         {
           "name": "S05_Lem5_13_highLabelCount_of_evenSignPatternMultiset",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-          "line": 5400
+          "line": 5404
         },
         {
           "name": "S05_Lem5_13_highLabelCount_of_oddSignPatternMultiset",
           "file": "DictatorshipTesting/Paper/S05_Lem5_13_MatchingSubgroupEigenbasis.lean",
-          "line": 5412
+          "line": 5416
         }
       ]
     },
@@ -2062,7 +2122,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_14_MatchingFourierProjections.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_14_matchingLocalProjection_preserves_low_matchingCharacter",
         "S05_Lem5_14_matchingLocalProjection_kills_high_matchingCharacter",
         "S05_Lem5_14_local_truncation_as_convolution"
@@ -2095,17 +2155,17 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_14_matchingLocalProjection_preserves_low_matchingCharacter",
           "file": "DictatorshipTesting/Paper/S05_Lem5_14_MatchingFourierProjections.lean",
-          "line": 117
+          "line": 119
         },
         {
           "name": "S05_Lem5_14_matchingLocalProjection_kills_high_matchingCharacter",
           "file": "DictatorshipTesting/Paper/S05_Lem5_14_MatchingFourierProjections.lean",
-          "line": 129
+          "line": 131
         },
         {
           "name": "S05_Lem5_14_local_truncation_as_convolution",
           "file": "DictatorshipTesting/Paper/S05_Lem5_14_MatchingFourierProjections.lean",
-          "line": 141
+          "line": 143
         }
       ]
     },
@@ -2118,7 +2178,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "major",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_15_fixedMatching_tableauTrace_even_of_eigenbasis",
         "S05_Lem5_15_fixedMatching_tableauTrace_odd_of_eigenbasis",
         "S05_Lem5_15_fixedMatching_youngBlockTrace_even_of_eigenbasis",
@@ -2158,52 +2218,52 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_15_fixedMatching_tableauTrace_even_of_eigenbasis",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 71
+          "line": 73
         },
         {
           "name": "S05_Lem5_15_fixedMatching_tableauTrace_odd_of_eigenbasis",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 96
+          "line": 98
         },
         {
           "name": "S05_Lem5_15_fixedMatching_youngBlockTrace_even_of_eigenbasis",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 120
+          "line": 122
         },
         {
           "name": "S05_Lem5_15_fixedMatching_youngBlockTrace_odd_of_eigenbasis",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 144
+          "line": 146
         },
         {
           "name": "S05_Lem5_15_fixedMatching_tableauTrace_even",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 168
+          "line": 170
         },
         {
           "name": "S05_Lem5_15_fixedMatching_youngBlockTrace_even",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 185
+          "line": 187
         },
         {
           "name": "S05_Lem5_15_fixedMatching_tableauTrace_odd",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 197
+          "line": 199
         },
         {
           "name": "S05_Lem5_15_fixedMatching_youngBlockTrace_odd",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 214
+          "line": 216
         },
         {
           "name": "traceLocalTruncation_even_from_restriction",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 226
+          "line": 228
         },
         {
           "name": "traceLocalTruncation_odd_from_restriction",
           "file": "DictatorshipTesting/Paper/S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock.lean",
-          "line": 234
+          "line": 236
         }
       ]
     },
@@ -2247,7 +2307,7 @@ window.DICT_DEPENDENCY_DATA = {
       "label": "Prop 5.16",
       "title": "Averaged rejection on Young blocks",
       "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Prop5_16_matchingMeanProjectionError_eq_high_idempotent_average",
         "S05_Prop5_16_scalar_eq_trace_div_dimension",
         "S05_Prop5_16_even_scalar_eq_hEven_div_dim",
@@ -2272,32 +2332,32 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Prop5_16_matchingMeanProjectionError_eq_high_idempotent_average",
           "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
-          "line": 72
+          "line": 74
         },
         {
           "name": "S05_Prop5_16_scalar_eq_trace_div_dimension",
           "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
-          "line": 170
+          "line": 172
         },
         {
           "name": "S05_Prop5_16_even_scalar_eq_hEven_div_dim",
           "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
-          "line": 177
+          "line": 179
         },
         {
           "name": "S05_Prop5_16_odd_scalar_eq_hOdd_div_dim",
           "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
-          "line": 187
+          "line": 189
         },
         {
           "name": "S05_Prop5_16_global_weighted_matching_identity_even",
           "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
-          "line": 1004
+          "line": 1006
         },
         {
           "name": "S05_Prop5_16_global_weighted_matching_identity_odd",
           "file": "DictatorshipTesting/Paper/S05_Prop5_16_AveragedRejectionOnYoungBlocks.lean",
-          "line": 1018
+          "line": 1020
         }
       ],
       "paperLabel": "lem:averaged-rejection-central",
@@ -2312,7 +2372,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "normal",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_17_CountingOneMoreMatchingEdge.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_17_CountingOneMoreMatchingEdge"
       ],
       "deps": [
@@ -2337,7 +2397,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_17_CountingOneMoreMatchingEdge",
           "file": "DictatorshipTesting/Paper/S05_Lem5_17_CountingOneMoreMatchingEdge.lean",
-          "line": 26
+          "line": 28
         }
       ]
     },
@@ -2350,7 +2410,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "major",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_18_WeightZeroEntriesAreNeverAMajority.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_18_tableau_weightZeroEntries_never_majority"
       ],
       "deps": [
@@ -2377,7 +2437,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_18_tableau_weightZeroEntries_never_majority",
           "file": "DictatorshipTesting/Paper/S05_Lem5_18_WeightZeroEntriesAreNeverAMajority.lean",
-          "line": 2539
+          "line": 2541
         }
       ]
     },
@@ -2390,7 +2450,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "hero",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_19_EvenCertificate.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_19_tableau_even_certificate"
       ],
       "deps": [
@@ -2430,7 +2490,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_19_tableau_even_certificate",
           "file": "DictatorshipTesting/Paper/S05_Lem5_19_EvenCertificate.lean",
-          "line": 4492
+          "line": 4494
         }
       ]
     },
@@ -2443,7 +2503,7 @@ window.DICT_DEPENDENCY_DATA = {
       "importance": "hero",
       "status": "proven",
       "file": "DictatorshipTesting/Paper/S05_Lem5_20_OddCertificate.lean",
-      "wrappers": [
+      "declarations": [
         "S05_Lem5_20_tableau_odd_certificate"
       ],
       "deps": [
@@ -2478,7 +2538,7 @@ window.DICT_DEPENDENCY_DATA = {
         {
           "name": "S05_Lem5_20_tableau_odd_certificate",
           "file": "DictatorshipTesting/Paper/S05_Lem5_20_OddCertificate.lean",
-          "line": 810
+          "line": 812
         }
       ]
     }

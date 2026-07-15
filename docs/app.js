@@ -467,7 +467,7 @@ function nodeMatches(node) {
     node.section,
     node.status,
     node.summary,
-    ...(node.wrappers || []),
+    ...(node.declarations || []),
   ].join(" ").toLowerCase();
   return haystack.includes(state.query.toLowerCase());
 }
@@ -554,14 +554,14 @@ function renderNode(node, path = []) {
 function renderInlineDetails(node, depCount) {
   const details = document.createElement("div");
   details.className = "inline-details";
-  const leanLinks = node.leanLinks?.length ? node.leanLinks : (node.wrappers || []).map((name) => ({ name }));
-  const wrappers = leanLinks.length
+  const leanLinks = node.leanLinks?.length ? node.leanLinks : (node.declarations || []).map((name) => ({ name }));
+  const declarations = leanLinks.length
     ? leanLinks
         .map((link) =>
           `<a class="decl-link" href="${sourceLineUrl(link.file || node.file, link.line)}" target="_blank" rel="noreferrer"><code>${escapeHtml(link.name)}</code>${link.line ? `<span>L${link.line}</span>` : ""}</a>`
         )
         .join(" ")
-    : "<span class=\"muted\">No wrapper listed.</span>";
+    : "<span class=\"muted\">No declaration listed.</span>";
   const usedBy = dependentsOf(node.id)
     .map((dep) => `<button type="button" class="tiny-link" data-jump="${dep.id}">${dep.label}</button>`)
     .join("");
@@ -573,8 +573,8 @@ function renderInlineDetails(node, depCount) {
     <dl>
       <dt>Lean file</dt>
       <dd><a href="${sourceUrl(node.file)}" target="_blank" rel="noreferrer">${node.file}</a></dd>
-      <dt>Wrappers</dt>
-      <dd>${wrappers}</dd>
+      <dt>Lean declarations</dt>
+      <dd>${declarations}</dd>
     </dl>
     <div class="node-foot">
       <span>${depCount} dependencies</span>
@@ -599,7 +599,7 @@ function openOverlay(id) {
   const root = document.querySelector("#overlay-root");
   if (!node || !root) return;
 
-  const leanLinks = node.leanLinks?.length ? node.leanLinks : (node.wrappers || []).map((name) => ({ name }));
+  const leanLinks = node.leanLinks?.length ? node.leanLinks : (node.declarations || []).map((name) => ({ name }));
   root.innerHTML = `
     <div class="overlay-backdrop" role="presentation"></div>
     <section class="term-overlay" role="dialog" aria-modal="true" aria-label="${escapeHtml(node.label)} ${escapeHtml(node.title)}">
@@ -613,8 +613,8 @@ function openOverlay(id) {
       <dl>
         <dt>Lean file</dt>
         <dd><a href="${sourceUrl(node.file)}" target="_blank" rel="noreferrer">${escapeHtml(node.file)}</a></dd>
-        <dt>Wrappers</dt>
-        <dd>${leanLinks.length ? leanLinks.map((link) => `<a class="decl-link" href="${sourceLineUrl(link.file || node.file, link.line)}" target="_blank" rel="noreferrer"><code>${escapeHtml(link.name)}</code>${link.line ? `<span>L${link.line}</span>` : ""}</a>`).join(" ") : "No wrapper listed."}</dd>
+        <dt>Lean declarations</dt>
+        <dd>${leanLinks.length ? leanLinks.map((link) => `<a class="decl-link" href="${sourceLineUrl(link.file || node.file, link.line)}" target="_blank" rel="noreferrer"><code>${escapeHtml(link.name)}</code>${link.line ? `<span>L${link.line}</span>` : ""}</a>`).join(" ") : "No declaration listed."}</dd>
       </dl>
     </section>
   `;
