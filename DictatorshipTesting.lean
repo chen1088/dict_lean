@@ -7,10 +7,8 @@ directly rather than routing through extra wrapper indexes.
 -/
 
 import DictatorshipTesting.Basic
-import DictatorshipTesting.BasicFacts
 import DictatorshipTesting.SetFacts
 import DictatorshipTesting.SetFacts.Fact_sub_sd_SetMinusSymmDiff
-import DictatorshipTesting.AlgebraicProperty
 
 
 /- Paper-numbered files currently represented in Lean. -/
