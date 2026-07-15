@@ -7,6 +7,8 @@ import DictatorshipTesting.Paper.S05_Lem5_12_BranchingDimensionsAndSignPatternCa
 import DictatorshipTesting.Paper.S05_Lem5_17_CountingOneMoreMatchingEdge
 import DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`

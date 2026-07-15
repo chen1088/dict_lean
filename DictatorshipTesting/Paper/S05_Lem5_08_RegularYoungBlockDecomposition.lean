@@ -8,7 +8,9 @@ import DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition
 import DictatorshipTesting.Paper.S05_Lem5_06_YoungMatrixCoefficientOrthogonality
 import DictatorshipTesting.Paper.S05_Lem5_07_YoungTableauSumOfSquares
 import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungBlockEnergyProfile
-import DictatorshipTesting.Paper.Defs.S05_Def5_06a_YoungBlock
+import AlgebraicLibrary.Young.IndexedDiagram
+
+open AlgebraicLibrary
 
 /-!
 Paper statement: Lemma 5.8 (`lem:regular-young-block-decomposition`).

@@ -3,8 +3,10 @@ Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_13_MatchingSubgroupEigenbasis`
 -/
-import DictatorshipTesting.Paper.Defs.S05_Def5_07a_TwoBoxRemovals
+import AlgebraicLibrary.Young.DiagramCorners
 import DictatorshipTesting.Paper.S05_Lem5_10_SignedTwoBoxOrthogonalBranching
+
+open AlgebraicLibrary
 
 /-!
 Paper statement: Definition 5.8 `def:signed-two-box-extension-spaces`
@@ -153,15 +155,5 @@ abbrev S05_SignedTwoBoxBasisIndex
   Sigma fun p : TwoStepRemovableRows lam =>
     StandardYoungTableau (deleteTwoRemovableRowsDiagram lam p)
 
-
-noncomputable def S05_Def5_08_signedTwoBoxExtensionBasisVector :=
-  @S05_signedTwoBoxExtensionBasisVector
-
-noncomputable def S05_Def5_08_signedTwoBoxChildEmbedding :=
-  @S05_signedTwoBoxChildEmbedding
-
-abbrev S05_Def5_08_SignedTwoBoxBasisIndex
-    {n : Nat} (lam : YoungDiagram ((n + 1) + 1)) :=
-  S05_SignedTwoBoxBasisIndex lam
 
 end DictatorshipTesting

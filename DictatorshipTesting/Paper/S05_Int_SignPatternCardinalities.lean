@@ -4,6 +4,8 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_TableauOddHeight
 import DictatorshipTesting.Paper.S05_Int_TwoBoxDimensionRecursion
 import DictatorshipTesting.Paper.S05_Int_OneBoxDimensionRecursion
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities`

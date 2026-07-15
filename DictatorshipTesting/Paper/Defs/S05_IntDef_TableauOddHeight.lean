@@ -1,5 +1,7 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_TableauEvenHeight
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Int_SignPatternCardinalities`

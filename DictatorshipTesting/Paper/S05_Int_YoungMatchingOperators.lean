@@ -1,9 +1,12 @@
-import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
+import AlgebraicLibrary.Young.OrthogonalRepresentation
+import AlgebraicLibrary.BooleanCube.Fourier
+import AlgebraicLibrary.BooleanCube.Basic
+import AlgebraicLibrary.Algebra.OperatorProduct
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_Def5_11b_IsMatchingEigenvectorEven`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_11c_IsMatchingEigenvectorOdd`
 - `DictatorshipTesting.Paper.S05_Lem5_13_MatchingSubgroupEigenbasis`
 -/
 /-!
@@ -276,138 +279,6 @@ theorem canonicalMatchingYoungOperatorOdd_sub
   rw [youngAdjacentOperator_add, youngAdjacentOperator_neg]
   rfl
 
-/-- Compose a list of endomorphisms in the displayed order. -/
-def composeOperatorList {V : Type*} : List (V -> V) -> V -> V
-  | [] => id
-  | op :: ops => fun v => op (composeOperatorList ops v)
-
-@[simp] theorem composeOperatorList_replicate_id {V : Type*} (m : Nat) :
-    composeOperatorList (List.replicate m (id : V -> V)) = id := by
-  induction m with
-  | zero => rfl
-  | succ m ih =>
-      funext v
-      simp [List.replicate, composeOperatorList, ih]
-
-/-- Select either an involution `A i` or the identity from a Boolean bit. -/
-def operatorBit {ι V : Type*} (A : ι -> V -> V) (x : ι -> Bool)
-    (i : ι) : V -> V :=
-  if x i then A i else id
-
-/-- Fixed-order product of Boolean-selected operators along a list of indices. -/
-def indexedOperatorListProduct {ι V : Type*} (A : ι -> V -> V)
-    (x : ι -> Bool) : List ι -> V -> V
-  | [] => id
-  | i :: L => fun v => operatorBit A x i (indexedOperatorListProduct A x L v)
-
-@[simp] theorem indexedOperatorListProduct_nil {ι V : Type*}
-    (A : ι -> V -> V) (x : ι -> Bool) :
-    indexedOperatorListProduct A x [] = id := by
-  rfl
-
-@[simp] theorem indexedOperatorListProduct_cons {ι V : Type*}
-    (A : ι -> V -> V) (x : ι -> Bool) (i : ι) (L : List ι) :
-    indexedOperatorListProduct A x (i :: L) =
-      fun v => operatorBit A x i (indexedOperatorListProduct A x L v) := by
-  rfl
-
-theorem composeOperatorList_map_operatorBit {ι V : Type*}
-    (A : ι -> V -> V) (x : ι -> Bool) (L : List ι) :
-  composeOperatorList (L.map fun i => operatorBit A x i) =
-      indexedOperatorListProduct A x L := by
-  induction L with
-  | nil => rfl
-  | cons i L ih =>
-      funext v
-      simp [composeOperatorList, indexedOperatorListProduct, ih]
-
-theorem operatorBit_comm {ι V : Type*} {A : ι -> V -> V}
-    (hcomm : ∀ i j v, A i (A j v) = A j (A i v))
-    (x y : ι -> Bool) (i j : ι) (v : V) :
-    operatorBit A x i (operatorBit A y j v) =
-      operatorBit A y j (operatorBit A x i v) := by
-  unfold operatorBit
-  by_cases hxi : x i <;> by_cases hyj : y j <;> simp [hxi, hyj, hcomm]
-
-theorem operatorBit_xor_apply {ι V : Type*} {A : ι -> V -> V}
-    (hinv : ∀ i v, A i (A i v) = v)
-    (x y : ι -> Bool) (i : ι) (v : V) :
-    operatorBit A (fun j => x j ^^ y j) i v =
-      operatorBit A x i (operatorBit A y i v) := by
-  unfold operatorBit
-  by_cases hxi : x i <;> by_cases hyi : y i <;> simp [hxi, hyi, hinv]
-
-theorem operatorBit_commute_indexedOperatorListProduct {ι V : Type*}
-    {A : ι -> V -> V}
-    (hcomm : ∀ i j v, A i (A j v) = A j (A i v))
-    (x y : ι -> Bool) (i : ι) (L : List ι) (v : V) :
-    operatorBit A y i (indexedOperatorListProduct A x L v) =
-      indexedOperatorListProduct A x L (operatorBit A y i v) := by
-  induction L generalizing v with
-  | nil => rfl
-  | cons j L ih =>
-      simp [indexedOperatorListProduct]
-      rw [operatorBit_comm (A := A) hcomm y x i j
-        (indexedOperatorListProduct A x L v)]
-      rw [ih]
-
-theorem indexedOperatorListProduct_xor_apply {ι V : Type*}
-    {A : ι -> V -> V}
-    (hinv : ∀ i v, A i (A i v) = v)
-    (hcomm : ∀ i j v, A i (A j v) = A j (A i v))
-    (x y : ι -> Bool) (L : List ι) (v : V) :
-    indexedOperatorListProduct A (fun i => x i ^^ y i) L v =
-      indexedOperatorListProduct A x L (indexedOperatorListProduct A y L v) := by
-  induction L generalizing v with
-  | nil => rfl
-  | cons i L ih =>
-      simp [indexedOperatorListProduct]
-      rw [ih]
-      rw [operatorBit_xor_apply (A := A) hinv x y i
-        (indexedOperatorListProduct A x L (indexedOperatorListProduct A y L v))]
-      rw [operatorBit_commute_indexedOperatorListProduct
-        (A := A) hcomm x y i L (indexedOperatorListProduct A y L v)]
-
-/-- If each generator acts by a scalar on a vector, then the fixed-order
-Boolean-selected product acts by the product of the selected scalars. -/
-theorem indexedOperatorListProduct_eigen_apply {ι V : Type*} [MulAction ℝ V]
-    {A : ι -> V -> V} {c : ι -> ℝ}
-    (hA : ∀ i v, A i v = c i • v)
-    (x : ι -> Bool) (L : List ι) (v : V) :
-    indexedOperatorListProduct A x L v =
-      ((L.map fun i => if x i then c i else 1).prod) • v := by
-  induction L generalizing v with
-  | nil =>
-      simp [indexedOperatorListProduct]
-  | cons i L ih =>
-      by_cases hxi : x i
-      · simp [indexedOperatorListProduct, operatorBit, hxi, hA, ih, mul_smul]
-      · simp [indexedOperatorListProduct, operatorBit, hxi, ih]
-
-/-- Fixed-vector version of `indexedOperatorListProduct_eigen_apply`: if one
-vector is a simultaneous eigenvector and the operators are homogeneous on its
-scalar multiples, then the product acts by the product of the eigenvalues. -/
-theorem indexedOperatorListProduct_eigenvector_apply {ι V : Type*}
-    [MulAction ℝ V]
-    {A : ι -> V -> V} {c : ι -> ℝ} (v : V)
-    (hsmul : ∀ i (a : ℝ), A i (a • v) = a • A i v)
-    (hA : ∀ i, A i v = c i • v)
-    (x : ι -> Bool) (L : List ι) :
-    indexedOperatorListProduct A x L v =
-      ((L.map fun i => if x i then c i else 1).prod) • v := by
-  induction L with
-  | nil =>
-      simp [indexedOperatorListProduct]
-  | cons i L ih =>
-      by_cases hxi : x i
-      · simp [indexedOperatorListProduct, operatorBit, hxi]
-        rw [ih]
-        rw [hsmul i ((L.map fun i => if x i then c i else 1).prod)]
-        rw [hA i]
-        rw [smul_smul]
-        rw [mul_comm]
-      · simp [indexedOperatorListProduct, operatorBit, hxi, ih]
-
 /-- The sign of one matching-cube edge for a character support. -/
 def matchingEdgeSign {m : Nat} (R : Finset (Fin m)) (r : Fin m) : ℝ :=
   if r ∈ R then -1 else 1
@@ -415,7 +286,7 @@ def matchingEdgeSign {m : Nat} (R : Finset (Fin m)) (r : Fin m) : ℝ :=
 /-- The fixed-order product of selected edge signs is the matching-cube
 character with the same support. -/
 theorem matchingEdgeSign_finRange_product_eq_cubeChar
-    {m : Nat} (R : Finset (Fin m)) (x : Cube m) :
+    {m : Nat} (R : Finset (Fin m)) (x : FinCube m) :
     ((List.finRange m).map
       (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod =
       cubeChar R x := by
@@ -482,19 +353,19 @@ theorem IsMatchingEigenvectorOdd.edge_notMem
 /-- The edge operator selected by one cube bit in the even case. -/
 noncomputable def canonicalMatchingYoungOperatorEvenBit
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
-    (x : Cube m) (r : Fin m) : TableauSpace lam -> TableauSpace lam :=
+    (x : FinCube m) (r : Fin m) : TableauSpace lam -> TableauSpace lam :=
   if x r then canonicalMatchingYoungOperatorEven r else id
 
 /-- The edge operator selected by one cube bit in the odd case. -/
 noncomputable def canonicalMatchingYoungOperatorOddBit
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
-    (x : Cube m) (r : Fin m) : TableauSpace lam -> TableauSpace lam :=
+    (x : FinCube m) (r : Fin m) : TableauSpace lam -> TableauSpace lam :=
   if x r then canonicalMatchingYoungOperatorOdd r else id
 
 /-- Fixed-order product action of the canonical matching cube in the even case. -/
 noncomputable def canonicalMatchingCubeOperatorEven
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
-    (x : Cube m) : TableauSpace lam -> TableauSpace lam :=
+    (x : FinCube m) : TableauSpace lam -> TableauSpace lam :=
   composeOperatorList
     (List.ofFn fun r : Fin m =>
       canonicalMatchingYoungOperatorEvenBit (lam := lam) x r)
@@ -502,38 +373,38 @@ noncomputable def canonicalMatchingCubeOperatorEven
 /-- Fixed-order product action of the canonical matching cube in the odd case. -/
 noncomputable def canonicalMatchingCubeOperatorOdd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
-    (x : Cube m) : TableauSpace lam -> TableauSpace lam :=
+    (x : FinCube m) : TableauSpace lam -> TableauSpace lam :=
   composeOperatorList
     (List.ofFn fun r : Fin m =>
       canonicalMatchingYoungOperatorOddBit (lam := lam) x r)
 
 theorem canonicalMatchingCubeOperatorEven_zero
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)} :
-    canonicalMatchingCubeOperatorEven (lam := lam) (cubeZero m) = id := by
+    canonicalMatchingCubeOperatorEven (lam := lam) (finCubeZero m) = id := by
   rw [canonicalMatchingCubeOperatorEven]
   rw [show
       (List.ofFn fun r : Fin m =>
-        canonicalMatchingYoungOperatorEvenBit (lam := lam) (cubeZero m) r) =
+        canonicalMatchingYoungOperatorEvenBit (lam := lam) (finCubeZero m) r) =
         List.ofFn (fun _ : Fin m => (id : TableauSpace lam -> TableauSpace lam)) by
-        simp [canonicalMatchingYoungOperatorEvenBit, cubeZero]]
+        simp [canonicalMatchingYoungOperatorEvenBit, finCubeZero]]
   rw [List.ofFn_const]
   exact composeOperatorList_replicate_id m
 
 theorem canonicalMatchingCubeOperatorOdd_zero
     {m : Nat} {lam : YoungDiagram (2 * m + 1)} :
-    canonicalMatchingCubeOperatorOdd (lam := lam) (cubeZero m) = id := by
+    canonicalMatchingCubeOperatorOdd (lam := lam) (finCubeZero m) = id := by
   rw [canonicalMatchingCubeOperatorOdd]
   rw [show
       (List.ofFn fun r : Fin m =>
-        canonicalMatchingYoungOperatorOddBit (lam := lam) (cubeZero m) r) =
+        canonicalMatchingYoungOperatorOddBit (lam := lam) (finCubeZero m) r) =
         List.ofFn (fun _ : Fin m => (id : TableauSpace lam -> TableauSpace lam)) by
-        simp [canonicalMatchingYoungOperatorOddBit, cubeZero]]
+        simp [canonicalMatchingYoungOperatorOddBit, finCubeZero]]
   rw [List.ofFn_const]
   exact composeOperatorList_replicate_id m
 
 theorem canonicalMatchingCubeOperatorEven_eq_indexedProduct
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
-    (x : Cube m) :
+    (x : FinCube m) :
     canonicalMatchingCubeOperatorEven (lam := lam) x =
       indexedOperatorListProduct
         (fun r : Fin m => canonicalMatchingYoungOperatorEven (lam := lam) r)
@@ -554,7 +425,7 @@ theorem canonicalMatchingCubeOperatorEven_eq_indexedProduct
 
 theorem canonicalMatchingCubeOperatorOdd_eq_indexedProduct
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
-    (x : Cube m) :
+    (x : FinCube m) :
     canonicalMatchingCubeOperatorOdd (lam := lam) x =
       indexedOperatorListProduct
         (fun r : Fin m => canonicalMatchingYoungOperatorOdd (lam := lam) r)
@@ -575,7 +446,7 @@ theorem canonicalMatchingCubeOperatorOdd_eq_indexedProduct
 
 theorem canonicalMatchingCubeOperatorEven_xor_apply
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
-    (x y : Cube m) (f : TableauSpace lam) :
+    (x y : FinCube m) (f : TableauSpace lam) :
     canonicalMatchingCubeOperatorEven (lam := lam) (cubeXor x y) f =
       canonicalMatchingCubeOperatorEven (lam := lam) x
         (canonicalMatchingCubeOperatorEven (lam := lam) y f) := by
@@ -598,7 +469,7 @@ theorem canonicalMatchingCubeOperatorEven_xor_apply
 
 theorem canonicalMatchingCubeOperatorOdd_xor_apply
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
-    (x y : Cube m) (f : TableauSpace lam) :
+    (x y : FinCube m) (f : TableauSpace lam) :
     canonicalMatchingCubeOperatorOdd (lam := lam) (cubeXor x y) f =
       canonicalMatchingCubeOperatorOdd (lam := lam) x
         (canonicalMatchingCubeOperatorOdd (lam := lam) y f) := by
@@ -621,7 +492,7 @@ theorem canonicalMatchingCubeOperatorOdd_xor_apply
 
 theorem canonicalMatchingCubeOperatorEven_xor
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
-    (x y : Cube m) :
+    (x y : FinCube m) :
     canonicalMatchingCubeOperatorEven (lam := lam) (cubeXor x y) =
       fun f => canonicalMatchingCubeOperatorEven (lam := lam) x
         (canonicalMatchingCubeOperatorEven (lam := lam) y f) := by
@@ -630,7 +501,7 @@ theorem canonicalMatchingCubeOperatorEven_xor
 
 theorem canonicalMatchingCubeOperatorOdd_xor
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
-    (x y : Cube m) :
+    (x y : FinCube m) :
     canonicalMatchingCubeOperatorOdd (lam := lam) (cubeXor x y) =
       fun f => canonicalMatchingCubeOperatorOdd (lam := lam) x
         (canonicalMatchingCubeOperatorOdd (lam := lam) y f) := by
@@ -642,7 +513,7 @@ product of its selected edge signs. -/
 theorem canonicalMatchingCubeOperatorEven_apply_of_isMatchingEigenvector
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
     {f : TableauSpace lam} {R : Finset (Fin m)}
-    (hf : IsMatchingEigenvectorEven f R) (x : Cube m) :
+    (hf : IsMatchingEigenvectorEven f R) (x : FinCube m) :
     canonicalMatchingCubeOperatorEven (lam := lam) x f =
       ((List.finRange m).map
         (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod • f := by
@@ -658,7 +529,7 @@ product of its selected edge signs. -/
 theorem canonicalMatchingCubeOperatorOdd_apply_of_isMatchingEigenvector
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
     {f : TableauSpace lam} {R : Finset (Fin m)}
-    (hf : IsMatchingEigenvectorOdd f R) (x : Cube m) :
+    (hf : IsMatchingEigenvectorOdd f R) (x : FinCube m) :
     canonicalMatchingCubeOperatorOdd (lam := lam) x f =
       ((List.finRange m).map
         (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod • f := by
@@ -674,7 +545,7 @@ matching character indexed by that eigenspace. -/
 theorem canonicalMatchingCubeOperatorEven_apply_character_of_isMatchingEigenvector
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
     {f : TableauSpace lam} {R : Finset (Fin m)}
-    (hf : IsMatchingEigenvectorEven f R) (x : Cube m) :
+    (hf : IsMatchingEigenvectorEven f R) (x : FinCube m) :
     canonicalMatchingCubeOperatorEven (lam := lam) x f = cubeChar R x • f := by
   rw [canonicalMatchingCubeOperatorEven_apply_of_isMatchingEigenvector hf x]
   rw [matchingEdgeSign_finRange_product_eq_cubeChar R x]
@@ -684,7 +555,7 @@ matching character indexed by that eigenspace. -/
 theorem canonicalMatchingCubeOperatorOdd_apply_character_of_isMatchingEigenvector
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
     {f : TableauSpace lam} {R : Finset (Fin m)}
-    (hf : IsMatchingEigenvectorOdd f R) (x : Cube m) :
+    (hf : IsMatchingEigenvectorOdd f R) (x : FinCube m) :
     canonicalMatchingCubeOperatorOdd (lam := lam) x f = cubeChar R x • f := by
   rw [canonicalMatchingCubeOperatorOdd_apply_of_isMatchingEigenvector hf x]
   rw [matchingEdgeSign_finRange_product_eq_cubeChar R x]

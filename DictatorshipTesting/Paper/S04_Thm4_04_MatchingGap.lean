@@ -6,6 +6,8 @@ import DictatorshipTesting.Paper.S05_Lem5_20_OddCertificate
 import DictatorshipTesting.Paper.S04_Lem4_03_GlobalDegreeOneIsLocallyDegreeOne
 import DictatorshipTesting.Paper.S05_Prop5_16_AveragedRejectionOnYoungBlocks
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`

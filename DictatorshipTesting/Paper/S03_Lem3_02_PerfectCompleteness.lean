@@ -1,6 +1,8 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingTrialDelta
 import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
@@ -17,8 +19,8 @@ namespace DictatorshipTesting
 
 /-- A one-junta has zero mixed second
 difference along the disjoint directions sampled by one matching-cube trial. -/
-theorem cubeOneJunta_square_zero {m : ℕ} (g : Cube m → Bool)
-    (hg : IsCubeOneJunta g) {x u v : Cube m}
+theorem cubeOneJunta_square_zero {m : ℕ} (g : FinCube m → Bool)
+    (hg : IsCubeOneJunta g) {x u v : FinCube m}
     (hdisj : CubeDirectionsDisjoint u v) :
     cubeDelta (fun y => boolToReal (g y)) x u v = 0 := by
   rcases hg with hconst | hjunta
@@ -75,7 +77,7 @@ theorem S03_Lem3_02_PerfectCompleteness {α : Type*} [Fintype α] [DecidableEq �
   unfold matchingTrialDelta
   exact cubeOneJunta_square_zero (matchingCubeRestriction f M π)
     (S03_Lem3_01_DictatorToJunta f hf M π)
-    (x := cubeZero M.edgeCount)
+    (x := finCubeZero M.edgeCount)
     (u := cubeColorU c) (v := cubeColorV c)
     (cubeColor_directionsDisjoint c)
 

@@ -1,6 +1,8 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingHighConvolution
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
-import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
+import AlgebraicLibrary.Combinatorics.OrderedMatching.CubeHom
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
@@ -27,37 +29,37 @@ theorem S05_Int_PMConvolution {α : Type*} [Fintype α] [DecidableEq α]
   · funext π
     rfl
   · funext π
-    let g : Cube M.edgeCount → ℝ := fun x => F (π * M.tau x)
-    have hzero : g (cubeZero M.edgeCount) = F π := by
+    let g : FinCube M.edgeCount → ℝ := fun x => F (π * M.tau x)
+    have hzero : g (finCubeZero M.edgeCount) = F π := by
       dsimp [g]
       rw [orderedMatching_tau_zero]
       simp
     have hres :
-        g (cubeZero M.edgeCount) -
-            cubeLowDegreeOnePart g (cubeZero M.edgeCount) =
+        g (finCubeZero M.edgeCount) -
+            cubeLowDegreeOnePart g (finCubeZero M.edgeCount) =
           ∑ S : Finset (Fin M.edgeCount),
             cubeFourierCoeff
-                (fun x : Cube M.edgeCount => g x - cubeLowDegreeOnePart g x) S *
-              cubeChar S (cubeZero M.edgeCount) := by
+                (fun x : FinCube M.edgeCount => g x - cubeLowDegreeOnePart g x) S *
+              cubeChar S (finCubeZero M.edgeCount) := by
       exact S02_Lem2_03_cubeFourier_expansion M.edgeCount
-        (fun x : Cube M.edgeCount => g x - cubeLowDegreeOnePart g x)
-        (cubeZero M.edgeCount)
+        (fun x : FinCube M.edgeCount => g x - cubeLowDegreeOnePart g x)
+        (finCubeZero M.edgeCount)
     unfold matchingHighConvolution
     calc
       F π - matchingLocalProjection M F π =
-          g (cubeZero M.edgeCount) -
-            cubeLowDegreeOnePart g (cubeZero M.edgeCount) := by
+          g (finCubeZero M.edgeCount) -
+            cubeLowDegreeOnePart g (finCubeZero M.edgeCount) := by
             simp [g, matchingLocalProjection, hzero]
       _ =
           ∑ S : Finset (Fin M.edgeCount),
             cubeFourierCoeff
-                (fun x : Cube M.edgeCount => g x - cubeLowDegreeOnePart g x) S *
-              cubeChar S (cubeZero M.edgeCount) := hres
+                (fun x : FinCube M.edgeCount => g x - cubeLowDegreeOnePart g x) S *
+              cubeChar S (finCubeZero M.edgeCount) := hres
       _ =
           ∑ S ∈
               Finset.univ.filter
                 (fun S : Finset (Fin M.edgeCount) => 2 ≤ S.card),
-            cubeFourierCoeff g S * cubeChar S (cubeZero M.edgeCount) := by
+            cubeFourierCoeff g S * cubeChar S (finCubeZero M.edgeCount) := by
             rw [Finset.sum_filter]
             apply Finset.sum_congr rfl
             intro S _hS

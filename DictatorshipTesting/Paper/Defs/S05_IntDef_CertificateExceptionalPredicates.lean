@@ -1,5 +1,6 @@
-import DictatorshipTesting.Paper.Defs.S05_IntDef_IsStandard
-import DictatorshipTesting.Paper.Defs.S05_IntDef_OneBoxChildrenOdd
+import AlgebraicLibrary.Young.IndexedDiagram
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:

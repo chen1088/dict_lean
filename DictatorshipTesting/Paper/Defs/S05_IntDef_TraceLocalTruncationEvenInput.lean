@@ -1,5 +1,7 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_MatchingRestrictionEvenInput
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_15_TraceOfOneLocalTruncationOnOneYoungBlock`

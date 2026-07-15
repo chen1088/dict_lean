@@ -1,12 +1,13 @@
-import DictatorshipTesting.Paper.S05_Int_AdjacentCoxeterPresentation
+import AlgebraicLibrary.Young.AdjacentCoxeterPresentation
 import DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungOrthogonalActionData
+import AlgebraicLibrary.Young.OrthogonalActionData
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_06a_YoungBlock`
 - `DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition`
 - `DictatorshipTesting.Paper.S05_Lem5_09_DegreeOneYoungBlockIdentification`
 - `DictatorshipTesting.Paper.S05_Lem5_13_MatchingSubgroupEigenbasis`

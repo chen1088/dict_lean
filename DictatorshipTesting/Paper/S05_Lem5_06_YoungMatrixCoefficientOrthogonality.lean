@@ -7,7 +7,9 @@ Direct reverse imports:
 import DictatorshipTesting.Paper.S05_Int_RegularYoungBlockDecomposition
 import DictatorshipTesting.Paper.S05_Lem5_05_YoungBasisScalarCommutant
 import DictatorshipTesting.Paper.S05_Thm5_03_JucysMurphyContentAction
-import DictatorshipTesting.Paper.Defs.S05_Def5_06a_YoungBlock
+import AlgebraicLibrary.Young.IndexedDiagram
+
+open AlgebraicLibrary
 
 /-!
 Paper statement: Lemma 5.6 (`lem:young-matrix-coefficient-orthogonality`).

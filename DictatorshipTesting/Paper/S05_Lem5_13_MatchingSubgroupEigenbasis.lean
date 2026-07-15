@@ -2,17 +2,17 @@ import DictatorshipTesting.Paper.S05_Int_YoungMatchingOperators
 import DictatorshipTesting.Paper.S05_Thm5_02_YoungOrthogonalAction
 import DictatorshipTesting.Paper.Defs.S05_Def5_08_SignedTwoBoxExtensionSpaces
 import DictatorshipTesting.Paper.Defs.S05_Def5_11a_MatchingCharacters
-import DictatorshipTesting.Paper.Defs.S05_Def5_11b_IsMatchingEigenvectorEven
-import DictatorshipTesting.Paper.Defs.S05_Def5_11c_IsMatchingEigenvectorOdd
 import DictatorshipTesting.Paper.Defs.S05_IntDef_MatchingRestrictionEvenInput
 import DictatorshipTesting.Paper.Defs.S05_IntDef_MatchingRestrictionOddInput
 import DictatorshipTesting.Paper.S05_Lem5_10_SignedTwoBoxOrthogonalBranching
 import DictatorshipTesting.Paper.S05_Lem5_11_OneBoxDecompositionAndDeletion
 import DictatorshipTesting.Paper.S05_Lem5_12_BranchingDimensionsAndSignPatternCardinalities
 import DictatorshipTesting.Paper.Defs.S05_IntDef_TableauOddHeight
-import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungOrthogonalActionData
+import AlgebraicLibrary.Young.OrthogonalActionData
 import DictatorshipTesting.Paper.Defs.S05_Def5_12c_AveragedHighMatchingElement
 import DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
@@ -2728,7 +2728,7 @@ auxiliary predicate's size expression is not the empty-diagram size at `m = 0`. 
 theorem S05_canonicalEvenEigenbasisVector_isMatchingEigenvector :
     ∀ (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
       (i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam),
-      S05_IsMatchingEigenvectorEven
+      IsMatchingEigenvectorEven
         (S05_canonicalEvenEigenbasisVector (m + 1) lam i)
         (S05_canonicalEvenEigenbasisLabel (m + 1) lam i) := by
   intro m
@@ -2832,7 +2832,7 @@ theorem S05_Lem5_13_canonicalEvenMatchingEigenbasis
           (S05_canonicalEvenMatchingBasis (m + 1) lam j) =
         if i = j then 1 else 0) ∧
     (∀ i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam,
-      S05_IsMatchingEigenvectorEven
+      IsMatchingEigenvectorEven
         (S05_canonicalEvenMatchingBasis (m + 1) lam i)
         (S05_canonicalEvenEigenbasisLabel (m + 1) lam i)) ∧
     (Finset.univ : Finset
@@ -2853,7 +2853,7 @@ theorem S05_Lem5_13_canonicalEvenMatchingEigenbasis
 character attached to its exact recursive label. -/
 theorem S05_canonicalEvenMatchingBasis_character_action
     (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
-    (i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam) (x : Cube (m + 1)) :
+    (i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam) (x : FinCube (m + 1)) :
     canonicalMatchingCubeOperatorEven x
         (S05_canonicalEvenMatchingBasis (m + 1) lam i) =
       S05_matchingCharacter
@@ -3481,7 +3481,7 @@ with the inherited even-child label. -/
 theorem S05_canonicalOddEigenbasisVector_isMatchingEigenvector :
     ∀ (m : Nat) (lam : YoungDiagram (2 * m + 1))
       (i : S05_CanonicalOddEigenbasisIndex m lam),
-      S05_IsMatchingEigenvectorOdd
+      IsMatchingEigenvectorOdd
         (S05_canonicalOddEigenbasisVector m lam i)
         (S05_canonicalOddEigenbasisLabel m lam i) := by
   intro m
@@ -3545,7 +3545,7 @@ theorem S05_Lem5_13_canonicalOddMatchingEigenbasis
     (Submodule.span Real
         (Set.range (S05_canonicalOddMatchingBasis m lam)) = ⊤) ∧
     (∀ i : S05_CanonicalOddEigenbasisIndex m lam,
-      S05_IsMatchingEigenvectorOdd
+      IsMatchingEigenvectorOdd
         (S05_canonicalOddMatchingBasis m lam i)
         (S05_canonicalOddEigenbasisLabel m lam i)) ∧
     (Finset.univ : Finset
@@ -3566,7 +3566,7 @@ theorem S05_Lem5_13_canonicalOddMatchingEigenbasis
 character attached to its exact recursive label. -/
 theorem S05_canonicalOddMatchingBasis_character_action
     (m : Nat) (lam : YoungDiagram (2 * m + 1))
-    (i : S05_CanonicalOddEigenbasisIndex m lam) (x : Cube m) :
+    (i : S05_CanonicalOddEigenbasisIndex m lam) (x : FinCube m) :
     canonicalMatchingCubeOperatorOdd x
         (S05_canonicalOddMatchingBasis m lam i) =
       S05_matchingCharacter (S05_canonicalOddEigenbasisLabel m lam i) x •
@@ -3798,7 +3798,7 @@ theorem S05_canonicalOrderedPerfectMatching_relabel
 /-- The matching-cube element for the reindexed arbitrary matching is the
 conjugate of the canonical matching-cube element. -/
 theorem S05_evenOrderedMatching_tau_conjugate
-    (m : Nat) (M : NearPerfectMatching (2 * m)) (x : Cube m) :
+    (m : Nat) (M : NearPerfectMatching (2 * m)) (x : FinCube m) :
     (S05_evenOrderedMatching m M).tau x =
       S05_perfectMatchingRelabeling m M *
         (S05_canonicalOrderedPerfectMatching m).tau x *
@@ -3807,7 +3807,7 @@ theorem S05_evenOrderedMatching_tau_conjugate
       (S05_evenOrderedMatching m M).tau x =
         ((S05_canonicalOrderedPerfectMatching m).relabel
           (S05_perfectMatchingRelabeling m M)).tau x := by
-    unfold OrderedMatching.tau
+    unfold AlgebraicLibrary.OrderedMatching.tau
     change
       (List.ofFn fun r : Fin m =>
         (S05_evenOrderedMatching m M).edgePerm x r).prod =
@@ -3817,10 +3817,10 @@ theorem S05_evenOrderedMatching_tau_conjugate
     apply congrArg List.prod
     apply congrArg List.ofFn
     funext r
-    unfold OrderedMatching.edgePerm
+    unfold AlgebraicLibrary.OrderedMatching.edgePerm
     by_cases hx : x r
     · simp only [hx, if_true]
-      unfold OrderedMatching.edgeSwap OrderedMatching.relabel
+      unfold AlgebraicLibrary.OrderedMatching.edgeSwap OrderedMatching.relabel
       change
         pswap ((S05_evenOrderedMatching m M).left r)
             ((S05_evenOrderedMatching m M).right r) =
@@ -3854,11 +3854,12 @@ theorem GroupRepresentationActionData.rho_list_prod
 written in the arithmetic normal form used by `YoungOrthogonalActionData`. -/
 theorem S05_canonicalOrderedPerfectMatching_edgeSwap
     (m : Nat) (r : Fin (m + 1)) :
-    (S05_canonicalOrderedPerfectMatching (m + 1)).edgeSwap r =
+    AlgebraicLibrary.OrderedMatching.edgeSwap
+        (S05_canonicalOrderedPerfectMatching (m + 1)) r =
       s05_adjacentTransposition
         (Fin.cast (by omega : 2 * (m + 1) - 1 = 2 * m + 1)
           (canonicalMatchingAdjacentIndex (m + 1) r)) := by
-  unfold OrderedMatching.edgeSwap s05_adjacentTransposition
+  unfold AlgebraicLibrary.OrderedMatching.edgeSwap s05_adjacentTransposition
     S05_canonicalOrderedPerfectMatching
   congr 1
   · apply Fin.ext
@@ -3874,11 +3875,12 @@ concrete Young operator bit. -/
 theorem S05_rho_canonicalMatchingEdgePerm_eq
     (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
     (action : YoungOrthogonalActionData lam)
-    (x : Cube (m + 1)) (r : Fin (m + 1)) (f : TableauSpace lam) :
+    (x : FinCube (m + 1)) (r : Fin (m + 1)) (f : TableauSpace lam) :
     action.rep.rho
         ((S05_canonicalOrderedPerfectMatching (m + 1)).edgePerm x r) f =
       canonicalMatchingYoungOperatorEvenBit x r f := by
-  unfold OrderedMatching.edgePerm canonicalMatchingYoungOperatorEvenBit
+  unfold AlgebraicLibrary.OrderedMatching.edgePerm
+    canonicalMatchingYoungOperatorEvenBit
   by_cases hx : x r
   · simp only [hx, if_true]
     rw [S05_canonicalOrderedPerfectMatching_edgeSwap]
@@ -3896,11 +3898,11 @@ canonical matching-cube operator. -/
 theorem S05_rho_canonicalMatchingTau_eq_canonicalMatchingCubeOperatorEven
     (m : Nat) (lam : YoungDiagram (2 * (m + 1)))
     (action : YoungOrthogonalActionData lam)
-    (x : Cube (m + 1)) (f : TableauSpace lam) :
+    (x : FinCube (m + 1)) (f : TableauSpace lam) :
     action.rep.rho
         ((S05_canonicalOrderedPerfectMatching (m + 1)).tau x) f =
       canonicalMatchingCubeOperatorEven x f := by
-  unfold OrderedMatching.tau
+  unfold AlgebraicLibrary.OrderedMatching.tau
   change action.rep.rho
       ((List.ofFn fun r : Fin (m + 1) =>
         (S05_canonicalOrderedPerfectMatching (m + 1)).edgePerm x r).prod) f = _
@@ -3979,7 +3981,7 @@ theorem S05_arbitraryEvenMatchingBasis_character_action
     (action : YoungOrthogonalActionData lam)
     (M : NearPerfectMatching (2 * (m + 1)))
     (i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam)
-    (x : Cube (m + 1)) :
+    (x : FinCube (m + 1)) :
     action.rep.rho ((S05_evenOrderedMatching (m + 1) M).tau x)
         (S05_arbitraryEvenMatchingBasis m lam action M i) =
       S05_matchingCharacter
@@ -4025,7 +4027,7 @@ theorem S05_Lem5_13_arbitraryEvenMatchingEigenbasis
     (Submodule.span Real
         (Set.range (S05_arbitraryEvenMatchingBasis m lam action M)) = ⊤) ∧
     (∀ i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam,
-      ∀ x : Cube (m + 1),
+      ∀ x : FinCube (m + 1),
         action.rep.rho ((S05_evenOrderedMatching (m + 1) M).tau x)
             (S05_arbitraryEvenMatchingBasis m lam action M i) =
           S05_matchingCharacter
@@ -4044,7 +4046,7 @@ theorem S05_Lem5_13_arbitraryEvenMatchingEigenbasis
 matchings. -/
 def S05_matchingCubeCast
     {α : Type*} [DecidableEq α] {M N : OrderedMatching α}
-    (h : M = N) (x : Cube M.edgeCount) : Cube N.edgeCount := by
+    (h : M = N) (x : FinCube M.edgeCount) : FinCube N.edgeCount := by
   cases h
   exact x
 
@@ -4058,7 +4060,7 @@ def S05_matchingLabelCast
 
 @[simp] theorem S05_matchingCubeCast_refl
     {α : Type*} [DecidableEq α] (M : OrderedMatching α)
-    (x : Cube M.edgeCount) :
+    (x : FinCube M.edgeCount) :
     S05_matchingCubeCast (Eq.refl M) x = x := by
   rfl
 
@@ -4071,7 +4073,7 @@ def S05_matchingLabelCast
 /-- Equality of ordered matchings transports their matching-cube elements. -/
 theorem S05_orderedMatching_tau_cast
     {α : Type*} [DecidableEq α] {M N : OrderedMatching α}
-    (h : M = N) (x : Cube N.edgeCount) :
+    (h : M = N) (x : FinCube N.edgeCount) :
     N.tau x = M.tau (S05_matchingCubeCast h.symm x) := by
   cases h
   rfl
@@ -4081,7 +4083,7 @@ the matching character. -/
 theorem S05_matchingCharacter_labelCast
     {α : Type*} [DecidableEq α] {M N : OrderedMatching α}
     (h : M = N) (R : Finset (Fin M.edgeCount))
-    (x : Cube N.edgeCount) :
+    (x : FinCube N.edgeCount) :
     S05_matchingCharacter (S05_matchingLabelCast h R) x =
       S05_matchingCharacter R (S05_matchingCubeCast h.symm x) := by
   cases h
@@ -4097,13 +4099,13 @@ def S05_arbitraryEvenMatchingLabel
 edge coordinates. -/
 def S05_arbitraryEvenMatchingCubePullback
     (m : Nat) (M : NearPerfectMatching (2 * m))
-    (x : Cube M.toOrdered.edgeCount) : Cube m :=
+    (x : FinCube M.toOrdered.edgeCount) : FinCube m :=
   S05_matchingCubeCast (S05_evenOrderedMatching_eq_toOrdered m M).symm x
 
 /-- The arithmetic edge-count transport does not alter the character value. -/
 theorem S05_arbitraryEvenMatchingCharacter_eq_pullback
     (m : Nat) (M : NearPerfectMatching (2 * m))
-    (R : Finset (Fin m)) (x : Cube M.toOrdered.edgeCount) :
+    (R : Finset (Fin m)) (x : FinCube M.toOrdered.edgeCount) :
     S05_matchingCharacter (S05_arbitraryEvenMatchingLabel m M R) x =
       S05_matchingCharacter R
         (S05_arbitraryEvenMatchingCubePullback m M x) := by
@@ -4184,7 +4186,7 @@ theorem S05_arbitraryEvenMatchingBasis_toOrdered_character_action
     (action : YoungOrthogonalActionData lam)
     (M : NearPerfectMatching (2 * (m + 1)))
     (i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam)
-    (x : Cube M.toOrdered.edgeCount) :
+    (x : FinCube M.toOrdered.edgeCount) :
     action.rep.rho (M.toOrdered.tau x)
         (S05_arbitraryEvenMatchingBasis m lam action M i) =
       S05_matchingCharacter
@@ -4225,7 +4227,7 @@ theorem S05_Lem5_13_arbitraryEvenMatchingEigenbasis_toOrdered
     (Submodule.span Real
         (Set.range (S05_arbitraryEvenMatchingBasis m lam action M)) = ⊤) ∧
     (∀ i : S05_CanonicalEvenEigenbasisIndex (m + 1) lam,
-      ∀ x : Cube M.toOrdered.edgeCount,
+      ∀ x : FinCube M.toOrdered.edgeCount,
         action.rep.rho (M.toOrdered.tau x)
             (S05_arbitraryEvenMatchingBasis m lam action M i) =
           S05_matchingCharacter
@@ -4579,7 +4581,7 @@ theorem S05_canonicalOrderedNearPerfectMatching_relabel
 /-- The arbitrary odd matching-cube element is the conjugate of the canonical
 odd matching-cube element. -/
 theorem S05_oddOrderedMatching_tau_conjugate
-    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) (x : Cube m) :
+    (m : Nat) (M : NearPerfectMatching (2 * m + 1)) (x : FinCube m) :
     (S05_oddOrderedMatching m M).tau x =
       S05_nearPerfectMatchingRelabeling m M *
         (S05_canonicalOrderedNearPerfectMatching m).tau x *
@@ -4588,7 +4590,7 @@ theorem S05_oddOrderedMatching_tau_conjugate
       (S05_oddOrderedMatching m M).tau x =
         ((S05_canonicalOrderedNearPerfectMatching m).relabel
           (S05_nearPerfectMatchingRelabeling m M)).tau x := by
-    unfold OrderedMatching.tau
+    unfold AlgebraicLibrary.OrderedMatching.tau
     change
       (List.ofFn fun r : Fin m =>
         (S05_oddOrderedMatching m M).edgePerm x r).prod =
@@ -4598,10 +4600,10 @@ theorem S05_oddOrderedMatching_tau_conjugate
     apply congrArg List.prod
     apply congrArg List.ofFn
     funext r
-    unfold OrderedMatching.edgePerm
+    unfold AlgebraicLibrary.OrderedMatching.edgePerm
     by_cases hx : x r
     · simp only [hx, if_true]
-      unfold OrderedMatching.edgeSwap OrderedMatching.relabel
+      unfold AlgebraicLibrary.OrderedMatching.edgeSwap OrderedMatching.relabel
       change
         pswap ((S05_oddOrderedMatching m M).left r)
             ((S05_oddOrderedMatching m M).right r) =
@@ -4622,9 +4624,10 @@ theorem S05_oddOrderedMatching_tau_conjugate
 transposition. -/
 theorem S05_canonicalOrderedNearPerfectMatching_edgeSwap
     (m : Nat) (r : Fin m) :
-    (S05_canonicalOrderedNearPerfectMatching m).edgeSwap r =
+    AlgebraicLibrary.OrderedMatching.edgeSwap
+        (S05_canonicalOrderedNearPerfectMatching m) r =
       s05_adjacentTransposition (canonicalNearMatchingAdjacentIndex m r) := by
-  unfold OrderedMatching.edgeSwap s05_adjacentTransposition
+  unfold AlgebraicLibrary.OrderedMatching.edgeSwap s05_adjacentTransposition
     S05_canonicalOrderedNearPerfectMatching
   congr 1
   · apply Fin.ext
@@ -4637,11 +4640,12 @@ concrete Young operator bit. -/
 theorem S05_rho_canonicalNearMatchingEdgePerm_eq
     (m : Nat) (lam : YoungDiagram (2 * m + 1))
     (action : YoungOrthogonalActionData lam)
-    (x : Cube m) (r : Fin m) (f : TableauSpace lam) :
+    (x : FinCube m) (r : Fin m) (f : TableauSpace lam) :
     action.rep.rho
         ((S05_canonicalOrderedNearPerfectMatching m).edgePerm x r) f =
       canonicalMatchingYoungOperatorOddBit x r f := by
-  unfold OrderedMatching.edgePerm canonicalMatchingYoungOperatorOddBit
+  unfold AlgebraicLibrary.OrderedMatching.edgePerm
+    canonicalMatchingYoungOperatorOddBit
   by_cases hx : x r
   · simp only [hx, if_true]
     rw [S05_canonicalOrderedNearPerfectMatching_edgeSwap]
@@ -4655,11 +4659,11 @@ concrete canonical odd cube operator. -/
 theorem S05_rho_canonicalNearMatchingTau_eq_canonicalMatchingCubeOperatorOdd
     (m : Nat) (lam : YoungDiagram (2 * m + 1))
     (action : YoungOrthogonalActionData lam)
-    (x : Cube m) (f : TableauSpace lam) :
+    (x : FinCube m) (f : TableauSpace lam) :
     action.rep.rho
         ((S05_canonicalOrderedNearPerfectMatching m).tau x) f =
       canonicalMatchingCubeOperatorOdd x f := by
-  unfold OrderedMatching.tau
+  unfold AlgebraicLibrary.OrderedMatching.tau
   change action.rep.rho
       ((List.ofFn fun r : Fin m =>
         (S05_canonicalOrderedNearPerfectMatching m).edgePerm x r).prod) f = _
@@ -4738,7 +4742,7 @@ theorem S05_arbitraryOddMatchingBasis_character_action
     (m : Nat) (lam : YoungDiagram (2 * m + 1))
     (action : YoungOrthogonalActionData lam)
     (M : NearPerfectMatching (2 * m + 1))
-    (i : S05_CanonicalOddEigenbasisIndex m lam) (x : Cube m) :
+    (i : S05_CanonicalOddEigenbasisIndex m lam) (x : FinCube m) :
     action.rep.rho ((S05_oddOrderedMatching m M).tau x)
         (S05_arbitraryOddMatchingBasis m lam action M i) =
       S05_matchingCharacter (S05_canonicalOddEigenbasisLabel m lam i) x •
@@ -4781,7 +4785,7 @@ theorem S05_Lem5_13_arbitraryOddMatchingEigenbasis
     (Submodule.span Real
         (Set.range (S05_arbitraryOddMatchingBasis m lam action M)) = ⊤) ∧
     (∀ i : S05_CanonicalOddEigenbasisIndex m lam,
-      ∀ x : Cube m,
+      ∀ x : FinCube m,
         action.rep.rho ((S05_oddOrderedMatching m M).tau x)
             (S05_arbitraryOddMatchingBasis m lam action M i) =
           S05_matchingCharacter (S05_canonicalOddEigenbasisLabel m lam i) x •
@@ -4806,12 +4810,12 @@ def S05_arbitraryOddMatchingLabel
 coordinates. -/
 def S05_arbitraryOddMatchingCubePullback
     (m : Nat) (M : NearPerfectMatching (2 * m + 1))
-    (x : Cube M.toOrdered.edgeCount) : Cube m :=
+    (x : FinCube M.toOrdered.edgeCount) : FinCube m :=
   S05_matchingCubeCast (S05_oddOrderedMatching_eq_toOrdered m M).symm x
 
 theorem S05_arbitraryOddMatchingCharacter_eq_pullback
     (m : Nat) (M : NearPerfectMatching (2 * m + 1))
-    (R : Finset (Fin m)) (x : Cube M.toOrdered.edgeCount) :
+    (R : Finset (Fin m)) (x : FinCube M.toOrdered.edgeCount) :
     S05_matchingCharacter (S05_arbitraryOddMatchingLabel m M R) x =
       S05_matchingCharacter R
         (S05_arbitraryOddMatchingCubePullback m M x) := by
@@ -4872,7 +4876,7 @@ theorem S05_arbitraryOddMatchingBasis_toOrdered_character_action
     (action : YoungOrthogonalActionData lam)
     (M : NearPerfectMatching (2 * m + 1))
     (i : S05_CanonicalOddEigenbasisIndex m lam)
-    (x : Cube M.toOrdered.edgeCount) :
+    (x : FinCube M.toOrdered.edgeCount) :
     action.rep.rho (M.toOrdered.tau x)
         (S05_arbitraryOddMatchingBasis m lam action M i) =
       S05_matchingCharacter
@@ -4912,7 +4916,7 @@ theorem S05_Lem5_13_arbitraryOddMatchingEigenbasis_toOrdered
     (Submodule.span Real
         (Set.range (S05_arbitraryOddMatchingBasis m lam action M)) = ⊤) ∧
     (∀ i : S05_CanonicalOddEigenbasisIndex m lam,
-      ∀ x : Cube M.toOrdered.edgeCount,
+      ∀ x : FinCube M.toOrdered.edgeCount,
         action.rep.rho (M.toOrdered.tau x)
             (S05_arbitraryOddMatchingBasis m lam action M i) =
           S05_matchingCharacter
@@ -5016,21 +5020,21 @@ theorem S05_Lem5_13_matchingEdge_minusEigenVec_odd
 the even canonical matching action. -/
 theorem S05_Lem5_13_canonicalMatchingCubeOperatorEven_zero
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)} :
-    canonicalMatchingCubeOperatorEven (lam := lam) (cubeZero m) = id := by
+    canonicalMatchingCubeOperatorEven (lam := lam) (finCubeZero m) = id := by
   exact canonicalMatchingCubeOperatorEven_zero
 
 /-- Lemma 5.13 matching-cube component: the zero cube element acts trivially in
 the odd canonical matching action. -/
 theorem S05_Lem5_13_canonicalMatchingCubeOperatorOdd_zero
     {m : Nat} {lam : YoungDiagram (2 * m + 1)} :
-    canonicalMatchingCubeOperatorOdd (lam := lam) (cubeZero m) = id := by
+    canonicalMatchingCubeOperatorOdd (lam := lam) (finCubeZero m) = id := by
   exact canonicalMatchingCubeOperatorOdd_zero
 
 /-- Lemma 5.13 matching-cube component: the even canonical matching operators
 respect the cube XOR law. -/
 theorem S05_Lem5_13_canonicalMatchingCubeOperatorEven_xor
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
-    (x y : Cube m) :
+    (x y : FinCube m) :
     canonicalMatchingCubeOperatorEven (lam := lam) (cubeXor x y) =
       fun f => canonicalMatchingCubeOperatorEven (lam := lam) x
         (canonicalMatchingCubeOperatorEven (lam := lam) y f) := by
@@ -5040,7 +5044,7 @@ theorem S05_Lem5_13_canonicalMatchingCubeOperatorEven_xor
 respect the cube XOR law. -/
 theorem S05_Lem5_13_canonicalMatchingCubeOperatorOdd_xor
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
-    (x y : Cube m) :
+    (x y : FinCube m) :
     canonicalMatchingCubeOperatorOdd (lam := lam) (cubeXor x y) =
       fun f => canonicalMatchingCubeOperatorOdd (lam := lam) x
         (canonicalMatchingCubeOperatorOdd (lam := lam) y f) := by
@@ -5050,7 +5054,7 @@ theorem S05_Lem5_13_canonicalMatchingCubeOperatorOdd_xor
 operator is the fixed ordered product of the selected edge operators. -/
 theorem S05_Lem5_13_canonicalMatchingCubeOperatorEven_eq_indexedProduct
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
-    (x : Cube m) :
+    (x : FinCube m) :
     canonicalMatchingCubeOperatorEven (lam := lam) x =
       indexedOperatorListProduct
         (fun r : Fin m => canonicalMatchingYoungOperatorEven (lam := lam) r)
@@ -5061,7 +5065,7 @@ theorem S05_Lem5_13_canonicalMatchingCubeOperatorEven_eq_indexedProduct
 operator is the fixed ordered product of the selected edge operators. -/
 theorem S05_Lem5_13_canonicalMatchingCubeOperatorOdd_eq_indexedProduct
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
-    (x : Cube m) :
+    (x : FinCube m) :
     canonicalMatchingCubeOperatorOdd (lam := lam) x =
       indexedOperatorListProduct
         (fun r : Fin m => canonicalMatchingYoungOperatorOdd (lam := lam) r)
@@ -5071,7 +5075,7 @@ theorem S05_Lem5_13_canonicalMatchingCubeOperatorOdd_eq_indexedProduct
 /-- Lemma 5.13 matching-character component: the product of selected edge
 signs is the matching character. -/
 theorem S05_Lem5_13_matchingEdgeSign_finRange_product_eq_matchingCharacter
-    {m : Nat} (R : Finset (Fin m)) (x : Cube m) :
+    {m : Nat} (R : Finset (Fin m)) (x : FinCube m) :
     ((List.finRange m).map
       (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod =
         S05_matchingCharacter R x := by
@@ -5083,7 +5087,7 @@ signs. -/
 theorem S05_Lem5_13_matchingCube_product_action_even
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
     {f : TableauSpace lam} {R : Finset (Fin m)}
-    (hf : S05_IsMatchingEigenvectorEven f R) (x : Cube m) :
+    (hf : IsMatchingEigenvectorEven f R) (x : FinCube m) :
     canonicalMatchingCubeOperatorEven (lam := lam) x f =
       ((List.finRange m).map
         (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod • f := by
@@ -5095,7 +5099,7 @@ signs. -/
 theorem S05_Lem5_13_matchingCube_product_action_odd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
     {f : TableauSpace lam} {R : Finset (Fin m)}
-    (hf : S05_IsMatchingEigenvectorOdd f R) (x : Cube m) :
+    (hf : IsMatchingEigenvectorOdd f R) (x : FinCube m) :
     canonicalMatchingCubeOperatorOdd (lam := lam) x f =
       ((List.finRange m).map
         (fun r : Fin m => if x r then matchingEdgeSign R r else 1)).prod • f := by
@@ -5106,7 +5110,7 @@ matching-edge eigenspace, the cube action is the matching character. -/
 theorem S05_Lem5_13_matchingCube_character_action_even
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
     {f : TableauSpace lam} {R : Finset (Fin m)}
-    (hf : S05_IsMatchingEigenvectorEven f R) (x : Cube m) :
+    (hf : IsMatchingEigenvectorEven f R) (x : FinCube m) :
     canonicalMatchingCubeOperatorEven (lam := lam) x f =
       S05_matchingCharacter R x • f := by
   exact canonicalMatchingCubeOperatorEven_apply_character_of_isMatchingEigenvector
@@ -5117,7 +5121,7 @@ matching-edge eigenspace, the cube action is the matching character. -/
 theorem S05_Lem5_13_matchingCube_character_action_odd
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
     {f : TableauSpace lam} {R : Finset (Fin m)}
-    (hf : S05_IsMatchingEigenvectorOdd f R) (x : Cube m) :
+    (hf : IsMatchingEigenvectorOdd f R) (x : FinCube m) :
     canonicalMatchingCubeOperatorOdd (lam := lam) x f =
       S05_matchingCharacter R x • f := by
   exact canonicalMatchingCubeOperatorOdd_apply_character_of_isMatchingEigenvector
@@ -5252,7 +5256,7 @@ projection is a simultaneous matching-edge eigenvector. -/
 theorem S05_Lem5_13_matchingSignProjectionEven_isMatchingEigenvector
     {m : Nat} {lam : YoungDiagram ((2 * m - 1) + 1)}
     (R : Finset (Fin m)) (f : TableauSpace lam) :
-    S05_IsMatchingEigenvectorEven (matchingSignProjectionEven R f) R := by
+    IsMatchingEigenvectorEven (matchingSignProjectionEven R f) R := by
   exact matchingSignProjectionEven_isMatchingEigenvector R f
 
 /-- Lemma 5.13 projection component: the iterated odd support-selected
@@ -5260,7 +5264,7 @@ projection is a simultaneous matching-edge eigenvector. -/
 theorem S05_Lem5_13_matchingSignProjectionOdd_isMatchingEigenvector
     {m : Nat} {lam : YoungDiagram (2 * m + 1)}
     (R : Finset (Fin m)) (f : TableauSpace lam) :
-    S05_IsMatchingEigenvectorOdd (matchingSignProjectionOdd R f) R := by
+    IsMatchingEigenvectorOdd (matchingSignProjectionOdd R f) R := by
   exact matchingSignProjectionOdd_isMatchingEigenvector R f
 
 /-- Lemma 5.13 one-edge component: an even matching edge fixes a same-row

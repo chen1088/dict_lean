@@ -1,4 +1,6 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_NearPerfectMatching
+
+open AlgebraicLibrary
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingMeanProjectionError`

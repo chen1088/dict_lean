@@ -1,4 +1,7 @@
-import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
+import DictatorshipTesting.Basic
+import AlgebraicLibrary.Combinatorics.OrderedMatching.CubeHom
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
@@ -29,28 +32,28 @@ global permutation average back. -/
 theorem sum_perm_cube_right_tau_div_card {α : Type*} [Fintype α]
     [DecidableEq α] (M : OrderedMatching α) (e : Perm α → ℝ) :
     (∑ π : Perm α,
-        (∑ x : Cube M.edgeCount, e (π * M.tau x)) /
-          (Fintype.card (Cube M.edgeCount) : ℝ)) =
+        (∑ x : FinCube M.edgeCount, e (π * M.tau x)) /
+          (Fintype.card (FinCube M.edgeCount) : ℝ)) =
       ∑ π : Perm α, e π := by
   classical
-  let C : ℝ := Fintype.card (Cube M.edgeCount)
+  let C : ℝ := Fintype.card (FinCube M.edgeCount)
   have hC_ne : C ≠ 0 := by
     dsimp [C]
     exact_mod_cast
-      (ne_of_gt (Fintype.card_pos : 0 < Fintype.card (Cube M.edgeCount)))
+      (ne_of_gt (Fintype.card_pos : 0 < Fintype.card (FinCube M.edgeCount)))
   calc
     (∑ π : Perm α,
-        (∑ x : Cube M.edgeCount, e (π * M.tau x)) /
-          (Fintype.card (Cube M.edgeCount) : ℝ))
+        (∑ x : FinCube M.edgeCount, e (π * M.tau x)) /
+          (Fintype.card (FinCube M.edgeCount) : ℝ))
         =
-        (∑ π : Perm α, ∑ x : Cube M.edgeCount, e (π * M.tau x)) / C := by
+        (∑ π : Perm α, ∑ x : FinCube M.edgeCount, e (π * M.tau x)) / C := by
           dsimp [C]
           rw [Finset.sum_div]
     _ =
-        (∑ x : Cube M.edgeCount, ∑ π : Perm α, e (π * M.tau x)) / C := by
+        (∑ x : FinCube M.edgeCount, ∑ π : Perm α, e (π * M.tau x)) / C := by
           rw [Finset.sum_comm]
     _ =
-        (∑ x : Cube M.edgeCount, ∑ π : Perm α, e π) / C := by
+        (∑ x : FinCube M.edgeCount, ∑ π : Perm α, e π) / C := by
           congr 1
           apply Finset.sum_congr rfl
           intro x _hx

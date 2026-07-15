@@ -1,6 +1,8 @@
 import DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents
 import DictatorshipTesting.Paper.Defs.S05_Def5_12b_GroupAlgebraAction
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
@@ -23,23 +25,6 @@ noncomputable section
 open scoped BigOperators
 
 namespace DictatorshipTesting
-
-/-- Relabel every endpoint of an ordered matching by a permutation. -/
-def OrderedMatching.relabel {α : Type*} [DecidableEq α]
-    (σ : Perm α) (M : OrderedMatching α) : OrderedMatching α where
-  edgeCount := M.edgeCount
-  left r := σ (M.left r)
-  right r := σ (M.right r)
-  left_ne_right r := by
-    intro h
-    exact M.left_ne_right r (σ.injective h)
-  edges_disjoint := by
-    intro r s hrs
-    rcases M.edges_disjoint hrs with ⟨hll, hlr, hrl, hrr⟩
-    exact ⟨fun h => hll (σ.injective h),
-      fun h => hlr (σ.injective h),
-      fun h => hrl (σ.injective h),
-      fun h => hrr (σ.injective h)⟩
 
 /-- Relabel every endpoint of a near-perfect matching by a permutation. -/
 def NearPerfectMatching.relabel {n : Nat}
@@ -105,12 +90,13 @@ theorem orderedMatching_edgeSwap_relabel {α : Type*} [DecidableEq α]
 
 /-- Relabeling conjugates each optional matching transposition. -/
 theorem orderedMatching_edgePerm_relabel {α : Type*} [DecidableEq α]
-    (σ : Perm α) (M : OrderedMatching α) (x : Cube M.edgeCount)
+    (σ : Perm α) (M : OrderedMatching α) (x : FinCube M.edgeCount)
     (r : Fin M.edgeCount) :
     (M.relabel σ).edgePerm x r = σ * M.edgePerm x r * σ⁻¹ := by
   by_cases hx : x r
-  · simp [OrderedMatching.edgePerm, hx, orderedMatching_edgeSwap_relabel]
-  · simp [OrderedMatching.edgePerm, hx]
+  · simp [AlgebraicLibrary.OrderedMatching.edgePerm, hx,
+      orderedMatching_edgeSwap_relabel]
+  · simp [AlgebraicLibrary.OrderedMatching.edgePerm, hx]
 
 /-- A product of conjugated permutations is the conjugate of their product. -/
 theorem list_perm_prod_conjugate {α : Type*}
@@ -125,7 +111,7 @@ theorem list_perm_prod_conjugate {α : Type*}
 
 /-- Relabeling a matching conjugates every element of its matching cube. -/
 theorem orderedMatching_tau_relabel {α : Type*} [DecidableEq α]
-    (σ : Perm α) (M : OrderedMatching α) (x : Cube M.edgeCount) :
+    (σ : Perm α) (M : OrderedMatching α) (x : FinCube M.edgeCount) :
     (M.relabel σ).tau x = σ * M.tau x * σ⁻¹ := by
   unfold OrderedMatching.tau
   change
@@ -148,20 +134,20 @@ theorem orderedMatching_tau_relabel {α : Type*} [DecidableEq α]
 
 /-- The high-character Fourier kernel on one matching cube. -/
 def S05_matchingHighKernel {α : Type*} [Fintype α] [DecidableEq α]
-    (M : OrderedMatching α) (x : Cube M.edgeCount) : Real :=
+    (M : OrderedMatching α) (x : FinCube M.edgeCount) : Real :=
   (∑ S ∈ S05_matchingHighCharacterSet M,
-      cubeChar S x * cubeChar S (cubeZero M.edgeCount)) /
-    (Fintype.card (Cube M.edgeCount) : Real)
+      cubeChar S x * cubeChar S (finCubeZero M.edgeCount)) /
+    (Fintype.card (FinCube M.edgeCount) : Real)
 
 /-- The coefficient function of one matching-character Fourier idempotent.
-This is the pushforward of `|Cube|⁻¹ χ_R` along the matching-cube map. -/
+This is the pushforward of `|FinCube|⁻¹ χ_R` along the matching-cube map. -/
 def S05_fixedMatchingCharacterElement {α : Type*}
     [Fintype α] [DecidableEq α]
     (M : OrderedMatching α) (R : Finset (Fin M.edgeCount)) :
     GroupAlgebraElement (Perm α) :=
-  fun g => ∑ x : Cube M.edgeCount,
+  fun g => ∑ x : FinCube M.edgeCount,
     if M.tau x = g then
-      cubeChar R x / (Fintype.card (Cube M.edgeCount) : Real)
+      cubeChar R x / (Fintype.card (FinCube M.edgeCount) : Real)
     else 0
 
 /-- The coefficient function of the high matching idempotent for one fixed
@@ -169,7 +155,7 @@ matching.  The sum over preimages avoids requiring a separate injectivity
 lemma for `M.tau`. -/
 def S05_fixedMatchingHighElement {α : Type*} [Fintype α] [DecidableEq α]
     (M : OrderedMatching α) : GroupAlgebraElement (Perm α) :=
-  fun g => ∑ x : Cube M.edgeCount,
+  fun g => ∑ x : FinCube M.edgeCount,
     if M.tau x = g then S05_matchingHighKernel M x else 0
 
 /-- Representing a coefficient function pushed forward from one matching cube
@@ -178,26 +164,26 @@ theorem repOfGroupAlgebraElement_matchingCubePushforward
     {α V : Type*} [Fintype α] [DecidableEq α]
     [AddCommMonoid V] [Module Real V]
     (rep : GroupRepresentationActionData (Perm α) V)
-    (M : OrderedMatching α) (k : Cube M.edgeCount → Real) (v : V) :
+    (M : OrderedMatching α) (k : FinCube M.edgeCount → Real) (v : V) :
     repOfGroupAlgebraElement rep
-        (fun g => ∑ x : Cube M.edgeCount,
+        (fun g => ∑ x : FinCube M.edgeCount,
           if M.tau x = g then k x else 0) v =
-      ∑ x : Cube M.edgeCount, k x • rep.rho (M.tau x) v := by
+      ∑ x : FinCube M.edgeCount, k x • rep.rho (M.tau x) v := by
   classical
   unfold repOfGroupAlgebraElement
   calc
     (∑ g : Perm α,
-        (∑ x : Cube M.edgeCount,
+        (∑ x : FinCube M.edgeCount,
           if M.tau x = g then k x else 0) • rep.rho g v) =
-        ∑ g : Perm α, ∑ x : Cube M.edgeCount,
+        ∑ g : Perm α, ∑ x : FinCube M.edgeCount,
           (if M.tau x = g then k x else 0) • rep.rho g v := by
       apply Finset.sum_congr rfl
       intro g _hg
       rw [Finset.sum_smul]
-    _ = ∑ x : Cube M.edgeCount, ∑ g : Perm α,
+    _ = ∑ x : FinCube M.edgeCount, ∑ g : Perm α,
           (if M.tau x = g then k x else 0) • rep.rho g v := by
       rw [Finset.sum_comm]
-    _ = ∑ x : Cube M.edgeCount, k x • rep.rho (M.tau x) v := by
+    _ = ∑ x : FinCube M.edgeCount, k x • rep.rho (M.tau x) v := by
       apply Finset.sum_congr rfl
       intro x _hx
       simp
@@ -209,39 +195,39 @@ theorem representedMatchingIdempotent_apply_eigenvector
     [AddCommMonoid V] [Module Real V]
     (rep : GroupRepresentationActionData (Perm α) V)
     (M : OrderedMatching α) (R A : Finset (Fin M.edgeCount)) (v : V)
-    (hv : ∀ x : Cube M.edgeCount,
+    (hv : ∀ x : FinCube M.edgeCount,
       rep.rho (M.tau x) v = cubeChar A x • v) :
     repOfGroupAlgebraElement rep
         (S05_fixedMatchingCharacterElement M R) v =
       if R = A then v else 0 := by
   classical
   rw [show S05_fixedMatchingCharacterElement M R =
-      fun g => ∑ x : Cube M.edgeCount,
+      fun g => ∑ x : FinCube M.edgeCount,
         if M.tau x = g then
-          cubeChar R x / (Fintype.card (Cube M.edgeCount) : Real)
+          cubeChar R x / (Fintype.card (FinCube M.edgeCount) : Real)
         else 0 by rfl]
   rw [repOfGroupAlgebraElement_matchingCubePushforward]
   calc
-    (∑ x : Cube M.edgeCount,
-        (cubeChar R x / (Fintype.card (Cube M.edgeCount) : Real)) •
+    (∑ x : FinCube M.edgeCount,
+        (cubeChar R x / (Fintype.card (FinCube M.edgeCount) : Real)) •
           rep.rho (M.tau x) v) =
-        ∑ x : Cube M.edgeCount,
+        ∑ x : FinCube M.edgeCount,
           ((cubeChar R x * cubeChar A x) /
-            (Fintype.card (Cube M.edgeCount) : Real)) • v := by
+            (Fintype.card (FinCube M.edgeCount) : Real)) • v := by
       apply Finset.sum_congr rfl
       intro x _hx
       rw [hv x, smul_smul]
       congr 1
       ring
-    _ = ((∑ x : Cube M.edgeCount,
+    _ = ((∑ x : FinCube M.edgeCount,
           cubeChar R x * cubeChar A x) /
-            (Fintype.card (Cube M.edgeCount) : Real)) • v := by
+            (Fintype.card (FinCube M.edgeCount) : Real)) • v := by
       rw [Finset.sum_div, Finset.sum_smul]
     _ = (if R = A then (1 : Real) else 0) • v := by
       rw [show
-        (∑ x : Cube M.edgeCount, cubeChar R x * cubeChar A x) /
-            (Fintype.card (Cube M.edgeCount) : Real) =
-          cubeExpectation (fun x : Cube M.edgeCount =>
+        (∑ x : FinCube M.edgeCount, cubeChar R x * cubeChar A x) /
+            (Fintype.card (FinCube M.edgeCount) : Real) =
+          cubeExpectation (fun x : FinCube M.edgeCount =>
             cubeChar R x * cubeChar A x) by rfl]
       rw [S02_Lem2_03_cubeChar_orthonormality]
     _ = if R = A then v else 0 := by
@@ -260,15 +246,15 @@ theorem S05_fixedMatchingHighElement_eq_sum_characterElements
   unfold S05_fixedMatchingHighElement S05_fixedMatchingCharacterElement
     S05_matchingHighKernel
   calc
-    (∑ x : Cube M.edgeCount,
+    (∑ x : FinCube M.edgeCount,
         if M.tau x = g then
           (∑ S ∈ S05_matchingHighCharacterSet M,
-              cubeChar S x * cubeChar S (cubeZero M.edgeCount)) /
-            (Fintype.card (Cube M.edgeCount) : Real)
+              cubeChar S x * cubeChar S (finCubeZero M.edgeCount)) /
+            (Fintype.card (FinCube M.edgeCount) : Real)
         else 0) =
-      ∑ x : Cube M.edgeCount, ∑ S ∈ S05_matchingHighCharacterSet M,
+      ∑ x : FinCube M.edgeCount, ∑ S ∈ S05_matchingHighCharacterSet M,
         if M.tau x = g then
-          cubeChar S x / (Fintype.card (Cube M.edgeCount) : Real)
+          cubeChar S x / (Fintype.card (FinCube M.edgeCount) : Real)
         else 0 := by
       apply Finset.sum_congr rfl
       intro x _hx
@@ -277,14 +263,14 @@ theorem S05_fixedMatchingHighElement_eq_sum_characterElements
         rw [Finset.sum_div]
         apply Finset.sum_congr rfl
         intro S _hS
-        simp only [cubeChar, cubeZero, Bool.false_eq_true, if_false,
+        simp only [cubeChar, cubeZero_apply, Bool.false_eq_true, if_false,
           Finset.prod_const_one]
         ring
       · simp [hx]
     _ = ∑ S ∈ S05_matchingHighCharacterSet M,
-        ∑ x : Cube M.edgeCount,
+        ∑ x : FinCube M.edgeCount,
           if M.tau x = g then
-            cubeChar S x / (Fintype.card (Cube M.edgeCount) : Real)
+            cubeChar S x / (Fintype.card (FinCube M.edgeCount) : Real)
           else 0 := by
       rw [Finset.sum_comm]
 
@@ -295,7 +281,7 @@ theorem representedHighMatchingElement_apply_eigenvector
     [AddCommMonoid V] [Module Real V]
     (rep : GroupRepresentationActionData (Perm α) V)
     (M : OrderedMatching α) (A : Finset (Fin M.edgeCount)) (v : V)
-    (hv : ∀ x : Cube M.edgeCount,
+    (hv : ∀ x : FinCube M.edgeCount,
       rep.rho (M.tau x) v = cubeChar A x • v) :
     repOfGroupAlgebraElement rep (S05_fixedMatchingHighElement M) v =
       if S05_matchingCharacterHigh A then v else 0 := by
@@ -348,37 +334,37 @@ theorem S05_fixedMatchingHighElement_rightConvolution
   funext π
   change
     (∑ g : Perm α,
-      (∑ x : Cube M.edgeCount,
+      (∑ x : FinCube M.edgeCount,
         if M.tau x = g then S05_matchingHighKernel M x else 0) *
           F (π * g)) =
       ∑ S ∈ S05_matchingHighCharacterSet M,
-        cubeFourierCoeff (fun x : Cube M.edgeCount => F (π * M.tau x)) S *
-          cubeChar S (cubeZero M.edgeCount)
+        cubeFourierCoeff (fun x : FinCube M.edgeCount => F (π * M.tau x)) S *
+          cubeChar S (finCubeZero M.edgeCount)
   calc
     (∑ g : Perm α,
-      (∑ x : Cube M.edgeCount,
+      (∑ x : FinCube M.edgeCount,
         if M.tau x = g then S05_matchingHighKernel M x else 0) *
           F (π * g)) =
-        ∑ g : Perm α, ∑ x : Cube M.edgeCount,
+        ∑ g : Perm α, ∑ x : FinCube M.edgeCount,
           (if M.tau x = g then S05_matchingHighKernel M x else 0) *
             F (π * g) := by
       apply Finset.sum_congr rfl
       intro g _hg
       rw [Finset.sum_mul]
-    _ = ∑ x : Cube M.edgeCount, ∑ g : Perm α,
+    _ = ∑ x : FinCube M.edgeCount, ∑ g : Perm α,
           (if M.tau x = g then S05_matchingHighKernel M x else 0) *
             F (π * g) := by
       rw [Finset.sum_comm]
-    _ = ∑ x : Cube M.edgeCount,
+    _ = ∑ x : FinCube M.edgeCount,
           S05_matchingHighKernel M x * F (π * M.tau x) := by
       apply Finset.sum_congr rfl
       intro x _hx
       simp
-    _ = ∑ x : Cube M.edgeCount,
+    _ = ∑ x : FinCube M.edgeCount,
         ∑ S ∈ S05_matchingHighCharacterSet M,
           (F (π * M.tau x) * cubeChar S x) /
-              (Fintype.card (Cube M.edgeCount) : Real) *
-            cubeChar S (cubeZero M.edgeCount) := by
+              (Fintype.card (FinCube M.edgeCount) : Real) *
+            cubeChar S (finCubeZero M.edgeCount) := by
       apply Finset.sum_congr rfl
       intro x _hx
       unfold S05_matchingHighKernel
@@ -387,14 +373,14 @@ theorem S05_fixedMatchingHighElement_rightConvolution
       intro S _hS
       ring
     _ = ∑ S ∈ S05_matchingHighCharacterSet M,
-        ∑ x : Cube M.edgeCount,
+        ∑ x : FinCube M.edgeCount,
           (F (π * M.tau x) * cubeChar S x) /
-              (Fintype.card (Cube M.edgeCount) : Real) *
-            cubeChar S (cubeZero M.edgeCount) := by
+              (Fintype.card (FinCube M.edgeCount) : Real) *
+            cubeChar S (finCubeZero M.edgeCount) := by
       rw [Finset.sum_comm]
     _ = ∑ S ∈ S05_matchingHighCharacterSet M,
-        cubeFourierCoeff (fun x : Cube M.edgeCount => F (π * M.tau x)) S *
-          cubeChar S (cubeZero M.edgeCount) := by
+        cubeFourierCoeff (fun x : FinCube M.edgeCount => F (π * M.tau x)) S *
+          cubeChar S (finCubeZero M.edgeCount) := by
       apply Finset.sum_congr rfl
       intro S _hS
       unfold cubeFourierCoeff cubeExpectation
@@ -555,7 +541,7 @@ theorem S05_fixedMatchingCharacterYoungOperator_apply_eigenvector
     (action : YoungOrthogonalActionData lam)
     (M : NearPerfectMatching (n + 1))
     (R A : Finset (Fin M.toOrdered.edgeCount)) (v : TableauSpace lam)
-    (hv : ∀ x : Cube M.toOrdered.edgeCount,
+    (hv : ∀ x : FinCube M.toOrdered.edgeCount,
       action.rep.rho (M.toOrdered.tau x) v = cubeChar A x • v) :
     S05_fixedMatchingCharacterYoungOperator action M R v =
       if R = A then v else 0 := by
@@ -569,7 +555,7 @@ theorem S05_fixedMatchingRejectionYoungOperator_apply_eigenvector
     (action : YoungOrthogonalActionData lam)
     (M : NearPerfectMatching (n + 1))
     (A : Finset (Fin M.toOrdered.edgeCount)) (v : TableauSpace lam)
-    (hv : ∀ x : Cube M.toOrdered.edgeCount,
+    (hv : ∀ x : FinCube M.toOrdered.edgeCount,
       action.rep.rho (M.toOrdered.tau x) v = cubeChar A x • v) :
     S05_fixedMatchingRejectionYoungOperator action M v =
       if S05_matchingCharacterHigh A then v else 0 := by

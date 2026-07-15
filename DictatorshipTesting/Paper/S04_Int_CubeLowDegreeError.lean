@@ -3,6 +3,8 @@ import DictatorshipTesting.Paper.S02_Lem2_03_CubeFourierExpansion
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeCharOrthonormality
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Prop4_02_CosetwiseDescriptionOfPM`
@@ -25,7 +27,7 @@ namespace DictatorshipTesting
 /-- A cube character of degree at most one has no high-degree Fourier energy. -/
 theorem cubeHighDegreeEnergy_cubeChar_eq_zero_of_card_le_one {m : ℕ}
     {S : Finset (Fin m)} (hS : S.card ≤ 1) :
-    cubeHighDegreeEnergy (fun x : Cube m => cubeChar S x) = 0 := by
+    cubeHighDegreeEnergy (fun x : FinCube m => cubeChar S x) = 0 := by
   apply cubeHighDegreeEnergy_eq_zero_of_forall_highDegree_coeff_zero
   intro T hT
   have hne : S ≠ T := by
@@ -42,7 +44,7 @@ theorem cubeHighDegreeEnergy_sum_low_char_eq_zero {m : ℕ}
     (s : Finset (Finset (Fin m))) (hs : ∀ S ∈ s, S.card ≤ 1)
     (a : Finset (Fin m) → ℝ) :
     cubeHighDegreeEnergy
-      (fun x : Cube m => ∑ S ∈ s, a S * cubeChar S x) = 0 := by
+      (fun x : FinCube m => ∑ S ∈ s, a S * cubeChar S x) = 0 := by
   revert hs
   refine Finset.induction_on s ?empty ?insert
   · intro _hs
@@ -63,7 +65,7 @@ theorem cubeHighDegreeEnergy_sum_low_char_eq_zero {m : ℕ}
 
 /-- The degree-at-most-one truncation has zero high-degree Fourier energy. -/
 theorem cubeHighDegreeEnergy_cubeLowDegreeOnePart_eq_zero {m : ℕ}
-    (g : Cube m → ℝ) :
+    (g : FinCube m → ℝ) :
     cubeHighDegreeEnergy (cubeLowDegreeOnePart g) = 0 := by
   unfold cubeLowDegreeOnePart
   apply cubeHighDegreeEnergy_sum_low_char_eq_zero
@@ -73,7 +75,7 @@ theorem cubeHighDegreeEnergy_cubeLowDegreeOnePart_eq_zero {m : ℕ}
 /-- If all high-degree Fourier coefficients vanish, the degree-at-most-one
 truncation is the original function. -/
 theorem cubeLowDegreeOnePart_eq_self_of_cubeHighDegreeEnergy_eq_zero {m : ℕ}
-    {g : Cube m → ℝ} (hg : cubeHighDegreeEnergy g = 0) :
+    {g : FinCube m → ℝ} (hg : cubeHighDegreeEnergy g = 0) :
     cubeLowDegreeOnePart g = g := by
   funext x
   unfold cubeLowDegreeOnePart
@@ -99,7 +101,7 @@ theorem cubeLowDegreeOnePart_eq_self_of_cubeHighDegreeEnergy_eq_zero {m : ℕ}
           exact (S02_Lem2_03_cubeFourier_expansion m g x).symm
 
 /-- The degree-at-most-one truncation is idempotent. -/
-theorem cubeLowDegreeOnePart_idempotent {m : ℕ} (g : Cube m → ℝ) :
+theorem cubeLowDegreeOnePart_idempotent {m : ℕ} (g : FinCube m → ℝ) :
     cubeLowDegreeOnePart (cubeLowDegreeOnePart g) = cubeLowDegreeOnePart g := by
   exact cubeLowDegreeOnePart_eq_self_of_cubeHighDegreeEnergy_eq_zero
     (cubeHighDegreeEnergy_cubeLowDegreeOnePart_eq_zero g)
@@ -107,8 +109,8 @@ theorem cubeLowDegreeOnePart_idempotent {m : ℕ} (g : Cube m → ℝ) :
 /-- Fourier coefficients commute with a finite linear combination of cube
 functions. -/
 theorem cubeFourierCoeff_sum {m : ℕ} {ι : Type*} (s : Finset ι)
-    (a : ι → ℝ) (φ : ι → Cube m → ℝ) (T : Finset (Fin m)) :
-    cubeFourierCoeff (fun x : Cube m => ∑ i ∈ s, a i * φ i x) T =
+    (a : ι → ℝ) (φ : ι → FinCube m → ℝ) (T : Finset (Fin m)) :
+    cubeFourierCoeff (fun x : FinCube m => ∑ i ∈ s, a i * φ i x) T =
       ∑ i ∈ s, a i * cubeFourierCoeff (φ i) T := by
   classical
   refine Finset.induction_on s ?empty ?insert
@@ -120,7 +122,7 @@ theorem cubeFourierCoeff_sum {m : ℕ} {ι : Type*} (s : Finset ι)
 
 /-- Fourier coefficient of a cube character. -/
 theorem cubeFourierCoeff_cubeChar {m : ℕ} (S T : Finset (Fin m)) :
-    cubeFourierCoeff (fun x : Cube m => cubeChar S x) T =
+    cubeFourierCoeff (fun x : FinCube m => cubeChar S x) T =
       if S = T then 1 else 0 := by
   unfold cubeFourierCoeff
   rw [S02_Lem2_03_cubeChar_orthonormality]
@@ -128,7 +130,7 @@ theorem cubeFourierCoeff_cubeChar {m : ℕ} (S T : Finset (Fin m)) :
 /-- The degree-at-most-one part preserves exactly the coefficients of degree at
 most one. -/
 theorem cubeFourierCoeff_cubeLowDegreeOnePart {m : ℕ}
-    (g : Cube m → ℝ) (T : Finset (Fin m)) :
+    (g : FinCube m → ℝ) (T : Finset (Fin m)) :
     cubeFourierCoeff (cubeLowDegreeOnePart g) T =
       if T.card ≤ 1 then cubeFourierCoeff g T else 0 := by
   classical
@@ -152,13 +154,13 @@ theorem cubeFourierCoeff_cubeLowDegreeOnePart {m : ℕ}
     simp [cubeFourierCoeff_cubeChar, hne]
 
 /-- Fourier coefficients are additive inverses under negation of the function. -/
-theorem cubeFourierCoeff_neg {m : ℕ} (g : Cube m → ℝ)
+theorem cubeFourierCoeff_neg {m : ℕ} (g : FinCube m → ℝ)
     (S : Finset (Fin m)) :
     cubeFourierCoeff (fun x => -g x) S = -cubeFourierCoeff g S := by
   simpa using cubeFourierCoeff_smul (-1 : ℝ) g S
 
 /-- Fourier coefficients commute with subtraction of cube functions. -/
-theorem cubeFourierCoeff_sub {m : ℕ} (g h : Cube m → ℝ)
+theorem cubeFourierCoeff_sub {m : ℕ} (g h : FinCube m → ℝ)
     (S : Finset (Fin m)) :
     cubeFourierCoeff (fun x => g x - h x) S =
       cubeFourierCoeff g S - cubeFourierCoeff h S := by
@@ -175,7 +177,7 @@ theorem cubeFourierCoeff_sub {m : ℕ} (g h : Cube m → ℝ)
 /-- The residual after degree-at-most-one truncation has exactly the high-degree
 Fourier coefficients of the original function. -/
 theorem cubeFourierCoeff_lowDegreeResidual {m : ℕ}
-    (g : Cube m → ℝ) (S : Finset (Fin m)) :
+    (g : FinCube m → ℝ) (S : Finset (Fin m)) :
     cubeFourierCoeff (fun x => g x - cubeLowDegreeOnePart g x) S =
       if 2 ≤ S.card then cubeFourierCoeff g S else 0 := by
   rw [cubeFourierCoeff_sub, cubeFourierCoeff_cubeLowDegreeOnePart]
@@ -187,7 +189,7 @@ theorem cubeFourierCoeff_lowDegreeResidual {m : ℕ}
 
 /-- The degree-at-most-one truncation kills its own residual. -/
 theorem cubeLowDegreeOnePart_lowDegreeResidual_eq_zero {m : ℕ}
-    (g : Cube m → ℝ) :
+    (g : FinCube m → ℝ) :
     cubeLowDegreeOnePart (fun x => g x - cubeLowDegreeOnePart g x) =
       fun _ => 0 := by
   classical
@@ -210,9 +212,9 @@ theorem cubeLowDegreeOnePart_lowDegreeResidual_eq_zero {m : ℕ}
 
 /-- Parseval for the residual of the degree-at-most-one cube truncation. -/
 theorem cubeExpectation_sq_sub_cubeLowDegreeOnePart_eq_highDegreeEnergy
-    {m : ℕ} (g : Cube m → ℝ) :
+    {m : ℕ} (g : FinCube m → ℝ) :
     cubeExpectation
-        (fun x : Cube m => (g x - cubeLowDegreeOnePart g x) ^ (2 : ℕ)) =
+        (fun x : FinCube m => (g x - cubeLowDegreeOnePart g x) ^ (2 : ℕ)) =
       cubeHighDegreeEnergy g := by
   rw [S02_Lem2_03_cubeParseval_identity]
   unfold cubeHighDegreeEnergy

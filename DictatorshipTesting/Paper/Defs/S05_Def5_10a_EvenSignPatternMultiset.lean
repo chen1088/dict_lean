@@ -1,5 +1,7 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_HEven
-import DictatorshipTesting.Paper.Defs.S05_Def5_07a_TwoBoxRemovals
+import AlgebraicLibrary.Young.DiagramCorners
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:

@@ -4,6 +4,8 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_CertificateSpecialDiagrams
 import Mathlib.GroupTheory.Perm.Sign
 import Mathlib.Data.Finset.Sort
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_09_DegreeOneYoungBlockIdentification`

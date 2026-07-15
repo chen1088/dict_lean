@@ -1,5 +1,7 @@
-import DictatorshipTesting.Paper.Defs.S05_Def5_04_TableauCoordinateSpace
+import AlgebraicLibrary.Young.TableauTrace
 import DictatorshipTesting.Paper.Defs.S05_Def5_12c_AveragedHighMatchingElement
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
@@ -20,10 +22,6 @@ noncomputable section
 open scoped BigOperators
 
 namespace DictatorshipTesting
-
-/-- Definition 5.12(d) exposes the coordinate trace introduced with the
-tableau coordinate space in Definition 5.4. -/
-abbrev S05_Def5_12d_tableauOperatorTrace := @tableauOperatorTrace
 
 /-- The matrix-coefficient-block trace of an operator acting on the right
 tableau index.  The left tableau index is free and contributes one identical

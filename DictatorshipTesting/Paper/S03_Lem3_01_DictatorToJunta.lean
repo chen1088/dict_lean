@@ -1,5 +1,8 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingCubeRestriction
-import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauDepends
+import AlgebraicLibrary.Combinatorics.OrderedMatching.Dependence
+import DictatorshipTesting.Paper.Defs.S02_IntDef_IsDictator
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:

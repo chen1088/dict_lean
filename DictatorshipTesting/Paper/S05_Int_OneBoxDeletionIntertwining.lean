@@ -1,6 +1,8 @@
 import DictatorshipTesting.Paper.S05_Int_OneBoxDeletionUnitary
 import DictatorshipTesting.Paper.S05_Lem5_04_ContentSeparationAndTableauConnectivity
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S05_Lem5_10_SignedTwoBoxOrthogonalBranching`

@@ -3,8 +3,10 @@ Direct reverse imports:
 - `DictatorshipTesting`
 - `DictatorshipTesting.Paper.S05_Lem5_08_RegularYoungBlockDecomposition`
 -/
-import DictatorshipTesting.Paper.S05_Int_YoungTableauSumOfSquares
-import DictatorshipTesting.Paper.Defs.S05_Def5_07a_TwoBoxRemovals
+import AlgebraicLibrary.Young.TableauSumOfSquares
+import AlgebraicLibrary.Young.DiagramCorners
+
+open AlgebraicLibrary
 
 /-!
 Paper statement: Lemma 5.7 (`lem:young-tableau-sum-of-squares`).

@@ -1,5 +1,7 @@
-import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungDim
+import AlgebraicLibrary.Young.IndexedDiagram
 import DictatorshipTesting.Paper.Defs.S05_IntDef_HOdd
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:

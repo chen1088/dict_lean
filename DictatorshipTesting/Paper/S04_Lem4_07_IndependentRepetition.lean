@@ -10,6 +10,8 @@ import DictatorshipTesting.Paper.Defs.S03_IntDef_OneTrialRejectProbability
 import DictatorshipTesting.Paper.S04_Lem4_06_OneTrialSoundness
 import DictatorshipTesting.Paper.S03_Lem3_02_PerfectCompleteness
 
+open AlgebraicLibrary
+
 /-!
 Paper statement: Lemma 4.7 (`lem:independent-repetition`).
 
@@ -35,11 +37,11 @@ def matchingTrialQuery (n : Nat) (seed : MatchingTrialSeed n) :
   let M := seed.1.toOrdered
   let π := seed.2.1
   let c := seed.2.2
-  ![π * M.tau (cubeZero M.edgeCount),
-    π * M.tau (cubeXor (cubeZero M.edgeCount) (cubeColorU c)),
-    π * M.tau (cubeXor (cubeZero M.edgeCount) (cubeColorV c)),
+  ![π * M.tau (finCubeZero M.edgeCount),
+    π * M.tau (cubeXor (finCubeZero M.edgeCount) (cubeColorU c)),
+    π * M.tau (cubeXor (finCubeZero M.edgeCount) (cubeColorV c)),
     π * M.tau
-      (cubeXor (cubeXor (cubeZero M.edgeCount) (cubeColorU c))
+      (cubeXor (cubeXor (finCubeZero M.edgeCount) (cubeColorU c))
         (cubeColorV c))]
 
 /-- Accept exactly when the four Boolean answers have zero mixed second
@@ -120,46 +122,19 @@ theorem matchingTrialTester_oneSided (n : Nat) :
 /-- Independent repetition, accepting exactly when every trial accepts. -/
 def repeatTester {α : Type*} [Fintype α] [DecidableEq α]
     (k : Nat) (tester : OracleTester α) : OracleTester α :=
-  match k with
-  | 0 =>
-      { Seed := PUnit
-        seedFintype := inferInstance
-        seedNonempty := inferInstance
-        queryCount := 0
-        query := fun _seed i => Fin.elim0 i
-        decide := fun _seed _answers => true }
-  | k + 1 =>
-      let rest := repeatTester k tester
-      { Seed := tester.Seed × rest.Seed
-        seedFintype := by
-          letI := tester.seedFintype
-          letI := rest.seedFintype
-          infer_instance
-        seedNonempty := by
-          exact Nonempty.map2 Prod.mk tester.seedNonempty rest.seedNonempty
-        queryCount := tester.queryCount + rest.queryCount
-        query := fun seed =>
-          Fin.addCases (tester.query seed.1) (rest.query seed.2)
-        decide := fun seed answers =>
-          tester.decide seed.1
-              (fun i => answers (Fin.castAdd rest.queryCount i)) &&
-            rest.decide seed.2
-              (fun i => answers (Fin.natAdd tester.queryCount i)) }
+  AlgebraicLibrary.repeatTester k tester
 
 @[simp] theorem repeatTester_queryCount
     {α : Type*} [Fintype α] [DecidableEq α]
     (k : Nat) (tester : OracleTester α) :
     (repeatTester k tester).queryCount = k * tester.queryCount := by
-  induction k with
-  | zero => simp [repeatTester]
-  | succ k ih =>
-      simp [repeatTester, ih, Nat.succ_mul, Nat.add_comm]
+  exact AlgebraicLibrary.repeatTester_queryCount k tester
 
 @[simp] theorem repeatTester_run_zero
     {α : Type*} [Fintype α] [DecidableEq α]
     (tester : OracleTester α) (f : BoolFn α) (seed : (repeatTester 0 tester).Seed) :
     (repeatTester 0 tester).run f seed = true := by
-  rfl
+  exact AlgebraicLibrary.repeatTester_run_zero tester f seed
 
 @[simp] theorem repeatTester_run_succ
     {α : Type*} [Fintype α] [DecidableEq α]
@@ -167,7 +142,7 @@ def repeatTester {α : Type*} [Fintype α] [DecidableEq α]
     (seed : (repeatTester (k + 1) tester).Seed) :
     (repeatTester (k + 1) tester).run f seed =
       (tester.run f seed.1 && (repeatTester k tester).run f seed.2) := by
-  simp [OracleTester.run, repeatTester, Fin.addCases]
+  exact AlgebraicLibrary.repeatTester_run_succ k tester f seed
 
 theorem repeatTester_acceptanceProbability_succ
     {α : Type*} [Fintype α] [DecidableEq α]
@@ -175,50 +150,14 @@ theorem repeatTester_acceptanceProbability_succ
     (repeatTester (k + 1) tester).acceptanceProbability f =
       tester.acceptanceProbability f *
         (repeatTester k tester).acceptanceProbability f := by
-  classical
-  let rest := repeatTester k tester
-  letI := tester.seedFintype
-  letI := rest.seedFintype
-  change (repeatTester (k + 1) tester).acceptanceProbability f =
-    tester.acceptanceProbability f * rest.acceptanceProbability f
-  have hindicator (s : tester.Seed) (t : rest.Seed) :
-      (if (repeatTester (k + 1) tester).run f (s, t)
-        then (1 : ℝ) else 0) =
-      (if tester.run f s then (1 : ℝ) else 0) *
-        (if rest.run f t then (1 : ℝ) else 0) := by
-    rw [repeatTester_run_succ]
-    cases tester.run f s <;> cases rest.run f t <;> norm_num
-  unfold OracleTester.acceptanceProbability
-  change
-    (∑ seed : tester.Seed × rest.Seed,
-      if (repeatTester (k + 1) tester).run f seed then (1 : ℝ) else 0) /
-        (Fintype.card (tester.Seed × rest.Seed) : ℝ) = _
-  rw [Fintype.sum_prod_type]
-  simp_rw [hindicator]
-  simp_rw [← Finset.mul_sum]
-  rw [← Finset.sum_mul]
-  simp only [Fintype.card_prod]
-  push_cast
-  have hcardTester : (Fintype.card tester.Seed : ℝ) ≠ 0 := by
-    exact_mod_cast (ne_of_gt tester.seed_card_pos)
-  have hcardRest : (Fintype.card rest.Seed : ℝ) ≠ 0 := by
-    exact_mod_cast (ne_of_gt rest.seed_card_pos)
-  field_simp
+  exact AlgebraicLibrary.repeatTester_acceptanceProbability_succ k tester f
 
 theorem repeatTester_acceptanceProbability
     {α : Type*} [Fintype α] [DecidableEq α]
     (k : Nat) (tester : OracleTester α) (f : BoolFn α) :
     (repeatTester k tester).acceptanceProbability f =
       (tester.acceptanceProbability f) ^ k := by
-  induction k with
-  | zero =>
-      change (∑ _seed : PUnit, (1 : ℝ)) /
-        (Fintype.card PUnit : ℝ) = 1
-      norm_num
-  | succ k ih =>
-      rw [repeatTester_acceptanceProbability_succ, ih]
-      rw [pow_succ]
-      ring
+  exact AlgebraicLibrary.repeatTester_acceptanceProbability k tester f
 
 /-- Exact rejection probability under independent repetition. -/
 theorem repeatTester_rejectionProbability
@@ -226,27 +165,13 @@ theorem repeatTester_rejectionProbability
     (k : Nat) (tester : OracleTester α) (f : BoolFn α) :
     (repeatTester k tester).rejectionProbability f =
       1 - (1 - tester.rejectionProbability f) ^ k := by
-  rw [(repeatTester k tester).rejectionProbability_eq_one_sub_acceptanceProbability]
-  rw [repeatTester_acceptanceProbability]
-  have ha : tester.acceptanceProbability f =
-      1 - tester.rejectionProbability f := by
-    linarith [tester.acceptance_add_rejection_probability f]
-  rw [ha]
+  exact AlgebraicLibrary.repeatTester_rejectionProbability k tester f
 
 theorem repeatTester_oneSided
     {α : Type*} [Fintype α] [DecidableEq α]
     (k : Nat) (tester : OracleTester α) (h : tester.oneSided) :
     (repeatTester k tester).oneSided := by
-  intro f hf
-  induction k with
-  | zero =>
-      intro seed
-      exact repeatTester_run_zero tester f seed
-  | succ k ih =>
-      intro seed
-      rw [repeatTester_run_succ]
-      rw [h f hf seed.1, ih seed.2]
-      rfl
+  exact AlgebraicLibrary.repeatTester_oneSided IsDictator k tester h
 
 /-- Query every permutation once and decide whether the resulting complete
 truth table is a dictator.  This is used only in ranks below four. -/

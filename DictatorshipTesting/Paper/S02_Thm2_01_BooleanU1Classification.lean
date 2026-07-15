@@ -1,6 +1,8 @@
 import DictatorshipTesting.Paper.Defs.S02_IntDef_IsDictator
 import DictatorshipTesting.Paper.Defs.S02_IntDef_U1
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`

@@ -1,10 +1,12 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingTrialDelta
-import DictatorshipTesting.Paper.S03_Int_OrderedMatchingTauMul
+import AlgebraicLibrary.Combinatorics.OrderedMatching.CubeHom
 import DictatorshipTesting.Paper.S04_Lem4_01_CubeSquare
 import DictatorshipTesting.Paper.S04_Int_PermCubeAverage
 import DictatorshipTesting.Paper.S04_Prop4_02_CosetwiseDescriptionOfPM
 import DictatorshipTesting.Paper.S04_Thm4_04_MatchingGap
 import DictatorshipTesting.Paper.Defs.S04_Def4_01_MatchingLocalDegreeOneAndProjection
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
@@ -25,7 +27,7 @@ namespace DictatorshipTesting
 /-- Proposition 4.5, `lem:trial-cube-coordinates`: one trial in cube coordinates. -/
 theorem S04_Prop4_05_TrialCubeCoordinates {α : Type*} [Fintype α] [DecidableEq α]
     (f : BoolFn α) (M : OrderedMatching α) (π : Perm α)
-    (x : Cube M.edgeCount) (c : CubeDirectionColor M.edgeCount) :
+    (x : FinCube M.edgeCount) (c : CubeDirectionColor M.edgeCount) :
     matchingTrialDelta f M (π * M.tau x) c =
       cubeDelta (fun y => boolToReal (matchingCubeRestriction f M π y))
         x (cubeColorU c) (cubeColorV c) := by
@@ -36,8 +38,8 @@ theorem S04_Prop4_05_TrialCubeCoordinates {α : Type*} [Fintype α] [DecidableEq
 /-- A cube delta at basepoint `x` is the trial delta based at `π * tau x`. -/
 theorem cubeDelta_restriction_eq_matchingTrialDeltaReal_mul_tau {α : Type*}
     [Fintype α] [DecidableEq α] (F : Perm α → ℝ) (M : OrderedMatching α)
-    (π : Perm α) (x : Cube M.edgeCount) (c : CubeDirectionColor M.edgeCount) :
-    cubeDelta (fun y : Cube M.edgeCount => F (π * M.tau y))
+    (π : Perm α) (x : FinCube M.edgeCount) (c : CubeDirectionColor M.edgeCount) :
+    cubeDelta (fun y : FinCube M.edgeCount => F (π * M.tau y))
         x (cubeColorU c) (cubeColorV c) =
       matchingTrialDeltaReal F M (π * M.tau x) c := by
   simp [matchingTrialDeltaReal, cubeDelta, orderedMatching_tau_mul,
@@ -49,7 +51,7 @@ theorem sum_perm_cubeSquareEnergy_eq_sum_perm_trialDelta
     {n : ℕ} (F : Perm (Fin n) → ℝ) (M : NearPerfectMatching n) :
     (∑ π : Perm (Fin n),
         cubeSquareEnergy
-          (fun x : Cube (n / 2) => F (π * M.toOrdered.tau x))) =
+          (fun x : FinCube (n / 2) => F (π * M.toOrdered.tau x))) =
       ∑ π : Perm (Fin n),
         (∑ c : CubeDirectionColor (n / 2),
           (matchingTrialDeltaReal F M.toOrdered π c) ^ (2 : ℕ)) /
@@ -60,18 +62,18 @@ theorem sum_perm_cubeSquareEnergy_eq_sum_perm_trialDelta
       (Fintype.card (CubeDirectionColor (n / 2)) : ℝ)
   have htranslate :
       (∑ π : Perm (Fin n),
-          (∑ x : Cube (n / 2), e (π * M.toOrdered.tau x)) /
-            (Fintype.card (Cube (n / 2)) : ℝ)) =
+          (∑ x : FinCube (n / 2), e (π * M.toOrdered.tau x)) /
+            (Fintype.card (FinCube (n / 2)) : ℝ)) =
         ∑ π : Perm (Fin n), e π :=
     sum_perm_cube_right_tau_div_card M.toOrdered e
   calc
     (∑ π : Perm (Fin n),
         cubeSquareEnergy
-          (fun x : Cube (n / 2) => F (π * M.toOrdered.tau x)))
+          (fun x : FinCube (n / 2) => F (π * M.toOrdered.tau x)))
         =
         ∑ π : Perm (Fin n),
-          (∑ x : Cube (n / 2), e (π * M.toOrdered.tau x)) /
-            (Fintype.card (Cube (n / 2)) : ℝ) := by
+          (∑ x : FinCube (n / 2), e (π * M.toOrdered.tau x)) /
+            (Fintype.card (FinCube (n / 2)) : ℝ) := by
           apply Finset.sum_congr rfl
           intro π _hπ
           unfold cubeSquareEnergy e
@@ -83,7 +85,7 @@ theorem sum_perm_cubeSquareEnergy_eq_sum_perm_trialDelta
           intro c _hc
           change
             (cubeDelta
-                (fun y : Cube M.toOrdered.edgeCount => F (π * M.toOrdered.tau y))
+                (fun y : FinCube M.toOrdered.edgeCount => F (π * M.toOrdered.tau y))
                 x (cubeColorU c) (cubeColorV c)) ^ (2 : ℕ) =
               (matchingTrialDeltaReal F M.toOrdered
                 (π * M.toOrdered.tau x) c) ^ (2 : ℕ)
@@ -138,7 +140,7 @@ theorem oneTrialDeltaSqExpectation_ge_matchingMeanProjectionError
                 (∑ π : Perm (Fin n),
                   (32 / 9 : ℝ) *
                     cubeHighDegreeEnergy
-                      (fun x : Cube (n / 2) => F (π * M.toOrdered.tau x))) /
+                      (fun x : FinCube (n / 2) => F (π * M.toOrdered.tau x))) /
                   (Fintype.card (Perm (Fin n)) : ℝ) := by
                   unfold matchingLocalHighDegreeEnergy
                   rw [← Finset.mul_sum]
@@ -147,13 +149,13 @@ theorem oneTrialDeltaSqExpectation_ge_matchingMeanProjectionError
             _ ≤
                 (∑ π : Perm (Fin n),
                   cubeSquareEnergy
-                    (fun x : Cube (n / 2) => F (π * M.toOrdered.tau x))) /
+                    (fun x : FinCube (n / 2) => F (π * M.toOrdered.tau x))) /
                   (Fintype.card (Perm (Fin n)) : ℝ) := by
                   apply div_le_div_of_nonneg_right ?_ (le_of_lt hPpos)
                   apply Finset.sum_le_sum
                   intro π _hπ
                   exact S04_Lem4_01_CubeSquare (n / 2)
-                    (fun x : Cube (n / 2) => F (π * M.toOrdered.tau x))
+                    (fun x : FinCube (n / 2) => F (π * M.toOrdered.tau x))
             _ =
                 (∑ π : Perm (Fin n),
                   (∑ c : CubeDirectionColor (n / 2),

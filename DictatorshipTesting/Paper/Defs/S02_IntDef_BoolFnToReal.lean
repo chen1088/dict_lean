@@ -1,4 +1,7 @@
-import DictatorshipTesting.Paper.Defs.S02_IntDef_BoolToReal
+import DictatorshipTesting.Paper.Defs.S02_IntDef_BoolFn
+import AlgebraicLibrary.BooleanCube.Basic
+
+open AlgebraicLibrary
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S02_IntDef_IsImageDictator`

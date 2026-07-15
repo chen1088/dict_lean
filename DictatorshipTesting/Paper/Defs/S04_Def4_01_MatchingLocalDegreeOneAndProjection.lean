@@ -1,5 +1,8 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_PermInner
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval
+import DictatorshipTesting.Paper.Defs.S02_IntDef_L2DistSq
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
@@ -43,8 +46,8 @@ representative-independent coset formula. -/
 def matchingLocalProjection {α : Type*} [Fintype α] [DecidableEq α]
     (M : OrderedMatching α) (F : Perm α → ℝ) : Perm α → ℝ :=
   fun π =>
-    cubeLowDegreeOnePart (fun x : Cube M.edgeCount => F (π * M.tau x))
-      (cubeZero M.edgeCount)
+    cubeLowDegreeOnePart (fun x : FinCube M.edgeCount => F (π * M.tau x))
+      (finCubeZero M.edgeCount)
 
 /-- Squared error after removing the matching-local degree-one part. -/
 def matchingLocalProjectionError {α : Type*} [Fintype α] [DecidableEq α]

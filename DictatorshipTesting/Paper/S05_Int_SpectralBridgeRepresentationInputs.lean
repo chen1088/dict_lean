@@ -1,9 +1,10 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_MatchingSpectralGapConstant
-import DictatorshipTesting.Paper.Defs.S05_IntDef_IsStandard
+import AlgebraicLibrary.Young.IndexedDiagram
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_Def5_06a_YoungBlock`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_U1CompatibleYoungBlockProfile`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungBasisScalarCommutantInput`
 - `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungBlockEnergyProfile`

@@ -1,7 +1,6 @@
 import DictatorshipTesting.Paper.Defs.S02_IntDef_L2DistSq
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S02_IntDef_Cube`
 - `DictatorshipTesting.Paper.S02_Thm2_02_FKNStability`
 -/
 

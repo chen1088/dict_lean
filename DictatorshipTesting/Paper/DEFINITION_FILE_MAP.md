@@ -6,15 +6,16 @@ use letter-suffixed Lean modules without creating additional paper numbers.
 | Paper definition | Lean modules |
 | --- | --- |
 | 2.1 | `Defs/S02_Def2_01_FiniteSeedTester.lean` |
-| 2.2 | `Defs/S02_Def2_02a_CubeLowDegreeOnePart.lean`, `Defs/S02_Def2_02b_CubeHighDegreeEnergy.lean` |
+| 2.2 | `AlgebraicLibrary/BooleanCube/LowDegree.lean` |
 | 4.1 | `Defs/S04_Def4_01_MatchingLocalDegreeOneAndProjection.lean` |
-| 5.1--5.5 | `Defs/S05_Def5_01_*` through `Defs/S05_Def5_05_*` |
-| 5.6 | `Defs/S05_Def5_06a_*`, `Defs/S05_Def5_06b_*`, `Defs/S05_Def5_06c_*` |
-| 5.7 | `Defs/S05_Def5_07a_*`, `Defs/S05_Def5_07b_*`, `Defs/S05_Def5_07c_*` |
-| 5.8--5.9 | `Defs/S05_Def5_08_*`, `Defs/S05_Def5_09_*` |
+| 5.1--5.5 | `AlgebraicLibrary/Young/IndexedDiagram.lean`, `DiagramCorners.lean`, `StandardTableau.lean`, `TableauDimension.lean`, `OrthogonalRepresentation.lean` |
+| 5.6 | `S05_Int_RegularYoungBlockDecomposition.lean` |
+| 5.7 | `AlgebraicLibrary/Young/IndexedDiagram.lean`, `TableauDimension.lean` |
+| 5.8--5.9 | `Defs/S05_Def5_08_SignedTwoBoxExtensionSpaces.lean`, `AlgebraicLibrary/Young/StandardTableau.lean` |
 | 5.10 | `Defs/S05_Def5_10a_*`, `Defs/S05_Def5_10b_*` |
-| 5.11 | `Defs/S05_Def5_11a_*`, `Defs/S05_Def5_11b_*`, `Defs/S05_Def5_11c_*` |
+| 5.11 | `Defs/S05_Def5_11a_MatchingCharacters.lean`, `S05_Int_YoungMatchingOperators.lean` |
 | 5.12 | `Defs/S05_Def5_12a_*` through `Defs/S05_Def5_12d_*` |
 
-All files named `S##_IntDef_*` are implementation vocabulary, not additional
-paper definitions.
+Library-owned definitions are listed at their defining module; no paper-side
+forwarding module is retained. Files named `S##_IntDef_*` are implementation
+vocabulary, not additional paper definitions.

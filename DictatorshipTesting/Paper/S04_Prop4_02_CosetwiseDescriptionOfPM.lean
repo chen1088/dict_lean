@@ -1,9 +1,11 @@
-import DictatorshipTesting.Paper.Defs.S02_Def2_02a_CubeLowDegreeOnePart
-import DictatorshipTesting.Paper.S02_Int_CubeFourierTranslate
+import AlgebraicLibrary.BooleanCube.LowDegree
+import AlgebraicLibrary.BooleanCube.Fourier
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval
 import DictatorshipTesting.Paper.Defs.S04_Def4_01_MatchingLocalDegreeOneAndProjection
 import DictatorshipTesting.Paper.S04_Int_CubeLowDegreeError
 import DictatorshipTesting.Paper.S04_Int_PermCubeAverage
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
@@ -28,7 +30,7 @@ namespace DictatorshipTesting
 
 /-- Proposition 4.2: the definition of `P_M` is independent of representatives. -/
 theorem S04_Prop4_02_PMIndependentOfRepresentatives {m : ℕ}
-    (g : Cube m → ℝ) (z x : Cube m) :
+    (g : FinCube m → ℝ) (z x : FinCube m) :
     cubeLowDegreeOnePart (fun y => g (cubeXor z y)) x =
       cubeLowDegreeOnePart g (cubeXor z x) := by
   unfold cubeLowDegreeOnePart
@@ -41,20 +43,20 @@ theorem S04_Prop4_02_PMIndependentOfRepresentatives {m : ℕ}
 of the corresponding restriction of `F`. -/
 theorem matchingLocalProjection_apply_mul_tau {α : Type*} [Fintype α]
     [DecidableEq α] (M : OrderedMatching α) (F : Perm α → ℝ) (π : Perm α)
-    (x : Cube M.edgeCount) :
+    (x : FinCube M.edgeCount) :
     matchingLocalProjection M F (π * M.tau x) =
-      cubeLowDegreeOnePart (fun y : Cube M.edgeCount => F (π * M.tau y)) x := by
+      cubeLowDegreeOnePart (fun y : FinCube M.edgeCount => F (π * M.tau y)) x := by
   unfold matchingLocalProjection
   have hfun :
-      (fun y : Cube M.edgeCount => F ((π * M.tau x) * M.tau y)) =
-        fun y : Cube M.edgeCount => F (π * M.tau (cubeXor x y)) := by
+      (fun y : FinCube M.edgeCount => F ((π * M.tau x) * M.tau y)) =
+        fun y : FinCube M.edgeCount => F (π * M.tau (cubeXor x y)) := by
     funext y
     rw [mul_assoc, orderedMatching_tau_mul]
   rw [hfun]
   simpa [cubeXor_zero] using
     (S04_Prop4_02_PMIndependentOfRepresentatives
-      (g := fun y : Cube M.edgeCount => F (π * M.tau y))
-      (z := x) (x := cubeZero M.edgeCount))
+      (g := fun y : FinCube M.edgeCount => F (π * M.tau y))
+      (z := x) (x := finCubeZero M.edgeCount))
 
 /-- Proposition 4.2(a): `P_M` maps into, and fixes, the local degree-one space. -/
 theorem S04_Prop4_02_fixedSpace {α : Type*} [Fintype α] [DecidableEq α]
@@ -65,10 +67,10 @@ theorem S04_Prop4_02_fixedSpace {α : Type*} [Fintype α] [DecidableEq α]
   constructor
   · intro π
     have hfun :
-        (fun x : Cube M.edgeCount =>
+        (fun x : FinCube M.edgeCount =>
           matchingLocalProjection M F (π * M.tau x)) =
             cubeLowDegreeOnePart
-              (fun y : Cube M.edgeCount => F (π * M.tau y)) := by
+              (fun y : FinCube M.edgeCount => F (π * M.tau y)) := by
       funext x
       exact matchingLocalProjection_apply_mul_tau M F π x
     rw [hfun]
@@ -78,11 +80,11 @@ theorem S04_Prop4_02_fixedSpace {α : Type*} [Fintype α] [DecidableEq α]
     unfold matchingLocalProjection
     have hlow :
         cubeLowDegreeOnePart
-          (fun x : Cube M.edgeCount => H (π * M.tau x)) =
-            (fun x : Cube M.edgeCount => H (π * M.tau x)) :=
+          (fun x : FinCube M.edgeCount => H (π * M.tau x)) =
+            (fun x : FinCube M.edgeCount => H (π * M.tau x)) :=
       cubeLowDegreeOnePart_eq_self_of_cubeHighDegreeEnergy_eq_zero (hH π)
     have hzero := orderedMatching_tau_zero M
-    simpa [hzero] using congrFun hlow (cubeZero M.edgeCount)
+    simpa [hzero] using congrFun hlow (finCubeZero M.edgeCount)
 
 /-- Proposition 4.2(b): the projection error is the local high-degree energy. -/
 theorem S04_Prop4_02_errorFormula {α : Type*} [Fintype α] [DecidableEq α]
@@ -94,33 +96,33 @@ theorem S04_Prop4_02_errorFormula {α : Type*} [Fintype α] [DecidableEq α]
   symm
   calc
     (∑ π : Perm α,
-        cubeHighDegreeEnergy (fun x : Cube M.edgeCount => F (π * M.tau x)))
+        cubeHighDegreeEnergy (fun x : FinCube M.edgeCount => F (π * M.tau x)))
         =
         ∑ π : Perm α,
           cubeExpectation
-            (fun x : Cube M.edgeCount =>
+            (fun x : FinCube M.edgeCount =>
               (F (π * M.tau x) -
                 cubeLowDegreeOnePart
-                  (fun y : Cube M.edgeCount => F (π * M.tau y)) x) ^
+                  (fun y : FinCube M.edgeCount => F (π * M.tau y)) x) ^
                 (2 : ℕ)) := by
           apply Finset.sum_congr rfl
           intro π _hπ
           rw [← cubeExpectation_sq_sub_cubeLowDegreeOnePart_eq_highDegreeEnergy]
     _ =
         ∑ π : Perm α,
-          (∑ x : Cube M.edgeCount,
+          (∑ x : FinCube M.edgeCount,
               (F (π * M.tau x) -
                 cubeLowDegreeOnePart
-                  (fun y : Cube M.edgeCount => F (π * M.tau y)) x) ^
+                  (fun y : FinCube M.edgeCount => F (π * M.tau y)) x) ^
                 (2 : ℕ)) /
-            (Fintype.card (Cube M.edgeCount) : ℝ) := by
+            (Fintype.card (FinCube M.edgeCount) : ℝ) := by
           rfl
     _ =
         ∑ π : Perm α,
-          (∑ x : Cube M.edgeCount,
+          (∑ x : FinCube M.edgeCount,
               (F (π * M.tau x) -
                 matchingLocalProjection M F (π * M.tau x)) ^ (2 : ℕ)) /
-            (Fintype.card (Cube M.edgeCount) : ℝ) := by
+            (Fintype.card (FinCube M.edgeCount) : ℝ) := by
           apply Finset.sum_congr rfl
           intro π _hπ
           congr 1
@@ -136,34 +138,34 @@ theorem S04_Prop4_02_errorFormula {α : Type*} [Fintype α] [DecidableEq α]
                 (F σ - matchingLocalProjection M F σ) ^ (2 : ℕ))
 
 private theorem cubeExpectation_mul_eq_sum_fourierCoeff {m : ℕ}
-    (g h : Cube m → ℝ) :
-    cubeExpectation (fun x : Cube m => g x * h x) =
+    (g h : FinCube m → ℝ) :
+    cubeExpectation (fun x : FinCube m => g x * h x) =
       ∑ S : Finset (Fin m), cubeFourierCoeff g S * cubeFourierCoeff h S := by
   classical
-  let N : ℝ := Fintype.card (Cube m)
+  let N : ℝ := Fintype.card (FinCube m)
   calc
-    cubeExpectation (fun x : Cube m => g x * h x)
+    cubeExpectation (fun x : FinCube m => g x * h x)
         =
         cubeExpectation
-          (fun x : Cube m =>
+          (fun x : FinCube m =>
             g x * (∑ S : Finset (Fin m),
               cubeFourierCoeff h S * cubeChar S x)) := by
           congr
           ext x
           rw [← S02_Lem2_03_cubeFourier_expansion m h x]
     _ = ∑ S : Finset (Fin m), cubeFourierCoeff h S *
-          cubeExpectation (fun x : Cube m => g x * cubeChar S x) := by
+          cubeExpectation (fun x : FinCube m => g x * cubeChar S x) := by
           calc
             cubeExpectation
-                (fun x : Cube m =>
+                (fun x : FinCube m =>
                   g x * (∑ S : Finset (Fin m),
                     cubeFourierCoeff h S * cubeChar S x))
                 =
-                (∑ x : Cube m,
+                (∑ x : FinCube m,
                   g x * (∑ S : Finset (Fin m),
                     cubeFourierCoeff h S * cubeChar S x)) / N := by
                     simp [cubeExpectation, N]
-            _ = (∑ x : Cube m,
+            _ = (∑ x : FinCube m,
                   ∑ S : Finset (Fin m),
                     g x * (cubeFourierCoeff h S * cubeChar S x)) / N := by
                     congr 1
@@ -171,35 +173,35 @@ private theorem cubeExpectation_mul_eq_sum_fourierCoeff {m : ℕ}
                     intro x _hx
                     rw [Finset.mul_sum]
             _ = (∑ S : Finset (Fin m),
-                  ∑ x : Cube m,
+                  ∑ x : FinCube m,
                     g x * (cubeFourierCoeff h S * cubeChar S x)) / N := by
                     rw [Finset.sum_comm]
             _ = ∑ S : Finset (Fin m),
-                  (∑ x : Cube m,
+                  (∑ x : FinCube m,
                     g x * (cubeFourierCoeff h S * cubeChar S x)) / N := by
                     rw [Finset.sum_div]
             _ = ∑ S : Finset (Fin m), cubeFourierCoeff h S *
-                  cubeExpectation (fun x : Cube m => g x * cubeChar S x) := by
+                  cubeExpectation (fun x : FinCube m => g x * cubeChar S x) := by
                     apply Finset.sum_congr rfl
                     intro S _hS
                     unfold cubeExpectation
                     calc
-                      (∑ x : Cube m,
+                      (∑ x : FinCube m,
                           g x * (cubeFourierCoeff h S * cubeChar S x)) / N
                           =
                           (cubeFourierCoeff h S *
-                            (∑ x : Cube m, g x * cubeChar S x)) / N := by
+                            (∑ x : FinCube m, g x * cubeChar S x)) / N := by
                             congr 1
                             rw [Finset.mul_sum]
                             apply Finset.sum_congr rfl
                             intro x _hx
                             ring
                       _ = cubeFourierCoeff h S *
-                            ((∑ x : Cube m, g x * cubeChar S x) / N) := by
+                            ((∑ x : FinCube m, g x * cubeChar S x) / N) := by
                             ring
                       _ = cubeFourierCoeff h S *
-                            ((∑ x : Cube m, g x * cubeChar S x) /
-                              (Fintype.card (Cube m) : ℝ)) := by
+                            ((∑ x : FinCube m, g x * cubeChar S x) /
+                              (Fintype.card (FinCube m) : ℝ)) := by
                             simp [N]
     _ = ∑ S : Finset (Fin m), cubeFourierCoeff g S * cubeFourierCoeff h S := by
           apply Finset.sum_congr rfl
@@ -208,9 +210,9 @@ private theorem cubeExpectation_mul_eq_sum_fourierCoeff {m : ℕ}
           ring
 
 private theorem cubeExpectation_lowDegreeResidual_mul_of_highDegreeEnergy_eq_zero
-    {m : ℕ} (g h : Cube m → ℝ) (hh : cubeHighDegreeEnergy h = 0) :
+    {m : ℕ} (g h : FinCube m → ℝ) (hh : cubeHighDegreeEnergy h = 0) :
     cubeExpectation
-        (fun x : Cube m => (g x - cubeLowDegreeOnePart g x) * h x) = 0 := by
+        (fun x : FinCube m => (g x - cubeLowDegreeOnePart g x) * h x) = 0 := by
   rw [cubeExpectation_mul_eq_sum_fourierCoeff]
   apply Finset.sum_eq_zero
   intro S _hS
@@ -242,26 +244,26 @@ theorem S04_Prop4_02_perpendicular {α : Type*} [Fintype α] [DecidableEq α]
       intro π _hπ
       have hcube :
           cubeExpectation
-            (fun x : Cube M.edgeCount =>
-              ((fun y : Cube M.edgeCount => F (π * M.tau y)) x -
+            (fun x : FinCube M.edgeCount =>
+              ((fun y : FinCube M.edgeCount => F (π * M.tau y)) x -
                 cubeLowDegreeOnePart
-                  (fun y : Cube M.edgeCount => F (π * M.tau y)) x) *
-                (fun y : Cube M.edgeCount => K (π * M.tau y)) x) = 0 :=
+                  (fun y : FinCube M.edgeCount => F (π * M.tau y)) x) *
+                (fun y : FinCube M.edgeCount => K (π * M.tau y)) x) = 0 :=
         cubeExpectation_lowDegreeResidual_mul_of_highDegreeEnergy_eq_zero
-          (g := fun y : Cube M.edgeCount => F (π * M.tau y))
-          (h := fun y : Cube M.edgeCount => K (π * M.tau y))
+          (g := fun y : FinCube M.edgeCount => F (π * M.tau y))
+          (h := fun y : FinCube M.edgeCount => K (π * M.tau y))
           (hK π)
       unfold cubeExpectation at hcube
       calc
-        (∑ x : Cube M.edgeCount, R (π * M.tau x) * K (π * M.tau x)) /
-            (Fintype.card (Cube M.edgeCount) : ℝ)
+        (∑ x : FinCube M.edgeCount, R (π * M.tau x) * K (π * M.tau x)) /
+            (Fintype.card (FinCube M.edgeCount) : ℝ)
             =
-            (∑ x : Cube M.edgeCount,
+            (∑ x : FinCube M.edgeCount,
                 (F (π * M.tau x) -
                   cubeLowDegreeOnePart
-                    (fun y : Cube M.edgeCount => F (π * M.tau y)) x) *
+                    (fun y : FinCube M.edgeCount => F (π * M.tau y)) x) *
                   K (π * M.tau x)) /
-              (Fintype.card (Cube M.edgeCount) : ℝ) := by
+              (Fintype.card (FinCube M.edgeCount) : ℝ) := by
               congr 1
               apply Finset.sum_congr rfl
               intro x _hx

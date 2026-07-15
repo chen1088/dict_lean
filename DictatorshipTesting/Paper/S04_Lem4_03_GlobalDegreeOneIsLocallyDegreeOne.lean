@@ -1,10 +1,12 @@
 import DictatorshipTesting.Paper.Defs.S04_Def4_01_MatchingLocalDegreeOneAndProjection
-import DictatorshipTesting.Paper.S02_Int_CubeCharFlip
-import DictatorshipTesting.Paper.S02_Int_CubeFlipInvolutive
+import AlgebraicLibrary.BooleanCube.Fourier
+import AlgebraicLibrary.BooleanCube.Basic
 import DictatorshipTesting.Paper.S03_Lem3_01_DictatorToJunta
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval
 import DictatorshipTesting.Paper.S04_Int_CubeHighDegreeLinear
 import DictatorshipTesting.Paper.S04_Prop4_02_CosetwiseDescriptionOfPM
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
@@ -25,15 +27,15 @@ namespace DictatorshipTesting
 /-- If a function is invariant under flipping a coordinate in the character
 support, then the corresponding Fourier coefficient is zero. -/
 theorem cubeFourierCoeff_eq_zero_of_cubeFlip_invariant {m : ℕ}
-    (g : Cube m → ℝ) {S : Finset (Fin m)} {r : Fin m}
+    (g : FinCube m → ℝ) {S : Finset (Fin m)} {r : Fin m}
     (hr : r ∈ S) (hflip : ∀ x, g (cubeFlip r x) = g x) :
     cubeFourierCoeff g S = 0 := by
   classical
   unfold cubeFourierCoeff cubeExpectation
-  have hsum : (∑ x : Cube m, g x * cubeChar S x) = 0 := by
+  have hsum : (∑ x : FinCube m, g x * cubeChar S x) = 0 := by
     simpa using
       (Finset.sum_involution
-        (s := (Finset.univ : Finset (Cube m)))
+        (s := (Finset.univ : Finset (FinCube m)))
         (f := fun x => g x * cubeChar S x)
         (g := fun x _ => cubeFlip r x)
         (by
@@ -53,7 +55,7 @@ theorem cubeFourierCoeff_eq_zero_of_cubeFlip_invariant {m : ℕ}
   simp [hsum]
 
 theorem cubeFourierCoeff_bool_constant_eq_zero_of_two_le_card {m : ℕ}
-    (g : Cube m → Bool) (hg : IsCubeConstant g)
+    (g : FinCube m → Bool) (hg : IsCubeConstant g)
     {S : Finset (Fin m)} (hS : 2 ≤ S.card) :
     cubeFourierCoeff (fun x => boolToReal (g x)) S = 0 := by
   have hpos : 0 < S.card := by omega
@@ -75,7 +77,7 @@ theorem exists_mem_ne_of_two_le_card {m : ℕ} (S : Finset (Fin m))
   · exact ⟨a, ha, har⟩
 
 theorem cubeFourierCoeff_bool_juntaAt_eq_zero_of_two_le_card {m : ℕ}
-    (g : Cube m → Bool) {r : Fin m} (hg : IsCubeJuntaAt g r)
+    (g : FinCube m → Bool) {r : Fin m} (hg : IsCubeJuntaAt g r)
     {S : Finset (Fin m)} (hS : 2 ≤ S.card) :
     cubeFourierCoeff (fun x => boolToReal (g x)) S = 0 := by
   rcases exists_mem_ne_of_two_le_card S r hS with ⟨t, htS, htr⟩
@@ -88,7 +90,7 @@ theorem cubeFourierCoeff_bool_juntaAt_eq_zero_of_two_le_card {m : ℕ}
 
 /-- A Boolean one-junta has no Fourier energy in levels at least two. -/
 theorem cubeHighDegreeEnergy_boolToReal_eq_zero_of_oneJunta {m : ℕ}
-    (g : Cube m → Bool) (hg : IsCubeOneJunta g) :
+    (g : FinCube m → Bool) (hg : IsCubeOneJunta g) :
     cubeHighDegreeEnergy (fun x => boolToReal (g x)) = 0 := by
   classical
   unfold cubeHighDegreeEnergy
@@ -123,7 +125,7 @@ theorem S04_Lem4_03_TijLocalDegree {α : Type*} [Fintype α] [DecidableEq α]
 
 /-- The zero cube function has no high-degree Fourier energy. -/
 theorem cubeHighDegreeEnergy_zero (m : ℕ) :
-    cubeHighDegreeEnergy (fun _ : Cube m => (0 : ℝ)) = 0 := by
+    cubeHighDegreeEnergy (fun _ : FinCube m => (0 : ℝ)) = 0 := by
   apply cubeHighDegreeEnergy_eq_zero_of_forall_highDegree_coeff_zero
   intro S _hS
   unfold cubeFourierCoeff cubeExpectation

@@ -1,18 +1,18 @@
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.S05_Int_TableauDimension
-import DictatorshipTesting.Paper.S05_Int_YoungTableauSumOfSquares
+import AlgebraicLibrary.Young.TableauDimension
+import AlgebraicLibrary.Young.TableauSumOfSquares
 import DictatorshipTesting.Paper.S05_Int_ConcreteYoungMatrixCoefficientBlocks
-import DictatorshipTesting.Paper.Defs.S05_Def5_04_TableauCoordinateSpace
+import AlgebraicLibrary.Young.TableauTrace
 import Mathlib.LinearAlgebra.Basis.Basic
 import DictatorshipTesting.Paper.S05_Thm5_02_YoungOrthogonalAction
 import DictatorshipTesting.Paper.S05_Thm5_03_JucysMurphyContentAction
 import DictatorshipTesting.Paper.S05_Lem5_04_ContentSeparationAndTableauConnectivity
 import DictatorshipTesting.Paper.S05_Lem5_05_YoungBasisScalarCommutant
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_Def5_06b_YoungMatrixCoefficients`
-- `DictatorshipTesting.Paper.Defs.S05_Def5_06c_YoungBlockComponentsAndEnergies`
 - `DictatorshipTesting.Paper.S04_Thm4_04_MatchingGap`
 - `DictatorshipTesting.Paper.S05_Lem5_06_YoungMatrixCoefficientOrthogonality`
 - `DictatorshipTesting.Paper.S05_Lem5_08_RegularYoungBlockDecomposition`

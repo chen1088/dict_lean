@@ -1,4 +1,7 @@
-import DictatorshipTesting.Paper.Defs.S03_IntDef_OrderedMatchingTau
+import DictatorshipTesting.Paper.Defs.S02_IntDef_BoolFn
+import AlgebraicLibrary.Combinatorics.OrderedMatching.Basic
+
+open AlgebraicLibrary
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S03_IntDef_CubeDirectionColor`
@@ -19,7 +22,7 @@ namespace DictatorshipTesting
 /-- Restrict a Boolean function on permutations to a matching cube based at `pi`. -/
 def matchingCubeRestriction {α : Type*} [DecidableEq α]
     (f : BoolFn α) (M : OrderedMatching α) (π : Perm α) :
-    Cube M.edgeCount → Bool :=
+    FinCube M.edgeCount → Bool :=
   fun x => f (π * M.tau x)
 
 end DictatorshipTesting

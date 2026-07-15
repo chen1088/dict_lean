@@ -11,17 +11,17 @@ visible numbered dependency chain.
 
 | Statement | Title | Lean file(s) |
 | --- | --- | --- |
-| Definition 5.1 | Young diagrams and boxes | `Defs/S05_Def5_01_YoungDiagramsAndBoxes.lean` |
-| Definition 5.2 | Removable corners and one-box removals | `Defs/S05_Def5_02_RemovableCorners.lean` |
-| Definition 5.3 | Standard Young tableaux and occupation notation | `Defs/S05_Def5_03_StandardTableaux.lean` |
-| Definition 5.4 | Tableau coordinate space | `Defs/S05_Def5_04_TableauCoordinateSpace.lean` |
-| Definition 5.5 | Contents and adjacent operators | `Defs/S05_Def5_05_ContentAndAdjacentOperators.lean` |
-| Definition 5.6 | Young matrix coefficients, blocks, and energies | `Defs/S05_Def5_06a_YoungBlock.lean`, `Defs/S05_Def5_06b_YoungMatrixCoefficients.lean`, `Defs/S05_Def5_06c_YoungBlockComponentsAndEnergies.lean` |
-| Definition 5.7 | Branching data | `Defs/S05_Def5_07a_TwoBoxRemovals.lean`, `Defs/S05_Def5_07b_SignedTwoBoxRemovals.lean`, `Defs/S05_Def5_07c_OneBoxRemovals.lean` |
+| Definition 5.1 | Young diagrams and boxes | `AlgebraicLibrary/Young/IndexedDiagram.lean` |
+| Definition 5.2 | Removable corners and one-box removals | `AlgebraicLibrary/Young/IndexedDiagram.lean`, `DiagramCorners.lean`, `TableauDimension.lean` |
+| Definition 5.3 | Standard Young tableaux and occupation notation | `AlgebraicLibrary/Young/StandardTableau.lean` |
+| Definition 5.4 | Tableau coordinate space | `AlgebraicLibrary/Young/TableauDimension.lean`, `OrthogonalRepresentation.lean` |
+| Definition 5.5 | Contents and adjacent operators | `AlgebraicLibrary/Young/StandardTableau.lean`, `OrthogonalRepresentation.lean` |
+| Definition 5.6 | Young matrix coefficients, blocks, and energies | `S05_Int_RegularYoungBlockDecomposition.lean` |
+| Definition 5.7 | Branching data | `AlgebraicLibrary/Young/IndexedDiagram.lean`, `TableauDimension.lean` |
 | Definition 5.8 | Signed two-box extension spaces | `Defs/S05_Def5_08_SignedTwoBoxExtensionSpaces.lean` |
-| Definition 5.9 | One-box deletion spaces | `Defs/S05_Def5_09_OneBoxDeletionSpaces.lean` |
+| Definition 5.9 | One-box deletion spaces | `AlgebraicLibrary/Young/StandardTableau.lean` |
 | Definition 5.10 | Matching sign-pattern multisets and heights | `Defs/S05_Def5_10a_EvenSignPatternMultiset.lean`, `Defs/S05_Def5_10b_OddSignPatternMultiset.lean` |
-| Definition 5.11 | Matching characters and eigenvectors | `Defs/S05_Def5_11a_MatchingCharacters.lean`, `Defs/S05_Def5_11b_IsMatchingEigenvectorEven.lean`, `Defs/S05_Def5_11c_IsMatchingEigenvectorOdd.lean` |
+| Definition 5.11 | Matching characters and eigenvectors | `Defs/S05_Def5_11a_MatchingCharacters.lean`, `S05_Int_YoungMatchingOperators.lean` |
 | Definition 5.12 | Matching idempotents and averaged rejection | `Defs/S05_Def5_12a_MatchingIdempotents.lean`, `Defs/S05_Def5_12b_GroupAlgebraAction.lean`, `Defs/S05_Def5_12c_AveragedHighMatchingElement.lean`, `Defs/S05_Def5_12d_TableauOperatorTrace.lean` |
 
 ## Results
@@ -49,4 +49,6 @@ visible numbered dependency chain.
 | proven | Lemma 5.19 | Even certificate | `S05_Lem5_19_EvenCertificate.lean` |
 | proven | Lemma 5.20 | Odd certificate | `S05_Lem5_20_OddCertificate.lean` |
 
-Count: 12 definitions, 20 theorem-like statements, and 42 paper-facing files.
+Count: 12 definitions, 20 theorem-like statements, and 28 paper-facing files.
+Library-owned definitions are referenced at their defining module without
+paper-side forwarding files.

@@ -1,6 +1,8 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_HEven
 import DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`

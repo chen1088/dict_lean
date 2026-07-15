@@ -1,4 +1,6 @@
-import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungRow
+import AlgebraicLibrary.Young.IndexedDiagram
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:

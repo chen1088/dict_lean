@@ -3,6 +3,8 @@ import DictatorshipTesting.Paper.S05_Int_PMConvolution
 import DictatorshipTesting.Paper.Defs.S05_Def5_11a_MatchingCharacters
 import DictatorshipTesting.Paper.Defs.S04_Def4_01_MatchingLocalDegreeOneAndProjection
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
@@ -66,8 +68,8 @@ theorem S05_matchingLowIdempotent_apply
     (M : OrderedMatching α) (F : Perm α -> ℝ) (π : Perm α) :
     S05_matchingLowIdempotent M F π =
       ∑ S ∈ S05_matchingLowCharacterSet M,
-        cubeFourierCoeff (fun x : Cube M.edgeCount => F (π * M.tau x)) S *
-          S05_matchingCharacter S (cubeZero M.edgeCount) := by
+        cubeFourierCoeff (fun x : FinCube M.edgeCount => F (π * M.tau x)) S *
+          S05_matchingCharacter S (finCubeZero M.edgeCount) := by
   rfl
 
 /-- The high matching idempotent is the high-character Fourier sum on the
@@ -77,8 +79,8 @@ theorem S05_matchingHighIdempotent_apply
     (M : OrderedMatching α) (F : Perm α -> ℝ) (π : Perm α) :
     S05_matchingHighIdempotent M F π =
       ∑ S ∈ S05_matchingHighCharacterSet M,
-        cubeFourierCoeff (fun x : Cube M.edgeCount => F (π * M.tau x)) S *
-          S05_matchingCharacter S (cubeZero M.edgeCount) := by
+        cubeFourierCoeff (fun x : FinCube M.edgeCount => F (π * M.tau x)) S *
+          S05_matchingCharacter S (finCubeZero M.edgeCount) := by
   rfl
 
 /-- The matching-local projection is idempotent. -/
@@ -88,9 +90,9 @@ theorem matchingLocalProjection_idempotent
     matchingLocalProjection M (matchingLocalProjection M F) =
       matchingLocalProjection M F := by
   funext π
-  let g : Cube M.edgeCount -> ℝ := fun x => F (π * M.tau x)
+  let g : FinCube M.edgeCount -> ℝ := fun x => F (π * M.tau x)
   have hrestrict :
-      (fun y : Cube M.edgeCount =>
+      (fun y : FinCube M.edgeCount =>
         matchingLocalProjection M F (π * M.tau y)) =
         cubeLowDegreeOnePart g := by
     funext y
@@ -98,13 +100,13 @@ theorem matchingLocalProjection_idempotent
   calc
     matchingLocalProjection M (matchingLocalProjection M F) π =
         cubeLowDegreeOnePart
-          (fun y : Cube M.edgeCount =>
+          (fun y : FinCube M.edgeCount =>
             matchingLocalProjection M F (π * M.tau y))
-          (cubeZero M.edgeCount) := rfl
+          (finCubeZero M.edgeCount) := rfl
     _ = cubeLowDegreeOnePart (cubeLowDegreeOnePart g)
-          (cubeZero M.edgeCount) := by
+          (finCubeZero M.edgeCount) := by
         rw [hrestrict]
-    _ = cubeLowDegreeOnePart g (cubeZero M.edgeCount) := by
+    _ = cubeLowDegreeOnePart g (finCubeZero M.edgeCount) := by
         rw [cubeLowDegreeOnePart_idempotent g]
     _ = matchingLocalProjection M F π := rfl
 
@@ -114,7 +116,7 @@ theorem matchingLocalProjection_highConvolution_eq_zero
     (M : OrderedMatching α) (F : Perm α -> ℝ) :
     matchingLocalProjection M (matchingHighConvolution M F) = fun _ => 0 := by
   funext π
-  let g : Cube M.edgeCount -> ℝ := fun x => F (π * M.tau x)
+  let g : FinCube M.edgeCount -> ℝ := fun x => F (π * M.tau x)
   calc
     matchingLocalProjection M (matchingHighConvolution M F) π =
         matchingLocalProjection M
@@ -122,14 +124,14 @@ theorem matchingLocalProjection_highConvolution_eq_zero
         rw [(S05_Int_PMConvolution M F).2]
     _ =
         cubeLowDegreeOnePart
-          (fun y : Cube M.edgeCount =>
+          (fun y : FinCube M.edgeCount =>
             (fun ρ => F ρ - matchingLocalProjection M F ρ)
               (π * M.tau y))
-          (cubeZero M.edgeCount) := rfl
+          (finCubeZero M.edgeCount) := rfl
     _ =
         cubeLowDegreeOnePart
-          (fun y : Cube M.edgeCount => g y - cubeLowDegreeOnePart g y)
-          (cubeZero M.edgeCount) := by
+          (fun y : FinCube M.edgeCount => g y - cubeLowDegreeOnePart g y)
+          (finCubeZero M.edgeCount) := by
         congr
         funext y
         dsimp [g]

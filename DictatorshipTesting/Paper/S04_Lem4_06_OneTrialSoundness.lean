@@ -1,6 +1,8 @@
 import DictatorshipTesting.Paper.S04_Prop4_05_SquareEnergyControlsGlobalDegree
 import DictatorshipTesting.Paper.S02_Thm2_02_FKNStability
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
@@ -42,11 +44,11 @@ theorem matchingTrialDelta_sq_le_four_rejectIndicator {n : ℕ}
       4 * (if matchingTrialDelta f M π c = 0 then (0 : ℝ) else 1) := by
   unfold matchingTrialDeltaReal matchingTrialDelta cubeDelta matchingCubeRestriction
   exact bool_four_query_delta_sq_le_indicator
-    (f (π * M.tau (cubeZero M.edgeCount)))
-    (f (π * M.tau (cubeXor (cubeZero M.edgeCount) (cubeColorU c))))
-    (f (π * M.tau (cubeXor (cubeZero M.edgeCount) (cubeColorV c))))
+    (f (π * M.tau (finCubeZero M.edgeCount)))
+    (f (π * M.tau (cubeXor (finCubeZero M.edgeCount) (cubeColorU c))))
+    (f (π * M.tau (cubeXor (finCubeZero M.edgeCount) (cubeColorV c))))
     (f (π * M.tau
-      (cubeXor (cubeXor (cubeZero M.edgeCount) (cubeColorU c)) (cubeColorV c))))
+      (cubeXor (cubeXor (finCubeZero M.edgeCount) (cubeColorU c)) (cubeColorV c))))
 
 /-- For Boolean inputs, one-trial rejection probability controls one quarter of
 the delta-square expectation. -/

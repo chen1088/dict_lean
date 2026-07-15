@@ -1,7 +1,8 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingTrialDelta
+
+open AlgebraicLibrary
 /-
-Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S02_Def2_02a_CubeLowDegreeOnePart`
+Direct reverse imports: none.
 -/
 
 
@@ -19,7 +20,7 @@ namespace DictatorshipTesting
 def matchingTrialDeltaReal {α : Type*} [DecidableEq α]
     (F : Perm α → ℝ) (M : OrderedMatching α) (π : Perm α)
     (c : CubeDirectionColor M.edgeCount) : ℝ :=
-  cubeDelta (fun x : Cube M.edgeCount => F (π * M.tau x))
-    (cubeZero M.edgeCount) (cubeColorU c) (cubeColorV c)
+  cubeDelta (fun x : FinCube M.edgeCount => F (π * M.tau x))
+    (finCubeZero M.edgeCount) (cubeColorU c) (cubeColorV c)
 
 end DictatorshipTesting

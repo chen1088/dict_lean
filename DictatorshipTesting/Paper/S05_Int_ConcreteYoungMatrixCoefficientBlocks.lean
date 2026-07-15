@@ -1,5 +1,7 @@
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
-import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungOrthogonalActionData
+import AlgebraicLibrary.Young.OrthogonalActionData
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:

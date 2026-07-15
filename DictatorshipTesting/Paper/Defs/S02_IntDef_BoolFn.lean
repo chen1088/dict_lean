@@ -1,7 +1,6 @@
 import DictatorshipTesting.Basic
 /-
-Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S02_IntDef_BoolToReal`
+Direct reverse imports: none.
 -/
 
 

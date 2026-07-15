@@ -2,6 +2,8 @@ import DictatorshipTesting.Paper.S05_Lem5_04_ContentSeparationAndTableauConnecti
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
 import DictatorshipTesting.Paper.Defs.S05_IntDef_YoungBasisScalarCommutantInput
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`

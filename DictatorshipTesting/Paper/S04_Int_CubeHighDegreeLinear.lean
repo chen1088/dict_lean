@@ -1,4 +1,6 @@
-import DictatorshipTesting.Paper.Defs.S02_Def2_02b_CubeHighDegreeEnergy
+import AlgebraicLibrary.BooleanCube.LowDegree
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
@@ -16,59 +18,59 @@ open scoped BigOperators
 
 namespace DictatorshipTesting
 
-/-- Cube Fourier coefficients are additive in the function. -/
-theorem cubeFourierCoeff_add {m : ℕ} (g h : Cube m → ℝ)
+/-- FinCube Fourier coefficients are additive in the function. -/
+theorem cubeFourierCoeff_add {m : ℕ} (g h : FinCube m → ℝ)
     (S : Finset (Fin m)) :
     cubeFourierCoeff (fun x => g x + h x) S =
       cubeFourierCoeff g S + cubeFourierCoeff h S := by
   unfold cubeFourierCoeff cubeExpectation
   calc
-    (∑ x : Cube m, (g x + h x) * cubeChar S x) /
-        (Fintype.card (Cube m) : ℝ)
+    (∑ x : FinCube m, (g x + h x) * cubeChar S x) /
+        (Fintype.card (FinCube m) : ℝ)
         =
-        (∑ x : Cube m, (g x * cubeChar S x + h x * cubeChar S x)) /
-          (Fintype.card (Cube m) : ℝ) := by
+        (∑ x : FinCube m, (g x * cubeChar S x + h x * cubeChar S x)) /
+          (Fintype.card (FinCube m) : ℝ) := by
           congr 1
           apply Finset.sum_congr rfl
           intro x _
           ring
     _ =
-        ((∑ x : Cube m, g x * cubeChar S x) +
-          (∑ x : Cube m, h x * cubeChar S x)) /
-          (Fintype.card (Cube m) : ℝ) := by
+        ((∑ x : FinCube m, g x * cubeChar S x) +
+          (∑ x : FinCube m, h x * cubeChar S x)) /
+          (Fintype.card (FinCube m) : ℝ) := by
           rw [Finset.sum_add_distrib]
     _ =
-        (∑ x : Cube m, g x * cubeChar S x) /
-            (Fintype.card (Cube m) : ℝ) +
-          (∑ x : Cube m, h x * cubeChar S x) /
-            (Fintype.card (Cube m) : ℝ) := by
+        (∑ x : FinCube m, g x * cubeChar S x) /
+            (Fintype.card (FinCube m) : ℝ) +
+          (∑ x : FinCube m, h x * cubeChar S x) /
+            (Fintype.card (FinCube m) : ℝ) := by
           rw [add_div]
 
-/-- Cube Fourier coefficients are homogeneous in the function. -/
-theorem cubeFourierCoeff_smul {m : ℕ} (a : ℝ) (g : Cube m → ℝ)
+/-- FinCube Fourier coefficients are homogeneous in the function. -/
+theorem cubeFourierCoeff_smul {m : ℕ} (a : ℝ) (g : FinCube m → ℝ)
     (S : Finset (Fin m)) :
     cubeFourierCoeff (fun x => a * g x) S =
       a * cubeFourierCoeff g S := by
   unfold cubeFourierCoeff cubeExpectation
   calc
-    (∑ x : Cube m, (a * g x) * cubeChar S x) /
-        (Fintype.card (Cube m) : ℝ)
+    (∑ x : FinCube m, (a * g x) * cubeChar S x) /
+        (Fintype.card (FinCube m) : ℝ)
         =
-        (a * ∑ x : Cube m, g x * cubeChar S x) /
-          (Fintype.card (Cube m) : ℝ) := by
+        (a * ∑ x : FinCube m, g x * cubeChar S x) /
+          (Fintype.card (FinCube m) : ℝ) := by
           congr 1
           rw [Finset.mul_sum]
           apply Finset.sum_congr rfl
           intro x _
           ring
     _ =
-        a * ((∑ x : Cube m, g x * cubeChar S x) /
-          (Fintype.card (Cube m) : ℝ)) := by
+        a * ((∑ x : FinCube m, g x * cubeChar S x) /
+          (Fintype.card (FinCube m) : ℝ)) := by
           ring
 
 /-- If the high-degree energy is zero, each high-degree coefficient is zero. -/
 theorem cubeFourierCoeff_eq_zero_of_cubeHighDegreeEnergy_eq_zero {m : ℕ}
-    {g : Cube m → ℝ} (hE : cubeHighDegreeEnergy g = 0)
+    {g : FinCube m → ℝ} (hE : cubeHighDegreeEnergy g = 0)
     {S : Finset (Fin m)} (hS : 2 ≤ S.card) :
     cubeFourierCoeff g S = 0 := by
   classical
@@ -87,7 +89,7 @@ theorem cubeFourierCoeff_eq_zero_of_cubeHighDegreeEnergy_eq_zero {m : ℕ}
 
 /-- Vanishing of all high-degree coefficients implies vanishing high-degree energy. -/
 theorem cubeHighDegreeEnergy_eq_zero_of_forall_highDegree_coeff_zero {m : ℕ}
-    {g : Cube m → ℝ}
+    {g : FinCube m → ℝ}
     (hcoeff : ∀ S : Finset (Fin m), 2 ≤ S.card → cubeFourierCoeff g S = 0) :
     cubeHighDegreeEnergy g = 0 := by
   classical
@@ -98,7 +100,7 @@ theorem cubeHighDegreeEnergy_eq_zero_of_forall_highDegree_coeff_zero {m : ℕ}
   simp [hcoeff S hcard]
 
 /-- High-degree-energy zero is closed under addition. -/
-theorem cubeHighDegreeEnergy_add_eq_zero {m : ℕ} {g h : Cube m → ℝ}
+theorem cubeHighDegreeEnergy_add_eq_zero {m : ℕ} {g h : FinCube m → ℝ}
     (hg : cubeHighDegreeEnergy g = 0) (hh : cubeHighDegreeEnergy h = 0) :
     cubeHighDegreeEnergy (fun x => g x + h x) = 0 := by
   apply cubeHighDegreeEnergy_eq_zero_of_forall_highDegree_coeff_zero
@@ -109,7 +111,7 @@ theorem cubeHighDegreeEnergy_add_eq_zero {m : ℕ} {g h : Cube m → ℝ}
   ring
 
 /-- High-degree-energy zero is closed under scalar multiplication. -/
-theorem cubeHighDegreeEnergy_smul_eq_zero {m : ℕ} (a : ℝ) {g : Cube m → ℝ}
+theorem cubeHighDegreeEnergy_smul_eq_zero {m : ℕ} (a : ℝ) {g : FinCube m → ℝ}
     (hg : cubeHighDegreeEnergy g = 0) :
     cubeHighDegreeEnergy (fun x => a * g x) = 0 := by
   apply cubeHighDegreeEnergy_eq_zero_of_forall_highDegree_coeff_zero

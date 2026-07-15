@@ -13,6 +13,8 @@ import DictatorshipTesting.Paper.S05_Lem5_06_YoungMatrixCoefficientOrthogonality
 import DictatorshipTesting.Paper.S05_Lem5_08_RegularYoungBlockDecomposition
 import DictatorshipTesting.Paper.S05_Lem5_09_DegreeOneYoungBlockIdentification
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`

@@ -5,6 +5,8 @@ import DictatorshipTesting.Paper.Defs.S05_IntDef_CertificateExceptionalPredicate
 import DictatorshipTesting.Paper.S05_Lem5_17_CountingOneMoreMatchingEdge
 import DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`

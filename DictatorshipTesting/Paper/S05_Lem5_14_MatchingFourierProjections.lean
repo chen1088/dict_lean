@@ -5,6 +5,8 @@ import DictatorshipTesting.Paper.Defs.S04_Def4_01_MatchingLocalDegreeOneAndProje
 import DictatorshipTesting.Paper.S05_Int_PMConvolution
 import DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`
@@ -26,8 +28,8 @@ namespace DictatorshipTesting
 /-- The degree-at-most-one cube projection preserves low-degree characters. -/
 theorem cubeLowDegreeOnePart_cubeChar_of_card_le_one {m : ℕ}
     {S : Finset (Fin m)} (hS : S.card ≤ 1) :
-    cubeLowDegreeOnePart (fun x : Cube m => cubeChar S x) =
-      fun x : Cube m => cubeChar S x := by
+    cubeLowDegreeOnePart (fun x : FinCube m => cubeChar S x) =
+      fun x : FinCube m => cubeChar S x := by
   exact
     cubeLowDegreeOnePart_eq_self_of_cubeHighDegreeEnergy_eq_zero
       (cubeHighDegreeEnergy_cubeChar_eq_zero_of_card_le_one hS)
@@ -35,8 +37,8 @@ theorem cubeLowDegreeOnePart_cubeChar_of_card_le_one {m : ℕ}
 /-- The degree-at-most-one cube projection kills high-degree characters. -/
 theorem cubeLowDegreeOnePart_cubeChar_of_two_le_card {m : ℕ}
     {S : Finset (Fin m)} (hS : 2 ≤ S.card) :
-    cubeLowDegreeOnePart (fun x : Cube m => cubeChar S x) =
-      fun _ : Cube m => 0 := by
+    cubeLowDegreeOnePart (fun x : FinCube m => cubeChar S x) =
+      fun _ : FinCube m => 0 := by
   classical
   funext x
   unfold cubeLowDegreeOnePart
@@ -55,12 +57,12 @@ theorem matchingLocalProjection_preserves_low_local_char {α : Type*}
     [Fintype α] [DecidableEq α] (M : OrderedMatching α)
     (F : Perm α → ℝ) (π : Perm α) {S : Finset (Fin M.edgeCount)}
     (hS : S.card ≤ 1)
-    (hlocal : ∀ x : Cube M.edgeCount, F (π * M.tau x) = cubeChar S x)
-    (x : Cube M.edgeCount) :
+    (hlocal : ∀ x : FinCube M.edgeCount, F (π * M.tau x) = cubeChar S x)
+    (x : FinCube M.edgeCount) :
     matchingLocalProjection M F (π * M.tau x) = F (π * M.tau x) := by
   have hg :
-      (fun y : Cube M.edgeCount => F (π * M.tau y)) =
-        fun y : Cube M.edgeCount => cubeChar S y := by
+      (fun y : FinCube M.edgeCount => F (π * M.tau y)) =
+        fun y : FinCube M.edgeCount => cubeChar S y := by
     funext y
     exact hlocal y
   rw [matchingLocalProjection_apply_mul_tau, hg,
@@ -73,12 +75,12 @@ theorem matchingLocalProjection_kills_high_local_char {α : Type*}
     [Fintype α] [DecidableEq α] (M : OrderedMatching α)
     (F : Perm α → ℝ) (π : Perm α) {S : Finset (Fin M.edgeCount)}
     (hS : 2 ≤ S.card)
-    (hlocal : ∀ x : Cube M.edgeCount, F (π * M.tau x) = cubeChar S x)
-    (x : Cube M.edgeCount) :
+    (hlocal : ∀ x : FinCube M.edgeCount, F (π * M.tau x) = cubeChar S x)
+    (x : FinCube M.edgeCount) :
     matchingLocalProjection M F (π * M.tau x) = 0 := by
   have hg :
-      (fun y : Cube M.edgeCount => F (π * M.tau y)) =
-        fun y : Cube M.edgeCount => cubeChar S y := by
+      (fun y : FinCube M.edgeCount => F (π * M.tau y)) =
+        fun y : FinCube M.edgeCount => cubeChar S y := by
     funext y
     exact hlocal y
   rw [matchingLocalProjection_apply_mul_tau, hg,
@@ -88,26 +90,26 @@ theorem matchingLocalProjection_kills_high_local_char {α : Type*}
 matching characters. -/
 theorem S05_Lem5_14_cubeLowDegreeOnePart_matchingCharacter_of_low {m : ℕ}
     {S : Finset (Fin m)} (hS : S05_matchingCharacterLow S) :
-    cubeLowDegreeOnePart (fun x : Cube m => S05_matchingCharacter S x) =
-      fun x : Cube m => S05_matchingCharacter S x := by
+    cubeLowDegreeOnePart (fun x : FinCube m => S05_matchingCharacter S x) =
+      fun x : FinCube m => S05_matchingCharacter S x := by
   exact cubeLowDegreeOnePart_cubeChar_of_card_le_one hS
 
 /-- Lemma 5.14, matching-character vocabulary: local truncation kills high
 matching characters. -/
 theorem S05_Lem5_14_cubeLowDegreeOnePart_matchingCharacter_of_high {m : ℕ}
     {S : Finset (Fin m)} (hS : S05_matchingCharacterHigh S) :
-    cubeLowDegreeOnePart (fun x : Cube m => S05_matchingCharacter S x) =
-      fun _ : Cube m => 0 := by
+    cubeLowDegreeOnePart (fun x : FinCube m => S05_matchingCharacter S x) =
+      fun _ : FinCube m => 0 := by
   exact cubeLowDegreeOnePart_cubeChar_of_two_le_card hS
 
 /-- Lemma 5.14, matching-character vocabulary: every matching character is
 either preserved by the local truncation or killed by it. -/
 theorem S05_Lem5_14_cubeLowDegreeOnePart_matchingCharacter_preserved_or_killed
     {m : ℕ} (S : Finset (Fin m)) :
-    (cubeLowDegreeOnePart (fun x : Cube m => S05_matchingCharacter S x) =
-        fun x : Cube m => S05_matchingCharacter S x) ∨
-      (cubeLowDegreeOnePart (fun x : Cube m => S05_matchingCharacter S x) =
-        fun _ : Cube m => 0) := by
+    (cubeLowDegreeOnePart (fun x : FinCube m => S05_matchingCharacter S x) =
+        fun x : FinCube m => S05_matchingCharacter S x) ∨
+      (cubeLowDegreeOnePart (fun x : FinCube m => S05_matchingCharacter S x) =
+        fun _ : FinCube m => 0) := by
   rcases S05_matchingCharacter_low_or_high S with hlow | hhigh
   · exact Or.inl (S05_Lem5_14_cubeLowDegreeOnePart_matchingCharacter_of_low hlow)
   · exact Or.inr (S05_Lem5_14_cubeLowDegreeOnePart_matchingCharacter_of_high hhigh)
@@ -118,9 +120,9 @@ theorem S05_Lem5_14_matchingLocalProjection_preserves_low_matchingCharacter
     {α : Type*} [Fintype α] [DecidableEq α] (M : OrderedMatching α)
     (F : Perm α → ℝ) (π : Perm α) {S : Finset (Fin M.edgeCount)}
     (hS : S05_matchingCharacterLow S)
-    (hlocal : ∀ x : Cube M.edgeCount,
+    (hlocal : ∀ x : FinCube M.edgeCount,
       F (π * M.tau x) = S05_matchingCharacter S x)
-    (x : Cube M.edgeCount) :
+    (x : FinCube M.edgeCount) :
     matchingLocalProjection M F (π * M.tau x) = F (π * M.tau x) := by
   exact matchingLocalProjection_preserves_low_local_char M F π hS hlocal x
 
@@ -130,9 +132,9 @@ theorem S05_Lem5_14_matchingLocalProjection_kills_high_matchingCharacter
     {α : Type*} [Fintype α] [DecidableEq α] (M : OrderedMatching α)
     (F : Perm α → ℝ) (π : Perm α) {S : Finset (Fin M.edgeCount)}
     (hS : S05_matchingCharacterHigh S)
-    (hlocal : ∀ x : Cube M.edgeCount,
+    (hlocal : ∀ x : FinCube M.edgeCount,
       F (π * M.tau x) = S05_matchingCharacter S x)
-    (x : Cube M.edgeCount) :
+    (x : FinCube M.edgeCount) :
     matchingLocalProjection M F (π * M.tau x) = 0 := by
   exact matchingLocalProjection_kills_high_local_char M F π hS hlocal x
 

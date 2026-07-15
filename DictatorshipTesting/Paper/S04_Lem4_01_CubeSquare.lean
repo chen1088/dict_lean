@@ -1,9 +1,11 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_CubeSquareEnergy
-import DictatorshipTesting.Paper.S02_Int_CubeFourierTranslate
+import AlgebraicLibrary.BooleanCube.Fourier
 import DictatorshipTesting.Paper.S04_Int_CubeHighDegreeLinear
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParsevalIdentity
 import DictatorshipTesting.Paper.S02_Lem2_03_CubeParseval
-import DictatorshipTesting.Paper.Defs.S02_Def2_02a_CubeLowDegreeOnePart
+import AlgebraicLibrary.BooleanCube.LowDegree
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
@@ -26,29 +28,29 @@ namespace DictatorshipTesting
 
 /-- Translating a cube function on the right by xor has the same Fourier effect
 as translating on the left. -/
-theorem cubeFourierCoeff_xor_right {m : ℕ} (g : Cube m → ℝ)
-    (z : Cube m) (S : Finset (Fin m)) :
+theorem cubeFourierCoeff_xor_right {m : ℕ} (g : FinCube m → ℝ)
+    (z : FinCube m) (S : Finset (Fin m)) :
     cubeFourierCoeff (fun y => g (cubeXor y z)) S =
       cubeChar S z * cubeFourierCoeff g S := by
   simpa [cubeXor_comm] using cubeFourierCoeff_xor_left g z S
 
 /-- The Fourier coefficient of a mixed cube difference is multiplied by the
 corresponding character difference factors. -/
-theorem cubeFourierCoeff_cubeDelta {m : ℕ} (g : Cube m → ℝ)
-    (u v : Cube m) (S : Finset (Fin m)) :
+theorem cubeFourierCoeff_cubeDelta {m : ℕ} (g : FinCube m → ℝ)
+    (u v : FinCube m) (S : Finset (Fin m)) :
     cubeFourierCoeff (fun x => cubeDelta g x u v) S =
       cubeFourierCoeff g S * (1 - cubeChar S u) * (1 - cubeChar S v) := by
   unfold cubeDelta
   have hlast :
       cubeFourierCoeff
-          (fun x : Cube m => g (cubeXor (cubeXor x u) v)) S =
+          (fun x : FinCube m => g (cubeXor (cubeXor x u) v)) S =
         cubeChar S u * cubeChar S v * cubeFourierCoeff g S := by
     calc
       cubeFourierCoeff
-          (fun x : Cube m => g (cubeXor (cubeXor x u) v)) S
+          (fun x : FinCube m => g (cubeXor (cubeXor x u) v)) S
           =
           cubeFourierCoeff
-            (fun x : Cube m => g (cubeXor x (cubeXor u v))) S := by
+            (fun x : FinCube m => g (cubeXor x (cubeXor u v))) S := by
             congr 1
             ext x
             rw [cubeXor_assoc]
@@ -58,12 +60,12 @@ theorem cubeFourierCoeff_cubeDelta {m : ℕ} (g : Cube m → ℝ)
             rw [cubeChar_cubeXor]
   calc
     cubeFourierCoeff
-        (fun x : Cube m =>
+        (fun x : FinCube m =>
           g x - g (cubeXor x u) - g (cubeXor x v) +
             g (cubeXor (cubeXor x u) v)) S
         =
         cubeFourierCoeff
-          (fun x : Cube m =>
+          (fun x : FinCube m =>
             g x + (-1) * g (cubeXor x u) +
               ((-1) * g (cubeXor x v) +
                 g (cubeXor (cubeXor x u) v))) S := by
@@ -72,10 +74,10 @@ theorem cubeFourierCoeff_cubeDelta {m : ℕ} (g : Cube m → ℝ)
           ring
     _ =
         cubeFourierCoeff g S +
-          cubeFourierCoeff (fun x : Cube m => (-1) * g (cubeXor x u)) S +
-            (cubeFourierCoeff (fun x : Cube m => (-1) * g (cubeXor x v)) S +
+          cubeFourierCoeff (fun x : FinCube m => (-1) * g (cubeXor x u)) S +
+            (cubeFourierCoeff (fun x : FinCube m => (-1) * g (cubeXor x v)) S +
               cubeFourierCoeff
-                (fun x : Cube m => g (cubeXor (cubeXor x u) v)) S) := by
+                (fun x : FinCube m => g (cubeXor (cubeXor x u) v)) S) := by
           rw [cubeFourierCoeff_add]
           rw [cubeFourierCoeff_add]
           rw [cubeFourierCoeff_add]
@@ -91,17 +93,17 @@ theorem cubeFourierCoeff_cubeDelta {m : ℕ} (g : Cube m → ℝ)
 
 /-- For fixed directions, Parseval expresses the square-difference energy as a
 Fourier coefficient sum with the usual multiplier. -/
-theorem cubeDelta_parseval {m : ℕ} (g : Cube m → ℝ) (u v : Cube m) :
-    cubeExpectation (fun x : Cube m => (cubeDelta g x u v) ^ (2 : ℕ)) =
+theorem cubeDelta_parseval {m : ℕ} (g : FinCube m → ℝ) (u v : FinCube m) :
+    cubeExpectation (fun x : FinCube m => (cubeDelta g x u v) ^ (2 : ℕ)) =
       ∑ S : Finset (Fin m),
         (cubeFourierCoeff g S * (1 - cubeChar S u) *
           (1 - cubeChar S v)) ^ (2 : ℕ) := by
   calc
-    cubeExpectation (fun x : Cube m => (cubeDelta g x u v) ^ (2 : ℕ))
+    cubeExpectation (fun x : FinCube m => (cubeDelta g x u v) ^ (2 : ℕ))
         =
         ∑ S : Finset (Fin m),
-          (cubeFourierCoeff (fun x : Cube m => cubeDelta g x u v) S) ^ (2 : ℕ) := by
-          exact S02_Lem2_03_cubeParseval_identity m (fun x : Cube m => cubeDelta g x u v)
+          (cubeFourierCoeff (fun x : FinCube m => cubeDelta g x u v) S) ^ (2 : ℕ) := by
+          exact S02_Lem2_03_cubeParseval_identity m (fun x : FinCube m => cubeDelta g x u v)
     _ =
         ∑ S : Finset (Fin m),
           (cubeFourierCoeff g S * (1 - cubeChar S u) *
@@ -112,46 +114,46 @@ theorem cubeDelta_parseval {m : ℕ} (g : Cube m → ℝ) (u v : Cube m) :
 
 /-- The square-test energy can be viewed as first averaging over the cube for
 each color choice, and then averaging over colors. -/
-theorem cubeSquareEnergy_eq_color_average {m : ℕ} (g : Cube m → ℝ) :
+theorem cubeSquareEnergy_eq_color_average {m : ℕ} (g : FinCube m → ℝ) :
     cubeSquareEnergy g =
       (∑ c : CubeDirectionColor m,
         cubeExpectation
-          (fun x : Cube m =>
+          (fun x : FinCube m =>
             (cubeDelta g x (cubeColorU c) (cubeColorV c)) ^ (2 : ℕ))) /
         (Fintype.card (CubeDirectionColor m) : ℝ) := by
   unfold cubeSquareEnergy cubeExpectation
   calc
-    (∑ x : Cube m,
+    (∑ x : FinCube m,
         (∑ c : CubeDirectionColor m,
           (cubeDelta g x (cubeColorU c) (cubeColorV c)) ^ (2 : ℕ)) /
             (Fintype.card (CubeDirectionColor m) : ℝ)) /
-      (Fintype.card (Cube m) : ℝ)
+      (Fintype.card (FinCube m) : ℝ)
         =
-        ((∑ x : Cube m,
+        ((∑ x : FinCube m,
           ∑ c : CubeDirectionColor m,
             (cubeDelta g x (cubeColorU c) (cubeColorV c)) ^ (2 : ℕ)) /
             (Fintype.card (CubeDirectionColor m) : ℝ)) /
-          (Fintype.card (Cube m) : ℝ) := by
+          (Fintype.card (FinCube m) : ℝ) := by
           rw [← Finset.sum_div]
     _ =
         ((∑ c : CubeDirectionColor m,
-          ∑ x : Cube m,
+          ∑ x : FinCube m,
             (cubeDelta g x (cubeColorU c) (cubeColorV c)) ^ (2 : ℕ)) /
             (Fintype.card (CubeDirectionColor m) : ℝ)) /
-          (Fintype.card (Cube m) : ℝ) := by
+          (Fintype.card (FinCube m) : ℝ) := by
           rw [Finset.sum_comm]
     _ =
         ((∑ c : CubeDirectionColor m,
-          ∑ x : Cube m,
+          ∑ x : FinCube m,
             (cubeDelta g x (cubeColorU c) (cubeColorV c)) ^ (2 : ℕ)) /
-            (Fintype.card (Cube m) : ℝ)) /
+            (Fintype.card (FinCube m) : ℝ)) /
           (Fintype.card (CubeDirectionColor m) : ℝ) := by
           ring_nf
     _ =
         (∑ c : CubeDirectionColor m,
-          (∑ x : Cube m,
+          (∑ x : FinCube m,
             (cubeDelta g x (cubeColorU c) (cubeColorV c)) ^ (2 : ℕ)) /
-              (Fintype.card (Cube m) : ℝ)) /
+              (Fintype.card (FinCube m) : ℝ)) /
             (Fintype.card (CubeDirectionColor m) : ℝ) := by
           rw [Finset.sum_div]
 
@@ -163,7 +165,7 @@ def cubeColorMultiplierAverage {m : ℕ} (S : Finset (Fin m)) : ℝ :=
     (Fintype.card (CubeDirectionColor m) : ℝ)
 
 /-- The cube square-test energy decomposes diagonally in the Fourier basis. -/
-theorem cubeSquareEnergy_spectral_formula {m : ℕ} (g : Cube m → ℝ) :
+theorem cubeSquareEnergy_spectral_formula {m : ℕ} (g : FinCube m → ℝ) :
     cubeSquareEnergy g =
       ∑ S : Finset (Fin m),
         (cubeFourierCoeff g S) ^ (2 : ℕ) * cubeColorMultiplierAverage S := by
@@ -172,7 +174,7 @@ theorem cubeSquareEnergy_spectral_formula {m : ℕ} (g : Cube m → ℝ) :
   calc
     (∑ c : CubeDirectionColor m,
         cubeExpectation
-          (fun x : Cube m =>
+          (fun x : FinCube m =>
             (cubeDelta g x (cubeColorU c) (cubeColorV c)) ^ (2 : ℕ))) /
         (Fintype.card (CubeDirectionColor m) : ℝ)
         =
@@ -506,7 +508,7 @@ theorem cubeColorMultiplierAverage_lower_of_two_le_card {m : ℕ}
   nlinarith
 
 /-- Lemma 4.1, `lem:cube-square`: square tests detect high Fourier weight. -/
-theorem S04_Lem4_01_CubeSquare (m : ℕ) (g : Cube m → ℝ) :
+theorem S04_Lem4_01_CubeSquare (m : ℕ) (g : FinCube m → ℝ) :
     (32 / 9 : ℝ) * cubeHighDegreeEnergy g ≤ cubeSquareEnergy g := by
   rw [cubeSquareEnergy_spectral_formula]
   unfold cubeHighDegreeEnergy

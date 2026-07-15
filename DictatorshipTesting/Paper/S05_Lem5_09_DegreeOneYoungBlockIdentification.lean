@@ -2,6 +2,8 @@ import DictatorshipTesting.Paper.S05_Int_DegreeOneYoungBlock
 import DictatorshipTesting.Paper.S05_Lem5_08_RegularYoungBlockDecomposition
 import DictatorshipTesting.Paper.S05_Thm5_02_YoungOrthogonalAction
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`

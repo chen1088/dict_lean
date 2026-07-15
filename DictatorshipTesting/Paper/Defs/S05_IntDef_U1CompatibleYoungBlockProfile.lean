@@ -1,5 +1,7 @@
 import DictatorshipTesting.Paper.S05_Int_SpectralBridgeRepresentationInputs
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - none

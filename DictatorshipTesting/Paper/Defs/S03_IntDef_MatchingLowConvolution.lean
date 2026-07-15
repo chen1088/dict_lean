@@ -1,4 +1,6 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_OneTrialRejectProbability
+
+open AlgebraicLibrary
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingHighConvolution`
@@ -23,7 +25,7 @@ def matchingLowConvolution {α : Type*} [Fintype α] [DecidableEq α]
     (M : OrderedMatching α) (F : Perm α → ℝ) : Perm α → ℝ :=
   fun π =>
     ∑ S ∈ (Finset.univ.filter (fun S : Finset (Fin M.edgeCount) => S.card ≤ 1)),
-      cubeFourierCoeff (fun x : Cube M.edgeCount => F (π * M.tau x)) S *
-        cubeChar S (cubeZero M.edgeCount)
+      cubeFourierCoeff (fun x : FinCube M.edgeCount => F (π * M.tau x)) S *
+        cubeChar S (finCubeZero M.edgeCount)
 
 end DictatorshipTesting

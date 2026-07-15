@@ -1,4 +1,7 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_CubeColorV
+import DictatorshipTesting.Paper.Defs.S02_IntDef_CubeDelta
+
+open AlgebraicLibrary
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingTrialDeltaReal`
@@ -22,6 +25,6 @@ def matchingTrialDelta {α : Type*} [DecidableEq α]
     (f : BoolFn α) (M : OrderedMatching α) (π : Perm α)
     (c : CubeDirectionColor M.edgeCount) : ℝ :=
   cubeDelta (fun x => boolToReal (matchingCubeRestriction f M π x))
-    (cubeZero M.edgeCount) (cubeColorU c) (cubeColorV c)
+    (finCubeZero M.edgeCount) (cubeColorU c) (cubeColorV c)
 
 end DictatorshipTesting

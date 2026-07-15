@@ -1,4 +1,6 @@
 import DictatorshipTesting.Paper.Defs.S05_IntDef_HOdd
+import DictatorshipTesting.Paper.Defs.S02_IntDef_L2DistSqToU1
+import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingMeanProjectionError
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.S04_Thm4_04_MatchingGap`

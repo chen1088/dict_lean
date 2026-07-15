@@ -1,4 +1,5 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingMeanProjectionError
+import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingTrialDeltaReal
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S03_IntDef_OneTrialRejectProbability`

@@ -1,7 +1,8 @@
 import DictatorshipTesting.Paper.Defs.S03_IntDef_MatchingLowConvolution
+
+open AlgebraicLibrary
 /-
 Direct reverse imports:
-- `DictatorshipTesting.Paper.Defs.S05_IntDef_YoungDiagram`
 - `DictatorshipTesting.Paper.S05_Int_PMConvolution`
 -/
 
@@ -24,7 +25,7 @@ def matchingHighConvolution {α : Type*} [Fintype α] [DecidableEq α]
     (M : OrderedMatching α) (F : Perm α → ℝ) : Perm α → ℝ :=
   fun π =>
     ∑ S ∈ (Finset.univ.filter (fun S : Finset (Fin M.edgeCount) => 2 ≤ S.card)),
-      cubeFourierCoeff (fun x : Cube M.edgeCount => F (π * M.tau x)) S *
-        cubeChar S (cubeZero M.edgeCount)
+      cubeFourierCoeff (fun x : FinCube M.edgeCount => F (π * M.tau x)) S *
+        cubeChar S (finCubeZero M.edgeCount)
 
 end DictatorshipTesting

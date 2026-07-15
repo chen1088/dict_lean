@@ -1,4 +1,10 @@
-import DictatorshipTesting.Paper.Defs.S02_Def2_02b_CubeHighDegreeEnergy
+import DictatorshipTesting.Paper.Defs.S02_IntDef_CubeDelta
+import DictatorshipTesting.Paper.Defs.S03_IntDef_CubeDirectionColor
+import DictatorshipTesting.Paper.Defs.S03_IntDef_CubeColorU
+import DictatorshipTesting.Paper.Defs.S03_IntDef_CubeColorV
+import AlgebraicLibrary.BooleanCube.LowDegree
+
+open AlgebraicLibrary
 /-
 Direct reverse imports:
 - `DictatorshipTesting.Paper.Defs.S03_IntDef_PermInner`
@@ -17,11 +23,11 @@ open scoped BigOperators
 namespace DictatorshipTesting
 
 /-- Mean square of the mixed second difference under the square-test directions. -/
-def cubeSquareEnergy {m : ℕ} (g : Cube m → ℝ) : ℝ :=
-  (∑ x : Cube m,
+def cubeSquareEnergy {m : ℕ} (g : FinCube m → ℝ) : ℝ :=
+  (∑ x : FinCube m,
       (∑ c : CubeDirectionColor m,
         (cubeDelta g x (cubeColorU c) (cubeColorV c)) ^ (2 : ℕ)) /
           (Fintype.card (CubeDirectionColor m) : ℝ)) /
-    (Fintype.card (Cube m) : ℝ)
+    (Fintype.card (FinCube m) : ℝ)
 
 end DictatorshipTesting

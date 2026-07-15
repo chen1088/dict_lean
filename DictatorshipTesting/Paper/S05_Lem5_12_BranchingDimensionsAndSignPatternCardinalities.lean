@@ -5,6 +5,8 @@ import DictatorshipTesting.Paper.S05_Lem5_10_SignedTwoBoxOrthogonalBranching
 import DictatorshipTesting.Paper.S05_Lem5_11_OneBoxDecompositionAndDeletion
 import DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`

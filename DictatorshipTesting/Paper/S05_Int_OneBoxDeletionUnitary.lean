@@ -1,4 +1,6 @@
-import DictatorshipTesting.Paper.S05_Int_YoungOrthogonal
+import AlgebraicLibrary.Young.OrthogonalRepresentation
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:

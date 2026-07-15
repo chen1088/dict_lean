@@ -1,4 +1,6 @@
-import DictatorshipTesting.Paper.S05_Int_TableauDimension
+import AlgebraicLibrary.Young.TableauDimension
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:

@@ -1,5 +1,7 @@
-import DictatorshipTesting.Paper.Defs.S05_IntDef_JucysMurphyContentActionData
+import AlgebraicLibrary.Young.JucysMurphyActionData
 import DictatorshipTesting.Paper.S05_Lem5_05_YoungBasisScalarCommutant
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
@@ -86,18 +88,6 @@ theorem rightConvolution_smul {G : Type*} [Fintype G] [Mul G]
       fun x => c * rightConvolution a F x := by
   funext x
   simp [rightConvolution, Finset.mul_sum, mul_left_comm]
-
-/-- Coefficient-level commutation with a group element.  This is the narrow
-centrality condition needed for changing variables in `rho(a) rho(s)` versus
-`rho(s) rho(a)`. -/
-def GroupAlgebraElement.CommutesWithGroupElement {G : Type*}
-    [Fintype G] [Group G] (a : GroupAlgebraElement G) (s : G) : Prop :=
-  forall g : G, a (g * s⁻¹) = a (s⁻¹ * g)
-
-/-- Coefficient-level centrality against every group element. -/
-def GroupAlgebraElement.IsCentralByCoefficients {G : Type*}
-    [Fintype G] [Group G] (a : GroupAlgebraElement G) : Prop :=
-  forall s : G, a.CommutesWithGroupElement s
 
 /-- The statement that `rho(a)` commutes with every represented group
 element.  This is a representation-action obligation, not scalarity. -/

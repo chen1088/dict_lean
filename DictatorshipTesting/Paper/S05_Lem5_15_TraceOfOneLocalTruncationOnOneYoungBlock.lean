@@ -5,6 +5,8 @@ import DictatorshipTesting.Paper.Defs.S05_Def5_12d_TableauOperatorTrace
 import DictatorshipTesting.Paper.S05_Lem5_14_MatchingFourierProjections
 import DictatorshipTesting.Paper.Defs.S05_Def5_12a_MatchingIdempotents
 
+open AlgebraicLibrary
+
 /-
 Direct reverse imports:
 - `DictatorshipTesting`

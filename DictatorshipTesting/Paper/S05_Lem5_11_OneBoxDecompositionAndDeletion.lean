@@ -1,9 +1,10 @@
-import DictatorshipTesting.Paper.S05_Int_StandardYoungTableaux
+import AlgebraicLibrary.Young.StandardTableau
 import DictatorshipTesting.Paper.S05_Int_OneBoxDeletionIntertwining
 import DictatorshipTesting.Paper.S05_Int_OneBoxDeletionUnitary
 import DictatorshipTesting.Paper.S05_Lem5_01_AdjacentTranspositionsInYoungsBasis
-import DictatorshipTesting.Paper.Defs.S05_Def5_07a_TwoBoxRemovals
-import DictatorshipTesting.Paper.Defs.S05_Def5_09_OneBoxDeletionSpaces
+import AlgebraicLibrary.Young.DiagramCorners
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:

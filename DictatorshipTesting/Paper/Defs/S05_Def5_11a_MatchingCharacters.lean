@@ -1,8 +1,8 @@
-import DictatorshipTesting.Paper.Defs.S02_IntDef_CubeChar
-import DictatorshipTesting.Paper.S02_Int_CubeCharMulSelf
-import DictatorshipTesting.Paper.S02_Int_CubeCharXor
-import DictatorshipTesting.Paper.Defs.S05_Def5_05_ContentAndAdjacentOperators
+import AlgebraicLibrary.BooleanCube.Fourier
+import AlgebraicLibrary.Young.OrthogonalRepresentation
 import DictatorshipTesting.Paper.Defs.S05_Def5_10a_EvenSignPatternMultiset
+
+open AlgebraicLibrary
 
 /-
 Direct reverse imports:
@@ -25,7 +25,7 @@ noncomputable section
 namespace DictatorshipTesting
 
 /-- Boolean-cube characters take values in `{1,-1}`, hence are nonzero. -/
-theorem cubeChar_ne_zero {m : ℕ} (S : Finset (Fin m)) (x : Cube m) :
+theorem cubeChar_ne_zero {m : ℕ} (S : Finset (Fin m)) (x : FinCube m) :
     cubeChar S x ≠ 0 := by
   unfold cubeChar
   exact Finset.prod_ne_zero_iff.mpr (by
@@ -33,7 +33,7 @@ theorem cubeChar_ne_zero {m : ℕ} (S : Finset (Fin m)) (x : Cube m) :
     by_cases h : x r <;> simp [h])
 
 /-- Matching-cube character in the current Lean model. -/
-abbrev S05_matchingCharacter {m : Nat} (S : Finset (Fin m)) (x : Cube m) : ℝ :=
+abbrev S05_matchingCharacter {m : Nat} (S : Finset (Fin m)) (x : FinCube m) : ℝ :=
   cubeChar S x
 
 /-- Weight of a matching-cube character: the size of its support. -/
@@ -59,25 +59,25 @@ instance {m : Nat} (S : Finset (Fin m)) :
   infer_instance
 
 /-- The empty-support matching character is the constant `1` character. -/
-theorem S05_matchingCharacter_empty {m : Nat} (x : Cube m) :
+theorem S05_matchingCharacter_empty {m : Nat} (x : FinCube m) :
     S05_matchingCharacter (m := m) ∅ x = 1 := by
   simp [S05_matchingCharacter, cubeChar]
 
 /-- Matching characters are never zero. -/
 theorem S05_matchingCharacter_ne_zero {m : Nat}
-    (S : Finset (Fin m)) (x : Cube m) :
+    (S : Finset (Fin m)) (x : FinCube m) :
     S05_matchingCharacter S x ≠ 0 := by
   exact cubeChar_ne_zero S x
 
 /-- Matching characters square to `1` pointwise. -/
 theorem S05_matchingCharacter_mul_self {m : Nat}
-    (S : Finset (Fin m)) (x : Cube m) :
+    (S : Finset (Fin m)) (x : FinCube m) :
     S05_matchingCharacter S x * S05_matchingCharacter S x = 1 := by
   exact cubeChar_mul_self S x
 
 /-- Matching characters are multiplicative under cube xor. -/
 theorem S05_matchingCharacter_cubeXor {m : Nat}
-    (S : Finset (Fin m)) (x y : Cube m) :
+    (S : Finset (Fin m)) (x y : FinCube m) :
     S05_matchingCharacter S (cubeXor x y) =
       S05_matchingCharacter S x * S05_matchingCharacter S y := by
   exact cubeChar_cubeXor S x y
